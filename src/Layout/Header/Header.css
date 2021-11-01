@@ -1,0 +1,9 @@
+.header {
+    height: 80px;
+    width: 100%;
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 10;
+  }

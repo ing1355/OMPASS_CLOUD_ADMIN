@@ -1,0 +1,7 @@
+.menu > .menu-item {
+    border-bottom: 1px solid black;
+}
+
+.menu > .menu-item:last-child {
+    border-bottom: none;
+}

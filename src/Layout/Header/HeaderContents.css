@@ -1,0 +1,13 @@
+.header-contents {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    background-color: tan;
+    width: calc(100% - 240px);
+    padding: 0 36px;
+    height: 80px;
+}
+
+.header-contents-route-title {
+    align-self: center;
+}

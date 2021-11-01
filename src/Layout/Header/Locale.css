@@ -1,0 +1,18 @@
+.header-contents-locale-container {
+    display: flex;
+    align-self: center;
+    height: 30px;
+    padding: 10px;
+    user-select: none;
+}
+
+.header-contents-locale-icon {
+    width: 30px;
+    height: 30px;
+    align-self: center;
+}
+
+.header-contents-locale-text {
+    align-self: center;
+    margin-left: 16px;
+}

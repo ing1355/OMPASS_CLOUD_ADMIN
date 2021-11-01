@@ -1,0 +1,16 @@
+.submenu {
+    padding-left: 12px;
+    height: auto;
+}
+
+.submenu.open {
+    transition: all 1s;
+    overflow: hidden;
+    opacity: 1;
+    max-height: 600px;
+}
+
+.submenu.close {
+    opacity: 0;
+    max-height: 0px;
+}
