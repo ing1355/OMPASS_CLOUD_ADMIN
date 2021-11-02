@@ -1,6 +1,6 @@
 import types from '../types';
 
-const menuState = 'Dashboard';
+const menuState = window.location.pathname.replace('/','');
 
 export default (state = menuState, action) => {
   switch (action.type) {

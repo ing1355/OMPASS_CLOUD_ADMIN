@@ -3,7 +3,7 @@ import './Dashboard.css'
 
 const Dashboard = () => {
     return <>
-        test2
+        Dashboard
     </>
 }
 

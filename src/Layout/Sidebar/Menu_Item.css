@@ -4,6 +4,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: white;
+    font-weight: 500;
+    font-size: 19px;
 }
 
 .close > .menu-item {
@@ -15,5 +18,5 @@
 }
 
 .menu-item.selected {
-    color: red;
+    color: #00B6EC;
 }
