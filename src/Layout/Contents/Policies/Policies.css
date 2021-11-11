@@ -1,0 +1,51 @@
+.contents-container {
+  margin: 0 auto;
+  width: 1200px;
+  padding: 20px 64px;
+}
+.PoliciesBox {
+  width: 100% !important;
+  margin-top: 1rem;
+  text-align: left !important;
+}
+.PoliciesBox table {
+  margin-top: 2rem !important;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+  text-align: left !important;
+}
+.PoliciesBox table tr {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid rgba(117, 117, 117, 0.158);
+}
+.PoliciesBox table tr td {
+  justify-content: left !important;
+}
+.PoliciesBox table tr th {
+  background: none !important;
+  justify-content: left !important;
+}
+.PoliciesBox table td:nth-child(2) {
+  flex: 2;
+  border: 0;
+}
+.PoliciesBox table td:nth-child(3) {
+  flex: 5;
+  border: 0;
+}
+.PoliciesTitleBox {
+  width: 25rem;
+}
+.PoliciesBox button {
+  margin-top: 1rem;
+}
+.PoliciesBottomBox {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+.PoliciesBottomBox h5 {
+  font-size: 1.5rem;
+  margin: 0;
+}

@@ -1,0 +1,55 @@
+.contents-container {
+  margin: 0 auto;
+  width: 1200px;
+  padding: 20px 64px;
+}
+.ApplicationsBox {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+}
+.cud Button {
+  color: #000 !important;
+}
+.cud {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-top: 1.5rem;
+}
+.ApplicationsBox .ApplicationsSave {
+  margin-top: 2rem;
+}
+.ApplicationsBox table button {
+  margin-top: 0rem;
+}
+.ApplicationsBox .inputBox button {
+  margin-left: 1rem;
+  margin-top: 0;
+}
+.ApplicationsTitle {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.ApplicationsTitle h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(83, 83, 83);
+  margin-bottom: 0rem;
+}
+.ApplicationsTitle p {
+  font-size: 1rem;
+  color: rgb(83, 83, 83);
+}
+.ApplicationsTitle span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ApplicationsBox .inputBox .select {
+  background-color: #829194 !important;
+  border: 0;
+  border-radius: 5px;
+}

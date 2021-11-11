@@ -1,15 +1,27 @@
 .header-contents {
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    width: calc(100% - 240px);
-    padding: 0 36px;
-    height: 80px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  width: calc(100% - 240px);
+  padding: 0 36px;
+  height: 80px;
 }
 
 .header-contents-route-title {
-    align-self: center;
-    font-size: 26px;
-    font-weight: bold;
+  align-self: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.header-contents-button-box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.header-contents-button-box button {
+  height: 50px;
+  width: 100px;
+  margin-right: 25px;
+  padding: 0;
 }
