@@ -2,41 +2,46 @@ import React from "react";
 import "./Applications.css";
 
 import "antd/dist/antd.css";
-import { message } from "antd";
+import { message, Form } from "antd";
+import { CustomAxiosPost } from "../../../Functions/CustomAxios";
 
 const AppDetails = (props) => {
   return (
     <>
       <div className="ApplicationsBox">
-        <form>
+        <Form onFinish={values => {
+          console.log(values);
+          CustomAxiosPost(`/v1/admins/${localStorage.getItem('adminId')}/applications`,{
+            domain: 'https://www.ompass.kr',
+            policyId: 0,
+            redirectUri: 'https://www.ompass.kr',
+            status: 'test'
+          }, (res) => {
+            console.log(res);
+          })
+        }}>
           <div className="ApplicationsTitle">
             <span>
               <h2>세부</h2> <button>Reset Client Secret</button>
             </span>
           </div>
 
-          <div className="inputBox">
-            <span>Integration key</span>
+          <Form.Item className="inputBox" label="Integration key" name="integrationKey" labelCol={{span: 3}} labelAlign="left">
             <input placeholder="DIGHW6U9B6980J7KRZRB" />
-            <button className="select">select</button>
-          </div>
-          <div className="inputBox">
-            <span>Secret Key</span>
+            <button className="select" type='button'>select</button>
+          </Form.Item>
+          <Form.Item className="inputBox" label="Secret Key" name="secretKey" labelCol={{span: 3}} labelAlign="left">
             <input placeholder="Click to view." />
-            <button className="select">select</button>
-          </div>
-          <div className="inputBox">
-            <span>Domain Address</span>
+            <button className="select" type='button'>select</button>
+          </Form.Item>
+          <Form.Item className="inputBox" label="Domain Address" name="domainAddress" labelCol={{span: 3}} labelAlign="left">
             <input placeholder="도메인 주소를 입력하세요." />
-            <button className="select">select</button>
-          </div>
-          <div className="inputBox">
-            <span>Redirect URL</span>
+            <button className="select" type='button'>select</button>
+          </Form.Item>
+          <Form.Item className="inputBox" label="Redirect URL" name="redirectURL" labelCol={{span: 3}} labelAlign="left">
             <input placeholder="Redirect URL를 입력하세요." />
-            <button className="select">select</button>
-          </div>
-        </form>
-        <form>
+            <button className="select" type='button'>select</button>
+          </Form.Item>
           <div className="ApplicationsTitle">
             <h2>정책</h2>
             <p>
@@ -56,16 +61,17 @@ const AppDetails = (props) => {
             <span>Global policy</span>
             {/* <input placeholder="이메일을 입력하세요." /> */}
           </div>
-        </form>
-        <button
-          className="ApplicationsSave"
-          onClick={() => {
-            props.setApplications(true);
-            message.success("추가되었습니다.");
-          }}
-        >
-          저장
+          <button
+            className="ApplicationsSave"
+            // onClick={() => {
+            //   props.setApplications(true);
+            //   message.success("추가되었습니다.");
+            // }}
+            type='submit'
+          >
+            저장
         </button>
+        </Form>
       </div>
     </>
   );

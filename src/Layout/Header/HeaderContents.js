@@ -5,7 +5,7 @@ import "./HeaderContents.css";
 import Locale from "./Locale";
 import { useHistory } from "react-router";
 
-const HeaderContents = ({ menuState }) => {
+const HeaderContents = ({ menuState, setIsLogin }) => {
   const history = useHistory();
   return (
     <div className="header-contents">
@@ -14,10 +14,10 @@ const HeaderContents = ({ menuState }) => {
         <button
           className="loginButton"
           onClick={() => {
-            // history.push("/Login");
+            setIsLogin(false);
           }}
         >
-          로그인
+          로그아웃
         </button>
         <Locale />
       </div>
@@ -36,6 +36,9 @@ function mapDispatchToProps(dispatch) {
     menuChange: (toggle) => {
       dispatch(ActionCreators.menuStateChange(toggle));
     },
+    setIsLogin: (toggle) => {
+      dispatch(ActionCreators.setIsLogin(toggle));
+    }
   };
 }
 

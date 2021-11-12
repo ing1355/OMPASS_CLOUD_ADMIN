@@ -7,8 +7,8 @@ import upArrow from '../../assets/upArrow.png'
 import SubMenu from './SubMenu';
 import { useHistory } from 'react-router';
 
-const Menu_Item = ({name, menuState, submenu, menuChange}) => {
-    const isSelected = submenu ? (submenu.find(sb => sb.name === menuState) || name === menuState) : name === menuState;
+const Menu_Item = ({name, menuState, submenu, menuChange, route}) => {
+    const isSelected = submenu ? (submenu.find(sb => sb.name === menuState) || name === menuState) : route === window.location.pathname;
     const [subMenuOpen, setSubMenuOpen] = useState(isSelected);
 
     const history = useHistory();
@@ -25,7 +25,7 @@ const Menu_Item = ({name, menuState, submenu, menuChange}) => {
                 setSubMenuOpen(true);
             }
         } else {
-            history.push(`/${name.split(' ').join('')}`)
+            history.push(route)
             menuChange(name);
             if(subMenuOpen) {
                 setSubMenuOpen(false);

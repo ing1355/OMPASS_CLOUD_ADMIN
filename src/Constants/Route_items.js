@@ -17,7 +17,7 @@ const route_info = [
   {
     key: "Dashboard",
     name: "Dashboard",
-    route: "/Dashboard",
+    route: "/",
     component: Dashboard,
   },
   {

@@ -12,7 +12,7 @@ const Contents = () => {
                 <div className="contents-container">
                     <React.Suspense fallback={<div>loading...</div>}>
                         <Switch>
-                            {Route_items.map(item => <Route key={item.key} path={item.route} component={item.component} />)}
+                            {Route_items.map(item => <Route key={item.key} path={item.route} exact={item.name === 'Dashboard'} component={item.component} />)}
                         </Switch>
                     </React.Suspense>
                 </div>

@@ -1,14 +1,18 @@
+import { Form } from 'antd';
 import React, { useEffect, useState } from "react";
+import { connect } from 'react-redux';
 import { useHistory } from "react-router";
+import { CustomAxiosPost } from '../../Functions/CustomAxios';
+import ActionCreators from '../../redux/actions';
+import "./Login.css";
 
 // import "../../App.css";
 // import "antd/dist/antd.css";
 // import { message } from "antd";
 // import "antd/dist/antd.css";
 
-import "./Login.css";
 
-const Login = () => {
+const Login = ({setIsLogin}) => {
   const [login, setLogin] = useState(true);
   const [join, setJoin] = useState(false);
   const [idForget, setIdForget] = useState(false);
@@ -23,24 +27,33 @@ const Login = () => {
             <div className="loginInputBox">
               <ul>
                 <h1>OMPASS Login</h1>
-                <input id="idInput" placeholder="아이디" type="text"></input>
-                <input
-                  id="passWord"
-                  type="password"
-                  name="pass"
-                  placeholder="비밀번호"
-                  // onKeyPress={(e) => {
-                  //   if (e.key === "Enter") loginTest();
-                  // }}
-                ></input>
-                <button
-                  onClick={() => {
-                    history.push("/");
-                    // message.success("로그인 되었습니다.");
-                  }}
-                >
-                  로그인
+                <Form onFinish={values => {
+                  const {userId, password} = values;
+                  CustomAxiosPost('/v1/login',{
+                    email: userId,
+                    password: password
+                  },(res) => {
+                    Object.keys(res.data).forEach(dKey => {
+                      localStorage.setItem(dKey, res.data[dKey])
+                    })
+                    setIsLogin(true);
+                  })
+                }}>
+                  <Form.Item name="userId">
+                    <input placeholder="아이디" type="text"></input>
+                  </Form.Item>
+                  <Form.Item name="password">
+                    <input
+                      type="password"
+                      placeholder="비밀번호"
+                    ></input>
+                  </Form.Item>
+                  <button
+                    type='submit'
+                  >
+                    로그인
                 </button>
+                </Form>
                 <div className="forget">
                   <a>
                     <span
@@ -98,4 +111,18 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+
+function mapStateToProps(state) {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setIsLogin: (toggle) => {
+      dispatch(ActionCreators.setIsLogin(toggle));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

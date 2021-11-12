@@ -51,6 +51,20 @@ body {
   color: #0782c9;
   margin-bottom: 3rem;
 }
+
+.loginInputBox form {
+  margin-top: 0;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginInputBox form div {
+  width: 100%;
+  text-align: center;
+}
+
 .loginInputBox input {
   width: 60%;
   height: 3rem;

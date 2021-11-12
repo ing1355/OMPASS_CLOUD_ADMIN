@@ -1,35 +1,47 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Contents from "./Layout/Contents/Contents";
 import Header from "./Layout/Header/Header";
 import Sidebar from "./Layout/Sidebar/Sidebar";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Footer from "./Layout/Footer/Footer";
 import Login from "./Layout/Login/Login";
+import { IntlProvider } from 'react-intl';
+import { connect } from "react-redux";
+import locale from "./locale";
 
-const App = () => {
+const App = ({ isLogin, lang }) => {
+
   return (
-    <Provider store={store}>
+    <IntlProvider locale={lang} messages={locale[lang]}>
       <Router>
         <Switch>
-          <Route path="/login" component={Login} exact />
-          <Route
-            path="/"
-            render={(routeInfo) => (
-              <>
-                <Header {...routeInfo} />
-                <Sidebar {...routeInfo} />
-                <Contents {...routeInfo} />
-                <Footer {...routeInfo} />
+          {
+            !isLogin ? <Login />
+              : <>
+                <Header />
+                <Sidebar />
+                <Contents />
+                <Footer />
               </>
-            )}
-          />
+          }
         </Switch>
       </Router>
-    </Provider>
+    </IntlProvider>
   );
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isLogin: state.isLogin,
+    lang: state.locale
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

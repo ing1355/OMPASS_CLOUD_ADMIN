@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 
@@ -11,9 +11,17 @@ import {
   UserSwitchOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
+import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 
 const Applications = () => {
   const [applications, setApplications] = useState(true);
+
+  useEffect(() => {
+    CustomAxiosGet(`/v1/admins/${localStorage.getItem('adminId')}/applications`,(res) => {
+      console.log(res.data);
+    })
+  },[])
+
   return (
     <>
       <ContentsTitle />

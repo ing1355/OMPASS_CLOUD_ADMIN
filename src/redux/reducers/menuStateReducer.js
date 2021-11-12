@@ -1,6 +1,7 @@
+import Menu_Items from '../../Layout/Sidebar/Menu_Items';
 import types from '../types';
 
-const menuState = window.location.pathname.replace('/','');
+const menuState = Menu_Items.find(item => item.route === window.location.pathname).name;
 
 export default (state = menuState, action) => {
   switch (action.type) {
