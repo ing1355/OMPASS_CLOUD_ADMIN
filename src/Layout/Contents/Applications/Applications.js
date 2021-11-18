@@ -42,40 +42,18 @@ const Applications = () => {
           <div>
             <table>
               <tr>
-                <th>Application</th>
-                <th>Protection Type</th>
-                <th></th>
-                <th></th>
+                <th>이름</th>
+                <th>상태</th>
+                <th>디테일</th>
+                {/* <th></th> */}
               </tr>
               <tr>
-                <td>1Password</td>
-                <td>2FA</td>
-                <td>
-                  <a href="#!">Documentation</a>
-                </td>
-                <td>
+                <td>유림</td>
+                <td>ㅇㅁㅇ</td>
+                <td>디테일</td>
+                {/* <td>
                   <button>Protect</button>
-                </td>
-              </tr>
-              <tr>
-                <td>1Password</td>
-                <td>2FA</td>
-                <td>
-                  <a href="#!">Documentation</a>
-                </td>
-                <td>
-                  <button>Protect</button>
-                </td>
-              </tr>
-              <tr>
-                <td>1Password</td>
-                <td>2FA</td>
-                <td>
-                  <a href="#!">Documentation</a>
-                </td>
-                <td>
-                  <button>Protect</button>
-                </td>
+                </td> */}
               </tr>
             </table>
             <Space className="cud">
