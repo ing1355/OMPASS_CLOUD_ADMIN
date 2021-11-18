@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+body {
+  background: #efefef !important;
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+
 .pointer {
   cursor: pointer;
 }

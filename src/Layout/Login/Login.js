@@ -67,7 +67,12 @@ const Login = ({ setIsLogin }) => {
                 <h5 className="forgetText">
                   패스워드를 찾고자 하는 이메일을 입력해 주세요.
                 </h5>
-                <input id="idInput" placeholder="이메일" type="text"></input>
+                <input
+                  id="idInput"
+                  className="forgetEmail"
+                  placeholder="이메일"
+                  type="text"
+                ></input>
                 <button
                   onClick={() => {
                     setLogin(true);
