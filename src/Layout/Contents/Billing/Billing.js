@@ -68,12 +68,38 @@ const Billing = () => {
             buyer_name,
             buyer_tel
         }, res => {
-            const {success} = res;
+            const {success, apply_num, bank_name, buyer_addr, buyer_email, buyer_name, buyer_postcode, buyer_tel, card_name, card_number, card_quota, currency, custom_data,
+            customer_uid, imp_uid, merchant_uid, name, paid_amount, paid_at, pay_method, pg_provider, pg_tid, pg_type, receipt_url, status} = res;
+            console.log(res);
             if(success) {
                 CustomAxiosPost(subscriptionIamportApi(localStorage.getItem('adminId')),{
-
+                    apply_num,
+                    bank_name,
+                    buyer_addr,
+                    buyer_email,
+                    buyer_name,
+                    buyer_postcode,
+                    buyer_tel,
+                    card_name,
+                    card_number,
+                    card_quota,
+                    currency,
+                    custom_data,
+                    customer_uid,
+                    imp_uid,
+                    merchant_uid,
+                    name,
+                    paid_amount,
+                    paid_at,
+                    pay_method,
+                    pg_provider,
+                    pg_tid,
+                    pg_type,
+                    receipt_url,
+                    status,
+                    success
                 }, () => {
-                    
+
                 })
             } else {
 

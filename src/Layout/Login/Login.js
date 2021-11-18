@@ -25,9 +25,9 @@ const Login = ({ setIsLogin }) => {
                         email: userId,
                         password: password,
                       },
-                      (res) => {
-                        Object.keys(res.data).forEach((dKey) => {
-                          localStorage.setItem(dKey, res.data[dKey]);
+                      (data) => {
+                        Object.keys(data).forEach((dKey) => {
+                          localStorage.setItem(dKey, data[dKey]);
                         });
                         setIsLogin(true);
                       }
