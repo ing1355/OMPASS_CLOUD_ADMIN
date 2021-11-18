@@ -29,6 +29,7 @@ const UsersTable = () => {
                 <td>{d.userId}</td>
                 <td>{d.bypass.toString()}</td>
                 <td>{d.type}</td>
+                <td></td>
               </tr>
             ))}
           </table>

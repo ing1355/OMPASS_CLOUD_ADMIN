@@ -28,7 +28,7 @@ const AppDetailsAdd = (props) => {
         >
           <div className="ApplicationsTitle">
             <span>
-              <h2>세부</h2> <button>Reset Client Secret</button>
+              <h2>세부</h2>
             </span>
           </div>
 

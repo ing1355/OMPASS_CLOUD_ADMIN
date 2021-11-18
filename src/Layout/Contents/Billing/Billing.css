@@ -69,7 +69,7 @@
 }
 
 .billing-info-container > div {
-  width: calc(25% - 9px);
+  width: 50%;
   flex: 0 0 auto;
   padding: 8px 12px 8px 0;
 }
