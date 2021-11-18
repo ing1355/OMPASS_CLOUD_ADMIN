@@ -6,7 +6,6 @@ import Menu_Items from './Menu_Items';
 const Menu = (props) => {
     useEffect(() => {
         console.log(props);
-        // Menu_Items.find(item => item.route === window.location.pathname).name
     },[])
     return (
         <div className="menu">

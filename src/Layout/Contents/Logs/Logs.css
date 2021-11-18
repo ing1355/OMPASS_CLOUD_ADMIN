@@ -7,9 +7,3 @@
   width: 100%;
   margin-top: 1rem;
 }
-.LogBox tr td:nth-child(1) {
-  display: none;
-}
-.LogBox tr td:nth-child(2) {
-  display: none;
-}

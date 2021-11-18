@@ -9,3 +9,5 @@ export const signUpAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/sig
 
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId) => `/v1/admins/${adminId}/applications`
+
+export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`

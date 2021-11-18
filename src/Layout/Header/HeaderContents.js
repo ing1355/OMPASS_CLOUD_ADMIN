@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
+import Menu_Items from "../Sidebar/Menu_Items";
 
-const HeaderContents = ({ menuState, setIsLogin, isLogin }) => {
+const HeaderContents = ({ menuState, setIsLogin, isLogin, menuChange }) => {
   const history = useHistory();
+
+  useLayoutEffect(() => {
+    menuChange(Menu_Items.find(item => item.route === window.location.pathname).name)
+  },[])
 
   useEffect(() => {
     if(!isLogin) {
