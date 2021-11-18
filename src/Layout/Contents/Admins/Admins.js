@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Admins.css";
+// import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
 import AdminUpdate from "./AdminUpdate";

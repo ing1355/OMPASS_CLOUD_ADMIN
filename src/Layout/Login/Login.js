@@ -1,9 +1,9 @@
-import { Form } from 'antd';
+import { Form } from "antd";
 import React, { useEffect, useState } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import { CustomAxiosPost } from '../../Functions/CustomAxios';
-import ActionCreators from '../../redux/actions';
+import { CustomAxiosPost } from "../../Functions/CustomAxios";
+import ActionCreators from "../../redux/actions";
 import "./Login.css";
 
 // import "../../App.css";
@@ -11,8 +11,7 @@ import "./Login.css";
 // import { message } from "antd";
 // import "antd/dist/antd.css";
 
-
-const Login = ({setIsLogin}) => {
+const Login = ({ setIsLogin }) => {
   const [login, setLogin] = useState(true);
   const [join, setJoin] = useState(false);
   const [idForget, setIdForget] = useState(false);
@@ -25,34 +24,33 @@ const Login = ({setIsLogin}) => {
         <div className="loginbg">
           {login === true ? (
             <div className="loginInputBox">
-              <ul>
+              <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
-                <Form onFinish={values => {
-                  const {userId, password} = values;
-                  CustomAxiosPost('/v1/login',{
-                    email: userId,
-                    password: password
-                  },(res) => {
-                    Object.keys(res.data).forEach(dKey => {
-                      localStorage.setItem(dKey, res.data[dKey])
-                    })
-                    setIsLogin(true);
-                  })
-                }}>
+                <Form
+                  onFinish={(values) => {
+                    const { userId, password } = values;
+                    CustomAxiosPost(
+                      "/v1/login",
+                      {
+                        email: userId,
+                        password: password,
+                      },
+                      (res) => {
+                        Object.keys(res.data).forEach((dKey) => {
+                          localStorage.setItem(dKey, res.data[dKey]);
+                        });
+                        setIsLogin(true);
+                      }
+                    );
+                  }}
+                >
                   <Form.Item name="userId">
                     <input placeholder="아이디" type="text"></input>
                   </Form.Item>
                   <Form.Item name="password">
-                    <input
-                      type="password"
-                      placeholder="비밀번호"
-                    ></input>
+                    <input type="password" placeholder="비밀번호"></input>
                   </Form.Item>
-                  <button
-                    type='submit'
-                  >
-                    로그인
-                </button>
+                  <button type="submit">로그인</button>
                 </Form>
                 <div className="forget">
                   <a>
@@ -91,7 +89,7 @@ const Login = ({setIsLogin}) => {
                   이메일 인증
                 </button>
               </ul>
-              <ul>
+              <ul style={{ height: "400px" }}>
                 <p>환영합니다.</p>
                 <p>본 페이지는 관리자만을 위한</p>
                 <p>로그인 페이지입니다.</p>
@@ -113,15 +111,14 @@ const Login = ({setIsLogin}) => {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
-    }
+    },
   };
 }
 

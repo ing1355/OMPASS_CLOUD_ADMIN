@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 
-import AppDetails from "./AppDetails";
+import AppDetails from "./AppDetailsAdd";
+import AppDetailsUpdate from "./AppDetailsUpdate";
 
 import "antd/dist/antd.css";
 import { Button, Space } from "antd";
@@ -15,12 +16,17 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 
 const Applications = () => {
   const [applications, setApplications] = useState(true);
+  const [applicationsAdd, setApplicationsAdd] = useState(false);
+  const [applicationsUpdate, setApplicationsUpdate] = useState(false);
 
   useEffect(() => {
-    CustomAxiosGet(`/v1/admins/${localStorage.getItem('adminId')}/applications`,(res) => {
-      console.log(res.data);
-    })
-  },[])
+    CustomAxiosGet(
+      `/v1/admins/${localStorage.getItem("adminId")}/applications`,
+      (res) => {
+        console.log(res.data);
+      }
+    );
+  }, []);
 
   return (
     <>
@@ -70,6 +76,8 @@ const Applications = () => {
               <Button
                 onClick={() => {
                   setApplications(false);
+                  setApplicationsAdd(true);
+                  setApplicationsUpdate(false);
                 }}
               >
                 <UsergroupAddOutlined />
@@ -78,7 +86,9 @@ const Applications = () => {
 
               <Button
                 onClick={() => {
+                  setApplicationsUpdate(true);
                   setApplications(false);
+                  setApplicationsAdd(false);
                 }}
               >
                 <UserSwitchOutlined />
@@ -91,9 +101,20 @@ const Applications = () => {
               </Button>
             </Space>
           </div>
-        ) : (
-          <AppDetails setApplications={setApplications} />
-        )}
+        ) : null}
+
+        {applicationsUpdate === true ? (
+          <AppDetailsUpdate
+            setApplicationsUpdate={setApplicationsUpdate}
+            setApplications={setApplications}
+          />
+        ) : null}
+        {applicationsAdd === true ? (
+          <AppDetails
+            setApplicationsAdd={setApplicationsAdd}
+            setApplications={setApplications}
+          />
+        ) : null}
       </div>
     </>
   );

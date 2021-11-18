@@ -5,42 +5,74 @@ import "antd/dist/antd.css";
 import { message, Form } from "antd";
 import { CustomAxiosPost } from "../../../Functions/CustomAxios";
 
-const AppDetails = (props) => {
+const AppDetailsAdd = (props) => {
   return (
     <>
       <div className="ApplicationsBox">
-        <Form onFinish={values => {
-          console.log(values);
-          CustomAxiosPost(`/v1/admins/${localStorage.getItem('adminId')}/applications`,{
-            domain: 'https://www.ompass.kr',
-            policyId: 0,
-            redirectUri: 'https://www.ompass.kr',
-            status: 'test'
-          }, (res) => {
-            console.log(res);
-          })
-        }}>
+        <Form
+          onFinish={(values) => {
+            console.log(values);
+            CustomAxiosPost(
+              `/v1/admins/${localStorage.getItem("adminId")}/applications`,
+              {
+                domain: "https://www.ompass.kr",
+                policyId: 0,
+                redirectUri: "https://www.ompass.kr",
+                status: "test",
+              },
+              (res) => {
+                console.log(res);
+              }
+            );
+          }}
+        >
           <div className="ApplicationsTitle">
             <span>
               <h2>세부</h2> <button>Reset Client Secret</button>
             </span>
           </div>
 
-          <Form.Item className="inputBox" label="Integration key" name="integrationKey" labelCol={{span: 3}} labelAlign="left">
+          {/* <Form.Item
+            className="inputBox"
+            label="Integration key"
+            name="integrationKey"
+            labelCol={{ span: 3 }}
+            labelAlign="left"
+          >
             <input placeholder="DIGHW6U9B6980J7KRZRB" />
-            <button className="select" type='button'>select</button>
-          </Form.Item>
-          <Form.Item className="inputBox" label="Secret Key" name="secretKey" labelCol={{span: 3}} labelAlign="left">
+            <button className="select" type="button">
+              select
+            </button>
+          </Form.Item> */}
+          <Form.Item
+            className="inputBox"
+            label="Name"
+            name="secretKey"
+            labelCol={{ span: 3 }}
+            labelAlign="left"
+          >
             <input placeholder="Click to view." />
-            <button className="select" type='button'>select</button>
+            <button className="select" type="button">
+              중복체크
+            </button>
           </Form.Item>
-          <Form.Item className="inputBox" label="Domain Address" name="domainAddress" labelCol={{span: 3}} labelAlign="left">
+          <Form.Item
+            className="inputBox"
+            label="Domain Address"
+            name="domainAddress"
+            labelCol={{ span: 3 }}
+            labelAlign="left"
+          >
             <input placeholder="도메인 주소를 입력하세요." />
-            <button className="select" type='button'>select</button>
           </Form.Item>
-          <Form.Item className="inputBox" label="Redirect URL" name="redirectURL" labelCol={{span: 3}} labelAlign="left">
+          <Form.Item
+            className="inputBox"
+            label="Redirect URL"
+            name="redirectURL"
+            labelCol={{ span: 3 }}
+            labelAlign="left"
+          >
             <input placeholder="Redirect URL를 입력하세요." />
-            <button className="select" type='button'>select</button>
           </Form.Item>
           <div className="ApplicationsTitle">
             <h2>정책</h2>
@@ -67,14 +99,18 @@ const AppDetails = (props) => {
             //   props.setApplications(true);
             //   message.success("추가되었습니다.");
             // }}
-            type='submit'
+            type="submit"
+            onClick={() => {
+              props.setApplicationsAdd(false);
+              props.setApplications(true);
+            }}
           >
             저장
-        </button>
+          </button>
         </Form>
       </div>
     </>
   );
 };
 
-export default AppDetails;
+export default AppDetailsAdd;
