@@ -1,23 +1,13 @@
 import { Form } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./Login.css";
 
-// import "../../App.css";
-// import "antd/dist/antd.css";
-// import { message } from "antd";
-// import "antd/dist/antd.css";
-
 const Login = ({ setIsLogin }) => {
   const [login, setLogin] = useState(true);
-  const [join, setJoin] = useState(false);
-  const [idForget, setIdForget] = useState(false);
-  const [passWordForget, setPassWordForget] = useState(false);
 
-  const history = useHistory();
   return (
     <>
       <div className="LoginBox">
@@ -53,10 +43,9 @@ const Login = ({ setIsLogin }) => {
                   <button type="submit">로그인</button>
                 </Form>
                 <div className="forget">
-                  <a>
+                  <a href="#!">
                     <span
                       onClick={() => {
-                        setPassWordForget(true);
                         setLogin(false);
                       }}
                     >
@@ -81,7 +70,6 @@ const Login = ({ setIsLogin }) => {
                 <input id="idInput" placeholder="이메일" type="text"></input>
                 <button
                   onClick={() => {
-                    setPassWordForget(false);
                     setLogin(true);
                     alert("메일로 전송했습니다. 인증해주세요.");
                   }}

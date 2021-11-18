@@ -1,9 +1,8 @@
 import React from "react";
 import "./Applications.css";
-
-import "antd/dist/antd.css";
-import { message, Form } from "antd";
+import { Form } from "antd";
 import { CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { getApplicationDetailApi } from "../../../Constants/Api_Route";
 
 const AppDetailsUpdate = (props) => {
   return (
@@ -13,7 +12,7 @@ const AppDetailsUpdate = (props) => {
           onFinish={(values) => {
             console.log(values);
             CustomAxiosPost(
-              `/v1/admins/${localStorage.getItem("adminId")}/applications`,
+              getApplicationDetailApi(localStorage.getItem("adminId")),
               {
                 domain: "https://www.ompass.kr",
                 policyId: 0,

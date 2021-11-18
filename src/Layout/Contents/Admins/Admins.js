@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
 import AdminUpdate from "./AdminUpdate";
+import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { getAdminsApi } from "../../../Constants/Api_Route";
 const Admins = () => {
   const [admin, setAdmin] = useState(true);
   const [adminAdd, setAdminAdd] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    CustomAxiosGet(getAdminsApi(localStorage.getItem('adminId')), data => {
+      setTableData(data);
+      console.log(data);
+    })
+  },[])
+
   return (
     <>
       <ContentsTitle />
@@ -29,10 +40,16 @@ const Admins = () => {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Status</th>
-                <th>Last Login (UTC)</th>
+                <th>Mobile</th>
               </tr>
-              <tr>
+              {
+                tableData.map(d => <tr>
+                  <td>{d.lastName + d.firstName}</td>
+                  <td>{d.email}</td>
+                  <td>{d.phone}</td>
+                </tr>)
+              }
+              {/* <tr>
                 <td className="nameUpdate">
                   <a
                     onClick={() => {
@@ -46,7 +63,7 @@ const Admins = () => {
                 <td>dbflagovl12@naver.com</td>
                 <td>Active</td>
                 <td>Nov 8, 2021 4:36 AM</td>
-              </tr>
+              </tr> */}
             </table>
           </div>
         ) : null}

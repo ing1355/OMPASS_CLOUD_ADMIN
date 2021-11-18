@@ -19,7 +19,7 @@ const Locale = ({ locale, localeChange }) => {
       className="header-contents-locale-container pointer"
       onClick={localeChangeEvent}
     >
-      <img className="header-contents-locale-icon" src={localIcon} />
+      <img className="header-contents-locale-icon" src={localIcon} alt=""/>
       <div className="header-contents-locale-text"><FormattedMessage id="localeChangeText"/></div>
     </div>
   );

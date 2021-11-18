@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
-import { useHistory } from "react-router";
 import { FormattedMessage } from "react-intl";
+import { useHistory } from "react-router";
+import Menu_Items from "../Sidebar/Menu_Items";
 
-const HeaderContents = ({ menuState, setIsLogin }) => {
+const HeaderContents = ({ menuState, setIsLogin, isLogin, menuChange }) => {
   const history = useHistory();
+
+  useLayoutEffect(() => {
+    menuChange(Menu_Items.find(item => item.route === window.location.pathname).name)
+  },[])
+
+  useEffect(() => {
+    if(!isLogin) {
+      localStorage.clear();
+      history.push('/');
+    }
+  },[isLogin])
+
   return (
     <div className="header-contents">
       <div className="header-contents-route-title">{menuState}</div>
@@ -29,6 +42,7 @@ const HeaderContents = ({ menuState, setIsLogin }) => {
 function mapStateToProps(state) {
   return {
     menuState: state.menuState,
+    isLogin: state.isLogin
   };
 }
 

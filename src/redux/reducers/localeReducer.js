@@ -2,7 +2,7 @@ import types from '../types';
 
 const locale = 'ko';
 
-export default (state = locale, action) => {
+const localeReducer = (state = locale, action) => {
   switch (action.type) {
     case types.localeChange:
       return action.payload;
@@ -17,3 +17,5 @@ export function localeChange(info) {
         payload: info
     };
 }
+
+export default localeReducer;

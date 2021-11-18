@@ -22,7 +22,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
       subMenuOpen
     )
       setSubMenuOpen(false);
-  }, [menuState]);
+  }, [menuState, submenu, subMenuOpen, name]);
 
   const menuClickEvent = () => {
     if (submenu) {
@@ -53,6 +53,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
           <img
             src={isSelected && subMenuOpen ? upArrow : downArrow}
             className="menu-item-arrow"
+            alt=""
           />
         )}
       </div>

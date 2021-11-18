@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
-
-const test_data = [{}];
+import { getLogsApi } from "../../../Constants/Api_Route";
 
 const Logs = () => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     CustomAxiosGet(
-      `/v1/admins/${localStorage.getItem("adminId")}/logs`,
-      (res) => {
-        setTableData(res.data);
+      getLogsApi(localStorage.getItem('adminId')),
+      (data) => {
+        setTableData(data);
       }
     );
   }, []);
@@ -23,19 +22,17 @@ const Logs = () => {
       <div className="LogBox">
         <table>
           <tr>
-            <th>Device</th>
-            <th>Platform</th>
-            <th>Model</th>
-            <th>Duo Mobile</th>
-            <th>Users</th>
+            <th>Action</th>
+            <th>Application Name</th>
+            <th>Status</th>
+            <th>Time</th>
           </tr>
-          {tableData.map((item, ind) => (
-            <tr key={ind}>
-              {Object.keys(item).map((_item, _ind) => (
-                <td key={_ind}>{_item}</td>
-              ))}
-            </tr>
-          ))}
+          {tableData.map((item, ind) => <tr key={ind}>
+            <td>{item.act}</td>
+            <td>{item.appName}</td>
+            <td>{item.status}</td>
+            <td>{item.createdDate}</td>
+          </tr>)}
         </table>
       </div>
     </>
