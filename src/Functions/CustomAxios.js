@@ -16,7 +16,7 @@ export function CustomAxiosPost(url, params, successCallback, errorCallback, con
         Authorization: localStorage.getItem('Authorization')
     }, ...config}).then(res => {
         if(url.includes('login')) localStorage.setItem('Authorization',res.headers.authorization);
-        if(successCallback) successCallback(res.data);
+        if(successCallback) successCallback(res.data.data);
     }).catch(err => {
         if(errorCallback) errorCallback();
     })

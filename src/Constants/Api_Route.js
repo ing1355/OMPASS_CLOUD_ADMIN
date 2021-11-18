@@ -11,5 +11,6 @@ export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/application
 export const getApplicationDetailApi = (adminId) => `/v1/admins/${adminId}/applications`
 
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
+export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subcription`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`

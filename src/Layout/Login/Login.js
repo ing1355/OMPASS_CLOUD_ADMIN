@@ -43,7 +43,6 @@ const Login = ({ setIsLogin }) => {
                   <button type="submit">로그인</button>
                 </Form>
                 <div className="forget">
-                  <a href="#!">
                     <span
                       onClick={() => {
                         setLogin(false);
@@ -51,7 +50,6 @@ const Login = ({ setIsLogin }) => {
                     >
                       비밀번호 찾기
                     </span>
-                  </a>
                 </div>
               </ul>
               <ul>
@@ -67,7 +65,12 @@ const Login = ({ setIsLogin }) => {
                 <h5 className="forgetText">
                   패스워드를 찾고자 하는 이메일을 입력해 주세요.
                 </h5>
-                <input id="idInput" placeholder="이메일" type="text"></input>
+                <input
+                  id="idInput"
+                  className="forgetEmail"
+                  placeholder="이메일"
+                  type="text"
+                ></input>
                 <button
                   onClick={() => {
                     setLogin(true);

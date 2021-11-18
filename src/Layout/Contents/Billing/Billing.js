@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getBillingKeyApi } from '../../../Constants/Api_Route';
+import { getBillingKeyApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 import './Billing.css'
@@ -9,7 +9,6 @@ const Billing = () => {
     useEffect(() => {
         CustomAxiosPost(getBillingKeyApi(localStorage.getItem('adminId')),null, data => {
             window.IMP.init('imp92288614');
-            console.log(data);
             setBillingKey(data);
         })
     },[])
@@ -58,8 +57,10 @@ const Billing = () => {
     const onFinish = e => {
         e.preventDefault()
         const {merchant_uid, name, amount, customer_uid, buyer_email, buyer_name, buyer_tel} = billingKey;
+        console.log(billingKey)
         window.IMP.request_pay({
             merchant_uid,
+            pg: 'kakaopay',
             name,
             amount,
             customer_uid,
@@ -67,7 +68,16 @@ const Billing = () => {
             buyer_name,
             buyer_tel
         }, res => {
-            console.log(res);
+            const {success} = res;
+            if(success) {
+                CustomAxiosPost(subscriptionIamportApi(localStorage.getItem('adminId')),{
+
+                }, () => {
+                    
+                })
+            } else {
+
+            }
         })
     }
 

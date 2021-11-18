@@ -6,7 +6,7 @@ import Sidebar from "./Layout/Sidebar/Sidebar";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Footer from "./Layout/Footer/Footer";
 import Login from "./Layout/Login/Login";
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from "react-intl";
 import { connect } from "react-redux";
 import AxiosController from "./AxiosController";
 import locale from "./locale";
@@ -14,7 +14,6 @@ import "antd/dist/antd.css";
 import SignUp from "./Layout/SignUp/SignUp";
 
 const App = ({ isLogin, lang }) => {
-
   return (
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>
@@ -39,14 +38,12 @@ const App = ({ isLogin, lang }) => {
 function mapStateToProps(state) {
   return {
     isLogin: state.isLogin,
-    lang: state.locale
+    lang: state.locale,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

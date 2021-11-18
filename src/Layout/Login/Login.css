@@ -2,7 +2,7 @@
 
 body {
   background: #efefef !important;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Sans KR", sans-serif !important;
 }
 .LoginBox {
   width: 100%;
@@ -38,14 +38,14 @@ li {
   justify-content: center;
   align-items: center;
   width: 30rem;
-  height: 400px !important;
+  height: 500px !important;
   flex: 1;
   display: flex;
   padding: 4rem 0rem !important;
   margin-bottom: 0 !important;
 }
 .loginInputBox ul:nth-child(2) {
-  height: 400px !important;
+  height: 500px !important;
   background: linear-gradient(to bottom, #375075, #324076);
   color: #fff;
   font-size: 1.3rem;
@@ -75,7 +75,7 @@ li {
 .loginInputBox input {
   width: 60%;
   height: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
   padding-left: 10px;
   border: 1px solid #bfbfbf;
   font-size: 0.8rem;
@@ -83,7 +83,7 @@ li {
   outline: 0;
 }
 .loginInputBox button {
-  width: 62.5%;
+  width: 60%;
   height: 3rem;
   outline: 0;
   border: 0;
@@ -102,12 +102,15 @@ li {
   cursor: pointer;
 }
 .loginInputBox .forget {
-  width: 62.5%;
+  width: 60%;
   height: 2rem;
   margin-top: 1rem;
 
   display: flex;
   justify-content: space-between;
+}
+.loginInputBox .forgetEmail {
+  margin-bottom: 2rem;
 }
 
 select {
@@ -143,4 +146,5 @@ select {
   margin-bottom: 1rem;
   margin-top: -1rem;
   color: #3a3a3a;
+  font-size: 0.8rem;
 }
