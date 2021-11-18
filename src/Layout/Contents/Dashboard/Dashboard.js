@@ -10,7 +10,10 @@ import {
   faCheckSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
-import { getDashboardTopApi, getDashboardBottomApi } from "../../../Constants/Api_Route";
+import {
+  getDashboardTopApi,
+  getDashboardBottomApi,
+} from "../../../Constants/Api_Route";
 
 const Dashboard = () => {
   const [userNum, setUserNum] = useState(0);
@@ -21,18 +24,30 @@ const Dashboard = () => {
   const [authLogs, setAuthLogs] = useState([]);
 
   useEffect(() => {
-    CustomAxiosGet(getDashboardTopApi(localStorage.getItem('adminId')),(data) => {
-      const {adminsNumber, byPassUsersNumber, inActiveUsersNumber, usersNumber, plan} = data;
-      setAdminNum(adminsNumber)
-      setUserNum(usersNumber)
-      setByPassNum(byPassUsersNumber)
-      setDisableNum(inActiveUsersNumber)
-      setPlan(plan);
-    })
-    CustomAxiosGet(getDashboardBottomApi(localStorage.getItem('adminId')),(data) => {
-      setAuthLogs(data.slice(-5,))
-    })
-  }, [])
+    CustomAxiosGet(
+      getDashboardTopApi(localStorage.getItem("adminId")),
+      (data) => {
+        const {
+          adminsNumber,
+          byPassUsersNumber,
+          inActiveUsersNumber,
+          usersNumber,
+          plan,
+        } = data;
+        setAdminNum(adminsNumber);
+        setUserNum(usersNumber);
+        setByPassNum(byPassUsersNumber);
+        setDisableNum(inActiveUsersNumber);
+        setPlan(plan);
+      }
+    );
+    CustomAxiosGet(
+      getDashboardBottomApi(localStorage.getItem("adminId")),
+      (data) => {
+        setAuthLogs(data.slice(-5));
+      }
+    );
+  }, []);
   return (
     <>
       {/* <ContentsTitle /> */}
@@ -126,20 +141,20 @@ const Dashboard = () => {
           <table>
             <tr>
               <th>사용자 아이디</th>
-              <th>인증 형태</th>
-              <th>소속</th>
+              <th>활동</th>
+              <th>어플리케이션</th>
+              <th>상태</th>
               <th>시간</th>
-              <th>횟수</th>
             </tr>
-            {
-              authLogs.map(log => <tr>
+            {authLogs.map((log) => (
+              <tr>
                 <td>{log.userId}</td>
                 <td>{log.act}</td>
                 <td>{log.userId}</td>
                 <td>{log.createdDate}</td>
                 <td>{log.userId}</td>
-              </tr>)
-            }
+              </tr>
+            ))}
           </table>
         </div>
       </div>

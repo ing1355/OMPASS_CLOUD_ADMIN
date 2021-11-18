@@ -10,14 +10,14 @@ const Admins = () => {
   const [admin, setAdmin] = useState(true);
   const [adminAdd, setAdminAdd] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [tableData, setTableData] = useState([])
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    CustomAxiosGet(getAdminsApi(localStorage.getItem('adminId')), data => {
+    CustomAxiosGet(getAdminsApi(localStorage.getItem("adminId")), (data) => {
       setTableData(data);
       console.log(data);
-    })
-  },[])
+    });
+  }, []);
 
   return (
     <>
@@ -38,32 +38,21 @@ const Admins = () => {
             </div>
             <table>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>권한</th>
+                <th>폰</th>
+                <th>국가</th>
               </tr>
-              {
-                tableData.map(d => <tr>
-                  <td>{d.lastName + d.firstName}</td>
+              {tableData.map((d) => (
+                <tr>
                   <td>{d.email}</td>
+                  <td>{d.lastName + d.firstName}</td>
+                  <td></td>
                   <td>{d.phone}</td>
-                </tr>)
-              }
-              {/* <tr>
-                <td className="nameUpdate">
-                  <a
-                    onClick={() => {
-                      setUpdate(true);
-                      setAdmin(false);
-                    }}
-                  >
-                    choi yurim
-                  </a>
-                </td>
-                <td>dbflagovl12@naver.com</td>
-                <td>Active</td>
-                <td>Nov 8, 2021 4:36 AM</td>
-              </tr> */}
+                  <td></td>
+                </tr>
+              ))}
             </table>
           </div>
         ) : null}
