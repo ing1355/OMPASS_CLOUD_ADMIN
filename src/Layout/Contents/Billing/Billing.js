@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getBillingKeyApi } from '../../../Constants/Api_Route';
+import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 import './Billing.css'
 
 const Billing = () => {
+    const [billingKey, setBillingKey] = useState(null);
+    useEffect(() => {
+        CustomAxiosPost(getBillingKeyApi(localStorage.getItem('adminId')),null, data => {
+            window.IMP.init('imp92288614');
+            console.log(data);
+            setBillingKey(data);
+        })
+    },[])
     const billingsInfo = [
         {
             cardTitle: 'OMPASS Free', billing: 0, itemLists: [
@@ -44,6 +54,22 @@ const Billing = () => {
             {subTitle}
         </div>
     </div>
+
+    const onFinish = e => {
+        e.preventDefault()
+        const {merchant_uid, name, amount, customer_uid, buyer_email, buyer_name, buyer_tel} = billingKey;
+        window.IMP.request_pay({
+            merchant_uid,
+            name,
+            amount,
+            customer_uid,
+            buyer_email,
+            buyer_name,
+            buyer_tel
+        }, res => {
+            console.log(res);
+        })
+    }
 
     return <>
         <ContentsTitle />
@@ -90,7 +116,7 @@ const Billing = () => {
         </section>
         <section className="billing-change-container">
             <h2>Make Changes</h2>
-            <form>
+            <form onSubmit={onFinish}>
                 <div className="billing-change-item">
                     <label className="billing-change-form-label">Edition</label>
                     <select className="billing-change-form-select" onChange={e => {
@@ -139,7 +165,7 @@ const Billing = () => {
                         Subscription changes made during your current billing cycle may result in a prorate<br />
                         charge once the subscription changes have benn updated
                     </div>
-                    <button>Update Subscription</button>
+                    <button type="submit">Update Subscription</button>
                 </div>
             </form>
         </section>

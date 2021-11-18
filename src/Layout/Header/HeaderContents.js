@@ -14,10 +14,9 @@ const HeaderContents = ({ menuState, setIsLogin, isLogin, menuChange }) => {
     menuChange(Menu_Items.find(item => item.route === window.location.pathname).name)
   },[])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(!isLogin) {
       localStorage.clear();
-      history.push('/');
     }
   },[isLogin])
 
