@@ -50,7 +50,9 @@
   width: 100%;
   margin-left: 2.5rem !important;
 }
-
+.AdminBox .adminAdd p {
+  margin-bottom: 0;
+}
 .AdminBox form .inputBox span {
   width: 15rem !important;
   height: 3rem;

@@ -4,6 +4,7 @@ import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
 import { useHistory } from "react-router";
+import { FormattedMessage } from "react-intl";
 
 const HeaderContents = ({ menuState, setIsLogin }) => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const HeaderContents = ({ menuState, setIsLogin }) => {
             setIsLogin(false);
           }}
         >
-          로그아웃
+          <FormattedMessage id="logout" />
         </button>
         <Locale />
       </div>
@@ -38,7 +39,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
-    }
+    },
   };
 }
 

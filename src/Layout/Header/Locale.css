@@ -4,6 +4,7 @@
   height: 30px;
   padding: 10px;
   user-select: none;
+  width: 100px;
 }
 
 .header-contents-locale-icon {

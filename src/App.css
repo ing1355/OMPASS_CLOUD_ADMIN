@@ -74,7 +74,7 @@ button:hover {
 form {
   width: 100%;
   height: auto;
-  border-bottom: 1px solid rgb(182, 182, 182);
+  /* border-bottom: 1px solid rgb(182, 182, 182); */
   margin-top: 3rem;
 }
 form .inputBox {

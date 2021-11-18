@@ -1,11 +1,11 @@
 import { lazy } from "react";
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));
-const Policies = lazy(() => import("../Layout/Contents/Policies/Policies"));
+// const Policies = lazy(() => import("../Layout/Contents/Policies/Policies"));
 const Users = lazy(() => import("../Layout/Contents/Users/Users"));
-const TwoFactorDevices = lazy(() =>
-  import("../Layout/Contents/TwoFactorDevices/TwoFactorDevices")
-);
+// const TwoFactorDevices = lazy(() =>
+//   import("../Layout/Contents/TwoFactorDevices/TwoFactorDevices")
+// );
 const Admins = lazy(() => import("../Layout/Contents/Admins/Admins"));
 const Applications = lazy(() =>
   import("../Layout/Contents/Applications/Applications")
@@ -20,19 +20,19 @@ const route_info = [
     route: "/",
     component: Dashboard,
   },
-  {
-    key: "Policies",
-    name: "Policies",
-    route: "/Policies",
-    component: Policies,
-  },
+  // {
+  //   key: "Policies",
+  //   name: "Policies",
+  //   route: "/Policies",
+  //   component: Policies,
+  // },
   { key: "Users", name: "Users", route: "/Users", component: Users },
-  {
-    key: "2FA Devices",
-    name: "2FA Devices",
-    route: "/2FADevices",
-    component: TwoFactorDevices,
-  },
+  // {
+  //   key: "2FA Devices",
+  //   name: "2FA Devices",
+  //   route: "/2FADevices",
+  //   component: TwoFactorDevices,
+  // },
   { key: "Admins", name: "Admins", route: "/Admins", component: Admins },
   {
     key: "Applications",

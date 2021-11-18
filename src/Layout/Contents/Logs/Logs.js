@@ -3,18 +3,19 @@ import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 
-const test_data = [{
-
-}]
+const test_data = [{}];
 
 const Logs = () => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    CustomAxiosGet(`/v1/admins/${localStorage.getItem('adminId')}/logs`, (res) => {
-      setTableData(res.data);
-    })
-  },[])
+    CustomAxiosGet(
+      `/v1/admins/${localStorage.getItem("adminId")}/logs`,
+      (res) => {
+        setTableData(res.data);
+      }
+    );
+  }, []);
 
   return (
     <>
@@ -28,11 +29,13 @@ const Logs = () => {
             <th>Duo Mobile</th>
             <th>Users</th>
           </tr>
-          {
-            tableData.map((item, ind) => <tr key={ind}>
-              {Object.keys(item).map((_item,_ind) => <td key={_ind}>{_item}</td>)}
-            </tr>)
-          }
+          {tableData.map((item, ind) => (
+            <tr key={ind}>
+              {Object.keys(item).map((_item, _ind) => (
+                <td key={_ind}>{_item}</td>
+              ))}
+            </tr>
+          ))}
         </table>
       </div>
     </>
