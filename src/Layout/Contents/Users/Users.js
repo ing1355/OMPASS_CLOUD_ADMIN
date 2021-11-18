@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./Users.css";
-import Test1 from "./test1";
+import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
+
 const Users = () => {
   const [test1, setTest1] = useState(true);
   const [test2, setTest2] = useState(false);
   const [test3, setTest3] = useState(false);
   const [test4, setTest4] = useState(false);
+
   return (
     <>
       <ContentsTitle />
@@ -96,7 +98,7 @@ const Users = () => {
             </li>
           </ul>
           <ul className="UsersBox3_contents">
-            {test1 === true ? <Test1 /> : null}
+            {test1 === true ? <UsersTable /> : null}
             {test2 === true ? <li>test2test2</li> : null}
             {test3 === true ? <li>test3test3test3</li> : null}
             {test4 === true ? <li>test4test4test4test4</li> : null}

@@ -1,33 +1,37 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Contents from "./Layout/Contents/Contents";
 import Header from "./Layout/Header/Header";
 import Sidebar from "./Layout/Sidebar/Sidebar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "./Layout/Footer/Footer";
 import Login from "./Layout/Login/Login";
 import { IntlProvider } from 'react-intl';
 import { connect } from "react-redux";
+import AxiosController from "./AxiosController";
 import locale from "./locale";
+import "antd/dist/antd.css";
+import SignUp from "./Layout/SignUp/SignUp";
 
 const App = ({ isLogin, lang }) => {
 
   return (
-    <IntlProvider locale={lang} messages={locale[lang]}>
-      <Router>
+    <Router>
+      <IntlProvider locale={lang} messages={locale[lang]}>
+        <AxiosController />
         <Switch>
-          {
-            !isLogin ? <Login />
-              : <>
-                <Header />
-                <Sidebar />
-                <Contents />
-                <Footer />
-              </>
-          }
+          <Route path="/sub-admin-signup" component={SignUp} />
+          <Route path="/" render={routeInfo => !isLogin ? <Login {...routeInfo}/>
+            : <>
+              <Header {...routeInfo} />
+              <Sidebar {...routeInfo} />
+              <Contents {...routeInfo} />
+              <Footer {...routeInfo} />
+            </>
+          } />
         </Switch>
-      </Router>
-    </IntlProvider>
+      </IntlProvider>
+    </Router>
   );
 };
 

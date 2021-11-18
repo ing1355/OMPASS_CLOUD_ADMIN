@@ -3,8 +3,6 @@ import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 
 import AppDetails from "./AppDetails";
-
-import "antd/dist/antd.css";
 import { Button, Space } from "antd";
 import {
   UsergroupAddOutlined,
@@ -12,12 +10,13 @@ import {
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { getApplicationApi } from "../../../Constants/Api_Route";
 
 const Applications = () => {
   const [applications, setApplications] = useState(true);
 
   useEffect(() => {
-    CustomAxiosGet(`/v1/admins/${localStorage.getItem('adminId')}/applications`,(res) => {
+    CustomAxiosGet(getApplicationApi(localStorage.getItem('adminId')),(res) => {
       console.log(res.data);
     })
   },[])
@@ -39,7 +38,7 @@ const Applications = () => {
                 <td>1Password</td>
                 <td>2FA</td>
                 <td>
-                  <a href="#">Documentation</a>
+                  <a href="#!">Documentation</a>
                 </td>
                 <td>
                   <button>Protect</button>
@@ -49,7 +48,7 @@ const Applications = () => {
                 <td>1Password</td>
                 <td>2FA</td>
                 <td>
-                  <a href="#">Documentation</a>
+                  <a href="#!">Documentation</a>
                 </td>
                 <td>
                   <button>Protect</button>
@@ -59,7 +58,7 @@ const Applications = () => {
                 <td>1Password</td>
                 <td>2FA</td>
                 <td>
-                  <a href="#">Documentation</a>
+                  <a href="#!">Documentation</a>
                 </td>
                 <td>
                   <button>Protect</button>

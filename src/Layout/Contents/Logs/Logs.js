@@ -3,8 +3,6 @@ import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 
-const test_data = [{}];
-
 const Logs = () => {
   const [tableData, setTableData] = useState([]);
 

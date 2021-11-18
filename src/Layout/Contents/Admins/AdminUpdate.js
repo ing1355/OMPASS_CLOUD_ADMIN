@@ -4,14 +4,7 @@ import "./Admins.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import "antd/dist/antd.css";
-import { message, button } from "antd";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
+import { message } from "antd";
 
 const AdminUpdate = (props) => {
   return (

@@ -2,7 +2,7 @@ import types from '../types';
 
 const isLogin = localStorage.getItem('isLogin');
 
-export default (state = isLogin, action) => {
+const loginReducer = (state = isLogin, action) => {
     switch (action.type) {
         case types.setIsLogin:
             if (action.payload) localStorage.setItem('isLogin', true);
@@ -19,3 +19,5 @@ export function setIsLogin(info) {
         payload: info
     };
 }
+
+export default loginReducer;

@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-import ContentsTitle from "../ContentsTitle";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -11,8 +9,30 @@ import {
   faCaretRight,
   faCheckSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { getDashboardTopApi, getDashboardBottomApi } from "../../../Constants/Api_Route";
 
 const Dashboard = () => {
+  const [userNum, setUserNum] = useState(0);
+  const [adminNum, setAdminNum] = useState(0);
+  const [byPassNum, setByPassNum] = useState(0);
+  const [disableNum, setDisableNum] = useState(0);
+  const [plan, setPlan] = useState({});
+  const [authLogs, setAuthLogs] = useState([]);
+
+  useEffect(() => {
+    CustomAxiosGet(getDashboardTopApi(localStorage.getItem('adminId')),(data) => {
+      const {adminsNumber, byPassUsersNumber, inActiveUsersNumber, usersNumber, plan} = data;
+      setAdminNum(adminsNumber)
+      setUserNum(usersNumber)
+      setByPassNum(byPassUsersNumber)
+      setDisableNum(inActiveUsersNumber)
+      setPlan(plan);
+    })
+    CustomAxiosGet(getDashboardBottomApi(localStorage.getItem('adminId')),(data) => {
+      setAuthLogs(data.slice(-5,))
+    })
+  }, [])
   return (
     <>
       {/* <ContentsTitle /> */}
@@ -32,11 +52,11 @@ const Dashboard = () => {
                   현재 사용 중
                 </h5>{" "}
                 <h6>2021년 11월 1일 ~</h6>
-                <h2>Free Plan</h2>
+                <h2>{plan.name} Plan</h2>
                 <table>
                   <tr>
                     <td>남은 일 수</td>
-                    <td>20일 </td>
+                    <td>{plan.remainingDays}일 </td>
                   </tr>
                   {/* <tr>
                     <td>예상 결제 일</td>
@@ -53,7 +73,7 @@ const Dashboard = () => {
                   <h6>사용자 수</h6>
                   <p>
                     <FontAwesomeIcon style={{ width: "15%" }} icon={faUser} />{" "}
-                    <b>20명</b>
+                    <b>{userNum}명</b>
                   </p>
                 </div>
                 <div>
@@ -63,7 +83,7 @@ const Dashboard = () => {
                       style={{ width: "15%" }}
                       icon={faUserCog}
                     />{" "}
-                    <b>2명</b>
+                    <b>{adminNum}명</b>
                   </p>
                 </div>
               </div>
@@ -75,7 +95,7 @@ const Dashboard = () => {
                       style={{ width: "15%" }}
                       icon={faHandSparkles}
                     />{" "}
-                    <b>4명</b>
+                    <b>{byPassNum}명</b>
                   </p>
                 </div>{" "}
                 <div>
@@ -85,7 +105,7 @@ const Dashboard = () => {
                       style={{ width: "15%" }}
                       icon={faUserAltSlash}
                     />{" "}
-                    <b>4명</b>
+                    <b>{disableNum}명</b>
                   </p>
                 </div>
               </div>
@@ -105,31 +125,21 @@ const Dashboard = () => {
           </h4>
           <table>
             <tr>
-              <th>사용자 아이디</th> <th>인증 형태</th> <th>소속</th>
+              <th>사용자 아이디</th>
+              <th>인증 형태</th>
+              <th>소속</th>
               <th>시간</th>
               <th>횟수</th>
             </tr>
-            <tr>
-              <td>dbflagovl@omsecurity.kr</td>
-              <td>인증</td>
-              <td>원모어시큐리티</td>
-              <td>2021-11-16 16:55:10</td>
-              <td>5번</td>
-            </tr>
-            <tr>
-              <td>dbflagovl@omsecurity.kr</td>
-              <td>인증</td>
-              <td>원모어시큐리티</td>
-              <td>2021-11-16 16:55:10</td>
-              <td>5번</td>
-            </tr>{" "}
-            <tr>
-              <td>dbflagovl@omsecurity.kr</td>
-              <td>인증</td>
-              <td>원모어시큐리티</td>
-              <td>2021-11-16 16:55:10</td>
-              <td>5번</td>
-            </tr>
+            {
+              authLogs.map(log => <tr>
+                <td>{log.userId}</td>
+                <td>{log.act}</td>
+                <td>{log.userId}</td>
+                <td>{log.createdDate}</td>
+                <td>{log.userId}</td>
+              </tr>)
+            }
           </table>
         </div>
       </div>

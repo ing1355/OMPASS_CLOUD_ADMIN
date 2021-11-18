@@ -15,7 +15,7 @@ const Menu_Item = ({name, menuState, submenu, menuChange, route}) => {
 
     useEffect(() => {
         if(submenu && !(submenu.find(sb => sb.name === menuState) || name === menuState) && subMenuOpen) setSubMenuOpen(false);
-    },[menuState])
+    },[menuState, submenu, subMenuOpen, name])
 
     const menuClickEvent = () => {
         if(submenu) {
@@ -38,7 +38,7 @@ const Menu_Item = ({name, menuState, submenu, menuChange, route}) => {
     return <>
         <div className={"menu-item pointer " + (isSelected ? 'selected' : '')} onClick={menuClickEvent}>
             <div className="menu-item-title">{name}</div>
-            {submenu && <img src={isSelected && subMenuOpen ? upArrow : downArrow} className="menu-item-arrow"/>}
+            {submenu && <img src={isSelected && subMenuOpen ? upArrow : downArrow} className="menu-item-arrow" alt=""/>}
         </div>
         {submenu && <SubMenu data={submenu} open={subMenuOpen}/>}
     </>

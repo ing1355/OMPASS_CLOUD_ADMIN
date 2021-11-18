@@ -1,9 +1,9 @@
 import Menu_Items from '../../Layout/Sidebar/Menu_Items';
 import types from '../types';
 
-const menuState = Menu_Items.find(item => item.route === window.location.pathname).name;
+const menuState = null;
 
-export default (state = menuState, action) => {
+const menuStateReducer = (state = menuState, action) => {
   switch (action.type) {
     case types.menuStateChange:
       return action.payload;
@@ -18,3 +18,5 @@ export function menuStateChange(info) {
         payload: info
     };
 }
+
+export default menuStateReducer;

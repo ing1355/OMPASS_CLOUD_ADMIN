@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
-import "antd/dist/antd.css";
 import { message } from "antd";
+import { CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { addAdminApi } from "../../../Constants/Api_Route";
 
 const AdminAdd = (props) => {
+  const [inputMobile, setInputMobile] = useState(null);
+  const [inputCountry, setInputCountry] = useState(null);
+
+  const changeMobileInput = (value,countryInfo) => {
+    const {countryCode} = countryInfo;
+    setInputCountry(countryCode);
+    setInputMobile(value);
+  }
+
+  const onFinish = (e) => {
+    const {email, lastName, firstName} = e.target.elements
+    e.preventDefault();
+    CustomAxiosPost(addAdminApi(localStorage.getItem('adminId')),{
+      country : inputCountry,
+      email: email.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      phone: inputMobile,
+      role: 'ADMIN'
+    })
+  }
+  
   return (
     <>
       <div className="AdminBox">
-        <form>
+        <form onSubmit={onFinish}>
           <div className="inputBox">
-            <span>Name</span>
-            <input placeholder="이름을 입력하세요." />
+            <span>First Name</span>
+            <input name="firstName" placeholder="이름을 입력하세요." />
+          </div>
+          <div className="inputBox">
+            <span>Last Name</span>
+            <input name="lastName" placeholder="이름을 입력하세요." />
           </div>
           <div className="inputBox">
             <span>Email address</span>
-            <input placeholder="이메일을 입력하세요." />
+            <input name="email" placeholder="이메일을 입력하세요." />
           </div>
           <div className="inputBox2">
             <span>Phone</span>
@@ -26,6 +52,8 @@ const AdminAdd = (props) => {
               <PhoneInput
                 className="phoneInput"
                 country={"kr"}
+                value={inputMobile}
+                onChange={changeMobileInput}
                 preferredCountries={["kr", "us"]}
               />
             </div>
@@ -34,7 +62,7 @@ const AdminAdd = (props) => {
             <span>Complete account setup</span>
             <div>
               <span>
-                <input type="checkbox" name="xxx" value="yyy" checked />
+                <input type="checkbox" checked />
                 <p>Automatically send an account setup link via email</p>
               </span>
               <p>
@@ -43,10 +71,11 @@ const AdminAdd = (props) => {
               </p>
               <button
                 className="adminAddButton"
+                type="submit"
                 onClick={() => {
-                  props.setAdmin(true);
-                  props.setAdminAdd(false);
-                  message.success("추가되었습니다.");
+                  // props.setAdmin(true);
+                  // props.setAdminAdd(false);
+                  // message.success("추가되었습니다.");
                 }}
               >
                 관리자 추가
