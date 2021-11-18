@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getBillingKeyApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
@@ -6,12 +7,14 @@ import './Billing.css'
 
 const Billing = () => {
     const [billingKey, setBillingKey] = useState(null);
+    
     useEffect(() => {
         CustomAxiosPost(getBillingKeyApi(localStorage.getItem('adminId')),null, data => {
             window.IMP.init('imp92288614');
             setBillingKey(data);
         })
     },[])
+
     const billingsInfo = [
         {
             cardTitle: 'OMPASS Free', billing: 0, itemLists: [
@@ -56,11 +59,13 @@ const Billing = () => {
 
     const onFinish = e => {
         e.preventDefault()
+        const {check, edition, term, userNum} = e.target.elements;
+        if(!check.checked) return message.error('Agreement에 체크해주세요.')
+        console.log(check.checked, edition.value, term.value, userNum.value)
         const {merchant_uid, name, amount, customer_uid, buyer_email, buyer_name, buyer_tel} = billingKey;
         console.log(billingKey)
         window.IMP.request_pay({
             merchant_uid,
-            pg: 'kakaopay',
             name,
             amount,
             customer_uid,
@@ -96,8 +101,7 @@ const Billing = () => {
                     pg_tid,
                     pg_type,
                     receipt_url,
-                    status,
-                    success
+                    status
                 }, () => {
 
                 })
@@ -155,9 +159,7 @@ const Billing = () => {
             <form onSubmit={onFinish}>
                 <div className="billing-change-item">
                     <label className="billing-change-form-label">Edition</label>
-                    <select className="billing-change-form-select" onChange={e => {
-                        console.log(e.target.value);
-                    }}>
+                    <select className="billing-change-form-select" name="edition">
                         {
                             billingsInfo.map((item, ind) => <option key={ind} value={item.cardTitle.replace(' ', '')}>{item.cardTitle}</option>)
                         }
@@ -166,7 +168,7 @@ const Billing = () => {
                 <div className="billing-change-item">
                     <label className="billing-change-form-label">Number of Users</label>
                     <div>
-                        <select className="billing-change-form-select">
+                        <select className="billing-change-form-select" name="userNum">
                             {
                                 new Array(10).fill(1).map((item, ind) => <option key={ind} value={ind}>{ind}</option>)
                             }
@@ -178,9 +180,7 @@ const Billing = () => {
                 </div>
                 <div className="billing-change-item">
                     <label className="billing-change-form-label">Term</label>
-                    <select className="billing-change-form-select" onChange={e => {
-                        console.log(e.target.value);
-                    }}>
+                    <select className="billing-change-form-select" name="term">
                         <option value="Monthly">Monthly</option>
                         <option value="Annual">Annual</option>
                     </select>
@@ -192,8 +192,8 @@ const Billing = () => {
                 <div className="billing-change-item">
                     <label className="billing-change-form-label">Agreement</label>
                     <div>
-                        <input type="checkbox" />
-                        <label>I agree to the Terms and Conditions as well as well pricing and fee rules</label>
+                        <input type="checkbox" name="check"/>
+                        <label>&nbsp;I agree to the Terms and Conditions as well as well pricing and fee rules</label>
                     </div>
                 </div>
                 <div className="billing-change-item">
