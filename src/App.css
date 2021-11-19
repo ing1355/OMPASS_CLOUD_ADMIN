@@ -121,3 +121,10 @@ form .inputBox input {
   padding: 0 0 0 0.5rem;
   margin-left: 1rem;
 }
+table tbody tr:hover {
+  cursor: pointer;
+  background-color: #95daec54;
+}
+table tbody tr:nth-child(1) {
+  margin-top: -0.15rem;
+}

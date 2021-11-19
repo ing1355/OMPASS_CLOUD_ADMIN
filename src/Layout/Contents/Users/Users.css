@@ -58,3 +58,46 @@
 .UsersBox3_title li h3 {
   font-size: 2rem;
 }
+.UsersBox3_contents table tbody tr:hover {
+  cursor: pointer;
+  background-color: #95daec54;
+}
+.UsersBox3_contents table tbody tr:nth-child(1) {
+  margin-top: -0.15rem;
+}
+.userdetailP {
+  font-size: 0.8rem !important;
+  margin-bottom: 0 !important;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+.userdetailA {
+  color: #00a9ec;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem !important;
+}
+
+.userDetailInputBox .userDetailInput {
+  width: 1rem !important;
+  margin-right: 0.5rem !important;
+}
+.userDetailInputBox .label {
+  font-size: 0.9rem !important;
+  margin-bottom: 0 !important;
+  font-weight: bold;
+
+  display: inline-block;
+}
+.userDetailInputBox p {
+  font-size: 0.8rem !important;
+  margin-left: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem !important;
+}
+.userDetailInputBox div:nth-child(3) p {
+  margin-bottom: 0 !important;
+}
+.userDetailInputBox span {
+  width: 50rem !important;
+}

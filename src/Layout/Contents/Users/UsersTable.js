@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-
-const UsersTable = ({userProfile, tableData}) => {
-
+import { useHistory } from "react-router";
+import UserDetail from "./UserDetail";
+const UsersTable = ({ userProfile, tableData }) => {
+  const history = useHistory();
   return (
     <>
       <ul className="UsersBox3_contents">
@@ -19,7 +20,12 @@ const UsersTable = ({userProfile, tableData}) => {
             </thead>
             <tbody>
               {tableData.map((d, ind) => (
-                <tr key={ind}>
+                <tr
+                  key={ind}
+                  onClick={() => {
+                    history.push("/UserDetail");
+                  }}
+                >
                   <td>{d.userId}</td>
                   <td>{d.appName}</td>
                   <td>{d.bypass.toString()}</td>
@@ -37,14 +43,12 @@ const UsersTable = ({userProfile, tableData}) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersTable);

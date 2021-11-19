@@ -12,6 +12,7 @@ const Applications = lazy(() =>
 );
 const Billing = lazy(() => import("../Layout/Contents/Billing/Billing"));
 const Logs = lazy(() => import("../Layout/Contents/Logs/Logs"));
+const UserDetail = lazy(() => import("../Layout/Contents/Users/UserDetail"));
 
 const route_info = [
   {
@@ -27,6 +28,12 @@ const route_info = [
   //   component: Policies,
   // },
   { key: "Users", name: "Users", route: "/Users", component: Users },
+  {
+    key: "UserDetail",
+    name: "UserDetail",
+    route: "/UserDetail",
+    component: UserDetail,
+  },
   // {
   //   key: "2FA Devices",
   //   name: "2FA Devices",

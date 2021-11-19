@@ -10,7 +10,7 @@ import ContentsTitle from "../ContentsTitle";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 
-const AdminAdd = ({userProfile}) => {
+const AdminAdd = ({ userProfile }) => {
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
   const history = useHistory();
@@ -19,23 +19,27 @@ const AdminAdd = ({userProfile}) => {
     const { countryCode } = countryInfo;
     setInputCountry(countryCode);
     setInputMobile(value);
-  }
+  };
 
   const onFinish = (e) => {
-    const { email, lastName, firstName } = e.target.elements
+    const { email, lastName, firstName } = e.target.elements;
     e.preventDefault();
-    CustomAxiosPost(addAdminApi(userProfile.adminId), {
-      country: inputCountry,
-      email: email.value,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      phone: inputMobile,
-      role: 'ADMIN'
-    }, () => {
-      message.success('인증 메일 발송에 성공하였습니다.')
-      history.push('/Admins')
-    })
-  }
+    CustomAxiosPost(
+      addAdminApi(userProfile.adminId),
+      {
+        country: inputCountry,
+        email: email.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        phone: inputMobile,
+        role: "ADMIN",
+      },
+      () => {
+        message.success("인증 메일 발송에 성공하였습니다.");
+        history.push("/Admins");
+      }
+    );
+  };
 
   return (
     <>
@@ -77,9 +81,7 @@ const AdminAdd = ({userProfile}) => {
                 This administrator will receive an email with instructions to
                 complete their account setup
               </p>
-              <button
-                className="adminAddButton"
-                type="submit">
+              <button className="adminAddButton" type="submit">
                 관리자 추가
               </button>
             </div>
@@ -92,14 +94,12 @@ const AdminAdd = ({userProfile}) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminAdd);

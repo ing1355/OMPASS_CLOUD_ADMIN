@@ -20,14 +20,15 @@ import SignUp from "./Layout/SignUp/SignUp";
 import ActionCreators from "./redux/actions";
 import ResetPassword from "./Layout/SignUp/ResetPassword";
 
-const App = ({ isLogin, lang, setUserProfile }) => {
+import UserDetail from "./Layout/Contents/Users/UserDetail";
 
+const App = ({ isLogin, lang, setUserProfile }) => {
   useEffect(() => {
-    if(!isLogin) {
-      setUserProfile({})
+    if (!isLogin) {
+      setUserProfile({});
       localStorage.clear();
     }
-  },[isLogin])
+  }, [isLogin]);
 
   return (
     <Router>
@@ -74,7 +75,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setUserProfile: (data) => {
       dispatch(ActionCreators.setProfile(data));
-    }
+    },
   };
 }
 
