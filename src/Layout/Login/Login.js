@@ -1,11 +1,13 @@
 import { Form } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { loginApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./Login.css";
+import jwt_decode from "jwt-decode";
 
-const Login = ({ setIsLogin }) => {
+const Login = ({ setIsLogin, setUserProfile }) => {
   const [login, setLogin] = useState(true);
 
   return (
@@ -20,14 +22,16 @@ const Login = ({ setIsLogin }) => {
                   onFinish={(values) => {
                     const { userId, password } = values;
                     CustomAxiosPost(
-                      "/v1/login",
+                      loginApi,
                       {
                         email: userId,
                         password: password,
                       },
                       (data) => {
-                        Object.keys(data).forEach((dKey) => {
-                          localStorage.setItem(dKey, data[dKey]);
+                        setUserProfile({
+                          adminId: data.adminId,
+                          email: data.email,
+                          role: data.role,
                         });
                         setIsLogin(true);
                       }
@@ -48,7 +52,7 @@ const Login = ({ setIsLogin }) => {
                       setLogin(false);
                     }}
                   >
-                    비밀번호 찾기
+                    비밀번호 초기화
                   </span>
                 </div>
               </ul>
@@ -61,24 +65,36 @@ const Login = ({ setIsLogin }) => {
           ) : (
             <div className="loginInputBox">
               <ul>
-                <h1>비밀번호 찾기</h1>
+                <h1>비밀번호 초기화</h1>
                 <h5 className="forgetText">
-                  패스워드를 찾고자 하는 이메일을 입력해 주세요.
+                  비밀번호를 초기화 할 이메일을 입력해 주세요.
                 </h5>
-                <input
-                  id="idInput"
-                  className="forgetEmail"
-                  placeholder="이메일"
-                  type="text"
-                ></input>
-                <button
-                  onClick={() => {
-                    setLogin(true);
-                    alert("메일로 전송했습니다. 인증해주세요.");
-                  }}
-                >
-                  이메일 인증
-                </button>
+                <form>
+                  <input
+                    id="idInput"
+                    className="forgetEmail"
+                    placeholder="이메일"
+                    type="text"
+                  ></input>
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setLogin(true);
+                      alert("메일로 전송했습니다. 인증해주세요.");
+                    }}
+                  >
+                    이메일 인증
+                  </button>
+                </form>
+                <div className="forget">
+                  <span
+                    onClick={() => {
+                      setLogin(true);
+                    }}
+                  >
+                    돌아가기
+                  </span>
+                </div>
               </ul>
               <ul style={{ height: "400px" }}>
                 <p>환영합니다.</p>
@@ -109,6 +125,9 @@ function mapDispatchToProps(dispatch) {
   return {
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
+    },
+    setUserProfile: (data) => {
+      dispatch(ActionCreators.setProfile(data));
     },
   };
 }

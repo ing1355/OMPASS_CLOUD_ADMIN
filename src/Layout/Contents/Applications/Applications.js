@@ -13,48 +13,55 @@ import {
 } from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getApplicationApi } from "../../../Constants/Api_Route";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Applications = () => {
+const Applications = ({userProfile}) => {
   const [applications, setApplications] = useState(true);
   const [applicationsAdd, setApplicationsAdd] = useState(false);
   const [applicationsUpdate, setApplicationsUpdate] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     CustomAxiosGet(
-      `/v1/admins/${localStorage.getItem("adminId")}/applications`,
-      (res) => {
-        console.log(res.data);
-      }
-    );
-    CustomAxiosGet(
-      getApplicationApi(localStorage.getItem("adminId")),
-      (res) => {
-        console.log(res.data);
+      getApplicationApi(userProfile.adminId),
+      (data) => {
+        setTableData(data);
+        console.log(data);
       }
     );
   }, []);
 
   return (
     <>
-      <ContentsTitle />
+      <ContentsTitle title="Applications Info"/>
       <div className="ApplicationsBox">
         {applications === true ? (
           <div>
             <table>
-              <tr>
-                <th>이름</th>
-                <th>상태</th>
-                <th>디테일</th>
-                {/* <th></th> */}
-              </tr>
-              <tr>
-                <td>유림</td>
-                <td>ㅇㅁㅇ</td>
-                <td>디테일</td>
-                {/* <td>
-                  <button>Protect</button>
-                </td> */}
-              </tr>
+              <thead>
+                <tr>
+                  <th>이름</th>
+                  <th>상태</th>
+                  <th>디테일</th>
+                  {/* <th></th> */}
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  tableData.map((d, ind) => <tr key={ind}>
+                    <td>{d.name}</td>
+                    <td>{d.status}</td>
+                    <td>
+                      <Link to={`/Applications/Detail/${d.appId}`}>
+                        <button>
+                          Detail
+                      </button>
+                      </Link>
+                    </td>
+                  </tr>)
+                }
+              </tbody>
             </table>
             <Space className="cud">
               <Button
@@ -104,4 +111,16 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Applications);

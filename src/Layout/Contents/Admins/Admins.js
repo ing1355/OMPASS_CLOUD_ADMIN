@@ -6,14 +6,14 @@ import AdminAdd from "./AdminAdd";
 import AdminUpdate from "./AdminUpdate";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getAdminsApi } from "../../../Constants/Api_Route";
-const Admins = () => {
-  const [admin, setAdmin] = useState(true);
-  const [adminAdd, setAdminAdd] = useState(false);
-  const [update, setUpdate] = useState(false);
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+const Admins = ({userProfile}) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    CustomAxiosGet(getAdminsApi(localStorage.getItem("adminId")), (data) => {
+    CustomAxiosGet(getAdminsApi(userProfile.adminId), (data) => {
       setTableData(data);
       console.log(data);
     });
@@ -21,51 +21,62 @@ const Admins = () => {
 
   return (
     <>
-      <ContentsTitle />
+      <ContentsTitle title="Admins Info" />
       <div className="AdminBox">
-        {admin === true ? (
-          <div>
-            <div className="adminAdd">
-              <p>Admin Login Settings</p>
-              <button
-                onClick={() => {
-                  setAdmin(false);
-                  setAdminAdd(true);
-                }}
-              >
+        <div>
+          <div className="adminAdd">
+            <p>Admin Login Settings</p>
+            <Link to="/Admins/Add">
+              <button>
                 관리자 추가
               </button>
-            </div>
-            <table>
+            </Link>
+          </div>
+          <table>
+            <thead>
               <tr>
-                <th>이메일</th>
                 <th>이름</th>
+                <th>이메일</th>
                 <th>권한</th>
                 <th>폰</th>
                 <th>국가</th>
               </tr>
-              {tableData.map((d) => (
-                <tr>
-                  <td>{d.email}</td>
+            </thead>
+            <tbody>
+              {tableData.map((d, ind) => (
+                <tr key={ind}>
                   <td>{d.lastName + d.firstName}</td>
-                  <td></td>
+                  <td>{d.email}</td>
+                  <td>{d.role}</td>
                   <td>{d.phone}</td>
-                  <td></td>
+                  <td>{d.country}</td>
                 </tr>
               ))}
-            </table>
-          </div>
-        ) : null}
-        {adminAdd === true ? (
+            </tbody>
+          </table>
+        </div>
+        {/* {adminAdd === true ? (
           <AdminAdd setAdmin={setAdmin} setAdminAdd={setAdminAdd} />
         ) : null}
 
         {update === true ? (
           <AdminUpdate setUpdate={setUpdate} setAdmin={setAdmin} />
-        ) : null}
+        ) : null} */}
       </div>
     </>
   );
 };
 
-export default Admins;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admins);

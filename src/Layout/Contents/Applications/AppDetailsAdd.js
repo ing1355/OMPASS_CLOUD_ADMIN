@@ -4,26 +4,36 @@ import "./Applications.css";
 import "antd/dist/antd.css";
 import { message, Form } from "antd";
 import { CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { connect } from "react-redux";
 
-const AppDetailsAdd = (props) => {
+const AppDetailsAdd = ({userProfile}) => {
+  const onFinish = values => {
+    console.log(values);
+    CustomAxiosPost(
+      `/v1/admins/${userProfile.adminId}/applications`,
+      {
+        domain: "https://www.ompass.kr",
+        policyId: 0,
+        redirectUri: "https://www.ompass.kr",
+        status: "test",
+      },
+      (res) => {
+        console.log(res);
+      }
+    );
+  }
+
+  const existCheck = () => {
+
+  }
+
   return (
     <>
       <div className="ApplicationsBox">
         <Form
-          onFinish={(values) => {
-            console.log(values);
-            CustomAxiosPost(
-              `/v1/admins/${localStorage.getItem("adminId")}/applications`,
-              {
-                domain: "https://www.ompass.kr",
-                policyId: 0,
-                redirectUri: "https://www.ompass.kr",
-                status: "test",
-              },
-              (res) => {
-                console.log(res);
-              }
-            );
+          onFinish={onFinish}
+          onValuesChange={(a, b) => {
+            console.log(a, b)
           }}
         >
           <div className="ApplicationsTitle">
@@ -31,28 +41,15 @@ const AppDetailsAdd = (props) => {
               <h2>세부</h2>
             </span>
           </div>
-
-          {/* <Form.Item
-            className="inputBox"
-            label="Integration key"
-            name="integrationKey"
-            labelCol={{ span: 3 }}
-            labelAlign="left"
-          >
-            <input placeholder="DIGHW6U9B6980J7KRZRB" />
-            <button className="select" type="button">
-              select
-            </button>
-          </Form.Item> */}
           <Form.Item
-            className="inputBox"
+            className="inputBox hasExistCheck"
             label="Name"
             name="secretKey"
             labelCol={{ span: 3 }}
             labelAlign="left"
           >
             <input placeholder="Click to view." />
-            <button className="select" type="button">
+            <button className="select" type="button" onClick={existCheck}>
               중복체크
             </button>
           </Form.Item>
@@ -78,11 +75,9 @@ const AppDetailsAdd = (props) => {
             <h2>정책</h2>
             <p>
               정책은 사용자가 이 애플리케이션에 액세스할 때 인증하는 시기와
-              방법을 정의합니다.
-              <p>
+              방법을 정의합니다.<br />
                 글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
                 재정의할 수 있습니다.
-              </p>
             </p>
           </div>
           <div className="inputBox">
@@ -95,15 +90,7 @@ const AppDetailsAdd = (props) => {
           </div>
           <button
             className="ApplicationsSave"
-            // onClick={() => {
-            //   props.setApplications(true);
-            //   message.success("추가되었습니다.");
-            // }}
             type="submit"
-            onClick={() => {
-              props.setApplicationsAdd(false);
-              props.setApplications(true);
-            }}
           >
             저장
           </button>
@@ -113,4 +100,16 @@ const AppDetailsAdd = (props) => {
   );
 };
 
-export default AppDetailsAdd;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppDetailsAdd);

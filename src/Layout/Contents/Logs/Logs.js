@@ -3,13 +3,14 @@ import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getLogsApi } from "../../../Constants/Api_Route";
+import { connect } from "react-redux";
 
-const Logs = () => {
+const Logs = ({userProfile}) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     CustomAxiosGet(
-      getLogsApi(localStorage.getItem('adminId')),
+      getLogsApi(userProfile.adminId),
       (data) => {
         setTableData(data);
       }
@@ -18,25 +19,43 @@ const Logs = () => {
 
   return (
     <>
-      <ContentsTitle />
+      <ContentsTitle title="Logs Info"/>
       <div className="LogBox">
         <table>
-          <tr>
-            <th>Action</th>
-            <th>Application Name</th>
-            <th>Status</th>
-            <th>Time</th>
-          </tr>
-          {tableData.map((item, ind) => <tr key={ind}>
-            <td>{item.act}</td>
-            <td>{item.appName}</td>
-            <td>{item.status}</td>
-            <td>{item.createdDate}</td>
-          </tr>)}
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Action</th>
+              <th>Application Name</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData.map((item, ind) => <tr key={ind}>
+              <td>{item.userId}</td>
+              <td>{item.act}</td>
+              <td>{item.appName}</td>
+              <td>{item.status}</td>
+              <td>{item.createdDate}</td>
+            </tr>)}
+          </tbody>
         </table>
       </div>
     </>
   );
 };
 
-export default Logs;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logs);

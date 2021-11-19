@@ -12,7 +12,7 @@ const Users = () => {
 
   return (
     <>
-      <ContentsTitle />
+      <ContentsTitle title="Users Info"/>
       <div className="UsersdBox">
         <div className="billing-change-help-container">
           <div className="billing-change-help-icon">test</div>

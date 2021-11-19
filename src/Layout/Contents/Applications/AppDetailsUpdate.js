@@ -3,8 +3,9 @@ import "./Applications.css";
 import { Form } from "antd";
 import { CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { getApplicationDetailApi } from "../../../Constants/Api_Route";
+import { connect } from "react-redux";
 
-const AppDetailsUpdate = (props) => {
+const AppDetailsUpdate = ({userProfile}) => {
   return (
     <>
       <div className="ApplicationsBox">
@@ -12,7 +13,7 @@ const AppDetailsUpdate = (props) => {
           onFinish={(values) => {
             console.log(values);
             CustomAxiosPost(
-              getApplicationDetailApi(localStorage.getItem("adminId")),
+              getApplicationDetailApi(userProfile.adminId),
               {
                 domain: "https://www.ompass.kr",
                 policyId: 0,
@@ -88,15 +89,7 @@ const AppDetailsUpdate = (props) => {
           </div>
           <button
             className="ApplicationsSave"
-            // onClick={() => {
-            //   props.setApplications(true);
-            //   message.success("추가되었습니다.");
-            // }}
             type="submit"
-            onClick={() => {
-              props.setApplications(true);
-              props.setApplicationsUpdate(false);
-            }}
           >
             저장
           </button>
@@ -106,4 +99,16 @@ const AppDetailsUpdate = (props) => {
   );
 };
 
-export default AppDetailsUpdate;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppDetailsUpdate);

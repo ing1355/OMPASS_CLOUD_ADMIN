@@ -1,7 +1,7 @@
-.menu > .menu-item {
-    border-bottom: 1px solid black;
+.menu .menu-item {
+    border-bottom: 1px solid gray;
 }
 
-.menu > .menu-item:last-child {
+.menu > a:last-child > .menu-item {
     border-bottom: none;
 }

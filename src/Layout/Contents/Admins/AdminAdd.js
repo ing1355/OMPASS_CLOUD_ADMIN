@@ -6,32 +6,40 @@ import "react-phone-input-2/lib/style.css";
 import { message } from "antd";
 import { CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { addAdminApi } from "../../../Constants/Api_Route";
+import ContentsTitle from "../ContentsTitle";
+import { useHistory } from "react-router";
+import { connect } from "react-redux";
 
-const AdminAdd = (props) => {
+const AdminAdd = ({userProfile}) => {
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
+  const history = useHistory();
 
-  const changeMobileInput = (value,countryInfo) => {
-    const {countryCode} = countryInfo;
+  const changeMobileInput = (value, countryInfo) => {
+    const { countryCode } = countryInfo;
     setInputCountry(countryCode);
     setInputMobile(value);
   }
 
   const onFinish = (e) => {
-    const {email, lastName, firstName} = e.target.elements
+    const { email, lastName, firstName } = e.target.elements
     e.preventDefault();
-    CustomAxiosPost(addAdminApi(localStorage.getItem('adminId')),{
-      country : inputCountry,
+    CustomAxiosPost(addAdminApi(userProfile.adminId), {
+      country: inputCountry,
       email: email.value,
       firstName: firstName.value,
       lastName: lastName.value,
       phone: inputMobile,
       role: 'ADMIN'
+    }, () => {
+      message.success('인증 메일 발송에 성공하였습니다.')
+      history.push('/Admins')
     })
   }
-  
+
   return (
     <>
+      <ContentsTitle title="Admin Add" />
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
@@ -71,13 +79,7 @@ const AdminAdd = (props) => {
               </p>
               <button
                 className="adminAddButton"
-                type="submit"
-                onClick={() => {
-                  // props.setAdmin(true);
-                  // props.setAdminAdd(false);
-                  // message.success("추가되었습니다.");
-                }}
-              >
+                type="submit">
                 관리자 추가
               </button>
             </div>
@@ -88,4 +90,16 @@ const AdminAdd = (props) => {
   );
 };
 
-export default AdminAdd;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminAdd);

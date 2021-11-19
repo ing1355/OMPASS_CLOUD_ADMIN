@@ -21,3 +21,14 @@ export function CustomAxiosPost(url, params, successCallback, errorCallback, con
         if(errorCallback) errorCallback();
     })
 }
+
+export function CustomAxiosPatch(url, data, successCallback, errorCallback, config) {
+    return axios.patch(url, data, {...config,
+        headers: {
+            Authorization: localStorage.getItem('Authorization')
+        }}).then(res => {
+        if(successCallback) successCallback(res.data.data);
+    }).catch(err => {
+        if(errorCallback) errorCallback();
+    })
+}

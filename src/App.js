@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import Contents from "./Layout/Contents/Contents";
 import Header from "./Layout/Header/Header";
 import Sidebar from "./Layout/Sidebar/Sidebar";
@@ -17,8 +17,17 @@ import AxiosController from "./AxiosController";
 import locale from "./locale";
 import "antd/dist/antd.css";
 import SignUp from "./Layout/SignUp/SignUp";
+import ActionCreators from "./redux/actions";
 
-const App = ({ isLogin, lang }) => {
+const App = ({ isLogin, lang, setUserProfile }) => {
+
+  useEffect(() => {
+    if(!isLogin) {
+      setUserProfile({})
+      localStorage.clear();
+    }
+  },[isLogin])
+
   return (
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>
@@ -60,7 +69,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setUserProfile: (data) => {
+      dispatch(ActionCreators.setProfile(data));
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

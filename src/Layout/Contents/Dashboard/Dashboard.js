@@ -14,8 +14,9 @@ import {
   getDashboardTopApi,
   getDashboardBottomApi,
 } from "../../../Constants/Api_Route";
+import { connect } from "react-redux";
 
-const Dashboard = () => {
+const Dashboard = ({userProfile}) => {
   const [userNum, setUserNum] = useState(0);
   const [adminNum, setAdminNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     CustomAxiosGet(
-      getDashboardTopApi(localStorage.getItem("adminId")),
+      getDashboardTopApi(userProfile.adminId),
       (data) => {
         const {
           adminsNumber,
@@ -42,7 +43,7 @@ const Dashboard = () => {
       }
     );
     CustomAxiosGet(
-      getDashboardBottomApi(localStorage.getItem("adminId")),
+      getDashboardBottomApi(userProfile.adminId),
       (data) => {
         setAuthLogs(data.slice(-5));
       }
@@ -69,14 +70,16 @@ const Dashboard = () => {
                 <h6>2021년 11월 1일 ~</h6>
                 <h2>{plan.name} Plan</h2>
                 <table>
-                  <tr>
-                    <td>남은 일 수</td>
-                    <td>{plan.remainingDays}일 </td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>남은 일 수</td>
+                      <td>{plan.remainingDays}일 </td>
+                    </tr>
                   {/* <tr>
                     <td>예상 결제 일</td>
                     <td>12월 2일 </td>
                   </tr> */}
+                  </tbody>
                 </table>
               </div>
             </li>
@@ -139,22 +142,26 @@ const Dashboard = () => {
             <FontAwesomeIcon icon={faCaretRight} /> 최근 인증 로그
           </h4>
           <table>
-            <tr>
-              <th>사용자 아이디</th>
-              <th>활동</th>
-              <th>어플리케이션</th>
-              <th>상태</th>
-              <th>시간</th>
-            </tr>
-            {authLogs.map((log) => (
+            <thead>
               <tr>
-                <td>{log.userId}</td>
-                <td>{log.act}</td>
-                <td>{log.userId}</td>
-                <td>{log.createdDate}</td>
-                <td>{log.userId}</td>
+                <th>사용자 아이디</th>
+                <th>활동</th>
+                <th>어플리케이션</th>
+                <th>상태</th>
+                <th>시간</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {authLogs.map((log, ind) => (
+                <tr key={ind}>
+                  <td>{log.userId}</td>
+                  <td>{log.act}</td>
+                  <td>{log.userId}</td>
+                  <td>{log.createdDate}</td>
+                  <td>{log.userId}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
@@ -162,4 +169,16 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
