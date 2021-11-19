@@ -6,11 +6,12 @@ import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
   const isSelected = submenu
-    ? submenu.find((sb) => sb.name === menuState) || name === menuState
-    : route === window.location.pathname;
+    ? (submenu.find((sb) => sb.name === menuState) || name === menuState)
+    : name === menuState;
   const [subMenuOpen, setSubMenuOpen] = useState(isSelected);
 
   const history = useHistory();
@@ -32,7 +33,6 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
         setSubMenuOpen(true);
       }
     } else {
-      history.push(route);
       menuChange(name);
       if (subMenuOpen) {
         setSubMenuOpen(false);
@@ -43,7 +43,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
   };
 
   return (
-    <>
+    <Link to={route}>
       <div
         className={"menu-item pointer " + (isSelected ? "selected" : "")}
         onClick={menuClickEvent}
@@ -58,7 +58,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
         )}
       </div>
       {submenu && <SubMenu data={submenu} open={subMenuOpen} />}
-    </>
+    </Link>
   );
 };
 

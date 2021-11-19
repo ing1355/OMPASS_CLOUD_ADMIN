@@ -1,11 +1,13 @@
 import { Form } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { loginApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./Login.css";
+import jwt_decode from 'jwt-decode';
 
-const Login = ({ setIsLogin }) => {
+const Login = ({ setIsLogin, setUserProfile }) => {
   const [login, setLogin] = useState(true);
 
   return (
@@ -20,15 +22,17 @@ const Login = ({ setIsLogin }) => {
                   onFinish={(values) => {
                     const { userId, password } = values;
                     CustomAxiosPost(
-                      "/v1/login",
+                      loginApi,
                       {
                         email: userId,
                         password: password,
                       },
                       (data) => {
-                        Object.keys(data).forEach((dKey) => {
-                          localStorage.setItem(dKey, data[dKey]);
-                        });
+                        setUserProfile({
+                          adminId: data.adminId,
+                          email: data.email,
+                          role: data.role
+                        })
                         setIsLogin(true);
                       }
                     );
@@ -110,6 +114,9 @@ function mapDispatchToProps(dispatch) {
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
     },
+    setUserProfile: (data) => {
+      dispatch(ActionCreators.setProfile(data));
+    }
   };
 }
 

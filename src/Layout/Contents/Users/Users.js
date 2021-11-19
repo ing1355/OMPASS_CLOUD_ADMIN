@@ -12,7 +12,7 @@ const Users = () => {
 
   return (
     <>
-      <ContentsTitle />
+      <ContentsTitle title="Users Info"/>
       <div className="UsersdBox">
         <div className="billing-change-help-container">
           <div className="billing-change-help-icon">test</div>
@@ -40,7 +40,7 @@ const Users = () => {
               }}
             >
               <h3>0</h3>
-              <p>Total Users</p>
+              <p>전체 사용자 수</p>
             </li>
             <li
               style={
@@ -58,7 +58,7 @@ const Users = () => {
               }}
             >
               <h3>0</h3>
-              <p>Total Users</p>
+              <p>등록되지 않은 사용자</p>
             </li>{" "}
             <li
               style={
@@ -76,7 +76,7 @@ const Users = () => {
               }}
             >
               <h3>0</h3>
-              <p>Total Users</p>
+              <p>비활성화된 사용자</p>
             </li>{" "}
             <li
               style={
@@ -94,7 +94,7 @@ const Users = () => {
               }}
             >
               <h3>0</h3>
-              <p>Total Users</p>
+              <p>바이패스 사용자</p>
             </li>
           </ul>
           <ul className="UsersBox3_contents">

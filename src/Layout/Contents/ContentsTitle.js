@@ -1,28 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import Breadcrumb from '../../Constants/Breadcrumb';
 import ActionCreators from '../../redux/actions';
 
-const ContentsTitle = ({menuState}) => {
+const ContentsTitle = ({title}) => {
     return <>
         <Breadcrumb />
         <h1 className="contents-container-title">
-            {menuState}
+            {title}
         </h1>
     </>
 }
 
 function mapStateToProps(state) {
     return {
-        menuState: state.menuState
+        
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        menuChange: toggle => {
-            dispatch(ActionCreators.menuStateChange(toggle));
-        },
+        
     };
 }
 

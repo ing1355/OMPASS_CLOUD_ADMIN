@@ -7,18 +7,11 @@ import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import Menu_Items from "../Sidebar/Menu_Items";
 
-const HeaderContents = ({ menuState, setIsLogin, isLogin, menuChange }) => {
-  const history = useHistory();
-
+const HeaderContents = ({ menuState, setIsLogin, menuChange }) => {
+  
   useLayoutEffect(() => {
-    menuChange(Menu_Items.find(item => item.route === window.location.pathname).name)
+    menuChange(Menu_Items.find(item => item.route === ('/' + window.location.pathname.split('/')[1])).name)
   },[])
-
-  useLayoutEffect(() => {
-    if(!isLogin) {
-      localStorage.clear();
-    }
-  },[isLogin])
 
   return (
     <div className="header-contents">
@@ -40,8 +33,7 @@ const HeaderContents = ({ menuState, setIsLogin, isLogin, menuChange }) => {
 
 function mapStateToProps(state) {
   return {
-    menuState: state.menuState,
-    isLogin: state.isLogin
+    menuState: state.menuState
   };
 }
 

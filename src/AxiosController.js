@@ -1,14 +1,12 @@
 import { message } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
 import ActionCreators from './redux/actions';
 
 const AxiosController = ({setIsLogin}) => {
     const { formatMessage } = useIntl();
-    const history = useHistory();
 
     useLayoutEffect(() => {
         axios.interceptors.request.use(req => {
