@@ -9,7 +9,7 @@ import { getAdminsApi } from "../../../Constants/Api_Route";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Admins = ({userProfile}) => {
+const Admins = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -45,9 +45,9 @@ const Admins = ({userProfile}) => {
             <tbody>
               {tableData.map((d, ind) => (
                 <tr key={ind}>
-                  <Link to={"/Admins/Detail/"}>
-                  <td>{d.lastName + d.firstName}</td>
-                  </Link>
+                  <td><Link to={"/Admins/Detail/"}>
+                    {d.lastName + d.firstName}
+                  </Link></td>
                   <td>{d.email}</td>
                   <td>{d.role}</td>
                   <td>{d.phone}</td>
@@ -70,7 +70,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   };
 }
 
