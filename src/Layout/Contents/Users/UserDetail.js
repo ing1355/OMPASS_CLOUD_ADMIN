@@ -2,7 +2,10 @@ import React from "react";
 import { Form } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
+import { useParams } from "react-router";
 const UserDetail = () => {
+  const { id } = useParams();
+  console.log(id);
   return (
     <>
       <div className="ApplicationsBox">
@@ -13,13 +16,31 @@ const UserDetail = () => {
             Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로 변경하십시오.
           </div>
         </div>
-        <Form>
+        <Form
+          onFinish={() => {
+            console.log("finish!!");
+          }}
+        >
           <Form.Item
             className="inputBox"
             label="Username"
             name="integrationKey"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+              {
+                pattern: /^[0-9]/g,
+                message: "testtest",
+              },
+              {
+                pattern: /^[A-Z]/g,
+                message: "testtest",
+              },
+            ]}
           >
             <input />
           </Form.Item>

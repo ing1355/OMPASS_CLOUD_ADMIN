@@ -23,7 +23,7 @@ const UsersTable = ({ userProfile, tableData }) => {
                 <tr
                   key={ind}
                   onClick={() => {
-                    history.push("/UserDetail");
+                    history.push("/Users/Detail/" + d.userId);
                   }}
                 >
                   <td>{d.userId}</td>
