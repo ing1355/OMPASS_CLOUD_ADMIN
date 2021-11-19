@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import UserDetail from "./UserDetail";
-const UsersTable = ({ userProfile, tableData }) => {
+const UsersTable = ({ userProfile, tableData, setDetailData }) => {
   const history = useHistory();
   return (
     <>
@@ -23,6 +23,7 @@ const UsersTable = ({ userProfile, tableData }) => {
                 <tr
                   key={ind}
                   onClick={() => {
+                    setDetailData(d);
                     history.push("/Users/Detail/" + d.userId);
                   }}
                 >

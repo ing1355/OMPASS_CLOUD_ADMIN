@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import { getApplicationDetailApi, getNewSecretKeyApi } from '../../../Constants/Api_Route';
@@ -18,6 +18,9 @@ const ApplicationDetail = ({userProfile, location, history}) => {
             console.log(data);
         })
     }
+    useEffect(() => {
+        resetSecretKey();
+    },[])
     return <>
         
     </>

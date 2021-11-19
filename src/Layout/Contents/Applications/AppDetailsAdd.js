@@ -6,10 +6,12 @@ import { message, Form } from "antd";
 import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { checkApplicationExistenceApi, getApplicationApi } from "../../../Constants/Api_Route";
+import { useHistory } from "react-router";
 
-const AppDetailsAdd = ({ userProfile }) => {
+const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
+  const history = useHistory();
 
   const onFinish = values => {
     if(!isExistCheck) return message.error('이름 중복체크를 먼저 진행해주세요.')
@@ -24,7 +26,8 @@ const AppDetailsAdd = ({ userProfile }) => {
       status: "test",
     },
       (data) => {
-        console.log(data);
+        tableDataAdd(data);
+        history.push('/Applications')
       }
     );
   }

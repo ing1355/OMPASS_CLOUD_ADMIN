@@ -18,10 +18,11 @@ import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
 
 const Applications = ({ userProfile }) => {
-  const [applications, setApplications] = useState(true);
-  const [applicationsAdd, setApplicationsAdd] = useState(false);
-  const [applicationsUpdate, setApplicationsUpdate] = useState(false);
   const [tableData, setTableData] = useState([]);
+
+  const tableDataAdd = data => {
+    setTableData([data, ...tableData]);
+  }
 
   useEffect(() => {
     CustomAxiosGet(
@@ -72,25 +73,9 @@ const Applications = ({ userProfile }) => {
                 추가
               </Button>
               </Link>
-
-              <Button
-                onClick={() => {
-                  setApplicationsUpdate(true);
-                  setApplications(false);
-                  setApplicationsAdd(false);
-                }}
-              >
-                <UserSwitchOutlined />
-                수정
-              </Button>
-
-              <Button>
-                <UsergroupDeleteOutlined />
-                삭제
-              </Button>
             </Space>
           </div>} />
-          <Route path="/Applications/Add" exact component={AppDetails}/>
+          <Route path="/Applications/Add" exact render={() => <AppDetails tableDataAdd={tableDataAdd}/>}/>
           <Route path="/Applications/Detail/:appId" component={ApplicationDetail}/>
         </Switch>
       </div>
