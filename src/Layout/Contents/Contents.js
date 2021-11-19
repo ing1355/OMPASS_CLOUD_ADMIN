@@ -15,7 +15,6 @@ const Contents = () => {
           <div className="contents-container">
             <React.Suspense fallback={<div>loading...</div>}>
               <Switch>
-                <Route path="/Applications/Detail" component={ApplicationDetail}/>
                 <Route path="/Admins/Add" component={AdminAdd}/>
                 {Route_items.map((item) => (
                   <Route

@@ -56,10 +56,10 @@
   border-radius: 5px;
 }
 
-.inputBox.hasExistCheck {
-  /* width: 50%; */
-}
-
 .inputBox.hasExistCheck > div:nth-child(2) {
   display: inline-block;
+}
+
+.inputBox > .ant-form-item-control > .ant-form-item-explain {
+  margin-left: 24px;
 }

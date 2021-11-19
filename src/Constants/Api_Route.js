@@ -12,6 +12,7 @@ export const resetPasswordVerifyApi = '/v1/reset-password-token';
 
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
+export const checkApplicationExistenceApi = (adminId, appName) => `/v1/admins/${adminId}/application/existence/${appName}`
 export const getNewSecretKeyApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/secret-key`
 
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`

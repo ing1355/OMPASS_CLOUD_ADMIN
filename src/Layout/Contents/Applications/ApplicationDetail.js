@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router';
 import { getApplicationDetailApi, getNewSecretKeyApi } from '../../../Constants/Api_Route';
 import { CustomAxiosGet, CustomAxiosPatch } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 
-const ApplicationDetail = ({userProfile}) => {
-    const appId = window.location.pathname.split('/')[3];
+const ApplicationDetail = ({userProfile, location, history}) => {
+    const {appId} = useParams();
     useLayoutEffect(() => {
         CustomAxiosGet(getApplicationDetailApi(userProfile.adminId,appId), (data) => {
             console.log(data);
@@ -18,7 +19,7 @@ const ApplicationDetail = ({userProfile}) => {
         })
     }
     return <>
-        <ContentsTitle/>
+        
     </>
 }
 
