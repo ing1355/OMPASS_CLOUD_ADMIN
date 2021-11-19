@@ -1,14 +1,25 @@
 import { Form } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginApi } from "../../Constants/Api_Route";
+import { loginApi, resetPasswordApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./Login.css";
-import jwt_decode from "jwt-decode";
 
 const Login = ({ setIsLogin, setUserProfile }) => {
   const [login, setLogin] = useState(true);
+
+  const resetPassword = (e) => {
+    e.preventDefault();
+    const {email} = e.target.elements;
+    CustomAxiosPost(resetPasswordApi,{
+      email: email.value
+    }, (data) => {
+      console.log(data);
+    })
+    setLogin(true);
+    alert("메일로 전송했습니다. 인증해주세요.");
+  }
 
   return (
     <>
@@ -69,19 +80,15 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                 <h5 className="forgetText">
                   비밀번호를 초기화 할 이메일을 입력해 주세요.
                 </h5>
-                <form>
+                <form onSubmit={resetPassword}>
                   <input
-                    id="idInput"
+                    name="email"
                     className="forgetEmail"
                     placeholder="이메일"
                     type="text"
                   ></input>
                   <button
                     type="submit"
-                    onClick={() => {
-                      setLogin(true);
-                      alert("메일로 전송했습니다. 인증해주세요.");
-                    }}
                   >
                     이메일 인증
                   </button>

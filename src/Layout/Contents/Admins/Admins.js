@@ -45,7 +45,9 @@ const Admins = ({userProfile}) => {
             <tbody>
               {tableData.map((d, ind) => (
                 <tr key={ind}>
+                  <Link to={"/Admins/Detail/"}>
                   <td>{d.lastName + d.firstName}</td>
+                  </Link>
                   <td>{d.email}</td>
                   <td>{d.role}</td>
                   <td>{d.phone}</td>
@@ -55,13 +57,6 @@ const Admins = ({userProfile}) => {
             </tbody>
           </table>
         </div>
-        {/* {adminAdd === true ? (
-          <AdminAdd setAdmin={setAdmin} setAdminAdd={setAdminAdd} />
-        ) : null}
-
-        {update === true ? (
-          <AdminUpdate setUpdate={setUpdate} setAdmin={setAdmin} />
-        ) : null} */}
       </div>
     </>
   );

@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./Users.css";
 import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
+import { getUsersApi } from "../../../Constants/Api_Route";
+import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { connect } from "react-redux";
 
-const Users = () => {
+const Users = ({userProfile}) => {
   const [test1, setTest1] = useState(true);
   const [test2, setTest2] = useState(false);
   const [test3, setTest3] = useState(false);
   const [test4, setTest4] = useState(false);
+  const [tableData, setTableData] = useState([]);
+
+  useLayoutEffect(() => {
+    CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {
+      setTableData(data);
+      console.log(data)
+    });
+  }, []);
 
   return (
     <>
@@ -39,7 +50,7 @@ const Users = () => {
                 setTest4(false);
               }}
             >
-              <h3>0</h3>
+              <h3>{tableData.length}</h3>
               <p>전체 사용자 수</p>
             </li>
             <li
@@ -93,15 +104,15 @@ const Users = () => {
                 setTest4(true);
               }}
             >
-              <h3>0</h3>
+              <h3>{tableData.filter(t => t.bypass).length}</h3>
               <p>바이패스 사용자</p>
             </li>
           </ul>
           <ul className="UsersBox3_contents">
-            {test1 === true ? <UsersTable /> : null}
-            {test2 === true ? <li>test2test2</li> : null}
-            {test3 === true ? <li>test3test3test3</li> : null}
-            {test4 === true ? <li>test4test4test4test4</li> : null}
+            {test1 && <UsersTable tableData={tableData}/>}
+            {test2 && <li>test2test2</li>}
+            {test3 && <li>test3test3test3</li>}
+            {test4 && <li>test4test4test4test4</li>}
           </ul>
         </div>
       </div>
@@ -109,4 +120,16 @@ const Users = () => {
   );
 };
 
-export default Users;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

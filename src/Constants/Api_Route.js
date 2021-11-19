@@ -5,7 +5,10 @@ export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const addAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
+
 export const signUpAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
+export const resetPasswordApi = '/v1/reset-password';
+export const resetPasswordVerifyApi = '/v1/reset-password-token';
 
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`

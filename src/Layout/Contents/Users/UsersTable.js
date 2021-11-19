@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { getUsersApi } from "../../../Constants/Api_Route";
-import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 
-const UsersTable = ({userProfile}) => {
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {
-      setTableData(data);
-      console.log(data)
-    });
-  }, []);
+const UsersTable = ({userProfile, tableData}) => {
 
   return (
     <>
