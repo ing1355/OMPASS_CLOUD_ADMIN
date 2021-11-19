@@ -73,6 +73,9 @@
   flex: 0 0 auto;
   padding: 8px 12px 8px 0;
 }
+.billing-info-container > div:last-child {
+  padding-right: 0;
+}
 
 .billing-info-card {
   width: 100%;

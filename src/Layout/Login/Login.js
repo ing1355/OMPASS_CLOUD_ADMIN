@@ -43,13 +43,13 @@ const Login = ({ setIsLogin }) => {
                   <button type="submit">로그인</button>
                 </Form>
                 <div className="forget">
-                    <span
-                      onClick={() => {
-                        setLogin(false);
-                      }}
-                    >
-                      비밀번호 찾기
-                    </span>
+                  <span
+                    onClick={() => {
+                      setLogin(false);
+                    }}
+                  >
+                    비밀번호 찾기
+                  </span>
                 </div>
               </ul>
               <ul>

@@ -4,7 +4,6 @@ import { signUpAdminApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SignUp.css";
 const SignUp = (props) => {
-
   const token = props.location ? props.location.pathname.split("/")[5] : null;
 
   useLayoutEffect(() => {
@@ -14,6 +13,7 @@ const SignUp = (props) => {
   const onFinish = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = e.target.elements;
+
     if (password.value !== passwordConfirm.value)
       return message.error("비밀번호가 일치하지 않습니다.");
     CustomAxiosPost(
@@ -37,10 +37,14 @@ const SignUp = (props) => {
   };
   return (
     <div className="signupBox">
-      <h1>OMPASS 비밀번호 변경</h1>
       <form onSubmit={onFinish}>
+        {" "}
+        <h1>OMPASS 비밀번호 변경</h1>
         <input placeholder="비밀번호를 입력해주세요" name="password" />
-        <input placeholder="비밀번호를 한번 더 입력해주세요" name="passwordConfirm" />
+        <input
+          placeholder="비밀번호를 한번 더 입력해주세요"
+          name="passwordConfirm"
+        />
         <button type="submit">비밀번호 변경</button>
       </form>
     </div>

@@ -3,7 +3,12 @@ import React from "react";
 import Contents from "./Layout/Contents/Contents";
 import Header from "./Layout/Header/Header";
 import Sidebar from "./Layout/Sidebar/Sidebar";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import Footer from "./Layout/Footer/Footer";
 import Login from "./Layout/Login/Login";
 import { IntlProvider } from "react-intl";
@@ -20,15 +25,27 @@ const App = ({ isLogin, lang }) => {
         <AxiosController />
         <Switch>
           <Route path="/sub-admin-signup" component={SignUp} />
-          <Route path="/login" render={routeInfo => isLogin ? <Redirect to="/" /> : <Login {...routeInfo} />} />
-          <Route path="/" render={routeInfo => !isLogin ? <Redirect to="/login" {...routeInfo} />
-            : <>
-              <Header {...routeInfo} />
-              <Sidebar {...routeInfo} />
-              <Contents {...routeInfo} />
-              <Footer {...routeInfo} />
-            </>
-          } />
+          <Route
+            path="/login"
+            render={(routeInfo) =>
+              isLogin ? <Redirect to="/" /> : <Login {...routeInfo} />
+            }
+          />
+          <Route
+            path="/"
+            render={(routeInfo) =>
+              !isLogin ? (
+                <Redirect to="/login" {...routeInfo} />
+              ) : (
+                <>
+                  <Header {...routeInfo} />
+                  <Sidebar {...routeInfo} />
+                  <Contents {...routeInfo} />
+                  <Footer {...routeInfo} />
+                </>
+              )
+            }
+          />
         </Switch>
       </IntlProvider>
     </Router>
