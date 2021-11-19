@@ -13,10 +13,11 @@ import {
 } from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getApplicationApi } from "../../../Constants/Api_Route";
-import { Link } from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import ApplicationDetail from "./ApplicationDetail";
 
-const Applications = ({userProfile}) => {
+const Applications = ({ userProfile }) => {
   const [applications, setApplications] = useState(true);
   const [applicationsAdd, setApplicationsAdd] = useState(false);
   const [applicationsUpdate, setApplicationsUpdate] = useState(false);
@@ -34,10 +35,10 @@ const Applications = ({userProfile}) => {
 
   return (
     <>
-      <ContentsTitle title="Applications Info"/>
+      <ContentsTitle title="Applications Info" />
       <div className="ApplicationsBox">
-        {applications === true ? (
-          <div>
+        <Switch>
+          <Route path="/Applications" exact render={routeInfo => <div>
             <table>
               <thead>
                 <tr>
@@ -64,16 +65,13 @@ const Applications = ({userProfile}) => {
               </tbody>
             </table>
             <Space className="cud">
-              <Button
-                onClick={() => {
-                  setApplications(false);
-                  setApplicationsAdd(true);
-                  setApplicationsUpdate(false);
-                }}
-              >
-                <UsergroupAddOutlined />
+              <Link to="/Applications/Add">
+                <Button
+                >
+                  <UsergroupAddOutlined />
                 추가
               </Button>
+              </Link>
 
               <Button
                 onClick={() => {
@@ -91,21 +89,10 @@ const Applications = ({userProfile}) => {
                 삭제
               </Button>
             </Space>
-          </div>
-        ) : null}
-
-        {applicationsUpdate === true ? (
-          <AppDetailsUpdate
-            setApplicationsUpdate={setApplicationsUpdate}
-            setApplications={setApplications}
-          />
-        ) : null}
-        {applicationsAdd === true ? (
-          <AppDetails
-            setApplicationsAdd={setApplicationsAdd}
-            setApplications={setApplications}
-          />
-        ) : null}
+          </div>} />
+          <Route path="/Applications/Add" exact component={AppDetails}/>
+          <Route path="/Applications/Detail/:appId" component={ApplicationDetail}/>
+        </Switch>
       </div>
     </>
   );
@@ -119,7 +106,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   };
 }
 

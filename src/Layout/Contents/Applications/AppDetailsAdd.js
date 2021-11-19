@@ -1,30 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Applications.css";
 
 import "antd/dist/antd.css";
 import { message, Form } from "antd";
-import { CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
+import { checkApplicationExistenceApi, getApplicationApi } from "../../../Constants/Api_Route";
 
-const AppDetailsAdd = ({userProfile}) => {
+const AppDetailsAdd = ({ userProfile }) => {
+  const [inputName, setInputName] = useState("");
+  const [isExistCheck, setIsExistCheck] = useState(false);
+
   const onFinish = values => {
+    if(!isExistCheck) return message.error('이름 중복체크를 먼저 진행해주세요.')
+    const { domain, redirectUri, name } = values;
     console.log(values);
     CustomAxiosPost(
-      `/v1/admins/${userProfile.adminId}/applications`,
-      {
-        domain: "https://www.ompass.kr",
-        policyId: 0,
-        redirectUri: "https://www.ompass.kr",
-        status: "test",
-      },
-      (res) => {
-        console.log(res);
+      getApplicationApi(userProfile.adminId), {
+      domain,
+      name,
+      policyId: 0,
+      redirectUri,
+      status: "test",
+    },
+      (data) => {
+        console.log(data);
       }
     );
   }
 
   const existCheck = () => {
-
+    if(!inputName) return message.error('이름을 입력해주세요.')
+    CustomAxiosGet(checkApplicationExistenceApi(userProfile.adminId, inputName), (data) => {
+      const {duplicate} = data;
+      if(duplicate) {
+        message.error('이미 존재하는 이름입니다.')
+      } else {
+        message.success('사용 가능한 이름입니다.')
+        setIsExistCheck(true);
+      }
+    })
   }
 
   return (
@@ -32,8 +47,11 @@ const AppDetailsAdd = ({userProfile}) => {
       <div className="ApplicationsBox">
         <Form
           onFinish={onFinish}
-          onValuesChange={(a, b) => {
-            console.log(a, b)
+          onValuesChange={(targetValue) => {
+            if(Object.keys(targetValue)[0] === 'name') {
+              if(isExistCheck) setIsExistCheck(false)
+              setInputName(targetValue.name);
+            }
           }}
         >
           <div className="ApplicationsTitle">
@@ -44,30 +62,50 @@ const AppDetailsAdd = ({userProfile}) => {
           <Form.Item
             className="inputBox hasExistCheck"
             label="Name"
-            name="secretKey"
+            name="name"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: '이름을 입력해주세요.'
+              }
+            ]}
           >
-            <input placeholder="Click to view." />
-            <button className="select" type="button" onClick={existCheck}>
-              중복체크
-            </button>
+            <div>
+              <input placeholder="Click to view." />
+              <button className="select" type="button" onClick={existCheck}>
+                중복체크
+              </button>
+            </div>
           </Form.Item>
           <Form.Item
             className="inputBox"
             label="Domain Address"
-            name="domainAddress"
+            name="domain"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: '도메인 주소를 입력해주세요.'
+              }
+            ]}
           >
             <input placeholder="도메인 주소를 입력하세요." />
           </Form.Item>
           <Form.Item
             className="inputBox"
             label="Redirect URL"
-            name="redirectURL"
+            name="redirectUri"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: '리다이렉트 Uri를 입력해주세요.'
+              }
+            ]}
           >
             <input placeholder="Redirect URL를 입력하세요." />
           </Form.Item>
@@ -108,7 +146,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   };
 }
 
