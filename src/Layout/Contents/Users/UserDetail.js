@@ -51,6 +51,12 @@ const UserDetail = () => {
             name="Username aliases"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "",
+              },
+            ]}
           >
             <p className="userdetailA userdetailP">
               +
@@ -74,6 +80,12 @@ const UserDetail = () => {
             name="Full name"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <input />
           </Form.Item>
@@ -83,6 +95,12 @@ const UserDetail = () => {
             name="Email"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <input />
           </Form.Item>
@@ -92,6 +110,12 @@ const UserDetail = () => {
             name="Status"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <div>
               <input className="userDetailInput" type="checkbox" name="check" />
@@ -119,6 +143,12 @@ const UserDetail = () => {
             name="Notes"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <input />
           </Form.Item>
@@ -128,6 +158,12 @@ const UserDetail = () => {
             name="Created"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <p className="userdetailP">Nov 19, 2021 6:09 AM (UTC)</p>
           </Form.Item>
@@ -137,6 +173,12 @@ const UserDetail = () => {
             name="Last login"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요.",
+              },
+            ]}
           >
             <p className="userdetailP">Never authenticated</p>
           </Form.Item>
