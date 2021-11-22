@@ -1,11 +1,11 @@
 import { message } from "antd";
 import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
-import { signUpAdminApi } from "../../Constants/Api_Route";
+import { signUpSubAdminApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
-import "./SignUp.css";
+import "./SubAdminSignUp.css";
 
-const SignUp = ({ location }) => {
+const SubAdminSignUp = ({ location }) => {
   const adminId = location ? location.pathname.split("/")[3] : null;
   const token = location ? location.pathname.split("/")[5] : null;
   
@@ -16,7 +16,7 @@ const SignUp = ({ location }) => {
     if (password.value !== passwordConfirm.value)
       return message.error("비밀번호가 일치하지 않습니다.");
     CustomAxiosPost(
-      signUpAdminApi(adminId),
+      signUpSubAdminApi(adminId),
       {
         password: password.value,
       },
@@ -59,4 +59,4 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SubAdminSignUp);

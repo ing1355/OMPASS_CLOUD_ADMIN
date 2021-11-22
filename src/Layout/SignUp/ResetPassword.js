@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import { resetPasswordVerifyApi } from "../../Constants/Api_Route";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
-import "./SignUp.css";
+import "./SubAdminSignUp.css";
 
 const ResetPassword = ({ location, history }) => {
   const token = location ? location.pathname.split("/")[5] : null;
