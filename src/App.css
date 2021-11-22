@@ -27,7 +27,20 @@ li {
 a {
   color: inherit;
 }
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .contents-container {
+  animation-name: zoomIn;
+  animation-duration: 0.5s;
   margin: 0 auto;
   width: 1200px;
   padding: 20px 64px;

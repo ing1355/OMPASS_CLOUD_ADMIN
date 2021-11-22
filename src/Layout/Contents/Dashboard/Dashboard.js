@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,6 +15,15 @@ import {
   getDashboardBottomApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
+import CustomTable from "../../../Constants/CustomTable";
+
+const columns = [
+  { name: '사용자 아이디', key: 'userId' },
+  { name: '활동', key: 'act' },
+  { name: '어플리케이션', key: 'appName' },
+  { name: '상태', key: 'status' },
+  { name: '시간', key: 'createdDate' }
+]
 
 const Dashboard = ({userProfile}) => {
   const [userNum, setUserNum] = useState(0);
@@ -24,7 +33,7 @@ const Dashboard = ({userProfile}) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     CustomAxiosGet(
       getDashboardTopApi(userProfile.adminId),
       (data) => {
@@ -50,7 +59,7 @@ const Dashboard = ({userProfile}) => {
     );
   }, []);
   return (
-    <>
+    <div className="contents-container">
       {/* <ContentsTitle /> */}
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
@@ -141,31 +150,10 @@ const Dashboard = ({userProfile}) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 최근 인증 로그
           </h4>
-          <table>
-            <thead>
-              <tr>
-                <th>사용자 아이디</th>
-                <th>활동</th>
-                <th>어플리케이션</th>
-                <th>상태</th>
-                <th>시간</th>
-              </tr>
-            </thead>
-            <tbody>
-              {authLogs.map((log, ind) => (
-                <tr key={ind}>
-                  <td>{log.userId}</td>
-                  <td>{log.act}</td>
-                  <td>{log.userId}</td>
-                  <td>{log.createdDate}</td>
-                  <td>{log.userId}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <CustomTable columns={columns} datas={authLogs}/>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

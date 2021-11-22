@@ -12,21 +12,19 @@ const Contents = () => {
     <>
       <div className="contents">
         <div className="contents-inner">
-          <div className="contents-container">
-            <React.Suspense fallback={<div>loading...</div>}>
-              <Switch>
-                <Route path="/Admins/Add" component={AdminAdd}/>
-                {Route_items.map((item) => (
-                  <Route
-                    key={item.key}
-                    path={item.route}
-                    exact={item.name === "Dashboard"}
-                    component={item.component}
-                  />
-                ))}
-              </Switch>
-            </React.Suspense>
-          </div>
+          <React.Suspense fallback={<div>loading...</div>}>
+            <Switch>
+              <Route path="/Admins/Add" component={AdminAdd} />
+              {Route_items.map((item) => (
+                <Route
+                  key={item.key}
+                  path={item.route}
+                  exact={item.name === "Dashboard"}
+                  component={item.component}
+                />
+              ))}
+            </Switch>
+          </React.Suspense>
         </div>
       </div>
     </>

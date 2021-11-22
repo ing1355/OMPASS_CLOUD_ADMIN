@@ -13,11 +13,11 @@ const UserDetail = ({ data }) => {
         !data ? <Redirect to="/Users" />
           : <div className="ApplicationsBox">
             <div className="billing-change-help-container">
-              <div className="billing-change-help-icon">test</div>
+              <div className="billing-change-help-icon"/>
               <div className="billing-change-help-msg">
                 평가판이 종료되면 최대 10명의 사용자에게 항상 무료로 제공되는 OMPASS
                 Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로 변경하십시오.
-        </div>
+              </div>
             </div>
             <Form
               onFinish={(values) => {
@@ -30,19 +30,18 @@ const UserDetail = ({ data }) => {
                 name="integrationKey"
                 labelCol={{ span: labelColSpan }}
                 labelAlign="left"
-                rules={[
-                ]}
+                
               >
                 <input />
               </Form.Item>
 
-              <div className="inputBoxDiv">
-                <div className="inputBoxDiv-label">
+              <div className="ant-row inputBox ant-form-item">
+                <div className="ant-col-4 ant-form-item-label-left">
                   <label>
                     + Add a username alias
                   </label>
                 </div>
-                <div className="inputBoxDiv-content">
+                <div className="ant-col ant-form-item-control">
                   <p className="userdetailP">Users can have up to 8 aliases.</p>
                   <p className="userdetailP">
                     Optionally, you may choose to reserve using an alias number for a

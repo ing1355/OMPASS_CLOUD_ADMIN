@@ -5,7 +5,7 @@ import { resetPasswordVerifyApi } from "../../Constants/Api_Route";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
 import "./SignUp.css";
 
-const ResetPassword = ({ location, userProfile }) => {
+const ResetPassword = ({ location, history }) => {
   const token = location ? location.pathname.split("/")[5] : null;
 
   const onFinish = (e) => {
@@ -23,7 +23,7 @@ const ResetPassword = ({ location, userProfile }) => {
         alert(
           "이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다."
         );
-        window.close();
+        history.push('/');
       },
       null,
       {
@@ -51,7 +51,6 @@ const ResetPassword = ({ location, userProfile }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile,
   };
 }
 

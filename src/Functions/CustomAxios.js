@@ -1,34 +1,63 @@
 import axios from "axios";
 
 export function CustomAxiosGet(url, successCallback, errorCallback, config) {
-    return axios.get(url, {...config,
+    return axios.get(url, {
+        ...config,
         headers: {
             Authorization: localStorage.getItem('Authorization')
-        }}).then(res => {
-        if(successCallback) successCallback(res.data.data);
+        }
+    }).then(res => {
+        if (successCallback) successCallback(res.data.data);
     }).catch(err => {
-        if(errorCallback) errorCallback();
+        if (errorCallback) errorCallback();
     })
 }
 
 export function CustomAxiosPost(url, params, successCallback, errorCallback, config) {
-    return axios.post(url, params, {headers: {
-        Authorization: localStorage.getItem('Authorization')
-    }, ...config}).then(res => {
-        if(url.includes('login')) localStorage.setItem('Authorization',res.headers.authorization);
-        if(successCallback) successCallback(res.data.data);
+    return axios.post(url, params, {
+        headers: {
+            Authorization: localStorage.getItem('Authorization')
+        }, ...config
+    }).then(res => {
+        if (url.includes('login')) localStorage.setItem('Authorization', res.headers.authorization);
+        if (successCallback) successCallback(res.data.data);
     }).catch(err => {
-        if(errorCallback) errorCallback();
+        if (errorCallback) errorCallback();
+    })
+}
+
+export function CustomAxiosPut(url, params, successCallback, errorCallback, config) {
+    return axios.put(url, params, {
+        headers: {
+            Authorization: localStorage.getItem('Authorization')
+        }, ...config
+    }).then(res => {
+        if (successCallback) successCallback(res.data.data);
+    }).catch(err => {
+        if (errorCallback) errorCallback();
     })
 }
 
 export function CustomAxiosPatch(url, data, successCallback, errorCallback, config) {
-    return axios.patch(url, data, {...config,
+    return axios.patch(url, data, {
         headers: {
             Authorization: localStorage.getItem('Authorization')
-        }}).then(res => {
-        if(successCallback) successCallback(res.data.data);
+        }, ...config
+    }).then(res => {
+        if (successCallback) successCallback(res.data.data);
     }).catch(err => {
-        if(errorCallback) errorCallback();
+        if (errorCallback) errorCallback();
+    })
+}
+
+export function CustomAxiosDelete(url, successCallback, errorCallback, config) {
+    return axios.delete(url, {
+        headers: {
+            Authorization: localStorage.getItem('Authorization')
+        }, ...config
+    }).then(res => {
+        if (successCallback) successCallback(res.data.data);
+    }).catch(err => {
+        if (errorCallback) errorCallback();
     })
 }

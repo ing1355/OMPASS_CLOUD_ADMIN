@@ -5,9 +5,10 @@ import { signUpAdminApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SignUp.css";
 
-const SignUp = ({ location, userProfile }) => {
+const SignUp = ({ location }) => {
+  const adminId = location ? location.pathname.split("/")[3] : null;
   const token = location ? location.pathname.split("/")[5] : null;
-
+  
   const onFinish = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = e.target.elements;
@@ -15,7 +16,7 @@ const SignUp = ({ location, userProfile }) => {
     if (password.value !== passwordConfirm.value)
       return message.error("비밀번호가 일치하지 않습니다.");
     CustomAxiosPost(
-      signUpAdminApi(userProfile.adminId),
+      signUpAdminApi(adminId),
       {
         password: password.value,
       },
@@ -51,7 +52,6 @@ const SignUp = ({ location, userProfile }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile,
   };
 }
 

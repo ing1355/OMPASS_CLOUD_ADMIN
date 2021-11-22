@@ -16,12 +16,28 @@ import { getApplicationApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
+import CustomTable from "../../../Constants/CustomTable";
+
+const makeDetail = (d) => <Link to={`/Applications/Detail/${d.appId}`}>
+    <button>Detail</button>
+  </Link>
+
+const columns = [
+  { name: '이름', key: 'name' },
+  { name: '상태', key: 'status' },
+  { name: '디테일', key: 'detail', render: makeDetail}
+]
 
 const Applications = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
 
   const tableDataAdd = data => {
     setTableData([data, ...tableData]);
+  }
+
+  const tableDataDelete = id => {
+    console.log(tableData, id)
+    setTableData(tableData.filter(d => d.appId !== id * 1))
   }
 
   useEffect(() => {
@@ -35,51 +51,25 @@ const Applications = ({ userProfile }) => {
   }, []);
 
   return (
-    <>
+    <div className="contents-container">
       <ContentsTitle title="Applications Info" />
       <div className="ApplicationsBox">
         <Switch>
           <Route path="/Applications" exact render={routeInfo => <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>이름</th>
-                  <th>상태</th>
-                  <th>디테일</th>
-                  {/* <th></th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  tableData.map((d, ind) => <tr key={ind}>
-                    <td>{d.name}</td>
-                    <td>{d.status}</td>
-                    <td>
-                      <Link to={`/Applications/Detail/${d.appId}`}>
-                        <button>
-                          Detail
-                      </button>
-                      </Link>
-                    </td>
-                  </tr>)
-                }
-              </tbody>
-            </table>
+            <CustomTable columns={columns} datas={tableData}/>
             <Space className="cud">
               <Link to="/Applications/Add">
-                <Button
-                >
-                  <UsergroupAddOutlined />
-                추가
+                <Button>
+                  <UsergroupAddOutlined />추가
               </Button>
               </Link>
             </Space>
           </div>} />
-          <Route path="/Applications/Add" exact render={() => <AppDetails tableDataAdd={tableDataAdd}/>}/>
-          <Route path="/Applications/Detail/:appId" component={ApplicationDetail}/>
+          <Route path="/Applications/Add" exact render={() => <AppDetails tableDataAdd={tableDataAdd} />} />
+          <Route path="/Applications/Detail/:appId" render={() => <ApplicationDetail tableDataDelete={tableDataDelete}/>} />
         </Switch>
       </div>
-    </>
+    </div>
   );
 };
 

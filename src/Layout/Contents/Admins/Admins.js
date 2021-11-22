@@ -8,19 +8,28 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getAdminsApi } from "../../../Constants/Api_Route";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import CustomTable from "../../../Constants/CustomTable";
+
+const columns = [
+  { name: '이름', key: 'name' },
+  { name: '이메일', key: 'email' },
+  { name: '권한', key: 'role' },
+  { name: '폰', key: 'phone' },
+  { name: '국가', key: 'country' }
+]
 
 const Admins = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     CustomAxiosGet(getAdminsApi(userProfile.adminId), (data) => {
-      setTableData(data);
+      setTableData(data.map(d => ({ name: d.lastName + d.firstName, email: d.email, role: d.role, phone: d.phone, country: d.country })));
       console.log(data);
     });
   }, []);
 
   return (
-    <>
+    <div className="contents-container">
       <ContentsTitle title="Admins Info" />
       <div className="AdminBox">
         <div>
@@ -32,33 +41,10 @@ const Admins = ({ userProfile }) => {
               </button>
             </Link>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>권한</th>
-                <th>폰</th>
-                <th>국가</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableData.map((d, ind) => (
-                <tr key={ind}>
-                  <td><Link to={"/Admins/Detail/"}>
-                    {d.lastName + d.firstName}
-                  </Link></td>
-                  <td>{d.email}</td>
-                  <td>{d.role}</td>
-                  <td>{d.phone}</td>
-                  <td>{d.country}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <CustomTable columns={columns} datas={tableData} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

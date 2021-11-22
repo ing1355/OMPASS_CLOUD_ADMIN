@@ -99,7 +99,7 @@ const Billing = ({userProfile}) => {
     }
 
     return (
-        <>
+        <div className="contents-container">
             <ContentsTitle title="Billings Info"/>
             <div className="billing-change-help-container">
                 <div className="billing-change-help-icon">test</div>
@@ -215,7 +215,7 @@ const Billing = ({userProfile}) => {
                     </div>
                 </form>
             </section>
-        </>
+        </div>
     );
 };
 

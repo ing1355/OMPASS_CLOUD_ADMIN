@@ -16,14 +16,14 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const onFinish = values => {
     if(!isExistCheck) return message.error('이름 중복체크를 먼저 진행해주세요.')
     const { domain, redirectUri, name } = values;
-    console.log(values);
+    
     CustomAxiosPost(
       getApplicationApi(userProfile.adminId), {
       domain,
       name,
       policyId: 0,
       redirectUri,
-      status: "test",
+      status: "INACTIVE",
     },
       (data) => {
         tableDataAdd(data);
@@ -88,6 +88,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             name="domain"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            initialValue=""
             rules={[
               {
                 required: true,
@@ -103,6 +104,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             name="redirectUri"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            initialValue=""
             rules={[
               {
                 required: true,
@@ -133,7 +135,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             className="ApplicationsSave"
             type="submit"
           >
-            저장
+            추가
           </button>
         </Form>
       </div>
