@@ -1,4 +1,3 @@
-import Menu_Items from '../../Layout/Sidebar/Menu_Items';
 import types from '../types';
 
 const menuState = null;

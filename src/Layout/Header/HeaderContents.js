@@ -7,10 +7,13 @@ import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import Menu_Items from "../Sidebar/Menu_Items";
 
-const HeaderContents = ({ menuState, setIsLogin, menuChange }) => {
+const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
+  const {role} = userProfile;
   
   useLayoutEffect(() => {
-    menuChange(Menu_Items.find(item => item.route === ('/' + window.location.pathname.split('/')[1])).name)
+    const target = Menu_Items(role).find(item => item.route === ('/' + window.location.pathname.split('/')[1]));
+    if(target) menuChange(target.name)
+    else menuChange('Dashboard')
   },[])
 
   return (
@@ -33,7 +36,8 @@ const HeaderContents = ({ menuState, setIsLogin, menuChange }) => {
 
 function mapStateToProps(state) {
   return {
-    menuState: state.menuState
+    menuState: state.menuState,
+    userProfile: state.userProfile
   };
 }
 
