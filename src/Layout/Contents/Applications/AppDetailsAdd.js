@@ -6,25 +6,28 @@ import { message, Form } from "antd";
 import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { checkApplicationExistenceApi, getApplicationApi } from "../../../Constants/Api_Route";
+import { useHistory } from "react-router";
 
-const AppDetailsAdd = ({ userProfile }) => {
+const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
+  const history = useHistory();
 
   const onFinish = values => {
     if(!isExistCheck) return message.error('이름 중복체크를 먼저 진행해주세요.')
     const { domain, redirectUri, name } = values;
-    console.log(values);
+    
     CustomAxiosPost(
       getApplicationApi(userProfile.adminId), {
       domain,
       name,
       policyId: 0,
       redirectUri,
-      status: "test",
+      status: "INACTIVE",
     },
       (data) => {
-        console.log(data);
+        tableDataAdd(data);
+        history.push('/Applications')
       }
     );
   }
@@ -85,6 +88,7 @@ const AppDetailsAdd = ({ userProfile }) => {
             name="domain"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            initialValue=""
             rules={[
               {
                 required: true,
@@ -100,6 +104,7 @@ const AppDetailsAdd = ({ userProfile }) => {
             name="redirectUri"
             labelCol={{ span: 3 }}
             labelAlign="left"
+            initialValue=""
             rules={[
               {
                 required: true,
@@ -130,7 +135,7 @@ const AppDetailsAdd = ({ userProfile }) => {
             className="ApplicationsSave"
             type="submit"
           >
-            저장
+            추가
           </button>
         </Form>
       </div>

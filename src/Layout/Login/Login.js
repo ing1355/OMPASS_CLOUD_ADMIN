@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { loginApi, resetPasswordApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
+import { popupCenter } from "./fidoPopUp";
 import "./Login.css";
 
 const Login = ({ setIsLogin, setUserProfile }) => {
@@ -21,6 +22,30 @@ const Login = ({ setIsLogin, setUserProfile }) => {
     alert("메일로 전송했습니다. 인증해주세요.");
   }
 
+  const loginRequest = (values) => {
+    const { userId, password } = values;
+    CustomAxiosPost(
+      loginApi,
+      {
+        email: userId,
+        password: password,
+      },
+      (data) => {
+        const {ompass, adminId, email, role} = data;
+        setUserProfile({
+          adminId,
+          email,
+          role
+        });
+        if(ompass) {
+          popupCenter({ url : null, title: 'FIDO2 AUTHENTICATE', w: 800, h: 500 });
+        } else {
+          setIsLogin(true);
+        }
+      }
+    );
+  }
+
   return (
     <>
       <div className="LoginBox">
@@ -29,26 +54,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
-                <Form
-                  onFinish={(values) => {
-                    const { userId, password } = values;
-                    CustomAxiosPost(
-                      loginApi,
-                      {
-                        email: userId,
-                        password: password,
-                      },
-                      (data) => {
-                        setUserProfile({
-                          adminId: data.adminId,
-                          email: data.email,
-                          role: data.role,
-                        });
-                        setIsLogin(true);
-                      }
-                    );
-                  }}
-                >
+                <Form onFinish={loginRequest}>
                   <Form.Item name="userId">
                     <input placeholder="아이디" type="text"></input>
                   </Form.Item>

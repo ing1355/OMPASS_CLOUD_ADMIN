@@ -98,3 +98,14 @@
 .userDetailInputBox div:nth-child(3) p {
   margin-bottom: 0 !important;
 }
+
+.inputBoxDiv {
+  display: flex;
+}
+
+.inputBoxDiv > .inputBoxDiv-label {
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(0,0,0,0.85);
+}

@@ -15,6 +15,7 @@ const Users = ({ userProfile }) => {
   const [test3, setTest3] = useState(false);
   const [test4, setTest4] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [detailData, setDetailData] = useState(null);
 
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {
@@ -24,7 +25,7 @@ const Users = ({ userProfile }) => {
   }, []);
 
   return (
-    <>
+    <div className="contents-container">
       <ContentsTitle title="Users Info" />
       <div className="UsersdBox">
         <Switch>
@@ -47,8 +48,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test1 === true
                           ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
+                            borderBottom: "5px solid rgb(92, 106, 119)",
+                          }
                           : null
                       }
                       onClick={() => {
@@ -65,8 +66,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test2 === true
                           ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
+                            borderBottom: "5px solid rgb(92, 106, 119)",
+                          }
                           : null
                       }
                       onClick={() => {
@@ -83,8 +84,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test3 === true
                           ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
+                            borderBottom: "5px solid rgb(92, 106, 119)",
+                          }
                           : null
                       }
                       onClick={() => {
@@ -101,8 +102,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test4 === true
                           ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
+                            borderBottom: "5px solid rgb(92, 106, 119)",
+                          }
                           : null
                       }
                       onClick={() => {
@@ -117,7 +118,7 @@ const Users = ({ userProfile }) => {
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
-                    {test1 && <UsersTable tableData={tableData} />}
+                    {test1 && <UsersTable tableData={tableData} setDetailData={setDetailData} />}
                     {test2 && <li>test2test2</li>}
                     {test3 && <li>test3test3test3</li>}
                     {test4 && <li>test4test4test4test4</li>}
@@ -126,10 +127,10 @@ const Users = ({ userProfile }) => {
               </>
             )}
           />
-          <Route path="/Users/Detail/:id" component={UserDetail} />
+          <Route path="/Users/Detail/:id" render={routeInfo => <UserDetail {...routeInfo} data={detailData} />} />
         </Switch>
       </div>
-    </>
+    </div>
   );
 };
 

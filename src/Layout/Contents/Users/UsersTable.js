@@ -1,40 +1,28 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import UserDetail from "./UserDetail";
-const UsersTable = ({ userProfile, tableData }) => {
+import { Switch } from 'antd';
+import CustomTable from "../../../Constants/CustomTable";
+
+const columns = [
+  { name: '이름', key: 'userId' },
+  { name: '이메일', key: 'appName' },
+  { name: '상태', key: 'type' },
+  { name: '마지막 로그인', key: 'updateDate' },
+  { name: '바이패스', key: 'bypass', render: (d) => d.bypass ? 'ACTIVE' : 'INACTIVE'},
+]
+
+const UsersTable = ({ tableData, setDetailData }) => {
   const history = useHistory();
+  const clickToDetail = (rowData) => {
+    setDetailData(rowData);
+    history.push("/Users/Detail/" + rowData.userId);
+  }
   return (
     <>
       <ul className="UsersBox3_contents">
         <li>
-          <table>
-            <thead>
-              <tr>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>어플리케이션</th>
-                <th>상태</th>
-                <th>마지막로그인</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableData.map((d, ind) => (
-                <tr
-                  key={ind}
-                  onClick={() => {
-                    history.push("/Users/Detail/" + d.userId);
-                  }}
-                >
-                  <td>{d.userId}</td>
-                  <td>{d.appName}</td>
-                  <td>{d.bypass.toString()}</td>
-                  <td>{d.type}</td>
-                  <td>{d.updateDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <CustomTable columns={columns} datas={tableData} rowClick={clickToDetail} />
         </li>
       </ul>
     </>
@@ -43,7 +31,6 @@ const UsersTable = ({ userProfile, tableData }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile,
   };
 }
 

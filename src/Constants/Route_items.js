@@ -1,7 +1,7 @@
 import { lazy } from "react";
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));
-// const Policies = lazy(() => import("../Layout/Contents/Policies/Policies"));
+const Policies = lazy(() => import("../Layout/Contents/Policies/Policies"));
 const Users = lazy(() => import("../Layout/Contents/Users/Users"));
 // const TwoFactorDevices = lazy(() =>
 //   import("../Layout/Contents/TwoFactorDevices/TwoFactorDevices")
@@ -20,12 +20,12 @@ const route_info = [
     route: "/",
     component: Dashboard,
   },
-  // {
-  //   key: "Policies",
-  //   name: "Policies",
-  //   route: "/Policies",
-  //   component: Policies,
-  // },
+  {
+    key: "Policies",
+    name: "Policies",
+    route: "/Policies",
+    component: Policies,
+  },
   { key: "Users", name: "Users", route: "/Users", component: Users },
   // {
   //   key: "2FA Devices",

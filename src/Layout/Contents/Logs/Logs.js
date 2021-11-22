@@ -4,8 +4,17 @@ import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
+import CustomTable from "../../../Constants/CustomTable";
 
-const Logs = ({userProfile}) => {
+const columns = [
+  { name: 'User ID', key: 'userId' },
+  { name: 'Action', key: 'act' },
+  { name: 'Application Name', key: 'appName' },
+  { name: 'Status', key: 'status' },
+  { name: 'Time', key: 'createdDate' }
+]
+
+const Logs = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -18,31 +27,12 @@ const Logs = ({userProfile}) => {
   }, []);
 
   return (
-    <>
-      <ContentsTitle title="Logs Info"/>
+    <div className="contents-container">
+      <ContentsTitle title="Logs Info" />
       <div className="LogBox">
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Action</th>
-              <th>Application Name</th>
-              <th>Status</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((item, ind) => <tr key={ind}>
-              <td>{item.userId}</td>
-              <td>{item.act}</td>
-              <td>{item.appName}</td>
-              <td>{item.status}</td>
-              <td>{item.createdDate}</td>
-            </tr>)}
-          </tbody>
-        </table>
+        <CustomTable columns={columns} datas={tableData} />
       </div>
-    </>
+    </div>
   );
 };
 
@@ -54,7 +44,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   };
 }
 

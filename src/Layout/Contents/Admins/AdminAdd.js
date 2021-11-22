@@ -33,12 +33,9 @@ const AdminAdd = ({ userProfile }) => {
         lastName: lastName.value,
         phone: inputMobile,
         role: "ADMIN",
-      },
-      () => {
-        message.success("인증 메일 발송에 성공하였습니다.");
-        history.push("/Admins");
-      }
-    );
+      });
+    message.success("인증 메일 발송에 성공하였습니다.");
+    history.push("/Admins");
   };
 
   return (
