@@ -6,7 +6,9 @@ export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const addAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
 
-export const signUpAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
+export const signUpSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
+export const signUpAdminApi = `/v1/admins/signup-token`
+
 export const resetPasswordApi = '/v1/reset-password';
 export const resetPasswordVerifyApi = '/v1/reset-password-token';
 

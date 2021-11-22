@@ -16,7 +16,8 @@ import { connect } from "react-redux";
 import AxiosController from "./AxiosController";
 import locale from "./locale";
 import "antd/dist/antd.css";
-import SignUp from "./Layout/SignUp/SignUp";
+import SubAdminSignUp from "./Layout/SignUp/SubAdminSignUp";
+import AdminSignUp from "./Layout/SignUp/AdminSignUp";
 import ActionCreators from "./redux/actions";
 import ResetPassword from "./Layout/SignUp/ResetPassword";
 
@@ -35,7 +36,8 @@ const App = ({ isLogin, lang, setUserProfile }) => {
       <IntlProvider locale={lang} messages={locale[lang]}>
         <AxiosController />
         <Switch>
-          <Route path="/sub-admin-signup" component={SignUp} />
+          <Route path="/admin-signup" component={AdminSignUp} />
+          <Route path="/sub-admin-signup" component={SubAdminSignUp} />
           <Route path="/reset-password" component={ResetPassword} />
           <Route
             path="/login"

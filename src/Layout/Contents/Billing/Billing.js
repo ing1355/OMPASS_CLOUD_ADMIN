@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { getBillingKeyApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
@@ -99,7 +100,7 @@ const Billing = ({userProfile}) => {
     }
 
     return (
-        <div className="contents-container">
+        userProfile.role === 'ADMIN' ? <div className="contents-container">
             <ContentsTitle title="Billings Info"/>
             <div className="billing-change-help-container">
                 <div className="billing-change-help-icon">test</div>
@@ -215,7 +216,7 @@ const Billing = ({userProfile}) => {
                     </div>
                 </form>
             </section>
-        </div>
+        </div> : <Redirect to="/"/>
     );
 };
 

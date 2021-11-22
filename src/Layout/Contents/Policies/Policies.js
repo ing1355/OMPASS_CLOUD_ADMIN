@@ -21,16 +21,15 @@ const Policies = () => {
           </div>
           <Space>
             <button>기본값으로 변경</button>
-            <button>닫기</button>
+            <button onClick={() => {
+              setEditDrawerOpen(false);
+            }}>닫기</button>
           </Space>
         </div>}
         visible={editDrawerOpen}
         closable={false}
         getContainer={false}
         placement="right"
-        onClose={() => {
-          setEditDrawerOpen(false);
-        }}
         style={{ position: 'absolute' }}
         bodyStyle={{ paddingBottom: 80 }}
         destroyOnClose
