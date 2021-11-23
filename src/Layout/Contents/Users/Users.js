@@ -15,7 +15,7 @@ const Users = ({ userProfile }) => {
   const [test3, setTest3] = useState(false);
   const [test4, setTest4] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [detailData, setDetailData] = useState(null);
+  const [detailData, setDetailData] = useState({});
 
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {

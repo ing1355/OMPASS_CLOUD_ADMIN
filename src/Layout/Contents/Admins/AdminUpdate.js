@@ -1,59 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import { message } from "antd";
+import { Redirect, useHistory } from "react-router-dom";
+import { CustomAxiosDelete, CustomAxiosPut } from "../../../Functions/CustomAxios";
+import { updateAdminApi, deleteAdminApi } from "../../../Constants/Api_Route";
 
-const AdminUpdate = (props) => {
+const AdminUpdate = ({ data, deleteEvent, updateEvent }) => {
+  const { adminId, country, email, firstName, lastName, phone, role } = data;
+  const history = useHistory();
+  const [inputMobile, setInputMobile] = useState(phone);
+  const [countryCode, setCountryCode] = useState(country);
+
+  const onFinish = (e) => {
+    e.preventDefault();
+    const {firstName, lastName, password, passwordConfirm} = e.target.elements;
+    if(password.value || passwordConfirm.value) {
+      if(password.value !== passwordConfirm.value) {
+        return message.error('비밀번호가 일치하지 않습니다.')
+      }
+    }
+    CustomAxiosPut(updateAdminApi(adminId), {
+      country: countryCode,
+      phone: inputMobile,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      password: password.value ? password.value : null,
+    }, () => {
+      updateEvent({...data, country: countryCode, phone: inputMobile, firstName: firstName.value, lastName: lastName.value})
+      history.push('/Admins')
+    })
+  }
+
+  const onDelete = () => {
+    if(role === 'ADMIN') return message.error('관리자는 삭제할 수 없습니다.')
+    CustomAxiosDelete(deleteAdminApi(adminId),() => {
+      deleteEvent(adminId);
+      history.push('/Admins');
+    })
+  }
+
   return (
     <>
-      <div className="AdminBox">
-        <form className="updateForm">
+      {Object.keys(data).length > 0 ? <div className="AdminBox">
+        <form className="updateForm" onSubmit={onFinish}>
           <div className="inputBox">
-            <span>Name</span>
-            <input placeholder="이름을 입력하세요." />
+            <span>First Name</span>
+            <input placeholder="이름을 입력하세요." name="firstName" defaultValue={firstName} />
+          </div>
+          <div className="inputBox">
+            <span>Last Name</span>
+            <input placeholder="이름을 입력하세요." name="lastName" defaultValue={lastName} />
           </div>
           <div className="inputBox">
             <span>Email address</span>
-            <p className="updateInfo">dbflagovl12@naver.com</p>
+            <p className="updateInfo">{email}</p>
           </div>
-          <div className="inputBox">
-            <span>Last login</span>
-            <p className="updateInfo">Nov 9, 2021 6:42 AM (UTC)</p>
-          </div>
-
           <div className="inputBox">
             <span>New password</span>
-            <input placeholder="패스워드를 입력하세요." />
+            <input placeholder="패스워드를 입력하세요." name="password"/>
           </div>
           <div className="inputBox">
             <span>Confirm new password</span>
-            <input placeholder="패스워드를 입력하세요." />
+            <input placeholder="패스워드를 입력하세요." name="passwordConfirm"/>
           </div>
           <div className="inputBox2">
             <span>Phone</span>
             <div className="phoneBox">
               <PhoneInput
                 className="phoneInput"
-                country={"kr"}
+                country={countryCode}
+                value={inputMobile}
+                onChange={(value, countryInfo) => {
+                  setInputMobile(value);
+                  if(countryCode !== countryInfo.countryCode) setCountryCode(countryInfo.countryCode);
+                }}
                 preferredCountries={["kr", "us"]}
               />
             </div>
           </div>
+          <button className="adminUpdateButton" type="submit">
+            변경
+          </button>
+          <button className="adminUpdateButton" type="button" onClick={onDelete}>
+            삭제
+          </button>
         </form>
-        <button
-          className="adminUpdateButton"
-          onClick={() => {
-            props.setAdmin(true);
-            props.setUpdate(false);
-            message.success("변경되었습니다");
-          }}
-        >
-          변경
-        </button>
       </div>
+        : <Redirect to="/Admins" />}
     </>
   );
 };

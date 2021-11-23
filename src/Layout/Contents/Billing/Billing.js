@@ -1,25 +1,23 @@
 import { message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getBillingKeyApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
+import CustomConfirm from '../../../Constants/CustomConfirm';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 import './Billing.css'
 
-const Billing = ({userProfile}) => {
-    const [billingKey, setBillingKey] = useState(null);
-    const [inputEdtion, setInputEdtion] = useState('OMPASS Free');
+const Billing = ({ userProfile }) => {
+    const { adminId } = userProfile;
+    const [inputEdition, setInputEdition] = useState('OMPASS Free');
+    const [confirmModal, setConfirmModal] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [inputTerm, setInputTerm] = useState(null);
+    const [inputUserNum, setInputUserNum] = useState(null);
 
-    useEffect(() => {
-        CustomAxiosPost(getBillingKeyApi(userProfile.adminId), null, data => {
-            window.IMP.init('imp92288614');
-            setBillingKey(data);
-        })
-    }, [])
-
-    const changeEdtion = e => {
-        setInputEdtion(e.target.value);
+    const changeEdition = e => {
+        setInputEdition(e.target.value);
     }
 
     const billingsInfo = [
@@ -46,62 +44,82 @@ const Billing = ({userProfile}) => {
         </div>
     );
 
+    const closeConfirmModal = () => {
+        setConfirmModal(false);
+    }
+
     const onFinish = e => {
         e.preventDefault()
         const { check, edition, term, userNum } = e.target.elements;
         if (!check.checked) return message.error('Agreement에 체크해주세요.')
-        const { merchant_uid, name, amount, customer_uid, buyer_email, buyer_name, buyer_tel } = billingKey;
-        console.log(billingKey)
-        window.IMP.request_pay({
-            merchant_uid,
-            name,
-            amount,
-            customer_uid,
-            buyer_email,
-            buyer_name,
-            buyer_tel
-        }, res => {
-            const { success, apply_num, bank_name, buyer_addr, buyer_email, buyer_name, buyer_postcode, buyer_tel, card_name, card_number, card_quota, currency, custom_data,
-                customer_uid, imp_uid, merchant_uid, name, paid_amount, paid_at, pay_method, pg_provider, pg_tid, pg_type, receipt_url, status } = res;
-            console.log(res);
-            if (success) {
-                CustomAxiosPost(subscriptionIamportApi(userProfile.adminId), {
-                    apply_num,
-                    bank_name,
-                    buyer_addr,
-                    buyer_email,
-                    buyer_name,
-                    buyer_postcode,
-                    buyer_tel,
-                    card_name,
-                    card_number,
-                    card_quota,
-                    currency,
-                    custom_data,
-                    customer_uid,
-                    imp_uid,
-                    merchant_uid,
-                    name,
-                    paid_amount,
-                    paid_at,
-                    pay_method,
-                    pg_provider,
-                    pg_tid,
-                    pg_type,
-                    receipt_url,
-                    status
-                }, () => {
+        setInputTerm(term.value)
+        setInputUserNum(userNum.value)
+        setConfirmModal(true);
+    }
 
-                })
-            } else {
+    const requestPayment = () => {
+        setConfirmLoading(true);
+        CustomAxiosPost(getBillingKeyApi(adminId), {
+            paymentInterval: inputTerm,
+            users: inputUserNum
+        }, data => {
+            const { merchant_uid, name, amount, customer_uid, buyer_email, buyer_name, buyer_tel } = data;
+            setConfirmLoading(false);
+            setConfirmModal(false);
+            window.IMP.init('imp92288614');
+            window.IMP.request_pay({
+                merchant_uid,
+                name,
+                amount,
+                customer_uid,
+                buyer_email,
+                buyer_name,
+                buyer_tel
+            }, res => {
+                const { success, apply_num, bank_name, buyer_addr, buyer_email, buyer_name, buyer_postcode, buyer_tel, card_name, card_number, card_quota, currency, custom_data,
+                    customer_uid, imp_uid, merchant_uid, name, paid_amount, paid_at, pay_method, pg_provider, pg_tid, pg_type, receipt_url, status } = res;
+                console.log(res);
+                if (success) {
+                    CustomAxiosPost(subscriptionIamportApi(adminId), {
+                        apply_num,
+                        bank_name,
+                        buyer_addr,
+                        buyer_email,
+                        buyer_name,
+                        buyer_postcode,
+                        buyer_tel,
+                        card_name,
+                        card_number,
+                        card_quota,
+                        currency,
+                        custom_data,
+                        customer_uid,
+                        imp_uid,
+                        merchant_uid,
+                        name,
+                        paid_amount,
+                        paid_at,
+                        pay_method,
+                        pg_provider,
+                        pg_tid,
+                        pg_type,
+                        receipt_url,
+                        status
+                    }, () => {
 
-            }
+                    })
+                } else {
+
+                }
+            })
+        }, () => {
+            setConfirmLoading(false);
         })
     }
 
     return (
         userProfile.role === 'ADMIN' ? <div className="contents-container">
-            <ContentsTitle title="Billings Info"/>
+            <ContentsTitle title="Billings Info" />
             <div className="billing-change-help-container">
                 <div className="billing-change-help-icon">test</div>
                 <div className="billing-change-help-msg">
@@ -149,7 +167,7 @@ const Billing = ({userProfile}) => {
                         <select
                             className="billing-change-form-select"
                             name="edition"
-                            onChange={changeEdtion}
+                            onChange={changeEdition}
                         >
                             {billingsInfo.map((item, ind) => (
                                 <option key={ind} value={item.cardTitle}>
@@ -163,11 +181,11 @@ const Billing = ({userProfile}) => {
                         <div>
                             <select className="billing-change-form-select" name="userNum">
                                 {
-                                    inputEdtion === 'OMPASS Free' ? <option value={10}>
+                                    inputEdition === 'OMPASS Free' ? <option value={10}>
                                         {10}
                                     </option> : new Array(1000).fill(1).map((item, ind) => (
-                                        <option key={ind} value={ind}>
-                                            {ind}
+                                        <option key={ind} value={ind + 1}>
+                                            {ind + 1}
                                         </option>
                                     ))
                                 }
@@ -186,8 +204,8 @@ const Billing = ({userProfile}) => {
                         <label className="billing-change-form-label">Term</label>
                         <select
                             className="billing-change-form-select" name="term">
-                            <option value="Monthly">Monthly</option>
-                            <option value="Annual">Annual</option>
+                            <option value="MONTHLY">Monthly</option>
+                            <option value="ANNUALY">Annual</option>
                         </select>
                     </div>
                     <div className="billing-change-item">
@@ -198,7 +216,7 @@ const Billing = ({userProfile}) => {
                     <div className="billing-change-item">
                         <label className="billing-change-form-label">Agreement</label>
                         <div>
-                            <input type="checkbox" name="check"/>
+                            <input type="checkbox" name="check" />
                             <label>
                                 {" "}
                                 I agree to the Terms and Conditions as well as well pricing and
@@ -216,20 +234,26 @@ const Billing = ({userProfile}) => {
                     </div>
                 </form>
             </section>
-        </div> : <Redirect to="/"/>
+            <CustomConfirm visible={confirmModal} confirmCallback={requestPayment} okLoading={confirmLoading} cancelCallback={closeConfirmModal}>
+                Edition : {inputEdition}<br/>
+                User Nums : {inputUserNum}<br/>
+                Term : {inputTerm}<br/>
+                상기 내용으로 결제를 진행하시겠습니까?
+            </CustomConfirm>
+        </div> : <Redirect to="/" />
     );
 };
 
 function mapStateToProps(state) {
     return {
-      userProfile: state.userProfile
+        userProfile: state.userProfile
     };
-  }
-  
-  function mapDispatchToProps(dispatch) {
+}
+
+function mapDispatchToProps(dispatch) {
     return {
-      
+
     };
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Billing);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Billing);

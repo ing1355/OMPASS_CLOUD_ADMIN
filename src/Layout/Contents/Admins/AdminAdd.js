@@ -4,15 +4,18 @@ import "./Admins.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { message } from "antd";
-import { CustomAxiosPost } from "../../../Functions/CustomAxios";
-import { addAdminApi } from "../../../Constants/Api_Route";
+import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { addAdminApi, checkAdminExistenceApi } from "../../../Constants/Api_Route";
 import ContentsTitle from "../ContentsTitle";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 
 const AdminAdd = ({ userProfile }) => {
+  const {adminId} = userProfile
+  const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
+  const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
 
   const changeMobileInput = (value, countryInfo) => {
@@ -21,11 +24,30 @@ const AdminAdd = ({ userProfile }) => {
     setInputMobile(value);
   };
 
+  const changeEmailInput = e => {
+    setInputEmail(e.target.value);
+  }
+
+  const existCheckFunc = () => {
+    if(!inputEmail) return message.error('이메일을 입력해주세요.')
+    CustomAxiosGet(checkAdminExistenceApi(adminId, inputEmail), data => {
+      if(data.duplicate) {
+        setExistCheck(false);
+        message.error('중복입니다.')
+      } else {
+        setExistCheck(true);
+        message.success('사용 가능한 이메일입니다.')
+      }
+    })
+  }
+
   const onFinish = (e) => {
-    const { email, lastName, firstName } = e.target.elements;
+    const { email, lastName, firstName, agreeCheck } = e.target.elements;
     e.preventDefault();
+    if(!existCheck) return message.error('중복체크 해주세요.')
+    if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
     CustomAxiosPost(
-      addAdminApi(userProfile.adminId),
+      addAdminApi(adminId),
       {
         country: inputCountry,
         email: email.value,
@@ -40,7 +62,6 @@ const AdminAdd = ({ userProfile }) => {
 
   return (
     <>
-      <ContentsTitle title="Admin Add" />
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
@@ -53,7 +74,10 @@ const AdminAdd = ({ userProfile }) => {
           </div>
           <div className="inputBox">
             <span>Email address</span>
-            <input name="email" placeholder="이메일을 입력하세요." />
+            <input name="email" placeholder="이메일을 입력하세요." onChange={changeEmailInput}/>
+            <button className="select" type="button" onClick={existCheckFunc}>
+                중복체크
+              </button>
           </div>
           <div className="inputBox2">
             <span>Phone</span>
@@ -71,7 +95,7 @@ const AdminAdd = ({ userProfile }) => {
             <span>Complete account setup</span>
             <div>
               <span>
-                <input type="checkbox" checked />
+                <input name="agreeCheck" type="checkbox" />
                 <p>Automatically send an account setup link via email</p>
               </span>
               <p>

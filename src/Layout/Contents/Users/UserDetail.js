@@ -6,11 +6,12 @@ import { Redirect, useParams } from "react-router";
 const UserDetail = ({ data }) => {
   const { id } = useParams();
   const labelColSpan = 4;
+  const {userId} = data;
   console.log(data);
   return (
     <>
       {
-        !data ? <Redirect to="/Users" />
+        Object.keys(data).length < 1 ? <Redirect to="/Users" />
           : <div className="ApplicationsBox">
             <div className="billing-change-help-container">
               <div className="billing-change-help-icon"/>
@@ -24,16 +25,16 @@ const UserDetail = ({ data }) => {
                 console.log("finish!!", values);
               }}
             >
-              <Form.Item
-                className="inputBox"
-                label="Username"
-                name="integrationKey"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-                
-              >
-                <input />
-              </Form.Item>
+              <div className="ant-row inputBox ant-form-item">
+                <div className="ant-col-4 ant-form-item-label-left">
+                  <label>
+                    User ID :
+                  </label>
+                </div>
+                <div className="ant-col ant-form-item-control">
+                  <p className="userdetailP">{userId}</p>
+                </div>
+              </div>
 
               <div className="ant-row inputBox ant-form-item">
                 <div className="ant-col-4 ant-form-item-label-left">
@@ -52,25 +53,7 @@ const UserDetail = ({ data }) => {
                 </p>
                 </div>
               </div>
-
-              <Form.Item
-                className="inputBox"
-                label="Full name"
-                name="Full name"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <input />
-              </Form.Item>
-              <Form.Item
-                className="inputBox"
-                label="Email"
-                name="Email"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <input />
-              </Form.Item>
+              
               <Form.Item
                 className="inputBox userDetailInputBox"
                 label="Status"

@@ -5,6 +5,9 @@ export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const addAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
+export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`
+export const deleteAdminApi = (adminId) => `/v1/admins/${adminId}`
+export const checkAdminExistenceApi = (adminId, email) => `/v1/admins/${adminId}/existence/${email}`
 
 export const signUpSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
 export const signUpAdminApi = `/v1/admins/signup-token`

@@ -18,6 +18,7 @@ const UsersTable = ({ tableData, setDetailData }) => {
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
   }
+  
   return (
     <>
       <ul className="UsersBox3_contents">

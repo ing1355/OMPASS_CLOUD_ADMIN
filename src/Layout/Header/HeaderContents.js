@@ -4,17 +4,17 @@ import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
+import { useLocation } from "react-router";
 import Menu_Items from "../Sidebar/Menu_Items";
 
 const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
+  const location = useLocation();
   const {role} = userProfile;
   
   useLayoutEffect(() => {
     const target = Menu_Items(role).find(item => item.route === ('/' + window.location.pathname.split('/')[1]));
     if(target) menuChange(target.name)
-    else menuChange('Dashboard')
-  },[])
+  },[location])
 
   return (
     <div className="header-contents">

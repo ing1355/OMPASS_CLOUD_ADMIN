@@ -45,6 +45,7 @@ a {
   width: 1200px;
   padding: 20px 64px;
 }
+
 table {
   width: 100%;
   height: auto;
@@ -77,12 +78,15 @@ table tr td {
   align-items: center;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
+a button {
+  color: #fff;
+}
 button {
   background-color: #00a9ec;
   padding: 0.5rem 1.7rem;
   border: 0;
   outline: 0;
-  color: #fff !important;
+  color: #fff;
   cursor: pointer;
   border: 1px solid #00a9ec;
 }

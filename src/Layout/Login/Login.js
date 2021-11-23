@@ -55,10 +55,10 @@ const Login = ({ setIsLogin, setUserProfile }) => {
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
                 <Form onFinish={loginRequest}>
-                  <Form.Item name="userId">
+                  <Form.Item name="userId" initialValue="">
                     <input placeholder="아이디" type="text"></input>
                   </Form.Item>
-                  <Form.Item name="password">
+                  <Form.Item name="password" initialValue="">
                     <input type="password" placeholder="비밀번호"></input>
                   </Form.Item>
                   <button type="submit">로그인</button>
