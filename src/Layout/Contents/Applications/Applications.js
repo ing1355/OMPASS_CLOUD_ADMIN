@@ -3,13 +3,10 @@ import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 
 import AppDetails from "./AppDetailsAdd";
-import AppDetailsUpdate from "./AppDetailsUpdate";
 
 import { Button, Space } from "antd";
 import {
   UsergroupAddOutlined,
-  UserSwitchOutlined,
-  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getApplicationApi } from "../../../Constants/Api_Route";
@@ -36,8 +33,11 @@ const Applications = ({ userProfile }) => {
   }
 
   const tableDataDelete = id => {
-    console.log(tableData, id)
     setTableData(tableData.filter(d => d.appId !== id * 1))
+  }
+
+  const tableDataUpdate = (appId, name, status) => {
+    setTableData(tableData.map(t => t.appId === appId*1 ? {appId, name, status} : t))
   }
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Applications = ({ userProfile }) => {
             </Space>
           </div>} />
           <Route path="/Applications/Add" exact render={() => <AppDetails tableDataAdd={tableDataAdd} />} />
-          <Route path="/Applications/Detail/:appId" render={() => <ApplicationDetail tableDataDelete={tableDataDelete}/>} />
+          <Route path="/Applications/Detail/:appId" render={() => <ApplicationDetail tableDataUpdate={tableDataUpdate} tableDataDelete={tableDataDelete}/>} />
         </Switch>
       </div>
     </div>

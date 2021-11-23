@@ -31,11 +31,12 @@ const Login = ({ setIsLogin, setUserProfile }) => {
         password: password,
       },
       (data) => {
-        const {ompass, adminId, email, role} = data;
+        const {ompass, adminId, email, role, country} = data;
         setUserProfile({
           adminId,
           email,
-          role
+          role,
+          country
         });
         if(ompass) {
           popupCenter({ url : null, title: 'FIDO2 AUTHENTICATE', w: 800, h: 500 });

@@ -9,7 +9,6 @@ import { getAdminsApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CustomTable from "../../../Constants/CustomTable";
-import AdminDetail from "./AdminDetail";
 
 const columns = [
   { name: '이름', key: 'name' },

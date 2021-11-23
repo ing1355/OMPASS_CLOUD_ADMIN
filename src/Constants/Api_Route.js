@@ -25,6 +25,7 @@ export const deleteApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/a
 
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
+export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
 

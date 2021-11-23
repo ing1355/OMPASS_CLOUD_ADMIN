@@ -1,20 +1,23 @@
-import { message } from 'antd';
-import React, { useState } from 'react';
+import { message, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getBillingKeyApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
+import { getBillingKeyApi, startPaypalApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
 import CustomConfirm from '../../../Constants/CustomConfirm';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 import './Billing.css'
 
 const Billing = ({ userProfile }) => {
-    const { adminId } = userProfile;
+    const { adminId, country } = userProfile;
     const [inputEdition, setInputEdition] = useState('OMPASS Free');
     const [confirmModal, setConfirmModal] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+    const [paypalLoading, setPaypalLoading] = useState(false);
     const [inputTerm, setInputTerm] = useState(null);
     const [inputUserNum, setInputUserNum] = useState(null);
+    const inputTermRef = useRef(null);
+    const inputUserNumRef = useRef(null);
 
     const changeEdition = e => {
         setInputEdition(e.target.value);
@@ -52,12 +55,18 @@ const Billing = ({ userProfile }) => {
         e.preventDefault()
         const { check, edition, term, userNum } = e.target.elements;
         if (!check.checked) return message.error('Agreement에 체크해주세요.')
+        inputTermRef.current = term.value
+        inputUserNumRef.current = userNum.value
         setInputTerm(term.value)
         setInputUserNum(userNum.value)
         setConfirmModal(true);
+        if (country === 'kr') {
+            setPaypalLoading(true);
+            requestPaypal();
+        }
     }
 
-    const requestPayment = () => {
+    const requestIamPort = () => {
         setConfirmLoading(true);
         CustomAxiosPost(getBillingKeyApi(adminId), {
             paymentInterval: inputTerm,
@@ -114,6 +123,33 @@ const Billing = ({ userProfile }) => {
             })
         }, () => {
             setConfirmLoading(false);
+        })
+    }
+
+    const requestPaypal = () => {
+        CustomAxiosPost(startPaypalApi(adminId), {
+            paymentInterval: inputTermRef.current,
+            users: inputUserNumRef.current
+        }, ({planId}) => {
+            setPaypalLoading(false);
+            window.paypal.Buttons({
+                createSubscription: function (data, actions) {
+                    return actions.subscription.create({
+                        'plan_id': planId,
+                        'admin_id': 'adminId',
+                    })
+                },
+                onCancel: function(data) {
+                    console.log(data);
+                    setConfirmModal(false);
+                },
+                onApprove: function (data, actions) {
+                    console.log(data, actions);
+                },
+                onError: function(err) {
+                    console.log(err);
+                }
+            }).render('#paypal-button-container');
         })
     }
 
@@ -234,11 +270,14 @@ const Billing = ({ userProfile }) => {
                     </div>
                 </form>
             </section>
-            <CustomConfirm visible={confirmModal} confirmCallback={requestPayment} okLoading={confirmLoading} cancelCallback={closeConfirmModal}>
-                Edition : {inputEdition}<br/>
-                User Nums : {inputUserNum}<br/>
-                Term : {inputTerm}<br/>
+            <CustomConfirm visible={confirmModal} confirmCallback={country === 'kr' ? null : requestIamPort} okLoading={confirmLoading} cancelCallback={closeConfirmModal} footer={null}>
+                Edition : {inputEdition}<br />
+                User Nums : {inputUserNum}<br />
+                Term : {inputTerm}<br />
                 상기 내용으로 결제를 진행하시겠습니까?
+                <div id="paypal-button-container" style={{ textAlign: 'center' }}>
+                    {paypalLoading && <Spin>Loading...</Spin>}
+                </div>
             </CustomConfirm>
         </div> : <Redirect to="/" />
     );

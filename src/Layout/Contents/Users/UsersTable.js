@@ -23,7 +23,7 @@ const UsersTable = ({ tableData, setDetailData }) => {
     <>
       <ul className="UsersBox3_contents">
         <li>
-          <CustomTable columns={columns} datas={tableData} rowClick={clickToDetail} />
+          <CustomTable columns={columns} datas={tableData} rowClick={clickToDetail} pagination/>
         </li>
       </ul>
     </>

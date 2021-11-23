@@ -4,7 +4,8 @@ import jwt_decode from 'jwt-decode';
 const userProfile = localStorage.getItem('Authorization') ? jwt_decode(localStorage.getItem('Authorization').split(' ')[1]).access_token : {
     adminId: null,
     email: null,
-    role: null
+    role: null,
+    country: null
 };
 
 const profileReducer = (state = userProfile, action) => {

@@ -1,0 +1,63 @@
+.custom-arrow, .custom-double-arrow-container {
+    cursor: pointer;
+}
+
+.custom-arrow, .custom-double-arrow-container, .custom-arrow > div {
+    position: relative;
+    width: 23px;
+    height: 100%;
+}
+
+.custom-arrow > div::after, .custom-double-arrow-container > div::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-top: 3px solid black;
+    border-right: 3px solid black;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+}
+
+.custom-arrow.left > div::after {
+    right: 3px;
+    transform: rotate(-135deg);
+}
+
+.custom-arrow.right > div::after {
+    left: 3px;
+    transform: rotate(45deg);
+}
+
+.custom-arrow:hover, .custom-double-arrow-container:hover {
+    background-color: red;
+}
+
+.custom-double-arrow-container > div {
+    position: absolute;
+    width: 23px;
+    height: 100%;
+    display: inline-block;
+}
+
+.custom-double-arrow-container.left > div:nth-child(2) {
+    right: 5.5px;
+}
+
+.custom-double-arrow-container.right > div:nth-child(2) {
+    left: 5.5px;
+}
+
+.custom-double-arrow-container.left > div::after {
+    transform: rotate(-135deg);
+    right: 0px;
+}
+
+.custom-double-arrow-container.right > div::after {
+    transform: rotate(45deg);
+    left: 0px;
+}
+
+.custom-arrow.disabled:hover, .custom-double-arrow-container.disabled:hover {
+    cursor: default;
+}

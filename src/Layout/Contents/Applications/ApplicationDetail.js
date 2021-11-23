@@ -29,7 +29,7 @@ const columns = [
   { name: "Time", key: "createdDate" },
 ];
 
-const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
+const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) => {
   const history = useHistory();
   const { appId } = useParams();
   const { adminId } = userProfile;
@@ -53,9 +53,9 @@ const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
       setIntegrationKey(integrationKey);
       setSecretKey(secretKey);
     });
-    CustomAxiosGet(getApplicationDetailLogsApi(adminId, appId), (data) => {
-      setLogsData(data);
-    });
+    // CustomAxiosGet(getApplicationDetailLogsApi(adminId, appId), (data) => {
+    //   setLogsData(data);
+    // });
   }, []);
 
   const resetSecretKey = () => {
@@ -66,6 +66,7 @@ const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
 
   const applicationDelete = () => {
     CustomAxiosDelete(deleteApplicationApi(adminId, appId), (data) => {
+      message.success('삭제되었습니다.')
       tableDataDelete(appId);
       history.push("/Applications");
     });
@@ -101,27 +102,31 @@ const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
     });
   };
 
+  const onFinish = e => {
+    e.preventDefault();
+    const { name, domain, redirectUri, status } = e.target.elements;
+    CustomAxiosPut(
+      updateApplicationApi(adminId, appId),
+      {
+        name: name.value,
+        domain: domain.value,
+        redirectUri: redirectUri.value,
+        status: status.value,
+        policyId: 0,
+      },
+      (data) => {
+        message.success('변경되었습니다.')
+        tableDataUpdate(appId, name.value, status.value);
+        history.push('/Applications')
+      }
+    );
+  }
+
   return (
     <>
       <form
         className="ApplicationForm"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const { name, domain, redirectUri, status } = e.target.elements;
-          CustomAxiosPut(
-            updateApplicationApi(adminId, appId),
-            {
-              name: name.value,
-              domain: domain.value,
-              redirectUri: redirectUri.value,
-              status: status.value,
-              policyId: 0,
-            },
-            (data) => {
-              console.log(data);
-            }
-          );
-        }}
+        onSubmit={onFinish}
       >
         <div className="ApplicationBox">
           <label>Application Name</label>
@@ -135,10 +140,10 @@ const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
             중복 체크
           </button>
         </div>
-        <div className="ApplicationBox">
+        {/* <div className="ApplicationBox">
           <label>Client Key</label>
           <input name="integrationKey" value={integrationKey} disabled />
-        </div>
+        </div> */}
         <div className="ApplicationBox">
           <label>Secret Key</label>
           <input name="secretKey" value={secretKey} disabled />
@@ -173,19 +178,15 @@ const ApplicationDetail = ({ userProfile, tableDataDelete }) => {
           />
         </div>
         <Space className="cud">
-          <Button type="submit">
+          <Button htmlType="submit">
             <UserSwitchOutlined />
             수정
           </Button>
-          <Button type="button" onClick={applicationDelete}>
+          <Button htmlType="button" onClick={applicationDelete}>
             <UserDeleteOutlined />
             삭제
           </Button>
         </Space>
-        {/* <button type="submit">수정</button>
-        <button type="button" onClick={applicationDelete}>
-          삭제
-        </button> */}
       </form>
       {/* <CustomTable columns={columns} datas={logsData} /> */}
     </>

@@ -1,0 +1,37 @@
+.custom-table-footer {
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.custom-pagination-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    line-height: 30px;
+}
+
+.custom-pagination-pages-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.custom-pagination-page-item {
+    border: 1px solid black;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.custom-pagination-page-item.selected {
+    background-color: red;
+}
