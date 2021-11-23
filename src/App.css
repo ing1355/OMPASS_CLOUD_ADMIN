@@ -146,3 +146,7 @@ table tbody tr:hover {
 table tbody tr:nth-child(1) {
   margin-top: -0.15rem;
 }
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  color: gray !important;
+}

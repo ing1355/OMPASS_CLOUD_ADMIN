@@ -6,7 +6,7 @@ import { Redirect, useParams } from "react-router";
 const UserDetail = ({ data }) => {
   const { id } = useParams();
   const labelColSpan = 4;
-  const {userId} = data;
+  const { userId } = data;
   console.log(data);
   return (
     <>
@@ -14,7 +14,7 @@ const UserDetail = ({ data }) => {
         Object.keys(data).length < 1 ? <Redirect to="/Users" />
           : <div className="ApplicationsBox">
             <div className="billing-change-help-container">
-              <div className="billing-change-help-icon"/>
+              <div className="billing-change-help-icon" />
               <div className="billing-change-help-msg">
                 평가판이 종료되면 최대 10명의 사용자에게 항상 무료로 제공되는 OMPASS
                 Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로 변경하십시오.
@@ -38,22 +38,20 @@ const UserDetail = ({ data }) => {
 
               <div className="ant-row inputBox ant-form-item">
                 <div className="ant-col-4 ant-form-item-label-left">
-                  <label>
-                    + Add a username alias
-                  </label>
+                  <label>+ Add a username alias</label>
                 </div>
                 <div className="ant-col ant-form-item-control">
                   <p className="userdetailP">Users can have up to 8 aliases.</p>
                   <p className="userdetailP">
-                    Optionally, you may choose to reserve using an alias number for a
-                    specific alias
+                    Optionally, you may choose to reserve using an alias number
+                    for a specific alias
                 </p>
                   <p className="userdetailP">
                     (e.g., Username alias 1 should only be used for Employee ID)
                 </p>
                 </div>
               </div>
-              
+
               <Form.Item
                 className="inputBox userDetailInputBox"
                 label="Status"
@@ -84,24 +82,6 @@ const UserDetail = ({ data }) => {
               >
                 <input />
               </Form.Item>
-              <Form.Item
-                className="inputBox"
-                label="Created"
-                name="Created"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <p className="userdetailP">Nov 19, 2021 6:09 AM (UTC)</p>
-              </Form.Item>
-              <Form.Item
-                className="inputBox"
-                label="Last login"
-                name="Last login"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <p className="userdetailP">Never authenticated</p>
-              </Form.Item>
               <div className="ApplicationsTitle">
                 <h2>정책</h2>
                 <p>
@@ -111,14 +91,12 @@ const UserDetail = ({ data }) => {
                   재정의할 수 있습니다.
                 </p>
               </div>
-
               <button className="ApplicationsSave" type="submit">
                 저장
               </button>
             </Form>
           </div>
       }
-
     </>
   );
 };

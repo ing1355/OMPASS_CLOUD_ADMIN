@@ -63,3 +63,38 @@
 .inputBox > .ant-form-item-control > .ant-form-item-explain {
   margin-left: 24px;
 }
+
+/* ------------- */
+.ApplicationForm {
+  width: 100%;
+  height: auto;
+  /* background-color: antiquewhite; */
+}
+.ApplicationForm .ApplicationBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.ApplicationForm .ApplicationBox label {
+  width: 12rem;
+}
+.ApplicationForm .ApplicationBox input {
+  width: 65%;
+  text-align: left;
+  height: 40px;
+  padding: 0 1rem;
+  /* background: rgb(243, 243, 243) !important;
+  border: 0; */
+}
+
+.ApplicationForm .ApplicationBox button {
+  margin-left: 1rem;
+}
+.ApplicationBox .selectButon {
+  margin-left: 1rem;
+  background-color: #829194 !important;
+  border: 0;
+  border-radius: 5px;
+}
