@@ -16,6 +16,8 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
+import { ResponsiveBump } from '@nivo/bump';
+import { testData } from "./testDataSet";
 
 const columns = [
   { name: '사용자 아이디', key: 'userId' },
@@ -149,7 +151,42 @@ const Dashboard = ({ userProfile }) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
-          <div className="chart"></div>
+          <div className="chart">
+            <ResponsiveBump
+              data={testData}
+              margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
+              colors={{ scheme: 'spectral' }}
+              lineWidth={2}
+              activeLineWidth={6}
+              inactiveLineWidth={3}
+              inactiveOpacity={0.15}
+              pointSize={10}
+              activePointSize={16}
+              inactivePointSize={0}
+              pointColor={{ theme: 'background' }}
+              pointBorderWidth={3}
+              activePointBorderWidth={3}
+              pointBorderColor={{ from: 'serie.color' }}
+              axisTop={null}
+              axisRight={null}
+              axisBottom={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: '날짜',
+                legendPosition: 'middle',
+                legendOffset: 32
+              }}
+              axisLeft={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: '인증 횟수',
+                legendPosition: 'middle',
+                legendOffset: -40
+              }}
+            />
+          </div>
         </div>
 
         <div className="DashboardThird">
