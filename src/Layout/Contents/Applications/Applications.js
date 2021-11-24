@@ -13,7 +13,7 @@ import { getApplicationApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
-import CustomTable from "../../../Constants/CustomTable";
+import CustomTable from "../../../CustomComponents/CustomTable";
 
 const makeDetail = (d) => <Link to={`/Applications/Detail/${d.appId}`}>
     <button>Detail</button>

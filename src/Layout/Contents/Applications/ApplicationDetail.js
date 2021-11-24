@@ -1,16 +1,14 @@
 import { message } from "antd";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import {
   checkApplicationExistenceApi,
   deleteApplicationApi,
   getApplicationDetailApi,
-  getApplicationDetailLogsApi,
   getNewSecretKeyApi,
   updateApplicationApi,
 } from "../../../Constants/Api_Route";
-import CustomTable from "../../../Constants/CustomTable";
 import {
   CustomAxiosGet,
   CustomAxiosPatch,
@@ -20,7 +18,7 @@ import {
 
 import { Button, Space, Popconfirm } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
-import CustomButton from "../../../Constants/CustomButton";
+import CustomButton from "../../../CustomComponents/CustomButton";
 
 const columns = [
   { name: "User ID", key: "userId" },

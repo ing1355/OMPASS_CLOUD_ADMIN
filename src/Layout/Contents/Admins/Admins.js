@@ -8,7 +8,7 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getAdminsApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import CustomTable from "../../../Constants/CustomTable";
+import CustomTable from "../../../CustomComponents/CustomTable";
 
 const columns = [
   { name: "이름", key: "name" },
@@ -24,7 +24,13 @@ const Admins = ({ userProfile, history }) => {
 
   useEffect(() => {
     CustomAxiosGet(getAdminsApi(userProfile.adminId), (data) => {
-      setTableData(data.map((d) => ({ ...d, name: d.firstName + d.lastName })));
+      setTableData(
+        data.map((d, index) => ({
+          ...d,
+          name: d.firstName + d.lastName,
+          index,
+        }))
+      );
     });
   }, []);
 
@@ -35,12 +41,16 @@ const Admins = ({ userProfile, history }) => {
 
   const updateAdmin = (rowData) => {
     setTableData(
-      tableData.map((t) => (t.adminId === rowData.adminId ? rowData : t))
+      tableData.map((t) =>
+        t.index === rowData.index
+          ? { ...rowData, name: rowData.firstName + rowData.lastName }
+          : t
+      )
     );
   };
 
-  const deleteAdmin = (adminId) => {
-    setTableData(tableData.filter((t) => t.adminId !== adminId * 1));
+  const deleteAdmin = (index) => {
+    setTableData(tableData.filter((t) => t.index !== index * 1));
   };
 
   return (

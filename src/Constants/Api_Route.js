@@ -2,22 +2,25 @@ export const getDashboardTopApi = (adminId) => `/v1/admins/${adminId}/dashboard-
 export const getDashboardBottomApi = (adminId) => `/v1/admins/${adminId}/dashboard-bottom`
 
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
+export const updateBypassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
-export const addAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
 export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`
 export const deleteAdminApi = (adminId) => `/v1/admins/${adminId}`
-export const checkAdminExistenceApi = (adminId, email) => `/v1/admins/${adminId}/existence/${email}`
-
-export const signUpSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
 export const signUpAdminApi = `/v1/admins/signup-token`
+
+export const addSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
+export const updateSubAdminApi = (adminId, subAdminId) => `/v1/admins/${adminId}/sub-admins/${subAdminId}`
+export const deleteSubAdminApi = (adminId, subAdminId) => `/v1/admins/${adminId}/sub-admins/${subAdminId}`
+export const signUpSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
+export const checkSubAdminExistenceApi = (adminId, email) => `/v1/admins/${adminId}/existence/${email}`
 
 export const resetPasswordApi = '/v1/reset-password';
 export const resetPasswordVerifyApi = '/v1/reset-password-token';
 
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
-export const getApplicationDetailLogsApi = (adminId, appId) => `/v1/admins/${adminId}/apps/${appId}/logs`
+export const getApplicationDetailLogsApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/logs`
 export const checkApplicationExistenceApi = (adminId, appName) => `/v1/admins/${adminId}/applications/existence/${appName}`
 export const getNewSecretKeyApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/secret-key`
 export const updateApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`

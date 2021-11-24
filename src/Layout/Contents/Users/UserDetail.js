@@ -72,16 +72,7 @@ const UserDetail = ({ data }) => {
                   <p>Automatically deny access</p>
                 </div>
               </Form.Item>
-
-              <Form.Item
-                className="inputBox"
-                label="Notes"
-                name="Notes"
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <input />
-              </Form.Item>
+              
               <div className="ApplicationsTitle">
                 <h2>정책</h2>
                 <p>

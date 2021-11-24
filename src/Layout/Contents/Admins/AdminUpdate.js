@@ -12,10 +12,26 @@ import {
   CustomAxiosDelete,
   CustomAxiosPut,
 } from "../../../Functions/CustomAxios";
-import { updateAdminApi, deleteAdminApi } from "../../../Constants/Api_Route";
+import {
+  updateAdminApi,
+  deleteAdminApi,
+  updateSubAdminApi,
+  deleteSubAdminApi,
+} from "../../../Constants/Api_Route";
+import { isADMINRole } from "../../../Constants/GetRole";
 
 const AdminUpdate = ({ data, deleteEvent, updateEvent }) => {
-  const { adminId, country, email, firstName, lastName, phone, role } = data;
+  const {
+    adminId,
+    country,
+    email,
+    firstName,
+    lastName,
+    phone,
+    role,
+    subAdminId,
+    index,
+  } = data;
   const history = useHistory();
   const [inputMobile, setInputMobile] = useState(phone);
   const [countryCode, setCountryCode] = useState(country);
@@ -29,8 +45,14 @@ const AdminUpdate = ({ data, deleteEvent, updateEvent }) => {
         return message.error("비밀번호가 일치하지 않습니다.");
       }
     }
+    var route;
+    if (isADMINRole(role)) {
+      route = updateAdminApi(adminId);
+    } else {
+      route = updateSubAdminApi(adminId, subAdminId);
+    }
     CustomAxiosPut(
-      updateAdminApi(adminId),
+      route,
       {
         country: countryCode,
         phone: inputMobile,
@@ -53,11 +75,8 @@ const AdminUpdate = ({ data, deleteEvent, updateEvent }) => {
 
   const onDelete = () => {
     if (role === "ADMIN") return message.error("관리자는 삭제할 수 없습니다.");
-    else {
-      message.success("삭제되었습니다.");
-    }
-    CustomAxiosDelete(deleteAdminApi(adminId), () => {
-      deleteEvent(adminId);
+    CustomAxiosDelete(deleteSubAdminApi(adminId, subAdminId), () => {
+      deleteEvent(index);
       history.push("/Admins");
     });
   };
@@ -107,8 +126,8 @@ const AdminUpdate = ({ data, deleteEvent, updateEvent }) => {
                   value={inputMobile}
                   onChange={(value, countryInfo) => {
                     setInputMobile(value);
-                    if (countryCode !== countryInfo.countryCode)
-                      setCountryCode(countryInfo.countryCode);
+                    if (countryCode !== countryInfo.countryCode.toUpperCase())
+                      setCountryCode(countryInfo.countryCode.toUpperCase());
                   }}
                   preferredCountries={["kr", "us"]}
                 />

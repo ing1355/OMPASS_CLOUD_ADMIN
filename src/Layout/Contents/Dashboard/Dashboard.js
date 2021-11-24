@@ -15,7 +15,7 @@ import {
   getDashboardBottomApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import CustomTable from "../../../Constants/CustomTable";
+import CustomTable from "../../../CustomComponents/CustomTable";
 
 const columns = [
   { name: '사용자 아이디', key: 'userId' },

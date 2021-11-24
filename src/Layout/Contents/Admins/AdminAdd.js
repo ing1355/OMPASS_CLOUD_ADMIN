@@ -5,8 +5,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { message } from "antd";
 import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
-import { addAdminApi, checkAdminExistenceApi } from "../../../Constants/Api_Route";
-import ContentsTitle from "../ContentsTitle";
+import { addSubAdminApi, checkSubAdminExistenceApi } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 
@@ -20,7 +19,7 @@ const AdminAdd = ({ userProfile }) => {
 
   const changeMobileInput = (value, countryInfo) => {
     const { countryCode } = countryInfo;
-    setInputCountry(countryCode);
+    setInputCountry(countryCode.toUpperCase());
     setInputMobile(value);
   };
 
@@ -30,7 +29,7 @@ const AdminAdd = ({ userProfile }) => {
 
   const existCheckFunc = () => {
     if(!inputEmail) return message.error('이메일을 입력해주세요.')
-    CustomAxiosGet(checkAdminExistenceApi(adminId, inputEmail), data => {
+    CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
       if(data.duplicate) {
         setExistCheck(false);
         message.error('중복입니다.')
@@ -47,7 +46,7 @@ const AdminAdd = ({ userProfile }) => {
     if(!existCheck) return message.error('중복체크 해주세요.')
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
     CustomAxiosPost(
-      addAdminApi(adminId),
+      addSubAdminApi(adminId),
       {
         country: inputCountry,
         email: email.value,

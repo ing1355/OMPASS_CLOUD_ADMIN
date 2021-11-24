@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { Switch } from "antd";
-import CustomTable from "../../../Constants/CustomTable";
+import CustomTable from "../../../CustomComponents/CustomTable";
 
 const columns = [
   { name: "이름", key: "userId" },
