@@ -6,21 +6,27 @@ import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import { popupCenter } from "./fidoPopUp";
 import "./Login.css";
+import "antd/dist/antd.css";
+import { message } from "antd";
 
 const Login = ({ setIsLogin, setUserProfile }) => {
   const [login, setLogin] = useState(true);
 
   const resetPassword = (e) => {
     e.preventDefault();
-    const {email} = e.target.elements;
-    CustomAxiosPost(resetPasswordApi,{
-      email: email.value
-    }, (data) => {
-      console.log(data);
-    })
+    const { email } = e.target.elements;
+    CustomAxiosPost(
+      resetPasswordApi,
+      {
+        email: email.value,
+      },
+      (data) => {
+        // console.log(data);
+      }
+    );
     setLogin(true);
     alert("메일로 전송했습니다. 인증해주세요.");
-  }
+  };
 
   const loginRequest = (values) => {
     const { userId, password } = values;
@@ -31,21 +37,30 @@ const Login = ({ setIsLogin, setUserProfile }) => {
         password: password,
       },
       (data) => {
-        const {ompass, adminId, email, role, country} = data;
+        message.success({
+          content: "로그인 되었습니다.",
+        });
+
+        const { ompass, adminId, email, role, country } = data;
         setUserProfile({
           adminId,
           email,
           role,
-          country
+          country,
         });
-        if(ompass) {
-          popupCenter({ url : null, title: 'FIDO2 AUTHENTICATE', w: 800, h: 500 });
+        if (ompass) {
+          popupCenter({
+            url: null,
+            title: "FIDO2 AUTHENTICATE",
+            w: 800,
+            h: 500,
+          });
         } else {
           setIsLogin(true);
         }
       }
     );
-  }
+  };
 
   return (
     <>
@@ -94,11 +109,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                     placeholder="이메일"
                     type="text"
                   ></input>
-                  <button
-                    type="submit"
-                  >
-                    이메일 인증
-                  </button>
+                  <button type="submit">이메일 인증</button>
                 </form>
                 <div className="forget">
                   <span

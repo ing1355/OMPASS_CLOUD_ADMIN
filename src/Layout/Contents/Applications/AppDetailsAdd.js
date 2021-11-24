@@ -3,9 +3,15 @@ import "./Applications.css";
 
 import "antd/dist/antd.css";
 import { message, Form } from "antd";
-import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
+import {
+  CustomAxiosGet,
+  CustomAxiosPost,
+} from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
-import { checkApplicationExistenceApi, getApplicationApi } from "../../../Constants/Api_Route";
+import {
+  checkApplicationExistenceApi,
+  getApplicationApi,
+} from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 
 const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
@@ -13,37 +19,42 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [isExistCheck, setIsExistCheck] = useState(false);
   const history = useHistory();
 
-  const onFinish = values => {
-    if(!isExistCheck) return message.error('이름 중복체크를 먼저 진행해주세요.')
+  const onFinish = (values) => {
+    if (!isExistCheck)
+      return message.error("이름 중복체크를 먼저 진행해주세요.");
     const { domain, redirectUri, name } = values;
-    
+
     CustomAxiosPost(
-      getApplicationApi(userProfile.adminId), {
-      domain,
-      name,
-      policyId: 0,
-      redirectUri,
-      status: "INACTIVE",
-    },
+      getApplicationApi(userProfile.adminId),
+      {
+        domain,
+        name,
+        policyId: 0,
+        redirectUri,
+        status: "INACTIVE",
+      },
       (data) => {
         tableDataAdd(data);
-        history.push('/Applications')
+        history.push("/Applications");
       }
     );
-  }
+  };
 
   const existCheck = () => {
-    if(!inputName) return message.error('이름을 입력해주세요.')
-    CustomAxiosGet(checkApplicationExistenceApi(userProfile.adminId, inputName), (data) => {
-      const {duplicate} = data;
-      if(duplicate) {
-        message.error('이미 존재하는 이름입니다.')
-      } else {
-        message.success('사용 가능한 이름입니다.')
-        setIsExistCheck(true);
+    if (!inputName) return message.error("이름을 입력해주세요.");
+    CustomAxiosGet(
+      checkApplicationExistenceApi(userProfile.adminId, inputName),
+      (data) => {
+        const { duplicate } = data;
+        if (duplicate) {
+          message.error("이미 존재하는 이름입니다.");
+        } else {
+          message.success("사용 가능한 이름입니다.");
+          setIsExistCheck(true);
+        }
       }
-    })
-  }
+    );
+  };
 
   return (
     <>
@@ -51,8 +62,8 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
         <Form
           onFinish={onFinish}
           onValuesChange={(targetValue) => {
-            if(Object.keys(targetValue)[0] === 'name') {
-              if(isExistCheck) setIsExistCheck(false)
+            if (Object.keys(targetValue)[0] === "name") {
+              if (isExistCheck) setIsExistCheck(false);
               setInputName(targetValue.name);
             }
           }}
@@ -71,8 +82,8 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             rules={[
               {
                 required: true,
-                message: '이름을 입력해주세요.'
-              }
+                message: "이름을 입력해주세요.",
+              },
             ]}
           >
             <div>
@@ -92,8 +103,8 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             rules={[
               {
                 required: true,
-                message: '도메인 주소를 입력해주세요.'
-              }
+                message: "도메인 주소를 입력해주세요.",
+              },
             ]}
           >
             <input placeholder="도메인 주소를 입력하세요." />
@@ -108,8 +119,8 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             rules={[
               {
                 required: true,
-                message: '리다이렉트 Uri를 입력해주세요.'
-              }
+                message: "리다이렉트 Uri를 입력해주세요.",
+              },
             ]}
           >
             <input placeholder="Redirect URL를 입력하세요." />
@@ -118,9 +129,10 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             <h2>정책</h2>
             <p>
               정책은 사용자가 이 애플리케이션에 액세스할 때 인증하는 시기와
-              방법을 정의합니다.<br />
-                글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
-                재정의할 수 있습니다.
+              방법을 정의합니다.
+              <br />
+              글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
+              재정의할 수 있습니다.
             </p>
           </div>
           <div className="inputBox">
@@ -131,10 +143,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             <span>Global policy</span>
             {/* <input placeholder="이메일을 입력하세요." /> */}
           </div>
-          <button
-            className="ApplicationsSave"
-            type="submit"
-          >
+          <button className="ApplicationsSave" type="submit">
             추가
           </button>
         </Form>
@@ -145,14 +154,12 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppDetailsAdd);

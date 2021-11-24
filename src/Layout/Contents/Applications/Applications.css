@@ -9,6 +9,9 @@
   margin-top: 1rem;
   padding-bottom: 2rem;
 }
+.ApplicationsBox button {
+  color: #fff !important;
+}
 .cud Button {
   color: #000 !important;
 }
@@ -21,6 +24,7 @@
 }
 .ApplicationsBox .ApplicationsSave {
   margin-top: 2rem;
+  color: #fff !important;
 }
 .ApplicationsBox table button {
   margin-top: 0rem;

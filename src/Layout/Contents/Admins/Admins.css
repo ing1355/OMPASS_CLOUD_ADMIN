@@ -20,11 +20,17 @@
 .AdminBox .adminAdd p {
   margin-right: 1rem;
 }
+.AdminBox .select {
+  color: #fff;
+  margin-left: 1rem;
+}
+
 /* ------------------- */
 .AdminBox form {
   width: 100%;
   height: auto;
 }
+
 .AdminBox form .inputBox {
   width: 100%;
   font-size: 1rem;
@@ -109,6 +115,7 @@
 .AdminBox form .checkBox div button {
   margin-top: 2rem;
   margin-left: 1rem;
+  color: #fff;
 }
 /* --------------------*/
 .updateInfo {
@@ -126,4 +133,5 @@
 }
 .adminUpdateButton {
   margin-top: 2rem;
+  margin-right: 1rem;
 }

@@ -7,14 +7,19 @@ import { FormattedMessage } from "react-intl";
 import { useLocation } from "react-router";
 import Menu_Items from "../Sidebar/Menu_Items";
 
+import "antd/dist/antd.css";
+import { message } from "antd";
+
 const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
   const location = useLocation();
-  const {role} = userProfile;
-  
+  const { role } = userProfile;
+
   useLayoutEffect(() => {
-    const target = Menu_Items(role).find(item => item.route === ('/' + window.location.pathname.split('/')[1]));
-    if(target) menuChange(target.name)
-  },[location])
+    const target = Menu_Items(role).find(
+      (item) => item.route === "/" + window.location.pathname.split("/")[1]
+    );
+    if (target) menuChange(target.name);
+  }, [location]);
 
   return (
     <div className="header-contents">
@@ -24,6 +29,9 @@ const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
           className="loginButton"
           onClick={() => {
             setIsLogin(false);
+            message.success({
+              content: "로그아웃 되었습니다.",
+            });
           }}
         >
           <FormattedMessage id="logout" />
@@ -37,7 +45,7 @@ const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
 function mapStateToProps(state) {
   return {
     menuState: state.menuState,
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 

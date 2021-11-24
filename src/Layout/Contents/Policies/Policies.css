@@ -15,6 +15,9 @@
   margin-bottom: 5rem;
   text-align: left !important;
 }
+.PoliciesBox button {
+  color: #fff !important;
+}
 .PoliciesBox table tr {
   width: 100%;
   height: 60px;
@@ -48,4 +51,9 @@
 .PoliciesBottomBox h5 {
   font-size: 1.5rem;
   margin: 0;
+}
+
+.PoliciesBox table tbody tr:hover {
+  background: none !important;
+  cursor: auto;
 }

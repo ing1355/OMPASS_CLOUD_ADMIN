@@ -58,13 +58,7 @@
 .UsersBox3_title li h3 {
   font-size: 2rem;
 }
-.UsersBox3_contents table tbody tr:hover {
-  cursor: pointer;
-  background-color: #95daec54;
-}
-.UsersBox3_contents table tbody tr:nth-child(1) {
-  margin-top: -0.15rem;
-}
+
 .userdetailP {
   font-size: 0.8rem !important;
   margin-bottom: 0 !important;
@@ -107,5 +101,5 @@
   text-align: left;
   font-weight: 600;
   font-size: 14px;
-  color: rgba(0,0,0,0.85);
+  color: rgba(0, 0, 0, 0.85);
 }
