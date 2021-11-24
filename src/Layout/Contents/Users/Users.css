@@ -41,6 +41,11 @@
   border-bottom: 5px solid #fff;
   cursor: pointer;
 }
+
+.UsersBox3 > .UsersBox3_title > li.selected {
+  border-bottom: 5px solid rgb(92, 106, 119)
+}
+
 .UsersBox3_contents {
   width: 100%;
   height: auto;
@@ -70,36 +75,4 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem !important;
-}
-
-.userDetailInputBox .userDetailInput {
-  width: 1rem !important;
-  margin-right: 0.5rem !important;
-}
-.userDetailInputBox .label {
-  font-size: 0.9rem !important;
-  margin-bottom: 0 !important;
-  font-weight: bold;
-
-  display: inline-block;
-}
-.userDetailInputBox p {
-  font-size: 0.8rem !important;
-  margin-left: 2.5rem;
-  font-weight: 500;
-  margin-bottom: 2rem !important;
-}
-.userDetailInputBox div:nth-child(3) p {
-  margin-bottom: 0 !important;
-}
-
-.inputBoxDiv {
-  display: flex;
-}
-
-.inputBoxDiv > .inputBoxDiv-label {
-  text-align: left;
-  font-weight: 600;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.85);
 }

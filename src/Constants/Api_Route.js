@@ -2,7 +2,7 @@ export const getDashboardTopApi = (adminId) => `/v1/admins/${adminId}/dashboard-
 export const getDashboardBottomApi = (adminId) => `/v1/admins/${adminId}/dashboard-bottom`
 
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
-export const updateBypassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
+export const updateByPassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`

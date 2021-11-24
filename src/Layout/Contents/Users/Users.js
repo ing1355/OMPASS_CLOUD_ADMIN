@@ -6,30 +6,51 @@ import "../../../App.css";
 import { getUsersApi } from "../../../Constants/Api_Route";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import UserDetail from "./UserDetail";
 import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
 
 const Users = ({ userProfile }) => {
-  const [test1, setTest1] = useState(true);
-  const [test2, setTest2] = useState(false);
-  const [test3, setTest3] = useState(false);
-  const [test4, setTest4] = useState(false);
-
+  const {adminId} = userProfile;
+  const [allUserView, setAllUserView] = useState(true);
+  const [unRegisteredUserView, setUnRegisteredUeserView] = useState(false);
+  const [disabledUserView, setDisabledUserView] = useState(false);
+  const [byPassUserView, setByPassUserView] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [detailData, setDetailData] = useState({});
-  const [userUnregistered, setUserUnregistered] = useState({});
-  const [userDisabled, setUserDisabled] = useState({});
-  const [userBypass, setUserBypass] = useState({});
+  const history = useHistory();
 
+  const viewsIndex = {
+    allUserView: 0,
+    unRegisteredUeserView: 1,
+    disabledUserView: 2,
+    byPassUserView: 3
+  }
+
+  const setView = (index) => {
+    const _ = [setAllUserView, setUnRegisteredUeserView, setDisabledUserView, setByPassUserView];
+    _.forEach((_setView,_index) => {
+      if(_index === index) _setView(true);
+      else _setView(false);
+    })
+  }
+  
   useLayoutEffect(() => {
-    CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {
+    CustomAxiosGet(getUsersApi(adminId), (data) => {
       setTableData(data);
-      console.log(data);
     });
   }, []);
+
+  const updateEvent = (userId, byPass) => {
+    setTableData(tableData.map(t => t.userId === userId ? {...t, byPass} : t))
+  }
+
+  const clickToDetail = (rowData) => {
+    setDetailData(rowData);
+    history.push("/Users/Detail/" + rowData.userId);
+  };
 
   return (
     <div className="contents-container">
@@ -51,102 +72,62 @@ const Users = ({ userProfile }) => {
 
                 <div className="UsersBox3">
                   <ul className="UsersBox3_title">
-                    <li
-                      style={
-                        test1 === true
-                          ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
-                          : null
-                      }
+                    <li className={allUserView ? 'selected' : ''}
                       onClick={() => {
-                        setTest1(true);
-                        setTest2(false);
-                        setTest3(false);
-                        setTest4(false);
+                        setView(viewsIndex['allUserView'])
                       }}
                     >
                       <h3>{tableData.length}</h3>
                       <p>전체 사용자 수</p>
                     </li>
-                    <li
-                      style={
-                        test2 === true
-                          ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
-                          : null
-                      }
+                    <li className={unRegisteredUserView ? 'selected' : ''}
                       onClick={() => {
-                        setTest1(false);
-                        setTest2(true);
-                        setTest3(false);
-                        setTest4(false);
+                        setView(viewsIndex['unRegisteredUeserView'])
                       }}
                     >
                       <h3>0</h3>
                       <p>등록되지 않은 사용자</p>
                     </li>{" "}
-                    <li
-                      style={
-                        test3 === true
-                          ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
-                          : null
-                      }
+                    <li className={disabledUserView ? 'selected' : ''}
                       onClick={() => {
-                        setTest1(false);
-                        setTest2(false);
-                        setTest3(true);
-                        setTest4(false);
+                        setView(viewsIndex['disabledUserView'])
                       }}
                     >
                       <h3>0</h3>
                       <p>비활성화된 사용자</p>
                     </li>{" "}
-                    <li
-                      style={
-                        test4 === true
-                          ? {
-                              borderBottom: "5px solid rgb(92, 106, 119)",
-                            }
-                          : null
-                      }
+                    <li className={byPassUserView ? 'selected' : ''}
                       onClick={() => {
-                        setTest1(false);
-                        setTest2(false);
-                        setTest3(false);
-                        setTest4(true);
+                        setView(viewsIndex['byPassUserView'])
                       }}
                     >
-                      <h3>{tableData.filter((t) => t.bypass).length}</h3>
+                      <h3>{tableData.filter((t) => t.byPass).length}</h3>
                       <p>바이패스 사용자</p>
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
-                    {test1 && (
+                    {allUserView && (
                       <UsersTable
                         tableData={tableData}
-                        setDetailData={setDetailData}
+                        setDetailData={clickToDetail}
                       />
                     )}
-                    {test2 && (
+                    {unRegisteredUserView && (
                       <UserUnregistered
                         tableData={tableData}
-                        setUserUnregistered={setUserUnregistered}
+                        setDetailData={clickToDetail}
                       />
                     )}
-                    {test3 && (
+                    {disabledUserView && (
                       <UserDisabled
                         tableData={tableData}
-                        setUserDisabled={setUserDisabled}
+                        setDetailData={clickToDetail}
                       />
                     )}
-                    {test4 && (
+                    {byPassUserView && (
                       <UserBypass
-                        tableData={tableData}
-                        setUserBypass={setUserBypass}
+                        tableData={tableData.filter(t => t.byPass)}
+                        setDetailData={clickToDetail}
                       />
                     )}
                   </ul>
@@ -157,31 +138,7 @@ const Users = ({ userProfile }) => {
           <Route
             path="/Users/Detail/:id"
             render={(routeInfo) => (
-              <UserDetail {...routeInfo} data={detailData} />
-            )}
-          />
-
-          <Route
-            path="/Users/Detail/:id"
-            render={(routeInfo) => (
-              <UserUnregistered
-                {...routeInfo}
-                userUnregistered={userUnregistered}
-              />
-            )}
-          />
-
-          <Route
-            path="/Users/Detail/:id"
-            render={(routeInfo) => (
-              <UserDisabled {...routeInfo} userDisabled={userDisabled} />
-            )}
-          />
-
-          <Route
-            path="/Users/Detail/:id"
-            render={(routeInfo) => (
-              <UserBypass {...routeInfo} userBypass={userBypass} />
+              <UserDetail {...routeInfo} data={detailData} updateBypass={updateEvent} />
             )}
           />
         </Switch>

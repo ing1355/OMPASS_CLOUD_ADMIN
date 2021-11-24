@@ -13,7 +13,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
       appName: "test" + ind,
       type: "test" + ind,
       updateDate: "test",
-      bypass: "test",
+      byPass: "test",
     }));
   const pages = new Array(parseInt(datas.length / 10)).fill(1);
   const [currentPage, setCurrentPage] = useState(0);
@@ -48,7 +48,8 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
           <tr
             key={ind}
             onClick={(e) => {
-              if (rowClick && e.target.tagName === "TD") rowClick(d);
+              //  && e.target.tagName === "TD"
+              if (rowClick) rowClick(d);
             }}
           >
             {columns.map((c, _ind) => (

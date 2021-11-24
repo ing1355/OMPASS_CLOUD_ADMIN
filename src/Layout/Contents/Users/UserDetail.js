@@ -1,13 +1,36 @@
-import React from "react";
-import { Form } from "antd";
+import React, { useState } from "react";
+import { Form, message, Radio } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
-import { Redirect, useParams } from "react-router";
-const UserDetail = ({ data }) => {
-  const { id } = useParams();
-  const labelColSpan = 4;
-  const { userId } = data;
-  console.log(data);
+import { Redirect, useHistory } from "react-router";
+import { updateByPassApi } from "../../../Constants/Api_Route";
+import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import CustomButton from "../../../CustomComponents/CustomButton";
+import { connect } from "react-redux";
+
+const UserDetail = ({ data, userProfile, updateBypass }) => {
+  const {adminId} = userProfile;
+  const { userId, byPass, appId } = data;
+  const [inputByPass, setInputByPass] = useState(byPass);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  
+  const onFinish = e => {
+    e.preventDefault();
+    setLoading(true);
+    CustomAxiosPatch(updateByPassApi(adminId, appId, userId),{
+      byPass: inputByPass
+    },(data) => {
+      setLoading(false);
+      updateBypass(userId, inputByPass);
+      message.success('성공!')
+      history.push('/Users');
+    }, () => {
+      setLoading(false);
+      message.error('실패!')
+    })
+  }
+
   return (
     <>
       {
@@ -20,11 +43,7 @@ const UserDetail = ({ data }) => {
                 Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로 변경하십시오.
               </div>
             </div>
-            <Form
-              onFinish={(values) => {
-                console.log("finish!!", values);
-              }}
-            >
+            <form onSubmit={onFinish}>
               <div className="ant-row inputBox ant-form-item">
                 <div className="ant-col-4 ant-form-item-label-left">
                   <label>
@@ -52,27 +71,34 @@ const UserDetail = ({ data }) => {
                 </div>
               </div>
 
-              <Form.Item
-                className="inputBox userDetailInputBox"
-                label="Status"
-                name="Status"
-                initialValue='active'
-                labelCol={{ span: labelColSpan }}
-                labelAlign="left"
-              >
-                <div>
-                  <input className="userDetailInput" type="radio" name="check" value="active" defaultChecked />
-                  <label className="label">Active</label>
-                  <p>Require two-factor authentication (default)</p>
-                  <input className="userDetailInput" type="radio" name="check" value="bypass" />
-                  <label className="label">Bypass</label>
-                  <p>Skip two-factor authentication</p>
-                  <input className="userDetailInput" type="radio" name="check" value="disabled" />
-                  <label className="label"> Disabled</label>
-                  <p>Automatically deny access</p>
+              <div className="ant-row inputBox ant-form-item">
+                <div className="ant-col-4 ant-form-item-label-left">
+                  <label>
+                    ByPass :
+                  </label>
                 </div>
-              </Form.Item>
-              
+                <div className="ant-col ant-form-item-control" style={{justifyContent:'space-around'}}>
+                  <div>
+                    <input className="userDetailInput" name="byPass" type="radio" value={true} defaultChecked={byPass} onChange={e => {
+                      setInputByPass(true)
+                    }}/>
+                    <label className="label"> Active</label>
+                  </div>
+                  <div>
+                    Require two-factor authentication (default)
+                  </div>
+                  <div>
+                    <input className="userDetailInput" name="byPass" type="radio" value={false} defaultChecked={!byPass} onChange={e => {
+                      setInputByPass(false)
+                    }}/>
+                    <label className="label"> Disabled</label>
+                  </div>
+                  <div>
+                    Automatically deny access
+                  </div>
+                </div>
+              </div>
+
               <div className="ApplicationsTitle">
                 <h2>정책</h2>
                 <p>
@@ -82,14 +108,24 @@ const UserDetail = ({ data }) => {
                   재정의할 수 있습니다.
                 </p>
               </div>
-              <button className="ApplicationsSave" type="submit">
+              <CustomButton className="ApplicationsSave" type="submit" loading={loading}>
                 저장
-              </button>
-            </Form>
+              </CustomButton>
+            </form>
           </div>
       }
     </>
   );
 };
 
-export default UserDetail;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

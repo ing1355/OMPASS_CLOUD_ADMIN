@@ -91,19 +91,17 @@ button {
   outline: 0;
   color: #fff;
   cursor: pointer;
-  /* border: 1px solid #00a9ec; */
 }
 button:hover {
   background-color: #256e8b;
-  /* border: 1px solid #00a9ec; */
 }
 
 form {
   width: 100%;
   height: auto;
-  /* border-bottom: 1px solid rgb(182, 182, 182); */
   margin-top: 3rem;
 }
+
 form .inputBox {
   width: 100%;
   font-size: 1rem;
@@ -137,8 +135,8 @@ form .inputBox span {
   font-size: 15px !important;
 }
 form .inputBox input {
-  width: 30rem !important;
-  height: 3rem;
+  /* width: 30rem !important;
+  height: 3rem; */
   padding: 0 0 0 0.5rem;
   margin-left: 1rem;
 }
