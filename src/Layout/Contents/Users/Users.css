@@ -43,7 +43,7 @@
 }
 
 .UsersBox3 > .UsersBox3_title > li.selected {
-  border-bottom: 5px solid rgb(92, 106, 119)
+  border-bottom: 5px solid rgb(92, 106, 119);
 }
 
 .UsersBox3_contents {
@@ -67,7 +67,6 @@
 .userdetailP {
   font-size: 0.8rem !important;
   margin-bottom: 0 !important;
-  margin-left: 1rem;
   font-weight: 500;
 }
 .userdetailA {
@@ -75,4 +74,25 @@
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem !important;
+}
+.form-box .ant-row {
+  /* border: 1px solid black; */
+  padding-bottom: 2rem;
+  padding-top: 0.5rem;
+  border-bottom: 1px solid rgb(180, 180, 180);
+}
+/* .form-box {
+  border: 1px solid red;
+}
+
+.form-box .ant-row div {
+  border: 1px solid blue;
+} */
+
+.form-box .ant-row .label-bottom-text {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}
+.form-box .ant-row .label-bottom-text:last-child {
+  padding-bottom: 0;
 }

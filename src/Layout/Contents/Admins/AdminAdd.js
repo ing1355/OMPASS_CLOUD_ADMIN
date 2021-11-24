@@ -4,13 +4,19 @@ import "./Admins.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { message } from "antd";
-import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
-import { addSubAdminApi, checkSubAdminExistenceApi } from "../../../Constants/Api_Route";
+import {
+  CustomAxiosGet,
+  CustomAxiosPost,
+} from "../../../Functions/CustomAxios";
+import {
+  addSubAdminApi,
+  checkSubAdminExistenceApi,
+} from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 
 const AdminAdd = ({ userProfile }) => {
-  const {adminId} = userProfile
+  const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
@@ -23,38 +29,36 @@ const AdminAdd = ({ userProfile }) => {
     setInputMobile(value);
   };
 
-  const changeEmailInput = e => {
+  const changeEmailInput = (e) => {
     setInputEmail(e.target.value);
-  }
+  };
 
   const existCheckFunc = () => {
-    if(!inputEmail) return message.error('이메일을 입력해주세요.')
-    CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
-      if(data.duplicate) {
+    if (!inputEmail) return message.error("이메일을 입력해주세요.");
+    CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), (data) => {
+      if (data.duplicate) {
         setExistCheck(false);
-        message.error('중복입니다.')
+        message.error("중복입니다.");
       } else {
         setExistCheck(true);
-        message.success('사용 가능한 이메일입니다.')
+        message.success("사용 가능한 이메일입니다.");
       }
-    })
-  }
+    });
+  };
 
   const onFinish = (e) => {
     const { email, lastName, firstName, agreeCheck } = e.target.elements;
     e.preventDefault();
-    if(!existCheck) return message.error('중복체크 해주세요.')
-    if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
-    CustomAxiosPost(
-      addSubAdminApi(adminId),
-      {
-        country: inputCountry,
-        email: email.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        phone: inputMobile,
-        role: "ADMIN",
-      });
+    if (!existCheck) return message.error("중복체크 해주세요.");
+    if (!agreeCheck.checked) return message.error("체크박스에 체크해주세요.");
+    CustomAxiosPost(addSubAdminApi(adminId), {
+      country: inputCountry,
+      email: email.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      phone: inputMobile,
+      role: "ADMIN",
+    });
     message.success("인증 메일 발송에 성공하였습니다.");
     history.push("/Admins");
   };
@@ -73,10 +77,18 @@ const AdminAdd = ({ userProfile }) => {
           </div>
           <div className="inputBox">
             <span>Email address</span>
-            <input name="email" placeholder="이메일을 입력하세요." onChange={changeEmailInput}/>
-            <button className="select" type="button" onClick={existCheckFunc}>
-                중복체크
-              </button>
+            <input
+              name="email"
+              placeholder="이메일을 입력하세요."
+              onChange={changeEmailInput}
+            />
+            <button
+              className="select button"
+              type="button"
+              onClick={existCheckFunc}
+            >
+              중복체크
+            </button>
           </div>
           <div className="inputBox2">
             <span>Phone</span>
@@ -101,7 +113,7 @@ const AdminAdd = ({ userProfile }) => {
                 This administrator will receive an email with instructions to
                 complete their account setup
               </p>
-              <button className="adminAddButton" type="submit">
+              <button className="adminAddButton button" type="submit">
                 관리자 추가
               </button>
             </div>

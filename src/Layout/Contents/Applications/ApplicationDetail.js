@@ -142,7 +142,7 @@ const ApplicationDetail = ({
           <label>Application Name</label>
           <input name="name" value={inputName} onChange={changeInputName} />
           <CustomButton
-            className="selectButon"
+            className="selectButon button"
             type="button"
             disabled={isExistCheck}
             onClick={existCheck}
@@ -160,6 +160,7 @@ const ApplicationDetail = ({
           <CustomButton
             loading={resetLoading}
             type="button"
+            className="button"
             onClick={resetSecretKey}
           >
             Reset Secret Key

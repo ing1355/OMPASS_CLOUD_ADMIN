@@ -66,7 +66,7 @@ const Admins = ({ userProfile, history }) => {
                 <div className="adminAdd">
                   <p>Admin Login Settings</p>
                   <Link to="/Admins/Add">
-                    <button>관리자 추가</button>
+                    <button className="button">관리자 추가</button>
                   </Link>
                 </div>
                 <CustomTable

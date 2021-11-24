@@ -18,12 +18,12 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 
 const columns = [
-  { name: '사용자 아이디', key: 'userId' },
-  { name: '활동', key: 'act' },
-  { name: '어플리케이션', key: 'appName' },
-  { name: '상태', key: 'status' },
-  { name: '시간', key: 'createdDate' }
-]
+  { name: "사용자 아이디", key: "userId" },
+  { name: "활동", key: "act" },
+  { name: "어플리케이션", key: "appName" },
+  { name: "상태", key: "status" },
+  { name: "시간", key: "createdDate" },
+];
 
 const Dashboard = ({ userProfile }) => {
   const [userNum, setUserNum] = useState(0);
@@ -34,29 +34,23 @@ const Dashboard = ({ userProfile }) => {
   const [authLogs, setAuthLogs] = useState([]);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getDashboardTopApi(userProfile.adminId),
-      (data) => {
-        const {
-          adminsNumber,
-          byPassUsersNumber,
-          inActiveUsersNumber,
-          usersNumber,
-          plan,
-        } = data;
-        setAdminNum(adminsNumber);
-        setUserNum(usersNumber);
-        setByPassNum(byPassUsersNumber);
-        setDisableNum(inActiveUsersNumber);
-        setPlan(plan);
-      }
-    );
-    CustomAxiosGet(
-      getDashboardBottomApi(userProfile.adminId),
-      (data) => {
-        setAuthLogs(data.slice(-5));
-      }
-    );
+    CustomAxiosGet(getDashboardTopApi(userProfile.adminId), (data) => {
+      const {
+        adminsNumber,
+        byPassUsersNumber,
+        inActiveUsersNumber,
+        usersNumber,
+        plan,
+      } = data;
+      setAdminNum(adminsNumber);
+      setUserNum(usersNumber);
+      setByPassNum(byPassUsersNumber);
+      setDisableNum(inActiveUsersNumber);
+      setPlan(plan);
+    });
+    CustomAxiosGet(getDashboardBottomApi(userProfile.adminId), (data) => {
+      setAuthLogs(data.slice(-5));
+    });
   }, []);
   return (
     <div className="contents-container">
@@ -76,10 +70,21 @@ const Dashboard = ({ userProfile }) => {
                   />
                   &nbsp;현재 사용 중
                 </h5>
-                <h6>2021년 11월 1일 ~ {plan.expireDate ? plan.expireDate.split(' ')[0].split('-').reduce((pre, cur) => {
-                  return pre.includes('월') ? (pre + ' ' + cur + '일') : (pre.includes('년') ? (pre + ' ' + cur + '월') : (pre + '년 ' + cur + '월'));
-                }
-                ) : null}</h6>
+                <h6>
+                  2021년 11월 1일 ~{" "}
+                  {plan.expireDate
+                    ? plan.expireDate
+                        .split(" ")[0]
+                        .split("-")
+                        .reduce((pre, cur) => {
+                          return pre.includes("월")
+                            ? pre + " " + cur + "일"
+                            : pre.includes("년")
+                            ? pre + " " + cur + "월"
+                            : pre + "년 " + cur + "월";
+                        })
+                    : null}
+                </h6>
                 <h2>{plan.name} Plan</h2>
                 <table>
                   <tbody>
@@ -102,10 +107,8 @@ const Dashboard = ({ userProfile }) => {
                 <div>
                   <h6>사용자 수</h6>
                   <p>
-                    <FontAwesomeIcon
-                      style={{ width: "15%" }}
-                      icon={faUser}
-                    />&nbsp;
+                    <FontAwesomeIcon style={{ width: "15%" }} icon={faUser} />
+                    &nbsp;
                     <b>{userNum}명</b>
                   </p>
                 </div>
@@ -115,7 +118,8 @@ const Dashboard = ({ userProfile }) => {
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faUserCog}
-                    />&nbsp;
+                    />
+                    &nbsp;
                     <b>{adminNum}명</b>
                   </p>
                 </div>
@@ -127,7 +131,8 @@ const Dashboard = ({ userProfile }) => {
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faHandSparkles}
-                    />&nbsp;
+                    />
+                    &nbsp;
                     <b>{byPassNum}&nbsp;명</b>
                   </p>
                 </div>
@@ -137,7 +142,8 @@ const Dashboard = ({ userProfile }) => {
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faUserAltSlash}
-                    />&nbsp;
+                    />
+                    &nbsp;
                     <b>{disableNum}명</b>
                   </p>
                 </div>
@@ -165,14 +171,12 @@ const Dashboard = ({ userProfile }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

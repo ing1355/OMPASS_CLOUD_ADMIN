@@ -26,7 +26,7 @@ const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
       <div className="header-contents-route-title">{menuState}</div>
       <div className="header-contents-button-box">
         <button
-          className="loginButton"
+          className="loginButton button"
           onClick={() => {
             setIsLogin(false);
             message.success({
