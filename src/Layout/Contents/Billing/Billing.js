@@ -1,9 +1,9 @@
 import { message, Spin } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getBillingKeyApi, startPaypalApi, subscriptionIamportApi } from '../../../Constants/Api_Route';
-import CustomConfirm from '../../../Constants/CustomConfirm';
+import CustomConfirm from '../../../CustomComponents/CustomConfirm';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import ContentsTitle from '../ContentsTitle';
 import './Billing.css'
@@ -61,7 +61,7 @@ const Billing = ({ userProfile }) => {
         setInputTerm(term.value)
         setInputUserNum(userNum.value)
         setConfirmModal(true);
-        if (country === 'kr') {
+        if (country === 'KR') {
             setPaypalLoading(true);
             requestPaypal();
         }
@@ -273,7 +273,6 @@ const Billing = ({ userProfile }) => {
             </section>
             <CustomConfirm
                 visible={confirmModal}
-                // confirmCallback={country === 'kr' ? null : requestIamPort}
                 confirmCallback={requestIamPort}
                 okLoading={confirmLoading}
                 cancelCallback={closeConfirmModal}>

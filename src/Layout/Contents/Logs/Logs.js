@@ -4,7 +4,7 @@ import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import CustomTable from "../../../Constants/CustomTable";
+import CustomTable from "../../../CustomComponents/CustomTable";
 
 const columns = [
   { name: 'User ID', key: 'userId' },
