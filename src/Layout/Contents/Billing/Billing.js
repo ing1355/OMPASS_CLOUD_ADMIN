@@ -53,6 +53,7 @@ const Billing = ({ userProfile }) => {
 
     const onFinish = e => {
         e.preventDefault()
+        console.log(e.target.elements)
         const { check, edition, term, userNum } = e.target.elements;
         if (!check.checked) return message.error('Agreement에 체크해주세요.')
         inputTermRef.current = term.value
@@ -130,7 +131,7 @@ const Billing = ({ userProfile }) => {
         CustomAxiosPost(startPaypalApi(adminId), {
             paymentInterval: inputTermRef.current,
             users: inputUserNumRef.current
-        }, ({planId}) => {
+        }, ({ planId }) => {
             setPaypalLoading(false);
             window.paypal.Buttons({
                 createSubscription: function (data, actions) {
@@ -139,14 +140,14 @@ const Billing = ({ userProfile }) => {
                         'admin_id': 'adminId',
                     })
                 },
-                onCancel: function(data) {
+                onCancel: function (data) {
                     console.log(data);
                     setConfirmModal(false);
                 },
                 onApprove: function (data, actions) {
                     console.log(data, actions);
                 },
-                onError: function(err) {
+                onError: function (err) {
                     console.log(err);
                 }
             }).render('#paypal-button-container');
@@ -266,11 +267,16 @@ const Billing = ({ userProfile }) => {
                             result in a prorate<br />
                             charge once the subscription changes have benn updated
                         </div>
-                        <button type="submit">Update Subscription</button>
+                        <button name="payType" value="iamPort" type="submit">Update Subscription</button>
                     </div>
                 </form>
             </section>
-            <CustomConfirm visible={confirmModal} confirmCallback={country === 'kr' ? null : requestIamPort} okLoading={confirmLoading} cancelCallback={closeConfirmModal} footer={null}>
+            <CustomConfirm
+                visible={confirmModal}
+                // confirmCallback={country === 'kr' ? null : requestIamPort}
+                confirmCallback={requestIamPort}
+                okLoading={confirmLoading}
+                cancelCallback={closeConfirmModal}>
                 Edition : {inputEdition}<br />
                 User Nums : {inputUserNum}<br />
                 Term : {inputTerm}<br />

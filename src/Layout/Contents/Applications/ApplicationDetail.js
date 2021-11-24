@@ -20,6 +20,7 @@ import {
 
 import { Button, Space } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
+import CustomButton from "../../../Constants/CustomButton";
 
 const columns = [
   { name: "User ID", key: "userId" },
@@ -40,6 +41,7 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
   const [inputDomain, setInputDomain] = useState("");
   const [inputRedirectURI, setInputRedirectURI] = useState("");
   const [inputStatus, setInputStatus] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
 
   useLayoutEffect(() => {
@@ -59,8 +61,12 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
   }, []);
 
   const resetSecretKey = () => {
+    setResetLoading(true);
     CustomAxiosPatch(getNewSecretKeyApi(adminId, appId), null, (data) => {
       setSecretKey(data.secretKey);
+      setResetLoading(false);
+    },() => {
+      setResetLoading(false);
     });
   };
 
@@ -131,14 +137,13 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
         <div className="ApplicationBox">
           <label>Application Name</label>
           <input name="name" value={inputName} onChange={changeInputName} />
-          <button
+          <CustomButton
             className="selectButon"
             type="button"
             disabled={isExistCheck}
-            onClick={existCheck}
-          >
+            onClick={existCheck}>
             중복 체크
-          </button>
+          </CustomButton>
         </div>
         {/* <div className="ApplicationBox">
           <label>Client Key</label>
@@ -147,9 +152,9 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
         <div className="ApplicationBox">
           <label>Secret Key</label>
           <input name="secretKey" value={secretKey} disabled />
-          <button type="button" onClick={resetSecretKey}>
+          <CustomButton loading={resetLoading} type="button" onClick={resetSecretKey}>
             Reset Secret Key
-          </button>
+          </CustomButton>
         </div>
         <div className="ApplicationBox">
           <label>Domain</label>

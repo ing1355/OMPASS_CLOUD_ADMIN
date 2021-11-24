@@ -61,7 +61,7 @@ const Applications = ({ userProfile }) => {
               <Link to="/Applications/Add">
                 <Button>
                   <UsergroupAddOutlined />추가
-              </Button>
+                </Button>
               </Link>
             </Space>
           </div>} />

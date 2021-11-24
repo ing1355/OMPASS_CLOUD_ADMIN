@@ -7,7 +7,7 @@ import './CustomTable.css';
 
 const CustomTable = ({ columns, datas, rowClick, pagination }) => {
     const test = new Array(60).fill(1).map((t, ind) => ({ userId: 'test' + ind, appName: 'test' + ind, type: 'test' + ind, updateDate: 'test', bypass: 'test' }))
-    const pages = new Array(parseInt(test.length / 10)).fill(1);
+    const pages = new Array(parseInt(datas.length / 10)).fill(1);
     const [currentPage, setCurrentPage] = useState(0);
 
     const goToFirstPage = () => {
