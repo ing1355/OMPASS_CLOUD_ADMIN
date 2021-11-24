@@ -25,7 +25,7 @@ const columns = [
   { name: '시간', key: 'createdDate' }
 ]
 
-const Dashboard = ({userProfile}) => {
+const Dashboard = ({ userProfile }) => {
   const [userNum, setUserNum] = useState(0);
   const [adminNum, setAdminNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
@@ -73,10 +73,13 @@ const Dashboard = ({userProfile}) => {
                   <FontAwesomeIcon
                     style={{ color: "rgb(0, 209, 52)", fontSize: "0.9rem" }}
                     icon={faCheckSquare}
-                  />{" "}
-                  현재 사용 중
-                </h5>{" "}
-                <h6>2021년 11월 1일 ~</h6>
+                  />
+                  &nbsp;현재 사용 중
+                </h5>
+                <h6>2021년 11월 1일 ~ {plan.expireDate ? plan.expireDate.split(' ')[0].split('-').reduce((pre, cur) => {
+                  return pre.includes('월') ? (pre + ' ' + cur + '일') : (pre.includes('년') ? (pre + ' ' + cur + '월') : (pre + '년 ' + cur + '월'));
+                }
+                ) : null}</h6>
                 <h2>{plan.name} Plan</h2>
                 <table>
                   <tbody>
@@ -84,7 +87,7 @@ const Dashboard = ({userProfile}) => {
                       <td>남은 일 수</td>
                       <td>{plan.remainingDays}일 </td>
                     </tr>
-                  {/* <tr>
+                    {/* <tr>
                     <td>예상 결제 일</td>
                     <td>12월 2일 </td>
                   </tr> */}
@@ -99,7 +102,10 @@ const Dashboard = ({userProfile}) => {
                 <div>
                   <h6>사용자 수</h6>
                   <p>
-                    <FontAwesomeIcon style={{ width: "15%" }} icon={faUser} />{" "}
+                    <FontAwesomeIcon
+                      style={{ width: "15%" }}
+                      icon={faUser}
+                    />&nbsp;
                     <b>{userNum}명</b>
                   </p>
                 </div>
@@ -109,7 +115,7 @@ const Dashboard = ({userProfile}) => {
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faUserCog}
-                    />{" "}
+                    />&nbsp;
                     <b>{adminNum}명</b>
                   </p>
                 </div>
@@ -121,17 +127,17 @@ const Dashboard = ({userProfile}) => {
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faHandSparkles}
-                    />{" "}
-                    <b>{byPassNum}명</b>
+                    />&nbsp;
+                    <b>{byPassNum}&nbsp;명</b>
                   </p>
-                </div>{" "}
+                </div>
                 <div>
                   <h6>비활성화 수</h6>
                   <p>
                     <FontAwesomeIcon
                       style={{ width: "15%" }}
                       icon={faUserAltSlash}
-                    />{" "}
+                    />&nbsp;
                     <b>{disableNum}명</b>
                   </p>
                 </div>
@@ -150,7 +156,7 @@ const Dashboard = ({userProfile}) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 최근 인증 로그
           </h4>
-          <CustomTable columns={columns} datas={authLogs}/>
+          <CustomTable columns={columns} datas={authLogs} />
         </div>
       </div>
     </div>
@@ -165,7 +171,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+
   };
 }
 

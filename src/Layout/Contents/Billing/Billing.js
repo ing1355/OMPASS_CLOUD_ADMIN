@@ -357,8 +357,8 @@ const Billing = ({ userProfile }) => {
                         <span>&nbsp;/ {country === 'KR' ? '월' : 'month'}</span>
                 <br/>
                 상기 내용으로 결제를 진행하시겠습니까?
-                <div id="paypal-button-container" style={{ textAlign: "center" }}>
-                    {paypalLoading && <Spin>Loading...</Spin>}
+                <div id="paypal-button-container" style={{ textAlign: "center", marginTop: '12px' }}>
+                    {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
                 </div>
             </CustomConfirm>
         </div>
