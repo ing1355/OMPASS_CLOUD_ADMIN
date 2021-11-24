@@ -8,14 +8,21 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import UserDetail from "./UserDetail";
+import UserUnregistered from "./UserUnregistered";
+import UserDisabled from "./UserDisabled";
+import UserBypass from "./UserBypass";
 
 const Users = ({ userProfile }) => {
   const [test1, setTest1] = useState(true);
   const [test2, setTest2] = useState(false);
   const [test3, setTest3] = useState(false);
   const [test4, setTest4] = useState(false);
+
   const [tableData, setTableData] = useState([]);
   const [detailData, setDetailData] = useState({});
+  const [userUnregistered, setUserUnregistered] = useState({});
+  const [userDisabled, setUserDisabled] = useState({});
+  const [userBypass, setUserBypass] = useState({});
 
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(userProfile.adminId), (data) => {
@@ -48,8 +55,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test1 === true
                           ? {
-                            borderBottom: "5px solid rgb(92, 106, 119)",
-                          }
+                              borderBottom: "5px solid rgb(92, 106, 119)",
+                            }
                           : null
                       }
                       onClick={() => {
@@ -66,8 +73,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test2 === true
                           ? {
-                            borderBottom: "5px solid rgb(92, 106, 119)",
-                          }
+                              borderBottom: "5px solid rgb(92, 106, 119)",
+                            }
                           : null
                       }
                       onClick={() => {
@@ -84,8 +91,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test3 === true
                           ? {
-                            borderBottom: "5px solid rgb(92, 106, 119)",
-                          }
+                              borderBottom: "5px solid rgb(92, 106, 119)",
+                            }
                           : null
                       }
                       onClick={() => {
@@ -102,8 +109,8 @@ const Users = ({ userProfile }) => {
                       style={
                         test4 === true
                           ? {
-                            borderBottom: "5px solid rgb(92, 106, 119)",
-                          }
+                              borderBottom: "5px solid rgb(92, 106, 119)",
+                            }
                           : null
                       }
                       onClick={() => {
@@ -118,16 +125,65 @@ const Users = ({ userProfile }) => {
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
-                    {test1 && <UsersTable tableData={tableData} setDetailData={setDetailData} />}
-                    {test2 && <li>test2test2</li>}
-                    {test3 && <li>test3test3test3</li>}
-                    {test4 && <li>test4test4test4test4</li>}
+                    {test1 && (
+                      <UsersTable
+                        tableData={tableData}
+                        setDetailData={setDetailData}
+                      />
+                    )}
+                    {test2 && (
+                      <UserUnregistered
+                        tableData={tableData}
+                        setUserUnregistered={setUserUnregistered}
+                      />
+                    )}
+                    {test3 && (
+                      <UserDisabled
+                        tableData={tableData}
+                        setUserDisabled={setUserDisabled}
+                      />
+                    )}
+                    {test4 && (
+                      <UserBypass
+                        tableData={tableData}
+                        setUserBypass={setUserBypass}
+                      />
+                    )}
                   </ul>
                 </div>
               </>
             )}
           />
-          <Route path="/Users/Detail/:id" render={routeInfo => <UserDetail {...routeInfo} data={detailData} />} />
+          <Route
+            path="/Users/Detail/:id"
+            render={(routeInfo) => (
+              <UserDetail {...routeInfo} data={detailData} />
+            )}
+          />
+
+          <Route
+            path="/Users/Detail/:id"
+            render={(routeInfo) => (
+              <UserUnregistered
+                {...routeInfo}
+                userUnregistered={userUnregistered}
+              />
+            )}
+          />
+
+          <Route
+            path="/Users/Detail/:id"
+            render={(routeInfo) => (
+              <UserDisabled {...routeInfo} userDisabled={userDisabled} />
+            )}
+          />
+
+          <Route
+            path="/Users/Detail/:id"
+            render={(routeInfo) => (
+              <UserBypass {...routeInfo} userBypass={userBypass} />
+            )}
+          />
         </Switch>
       </div>
     </div>

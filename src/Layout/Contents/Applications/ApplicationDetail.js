@@ -18,7 +18,7 @@ import {
   CustomAxiosDelete,
 } from "../../../Functions/CustomAxios";
 
-import { Button, Space } from "antd";
+import { Button, Space, Popconfirm } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import CustomButton from "../../../Constants/CustomButton";
 
@@ -30,7 +30,11 @@ const columns = [
   { name: "Time", key: "createdDate" },
 ];
 
-const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) => {
+const ApplicationDetail = ({
+  userProfile,
+  tableDataDelete,
+  tableDataUpdate,
+}) => {
   const history = useHistory();
   const { appId } = useParams();
   const { adminId } = userProfile;
@@ -62,17 +66,22 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
 
   const resetSecretKey = () => {
     setResetLoading(true);
-    CustomAxiosPatch(getNewSecretKeyApi(adminId, appId), null, (data) => {
-      setSecretKey(data.secretKey);
-      setResetLoading(false);
-    },() => {
-      setResetLoading(false);
-    });
+    CustomAxiosPatch(
+      getNewSecretKeyApi(adminId, appId),
+      null,
+      (data) => {
+        setSecretKey(data.secretKey);
+        setResetLoading(false);
+      },
+      () => {
+        setResetLoading(false);
+      }
+    );
   };
 
   const applicationDelete = () => {
     CustomAxiosDelete(deleteApplicationApi(adminId, appId), (data) => {
-      message.success('삭제되었습니다.')
+      message.success("삭제되었습니다.");
       tableDataDelete(appId);
       history.push("/Applications");
     });
@@ -108,7 +117,7 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
     });
   };
 
-  const onFinish = e => {
+  const onFinish = (e) => {
     e.preventDefault();
     const { name, domain, redirectUri, status } = e.target.elements;
     CustomAxiosPut(
@@ -121,19 +130,16 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
         policyId: 0,
       },
       (data) => {
-        message.success('변경되었습니다.')
+        message.success("변경되었습니다.");
         tableDataUpdate(appId, name.value, status.value);
-        history.push('/Applications')
+        history.push("/Applications");
       }
     );
-  }
+  };
 
   return (
     <>
-      <form
-        className="ApplicationForm"
-        onSubmit={onFinish}
-      >
+      <form className="ApplicationForm" onSubmit={onFinish}>
         <div className="ApplicationBox">
           <label>Application Name</label>
           <input name="name" value={inputName} onChange={changeInputName} />
@@ -141,7 +147,8 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
             className="selectButon"
             type="button"
             disabled={isExistCheck}
-            onClick={existCheck}>
+            onClick={existCheck}
+          >
             중복 체크
           </CustomButton>
         </div>
@@ -152,7 +159,11 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
         <div className="ApplicationBox">
           <label>Secret Key</label>
           <input name="secretKey" value={secretKey} disabled />
-          <CustomButton loading={resetLoading} type="button" onClick={resetSecretKey}>
+          <CustomButton
+            loading={resetLoading}
+            type="button"
+            onClick={resetSecretKey}
+          >
             Reset Secret Key
           </CustomButton>
         </div>
@@ -168,7 +179,6 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
           <label>Redirect URI</label>
           <input
             name="redirectUri"
-            // disabled
             value={inputRedirectURI}
             onChange={changeInputRedirectURI}
           />
@@ -176,7 +186,6 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
         <div className="ApplicationBox">
           <label>Status</label>
           <input
-            // disabled
             name="status"
             value={inputStatus}
             onChange={changeInputStatus}
@@ -187,10 +196,24 @@ const ApplicationDetail = ({ userProfile, tableDataDelete, tableDataUpdate }) =>
             <UserSwitchOutlined />
             수정
           </Button>
-          <Button htmlType="button" onClick={applicationDelete}>
+
+          <Popconfirm
+            placement="top"
+            title={"삭제하시겠습니까"}
+            okText="Yes"
+            cancelText="No"
+            onConfirm={applicationDelete}
+          >
+            <Button htmlType="button">
+              <UserDeleteOutlined />
+              삭제
+            </Button>
+          </Popconfirm>
+
+          {/* <Button htmlType="button" onClick={applicationDelete}>
             <UserDeleteOutlined />
             삭제
-          </Button>
+          </Button> */}
         </Space>
       </form>
       {/* <CustomTable columns={columns} datas={logsData} /> */}
