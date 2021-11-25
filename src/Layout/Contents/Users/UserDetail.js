@@ -130,7 +130,7 @@ const UserDetail = ({ data, userProfile, updateBypass }) => {
               </p>
             </div>
             <CustomButton
-              className="ApplicationsSave button"
+              className="ApplicationsSave button user-save-button"
               type="submit"
               loading={loading}
             >

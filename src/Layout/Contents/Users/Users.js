@@ -13,7 +13,7 @@ import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
 
 const Users = ({ userProfile }) => {
-  const {adminId} = userProfile;
+  const { adminId } = userProfile;
   const [allUserView, setAllUserView] = useState(true);
   const [unRegisteredUserView, setUnRegisteredUeserView] = useState(false);
   const [disabledUserView, setDisabledUserView] = useState(false);
@@ -26,17 +26,22 @@ const Users = ({ userProfile }) => {
     allUserView: 0,
     unRegisteredUeserView: 1,
     disabledUserView: 2,
-    byPassUserView: 3
-  }
+    byPassUserView: 3,
+  };
 
   const setView = (index) => {
-    const _ = [setAllUserView, setUnRegisteredUeserView, setDisabledUserView, setByPassUserView];
-    _.forEach((_setView,_index) => {
-      if(_index === index) _setView(true);
+    const _ = [
+      setAllUserView,
+      setUnRegisteredUeserView,
+      setDisabledUserView,
+      setByPassUserView,
+    ];
+    _.forEach((_setView, _index) => {
+      if (_index === index) _setView(true);
       else _setView(false);
-    })
-  }
-  
+    });
+  };
+
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(adminId), (data) => {
       setTableData(data);
@@ -44,8 +49,10 @@ const Users = ({ userProfile }) => {
   }, []);
 
   const updateEvent = (userId, byPass) => {
-    setTableData(tableData.map(t => t.userId === userId ? {...t, byPass} : t))
-  }
+    setTableData(
+      tableData.map((t) => (t.userId === userId ? { ...t, byPass } : t))
+    );
+  };
 
   const clickToDetail = (rowData) => {
     setDetailData(rowData);
@@ -62,43 +69,47 @@ const Users = ({ userProfile }) => {
             exact
             render={() => (
               <>
-                <div className="billing-change-help-container">
+                {/* <div className="billing-change-help-container">
                   <div className="billing-change-help-icon">test</div>
                   <div className="billing-change-help-msg">
                     Need to activate a replacement phone? Learn more about
                     Reactivating Duo Mobile.
                   </div>
-                </div>
+                </div> */}
 
                 <div className="UsersBox3">
                   <ul className="UsersBox3_title">
-                    <li className={allUserView ? 'selected' : ''}
+                    <li
+                      className={allUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex['allUserView'])
+                        setView(viewsIndex["allUserView"]);
                       }}
                     >
                       <h3>{tableData.length}</h3>
                       <p>전체 사용자 수</p>
                     </li>
-                    <li className={unRegisteredUserView ? 'selected' : ''}
+                    <li
+                      className={unRegisteredUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex['unRegisteredUeserView'])
+                        setView(viewsIndex["unRegisteredUeserView"]);
                       }}
                     >
                       <h3>0</h3>
                       <p>등록되지 않은 사용자</p>
                     </li>{" "}
-                    <li className={disabledUserView ? 'selected' : ''}
+                    <li
+                      className={disabledUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex['disabledUserView'])
+                        setView(viewsIndex["disabledUserView"]);
                       }}
                     >
                       <h3>0</h3>
                       <p>비활성화된 사용자</p>
                     </li>{" "}
-                    <li className={byPassUserView ? 'selected' : ''}
+                    <li
+                      className={byPassUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex['byPassUserView'])
+                        setView(viewsIndex["byPassUserView"]);
                       }}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
@@ -126,7 +137,7 @@ const Users = ({ userProfile }) => {
                     )}
                     {byPassUserView && (
                       <UserBypass
-                        tableData={tableData.filter(t => t.byPass)}
+                        tableData={tableData.filter((t) => t.byPass)}
                         setDetailData={clickToDetail}
                       />
                     )}
@@ -138,7 +149,11 @@ const Users = ({ userProfile }) => {
           <Route
             path="/Users/Detail/:id"
             render={(routeInfo) => (
-              <UserDetail {...routeInfo} data={detailData} updateBypass={updateEvent} />
+              <UserDetail
+                {...routeInfo}
+                data={detailData}
+                updateBypass={updateEvent}
+              />
             )}
           />
         </Switch>

@@ -100,8 +100,8 @@
 }
 .DashboardSecond .chart {
   width: 100%;
-  height: 400px;
-  background: rgb(236, 236, 236);
+  height: 600px;
+  background: rgba(236, 236, 236, 0.3);
 }
 
 .DashboardThird {

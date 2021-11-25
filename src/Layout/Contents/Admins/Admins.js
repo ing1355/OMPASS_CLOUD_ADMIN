@@ -64,9 +64,13 @@ const Admins = ({ userProfile, history }) => {
             <div className="AdminBox">
               <div>
                 <div className="adminAdd">
-                  <p>Admin Login Settings</p>
                   <Link to="/Admins/Add">
-                    <button className="button">관리자 추가</button>
+                    <button className="button admin-button">관리자 추가</button>
+                  </Link>
+                  <Link to="/Admins/Add">
+                    <button className="button two-Auth-button admin-button">
+                      2차 인증 활성화
+                    </button>
                   </Link>
                 </div>
                 <CustomTable

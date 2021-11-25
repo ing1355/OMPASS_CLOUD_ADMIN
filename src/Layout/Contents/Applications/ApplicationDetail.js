@@ -184,11 +184,32 @@ const ApplicationDetail = ({
         </div>
         <div className="ApplicationBox">
           <label>Status</label>
+
           <input
             name="status"
             value={inputStatus}
             onChange={changeInputStatus}
+            type="radio"
+            style={{ width: "15px" }}
+            defaultChecked="true"
           />
+          <label
+            style={{ marginLeft: "0.5rem", width: "80px" }}
+            className="label"
+          >
+            Active
+          </label>
+          <br />
+          <input
+            name="status"
+            value={inputStatus}
+            onChange={changeInputStatus}
+            type="radio"
+            style={{ width: "15px" }}
+          />
+          <label style={{ marginLeft: "0.5rem" }} className="label">
+            Inactive
+          </label>
         </div>
         <Space className="cud">
           <Button htmlType="submit">

@@ -2,12 +2,18 @@ import { message, Spin } from "antd";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
 import {
   getBillingKeyApi,
+  getPricingApi,
   getUsersApi,
   startPaypalApi,
   subscriptionIamportApi,
 } from "../../../Constants/Api_Route";
+
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import {
   CustomAxiosGet,
@@ -19,26 +25,34 @@ import "./Billing.css";
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
   const [allUserNum, setAllUserNum] = useState(0);
-  const [inputEdition, setInputEdition] = useState("OMPASS Free");
+  const [editions, setEditions] = useState([]);
+  const [inputEdition, setInputEdition] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(1);
+  const [cost, setCost] = useState(0);
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
-  const [cost, setCost] = useState(2200);
 
   useEffect(() => {
-    if (inputUserNum) {
-      if (country === "KR") setCost(inputUserNum * 2200);
-      else setCost(inputUserNum * 2);
+    if (inputUserNum && editions && inputEdition) {
+      setCost(
+        inputUserNum *
+          editions.find((e) => e.name === inputEdition).priceForOneUser
+      );
     }
-  }, [inputUserNum]);
+  }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(adminId), (data) => {
       setAllUserNum(data.length);
+    });
+    CustomAxiosGet(getPricingApi(country), (data) => {
+      setEditions(data);
+      setInputEdition(data[0].name);
+      setCost(data[0].priceForOneUser * 1);
     });
   }, []);
 
@@ -243,8 +257,20 @@ const Billing = ({ userProfile }) => {
           <div className="billing-edition-subtitle">30 days left</div>
         </div>
         <div className="billing-edition">
-          <div className="billing-edition-data">{allUserNum}</div>
-          <div className="billing-edition-title">Users</div>
+          <div className="billing-edition-data">
+            <FontAwesomeIcon
+              style={{ fontSize: "30px", color: "#00a9ec", marginLeft: "7px" }}
+              icon={faUser}
+            />
+            &nbsp; &nbsp;
+            <b style={{ color: "#00a9ec", fontWeight: "bold" }}>{allUserNum}</b>
+          </div>
+          <div
+            className="billing-edition-title"
+            // style={{ color: "#00a9ec", fontWeight: "bold" }}
+          >
+            Users
+          </div>
         </div>
       </section>
       <section className="billing-info-container">
@@ -279,14 +305,11 @@ const Billing = ({ userProfile }) => {
               name="edition"
               onChange={changeEdition}
             >
-              {billingsInfo.map(
-                (item, ind) =>
-                  item.cardTitle !== "OMPASS Free" && (
-                    <option key={ind} value={item.cardTitle}>
-                      {item.cardTitle}
-                    </option>
-                  )
-              )}
+              {editions.map((item, ind) => (
+                <option key={ind} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="billing-change-item">
@@ -353,9 +376,9 @@ const Billing = ({ userProfile }) => {
             </div>
             <button
               name="payType"
+              className="button"
               value="iamPort"
               type="submit"
-              className="button"
             >
               Update Subscription
             </button>
@@ -374,13 +397,16 @@ const Billing = ({ userProfile }) => {
         <br />
         Term : {inputTerm}
         <br />
-        Cost : <b>{country === "KR" ? cost + " 원" : "$" + cost}</b>
+        Cost :{" "}
+        <b style={{ color: "Red" }}>
+          {country === "KR" ? cost + " 원" : "$" + cost}
+        </b>
         <span>&nbsp;/ {country === "KR" ? "월" : "month"}</span>
         <br />
         상기 내용으로 결제를 진행하시겠습니까?
         <div
           id="paypal-button-container"
-          style={{ textAlign: "center", marginTop: "12px" }}
+          style={{ textAlign: "center", marginTop: "2rem" }}
         >
           {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
         </div>
