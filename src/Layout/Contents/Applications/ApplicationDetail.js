@@ -16,6 +16,8 @@ import {
   CustomAxiosDelete,
 } from "../../../Functions/CustomAxios";
 
+import "./Applications.css";
+
 import { Button, Space, Popconfirm } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
@@ -133,7 +135,7 @@ const ApplicationDetail = ({
           name: name.value,
           domain: domain.value,
           redirectUri: redirectUri.value,
-          status: status.value
+          status: status.value,
         });
         history.push("/Applications");
       }
@@ -142,105 +144,107 @@ const ApplicationDetail = ({
 
   return (
     <>
-      <form className="ApplicationForm" onSubmit={onFinish}>
-        <div className="ApplicationBox">
-          <label>Application Name</label>
-          <input name="name" value={inputName} onChange={changeInputName} />
-          <CustomButton
-            className="selectButon button"
-            type="button"
-            disabled={isExistCheck}
-            onClick={existCheck}
-          >
-            중복 체크
-          </CustomButton>
-        </div>
-        {/* <div className="ApplicationBox">
+      <div className="ApplicationsBox">
+        <form className="ApplicationForm" onSubmit={onFinish}>
+          <div className="Application-label-input-box">
+            <label>Application Name</label>
+            <input name="name" value={inputName} onChange={changeInputName} />
+            <CustomButton
+              className="selectButon button"
+              type="button"
+              disabled={isExistCheck}
+              onClick={existCheck}
+            >
+              중복 체크
+            </CustomButton>
+          </div>
+          {/* <div className="ApplicationBox">
           <label>Client Key</label>
           <input name="integrationKey" value={integrationKey} disabled />
         </div> */}
-        <div className="ApplicationBox">
-          <label>Secret Key</label>
-          <input name="secretKey" value={secretKey} disabled />
-          <CustomButton
-            loading={resetLoading}
-            type="button"
-            className="button"
-            onClick={resetSecretKey}
-          >
-            Reset Secret Key
-          </CustomButton>
-        </div>
-        <div className="ApplicationBox">
-          <label>Domain</label>
-          <input
-            name="domain"
-            value={inputDomain}
-            onChange={changeInputDomain}
-          />
-        </div>
-        <div className="ApplicationBox">
-          <label>Redirect URI</label>
-          <input
-            name="redirectUri"
-            value={inputRedirectURI}
-            onChange={changeInputRedirectURI}
-          />
-        </div>
-        <div className="ApplicationBox">
-          <label>Status</label>
+          <div className="Application-label-input-box">
+            <label>Secret Key</label>
+            <input name="secretKey" value={secretKey} disabled />
+            <CustomButton
+              loading={resetLoading}
+              type="button"
+              className="button"
+              onClick={resetSecretKey}
+            >
+              Reset Secret Key
+            </CustomButton>
+          </div>
+          <div className="Application-label-input-box">
+            <label>Domain</label>
+            <input
+              name="domain"
+              value={inputDomain}
+              onChange={changeInputDomain}
+            />
+          </div>
+          <div className="Application-label-input-box">
+            <label>Redirect URI</label>
+            <input
+              name="redirectUri"
+              value={inputRedirectURI}
+              onChange={changeInputRedirectURI}
+            />
+          </div>
+          <div className="Application-label-input-box">
+            <label>Status</label>
+            <input
+              name="status"
+              value={inputStatus}
+              onChange={changeInputStatus}
+              type="radio"
+              style={{ width: "15px" }}
+              defaultChecked="true"
+            />
+            <label
+              style={{ marginLeft: "0.5rem", width: "80px" }}
+              className="label-radio"
+            >
+              Active
+            </label>
 
-          <input
-            name="status"
-            value={inputStatus}
-            onChange={changeInputStatus}
-            type="radio"
-            style={{ width: "15px" }}
-            defaultChecked="true"
-          />
-          <label
-            style={{ marginLeft: "0.5rem", width: "80px" }}
-            className="label"
-          >
-            Active
-          </label>
-          <br />
-          <input
-            name="status"
-            value={inputStatus}
-            onChange={changeInputStatus}
-            type="radio"
-            style={{ width: "15px" }}
-          />
-          <label style={{ marginLeft: "0.5rem" }} className="label">
-            Inactive
-          </label>
-        </div>
-        <Space className="cud">
-          <Button htmlType="submit">
-            <UserSwitchOutlined />
-            수정
+            <input
+              name="status"
+              value={inputStatus}
+              onChange={changeInputStatus}
+              type="radio"
+              style={{ width: "15px" }}
+            />
+            <label style={{ marginLeft: "0.5rem" }} className="label-radio">
+              Inactive
+            </label>
+          </div>
+        </form>
+      </div>
+      <Space className="cud">
+        <Button htmlType="submit">
+          <UserSwitchOutlined />
+          수정
+        </Button>
+
+        <Popconfirm
+          placement="top"
+          title={"삭제하시겠습니까"}
+          okText="Yes"
+          cancelText="No"
+          onConfirm={applicationDelete}
+        >
+          <Button htmlType="button">
+            <UserDeleteOutlined />
+            삭제
           </Button>
+        </Popconfirm>
 
-          <Popconfirm
-            placement="top"
-            title={"삭제하시겠습니까"}
-            okText="Yes"
-            cancelText="No"
-            onConfirm={applicationDelete}
-          >
-            <Button htmlType="button">
-              <UserDeleteOutlined />
-              삭제
-            </Button>
-          </Popconfirm>
-
-          {/* <Button htmlType="button" onClick={applicationDelete}>
+        {/* <Button htmlType="button" onClick={applicationDelete}>
             <UserDeleteOutlined />
             삭제
           </Button> */}
-        </Space>
-      </form>
+      </Space>
+
       {/* <CustomTable columns={columns} datas={logsData} /> */}
     </>
   );
