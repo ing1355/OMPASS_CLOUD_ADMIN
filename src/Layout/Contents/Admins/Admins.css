@@ -135,3 +135,11 @@
   margin-top: 2rem;
   margin-right: 1rem;
 }
+
+.two-Auth-button {
+  margin-left: 1rem;
+  background: rgb(1, 141, 255);
+}
+.admin-button {
+  width: auto;
+}

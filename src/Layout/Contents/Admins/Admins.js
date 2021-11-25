@@ -4,11 +4,13 @@ import "./Admins.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
 import AdminUpdate from "./AdminUpdate";
-import { CustomAxiosGet } from "../../../Functions/CustomAxios";
-import { getAdminsApi } from "../../../Constants/Api_Route";
+import { CustomAxiosGet, CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
+import ActionCreators from "../../../redux/actions";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
 const columns = [
   { name: "이름", key: "name" },
@@ -18,12 +20,15 @@ const columns = [
   { name: "국가", key: "country" },
 ];
 
-const Admins = ({ userProfile, history }) => {
+const Admins = ({ userProfile, history, setUserProfile }) => {
+  const {adminId, ompass} = userProfile;
   const [tableData, setTableData] = useState([]);
   const [detailData, setDetailData] = useState({});
+  const [confirmVisible, setConfirmVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
   useEffect(() => {
-    CustomAxiosGet(getAdminsApi(userProfile.adminId), (data) => {
+    CustomAxiosGet(getAdminsApi(adminId), (data) => {
       setTableData(
         data.map((d, index) => ({
           ...d,
@@ -53,6 +58,23 @@ const Admins = ({ userProfile, history }) => {
     setTableData(tableData.filter((t) => t.index !== index * 1));
   };
 
+  const openConfirmModal = () => {
+    setConfirmVisible(true);
+  }
+
+  const OMPASSToggle = () => {
+    setConfirmLoading(true);
+    CustomAxiosPatch(update2faApi(adminId), {
+      flag: !ompass
+    }, data => {
+      setUserProfile({...userProfile, ompass: !ompass})
+      setConfirmVisible(false);
+      setConfirmLoading(false);
+    }, () => {
+      setConfirmLoading(false);
+    })
+  }
+
   return (
     <div className="contents-container">
       <ContentsTitle title="Admins Info" />
@@ -64,10 +86,12 @@ const Admins = ({ userProfile, history }) => {
             <div className="AdminBox">
               <div>
                 <div className="adminAdd">
-                  <p>Admin Login Settings</p>
                   <Link to="/Admins/Add">
-                    <button>관리자 추가</button>
+                    <button className="button admin-button">관리자 추가</button>
                   </Link>
+                  <button className="button two-Auth-button admin-button" onClick={openConfirmModal}>
+                    2차 인증 {ompass ? '비활성화' : '활성화'}
+                  </button>
                 </div>
                 <CustomTable
                   columns={columns}
@@ -75,6 +99,14 @@ const Admins = ({ userProfile, history }) => {
                   rowClick={clickToDetail}
                 />
               </div>
+              <CustomConfirm closable={false} visible={confirmVisible} cancelCallback={() => {
+                setConfirmVisible(false);
+                setConfirmLoading(false);
+              }} confirmCallback={() => {
+                OMPASSToggle();
+              }} okLoading={confirmLoading}>
+                정말로 2차인증을 {ompass ? '비활성화' : '활성화'} 하시겠습니까?
+              </CustomConfirm>
             </div>
           )}
         />
@@ -101,7 +133,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setUserProfile: (data) => {
+      dispatch(ActionCreators.setProfile(data));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admins);

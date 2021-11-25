@@ -8,6 +8,7 @@ export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`
 export const deleteAdminApi = (adminId) => `/v1/admins/${adminId}`
 export const signUpAdminApi = `/v1/admins/signup-token`
+export const update2faApi = (adminId) => `/v1/admins/${adminId}/2fa`
 
 export const addSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
 export const updateSubAdminApi = (adminId, subAdminId) => `/v1/admins/${adminId}/sub-admins/${subAdminId}`

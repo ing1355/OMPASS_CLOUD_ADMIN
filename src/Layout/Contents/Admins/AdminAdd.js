@@ -4,14 +4,20 @@ import "./Admins.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { message } from "antd";
-import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios";
-import { addSubAdminApi, checkSubAdminExistenceApi } from "../../../Constants/Api_Route";
+import {
+  CustomAxiosGet,
+  CustomAxiosPost,
+} from "../../../Functions/CustomAxios";
+import {
+  addSubAdminApi,
+  checkSubAdminExistenceApi,
+} from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { emailTest, nameTest } from "../../../Constants/InputRules";
 
 const AdminAdd = ({ userProfile }) => {
-  const {adminId} = userProfile
+  const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
@@ -24,9 +30,9 @@ const AdminAdd = ({ userProfile }) => {
     setInputMobile(value);
   };
 
-  const changeEmailInput = e => {
+  const changeEmailInput = (e) => {
     setInputEmail(e.target.value);
-  }
+  };
 
   const existCheckFunc = () => {
     if(!inputEmail) return message.error('이메일을 입력해주세요.')
@@ -34,13 +40,13 @@ const AdminAdd = ({ userProfile }) => {
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
       if(data.duplicate) {
         setExistCheck(false);
-        message.error('중복입니다.')
+        message.error("중복입니다.");
       } else {
         setExistCheck(true);
-        message.success('사용 가능한 이메일입니다.')
+        message.success("사용 가능한 이메일입니다.");
       }
-    })
-  }
+    });
+  };
 
   const onFinish = (e) => {
     const { email, lastName, firstName, agreeCheck } = e.target.elements;
@@ -78,10 +84,18 @@ const AdminAdd = ({ userProfile }) => {
           </div>
           <div className="inputBox">
             <span>Email address</span>
-            <input name="email" placeholder="이메일을 입력하세요." onChange={changeEmailInput}/>
-            <button className="select" type="button" onClick={existCheckFunc}>
-                중복체크
-              </button>
+            <input
+              name="email"
+              placeholder="이메일을 입력하세요."
+              onChange={changeEmailInput}
+            />
+            <button
+              className="select button"
+              type="button"
+              onClick={existCheckFunc}
+            >
+              중복체크
+            </button>
           </div>
           <div className="inputBox2">
             <span>Phone</span>
@@ -110,7 +124,7 @@ const AdminAdd = ({ userProfile }) => {
                 This administrator will receive an email with instructions to
                 complete their account setup
               </p>
-              <button className="adminAddButton" type="submit">
+              <button className="adminAddButton button" type="submit">
                 관리자 추가
               </button>
             </div>

@@ -15,7 +15,8 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
       updateDate: "test",
       byPass: "test",
     }));
-  const pageNum = parseInt(datas.length / (numPerPage ? numPerPage : 10)) + (datas.length % numPerPage === 0 ? 0 : 1);
+  const _numPerPage = numPerPage ? numPerPage : 10
+  const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
   const [currentPage, setCurrentPage] = useState(0);
 
   const goToFirstPage = () => {
@@ -44,7 +45,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
         </tr>
       </thead>
       <tbody>
-        {datas.slice(currentPage * 10, currentPage * 10 + 10).map((d, ind) => (
+        {datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
           <tr
             key={ind}
             onClick={(e) => {

@@ -88,7 +88,11 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
           >
             <div>
               <input placeholder="Click to view." />
-              <button className="select" type="button" onClick={existCheck}>
+              <button
+                className="select button"
+                type="button"
+                onClick={existCheck}
+              >
                 중복체크
               </button>
             </div>
@@ -143,7 +147,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
             <span>Global policy</span>
             {/* <input placeholder="이메일을 입력하세요." /> */}
           </div>
-          <button className="ApplicationsSave" type="submit">
+          <button className="ApplicationsSave button" type="submit">
             추가
           </button>
         </Form>

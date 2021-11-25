@@ -148,3 +148,46 @@ select {
   color: #3a3a3a;
   font-size: 0.8rem;
 }
+
+.form {
+  width: 100%;
+  height: auto;
+  margin-top: 3rem;
+}
+
+.form .inputBox {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.form .inputBox2 {
+  width: 100% !important;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.form .inputBox2 .phoneBox {
+  width: 100%;
+  margin-left: 2.5rem !important;
+}
+
+.form .inputBox span {
+  width: 12rem !important;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  font-size: 15px !important;
+}
+.form .inputBox input {
+  padding: 0 0 0 0.5rem;
+  margin-left: 1rem;
+}

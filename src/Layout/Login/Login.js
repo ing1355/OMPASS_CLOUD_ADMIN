@@ -70,14 +70,16 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
-                <Form onFinish={loginRequest}>
+                <Form onFinish={loginRequest} className="form">
                   <Form.Item name="userId" initialValue="">
                     <input placeholder="아이디" type="text"></input>
                   </Form.Item>
                   <Form.Item name="password" initialValue="">
                     <input type="password" placeholder="비밀번호"></input>
                   </Form.Item>
-                  <button type="submit">로그인</button>
+                  <button className="button" type="submit">
+                    로그인
+                  </button>
                 </Form>
                 <div className="forget">
                   <span
@@ -109,7 +111,9 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                     placeholder="이메일"
                     type="text"
                   ></input>
-                  <button type="submit">이메일 인증</button>
+                  <button className="button" type="submit">
+                    이메일 인증
+                  </button>
                 </form>
                 <div className="forget">
                   <span
