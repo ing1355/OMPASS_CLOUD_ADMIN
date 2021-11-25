@@ -19,18 +19,19 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [isExistCheck, setIsExistCheck] = useState(false);
   const history = useHistory();
 
-  const onFinish = (values) => {
+  const onFinish = (e) => {
+    e.preventDefault();
     if (!isExistCheck)
       return message.error("이름 중복체크를 먼저 진행해주세요.");
-    const { domain, redirectUri, name } = values;
+    const { domain, redirectUri, name } = e.target.elements;
 
     CustomAxiosPost(
       getApplicationApi(userProfile.adminId),
       {
-        domain,
-        name,
+        domain : domain.value,
+        name : name.value,
         policyId: 0,
-        redirectUri,
+        redirectUri : redirectUri.value,
         status: "INACTIVE",
       },
       (data) => {
@@ -59,76 +60,27 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   return (
     <>
       <div className="ApplicationsBox">
-        <Form
-          onFinish={onFinish}
-          onValuesChange={(targetValue) => {
-            if (Object.keys(targetValue)[0] === "name") {
-              if (isExistCheck) setIsExistCheck(false);
-              setInputName(targetValue.name);
-            }
-          }}
-        >
+        <form onSubmit={onFinish}>
           <div className="ApplicationsTitle">
             <span>
               <h2>세부</h2>
             </span>
           </div>
-          <Form.Item
-            className="inputBox hasExistCheck"
-            label="Name"
-            name="name"
-            labelCol={{ span: 3 }}
-            labelAlign="left"
-            rules={[
-              {
-                required: true,
-                message: "이름을 입력해주세요.",
-              },
-            ]}
-          >
-            <div>
-              <input placeholder="Click to view." />
-              <button
-                className="select button"
-                type="button"
-                onClick={existCheck}
-              >
-                중복체크
+          <label>Name</label>
+          <div>
+            <input name="name" placeholder="Click to view." />
+            <button
+              className="select button"
+              type="button"
+              onClick={existCheck}
+            >
+              중복체크
               </button>
-            </div>
-          </Form.Item>
-          <Form.Item
-            className="inputBox"
-            label="Domain Address"
-            name="domain"
-            labelCol={{ span: 3 }}
-            labelAlign="left"
-            initialValue=""
-            rules={[
-              {
-                required: true,
-                message: "도메인 주소를 입력해주세요.",
-              },
-            ]}
-          >
-            <input placeholder="도메인 주소를 입력하세요." />
-          </Form.Item>
-          <Form.Item
-            className="inputBox"
-            label="Redirect URL"
-            name="redirectUri"
-            labelCol={{ span: 3 }}
-            labelAlign="left"
-            initialValue=""
-            rules={[
-              {
-                required: true,
-                message: "리다이렉트 Uri를 입력해주세요.",
-              },
-            ]}
-          >
-            <input placeholder="Redirect URL를 입력하세요." />
-          </Form.Item>
+          </div>
+          <label>Domain Address</label>
+          <input name="domain" placeholder="도메인 주소를 입력하세요." />
+          <label>Redirect URL</label>
+          <input name="redirectUri" placeholder="Redirect URL를 입력하세요." />
           <div className="ApplicationsTitle">
             <h2>정책</h2>
             <p>
@@ -150,7 +102,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
           <button className="ApplicationsSave button" type="submit">
             추가
           </button>
-        </Form>
+        </form>
       </div>
     </>
   );

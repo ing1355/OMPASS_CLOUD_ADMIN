@@ -129,7 +129,12 @@ const ApplicationDetail = ({
       },
       (data) => {
         message.success("변경되었습니다.");
-        tableDataUpdate(appId, name.value, status.value);
+        tableDataUpdate(appId, {
+          name: name.value,
+          domain: domain.value,
+          redirectUri: redirectUri.value,
+          status: status.value
+        });
         history.push("/Applications");
       }
     );

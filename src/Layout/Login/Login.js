@@ -28,13 +28,14 @@ const Login = ({ setIsLogin, setUserProfile }) => {
     alert("메일로 전송했습니다. 인증해주세요.");
   };
 
-  const loginRequest = (values) => {
-    const { userId, password } = values;
+  const loginRequest = (e) => {
+    e.preventDefault();
+    const { userId, password } = e.target.elements;
     CustomAxiosPost(
       loginApi,
       {
-        email: userId,
-        password: password,
+        email: userId.value,
+        password: password.value,
       },
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
@@ -70,17 +71,13 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
-                <Form onFinish={loginRequest} className="form">
-                  <Form.Item name="userId" initialValue="">
-                    <input placeholder="아이디" type="text"></input>
-                  </Form.Item>
-                  <Form.Item name="password" initialValue="">
-                    <input type="password" placeholder="비밀번호"></input>
-                  </Form.Item>
+                <form onSubmit={loginRequest} className="form">
+                  <input name="userId" placeholder="아이디" type="text" />
+                  <input name="password" type="password" placeholder="비밀번호"></input>
                   <button className="button" type="submit">
                     로그인
                   </button>
-                </Form>
+                </form>
                 <div className="forget">
                   <span
                     onClick={() => {

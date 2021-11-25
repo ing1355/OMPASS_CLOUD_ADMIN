@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 
-import AppDetails from "./AppDetailsAdd";
+import ApplicationAdd from "./AppDetailsAdd";
 
 import { Button, Space } from "antd";
 import { UsergroupAddOutlined } from "@ant-design/icons";
@@ -36,10 +36,10 @@ const Applications = ({ userProfile }) => {
     setTableData(tableData.filter((d) => d.appId !== id * 1));
   };
 
-  const tableDataUpdate = (appId, name, status) => {
+  const tableDataUpdate = (appId, data) => {
     setTableData(
       tableData.map((t) =>
-        t.appId === appId * 1 ? { appId, name, status } : t
+        t.appId === appId * 1 ? {...data} : t
       )
     );
   };
@@ -76,7 +76,7 @@ const Applications = ({ userProfile }) => {
           <Route
             path="/Applications/Add"
             exact
-            render={() => <AppDetails tableDataAdd={tableDataAdd} />}
+            render={() => <ApplicationAdd tableDataAdd={tableDataAdd} />}
           />
           <Route
             path="/Applications/Detail/:appId"
