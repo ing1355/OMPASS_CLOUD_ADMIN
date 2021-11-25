@@ -80,7 +80,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
                 onChange={changeInputName}
               />
               <button
-                className="selectButton"
+                className="selectButton button"
                 type="button"
                 disabled={isExistCheck}
                 onClick={existCheck}
