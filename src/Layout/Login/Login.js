@@ -51,13 +51,13 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             adminId,
             email,
             role,
-            country
+            country,
           });
           setIsLogin(true);
           message.success({
             content: "로그인 되었습니다.",
           });
-          if (callback) callback()
+          if (callback) callback();
         }
       }
     );
@@ -71,9 +71,18 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
-                <form onSubmit={loginRequest} className="form">
-                  <input name="userId" placeholder="아이디" type="text" />
-                  <input name="password" type="password" placeholder="비밀번호"></input>
+                <form onSubmit={loginRequest} className="form login-input">
+                  <input
+                    className="email-input"
+                    name="userId"
+                    placeholder="아이디"
+                    type="text"
+                  />
+                  <input
+                    name="password"
+                    type="password"
+                    placeholder="비밀번호"
+                  ></input>
                   <button className="button" type="submit">
                     로그인
                   </button>
