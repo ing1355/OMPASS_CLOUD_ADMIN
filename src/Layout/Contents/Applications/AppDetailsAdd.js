@@ -9,8 +9,8 @@ import {
 } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import {
-  checkApplicationExistenceApi,
-  getApplicationApi,
+  addApplicationApi,
+  checkApplicationExistenceApi
 } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 
@@ -26,13 +26,13 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
     const { domain, redirectUri, name } = e.target.elements;
 
     CustomAxiosPost(
-      getApplicationApi(userProfile.adminId),
+      addApplicationApi(userProfile.adminId),
       {
         domain : domain.value,
         name : name.value,
         policyId: 0,
         redirectUri : redirectUri.value,
-        status: "INACTIVE",
+        status: "Inactive",
       },
       (data) => {
         tableDataAdd(data);
@@ -57,6 +57,11 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
     );
   };
 
+  const changeInputName = e => {
+    setInputName(e.target.value)
+    if(isExistCheck) setIsExistCheck(false)
+  }
+
   return (
     <>
       <div className="ApplicationsBox">
@@ -68,10 +73,11 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
           </div>
           <label>Name</label>
           <div>
-            <input name="name" placeholder="Click to view." />
+            <input name="name" placeholder="Click to view." onChange={changeInputName}/>
             <button
-              className="select button"
+              className="selectButton button"
               type="button"
+              disabled={isExistCheck}
               onClick={existCheck}
             >
               중복체크

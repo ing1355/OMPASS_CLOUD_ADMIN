@@ -48,8 +48,7 @@ const ApplicationDetail = ({
 
   useLayoutEffect(() => {
     CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
-      const { name, secretKey, domain, redirectUri, status, integrationKey } =
-        data;
+      const { name, secretKey, domain, redirectUri, status, integrationKey } = data;
       setInputName(name);
       setInputDomain(domain);
       setInputRedirectURI(redirectUri);
@@ -124,7 +123,7 @@ const ApplicationDetail = ({
         name: name.value,
         domain: domain.value,
         redirectUri: redirectUri.value,
-        status: status.value,
+        status: inputStatus,
         policyId: 0,
       },
       (data) => {
@@ -133,7 +132,7 @@ const ApplicationDetail = ({
           name: name.value,
           domain: domain.value,
           redirectUri: redirectUri.value,
-          status: status.value
+          status: inputStatus
         });
         history.push("/Applications");
       }
@@ -147,7 +146,7 @@ const ApplicationDetail = ({
           <label>Application Name</label>
           <input name="name" value={inputName} onChange={changeInputName} />
           <CustomButton
-            className="selectButon button"
+            className="selectButton button"
             type="button"
             disabled={isExistCheck}
             onClick={existCheck}
@@ -189,14 +188,13 @@ const ApplicationDetail = ({
         </div>
         <div className="ApplicationBox">
           <label>Status</label>
-
           <input
             name="status"
-            value={inputStatus}
+            value='Active'
             onChange={changeInputStatus}
             type="radio"
             style={{ width: "15px" }}
-            defaultChecked="true"
+            checked={inputStatus === 'Active'}
           />
           <label
             style={{ marginLeft: "0.5rem", width: "80px" }}
@@ -207,10 +205,11 @@ const ApplicationDetail = ({
           <br />
           <input
             name="status"
-            value={inputStatus}
+            value='Inactive'
             onChange={changeInputStatus}
             type="radio"
             style={{ width: "15px" }}
+            checked={inputStatus === 'Inactive'}
           />
           <label style={{ marginLeft: "0.5rem" }} className="label">
             Inactive

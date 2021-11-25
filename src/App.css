@@ -27,10 +27,10 @@ li {
 a {
   color: inherit;
 }
-@keyframes zoomIn {
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3);
   }
 
   100% {
@@ -39,8 +39,7 @@ a {
 }
 
 .contents-container {
-  animation-name: zoomIn;
-  animation-duration: 0.5s;
+  animation: fadeIn 0.5s;
   margin: 0 auto;
   width: 1200px;
   padding: 20px 64px;
@@ -78,7 +77,6 @@ table thead tr td, table tbody tr td {
   display: flex;
   height: 55px;
   align-items: center;
-  cursor: pointer;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 .button {
@@ -94,7 +92,6 @@ table thead tr td, table tbody tr td {
 }
 
 table tbody tr:hover {
-  cursor: pointer;
   background-color: #256e8b15;
 }
 table tbody tr:nth-child(1) {

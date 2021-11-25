@@ -39,7 +39,7 @@ const Applications = ({ userProfile }) => {
   const tableDataUpdate = (appId, data) => {
     setTableData(
       tableData.map((t) =>
-        t.appId === appId * 1 ? {...data} : t
+        t.appId === appId * 1 ? {appId: t.appId, ...data} : t
       )
     );
   };
@@ -47,7 +47,6 @@ const Applications = ({ userProfile }) => {
   useEffect(() => {
     CustomAxiosGet(getApplicationApi(userProfile.adminId), (data) => {
       setTableData(data);
-      console.log(data);
     });
   }, []);
 

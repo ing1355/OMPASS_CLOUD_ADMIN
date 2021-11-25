@@ -17,6 +17,7 @@ import {
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import {
   CustomAxiosGet,
+  CustomAxiosGetAll,
   CustomAxiosPost,
 } from "../../../Functions/CustomAxios";
 import ContentsTitle from "../ContentsTitle";
@@ -46,14 +47,13 @@ const Billing = ({ userProfile }) => {
   }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getUsersApi(adminId), (data) => {
+    CustomAxiosGetAll([getUsersApi(adminId), getPricingApi(country)], [(data) => {
       setAllUserNum(data.length);
-    });
-    CustomAxiosGet(getPricingApi(country), (data) => {
+    }, (data) => {
       setEditions(data);
       setInputEdition(data[0].name);
       setCost(data[0].priceForOneUser * 1);
-    });
+    }])
   }, []);
 
   const changeEdition = (e) => {

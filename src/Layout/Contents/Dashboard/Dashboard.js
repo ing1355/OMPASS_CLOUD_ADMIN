@@ -9,7 +9,7 @@ import {
   faCaretRight,
   faCheckSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
   getDashboardTopApi,
   getDashboardBottomApi,
@@ -17,7 +17,7 @@ import {
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
-import { testData } from "./testDataSet";
+import { testData, testData2 } from "./testDataSet";
 
 const columns = [
   { name: "사용자 아이디", key: "userId" },
@@ -28,6 +28,7 @@ const columns = [
 ];
 
 const Dashboard = ({ userProfile }) => {
+  const {adminId} = userProfile;
   const [userNum, setUserNum] = useState(0);
   const [adminNum, setAdminNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
@@ -35,8 +36,8 @@ const Dashboard = ({ userProfile }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
 
-  useLayoutEffect(() => {
-    CustomAxiosGet(getDashboardTopApi(userProfile.adminId), (data) => {
+  const getDashboardData = () => {
+    CustomAxiosGetAll([getDashboardTopApi(adminId),getDashboardBottomApi(adminId)], [(data) => {
       const {
         adminsNumber,
         byPassUsersNumber,
@@ -49,14 +50,18 @@ const Dashboard = ({ userProfile }) => {
       setByPassNum(byPassUsersNumber);
       setDisableNum(inActiveUsersNumber);
       setPlan(plan);
-    });
-    CustomAxiosGet(getDashboardBottomApi(userProfile.adminId), (data) => {
+    }, (data) => {
+      console.log(data);
       setAuthLogs(data.slice(-5));
-    });
+    }]);
+  }
+
+  useLayoutEffect(() => {
+    getDashboardData();
   }, []);
+  
   return (
-    <div className="contents-container">
-      {/* <ContentsTitle /> */}
+    <div className="contents-container" style={{width: 1400}}>
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
           <FontAwesomeIcon icon={faCaretRight} /> 사용자 정보
@@ -92,7 +97,7 @@ const Dashboard = ({ userProfile }) => {
                   <tbody>
                     <tr>
                       <td>남은 일 수</td>
-                      <td>{plan.remainingDays}일 </td>
+                      <td>{plan.remainingTime}일 </td>
                     </tr>
                     {/* <tr>
                     <td>예상 결제 일</td>
@@ -163,7 +168,7 @@ const Dashboard = ({ userProfile }) => {
               margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
               colors={{ scheme: "spectral" }}
               lineWidth={2}
-              activeLineWidth={6}
+              activeLineWidth={3}
               inactiveLineWidth={3}
               inactiveOpacity={0.15}
               pointSize={10}
@@ -187,7 +192,7 @@ const Dashboard = ({ userProfile }) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: "인증 횟수",
+                legend: "인증 횟수 Ranking",
                 legendPosition: "middle",
                 legendOffset: -40,
               }}

@@ -96,9 +96,13 @@
 .ApplicationForm .ApplicationBox button {
   margin-left: 1rem;
 }
-.ApplicationBox .selectButon {
+.selectButton {
   margin-left: 1rem;
-  background-color: #829194 !important;
+  background-color: #00a9ec;
   border: 0;
   border-radius: 5px;
+}
+
+.selectButton:disabled {
+  background-color: #829194;
 }

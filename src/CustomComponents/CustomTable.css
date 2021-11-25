@@ -23,7 +23,7 @@
 }
 
 .custom-pagination-page-item {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -33,5 +33,18 @@
 }
 
 .custom-pagination-page-item.selected {
-    background-color: skyblue;
+    cursor: default;
+    /* background-color: skyblue; */
+    font-weight: 800;
+    font-size: 16px;
+}
+
+tr.no-data {
+    height: 200px;
+}
+
+td.no-data {
+    height: 100%;
+    font-size: 20px;
+    font-weight: 700;
 }
