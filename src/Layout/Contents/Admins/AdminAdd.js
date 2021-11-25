@@ -15,6 +15,7 @@ import {
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { emailTest, nameTest } from "../../../Constants/InputRules";
+import { useIntl } from "react-intl";
 
 const AdminAdd = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -23,6 +24,7 @@ const AdminAdd = ({ userProfile }) => {
   const [inputCountry, setInputCountry] = useState(null);
   const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
+  const {formatMessage} = useIntl()
 
   const changeMobileInput = (value, countryInfo) => {
     const { countryCode } = countryInfo;
@@ -36,7 +38,7 @@ const AdminAdd = ({ userProfile }) => {
 
   const existCheckFunc = () => {
     if(!inputEmail) return message.error('이메일을 입력해주세요.')
-    if(!emailTest(inputEmail)) return message.error('이메일 형식 잘못됨!')
+    if(!emailTest(inputEmail)) return message.error(formatMessage({id: 'EMAIL_RULE_ERROR'}))
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
       if(data.duplicate) {
         setExistCheck(false);
@@ -53,9 +55,9 @@ const AdminAdd = ({ userProfile }) => {
     e.preventDefault();
     if(!existCheck) return message.error('중복체크 해주세요.')
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
-    if(!emailTest(email.value)) return message.error('이메일 형식 잘못됨!')
-    if(!nameTest(firstName)) return message.error('First Name 잘못됨!')
-    if(!nameTest(lastName)) return message.error('Last Name 잘못됨!')
+    if(!emailTest(email.value)) return message.error(formatMessage({id:'EMAIL_RULE_ERROR'}))
+    if(!nameTest(firstName.value)) return message.error(formatMessage({id:'NAME_RULE_ERROR'}))
+    if(!nameTest(lastName.value)) return message.error(formatMessage({id:'NAME_RULE_ERROR'}))
     CustomAxiosPost(
       addSubAdminApi(adminId),
       {

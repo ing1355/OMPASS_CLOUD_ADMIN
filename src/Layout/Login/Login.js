@@ -110,7 +110,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                 <h5 className="forgetText">
                   비밀번호를 초기화 할 이메일을 입력해 주세요.
                 </h5>
-                <form onSubmit={resetPassword}>
+                <form onSubmit={resetPassword} className="form login-input">
                   <input
                     name="email"
                     className="forgetEmail"

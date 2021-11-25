@@ -34,7 +34,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-
+  
   return (
     <table>
       <thead>
@@ -45,19 +45,24 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
         </tr>
       </thead>
       <tbody>
-        {datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
-          <tr
-            key={ind}
-            onClick={(e) => {
-              //  && e.target.tagName === "TD"
-              if (rowClick) rowClick(d);
-            }}
-          >
-            {columns.map((c, _ind) => (
-              <td key={_ind}>{c.render ? c.render(d) : d[c.key]}</td>
-            ))}
-          </tr>
-        ))}
+        {
+          (datas && datas.length > 0) ? datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
+            <tr
+              key={ind}
+              className={rowClick ? 'pointer' : ''}
+              onClick={(e) => {
+                //  && e.target.tagName === "TD"
+                if (rowClick) rowClick(d);
+              }}
+            >
+              {columns.map((c, _ind) => (
+                <td key={_ind}>{c.render ? c.render(d) : d[c.key]}</td>
+              ))}
+            </tr>
+          )) : <tr className="no-data">
+            <td className="no-data">No Data</td>
+        </tr>
+        }
       </tbody>
       <tfoot>
         <tr className="custom-table-footer">

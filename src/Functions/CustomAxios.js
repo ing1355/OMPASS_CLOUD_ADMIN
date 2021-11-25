@@ -13,6 +13,21 @@ export function CustomAxiosGet(url, successCallback, errorCallback, config) {
     })
 }
 
+export function CustomAxiosGetAll(urls, successCallback, errorCallback, config) {
+    return axios.all(urls.map(url => axios.get(url)), {
+        ...config,
+        headers: {
+            Authorization: localStorage.getItem('Authorization')
+        }
+    }).then(axios.spread((...responses) => {
+        responses.forEach(({data}, ind) => {
+            if(successCallback) {
+                if(successCallback[ind]) successCallback[ind](data.data);
+            }
+        })
+    }));
+}
+
 export function CustomAxiosPost(url, params, successCallback, errorCallback, config) {
     return axios.post(url, params, {
         headers: {

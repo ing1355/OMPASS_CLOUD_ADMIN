@@ -126,7 +126,7 @@ const ApplicationDetail = ({
         name: name.value,
         domain: domain.value,
         redirectUri: redirectUri.value,
-        status: status.value,
+        status: inputStatus,
         policyId: 0,
       },
       (data) => {
@@ -135,7 +135,7 @@ const ApplicationDetail = ({
           name: name.value,
           domain: domain.value,
           redirectUri: redirectUri.value,
-          status: status.value,
+          status: inputStatus,
         });
         history.push("/Applications");
       }
@@ -150,7 +150,7 @@ const ApplicationDetail = ({
             <label>Application Name</label>
             <input name="name" value={inputName} onChange={changeInputName} />
             <CustomButton
-              className="selectButon"
+              className="selectButton"
               type="button"
               disabled={isExistCheck}
               onClick={existCheck}
@@ -158,10 +158,6 @@ const ApplicationDetail = ({
               중복 체크
             </CustomButton>
           </div>
-          {/* <div className="ApplicationBox">
-          <label>Client Key</label>
-          <input name="integrationKey" value={integrationKey} disabled />
-        </div> */}
           <div className="Application-label-input-box">
             <label>Secret Key</label>
             <input name="secretKey" value={secretKey} disabled />
@@ -194,55 +190,44 @@ const ApplicationDetail = ({
             <label>Status</label>
             <input
               name="status"
-              value={inputStatus}
+              value="Active"
               onChange={changeInputStatus}
               type="radio"
               style={{ width: "15px" }}
-              defaultChecked="true"
+              checked={inputStatus === "Active"}
             />
-            <label style={{ marginLeft: "0.5rem" }} className="label-radio">
-              Active
-            </label>
-
+            <label className="label-radio">Active</label>
             <input
               name="status"
-              value={inputStatus}
+              value="Inactive"
               onChange={changeInputStatus}
               type="radio"
               style={{ width: "15px" }}
+              checked={inputStatus === "Inactive"}
             />
-            <label style={{ marginLeft: "0.5rem" }} className="label-radio">
-              Inactive
-            </label>
+            <label className="label-radio">Inactive</label>
           </div>
+          <Space className="cud">
+            <Button htmlType="submit">
+              <UserSwitchOutlined />
+              수정
+            </Button>
+
+            <Popconfirm
+              placement="top"
+              title={"삭제하시겠습니까"}
+              okText="Yes"
+              cancelText="No"
+              onConfirm={applicationDelete}
+            >
+              <Button htmlType="button">
+                <UserDeleteOutlined />
+                삭제
+              </Button>
+            </Popconfirm>
+          </Space>
         </form>
       </div>
-      <Space className="cud">
-        <Button htmlType="submit">
-          <UserSwitchOutlined />
-          수정
-        </Button>
-
-        <Popconfirm
-          placement="top"
-          title={"삭제하시겠습니까"}
-          okText="Yes"
-          cancelText="No"
-          onConfirm={applicationDelete}
-        >
-          <Button htmlType="button">
-            <UserDeleteOutlined />
-            삭제
-          </Button>
-        </Popconfirm>
-
-        {/* <Button htmlType="button" onClick={applicationDelete}>
-            <UserDeleteOutlined />
-            삭제
-          </Button> */}
-      </Space>
-
-      {/* <CustomTable columns={columns} datas={logsData} /> */}
     </>
   );
 };

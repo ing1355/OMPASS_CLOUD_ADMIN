@@ -27,10 +27,10 @@ li {
 a {
   color: inherit;
 }
-@keyframes zoomIn {
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3);
   }
 
   100% {
@@ -39,8 +39,7 @@ a {
 }
 
 .contents-container {
-  animation-name: zoomIn;
-  animation-duration: 0.5s;
+  animation: fadeIn 0.5s;
   margin: 0 auto;
   width: 1200px;
   padding: 20px 64px;
@@ -79,7 +78,6 @@ table tbody tr td {
   display: flex;
   height: 55px;
   align-items: center;
-  cursor: pointer;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 .button {
@@ -95,7 +93,6 @@ table tbody tr td {
 }
 
 table tbody tr:hover {
-  cursor: pointer;
   background-color: #256e8b15;
 }
 table tbody tr:nth-child(1) {
@@ -106,27 +103,9 @@ table tbody tr:nth-child(1) {
   color: gray !important;
 }
 
-.custom-pagination-page-item.selected {
-  background: #256e8b !important;
-  color: #fff !important;
-  border: none !important;
-}
-.custom-pagination-page-item {
-  border-color: #256e8b !important ;
-  color: #256e8b !important;
-  border-radius: 2px !important;
-}
-
 .custom-arrow > div::after,
 .custom-double-arrow-container > div::after {
-  border-top: 3px solid #4f7280 !important;
-  border-right: 3px solid #4f7280 !important;
+  border-top: 3px solid #4f7280;
+  border-right: 3px solid #4f7280;
 }
-/* .custom-arrow > div::after,
-.custom-double-arrow-container > div:hover {
-  border-top: 3px solid #000 !important;
-  border-right: 3px solid #000 !important;
-} */
-.custom-table-footer {
-  margin-top: 18px !important;
-}
+

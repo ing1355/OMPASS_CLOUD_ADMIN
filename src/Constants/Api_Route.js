@@ -18,6 +18,7 @@ export const checkSubAdminExistenceApi = (adminId, email) => `/v1/admins/${admin
 
 
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
+export const addApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
 export const getApplicationDetailLogsApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/logs`
 export const checkApplicationExistenceApi = (adminId, appName) => `/v1/admins/${adminId}/applications/existence/${appName}`

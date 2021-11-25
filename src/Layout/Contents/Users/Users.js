@@ -14,33 +14,11 @@ import UserBypass from "./UserBypass";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
-  const [allUserView, setAllUserView] = useState(true);
-  const [unRegisteredUserView, setUnRegisteredUeserView] = useState(false);
-  const [disabledUserView, setDisabledUserView] = useState(false);
-  const [byPassUserView, setByPassUserView] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [detailData, setDetailData] = useState({});
   const history = useHistory();
 
-  const viewsIndex = {
-    allUserView: 0,
-    unRegisteredUeserView: 1,
-    disabledUserView: 2,
-    byPassUserView: 3,
-  };
-
-  const setView = (index) => {
-    const _ = [
-      setAllUserView,
-      setUnRegisteredUeserView,
-      setDisabledUserView,
-      setByPassUserView,
-    ];
-    _.forEach((_setView, _index) => {
-      if (_index === index) _setView(true);
-      else _setView(false);
-    });
-  };
+  const [selectView, setSelectView] = useState(0);
 
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(adminId), (data) => {
@@ -58,6 +36,8 @@ const Users = ({ userProfile }) => {
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
   };
+
+  const selectedBorder = <div className="selectedBorder" style={{left: selectView * 25 + '%'}}/>
 
   return (
     <div className="contents-container">
@@ -79,37 +59,34 @@ const Users = ({ userProfile }) => {
 
                 <div className="UsersBox3">
                   <ul className="UsersBox3_title">
+                    {selectedBorder}
                     <li
-                      className={allUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex["allUserView"]);
+                        setSelectView(0);
                       }}
                     >
                       <h3>{tableData.length}</h3>
                       <p>전체 사용자 수</p>
                     </li>
                     <li
-                      className={unRegisteredUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex["unRegisteredUeserView"]);
+                        setSelectView(1);
                       }}
                     >
                       <h3>0</h3>
                       <p>등록되지 않은 사용자</p>
                     </li>{" "}
                     <li
-                      className={disabledUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex["disabledUserView"]);
+                        setSelectView(2);
                       }}
                     >
                       <h3>0</h3>
                       <p>비활성화된 사용자</p>
                     </li>{" "}
                     <li
-                      className={byPassUserView ? "selected" : ""}
                       onClick={() => {
-                        setView(viewsIndex["byPassUserView"]);
+                        setSelectView(3);
                       }}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
@@ -117,25 +94,25 @@ const Users = ({ userProfile }) => {
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
-                    {allUserView && (
+                    {selectView === 0 && (
                       <UsersTable
                         tableData={tableData}
                         setDetailData={clickToDetail}
                       />
                     )}
-                    {unRegisteredUserView && (
+                    {selectView === 1 && (
                       <UserUnregistered
                         tableData={tableData}
                         setDetailData={clickToDetail}
                       />
                     )}
-                    {disabledUserView && (
+                    {selectView === 2 && (
                       <UserDisabled
                         tableData={tableData}
                         setDetailData={clickToDetail}
                       />
                     )}
-                    {byPassUserView && (
+                    {selectView === 3 && (
                       <UserBypass
                         tableData={tableData.filter((t) => t.byPass)}
                         setDetailData={clickToDetail}
