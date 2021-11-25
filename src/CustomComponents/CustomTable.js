@@ -5,7 +5,7 @@ import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
 
-const CustomTable = ({ columns, datas, rowClick, pagination }) => {
+const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
   const test = new Array(60)
     .fill(1)
     .map((t, ind) => ({
@@ -15,7 +15,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
       updateDate: "test",
       byPass: "test",
     }));
-  const pages = new Array(parseInt(datas.length / 10)).fill(1);
+  const pageNum = parseInt(datas.length / (numPerPage ? numPerPage : 10)) + (datas.length % numPerPage === 0 ? 0 : 1);
   const [currentPage, setCurrentPage] = useState(0);
 
   const goToFirstPage = () => {
@@ -23,7 +23,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
   };
 
   const goToLastPage = () => {
-    setCurrentPage(pages.length - 1);
+    setCurrentPage(pageNum - 1);
   };
 
   const goToBeforePage = () => {
@@ -60,11 +60,11 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
       </tbody>
       <tfoot>
         <tr className="custom-table-footer">
-          {pagination && pages.length > 0 && (
+          {pagination && pageNum > 0 && (
             <td
               className="custom-pagination-container"
               style={{
-                width: pages.length > 5 ? 300 : 100 + pages.length * 40,
+                width: pageNum > 5 ? 300 : 100 + pageNum * 40,
               }}
             >
               <DoubleLeftArrow
@@ -77,9 +77,9 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
               />
               <div
                 className="custom-pagination-pages-container"
-                style={{ width: pages.length > 5 ? 200 : pages.length * 40 }}
+                style={{ width: pageNum > 5 ? 200 : pageNum * 40 }}
               >
-                {pages.map((p, ind) => {
+                {new Array(pageNum).fill(1).map((p, ind) => {
                   const temp = (
                     <span
                       className={
@@ -89,27 +89,28 @@ const CustomTable = ({ columns, datas, rowClick, pagination }) => {
                       onClick={() => {
                         setCurrentPage(ind);
                       }}
+                      key={ind}
                     >
                       {ind + 1}
                     </span>
                   );
                   if (currentPage < 3) {
                     if (ind < 5) return temp;
-                  } else if (currentPage > pages.length - 3) {
-                    if (ind > pages.length - 6) return temp;
+                  } else if (currentPage > pageNum - 3) {
+                    if (ind > pageNum - 6) return temp;
                   } else if (currentPage) {
                     if (ind < currentPage + 3 && ind > currentPage - 3)
                       return temp;
-                  } else if (pages.length < 5) return temp;
+                  } else if (pageNum < 5) return temp;
                 })}
               </div>
               <RightArrow
                 onClick={goToNextPage}
-                disabled={currentPage === pages.length - 1}
+                disabled={currentPage === pageNum - 1}
               />
               <DoubleRightArrow
                 onClick={goToLastPage}
-                disabled={currentPage === pages.length - 1}
+                disabled={currentPage === pageNum - 1}
               />
             </td>
           )}

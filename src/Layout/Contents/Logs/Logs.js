@@ -30,7 +30,7 @@ const Logs = ({ userProfile }) => {
     <div className="contents-container">
       <ContentsTitle title="Logs Info" />
       <div className="LogBox">
-        <CustomTable columns={columns} datas={tableData} />
+        <CustomTable columns={columns} datas={tableData} pagination numPerPage={10}/>
       </div>
     </div>
   );

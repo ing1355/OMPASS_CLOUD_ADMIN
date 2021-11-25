@@ -5,7 +5,8 @@ const userProfile = localStorage.getItem('Authorization') ? jwt_decode(localStor
     adminId: null,
     email: null,
     role: null,
-    country: null
+    country: null,
+    ompass: false
 };
 
 const profileReducer = (state = userProfile, action) => {

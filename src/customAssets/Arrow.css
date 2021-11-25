@@ -30,7 +30,7 @@
 }
 
 .custom-arrow:hover, .custom-double-arrow-container:hover {
-    background-color: red;
+    /* background-color: red; */
 }
 
 .custom-double-arrow-container > div {

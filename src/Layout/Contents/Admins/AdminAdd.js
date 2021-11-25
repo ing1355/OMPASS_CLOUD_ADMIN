@@ -8,6 +8,7 @@ import { CustomAxiosGet, CustomAxiosPost } from "../../../Functions/CustomAxios"
 import { addSubAdminApi, checkSubAdminExistenceApi } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
+import { emailTest, nameTest } from "../../../Constants/InputRules";
 
 const AdminAdd = ({ userProfile }) => {
   const {adminId} = userProfile
@@ -29,6 +30,7 @@ const AdminAdd = ({ userProfile }) => {
 
   const existCheckFunc = () => {
     if(!inputEmail) return message.error('이메일을 입력해주세요.')
+    if(!emailTest(inputEmail)) return message.error('이메일 형식 잘못됨!')
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
       if(data.duplicate) {
         setExistCheck(false);
@@ -45,6 +47,9 @@ const AdminAdd = ({ userProfile }) => {
     e.preventDefault();
     if(!existCheck) return message.error('중복체크 해주세요.')
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
+    if(!emailTest(email.value)) return message.error('이메일 형식 잘못됨!')
+    if(!nameTest(firstName)) return message.error('First Name 잘못됨!')
+    if(!nameTest(lastName)) return message.error('Last Name 잘못됨!')
     CustomAxiosPost(
       addSubAdminApi(adminId),
       {
@@ -65,7 +70,7 @@ const AdminAdd = ({ userProfile }) => {
         <form onSubmit={onFinish}>
           <div className="inputBox">
             <span>First Name</span>
-            <input name="firstName" placeholder="이름을 입력하세요." />
+            <input name="firstName" placeholder="이름을 입력하세요."/>
           </div>
           <div className="inputBox">
             <span>Last Name</span>
@@ -86,6 +91,10 @@ const AdminAdd = ({ userProfile }) => {
                 country={"kr"}
                 value={inputMobile}
                 onChange={changeMobileInput}
+                inputProps={{
+                  name: 'phone',
+                  required: true
+                }}
                 preferredCountries={["kr", "us"]}
               />
             </div>

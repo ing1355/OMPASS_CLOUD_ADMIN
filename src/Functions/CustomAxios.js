@@ -19,8 +19,11 @@ export function CustomAxiosPost(url, params, successCallback, errorCallback, con
             Authorization: localStorage.getItem('Authorization')
         }, ...config
     }).then(res => {
-        if (url.includes('login')) localStorage.setItem('Authorization', res.headers.authorization);
-        if (successCallback) successCallback(res.data.data);
+        if (successCallback) successCallback(res.data.data, () => {
+            if (url.includes('login') || url.includes('verify-ompass')) {
+                localStorage.setItem('Authorization', res.headers.authorization);
+            }
+        });
     }).catch(err => {
         if (errorCallback) errorCallback();
     })

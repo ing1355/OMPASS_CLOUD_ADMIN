@@ -73,7 +73,7 @@ table tr th {
   color: #fff;
   font-weight: 500;
 }
-table tr td {
+table thead tr td, table tbody tr td {
   flex: 1;
   justify-content: center;
   display: flex;

@@ -36,27 +36,27 @@ const Login = ({ setIsLogin, setUserProfile }) => {
         email: userId,
         password: password,
       },
-      (data) => {
-        message.success({
-          content: "로그인 되었습니다.",
-        });
-
+      (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
-        setUserProfile({
-          adminId,
-          email,
-          role,
-          country,
-        });
         if (ompass) {
           popupCenter({
-            url: null,
+            url: data.ompassUrl,
             title: "FIDO2 AUTHENTICATE",
             w: 800,
             h: 500,
           });
         } else {
+          setUserProfile({
+            adminId,
+            email,
+            role,
+            country
+          });
           setIsLogin(true);
+          message.success({
+            content: "로그인 되었습니다.",
+          });
+          if (callback) callback()
         }
       }
     );
