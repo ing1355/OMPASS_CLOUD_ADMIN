@@ -150,7 +150,7 @@ const ApplicationDetail = ({
             <label>Application Name</label>
             <input name="name" value={inputName} onChange={changeInputName} />
             <CustomButton
-              className="selectButon button"
+              className="selectButon"
               type="button"
               disabled={isExistCheck}
               onClick={existCheck}
@@ -200,10 +200,7 @@ const ApplicationDetail = ({
               style={{ width: "15px" }}
               defaultChecked="true"
             />
-            <label
-              style={{ marginLeft: "0.5rem", width: "80px" }}
-              className="label-radio"
-            >
+            <label style={{ marginLeft: "0.5rem" }} className="label-radio">
               Active
             </label>
 
