@@ -65,7 +65,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
         }
       </tbody>
       <tfoot>
-        <tr className="custom-table-footer">
+        {datas && (datas.length > numPerPage) && <tr className="custom-table-footer">
           {pagination && pageNum > 0 && (
             <td
               className="custom-pagination-container"
@@ -120,7 +120,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
               />
             </td>
           )}
-        </tr>
+        </tr>}
       </tfoot>
     </table>
   );

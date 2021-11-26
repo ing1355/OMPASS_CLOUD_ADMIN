@@ -3,7 +3,7 @@ import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
-import AdminUpdate from "./AdminUpdate";
+import AdminDetail from "./AdminDetail";
 import { CustomAxiosGet, CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
@@ -21,6 +21,7 @@ const columns = [
 ];
 
 const Admins = ({ userProfile, history, setUserProfile }) => {
+  console.log(userProfile);
   const {adminId, ompass} = userProfile;
   const [tableData, setTableData] = useState([]);
   const [detailData, setDetailData] = useState({});
@@ -114,7 +115,7 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
         <Route
           path="/Admins/Detail"
           render={() => (
-            <AdminUpdate
+            <AdminDetail
               data={detailData}
               updateEvent={updateAdmin}
               deleteEvent={deleteAdmin}

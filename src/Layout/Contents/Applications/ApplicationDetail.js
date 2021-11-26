@@ -153,7 +153,7 @@ const ApplicationDetail = ({
           </div>
           <div className="Application-label-input-box">
             <label>Secret Key</label>
-            <input name="secretKey" value={secretKey} disabled />
+            <input name="secretKey" value={secretKey} readOnly disabled />
             <CustomButton
               loading={resetLoading}
               type="button"

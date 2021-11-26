@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+.custom-arrow.disabled, .custom-double-arrow-container.disabled {
+    opacity: 0;
+}
+
 .custom-arrow, .custom-double-arrow-container, .custom-arrow > div {
     position: relative;
     width: 23px;
