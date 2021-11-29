@@ -5,14 +5,15 @@ import Route_items from "../../Constants/Route_items";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 
-const Contents = () => {
+const Contents = ({userProfile}) => {
+  const {role} = userProfile;
   return (
     <>
       <div className="contents">
         <div className="contents-inner">
           <React.Suspense fallback={<div>loading...</div>}>
             <Switch>
-              {Route_items.map((item) => (
+              {Route_items(role).map((item) => (
                 <Route
                   key={item.key}
                   path={item.route}
@@ -31,15 +32,12 @@ const Contents = () => {
 
 function mapStateToProps(state) {
   return {
-    menuState: state.menuState,
+    userProfile: state.userProfile
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    menuChange: (toggle) => {
-      dispatch(ActionCreators.menuStateChange(toggle));
-    },
   };
 }
 

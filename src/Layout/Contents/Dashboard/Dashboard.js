@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,7 +17,8 @@ import {
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
-import { testData, testData2 } from "./testDataSet";
+import config from './ChartData';
+import Chart from 'chart.js/auto'
 
 const columns = [
   { name: "사용자 아이디", key: "userId" },
@@ -59,6 +60,11 @@ const Dashboard = ({ userProfile }) => {
   useLayoutEffect(() => {
     getDashboardData();
   }, []);
+
+  useEffect(() => {
+    new Chart(document.getElementById('chart'), config)
+    console.log(config)
+  },[])
   
   return (
     <div className="contents-container" style={{width: 1400}}>
@@ -163,8 +169,8 @@ const Dashboard = ({ userProfile }) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
-          <div className="chart">
-            <ResponsiveBump
+          <div className="chart" id="chart">
+            {/* <ResponsiveBump
               data={testData}
               margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
               colors={{ scheme: "spectral" }}
@@ -197,7 +203,7 @@ const Dashboard = ({ userProfile }) => {
                 legendPosition: "middle",
                 legendOffset: -40,
               }}
-            />
+            /> */}
           </div>
         </div>
 

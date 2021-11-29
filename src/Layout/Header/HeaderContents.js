@@ -5,17 +5,16 @@ import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
 import { useLocation } from "react-router";
-import Menu_Items from "../Sidebar/Menu_Items";
-
 import "antd/dist/antd.css";
 import { message } from "antd";
+import route_info from "../../Constants/Route_items";
 
 const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
   const location = useLocation();
   const { role } = userProfile;
 
   useLayoutEffect(() => {
-    const target = Menu_Items(role).find(
+    const target = route_info(role).find(
       (item) => item.route === "/" + window.location.pathname.split("/")[1]
     );
     if (target) menuChange(target.name);

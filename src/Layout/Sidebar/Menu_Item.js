@@ -5,7 +5,6 @@ import "./Menu_Item.css";
 import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
@@ -13,8 +12,6 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
     ? (submenu.find((sb) => sb.name === menuState) || name === menuState)
     : name === menuState;
   const [subMenuOpen, setSubMenuOpen] = useState(isSelected);
-
-  const history = useHistory();
 
   useEffect(() => {
     if (

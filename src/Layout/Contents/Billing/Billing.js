@@ -240,7 +240,7 @@ const Billing = ({ userProfile }) => {
     );
   };
 
-  return userProfile.role === "ADMIN" ? (
+  return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billings Info" />
       <div className="billing-change-help-container">

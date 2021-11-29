@@ -22,6 +22,7 @@ const columns = [
 ];
 
 const Admins = ({ userProfile, history, setUserProfile }) => {
+  console.log(userProfile);
   const { adminId, ompass } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
@@ -101,6 +102,7 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
                 <CustomTable
                   columns={columns}
                   datas={tableData}
+                  loading={tableLoading}
                   rowClick={clickToDetail}
                 />
               </div>
