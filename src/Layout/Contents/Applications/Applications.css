@@ -134,7 +134,7 @@
   padding-right: 60px;
   border: none;
   cursor: default;
-  background-color: rgba(118,118,118,.3);
+  background-color: rgba(161, 161, 161, 0.3);
 }
 
 .copyButton-container {
@@ -143,13 +143,23 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 60px;
-  right: 4px;
+  width: 100px;
+  right: -10px;
+  font-size: 0.8rem;
 }
 
 .ApplicationsBox .ApplicationForm button.copyButton {
   margin-left: 0;
   padding: 2px 8px;
-  color: black;
+  color: #00a9ec;
   cursor: pointer;
+  outline: none !important;
+  border: 1px solid #00a9ec;
+  background: #fff;
+}
+.ApplicationsBox .ApplicationForm button.copyButton:hover {
+  background: #256e8b;
+  outline: none !important;
+  color: #fff;
+  border: 1px solid #256e8b;
 }
