@@ -102,10 +102,3 @@ table tbody tr:nth-child(1) {
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   color: gray !important;
 }
-
-.custom-arrow > div::after,
-.custom-double-arrow-container > div::after {
-  border-top: 3px solid #4f7280;
-  border-right: 3px solid #4f7280;
-}
-

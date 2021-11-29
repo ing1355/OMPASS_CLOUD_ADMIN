@@ -51,8 +51,15 @@ td.no-data {
   height: 100%;
   font-size: 20px;
   font-weight: 700;
+  color: #256e8b;
 }
+/* .custom-table-box tbody tr:hover {
+  background: none !important;
+} */
 
+.custom-table-box tbody .no-data {
+  background: none !important;
+}
 .custom-table-footer {
   margin-top: 18px;
 }
@@ -64,5 +71,72 @@ td.no-data {
 
 .loading-td {
   height: 100%;
-  background-color: rgba(255,255,255,1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.loader6 {
+  position: relative;
+  width: 12px;
+  height: 12px;
+
+  top: 46%;
+  top: -webkit-calc(50% - 6px);
+  top: calc(50% - 6px);
+  left: 46%;
+  left: -webkit-calc(50% - 6px);
+  left: calc(50% - 6px);
+
+  border-radius: 12px;
+  background-color: #00a9ec;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-animation: loader6 1s ease-in-out infinite;
+  animation: loader6 1s ease-in-out infinite;
+  margin-bottom: 2rem;
+}
+
+.loader6:before {
+  content: "";
+  position: absolute;
+  background-color: #84b1c486;
+  top: 0px;
+  left: -25px;
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+}
+
+.loader6:after {
+  content: "";
+  position: absolute;
+  background-color: #84b1c486;
+  top: 0px;
+  left: 25px;
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+}
+
+@-webkit-keyframes loader6 {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@keyframes loader6 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }

@@ -5,18 +5,25 @@ import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
 
-const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage, loading }) => {
-  const test = new Array(60)
-    .fill(1)
-    .map((t, ind) => ({
-      userId: "test" + ind,
-      appName: "test" + ind,
-      type: "test" + ind,
-      updateDate: "test",
-      byPass: "test",
-    }));
-  const _numPerPage = numPerPage ? numPerPage : 10
-  const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
+const CustomTable = ({
+  columns,
+  datas,
+  rowClick,
+  pagination,
+  numPerPage,
+  loading,
+}) => {
+  const test = new Array(60).fill(1).map((t, ind) => ({
+    userId: "test" + ind,
+    appName: "test" + ind,
+    type: "test" + ind,
+    updateDate: "test",
+    byPass: "test",
+  }));
+  const _numPerPage = numPerPage ? numPerPage : 10;
+  const pageNum =
+    parseInt(datas.length / _numPerPage) +
+    (datas.length % _numPerPage === 0 ? 0 : 1);
   const [currentPage, setCurrentPage] = useState(0);
 
   const goToFirstPage = () => {
@@ -34,9 +41,9 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage, loading
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-  
+
   return (
-    <table>
+    <table className="custom-table-box">
       <thead>
         <tr>
           {columns.map((c, ind) => (
@@ -45,82 +52,100 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage, loading
         </tr>
       </thead>
       <tbody>
-        {
-          (!loading && datas && datas.length > 0) ? datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
-          <tr
-              key={ind}
-              className={rowClick ? 'pointer' : ''}
-              onClick={(e) => {
-                //  && e.target.tagName === "TD"
-                if (rowClick) rowClick(d);
-              }}
-            >
-              {columns.map((c, _ind) => (
-                <td key={_ind}>{c.render ? c.render(d) : d[c.key]}</td>
-              ))}
-            </tr>
-          )) : <tr className="no-data">
-            {loading ? <td className="loading-td">data loading...</td> :<td className="no-data">No Data</td>}
-        </tr>
-        }
+        {!loading && datas && datas.length > 0 ? (
+          datas
+            .slice(
+              currentPage * _numPerPage,
+              currentPage * _numPerPage + _numPerPage
+            )
+            .map((d, ind) => (
+              <tr
+                key={ind}
+                className={rowClick ? "pointer" : ""}
+                onClick={(e) => {
+                  //  && e.target.tagName === "TD"
+                  if (rowClick) rowClick(d);
+                }}
+              >
+                {columns.map((c, _ind) => (
+                  <td key={_ind}>{c.render ? c.render(d) : d[c.key]}</td>
+                ))}
+              </tr>
+            ))
+        ) : (
+          <tr className="no-data">
+            {loading ? (
+              <td className="loading-td">
+                <div class="box">
+                  <div class="loader6"></div>
+                  <p>data loading</p>
+                </div>
+              </td>
+            ) : (
+              <td className="no-data">No Data</td>
+            )}
+          </tr>
+        )}
       </tbody>
       <tfoot>
-        {datas && (datas.length > numPerPage) && <tr className="custom-table-footer">
-          {pagination && pageNum > 0 && (
-            <td
-              className="custom-pagination-container"
-              style={{
-                width: pageNum > 5 ? 300 : 100 + pageNum * 40,
-              }}
-            >
-              <DoubleLeftArrow
-                onClick={goToFirstPage}
-                disabled={currentPage === 0}
-              />
-              <LeftArrow
-                onClick={goToBeforePage}
-                disabled={currentPage === 0}
-              />
-              <div
-                className="custom-pagination-pages-container"
-                style={{ width: pageNum > 5 ? 200 : pageNum * 40 }}
+        {datas && datas.length > numPerPage && (
+          <tr className="custom-table-footer">
+            {pagination && pageNum > 0 && (
+              <td
+                className="custom-pagination-container"
+                style={{
+                  width: pageNum > 5 ? 300 : 100 + pageNum * 40,
+                }}
               >
-                {new Array(pageNum).fill(1).map((p, ind) => {
-                  const temp = (
-                    <span
-                      className={
-                        "custom-pagination-page-item " +
-                        (currentPage === ind ? "selected" : null)
-                      }
-                      onClick={() => {
-                        setCurrentPage(ind);
-                      }}
-                      key={ind}
-                    >
-                      {ind + 1}
-                    </span>
-                  );
-                  if (currentPage < 3) {
-                    if (ind < 5) return temp;
-                  } else if (currentPage > pageNum - 3) {
-                    if (ind > pageNum - 6) return temp;
-                  } else if (currentPage) {
-                    if (ind < currentPage + 3 && ind > currentPage - 3)
-                      return temp;
-                  } else if (pageNum < 5) return temp;
-                })}
-              </div>
-              <RightArrow
-                onClick={goToNextPage}
-                disabled={currentPage === pageNum - 1}
-              />
-              <DoubleRightArrow
-                onClick={goToLastPage}
-                disabled={currentPage === pageNum - 1}
-              />
-            </td>
-          )}
-        </tr>}
+                <DoubleLeftArrow
+                  onClick={goToFirstPage}
+                  disabled={currentPage === 0}
+                />
+                <LeftArrow
+                  onClick={goToBeforePage}
+                  disabled={currentPage === 0}
+                />
+                <div
+                  className="custom-pagination-pages-container"
+                  style={{ width: pageNum > 5 ? 200 : pageNum * 40 }}
+                >
+                  {new Array(pageNum).fill(1).map((p, ind) => {
+                    const temp = (
+                      <span
+                        className={
+                          "custom-pagination-page-item " +
+                          (currentPage === ind ? "selected" : null)
+                        }
+                        onClick={() => {
+                          setCurrentPage(ind);
+                        }}
+                        key={ind}
+                      >
+                        {ind + 1}
+                      </span>
+                    );
+                    if (currentPage < 3) {
+                      if (ind < 5) return temp;
+                    } else if (currentPage > pageNum - 3) {
+                      if (ind > pageNum - 6) return temp;
+                    } else if (currentPage) {
+                      if (ind < currentPage + 3 && ind > currentPage - 3)
+                        return temp;
+                    } else if (pageNum < 5) return temp;
+                  })}
+                </div>
+                <RightArrow
+                  onClick={goToNextPage}
+                  disabled={currentPage === pageNum - 1}
+                />
+                <DoubleRightArrow
+                  onClick={goToLastPage}
+                  disabled={currentPage === pageNum - 1}
+                />
+              </td>
+            )}
+          </tr>
+        )}
       </tfoot>
     </table>
   );

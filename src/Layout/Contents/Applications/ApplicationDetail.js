@@ -16,6 +16,8 @@ import {
   CustomAxiosDelete,
 } from "../../../Functions/CustomAxios";
 
+import { CopyOutlined } from "@ant-design/icons";
+
 import "./Applications.css";
 
 import { Button, Space, Popconfirm } from "antd";
@@ -49,7 +51,8 @@ const ApplicationDetail = ({
 
   useLayoutEffect(() => {
     CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
-      const { name, secretKey, domain, redirectUri, status, integrationKey } = data;
+      const { name, secretKey, domain, redirectUri, status, integrationKey } =
+        data;
       setInputName(name);
       setInputDomain(domain);
       setInputRedirectURI(redirectUri);
@@ -129,20 +132,20 @@ const ApplicationDetail = ({
           name: name.value,
           domain: domain.value,
           redirectUri: redirectUri.value,
-          status: inputStatus
+          status: inputStatus,
         });
         history.push("/Applications");
       }
     );
   };
 
-  const copySecretKey = e => {
+  const copySecretKey = (e) => {
     e.preventDefault();
     secretKeyRef.current.select();
-    document.execCommand('copy');
-    message.success('클립보드에 복사하였습니다.')
-    secretKeyRef.current.setSelectionRange(0,0);
-  }
+    document.execCommand("copy");
+    message.success("클립보드에 복사하였습니다.");
+    secretKeyRef.current.setSelectionRange(0, 0);
+  };
 
   return (
     <>
@@ -158,14 +161,21 @@ const ApplicationDetail = ({
               onClick={existCheck}
             >
               중복 체크
-          </CustomButton>
+            </CustomButton>
           </div>
           <div className="Application-label-input-box">
             <label>Secret Key</label>
             <div className="secretKey-container">
-              <input name="secretKey" value={secretKey} readOnly ref={secretKeyRef}/>
+              <input
+                name="secretKey"
+                value={secretKey}
+                readOnly
+                ref={secretKeyRef}
+              />
               <div className="copyButton-container">
-                <button className="copyButton" onClick={copySecretKey}>Copy</button>
+                <button className="copyButton" onClick={copySecretKey}>
+                  <CopyOutlined /> Copy
+                </button>
               </div>
             </div>
             <CustomButton
@@ -175,7 +185,7 @@ const ApplicationDetail = ({
               onClick={resetSecretKey}
             >
               Reset Secret Key
-          </CustomButton>
+            </CustomButton>
           </div>
           <div className="Application-label-input-box">
             <label>Domain</label>
@@ -197,32 +207,28 @@ const ApplicationDetail = ({
             <label>Status</label>
             <input
               name="status"
-              value='Active'
+              value="Active"
               onChange={changeInputStatus}
               type="radio"
               style={{ width: "15px" }}
-              checked={inputStatus === 'Active'}
+              checked={inputStatus === "Active"}
             />
-            <label className="label-radio">
-              Active
-          </label>
+            <label className="label-radio">Active</label>
             <input
               name="status"
-              value='Inactive'
+              value="Inactive"
               onChange={changeInputStatus}
               type="radio"
               style={{ width: "15px" }}
-              checked={inputStatus === 'Inactive'}
+              checked={inputStatus === "Inactive"}
             />
-            <label className="label-radio">
-              Inactive
-          </label>
+            <label className="label-radio">Inactive</label>
           </div>
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />
-            수정
-          </Button>
+              수정
+            </Button>
 
             <Popconfirm
               placement="top"
@@ -233,8 +239,8 @@ const ApplicationDetail = ({
             >
               <Button htmlType="button">
                 <UserDeleteOutlined />
-            삭제
-          </Button>
+                삭제
+              </Button>
             </Popconfirm>
           </Space>
         </form>

@@ -30,7 +30,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "export HTTPS=true&&react-scripts start",
+    "start": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build&&npm run deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
