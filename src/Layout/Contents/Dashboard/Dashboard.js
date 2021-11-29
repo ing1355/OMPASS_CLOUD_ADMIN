@@ -17,8 +17,18 @@ import {
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
-import config from './ChartData';
-import Chart from 'chart.js/auto'
+import { testData } from "./ChartData";
+
+const data = [];
+const data2 = [];
+let prev = 100;
+let prev2 = 80;
+for (let i = 0; i < 1000; i++) {
+  prev += 5 - Math.random() * 10;
+  data.push({ x: i, y: prev });
+  prev2 += 5 - Math.random() * 10;
+  data2.push({ x: i, y: prev2 });
+}
 
 const columns = [
   { name: "사용자 아이디", key: "userId" },
@@ -29,16 +39,17 @@ const columns = [
 ];
 
 const Dashboard = ({ userProfile }) => {
-  const {adminId} = userProfile;
+  const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
   const [adminNum, setAdminNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
   const [disableNum, setDisableNum] = useState(0);
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   const getDashboardData = () => {
-    CustomAxiosGetAll([getDashboardTopApi(adminId),getDashboardBottomApi(adminId)], [(data) => {
+    CustomAxiosGetAll([getDashboardTopApi(adminId), getDashboardBottomApi(adminId)], [(data) => {
       const {
         adminsNumber,
         byPassUsersNumber,
@@ -52,23 +63,31 @@ const Dashboard = ({ userProfile }) => {
       setDisableNum(inActiveUsersNumber);
       setPlan(plan);
     }, (data) => {
-      console.log(data);
       setAuthLogs(data.slice(-5));
     }]);
   }
 
   useLayoutEffect(() => {
     getDashboardData();
+    let temp = [];
+    let prev2 = 80;
+    for (let i = 0; i < 10; i++) {
+      temp.push([]);
+      for (let j = 0; j < 10; j++) {
+        prev2 += 5 - Math.random() * 10;
+        temp[i].push({ x: j, y: prev2 });
+      }
+    }
+    setChartData(temp);
   }, []);
 
   useEffect(() => {
-    new Chart(document.getElementById('chart'), config)
-    console.log(config)
-  },[])
-  
+    console.log(chartData);
+  }, [chartData])
+
   return (
-    <div className="contents-container" style={{width: 1400}}>
-      <div className="flag kr"/>
+    <div className="contents-container" style={{ width: 1400 }}>
+      <div className="flag kr" />
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
           <FontAwesomeIcon icon={faCaretRight} /> 사용자 정보
@@ -88,15 +107,15 @@ const Dashboard = ({ userProfile }) => {
                   2021년 11월 1일 ~{" "}
                   {plan.expireDate
                     ? plan.expireDate
-                        .split(" ")[0]
-                        .split("-")
-                        .reduce((pre, cur) => {
-                          return pre.includes("월")
-                            ? pre + " " + cur + "일"
-                            : pre.includes("년")
+                      .split(" ")[0]
+                      .split("-")
+                      .reduce((pre, cur) => {
+                        return pre.includes("월")
+                          ? pre + " " + cur + "일"
+                          : pre.includes("년")
                             ? pre + " " + cur + "월"
                             : pre + "년 " + cur + "월";
-                        })
+                      })
                     : null}
                 </h6>
                 <h2>{plan.name} Plan</h2>
@@ -169,11 +188,21 @@ const Dashboard = ({ userProfile }) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
-          <div className="chart" id="chart">
-            {/* <ResponsiveBump
+          <div className="chart">
+            {/* <Line {...config(chartData)} 
+            options={{
+              plugins: {
+                legend: {
+                  position: 'right',
+                }
+              }
+            }} 
+            /> */}
+            <ResponsiveBump
               data={testData}
               margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
               colors={{ scheme: "spectral" }}
+              interpolation="linear"
               lineWidth={2}
               activeLineWidth={3}
               inactiveLineWidth={3}
@@ -203,7 +232,7 @@ const Dashboard = ({ userProfile }) => {
                 legendPosition: "middle",
                 legendOffset: -40,
               }}
-            /> */}
+            />
           </div>
         </div>
 

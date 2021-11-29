@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
@@ -10,7 +10,6 @@ import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
-import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 
 const columns = [
@@ -21,16 +20,16 @@ const columns = [
   { name: "국가", key: "country" },
 ];
 
-const Admins = ({ userProfile, history, setUserProfile }) => {
-  console.log(userProfile);
-  const { adminId, ompass } = userProfile;
+const Admins = ({ userProfile, history }) => {
+  const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [ompassToggle, setOmpassToggle] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     CustomAxiosGet(getAdminsApi(adminId), (data) => {
       setTableData(
         data.map((d, index) => ({
@@ -39,18 +38,19 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
           index,
         }))
       );
+      setOmpassToggle(data[0].ompass)
       setTableLoading(false);
     }, () => {
       setTableLoading(false);
     });
   }, []);
 
-  const clickToDetail = (rowData) => {
+  const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
     history.push("/Admins/Detail");
-  };
+  },[])
 
-  const updateAdmin = (rowData) => {
+  const updateAdmin = useCallback((rowData) => {
     setTableData(
       tableData.map((t) =>
         t.index === rowData.index
@@ -58,28 +58,28 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
           : t
       )
     );
-  };
+  },[])
 
-  const deleteAdmin = (index) => {
+  const deleteAdmin = useCallback((index) => {
     setTableData(tableData.filter((t) => t.index !== index * 1));
-  };
+  },[])
 
-  const openConfirmModal = () => {
+  const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
-  }
+  },[])
 
-  const OMPASSToggle = () => {
+  const OMPASSToggle = useCallback(() => {
     setConfirmLoading(true);
     CustomAxiosPatch(update2faApi(adminId), {
-      flag: !ompass
+      flag: !ompassToggle
     }, data => {
-      setUserProfile({ ...userProfile, ompass: !ompass })
+      setOmpassToggle(!ompassToggle)
       setConfirmVisible(false);
       setConfirmLoading(false);
     }, () => {
       setConfirmLoading(false);
     })
-  }
+  },[ompassToggle])
 
   return (
     <div className="contents-container">
@@ -93,10 +93,10 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
               <div>
                 <div className="adminAdd">
                   <Link to="/Admins/Add">
-                    <button className="button admin-button">관리자 추가</button>
+                    <button className="button admin-button" disabled={tableLoading}>관리자 추가</button>
                   </Link>
-                  <button className="button two-Auth-button admin-button" onClick={openConfirmModal}>
-                    2차 인증 {ompass ? '비활성화' : '활성화'}
+                  <button className="button two-Auth-button admin-button" disabled={tableLoading} onClick={openConfirmModal}>
+                    2차 인증 {ompassToggle ? '비활성화' : '활성화'}
                   </button>
                 </div>
                 <CustomTable
@@ -134,9 +134,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserProfile: (data) => {
-      dispatch(ActionCreators.setProfile(data));
-    },
   };
 }
 

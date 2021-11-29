@@ -8,6 +8,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import {
   getBillingKeyApi,
+  getPaymentHistoryApi,
   getPricingApi,
   getUsersApi,
   startPaypalApi,
@@ -22,6 +23,13 @@ import {
 } from "../../../Functions/CustomAxios";
 import ContentsTitle from "../ContentsTitle";
 import "./Billing.css";
+import CustomTable from "../../../CustomComponents/CustomTable";
+
+const columns = [
+  { name: "금액", key: "amount" },
+  { name: "결제 날짜", key: "paymentDate" },
+  { name: "결제 종류", key: "paymentHistory" }
+];
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
@@ -33,6 +41,7 @@ const Billing = ({ userProfile }) => {
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(1);
+  const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
@@ -47,12 +56,14 @@ const Billing = ({ userProfile }) => {
   }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
-    CustomAxiosGetAll([getUsersApi(adminId), getPricingApi(country)], [(data) => {
+    CustomAxiosGetAll([getUsersApi(adminId), getPricingApi(country), getPaymentHistoryApi(adminId)], [(data) => {
       setAllUserNum(data.length);
     }, (data) => {
       setEditions(data);
       setInputEdition(data[0].name);
       setCost(data[0].priceForOneUser * 1);
+    }, data => {
+      setTableData(data);
     }])
   }, []);
 
@@ -293,6 +304,11 @@ const Billing = ({ userProfile }) => {
             ))}
           </div>
         ))}
+      </section>
+
+      <section>
+        <h2>Payment History</h2>
+        <CustomTable columns={columns} datas={tableData}/>
       </section>
 
       <section className="billing-change-container">

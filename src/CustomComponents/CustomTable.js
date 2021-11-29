@@ -76,8 +76,8 @@ const CustomTable = ({
           <tr className="no-data">
             {loading ? (
               <td className="loading-td">
-                <div class="box">
-                  <div class="loader6"></div>
+                <div className="box">
+                  <div className="loader6"></div>
                   <p>data loading</p>
                 </div>
               </td>

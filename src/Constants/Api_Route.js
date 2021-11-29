@@ -16,7 +16,6 @@ export const deleteSubAdminApi = (adminId, subAdminId) => `/v1/admins/${adminId}
 export const signUpSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins/signup-token`
 export const checkSubAdminExistenceApi = (adminId, email) => `/v1/admins/${adminId}/existence/${email}`
 
-
 export const getApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const addApplicationApi = (adminId) => `/v1/admins/${adminId}/applications`
 export const getApplicationDetailApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
@@ -27,6 +26,7 @@ export const updateApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/a
 export const deleteApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
 
 export const getPricingApi = (country) => `/v1/pricing/country/${country}`
+export const getPaymentHistoryApi = (adminId) => `/v1/admins/${adminId}/payment-histories`
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
@@ -37,3 +37,4 @@ export const loginApi = '/v1/login';
 export const resetPasswordApi = '/v1/reset-password';
 export const resetPasswordVerifyApi = '/v1/reset-password-token';
 export const verifyOMPASSApi = `/v1/verify-ompass`
+export const verifyPasswordApi = `/v1/verify-password`
