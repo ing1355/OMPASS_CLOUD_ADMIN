@@ -16,12 +16,16 @@ const columns = [
 
 const Logs = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
+  const [tableLoading, setTableLoading] = useState(true);
 
   useEffect(() => {
     CustomAxiosGet(
       getLogsApi(userProfile.adminId),
       (data) => {
         setTableData(data);
+        setTableLoading(false);
+      },() => {
+        setTableLoading(false);
       }
     );
   }, []);

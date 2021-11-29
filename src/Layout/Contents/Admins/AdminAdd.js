@@ -22,14 +22,16 @@ const AdminAdd = ({ userProfile }) => {
   const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
+  const [inputDialCode, setInputDialCode] = useState('');
   const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
   const {formatMessage} = useIntl()
 
   const changeMobileInput = (value, countryInfo) => {
-    const { countryCode } = countryInfo;
+    const { countryCode, dialCode } = countryInfo;
     setInputCountry(countryCode.toUpperCase());
     setInputMobile(value);
+    setInputDialCode(dialCode);
   };
 
   const changeEmailInput = (e) => {
@@ -65,7 +67,8 @@ const AdminAdd = ({ userProfile }) => {
         email: email.value,
         firstName: firstName.value,
         lastName: lastName.value,
-        phone: inputMobile,
+        phone: inputMobile.slice(inputDialCode.length,),
+        countryCode: inputDialCode,
         role: "ADMIN",
       });
     message.success("인증 메일 발송에 성공하였습니다.");
@@ -107,10 +110,6 @@ const AdminAdd = ({ userProfile }) => {
                 country={"kr"}
                 value={inputMobile}
                 onChange={changeMobileInput}
-                inputProps={{
-                  name: 'phone',
-                  required: true
-                }}
                 preferredCountries={["kr", "us"]}
               />
             </div>

@@ -14,12 +14,13 @@ const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
             email: username,
             verifyOmpassToken: access_token
         }, (data, callback) => {
-            const {adminId, email, role, country} = data;
+            const {adminId, email, role, country, ompass} = data;
             setUserProfile({
                 adminId,
                 email,
                 role,
-                country
+                country,
+                ompass
             })
             setIsLogin(true);
             history.push('/');

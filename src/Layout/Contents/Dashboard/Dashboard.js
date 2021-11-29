@@ -62,6 +62,7 @@ const Dashboard = ({ userProfile }) => {
   
   return (
     <div className="contents-container" style={{width: 1400}}>
+      <div className="flag kr"/>
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
           <FontAwesomeIcon icon={faCaretRight} /> 사용자 정보

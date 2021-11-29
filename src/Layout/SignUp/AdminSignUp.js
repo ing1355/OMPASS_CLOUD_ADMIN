@@ -3,7 +3,7 @@ import { signUpAdminApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SubAdminSignUp.css";
 
-const AdminSignUp = ({ location }) => {
+const AdminSignUp = ({ history, location }) => {
     const token = location ? location.pathname.split("/")[3] : null;
 
     useLayoutEffect(() => {
@@ -13,7 +13,7 @@ const AdminSignUp = ({ location }) => {
                 alert(
                     "회원가입이 정상적으로 처리되었습니다."
                 );
-                window.close();
+                history.push('/');
             },
             null,
             {

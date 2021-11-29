@@ -3,7 +3,7 @@ import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
-import AdminUpdate from "./AdminUpdate";
+import AdminDetail from "./AdminDetail";
 import { CustomAxiosGet, CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
+import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 
 const columns = [
   { name: "이름", key: "name" },
@@ -21,8 +22,9 @@ const columns = [
 ];
 
 const Admins = ({ userProfile, history, setUserProfile }) => {
-  const {adminId, ompass} = userProfile;
+  const { adminId, ompass } = userProfile;
   const [tableData, setTableData] = useState([]);
+  const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -36,6 +38,9 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
           index,
         }))
       );
+      setTableLoading(false);
+    }, () => {
+      setTableLoading(false);
     });
   }, []);
 
@@ -67,7 +72,7 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
     CustomAxiosPatch(update2faApi(adminId), {
       flag: !ompass
     }, data => {
-      setUserProfile({...userProfile, ompass: !ompass})
+      setUserProfile({ ...userProfile, ompass: !ompass })
       setConfirmVisible(false);
       setConfirmLoading(false);
     }, () => {
@@ -99,14 +104,7 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
                   rowClick={clickToDetail}
                 />
               </div>
-              <CustomConfirm closable={false} visible={confirmVisible} cancelCallback={() => {
-                setConfirmVisible(false);
-                setConfirmLoading(false);
-              }} confirmCallback={() => {
-                OMPASSToggle();
-              }} okLoading={confirmLoading}>
-                정말로 2차인증을 {ompass ? '비활성화' : '활성화'} 하시겠습니까?
-              </CustomConfirm>
+              <PasswordConfirm visible={confirmVisible} setVisible={setConfirmVisible} loading={confirmLoading} setLoading={setConfirmLoading} callback={OMPASSToggle}/>
             </div>
           )}
         />
@@ -114,7 +112,7 @@ const Admins = ({ userProfile, history, setUserProfile }) => {
         <Route
           path="/Admins/Detail"
           render={() => (
-            <AdminUpdate
+            <AdminDetail
               data={detailData}
               updateEvent={updateAdmin}
               deleteEvent={deleteAdmin}

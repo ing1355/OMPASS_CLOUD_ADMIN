@@ -5,7 +5,7 @@ import { signUpSubAdminApi } from "../../Constants/Api_Route";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SubAdminSignUp.css";
 
-const SubAdminSignUp = ({ location }) => {
+const SubAdminSignUp = ({ location, history }) => {
   const adminId = location ? location.pathname.split("/")[3] : null;
   const token = location ? location.pathname.split("/")[5] : null;
   
@@ -24,7 +24,7 @@ const SubAdminSignUp = ({ location }) => {
         alert(
           "이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다."
         );
-        window.close();
+        history.push('/');
       },
       null,
       {

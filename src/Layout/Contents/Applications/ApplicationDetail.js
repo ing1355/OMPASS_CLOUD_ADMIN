@@ -1,5 +1,5 @@
 import { message } from "antd";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import {
@@ -45,6 +45,7 @@ const ApplicationDetail = ({
   const [inputStatus, setInputStatus] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
+  const secretKeyRef = useRef(null);
 
   useLayoutEffect(() => {
     CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
@@ -135,6 +136,14 @@ const ApplicationDetail = ({
     );
   };
 
+  const copySecretKey = e => {
+    e.preventDefault();
+    secretKeyRef.current.select();
+    document.execCommand('copy');
+    message.success('클립보드에 복사하였습니다.')
+    secretKeyRef.current.setSelectionRange(0,0);
+  }
+
   return (
     <>
       <div className="ApplicationsBox">
@@ -153,7 +162,12 @@ const ApplicationDetail = ({
           </div>
           <div className="Application-label-input-box">
             <label>Secret Key</label>
-            <input name="secretKey" value={secretKey} disabled />
+            <div className="secretKey-container">
+              <input name="secretKey" value={secretKey} readOnly ref={secretKeyRef}/>
+              <div className="copyButton-container">
+                <button className="copyButton" onClick={copySecretKey}>Copy</button>
+              </div>
+            </div>
             <CustomButton
               loading={resetLoading}
               type="button"
