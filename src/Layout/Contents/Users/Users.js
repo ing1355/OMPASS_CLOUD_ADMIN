@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./Users.css";
 import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
@@ -15,6 +15,7 @@ import UserBypass from "./UserBypass";
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
+  const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
   const history = useHistory();
 
@@ -23,6 +24,9 @@ const Users = ({ userProfile }) => {
   useLayoutEffect(() => {
     CustomAxiosGet(getUsersApi(adminId), (data) => {
       setTableData(data);
+      setTableLoading(false);
+    }, () => {
+      setTableLoading(false);
     });
   }, []);
 

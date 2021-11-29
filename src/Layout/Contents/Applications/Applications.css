@@ -10,10 +10,10 @@
   padding-bottom: 2rem;
 }
 .ApplicationsBox button {
-  color: #fff !important;
+  color: #fff;
 }
 .cud Button {
-  color: #000 !important;
+  color: #000;
 }
 .cud {
   width: 100%;
@@ -24,7 +24,7 @@
 }
 .ApplicationsBox .ApplicationsSave {
   margin-top: 2rem;
-  color: #fff !important;
+  color: #fff;
 }
 .ApplicationsBox table button {
   margin-top: 0rem;
@@ -55,7 +55,7 @@
   justify-content: space-between;
 }
 .ApplicationsBox .inputBox .select {
-  background-color: #829194 !important;
+  background-color: #829194;
   border: 0;
   border-radius: 5px;
 }
@@ -119,4 +119,37 @@
   width: 7rem;
   margin-left: 0;
   margin-top: 2rem;
+}
+
+.secretKey-container {
+  width: 65%;
+  height: 100%;
+  display: inline;
+  float: left;
+  position: relative;
+}
+
+.ApplicationForm .Application-label-input-box .secretKey-container input {
+  width: 100%;
+  padding-right: 60px;
+  border: none;
+  cursor: default;
+  background-color: rgba(118,118,118,.3);
+}
+
+.copyButton-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 60px;
+  right: 4px;
+}
+
+.ApplicationsBox .ApplicationForm button.copyButton {
+  margin-left: 0;
+  padding: 2px 8px;
+  color: black;
+  cursor: pointer;
 }

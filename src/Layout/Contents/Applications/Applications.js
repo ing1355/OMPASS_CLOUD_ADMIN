@@ -27,6 +27,7 @@ const columns = [
 
 const Applications = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
+  const [tableLoading, setTableLoading] = useState(true);
 
   const tableDataAdd = (data) => {
     setTableData([data, ...tableData]);
@@ -47,6 +48,9 @@ const Applications = ({ userProfile }) => {
   useEffect(() => {
     CustomAxiosGet(getApplicationApi(userProfile.adminId), (data) => {
       setTableData(data);
+      setTableLoading(false);
+    }, () => {
+      setTableLoading(false);
     });
   }, []);
 

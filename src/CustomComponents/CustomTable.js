@@ -5,7 +5,7 @@ import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
 
-const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
+const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage, loading }) => {
   const test = new Array(60)
     .fill(1)
     .map((t, ind) => ({
@@ -46,8 +46,8 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
       </thead>
       <tbody>
         {
-          (datas && datas.length > 0) ? datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
-            <tr
+          (!loading && datas && datas.length > 0) ? datas.slice(currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage).map((d, ind) => (
+          <tr
               key={ind}
               className={rowClick ? 'pointer' : ''}
               onClick={(e) => {
@@ -60,7 +60,7 @@ const CustomTable = ({ columns, datas, rowClick, pagination, numPerPage }) => {
               ))}
             </tr>
           )) : <tr className="no-data">
-            <td className="no-data">No Data</td>
+            {loading ? <td className="loading-td">data loading...</td> :<td className="no-data">No Data</td>}
         </tr>
         }
       </tbody>

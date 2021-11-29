@@ -4,7 +4,7 @@ import './CustomConfirm.css';
 
 const CustomConfirm = ({ visible, children, confirmCallback, closable, cancelCallback, okLoading, footer, centered}) => {
     return <Modal visible={visible} destroyOnClose closable={closable} onOk={confirmCallback} confirmLoading={okLoading} onCancel={cancelCallback} maskClosable={false}
-        okButtonProps={{ id: '' }} centered={centered}>
+        okButtonProps={{ id: '' }} centered={centered} footer={null}>
         {children}
         {footer && <div className="custom-modal-button-container">
             <button onClick={() => {
