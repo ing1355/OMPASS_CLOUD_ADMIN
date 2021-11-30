@@ -1,10 +1,18 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
 import AdminDetail from "./AdminDetail";
-import { CustomAxiosGet, CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import {
+  CustomAxiosGet,
+  CustomAxiosPatch,
+} from "../../../Functions/CustomAxios";
 import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -30,25 +38,29 @@ const Admins = ({ userProfile, history }) => {
   const [ompassToggle, setOmpassToggle] = useState(false);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getAdminsApi(adminId), (data) => {
-      setTableData(
-        data.map((d, index) => ({
-          ...d,
-          name: d.firstName + d.lastName,
-          index,
-        }))
-      );
-      setOmpassToggle(data[0].ompass)
-      setTableLoading(false);
-    }, () => {
-      setTableLoading(false);
-    });
+    CustomAxiosGet(
+      getAdminsApi(adminId),
+      (data) => {
+        setTableData(
+          data.map((d, index) => ({
+            ...d,
+            name: d.firstName + " " + d.lastName,
+            index,
+          }))
+        );
+        setOmpassToggle(data[0].ompass);
+        setTableLoading(false);
+      },
+      () => {
+        setTableLoading(false);
+      }
+    );
   }, []);
 
   const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
     history.push("/Admins/Detail");
-  },[])
+  }, []);
 
   const updateAdmin = useCallback((rowData) => {
     setTableData(
@@ -58,28 +70,33 @@ const Admins = ({ userProfile, history }) => {
           : t
       )
     );
-  },[])
+  }, []);
 
   const deleteAdmin = useCallback((index) => {
     setTableData(tableData.filter((t) => t.index !== index * 1));
-  },[])
+  }, []);
 
   const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
-  },[])
+  }, []);
 
   const OMPASSToggle = useCallback(() => {
     setConfirmLoading(true);
-    CustomAxiosPatch(update2faApi(adminId), {
-      flag: !ompassToggle
-    }, data => {
-      setOmpassToggle(!ompassToggle)
-      setConfirmVisible(false);
-      setConfirmLoading(false);
-    }, () => {
-      setConfirmLoading(false);
-    })
-  },[ompassToggle])
+    CustomAxiosPatch(
+      update2faApi(adminId),
+      {
+        flag: !ompassToggle,
+      },
+      (data) => {
+        setOmpassToggle(!ompassToggle);
+        setConfirmVisible(false);
+        setConfirmLoading(false);
+      },
+      () => {
+        setConfirmLoading(false);
+      }
+    );
+  }, [ompassToggle]);
 
   return (
     <div className="contents-container">
@@ -93,10 +110,19 @@ const Admins = ({ userProfile, history }) => {
               <div>
                 <div className="adminAdd">
                   <Link to="/Admins/Add">
-                    <button className="button admin-button" disabled={tableLoading}>관리자 추가</button>
+                    <button
+                      className="button admin-button"
+                      disabled={tableLoading}
+                    >
+                      관리자 추가
+                    </button>
                   </Link>
-                  <button className="button two-Auth-button admin-button" disabled={tableLoading} onClick={openConfirmModal}>
-                    2차 인증 {ompassToggle ? '비활성화' : '활성화'}
+                  <button
+                    className="button two-Auth-button admin-button"
+                    disabled={tableLoading}
+                    onClick={openConfirmModal}
+                  >
+                    2차 인증 {ompassToggle ? "비활성화" : "활성화"}
                   </button>
                 </div>
                 <CustomTable
@@ -106,7 +132,13 @@ const Admins = ({ userProfile, history }) => {
                   rowClick={clickToDetail}
                 />
               </div>
-              <PasswordConfirm visible={confirmVisible} setVisible={setConfirmVisible} loading={confirmLoading} setLoading={setConfirmLoading} callback={OMPASSToggle}/>
+              <PasswordConfirm
+                visible={confirmVisible}
+                setVisible={setConfirmVisible}
+                loading={confirmLoading}
+                setLoading={setConfirmLoading}
+                callback={OMPASSToggle}
+              />
             </div>
           )}
         />
@@ -133,8 +165,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admins);

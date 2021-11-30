@@ -23,7 +23,7 @@ const ResetPassword = ({ location, history }) => {
         alert(
           "이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다."
         );
-        history.push('/');
+        history.push("/");
       },
       null,
       {
@@ -38,10 +38,15 @@ const ResetPassword = ({ location, history }) => {
       <form onSubmit={onFinish}>
         {" "}
         <h1>OMPASS 비밀번호 초기화</h1>
-        <input placeholder="비밀번호를 입력해주세요" name="password" />
+        <input
+          placeholder="비밀번호를 입력해주세요"
+          name="password"
+          type="password"
+        />
         <input
           placeholder="비밀번호를 한번 더 입력해주세요"
           name="passwordConfirm"
+          type="password"
         />
         <button type="submit">비밀번호 초기화</button>
       </form>
@@ -50,8 +55,7 @@ const ResetPassword = ({ location, history }) => {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {

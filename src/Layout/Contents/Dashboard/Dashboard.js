@@ -8,6 +8,7 @@ import {
   faHandSparkles,
   faCaretRight,
   faCheckSquare,
+  faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -41,9 +42,18 @@ const Dashboard = ({ userProfile }) => {
   const [chartData, setChartData] = useState([]);
   const [tooltipDataIndex, setTooltipDataIndex] = useState(0);
 
+  const planStatusCodes = {
+    STOPPED: "사용하지 않음",
+    RUN: "현재 사용중",
+  };
+
   const getDashboardData = () => {
     CustomAxiosGetAll(
-      [getDashboardTopApi(adminId), getDashboardMiddleApi(adminId), getDashboardBottomApi(adminId)],
+      [
+        getDashboardTopApi(adminId),
+        getDashboardMiddleApi(adminId),
+        getDashboardBottomApi(adminId),
+      ],
       [
         (data) => {
           const {
@@ -60,10 +70,16 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
-          setChartData(data.map((d,ind) => ({
-            id: d.name,
-            data: d.chartData.map(_ => ({x: _.date, y: _.rank, value: _.count}))
-          })))
+          setChartData(
+            data.map((d, ind) => ({
+              id: d.name,
+              data: d.chartData.map((_) => ({
+                x: _.date,
+                y: _.rank,
+                value: _.count,
+              })),
+            }))
+          );
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -79,6 +95,18 @@ const Dashboard = ({ userProfile }) => {
     getDashboardData();
   }, []);
 
+  const getDateFormat = (date) =>
+    date
+      .split(" ")[0]
+      .split("-")
+      .reduce((pre, cur) => {
+        return pre.includes("월")
+          ? pre + " " + cur + "일"
+          : pre.includes("년")
+          ? pre + " " + cur + "월"
+          : pre + "년 " + cur + "월";
+      });
+
   return (
     <div className="contents-container" style={{ width: 1400 }}>
       <div className="flag kr" />
@@ -87,37 +115,59 @@ const Dashboard = ({ userProfile }) => {
           <FontAwesomeIcon icon={faCaretRight} /> 사용자 정보
         </h4>
         <div className="DashboardFirst">
-          <ul>
+          <ul className="plan-info-box">
             <li>
               <div>
+                <h2>{plan.name} Plan</h2>
                 <h5>
                   <FontAwesomeIcon
-                    style={{ color: "rgb(0, 209, 52)", fontSize: "0.9rem" }}
+                    style={{ color: "rgb(0, 209, 52)", fontSize: "1.1rem" }}
                     icon={faCheckSquare}
                   />
-                  &nbsp;현재 사용 중
+                  &nbsp;&nbsp;
+                  {plan.status
+                    ? planStatusCodes[plan.status]
+                    : planStatusCodes["STOPPED"]}
                 </h5>
                 <h6>
-                  2021년 11월 1일 ~{" "}
-                  {plan.expireDate
-                    ? plan.expireDate
-                        .split(" ")[0]
-                        .split("-")
-                        .reduce((pre, cur) => {
-                          return pre.includes("월")
-                            ? pre + " " + cur + "일"
-                            : pre.includes("년")
-                            ? pre + " " + cur + "월"
-                            : pre + "년 " + cur + "월";
-                        })
-                    : null}
+                  <FontAwesomeIcon
+                    style={{ fontSize: "1.1rem" }}
+                    icon={faCalendarCheck}
+                  />
+                  &nbsp;&nbsp;
+                  {plan.createDate
+                    ? getDateFormat(plan.createDate)
+                    : null} ~{" "}
+                  {plan.expireDate ? getDateFormat(plan.expireDate) : null}
                 </h6>
-                <h2>{plan.name} Plan</h2>
+              </div>
+              <div>
                 <table>
                   <tbody>
                     <tr>
-                      <td>남은 일 수</td>
-                      <td>{plan.remainingTime}일 </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          background: "#256e8b",
+                          color: "#fff",
+                          fontWeight: "bold",
+                          fontSize: "1rem",
+                        }}
+                      >
+                        남은 일 수
+                      </td>
+                      <td
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "1rem",
+                          borderRight: "1px solid rgb(180, 180, 180)",
+                        }}
+                      >
+                        {plan.remainingTime}일{" "}
+                      </td>
                     </tr>
                     {/* <tr>
                     <td>예상 결제 일</td>
@@ -134,7 +184,7 @@ const Dashboard = ({ userProfile }) => {
                 <div>
                   <h6>사용자 수</h6>
                   <p>
-                    <FontAwesomeIcon style={{ width: "15%" }} icon={faUser} />
+                    <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
                     <b>{userNum}명</b>
                   </p>
@@ -142,10 +192,7 @@ const Dashboard = ({ userProfile }) => {
                 <div>
                   <h6>관리자 수</h6>
                   <p>
-                    <FontAwesomeIcon
-                      style={{ width: "15%" }}
-                      icon={faUserCog}
-                    />
+                    <FontAwesomeIcon icon={faUserCog} />
                     &nbsp;
                     <b>{adminNum}명</b>
                   </p>
@@ -153,10 +200,7 @@ const Dashboard = ({ userProfile }) => {
                 <div>
                   <h6>바이패스 수</h6>
                   <p>
-                    <FontAwesomeIcon
-                      style={{ width: "15%" }}
-                      icon={faHandSparkles}
-                    />
+                    <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
                     <b>{byPassNum}&nbsp;명</b>
                   </p>
@@ -164,10 +208,7 @@ const Dashboard = ({ userProfile }) => {
                 <div>
                   <h6>비활성화 수</h6>
                   <p>
-                    <FontAwesomeIcon
-                      style={{ width: "15%" }}
-                      icon={faUserAltSlash}
-                    />
+                    <FontAwesomeIcon icon={faUserAltSlash} />
                     &nbsp;
                     <b>{disableNum}명</b>
                   </p>

@@ -117,10 +117,13 @@
 }
 .Application-Save-button {
   width: 7rem;
-  margin-left: 0;
-  margin-top: 2rem;
+  margin-top: 2rem !important;
+  text-align: center;
+  margin: 0 auto !important;
 }
-
+.ApplicationForm .inputBox {
+  margin-bottom: 2rem !important;
+}
 .secretKey-container {
   width: 65%;
   height: 100%;
