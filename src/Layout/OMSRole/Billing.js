@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Billing = () => {
-    return <></>
+    return <div className="contents-container">
+
+    </div>
 }
 
 export default Billing;

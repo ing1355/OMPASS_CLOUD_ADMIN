@@ -25,7 +25,9 @@ export function CustomAxiosGetAll(urls, successCallback, errorCallback, config) 
                 if(successCallback[ind]) successCallback[ind](data.data);
             }
         })
-    }));
+    })).catch(err => {
+        if(errorCallback) errorCallback();
+    });
 }
 
 export function CustomAxiosPost(url, params, successCallback, errorCallback, config) {
