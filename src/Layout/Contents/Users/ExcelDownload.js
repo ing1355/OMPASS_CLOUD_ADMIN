@@ -1,51 +1,44 @@
-import React, { Component, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
     ExcelExport,
     ExcelExportColumn,
     ExcelExportColumnGroup,
 } from "@progress/kendo-react-excel-export";
-import { Button } from 'antd';
-import { AiOutlineDownload } from 'react-icons/ai'
+import CustomButton from '../../../CustomComponents/CustomButton';
 
-const ExcelDownload = () => {
+const title = 'test';
+
+const ExcelDownload = ({data, columns}) => {
+    console.log(data);
     const _exporter = useRef(null);
     const _export = (res) => {
         let workbook = _exporter.current.workbookOptions();
-        let title_row = workbook.sheets[0].rows[0];
         let columns = workbook.sheets[0].columns;
-        // workbook.sheets[0].rows.map((row, ind) => {
-        //   row.cells.map((cell) => {
-        //     if (ind !== 1 && ind % 2 === 1) {
-        //       cell.color = "#fd0101";
-        //     }
-        //   });
-        // });
-        title_row.height = 70;
-        title_row.cells[0] = {
-            ...title_row.cells[0],
-            background: "#ffffff",
-            color: "#000000",
-            fontSize: 50,
-        };
+        columns.map((col, ind) => {
+            if (ind === 0) col.width = 300;
+            else if (ind === 1) col.width = 240;
+            else if (ind === 2) col.width = 200;
+            else if (ind === 3) col.width = 150;
+            else if (ind === 4) col.width = 150;
+            else if (ind === 5) col.width = 200;
+          });
         _exporter.current.save(workbook);
     };
     return <div>
-        <Button
+        <CustomButton
             id="download"
-            type="primary"
             style={{ float: "right" }}
             onClick={_export}
         >
             엑셀 다운로드
-      <AiOutlineDownload />
-        </Button>
+        </CustomButton>
         <ExcelExport
-            data={data}
+            data={data.map(d => ({appName: d.appName, userId: d.userId, type: d.type, lastLoginDate: d.lastLoginDate, byPass: d.byPass}))}
             fileName={`${title}.xlsx`}
             ref={_exporter}
         >
             <ExcelExportColumnGroup
-                title="사용자 리스트"
+                title={title}
                 headerPaddingCellOptions={{ background: "#ff0000" }}
                 headerCellOptions={{
                     textAlign: "center",
@@ -62,9 +55,9 @@ const ExcelDownload = () => {
                     return (
                         <ExcelExportColumn
                             key={ind}
-                            field={res[0]}
-                            title={res[1]}
-                            width={res[1].length * 30}
+                            field={res.key}
+                            title={res.name}
+                            width={res.name.length * 30}
                             cellOptions={{ textAlign: "center" }}
                             headerCellOptions={{ textAlign: "center" }}
                         />
@@ -76,22 +69,3 @@ const ExcelDownload = () => {
 }
 
 export default ExcelDownload;
-
-export default class Excel_Download extends Component {
-    constructor(props) {
-        super(props);
-        this.state = props;
-    }
-    _exporter;
-
-    render() {
-        const { data, title } = this.props;
-        const columns = this.props.columns.map((res) => {
-            return [res.dataIndex, res.title];
-        });
-        console.log(data, columns);
-        return (
-        
-      );
-    }
-}

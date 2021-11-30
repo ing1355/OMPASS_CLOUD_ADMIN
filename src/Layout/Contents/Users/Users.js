@@ -12,6 +12,8 @@ import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
 import CustomButton from "../../../CustomComponents/CustomButton";
+import ExcelDownload from "./ExcelDownload";
+import { allUserColumns } from "./columns";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -127,11 +129,9 @@ const Users = ({ userProfile }) => {
                 </div>
                 <div>
                   <CustomButton>
-                    CSV 업로드
+                    엑셀 업로드
                   </CustomButton>
-                  <CustomButton>
-                    CSV 다운로드
-                  </CustomButton>
+                  <ExcelDownload data={tableData} columns={allUserColumns}/>
                 </div>
               </>
             )}
