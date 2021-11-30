@@ -1,4 +1,5 @@
 export const getDashboardTopApi = (adminId) => `/v1/admins/${adminId}/dashboard-top`
+export const getDashboardMiddleApi = (adminId) => `/v1/admins/${adminId}/dashboard-middle`
 export const getDashboardBottomApi = (adminId) => `/v1/admins/${adminId}/dashboard-bottom`
 
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`

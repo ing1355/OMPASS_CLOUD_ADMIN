@@ -13,11 +13,11 @@ import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
   getDashboardTopApi,
   getDashboardBottomApi,
+  getDashboardMiddleApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
-import { testData } from "./ChartData";
 import { message } from "antd";
 
 const columns = [
@@ -43,7 +43,7 @@ const Dashboard = ({ userProfile }) => {
 
   const getDashboardData = () => {
     CustomAxiosGetAll(
-      [getDashboardTopApi(adminId), getDashboardBottomApi(adminId)],
+      [getDashboardTopApi(adminId), getDashboardMiddleApi(adminId), getDashboardBottomApi(adminId)],
       [
         (data) => {
           const {
@@ -60,6 +60,12 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
+          setChartData(data.map((d,ind) => ({
+            id: d.name,
+            data: d.chartData.map(_ => ({x: _.date, y: _.rank, value: _.count}))
+          })))
+        },
+        (data) => {
           setAuthLogs(data.slice(-5));
         },
       ],
@@ -71,17 +77,6 @@ const Dashboard = ({ userProfile }) => {
 
   useLayoutEffect(() => {
     getDashboardData();
-    setChartData(testData);
-    // let temp = [];
-    // let prev2 = 80;
-    // for (let i = 0; i < 10; i++) {
-    //   temp.push([]);
-    //   for (let j = 0; j < 10; j++) {
-    //     prev2 += 5 - Math.random() * 10;
-    //     temp[i].push({ x: j, y: prev2 });
-    //   }
-    // }
-    // setChartData(temp);
   }, []);
 
   return (
@@ -196,14 +191,14 @@ const Dashboard = ({ userProfile }) => {
             }} 
             /> */}
             <ResponsiveBump
-              data={testData}
+              data={chartData}
               margin={{ top: 20, right: 120, bottom: 70, left: 100 }}
               colors={{ scheme: "spectral" }}
               interpolation="linear"
               lineWidth={2}
               activeLineWidth={3}
               inactiveLineWidth={3}
-              inactiveOpacity={0.5}
+              inactiveOpacity={0.1}
               pointSize={10}
               tooltip={({ serie }) => (
                 <div className="custom-tooltip-container">
@@ -222,34 +217,22 @@ const Dashboard = ({ userProfile }) => {
                 const { width } = b.target.getBoundingClientRect();
                 const dataLength = chartData[0].data.length;
                 const dataUnitAmount = width / dataLength;
-                const _offsetX = offsetX - 60;
+                const _offsetX = offsetX - 110;
                 if (_offsetX <= dataUnitAmount) {
                   if (tooltipIndex !== 0) {
                     tooltipIndex = 0;
                     setTooltipDataIndex(0);
                   }
-                  // setTooltipData(chartData.map(c => ({
-                  //   name: c.id,
-                  //   ...c.data[0]
-                  // })));
                 } else if (_offsetX >= dataUnitAmount * (dataLength - 1)) {
                   if (tooltipIndex !== data.data.length - 1) {
                     tooltipIndex = data.data.length - 1;
                     setTooltipDataIndex(data.data.length - 1);
                   }
-                  // setTooltipData(chartData.map(c => ({
-                  //   name: c.id,
-                  //   ...c.data[data.data.length - 1]
-                  // })))
                 } else {
                   if (tooltipIndex !== parseInt(_offsetX / dataUnitAmount)) {
                     tooltipIndex = parseInt(_offsetX / dataUnitAmount);
                     setTooltipDataIndex(parseInt(_offsetX / dataUnitAmount));
                   }
-                  // setTooltipData(chartData.map(c => ({
-                  //   name: c.id,
-                  //   ...c.data[parseInt(_offsetX/dataUnitAmount)]
-                  // })))
                 }
                 // console.log(b.target.getAttribute('d').replace(/[LM]/gi, " ").slice(1,).split(' ').map(d => d.split(',')).flat().map(d => (d*1).toFixed(0)))
               }}
