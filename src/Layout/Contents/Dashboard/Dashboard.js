@@ -217,7 +217,7 @@ const Dashboard = ({ userProfile }) => {
                 const { width } = b.target.getBoundingClientRect();
                 const dataLength = chartData[0].data.length;
                 const dataUnitAmount = width / dataLength;
-                const _offsetX = offsetX - 110;
+                const _offsetX = offsetX - 120;
                 if (_offsetX <= dataUnitAmount) {
                   if (tooltipIndex !== 0) {
                     tooltipIndex = 0;

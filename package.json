@@ -13,6 +13,7 @@
     "@nivo/bump": "^0.74.0",
     "@nivo/core": "^0.74.0",
     "@nivo/pie": "^0.74.0",
+    "@progress/kendo-react-excel-export": "^4.12.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

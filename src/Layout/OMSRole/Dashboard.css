@@ -8,6 +8,10 @@ section {
     height: 250px;
 }
 
+.flex-card-container > div {
+    width: 25%;
+}
+
 .flex-card-container > div:first-child {
     margin-left: 0;
 }
@@ -17,24 +21,31 @@ section {
 }
 
 .chart-container {
-    padding: 8px;
+    padding: 12px;
 }
 
 .chart-container.first {
-    width: 60%;
+    width: 50%;
     padding-left: 0;
+}
+
+.chart-container.second {
+    width: 50%;
+    padding-right: 0;
+}
+
+.chart-container.third {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .chart-container > div {
     padding: 12px 24px;
 }
 
-.chart-container.second {
-    width: 40%;
-    padding-right: 0;
-}
 
-.chart-container-1, .chart-container-2 {
+.chart-container-1, .chart-container-2, .chart-container-3 {
     height: 500px;
     background-color: white;
 }

@@ -2,7 +2,7 @@ import { lazy } from "react";
 
 const OMSDashboard = lazy(() => import("../Layout/OMSRole/Dashboard"));
 const OMSPolicies = lazy(() => import("../Layout/OMSRole/Policies"));
-const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins"));
+const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins/Admins"));
 const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));

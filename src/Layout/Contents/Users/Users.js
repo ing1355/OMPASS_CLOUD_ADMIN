@@ -11,6 +11,7 @@ import UserDetail from "./UserDetail";
 import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
+import CustomButton from "../../../CustomComponents/CustomButton";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -123,6 +124,14 @@ const Users = ({ userProfile }) => {
                       />
                     )}
                   </ul>
+                </div>
+                <div>
+                  <CustomButton>
+                    CSV 업로드
+                  </CustomButton>
+                  <CustomButton>
+                    CSV 다운로드
+                  </CustomButton>
                 </div>
               </>
             )}
