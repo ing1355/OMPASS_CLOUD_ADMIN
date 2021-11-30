@@ -1,0 +1,52 @@
+section {
+    border-bottom: none;
+    padding: 0;
+    display: flex;
+}
+
+.flex-card-container {
+    height: 250px;
+}
+
+.flex-card-container > div:first-child {
+    margin-left: 0;
+}
+
+.flex-card-container > div:last-child {
+    margin-right: 0;
+}
+
+.chart-container {
+    padding: 8px;
+}
+
+.chart-container.first {
+    width: 60%;
+    padding-left: 0;
+}
+
+.chart-container > div {
+    padding: 12px 24px;
+}
+
+.chart-container.second {
+    width: 40%;
+    padding-right: 0;
+}
+
+.chart-container-1, .chart-container-2 {
+    height: 500px;
+    background-color: white;
+}
+
+.chart-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    height: 10%;
+}
+
+.chart-content {
+    height: 90%;
+}
