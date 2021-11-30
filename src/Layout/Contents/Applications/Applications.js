@@ -5,7 +5,7 @@ import ContentsTitle from "../ContentsTitle";
 import ApplicationAdd from "./AppDetailsAdd";
 
 import { Button, Space } from "antd";
-import { UsergroupAddOutlined } from "@ant-design/icons";
+import { AppstoreAddOutlined } from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getApplicationApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
@@ -40,18 +40,22 @@ const Applications = ({ userProfile }) => {
   const tableDataUpdate = (appId, data) => {
     setTableData(
       tableData.map((t) =>
-        t.appId === appId * 1 ? {appId: t.appId, ...data} : t
+        t.appId === appId * 1 ? { appId: t.appId, ...data } : t
       )
     );
   };
 
   useEffect(() => {
-    CustomAxiosGet(getApplicationApi(userProfile.adminId), (data) => {
-      setTableData(data);
-      setTableLoading(false);
-    }, () => {
-      setTableLoading(false);
-    });
+    CustomAxiosGet(
+      getApplicationApi(userProfile.adminId),
+      (data) => {
+        setTableData(data);
+        setTableLoading(false);
+      },
+      () => {
+        setTableLoading(false);
+      }
+    );
   }, []);
 
   return (
@@ -68,7 +72,7 @@ const Applications = ({ userProfile }) => {
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>
-                      <UsergroupAddOutlined />
+                      <AppstoreAddOutlined />
                       추가
                     </Button>
                   </Link>

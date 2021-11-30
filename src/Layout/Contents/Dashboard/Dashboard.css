@@ -15,12 +15,56 @@
   height: auto;
   display: flex;
   flex-direction: column;
+  /* border: 1px solid rgb(221, 221, 221); */
+  padding: 2rem;
+  background: rgba(235, 235, 235, 0.303);
 }
+
 .DashboardFirst ul {
   display: flex;
   width: 100%;
   flex: 1;
+  margin: 0;
   flex-direction: row;
+}
+
+.DashboardFirst .plan-info-box {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+.DashboardFirst .plan-info-box table {
+  justify-content: space-evenly;
+}
+.DashboardFirst .plan-info-box table tr:hover {
+  background: none;
+}
+.DashboardFirst .plan-info-box li div {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  /* border: 1px solid red; */
+}
+.DashboardFirst .plan-info-box li div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+.DashboardFirst .plan-info-box li h5 {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(0, 209, 52);
+}
+.DashboardFirst .plan-info-box li h6 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.DashboardFirst .plan-info-box li h2 {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 2.5rem;
 }
 .DashboardFirst ul li {
   width: 100%;
@@ -34,7 +78,6 @@
 }
 .DashboardFirst ul li .countBox div {
   flex: 1;
-  background: lemonchiffon;
   width: 25%;
   display: flex;
   flex-direction: column;
@@ -44,13 +87,44 @@
   display: flex;
   height: 200px;
   text-align: center;
-  margin-left: 1.5rem;
+  margin-left: 2rem;
+  background: #fff;
+}
+.DashboardFirst ul li .countBox div h6 {
+  /* font-weight: bold; */
+  font-size: 1.2rem;
+  color: rgb(48, 48, 48);
+}
+.DashboardFirst ul li .countBox div .countBox-icon {
+  color: rgb(111, 186, 216);
 }
 .DashboardFirst ul li .countBox div p {
   width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 3rem;
 }
 .DashboardFirst ul li .countBox div:first-child {
   margin: 0;
+  color: rgb(111, 186, 216);
+  /* background: rgba(111, 186, 216, 0.055); */
+  /* border: 1.5px solid rgb(111, 186, 216); */
+}
+
+.DashboardFirst ul li .countBox div:nth-child(2) {
+  color: rgb(111, 169, 216);
+  /* background: rgb(111, 169, 216, 0.055); */
+  /* border: 2px solid rgb(111, 169, 216); */
+}
+.DashboardFirst ul li .countBox div:nth-child(3) {
+  color: rgb(111, 216, 190);
+  /* background: rgba(111, 216, 190, 0.055); */
+  /* border: 2px solid rgb(111, 216, 190); */
+}
+.DashboardFirst ul li .countBox div:nth-child(4) {
+  color: rgb(111, 139, 216);
+  /* background: rgb(111, 139, 216, 0.055); */
+  /* border: 2px solid rgb(111, 139, 216); */
 }
 /* 
 .DashboardFirst ul {
@@ -134,7 +208,7 @@
 .DashboardSecond {
   width: 100%;
   height: 700px;
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 .DashboardSecond .chart {
   width: 100%;
