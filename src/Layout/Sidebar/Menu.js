@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import route_info from '../../Constants/Route_items';
 import './Menu.css'
 import MenuItem from './Menu_Item';
-import Menu_Items from './Menu_Items';
 
 const Menu = ({userProfile}) => {
     const {role} = userProfile;
     return (
         <div className="menu">
-            {Menu_Items(role).map(item =>
+            {route_info(role).map(item =>
                 <MenuItem {...item} />
             )}
         </div>

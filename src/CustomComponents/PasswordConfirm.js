@@ -1,6 +1,11 @@
 import React from "react";
+import { CustomAxiosPost } from "../Functions/CustomAxios";
 import CustomConfirm from "./CustomConfirm";
 import "./PasswordConfirm.css";
+import {verifyPasswordApi} from '../Constants/Api_Route'
+import { connect } from "react-redux";
+import { message } from "antd";
+import CustomButton from "./CustomButton";
 
 const PasswordConfirm = ({
   visible,
@@ -8,13 +13,25 @@ const PasswordConfirm = ({
   callback,
   loading,
   setLoading,
+  userProfile
 }) => {
+  const {email} = userProfile;
   const onFinish = (e) => {
     e.preventDefault();
     const { password } = e.target.elements;
-    console.log(password.value);
-    if (callback) callback();
-    setVisible(false);
+    if(!password.value.length) return message.error('비밀번호를 입력해주세요.')
+    setLoading(true);
+    CustomAxiosPost(verifyPasswordApi, {
+      email,
+      password: password.value
+    }, () => {
+      setLoading(false);
+      message.success('성공하였습니다.')
+      if (callback) callback();
+      setVisible(false);
+    }, () => {
+      setLoading(false);
+    })
   };
 
   const onCancel = () => {
@@ -42,9 +59,9 @@ const PasswordConfirm = ({
             autoFocus
           />
           <div>
-            <button className="yes-button" type="submit">
+            <CustomButton className="yes-button" type="submit" loading={loading}>
               확인
-            </button>
+            </CustomButton>
             <button className="no-button" type="button" onClick={onCancel}>
               취소
             </button>
@@ -55,4 +72,15 @@ const PasswordConfirm = ({
   );
 };
 
-export default PasswordConfirm;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordConfirm);
