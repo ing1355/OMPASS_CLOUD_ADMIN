@@ -14,8 +14,45 @@
   width: 100%;
   height: auto;
   display: flex;
+  flex-direction: column;
 }
-
+.DashboardFirst ul {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: row;
+}
+.DashboardFirst ul li {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.DashboardFirst ul li .countBox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.DashboardFirst ul li .countBox div {
+  flex: 1;
+  background: lemonchiffon;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  display: flex;
+  height: 200px;
+  text-align: center;
+  margin-left: 1.5rem;
+}
+.DashboardFirst ul li .countBox div p {
+  width: 100%;
+}
+.DashboardFirst ul li .countBox div:first-child {
+  margin: 0;
+}
+/* 
 .DashboardFirst ul {
   display: flex;
   flex: 1;
@@ -92,7 +129,8 @@
 }
 .DashboardFirst table tr td:nth-child(1) {
   border-right: 1px solid rgb(180, 180, 180);
-}
+} */
+
 .DashboardSecond {
   width: 100%;
   height: 700px;
@@ -131,6 +169,30 @@
   text-align: center;
 }
 
-.custom-tooltip-item {
-  
+.custom-tooltip-container {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.918);
+  border: 1px solid rgb(180, 180, 180);
 }
+.custom-tooltip-title {
+  border: 1px solid rgb(180, 180, 180);
+  margin-bottom: 0.5rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  /* font-weight: bold; */
+}
+.custom-tooltip-item {
+  padding: 0.1rem 0.3rem;
+  border-radius: 5px;
+}
+/* .custom-tooltip-title {
+  width: 100% !important;
+  height: 50px !important;
+  background: #fff !important;
+}
+.legend {
+  background: chartreuse !important;
+} */

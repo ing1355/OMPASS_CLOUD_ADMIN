@@ -28,7 +28,7 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 const columns = [
   { name: "금액", key: "amount" },
   { name: "결제 날짜", key: "paymentDate" },
-  { name: "결제 종류", key: "paymentHistory" }
+  { name: "결제 종류", key: "paymentHistory" },
 ];
 
 const Billing = ({ userProfile }) => {
@@ -56,15 +56,26 @@ const Billing = ({ userProfile }) => {
   }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
-    CustomAxiosGetAll([getUsersApi(adminId), getPricingApi(country), getPaymentHistoryApi(adminId)], [(data) => {
-      setAllUserNum(data.length);
-    }, (data) => {
-      setEditions(data);
-      setInputEdition(data[0].name);
-      setCost(data[0].priceForOneUser * 1);
-    }, data => {
-      setTableData(data);
-    }])
+    CustomAxiosGetAll(
+      [
+        getUsersApi(adminId),
+        getPricingApi(country),
+        getPaymentHistoryApi(adminId),
+      ],
+      [
+        (data) => {
+          setAllUserNum(data.length);
+        },
+        (data) => {
+          setEditions(data);
+          setInputEdition(data[0].name);
+          setCost(data[0].priceForOneUser * 1);
+        },
+        (data) => {
+          setTableData(data);
+        },
+      ]
+    );
   }, []);
 
   const changeEdition = (e) => {
@@ -306,9 +317,9 @@ const Billing = ({ userProfile }) => {
         ))}
       </section>
 
-      <section>
+      <section className="Payment-History-table">
         <h2>Payment History</h2>
-        <CustomTable columns={columns} datas={tableData}/>
+        <CustomTable columns={columns} datas={tableData} />
       </section>
 
       <section className="billing-change-container">
