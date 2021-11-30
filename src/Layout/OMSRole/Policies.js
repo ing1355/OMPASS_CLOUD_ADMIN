@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Policies = () => {
-    return <></>
+    return <div className="contents-container">
+
+    </div>
 }
 
 export default Policies;

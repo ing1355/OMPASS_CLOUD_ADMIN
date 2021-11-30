@@ -18,17 +18,7 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
 import { testData } from "./ChartData";
-
-const data = [];
-const data2 = [];
-let prev = 100;
-let prev2 = 80;
-for (let i = 0; i < 1000; i++) {
-  prev += 5 - Math.random() * 10;
-  data.push({ x: i, y: prev });
-  prev2 += 5 - Math.random() * 10;
-  data2.push({ x: i, y: prev2 });
-}
+import { message } from "antd";
 
 const columns = [
   { name: "사용자 아이디", key: "userId" },
@@ -37,6 +27,8 @@ const columns = [
   { name: "상태", key: "status" },
   { name: "시간", key: "createdDate" },
 ];
+
+var tooltipIndex = 0;
 
 const Dashboard = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -47,6 +39,7 @@ const Dashboard = ({ userProfile }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [tooltipDataIndex, setTooltipDataIndex] = useState(0);
 
   const getDashboardData = () => {
     CustomAxiosGetAll([getDashboardTopApi(adminId), getDashboardBottomApi(adminId)], [(data) => {
@@ -64,26 +57,25 @@ const Dashboard = ({ userProfile }) => {
       setPlan(plan);
     }, (data) => {
       setAuthLogs(data.slice(-5));
-    }]);
+    }],() => {
+      message.error('대시보드 정보를 가져오는데 실패하였습니다.')
+    });
   }
 
   useLayoutEffect(() => {
     getDashboardData();
-    let temp = [];
-    let prev2 = 80;
-    for (let i = 0; i < 10; i++) {
-      temp.push([]);
-      for (let j = 0; j < 10; j++) {
-        prev2 += 5 - Math.random() * 10;
-        temp[i].push({ x: j, y: prev2 });
-      }
-    }
-    setChartData(temp);
+    setChartData(testData)
+    // let temp = [];
+    // let prev2 = 80;
+    // for (let i = 0; i < 10; i++) {
+    //   temp.push([]);
+    //   for (let j = 0; j < 10; j++) {
+    //     prev2 += 5 - Math.random() * 10;
+    //     temp[i].push({ x: j, y: prev2 });
+    //   }
+    // }
+    // setChartData(temp);
   }, []);
-
-  useEffect(() => {
-    console.log(chartData);
-  }, [chartData])
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
@@ -200,14 +192,56 @@ const Dashboard = ({ userProfile }) => {
             /> */}
             <ResponsiveBump
               data={testData}
-              margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
+              margin={{ top: 20, right: 100, bottom: 40, left: 60 }}
               colors={{ scheme: "spectral" }}
               interpolation="linear"
               lineWidth={2}
               activeLineWidth={3}
               inactiveLineWidth={3}
-              inactiveOpacity={0.15}
+              inactiveOpacity={0.5}
               pointSize={10}
+              tooltip={({serie}) => <div className="custom-tooltip-container">
+                <div className="custom-tooltip-title">날짜 : {chartData[0].data[tooltipDataIndex].x}</div>
+                {chartData.map((t, ind) => <div key={ind} className="custom-tooltip-item">
+                    {t.id} : {t.data[tooltipDataIndex].value}
+                  </div>)}
+                </div>}
+              onMouseMove={(data,b) => {
+                const {offsetX,offsetY, clientX, clientY} = b.nativeEvent;
+                const {width} = b.target.getBoundingClientRect();
+                const dataLength = chartData[0].data.length;
+                const dataUnitAmount = width/dataLength;
+                const _offsetX = offsetX - 60;
+                if(_offsetX <= dataUnitAmount) {
+                  if(tooltipIndex !== 0) {
+                    tooltipIndex = 0;
+                    setTooltipDataIndex(0);
+                  }
+                  // setTooltipData(chartData.map(c => ({
+                  //   name: c.id,
+                  //   ...c.data[0]
+                  // })));
+                } else if(_offsetX >= dataUnitAmount * (dataLength-1)) {
+                  if(tooltipIndex !== data.data.length - 1) {
+                    tooltipIndex = data.data.length - 1
+                    setTooltipDataIndex(data.data.length - 1)
+                  }
+                  // setTooltipData(chartData.map(c => ({
+                  //   name: c.id,
+                  //   ...c.data[data.data.length - 1]
+                  // })))
+                } else {
+                  if(tooltipIndex !== parseInt(_offsetX/dataUnitAmount)) {
+                    tooltipIndex = parseInt(_offsetX/dataUnitAmount);
+                    setTooltipDataIndex(parseInt(_offsetX/dataUnitAmount));
+                  }
+                  // setTooltipData(chartData.map(c => ({
+                  //   name: c.id,
+                  //   ...c.data[parseInt(_offsetX/dataUnitAmount)]
+                  // })))
+                }
+                // console.log(b.target.getAttribute('d').replace(/[LM]/gi, " ").slice(1,).split(' ').map(d => d.split(',')).flat().map(d => (d*1).toFixed(0)))
+              }}
               activePointSize={16}
               inactivePointSize={0}
               pointColor={{ theme: "background" }}
