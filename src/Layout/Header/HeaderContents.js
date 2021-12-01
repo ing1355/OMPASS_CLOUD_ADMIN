@@ -19,7 +19,7 @@ const HeaderContents = ({
   e,
 }) => {
   const location = useLocation();
-  const { role } = userProfile;
+  const { role, email } = userProfile;
 
   useLayoutEffect(() => {
     const target = route_info(role).find(
@@ -38,7 +38,7 @@ const HeaderContents = ({
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
-            dbflagovl12@naver.com
+            {email}
           </b>
           님 안녕하세요.
         </p>
