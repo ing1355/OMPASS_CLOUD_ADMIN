@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { unRegisteredUserColumns } from "./columns";
+import { unRegisteredUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
 const UserUnregistered = ({ tableData, setDetailData }) => {

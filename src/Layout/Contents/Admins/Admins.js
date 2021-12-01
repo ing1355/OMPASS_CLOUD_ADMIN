@@ -19,14 +19,7 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
 import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
-
-const columns = [
-  { name: "이름", key: "name" },
-  { name: "이메일", key: "email" },
-  { name: "권한", key: "role" },
-  { name: "전화번호", key: "phone" },
-  { name: "국가", key: "country" },
-];
+import { AdminsColumns } from "../../../Constants/TableColumns";
 
 const Admins = ({ userProfile, history }) => {
   const { adminId } = userProfile;
@@ -126,7 +119,7 @@ const Admins = ({ userProfile, history }) => {
                   </button>
                 </div>
                 <CustomTable
-                  columns={columns}
+                  columns={AdminsColumns}
                   datas={tableData}
                   loading={tableLoading}
                   rowClick={clickToDetail}

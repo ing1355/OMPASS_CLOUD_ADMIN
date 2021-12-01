@@ -24,12 +24,7 @@ import {
 import ContentsTitle from "../ContentsTitle";
 import "./Billing.css";
 import CustomTable from "../../../CustomComponents/CustomTable";
-
-const columns = [
-  { name: "금액", key: "amount" },
-  { name: "결제 날짜", key: "paymentDate" },
-  { name: "결제 종류", key: "paymentHistory" },
-];
+import { BillingColumns } from "../../../Constants/TableColumns";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
@@ -319,7 +314,7 @@ const Billing = ({ userProfile }) => {
 
       <section className="Payment-History-table">
         <h2>Payment History</h2>
-        <CustomTable columns={columns} datas={tableData} />
+        <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
 
       <section className="billing-change-container">

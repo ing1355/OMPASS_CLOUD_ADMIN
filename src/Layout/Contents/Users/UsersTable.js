@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import CustomSwitch from "../../../CustomComponents/CustomSwitch";
+import { allUserColumns } from "../../../Constants/TableColumns";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { allUserColumns } from "./columns";
 
 const UsersTable = ({ tableData, setDetailData, columns }) => {
   

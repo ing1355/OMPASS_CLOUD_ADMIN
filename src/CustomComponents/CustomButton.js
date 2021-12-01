@@ -8,10 +8,12 @@ const CustomButton = ({
   loading,
   type,
   children,
+  style
 }) => {
   return (
     <button
       className={"custom-button" + (className ? " " + className : "")}
+      style={style}
       onClick={() => {
         if (onClick && !loading) onClick();
       }}

@@ -20,14 +20,7 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
 import { message } from "antd";
-
-const columns = [
-  { name: "사용자 아이디", key: "userId" },
-  { name: "활동", key: "act" },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "status" },
-  { name: "시간", key: "createdDate" },
-];
+import { DashboardLogColumns } from "../../../Constants/TableColumns";
 
 var tooltipIndex = 0;
 
@@ -309,7 +302,7 @@ const Dashboard = ({ userProfile }) => {
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} /> 최근 인증 로그
           </h4>
-          <CustomTable columns={columns} datas={authLogs} />
+          <CustomTable columns={DashboardLogColumns} datas={authLogs} />
         </div>
       </div>
     </div>

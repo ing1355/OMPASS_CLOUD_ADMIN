@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { disabledUserColumns } from "./columns";
+import { disabledUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
 const UserDisabled = ({ tableData, setDetailData }) => {

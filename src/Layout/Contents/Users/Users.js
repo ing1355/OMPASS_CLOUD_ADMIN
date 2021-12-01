@@ -13,7 +13,7 @@ import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import ExcelDownload from "./ExcelDownload";
-import { allUserColumns } from "./columns";
+import { allUserColumns } from "../../../Constants/TableColumns";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;

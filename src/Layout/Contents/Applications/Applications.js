@@ -12,18 +12,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
 import CustomTable from "../../../CustomComponents/CustomTable";
-
-const makeDetail = (d) => (
-  <Link to={`/Applications/Detail/${d.appId}`}>
-    <button className="button">Detail</button>
-  </Link>
-);
-
-const columns = [
-  { name: "이름", key: "name" },
-  { name: "상태", key: "status" },
-  { name: "디테일", key: "detail", render: makeDetail },
-];
+import { ApplicationsColumns } from "../../../Constants/TableColumns";
 
 const Applications = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
@@ -68,7 +57,7 @@ const Applications = ({ userProfile }) => {
             exact
             render={(routeInfo) => (
               <div>
-                <CustomTable columns={columns} datas={tableData} />
+                <CustomTable columns={ApplicationsColumns} datas={tableData} />
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>

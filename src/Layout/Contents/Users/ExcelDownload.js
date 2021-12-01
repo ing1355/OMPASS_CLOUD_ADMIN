@@ -9,7 +9,6 @@ import CustomButton from '../../../CustomComponents/CustomButton';
 const title = 'test';
 
 const ExcelDownload = ({data, columns}) => {
-    console.log(data);
     const _exporter = useRef(null);
     const _export = (res) => {
         let workbook = _exporter.current.workbookOptions();

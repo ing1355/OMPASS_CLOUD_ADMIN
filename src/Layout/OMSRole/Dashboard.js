@@ -7,7 +7,7 @@ import { barTestData, pieCountryTestData, pieDeviceTestData } from './ChartData'
 
 const Dashboard = () => {
     return <div className="contents-container" style={{ backgroundColor: 'transparent', width: 1400 }}>
-        <section className="flex-card-container">
+        <section className="flex-card-container dashboard">
             <CustomCard title="총 Admin 수">
                 30 명
             </CustomCard>
@@ -18,10 +18,10 @@ const Dashboard = () => {
                 2 명
             </CustomCard>
             <CustomCard title="현재 총 결제 금액">
-                9,384,300 원
+                9,384,300 원 / $ 4
             </CustomCard>
         </section>
-        <section>
+        <section className="dashboard">
             <div className="chart-container first">
                 <div className="chart-container-1">
                     <div className="chart-title">
@@ -145,7 +145,7 @@ const Dashboard = () => {
             <div className="chart-container second">
                 <div className="chart-container-2">
                     <div className="chart-title">
-                        기기 별 사용자 비율
+                        OS 별 사용자 비율
                     </div>
                     <div className="chart-content">
                         <ResponsivePie
@@ -263,7 +263,7 @@ const Dashboard = () => {
                 </div>
             </div>
         </section>
-        <section>
+        <section className="dashboard">
             <div className="chart-container third">
                 <div className="chart-container-3">
                     <div className="chart-title">

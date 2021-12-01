@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { byPassUserColumns } from "./columns";
+import { byPassUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
 const UserBypass = ({ tableData, setDetailData }) => {
