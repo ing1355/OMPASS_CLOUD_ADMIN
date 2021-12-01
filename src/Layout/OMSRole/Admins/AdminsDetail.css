@@ -142,3 +142,52 @@
 .Payment-History-table table tbody tr td {
   border: 0;
 }
+.delete-data-button {
+  margin-bottom: 0;
+}
+.delete-data-button button {
+  background: #00a9ec;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  padding: 1rem;
+  cursor: pointer;
+}
+.delete-data-button button:hover {
+  background: #256e8b;
+}
+.billing-edition-container h2 {
+  display: flex;
+  flex-direction: column;
+}
+.billing-deition-section {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+.custom-modal-button-container {
+  justify-content: center;
+  margin-top: 1rem;
+}
+.custom-modal-button-container button {
+  width: 5rem;
+  height: 35px;
+  background: none;
+  border: 1px solid #00a9ec;
+  cursor: pointer;
+}
+.custom-modal-button-container button:first-child {
+  margin-right: 1rem;
+  background: #00a9ec;
+  color: #fff;
+}
+.custom-modal-button-container button:last-child {
+  color: #00a9ec;
+}
+.custom-modal-button-container button:hover {
+  background: #256e8b;
+  color: #fff;
+  border: none;
+}
+.ant-modal-body {
+  font-size: 1rem;
+}
