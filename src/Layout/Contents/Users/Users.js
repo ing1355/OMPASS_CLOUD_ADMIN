@@ -15,6 +15,8 @@ import CustomButton from "../../../CustomComponents/CustomButton";
 import ExcelDownload from "./ExcelDownload";
 import { allUserColumns } from "./columns";
 
+import { UploadOutlined } from "@ant-design/icons";
+
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
@@ -25,12 +27,16 @@ const Users = ({ userProfile }) => {
   const [selectView, setSelectView] = useState(0);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getUsersApi(adminId), (data) => {
-      setTableData(data);
-      setTableLoading(false);
-    }, () => {
-      setTableLoading(false);
-    });
+    CustomAxiosGet(
+      getUsersApi(adminId),
+      (data) => {
+        setTableData(data);
+        setTableLoading(false);
+      },
+      () => {
+        setTableLoading(false);
+      }
+    );
   }, []);
 
   const updateEvent = (userId, byPass) => {
@@ -44,7 +50,9 @@ const Users = ({ userProfile }) => {
     history.push("/Users/Detail/" + rowData.userId);
   };
 
-  const selectedBorder = <div className="selectedBorder" style={{left: selectView * 25 + '%'}}/>
+  const selectedBorder = (
+    <div className="selectedBorder" style={{ left: selectView * 25 + "%" }} />
+  );
 
   return (
     <div className="contents-container">
@@ -127,11 +135,23 @@ const Users = ({ userProfile }) => {
                     )}
                   </ul>
                 </div>
-                <div>
-                  <CustomButton>
+                <div className="excel-button-box">
+                  {/* <Button>
+                    <UploadOutlined />
                     엑셀 업로드
-                  </CustomButton>
-                  <ExcelDownload data={tableData} columns={allUserColumns}/>
+                  </Button> */}
+                  <div>
+                    <CustomButton>
+                      <UploadOutlined /> 엑셀 업로드
+                    </CustomButton>
+                  </div>
+                  <div style={{ marginLeft: "1rem" }}>
+                    <ExcelDownload
+                      data={tableData}
+                      className="button"
+                      columns={allUserColumns}
+                    />
+                  </div>
                 </div>
               </>
             )}

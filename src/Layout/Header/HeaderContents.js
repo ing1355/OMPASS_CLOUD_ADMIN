@@ -9,7 +9,15 @@ import "antd/dist/antd.css";
 import { message } from "antd";
 import route_info from "../../Constants/Route_items";
 
-const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
+import { AliwangwangOutlined } from "@ant-design/icons";
+
+const HeaderContents = ({
+  menuState,
+  setIsLogin,
+  menuChange,
+  userProfile,
+  e,
+}) => {
   const location = useLocation();
   const { role } = userProfile;
 
@@ -23,7 +31,17 @@ const HeaderContents = ({ menuState, setIsLogin, menuChange, userProfile }) => {
   return (
     <div className="header-contents">
       <div className="header-contents-route-title">{menuState}</div>
+
       <div className="header-contents-button-box">
+        <p>
+          <b>
+            <AliwangwangOutlined
+              style={{ fontSize: "1.1rem", marginRight: "4px" }}
+            />
+            dbflagovl12@naver.com
+          </b>
+          님 안녕하세요.
+        </p>
         <button
           className="loginButton button"
           onClick={() => {

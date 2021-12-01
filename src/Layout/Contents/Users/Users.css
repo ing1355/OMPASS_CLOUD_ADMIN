@@ -101,3 +101,22 @@
   bottom: 0;
   left: 0;
 }
+
+.excel-button-box {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 1rem;
+}
+.excel-button-box div button {
+  width: 7rem;
+  height: 35px;
+  border: 0;
+  outline: 0;
+  background: none;
+  cursor: pointer;
+  border: 1px solid rgb(189, 189, 189);
+}
+.excel-button-box div button:hover {
+  border: 1px solid #0f96cc;
+  color: #0f96cc;
+}

@@ -26,3 +26,13 @@
   padding: 0;
   color: #fff;
 }
+.header-contents-button-box p {
+  height: 50px;
+  margin: 0;
+  line-height: 50px;
+  margin-right: 1rem;
+}
+.header-contents-button-box p b {
+  text-decoration: underline;
+  color: #00a9ec;
+}
