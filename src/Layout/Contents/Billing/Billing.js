@@ -1,5 +1,5 @@
 import { message, Spin } from "antd";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -28,6 +28,7 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
+  const isKorea = useCallback(() => country === 'KR' ? true : false,[]);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
@@ -116,7 +117,7 @@ const Billing = ({ userProfile }) => {
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
-    if (country === "KR") {
+    if (!isKorea()) {
       setPaypalLoading(true);
       requestPaypal();
     }
@@ -375,8 +376,8 @@ const Billing = ({ userProfile }) => {
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">Cost</label>
-            <b>{country === "KR" ? cost + " 원" : "$" + cost}</b>
-            <span>&nbsp;/ {country === "KR" ? "월" : "month"}</span>
+            <b>{isKorea() ? cost + " 원" : "$" + cost}</b>
+            <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">Agreement</label>
@@ -410,6 +411,7 @@ const Billing = ({ userProfile }) => {
       <CustomConfirm
         visible={confirmModal}
         confirmCallback={requestIamPort}
+        footer={isKorea()}
         okLoading={confirmLoading}
         cancelCallback={closeConfirmModal}
       >
@@ -421,9 +423,9 @@ const Billing = ({ userProfile }) => {
         <br />
         Cost :{" "}
         <b style={{ color: "Red" }}>
-          {country === "KR" ? cost + " 원" : "$" + cost}
+          {isKorea() ? cost + " 원" : "$" + cost}
         </b>
-        <span>&nbsp;/ {country === "KR" ? "월" : "month"}</span>
+        <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
         <br />
         상기 내용으로 결제를 진행하시겠습니까?
         <div
