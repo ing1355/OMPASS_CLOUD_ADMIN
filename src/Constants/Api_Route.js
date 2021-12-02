@@ -1,6 +1,7 @@
 export const getDashboardTopApi = (adminId) => `/v1/admins/${adminId}/dashboard-top`
 export const getDashboardMiddleApi = (adminId) => `/v1/admins/${adminId}/dashboard-middle`
 export const getDashboardBottomApi = (adminId) => `/v1/admins/${adminId}/dashboard-bottom`
+export const getOMSDashboardTopApi = (adminId) => `/v1/admins/${adminId}/oms-dashboard-top`
 
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 export const updateByPassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`

@@ -76,14 +76,14 @@ const AdminsDetail = ({ data }) => {
           </div>
         </div>
       </section>
-      <section>
+      <section className="no-border">
         <h2>Payment History</h2>
-        <CustomTable columns={BillingColumns} datas={[]} />
+        <CustomTable columns={BillingColumns} datas={[]}/>
       </section>
       <section>
         <h2>Policy</h2>
       </section>
-      <section>
+      <section className="no-border">
         <h2>Applications</h2>
         <CustomTable
           columns={ApplicationsColumns}
@@ -92,7 +92,7 @@ const AdminsDetail = ({ data }) => {
           numPerPage={5}
         />
       </section>
-      <section>
+      <section className="no-border">
         <h2>Sub Admins</h2>
         <CustomTable
           columns={AdminsColumns}

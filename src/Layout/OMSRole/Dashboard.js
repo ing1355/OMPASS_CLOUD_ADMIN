@@ -1,24 +1,48 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import CustomCard from '../../CustomComponents/CustomCard';
 import './Dashboard.css'
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from '@nivo/bar'
 import { barTestData, pieCountryTestData, pieDeviceTestData } from './ChartData';
+import { CustomAxiosGetAll } from '../../Functions/CustomAxios';
+import { getOMSDashboardTopApi } from '../../Constants/Api_Route';
+import { message } from 'antd';
+import { connect } from 'react-redux';
 
-const Dashboard = () => {
+const Dashboard = ({userProfile}) => {
+    const {adminId} = userProfile;
+    const [topData, setTopData] = useState({});
+
+    useLayoutEffect(() => {
+        CustomAxiosGetAll(
+            [
+                getOMSDashboardTopApi(adminId),
+            ],
+            [
+                (data) => {
+                    console.log(data);
+                    setTopData(data);
+                },
+            ],
+            () => {
+                message.error("대시보드 정보를 가져오는데 실패하였습니다.");
+            }
+        );
+    }, [])
+
     return <div className="contents-container" style={{ backgroundColor: 'transparent', width: 1400 }}>
         <section className="flex-card-container dashboard">
             <CustomCard title="총 Admin 수">
-                30 명
+                {topData.totalAdminNumber} 명
             </CustomCard>
             <CustomCard title="총 Application 수">
-                25 개
+                {topData.totalApplicationNumber} 개
             </CustomCard>
             <CustomCard title="오늘 새로 가입한 Admin 수">
-                2 명
+                {topData.signedUpTodayNumber} 명
             </CustomCard>
             <CustomCard title="현재 총 결제 금액">
-                9,384,300 원 / $ 4
+                {topData.totalKoreaPaymentAmount} / {topData.totalGlobalPaymentAmount}
             </CustomCard>
         </section>
         <section className="dashboard">
@@ -371,4 +395,14 @@ const Dashboard = () => {
     </div>
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+    return {
+        userProfile: state.userProfile,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

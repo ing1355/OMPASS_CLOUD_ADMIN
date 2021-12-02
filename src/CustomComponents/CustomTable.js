@@ -87,8 +87,8 @@ const CustomTable = ({
           </tr>
         )}
       </tbody>
-      <tfoot>
-        {datas && datas.length > numPerPage && (
+      {datas && datas.length > numPerPage && (
+        <tfoot>
           <tr className="custom-table-footer">
             {pagination && pageNum > 0 && (
               <td
@@ -145,8 +145,8 @@ const CustomTable = ({
               </td>
             )}
           </tr>
-        )}
-      </tfoot>
+        </tfoot>
+      )}
     </table>
   );
 };

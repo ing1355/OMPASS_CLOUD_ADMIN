@@ -21,7 +21,7 @@ const AxiosController = ({setIsLogin}) => {
         }, (err) => {
             const url = err.response.config.url.split('/');
             message.error(formatMessage({ id: err.response.data.code }))
-            if(err.response.data.code === 'UNAUTHORIZED' && url[url.length-1] !== 'signup-token') {
+            if(err.response.data.code === 'ERR_001' && url[url.length-1] !== 'signup-token') {
                 setIsLogin(false);
             }
             console.log(err.response.data);
