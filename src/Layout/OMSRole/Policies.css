@@ -1,0 +1,50 @@
+.policies-box {
+  /* width: 100%; */
+  border-bottom: 1px solid rgb(180, 180, 180);
+  padding: 2rem 3rem;
+}
+.policies-box h2 {
+  font-weight: bold;
+}
+.policies-box .policies-sub-box {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.policies-box .policies-sub-box label {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.policies-box .policies-sub-box input {
+  margin-right: 0.5rem;
+}
+.policies-box .policies-sub-box p {
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.policies-box .policies-sub-box h3 {
+  font-size: 1rem;
+}
+.userlocation-first {
+  width: 20rem;
+  height: 50px;
+  display: inline-block;
+  border: 1px solid #bfc4c7;
+  background: none;
+}
+
+.policies-box .policies-sub-box select {
+  height: 50px;
+}
+.policies-sub-box h4 {
+  font-weight: bold;
+  margin: 2rem 0;
+}
+.authorized-networks p {
+  margin-left: 0;
+}
+.authorized-networks .policies-sub-box .no-left-box {
+  margin-left: 0;
+  padding-left: 0;
+}

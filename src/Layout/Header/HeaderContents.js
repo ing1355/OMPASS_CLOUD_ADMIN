@@ -39,7 +39,7 @@ const HeaderContents = ({
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
             {email}
-          </b>
+          </b>{" "}
           님 안녕하세요.
         </p>
         <button

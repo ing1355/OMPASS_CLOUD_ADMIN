@@ -1,5 +1,11 @@
 import { message, Spin } from "antd";
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -28,7 +34,7 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
-  const isKorea = useCallback(() => country === 'KR' ? true : false,[]);
+  const isKorea = useCallback(() => (country === "KR" ? true : false), []);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
@@ -422,9 +428,7 @@ const Billing = ({ userProfile }) => {
         Term : {inputTerm}
         <br />
         Cost :{" "}
-        <b style={{ color: "Red" }}>
-          {isKorea() ? cost + " 원" : "$" + cost}
-        </b>
+        <b style={{ color: "Red" }}>{isKorea() ? cost + " 원" : "$" + cost}</b>
         <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
         <br />
         상기 내용으로 결제를 진행하시겠습니까?
