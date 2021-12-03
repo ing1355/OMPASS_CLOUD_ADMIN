@@ -1,3 +1,11 @@
+.custom-modal-content-container {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
 .custom-modal-button-container {
   display: flex;
   justify-content: center;

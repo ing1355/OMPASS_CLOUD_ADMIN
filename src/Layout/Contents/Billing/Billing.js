@@ -15,7 +15,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import {
   getBillingKeyApi,
   getPaymentHistoryApi,
-  getPricingApi,
+  getBillingInfoApi,
   getUsersApi,
   startPaypalApi,
   subscriptionIamportApi,
@@ -35,6 +35,7 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(() => (country === "KR" ? true : false), []);
+  const [currentPlan, setCurrentPlan] = useState({});
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
@@ -60,18 +61,18 @@ const Billing = ({ userProfile }) => {
   useLayoutEffect(() => {
     CustomAxiosGetAll(
       [
-        getUsersApi(adminId),
-        getPricingApi(country),
+        getBillingInfoApi(adminId),
         getPaymentHistoryApi(adminId),
       ],
       [
         (data) => {
-          setAllUserNum(data.length);
-        },
-        (data) => {
-          setEditions(data);
-          setInputEdition(data[0].name);
-          setCost(data[0].priceForOneUser * 1);
+          console.log(data);
+          const {numberUsers, plan, pricing} = data;
+          setAllUserNum(numberUsers)
+          setCurrentPlan(plan);
+          setEditions(pricing);
+          setInputEdition(pricing[0].name);
+          setCost(pricing[0].priceForOneUser * 1);
         },
         (data) => {
           setTableData(data);
@@ -95,7 +96,7 @@ const Billing = ({ userProfile }) => {
     },
     {
       cardTitle: "OMPASS",
-      billing: 2,
+      billing: 1,
       itemLists: [
         { content: "2FA for VPN and Web Apps" },
         { content: "패스워드 없이 인증" },
@@ -276,9 +277,9 @@ const Billing = ({ userProfile }) => {
       </div>
       <section className="billing-edition-container">
         <div className="billing-edition">
-          <div className="billing-edition-data">OMPASS Free Plan</div>
+          <div className="billing-edition-data">{currentPlan.name} Trial</div>
           <div className="billing-edition-title">Edition</div>
-          <div className="billing-edition-subtitle">30 days left</div>
+          <div className="billing-edition-subtitle">{currentPlan.remainingDate} days left</div>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -302,7 +303,7 @@ const Billing = ({ userProfile }) => {
           <div key={ind} className="billing-info-contents">
             <BillingInfoCard
               title={item.cardTitle}
-              subTitle={`$${item.billing} / User / Month`}
+              subTitle={`${isKorea() ? (cost * item.billing + " 원") : (cost * item.billing + " $")} / ${isKorea() ? '1인' : 'User'} / Month`}
             />
             {item.itemLists.map((itemList, _ind) => (
               <div

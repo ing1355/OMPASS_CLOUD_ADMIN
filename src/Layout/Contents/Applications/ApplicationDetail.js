@@ -23,6 +23,7 @@ import "./Applications.css";
 import { Button, Space, Popconfirm } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
+import { doaminTest, FailToTest, nameTest } from "../../../Constants/InputRules";
 
 const columns = [
   { name: "User ID", key: "userId" },
@@ -34,7 +35,6 @@ const columns = [
 
 const ApplicationDetail = ({
   userProfile,
-  tableDataDelete,
   tableDataUpdate,
 }) => {
   const history = useHistory();
@@ -76,14 +76,6 @@ const ApplicationDetail = ({
     );
   };
 
-  const applicationDelete = () => {
-    CustomAxiosDelete(deleteApplicationApi(adminId, appId), (data) => {
-      message.success("삭제되었습니다.");
-      tableDataDelete(appId);
-      history.push("/Applications");
-    });
-  };
-
   const changeInputName = (e) => {
     setInputName(e.target.value);
     if (isExistCheck) setIsExistCheck(false);
@@ -117,6 +109,24 @@ const ApplicationDetail = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { name, domain, redirectUri, status } = e.target.elements;
+    if(!name.value.length) {
+      return FailToTest(name, '어플리케이션명을 입력해주세요.')
+    }
+    if(!nameTest(name.value)) {
+      return FailToTest(name, "어플리케이션명의 형식이 잘못되었습니다.")
+    }
+    if(!domain.value.length) {
+      return FailToTest(domain, '도메인을 입력해주세요.')
+    }
+    if(!doaminTest(domain.value)) {
+      return FailToTest(domain, '도메인 형식이 잘못되었습니다.')
+    }
+    if(!redirectUri.value.length) {
+      return FailToTest(redirectUri, '리다이렉트 URI를 입력해주세요.')
+    }
+    if(!doaminTest(redirectUri.value)) {
+      return FailToTest(redirectUri, '리다이렉트 URI 형식이 잘못되었습니다.')
+    }
     CustomAxiosPut(
       updateApplicationApi(adminId, appId),
       {
@@ -127,7 +137,7 @@ const ApplicationDetail = ({
         policyId: 0,
       },
       (data) => {
-        message.success("변경되었습니다.");
+        message.success("수정되었습니다.");
         tableDataUpdate(appId, {
           name: name.value,
           domain: domain.value,
@@ -153,7 +163,7 @@ const ApplicationDetail = ({
         <form className="ApplicationForm" onSubmit={onFinish}>
           <div className="Application-label-input-box">
             <label>Application Name</label>
-            <input name="name" value={inputName} onChange={changeInputName} />
+            <input name="name" value={inputName} onChange={changeInputName} maxLength={20}/>
             <CustomButton
               className="selectButton button"
               type="button"
@@ -230,7 +240,7 @@ const ApplicationDetail = ({
               수정
             </Button>
 
-            <Popconfirm
+            {/* <Popconfirm
               placement="top"
               title={"삭제하시겠습니까"}
               okText="Yes"
@@ -241,7 +251,7 @@ const ApplicationDetail = ({
                 <UserDeleteOutlined />
                 삭제
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </Space>
         </form>
       </div>

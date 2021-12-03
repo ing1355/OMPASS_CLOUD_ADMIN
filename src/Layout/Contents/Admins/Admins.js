@@ -63,11 +63,11 @@ const Admins = ({ userProfile, history }) => {
           : t
       )
     );
-  }, []);
+  }, [tableData]);
 
   const deleteAdmin = useCallback((index) => {
     setTableData(tableData.filter((t) => t.index !== index * 1));
-  }, []);
+  }, [tableData]);
 
   const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
