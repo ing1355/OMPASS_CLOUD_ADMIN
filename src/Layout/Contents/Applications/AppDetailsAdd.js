@@ -69,7 +69,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
           <div className="ApplicationForm">
             <div className="ApplicationsTitle">
               <span>
-                <h2>세부</h2>
+                <h2>항목</h2>
               </span>
             </div>
             <div className="Application-label-input-box">
