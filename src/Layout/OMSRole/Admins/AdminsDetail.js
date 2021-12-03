@@ -50,7 +50,7 @@ const AdminsDetail = ({ data }) => {
         <h2>Edition</h2>
         <div className="billing-edition-container">
           <div className="billing-edition">
-            <div className="billing-edition-data">OMPASS Free Trial</div>
+            <div className="billing-edition-data">OMPASS Free</div>
             <div className="billing-edition-title">Edition</div>
             <div className="billing-edition-subtitle">30 days left</div>
           </div>

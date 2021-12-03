@@ -274,7 +274,7 @@ const Billing = ({ userProfile }) => {
       </div>
       <section className="billing-edition-container">
         <div className="billing-edition">
-          <div className="billing-edition-data">{currentPlan.name} Trial</div>
+          <div className="billing-edition-data">{currentPlan.name}</div>
           <div className="billing-edition-title">Edition</div>
           <div className="billing-edition-subtitle">
             {currentPlan.remainingDate} days left

@@ -13,6 +13,7 @@ import {
   checkApplicationExistenceApi,
 } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
+import { doaminTest, FailToTest, nameTest } from "../../../Constants/InputRules";
 
 const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [inputName, setInputName] = useState("");
@@ -21,10 +22,26 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
-    if (!isExistCheck)
-      return message.error("이름 중복체크를 먼저 진행해주세요.");
     const { domain, redirectUri, name } = e.target.elements;
-
+    if (!isExistCheck) return message.error("이름 중복체크를 먼저 진행해주세요.");
+    if(!name.value.length) {
+      return FailToTest(name, '어플리케이션명을 입력해주세요.')
+    }
+    if(!nameTest(name.value)) {
+      return FailToTest(name, "어플리케이션명의 형식이 잘못되었습니다.")
+    }
+    if(!domain.value.length) {
+      return FailToTest(domain, '도메인을 입력해주세요.')
+    }
+    if(!doaminTest(domain.value)) {
+      return FailToTest(domain, '도메인 형식이 잘못되었습니다.')
+    }
+    if(!redirectUri.value.length) {
+      return FailToTest(redirectUri, '리다이렉트 URI를 입력해주세요.')
+    }
+    if(!doaminTest(redirectUri.value)) {
+      return FailToTest(redirectUri, '리다이렉트 URI 형식이 잘못되었습니다.')
+    }
     CustomAxiosPost(
       addApplicationApi(userProfile.adminId),
       {
@@ -35,8 +52,12 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
         status: "Inactive",
       },
       (data) => {
+        message.success('어플리케이션 등록에 성공하였습니다.')
         tableDataAdd(data);
         history.push("/Applications");
+      },
+      () => {
+        message.error('어플리케이션 등록에 실패하였습니다.')
       }
     );
   };
