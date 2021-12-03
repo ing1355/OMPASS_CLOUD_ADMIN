@@ -27,7 +27,7 @@ export const getNewSecretKeyApi = (adminId, appId) => `/v1/admins/${adminId}/app
 export const updateApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
 export const deleteApplicationApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}`
 
-export const getPricingApi = (country) => `/v1/pricing/country/${country}`
+export const getBillingInfoApi = (adminId) => `/v1/admins/${adminId}/billing`
 export const getPaymentHistoryApi = (adminId) => `/v1/admins/${adminId}/payment-histories`
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`

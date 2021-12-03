@@ -1,7 +1,14 @@
+import { message } from "antd";
+
 export const nameTest = (value) => {
     const _ = /^[^ㄱ-ㅎㅏ-ㅣ]*$|^\s[^ㄱ-ㅎㅏ-ㅣ]*$|^[^ㄱ-ㅎㅏ-ㅣ]*$/
     const __ = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,16}$/
     return _.test(value) && __.test(value);
+}
+
+export const mobileTest = (value) => {
+    const _ = /^\d{2,3}-\d{3,4}-\d{4}$/
+    return _.test(value);
 }
 
 export const emailTest = (value) => {
@@ -12,4 +19,14 @@ export const emailTest = (value) => {
 export const passwordTest = (value) => {
     const _ = /(?=.*[a-zA-Z])(?=.*[\d])(?=.*[\W]).{8,16}|(?=.*[a-zA-Z])(?=.*[\d]).{10,16}|(?=.*[a-zA-Z])(?=.*[\W]).{10,16}|(?=.*[\d])(?=.*[\W]).{10,16}/
     return _.test(value);
+}
+
+export const doaminTest = (value) => {
+    const _ = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/
+    return _.test(value);
+}
+
+export const FailToTest = (element, msg) => {
+    element.focus();
+    message.error(msg);
 }

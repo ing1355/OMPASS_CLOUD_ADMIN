@@ -56,6 +56,8 @@ const PasswordConfirm = ({
             placeholder="비밀번호를 입력해주세요."
             type="password"
             name="password"
+            style={{textAlign:'center'}}
+            maxLength={16}
             autoFocus
           />
           <div>

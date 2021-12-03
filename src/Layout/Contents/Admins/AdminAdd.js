@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -14,7 +14,7 @@ import {
 } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
-import { emailTest, nameTest } from "../../../Constants/InputRules";
+import { emailTest, FailToTest, mobileTest, nameTest } from "../../../Constants/InputRules";
 import { useIntl } from "react-intl";
 
 const AdminAdd = ({ userProfile }) => {
@@ -53,13 +53,36 @@ const AdminAdd = ({ userProfile }) => {
   };
 
   const onFinish = (e) => {
-    const { email, lastName, firstName, agreeCheck } = e.target.elements;
+    const { email, lastName, firstName, agreeCheck, mobile } = e.target.elements;
+    console.log(mobile.value)
+    console.log(mobile.value.split(' '))
     e.preventDefault();
+    if(!firstName.value.length) {
+      return FailToTest(firstName, '성을 입력해주세요.')
+    }
+    if(!nameTest(firstName.value)) {
+      return FailToTest(firstName, formatMessage({id:'NAME_RULE_ERROR'}))
+    }
+    if(!lastName.value.length) {
+      return FailToTest(lastName, '이름을 입력해주세요.')
+    }
+    if(!nameTest(lastName.value)) {
+      return FailToTest(lastName, formatMessage({id:'NAME_RULE_ERROR'}))
+    }
+    if(!email.value.length) {
+      return FailToTest(email, '이메일을 입력해주세요.')
+    }
+    if(!emailTest(email.value)) {
+      return FailToTest(email, formatMessage({id:'EMAIL_RULE_ERROR'}))
+    }
     if(!existCheck) return message.error('중복체크 해주세요.')
+    if(mobile.value.split(' ').length === 1) {
+      return FailToTest(mobile,'전화번호를 입력해주세요.')
+    }
+    if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
+      return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
+    }
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
-    if(!emailTest(email.value)) return message.error(formatMessage({id:'EMAIL_RULE_ERROR'}))
-    if(!nameTest(firstName.value)) return message.error(formatMessage({id:'NAME_RULE_ERROR'}))
-    if(!nameTest(lastName.value)) return message.error(formatMessage({id:'NAME_RULE_ERROR'}))
     CustomAxiosPost(
       addSubAdminApi(adminId),
       {
@@ -108,6 +131,9 @@ const AdminAdd = ({ userProfile }) => {
               <PhoneInput
                 className="phoneInput"
                 country={"kr"}
+                inputProps={{
+                  name: 'mobile'
+                }}
                 value={inputMobile}
                 onChange={changeMobileInput}
                 preferredCountries={["kr", "us"]}
