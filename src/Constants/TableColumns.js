@@ -11,7 +11,7 @@ export const AdminsColumns = [
 
 const makeDetail = (d) => (
   <Link to={`/Applications/Detail/${d.appId}`}>
-    <button className="button">Detail</button>
+    <button className="button">보기</button>
   </Link>
 );
 
