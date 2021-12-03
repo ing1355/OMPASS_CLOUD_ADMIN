@@ -150,7 +150,7 @@ const Policies = () => {
               <td>No restrictions.</td>
             </tr>
             <tr>
-              <th>OMPASS Mobile app</th>
+              <th></th>
               <td>Plugins</td>
               <td>No restrictions.</td>
             </tr>

@@ -67,6 +67,7 @@ table tr th {
   display: flex;
   background: #256e8b;
   height: 50px;
+  width: 100px;
   align-items: center;
   color: #fff;
   font-weight: 500;
