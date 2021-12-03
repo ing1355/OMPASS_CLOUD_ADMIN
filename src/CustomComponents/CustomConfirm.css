@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 24px;
+  text-align: center;
 }
 
 .custom-modal-button-container {
@@ -18,7 +18,6 @@
   outline: 0;
   background: none;
   cursor: pointer;
-
   border: 1px solid rgb(189, 189, 189);
 }
 .custom-modal-button-container button:first-child {

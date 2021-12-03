@@ -142,3 +142,11 @@
 .Payment-History-table table tbody tr td {
   border: 0;
 }
+.pay-CustomConfirm {
+  display: flex;
+  flex-direction: column;
+}
+.pay-CustomConfirm .custom-modal-content-container {
+  display: flex;
+  flex-direction: column !important;
+}

@@ -60,15 +60,12 @@ const Billing = ({ userProfile }) => {
 
   useLayoutEffect(() => {
     CustomAxiosGetAll(
-      [
-        getBillingInfoApi(adminId),
-        getPaymentHistoryApi(adminId),
-      ],
+      [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
           console.log(data);
-          const {numberUsers, plan, pricing} = data;
-          setAllUserNum(numberUsers)
+          const { numberUsers, plan, pricing } = data;
+          setAllUserNum(numberUsers);
           setCurrentPlan(plan);
           setEditions(pricing);
           setInputEdition(pricing[0].name);
@@ -279,7 +276,9 @@ const Billing = ({ userProfile }) => {
         <div className="billing-edition">
           <div className="billing-edition-data">{currentPlan.name} Trial</div>
           <div className="billing-edition-title">Edition</div>
-          <div className="billing-edition-subtitle">{currentPlan.remainingDate} days left</div>
+          <div className="billing-edition-subtitle">
+            {currentPlan.remainingDate} days left
+          </div>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -303,7 +302,11 @@ const Billing = ({ userProfile }) => {
           <div key={ind} className="billing-info-contents">
             <BillingInfoCard
               title={item.cardTitle}
-              subTitle={`${isKorea() ? (cost * item.billing + " 원") : (cost * item.billing + " $")} / ${isKorea() ? '1인' : 'User'} / Month`}
+              subTitle={`${
+                isKorea()
+                  ? cost * item.billing + " 원"
+                  : cost * item.billing + " $"
+              } / ${isKorea() ? "1인" : "User"} / Month`}
             />
             {item.itemLists.map((itemList, _ind) => (
               <div
@@ -415,31 +418,37 @@ const Billing = ({ userProfile }) => {
           </div>
         </form>
       </section>
-      <CustomConfirm
-        visible={confirmModal}
-        confirmCallback={requestIamPort}
-        footer={isKorea()}
-        okLoading={confirmLoading}
-        cancelCallback={closeConfirmModal}
-      >
-        Edition : {inputEdition}
-        <br />
-        User Nums : {inputUserNum}
-        <br />
-        Term : {inputTerm}
-        <br />
-        Cost :{" "}
-        <b style={{ color: "Red" }}>{isKorea() ? cost + " 원" : "$" + cost}</b>
-        <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
-        <br />
-        상기 내용으로 결제를 진행하시겠습니까?
-        <div
-          id="paypal-button-container"
-          style={{ textAlign: "center", marginTop: "2rem" }}
+      <div className="pay-CustomConfirm">
+        <CustomConfirm
+          visible={confirmModal}
+          confirmCallback={requestIamPort}
+          footer={isKorea()}
+          okLoading={confirmLoading}
+          cancelCallback={closeConfirmModal}
         >
-          {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
-        </div>
-      </CustomConfirm>
+          <div>
+            Edition : {inputEdition}
+            <br />
+            User Nums : {inputUserNum}
+            <br />
+            Term : {inputTerm}
+            <br />
+            Cost :{" "}
+            <b style={{ color: "Red" }}>
+              {isKorea() ? cost + " 원" : "$" + cost}
+            </b>
+            <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
+          </div>
+          <br />
+          상기 내용으로 결제를 진행하시겠습니까?
+          <div
+            id="paypal-button-container"
+            style={{ textAlign: "center", marginTop: "2rem" }}
+          >
+            {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
+          </div>
+        </CustomConfirm>
+      </div>
     </div>
   ) : (
     <Redirect to="/" />
