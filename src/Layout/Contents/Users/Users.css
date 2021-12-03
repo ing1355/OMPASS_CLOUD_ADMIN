@@ -90,7 +90,8 @@
   padding-bottom: 0;
 }
 .user-save-button {
-  margin-bottom: 3rem;
+  display: flex;
+  margin: 2.5rem auto;
 }
 
 .selectedBorder {

@@ -18,7 +18,7 @@ const makeDetail = (d) => (
 export const ApplicationsColumns = [
   { name: "이름", key: "name" },
   { name: "상태", key: "status" },
-  { name: "디테일", key: "detail", render: makeDetail },
+  { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [

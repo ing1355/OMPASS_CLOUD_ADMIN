@@ -118,7 +118,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
               <span>Global policy</span>
             </div>
             <button className="Application-Save-button button" type="submit">
-              추가
+              등록
             </button>
           </div>
         </form>

@@ -107,7 +107,7 @@ const Admins = ({ userProfile, history }) => {
                       className="button admin-button"
                       disabled={tableLoading}
                     >
-                      관리자 추가
+                      관리자 등록
                     </button>
                   </Link>
                   <button

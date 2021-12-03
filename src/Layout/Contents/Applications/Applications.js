@@ -5,7 +5,11 @@ import ContentsTitle from "../ContentsTitle";
 import ApplicationAdd from "./AppDetailsAdd";
 
 import { Button, Space } from "antd";
-import { AppstoreAddOutlined } from "@ant-design/icons";
+import {
+  AppstoreAddOutlined,
+  UserSwitchOutlined,
+  UserDeleteOutlined,
+} from "@ant-design/icons";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getApplicationApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
@@ -65,6 +69,14 @@ const Applications = ({ userProfile }) => {
                       추가
                     </Button>
                   </Link>
+                  <Button>
+                    <UserSwitchOutlined />
+                    수정
+                  </Button>
+                  <Button>
+                    <UserDeleteOutlined />
+                    삭제
+                  </Button>
                 </Space>
               </div>
             )}

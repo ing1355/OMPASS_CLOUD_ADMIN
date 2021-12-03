@@ -57,3 +57,6 @@
   background: none !important;
   cursor: auto;
 }
+.ant-drawer-mask {
+  background: rgba(0, 0, 0, 0.671);
+}

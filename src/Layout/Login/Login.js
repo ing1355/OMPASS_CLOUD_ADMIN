@@ -146,7 +146,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
             <p>KOR</p>
           </span>
         </div>
-        <p className="copy">© OMPASS Inc. All Rights Reserved.</p>
+        <p className="copy">© OneMoreSecurity Inc. All Rights Reserved.</p>
       </div>
     </>
   );

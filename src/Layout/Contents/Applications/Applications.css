@@ -83,18 +83,21 @@
 .Application-label-input-box {
   width: 100%;
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .ApplicationForm .Application-label-input-box label {
   width: 12rem;
   float: left;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  height: 3rem;
+  line-height: 3rem;
 }
 .ApplicationForm .Application-label-input-box input {
   width: 65%;
   float: left;
   text-align: left;
-  height: 2.5rem;
+  height: 3rem;
   padding: 0 1rem;
 }
 
