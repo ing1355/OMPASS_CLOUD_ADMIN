@@ -22,10 +22,10 @@ const AdminAdd = ({ userProfile }) => {
   const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
-  const [inputDialCode, setInputDialCode] = useState('');
+  const [inputDialCode, setInputDialCode] = useState("");
   const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
-  const {formatMessage} = useIntl()
+  const { formatMessage } = useIntl();
 
   const changeMobileInput = (value, countryInfo) => {
     const { countryCode, dialCode } = countryInfo;
@@ -39,10 +39,11 @@ const AdminAdd = ({ userProfile }) => {
   };
 
   const existCheckFunc = () => {
-    if(!inputEmail) return message.error('이메일을 입력해주세요.')
-    if(!emailTest(inputEmail)) return message.error(formatMessage({id: 'EMAIL_RULE_ERROR'}))
-    CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), data => {
-      if(data.duplicate) {
+    if (!inputEmail) return message.error("이메일을 입력해주세요.");
+    if (!emailTest(inputEmail))
+      return message.error(formatMessage({ id: "EMAIL_RULE_ERROR" }));
+    CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), (data) => {
+      if (data.duplicate) {
         setExistCheck(false);
         message.error("중복입니다.");
       } else {
@@ -54,8 +55,6 @@ const AdminAdd = ({ userProfile }) => {
 
   const onFinish = (e) => {
     const { email, lastName, firstName, agreeCheck, mobile } = e.target.elements;
-    console.log(mobile.value)
-    console.log(mobile.value.split(' '))
     e.preventDefault();
     if(!firstName.value.length) {
       return FailToTest(firstName, '성을 입력해주세요.')
@@ -79,9 +78,10 @@ const AdminAdd = ({ userProfile }) => {
     if(mobile.value.split(' ').length === 1) {
       return FailToTest(mobile,'전화번호를 입력해주세요.')
     }
-    if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
-      return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
-    }
+    console.log(mobile.value)
+    // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
+    //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
+    // }
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
     CustomAxiosPost(
       addSubAdminApi(adminId),
@@ -104,7 +104,7 @@ const AdminAdd = ({ userProfile }) => {
         <form onSubmit={onFinish}>
           <div className="inputBox">
             <span>First Name</span>
-            <input name="firstName" placeholder="이름을 입력하세요."/>
+            <input name="firstName" placeholder="이름을 입력하세요." />
           </div>
           <div className="inputBox">
             <span>Last Name</span>
@@ -152,7 +152,7 @@ const AdminAdd = ({ userProfile }) => {
                 complete their account setup
               </p>
               <button className="adminAddButton button" type="submit">
-                관리자 추가
+                관리자 등록
               </button>
             </div>
           </div>

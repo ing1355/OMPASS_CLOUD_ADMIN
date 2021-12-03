@@ -35,7 +35,6 @@ const columns = [
 
 const ApplicationDetail = ({
   userProfile,
-  tableDataDelete,
   tableDataUpdate,
 }) => {
   const history = useHistory();
@@ -75,14 +74,6 @@ const ApplicationDetail = ({
         setResetLoading(false);
       }
     );
-  };
-
-  const applicationDelete = () => {
-    CustomAxiosDelete(deleteApplicationApi(adminId, appId), (data) => {
-      message.success("삭제되었습니다.");
-      tableDataDelete(appId);
-      history.push("/Applications");
-    });
   };
 
   const changeInputName = (e) => {
@@ -146,7 +137,7 @@ const ApplicationDetail = ({
         policyId: 0,
       },
       (data) => {
-        message.success("변경되었습니다.");
+        message.success("수정되었습니다.");
         tableDataUpdate(appId, {
           name: name.value,
           domain: domain.value,
@@ -249,7 +240,7 @@ const ApplicationDetail = ({
               수정
             </Button>
 
-            <Popconfirm
+            {/* <Popconfirm
               placement="top"
               title={"삭제하시겠습니까"}
               okText="Yes"
@@ -260,7 +251,7 @@ const ApplicationDetail = ({
                 <UserDeleteOutlined />
                 삭제
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </Space>
         </form>
       </div>

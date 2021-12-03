@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import DoubleLeftArrow from "../customAssets/DoubleLeftArrow";
 import DoubleRightArrow from "../customAssets/DoubleRightArrow";
 import LeftArrow from "../customAssets/LeftArrow";
@@ -12,19 +12,49 @@ const CustomTable = ({
   pagination,
   numPerPage,
   loading,
+  multipleSelectable,
+  selectedId,
+  onChangeSelectedRows,
+  rowSelectable
 }) => {
-  const test = new Array(60).fill(1).map((t, ind) => ({
-    userId: "test" + ind,
-    appName: "test" + ind,
-    type: "test" + ind,
-    updateDate: "test",
-    byPass: "test",
-  }));
+  const firstRenderRef = useRef(false);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const tableData = multipleSelectable ? datas.map(d => ({
+    check: '',
+    ...d
+  })) : datas;
+  const tableColumns = multipleSelectable ? [
+    {
+      name: '', key: 'check', render: (row) => <div>
+        <input className="table-row-select-checkbox" type="checkbox" checked={selectedRows.includes(row[selectedId])} onClick={() => {
+          rowSelect(row[selectedId])
+        }} onChange={() => { }} />
+      </div>
+    }, ...columns
+  ] : columns
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum =
     parseInt(datas.length / _numPerPage) +
     (datas.length % _numPerPage === 0 ? 0 : 1);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const rowSelect = (id) => {
+    if (selectedRows.includes(id)) {
+      setSelectedRows(selectedRows.filter(r => r !== id))
+    } else {
+      setSelectedRows([...selectedRows, id])
+    }
+  }
+
+  useEffect(() => {
+    firstRenderRef.current = true;
+  }, [])
+
+  useLayoutEffect(() => {
+    if (firstRenderRef.current) {
+      if (onChangeSelectedRows) onChangeSelectedRows(selectedRows)
+    }
+  }, [selectedRows])
 
   const goToFirstPage = () => {
     setCurrentPage(0);
@@ -46,14 +76,25 @@ const CustomTable = ({
     <table className="custom-table-box">
       <thead>
         <tr>
-          {columns.map((c, ind) => (
-            <th key={ind}>{c.name}</th>
+          {tableColumns.map((c, ind) => (
+            c.key === 'check' ? <th key={ind} style={{ width: '50px' }}>
+              <input
+                className="table-all-row-select-checkbox"
+                checked={selectedRows.length === tableData.length}
+                type="checkbox" onClick={() => {
+                  if (selectedRows.length === tableData.length) {
+                    setSelectedRows([]);
+                  } else {
+                    setSelectedRows(tableData.map(d => d[selectedId]))
+                  }
+                }} onChange={()=>{}}/></th> :
+              <th key={ind} style={{ width: `calc((100% -50px)/${tableColumns.length - 1})` }}>{c.name}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {!loading && datas && datas.length > 0 ? (
-          datas
+        {!loading && tableData && tableData.length > 0 ? (
+          tableData
             .slice(
               currentPage * _numPerPage,
               currentPage * _numPerPage + _numPerPage
@@ -64,11 +105,12 @@ const CustomTable = ({
                 className={rowClick ? "pointer" : ""}
                 onClick={(e) => {
                   //  && e.target.tagName === "TD"
+                  if (rowSelectable) rowSelect(d[selectedId])
                   if (rowClick) rowClick(d);
                 }}
               >
-                {columns.map((c, _ind) => (
-                  <td key={_ind}>{c.render ? c.render(d) : d[c.key]}</td>
+                {tableColumns.map((c, _ind) => (
+                  <td key={_ind} style={{ width: c.key === 'check' ? '50px' : `calc((100% -50px)/${tableColumns.length - 1})` }}>{c.render ? c.render(d) : d[c.key]}</td>
                 ))}
               </tr>
             ))
@@ -87,7 +129,7 @@ const CustomTable = ({
           </tr>
         )}
       </tbody>
-      {datas && datas.length > numPerPage && (
+      {tableData && tableData.length > numPerPage && (
         <tfoot>
           <tr className="custom-table-footer">
             {pagination && pageNum > 0 && (

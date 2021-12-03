@@ -19,8 +19,9 @@ import {
   deleteSubAdminApi,
 } from "../../../Constants/Api_Route";
 import { isADMINRole } from "../../../Constants/GetRole";
+import { connect } from "react-redux";
 
-const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
+const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
   const {
     adminId,
     country,
@@ -29,18 +30,21 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
     lastName,
     phone,
     role,
+    countryCode,
     subAdminId,
     index,
   } = data;
   const history = useHistory();
-  const [inputMobile, setInputMobile] = useState(phone);
-  const [countryCode, setCountryCode] = useState(country);
+  const isSelf = userProfile.email === email;
+  const [inputMobile, setInputMobile] = useState(countryCode + phone);
+  const [inputCountryCode, setInputCountryCode] = useState(country);
+  const [inputDialCode, setInputDialCode] = useState(countryCode);
 
   const onFinish = (e) => {
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm } =
       e.target.elements;
-    if (password.value || passwordConfirm.value) {
+    if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
         return message.error("비밀번호가 일치하지 않습니다.");
       }
@@ -51,24 +55,28 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
     } else {
       route = updateSubAdminApi(adminId, subAdminId);
     }
+    console.log(inputMobile, inputDialCode, inputCountryCode)
     CustomAxiosPut(
       route,
       {
-        country: countryCode,
-        phone: inputMobile,
+        country: inputCountryCode,
+        phone: inputMobile.slice(inputDialCode.length,),
         firstName: firstName.value,
         lastName: lastName.value,
-        password: password.value ? password.value : null,
+        password: (isSelf && password.value) ? password.value : null,
       },
       () => {
+        message.success('수정되었습니다.')
         updateEvent({
           ...data,
-          country: countryCode,
-          phone: inputMobile,
+          country: inputCountryCode,
+          phone: inputMobile.slice(inputDialCode.length,),
           firstName: firstName.value,
           lastName: lastName.value,
         });
         history.push("/Admins");
+      }, () => {
+        message.error('수정 실패하였습니다.')
       }
     );
   };
@@ -76,8 +84,11 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
   const onDelete = () => {
     if (role === "ADMIN") return message.error("관리자는 삭제할 수 없습니다.");
     CustomAxiosDelete(deleteSubAdminApi(adminId, subAdminId), () => {
+      message.success('삭제 성공하였습니다.')
       deleteEvent(index);
       history.push("/Admins");
+    }, () => {
+      message.error('삭제 실패하였습니다.')
     });
   };
 
@@ -106,7 +117,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
               <span>Email address</span>
               <p className="updateInfo">{email}</p>
             </div>
-            <div className="inputBox">
+            {isSelf && <><div className="inputBox">
               <span>New password</span>
               <input placeholder="패스워드를 입력하세요." name="password" />
             </div>
@@ -116,18 +127,18 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
                 placeholder="패스워드를 입력하세요."
                 name="passwordConfirm"
               />
-            </div>
+            </div></>}
             <div className="inputBox2">
               <span>Phone</span>
               <div className="phoneBox">
                 <PhoneInput
                   className="phoneInput"
-                  country={countryCode}
+                  country={inputCountryCode}
                   value={inputMobile}
                   onChange={(value, countryInfo) => {
                     setInputMobile(value);
-                    if (countryCode !== countryInfo.countryCode.toUpperCase())
-                      setCountryCode(countryInfo.countryCode.toUpperCase());
+                    if (inputCountryCode !== countryInfo.countryCode.toUpperCase()) setInputCountryCode(countryInfo.countryCode.toUpperCase());
+                    if (inputDialCode !== countryInfo.dialCode) setInputDialCode(countryInfo.dialCode);
                   }}
                   preferredCountries={["kr", "us"]}
                 />
@@ -135,12 +146,9 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
             </div>
             <Button
               className="adminUpdateButton"
-              type="submit"
-              onClick={() => {
-                message.success("변경되었습니다.");
-              }}
+              htmlType="submit"
             >
-              <UserSwitchOutlined /> 변경
+              <UserSwitchOutlined /> 수정
             </Button>
             <Popconfirm
               placement="top"
@@ -149,7 +157,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
               cancelText="No"
               onConfirm={onDelete}
             >
-              <Button className="adminUpdateButton" type="button">
+              <Button className="adminUpdateButton" htmlType="button" onClick={onDelete}>
                 <UserDeleteOutlined /> 삭제
               </Button>
             </Popconfirm>
@@ -170,4 +178,14 @@ const AdminDetail = ({ data, deleteEvent, updateEvent }) => {
   );
 };
 
-export default AdminDetail;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDetail);

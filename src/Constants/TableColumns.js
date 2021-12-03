@@ -11,14 +11,14 @@ export const AdminsColumns = [
 
 const makeDetail = (d) => (
   <Link to={`/Applications/Detail/${d.appId}`}>
-    <button className="button">Detail</button>
+    <button className="button">보기</button>
   </Link>
 );
 
 export const ApplicationsColumns = [
   { name: "이름", key: "name" },
   { name: "상태", key: "status" },
-  { name: "디테일", key: "detail", render: makeDetail },
+  { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [

@@ -140,3 +140,11 @@ td.no-data {
     transform: rotate(180deg);
   }
 }
+
+.table-row-select-checkbox {
+  cursor: pointer;
+}
+
+.table-all-row-select-checkbox {
+  cursor: pointer;
+}

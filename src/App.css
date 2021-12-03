@@ -63,7 +63,6 @@ table tr {
   justify-content: center;
 }
 table tr th {
-  flex: 1;
   justify-content: center;
   display: flex;
   background: #256e8b;
@@ -74,11 +73,10 @@ table tr th {
 }
 table thead tr td,
 table tbody tr td {
-  flex: 1;
   justify-content: center;
   display: flex;
-  height: 55px;
   align-items: center;
+  height: 55px;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 .button {

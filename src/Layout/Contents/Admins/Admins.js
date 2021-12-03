@@ -63,11 +63,11 @@ const Admins = ({ userProfile, history }) => {
           : t
       )
     );
-  }, []);
+  }, [tableData]);
 
   const deleteAdmin = useCallback((index) => {
     setTableData(tableData.filter((t) => t.index !== index * 1));
-  }, []);
+  }, [tableData]);
 
   const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
@@ -107,7 +107,7 @@ const Admins = ({ userProfile, history }) => {
                       className="button admin-button"
                       disabled={tableLoading}
                     >
-                      관리자 추가
+                      관리자 등록
                     </button>
                   </Link>
                   <button
