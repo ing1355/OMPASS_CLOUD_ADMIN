@@ -143,8 +143,12 @@ td.no-data {
 
 .table-row-select-checkbox {
   cursor: pointer;
+  height: 1rem;
+  width: 1rem;
 }
 
 .table-all-row-select-checkbox {
   cursor: pointer;
+  height: 1rem;
+  width: 1rem;
 }

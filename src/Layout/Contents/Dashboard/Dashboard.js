@@ -135,7 +135,7 @@ const Dashboard = ({ userProfile }) => {
                 </h6>
               </div>
               <div>
-                <table>
+                <table className="dashboard-table">
                   <tbody>
                     <tr>
                       <td></td>
@@ -144,6 +144,7 @@ const Dashboard = ({ userProfile }) => {
                     <tr>
                       <td
                         style={{
+                          width: "100%",
                           background: "#256e8b",
                           color: "#fff",
                           fontWeight: "bold",
@@ -154,18 +155,16 @@ const Dashboard = ({ userProfile }) => {
                       </td>
                       <td
                         style={{
+                          width: "100%",
                           fontWeight: "bold",
                           fontSize: "1rem",
                           borderRight: "1px solid rgb(180, 180, 180)",
+                          borderTop: "1px solid rgb(180, 180, 180)",
                         }}
                       >
                         {plan.remainingTime}일{" "}
                       </td>
                     </tr>
-                    {/* <tr>
-                    <td>예상 결제 일</td>
-                    <td>12월 2일 </td>
-                  </tr> */}
                   </tbody>
                 </table>
               </div>

@@ -15,23 +15,38 @@ const CustomTable = ({
   multipleSelectable,
   selectedId,
   onChangeSelectedRows,
-  rowSelectable
+  rowSelectable,
 }) => {
   const firstRenderRef = useRef(false);
   const [selectedRows, setSelectedRows] = useState([]);
-  const tableData = multipleSelectable ? datas.map(d => ({
-    check: '',
-    ...d
-  })) : datas;
-  const tableColumns = multipleSelectable ? [
-    {
-      name: '', key: 'check', render: (row) => <div>
-        <input className="table-row-select-checkbox" type="checkbox" checked={selectedRows.includes(row[selectedId])} onClick={() => {
-          rowSelect(row[selectedId])
-        }} onChange={() => { }} />
-      </div>
-    }, ...columns
-  ] : columns
+  const tableData = multipleSelectable
+    ? datas.map((d) => ({
+        check: "",
+        ...d,
+      }))
+    : datas;
+  const tableColumns = multipleSelectable
+    ? [
+        {
+          name: "",
+          key: "check",
+          render: (row) => (
+            <div>
+              <input
+                className="table-row-select-checkbox"
+                type="checkbox"
+                checked={selectedRows.includes(row[selectedId])}
+                onClick={() => {
+                  rowSelect(row[selectedId]);
+                }}
+                onChange={() => {}}
+              />
+            </div>
+          ),
+        },
+        ...columns,
+      ]
+    : columns;
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum =
     parseInt(datas.length / _numPerPage) +
@@ -40,21 +55,21 @@ const CustomTable = ({
 
   const rowSelect = (id) => {
     if (selectedRows.includes(id)) {
-      setSelectedRows(selectedRows.filter(r => r !== id))
+      setSelectedRows(selectedRows.filter((r) => r !== id));
     } else {
-      setSelectedRows([...selectedRows, id])
+      setSelectedRows([...selectedRows, id]);
     }
-  }
+  };
 
   useEffect(() => {
     firstRenderRef.current = true;
-  }, [])
+  }, []);
 
   useLayoutEffect(() => {
     if (firstRenderRef.current) {
-      if (onChangeSelectedRows) onChangeSelectedRows(selectedRows)
+      if (onChangeSelectedRows) onChangeSelectedRows(selectedRows);
     }
-  }, [selectedRows])
+  }, [selectedRows]);
 
   const goToFirstPage = () => {
     setCurrentPage(0);
@@ -76,20 +91,34 @@ const CustomTable = ({
     <table className="custom-table-box">
       <thead>
         <tr>
-          {tableColumns.map((c, ind) => (
-            c.key === 'check' ? <th key={ind} style={{ width: '50px' }}>
-              <input
-                className="table-all-row-select-checkbox"
-                checked={selectedRows.length === tableData.length}
-                type="checkbox" onClick={() => {
-                  if (selectedRows.length === tableData.length) {
-                    setSelectedRows([]);
-                  } else {
-                    setSelectedRows(tableData.map(d => d[selectedId]))
-                  }
-                }} onChange={()=>{}}/></th> :
-              <th key={ind} style={{ width: `calc((100% -50px)/${tableColumns.length - 1})` }}>{c.name}</th>
-          ))}
+          {tableColumns.map((c, ind) =>
+            c.key === "check" ? (
+              <th key={ind} style={{ width: "60px" }}>
+                <input
+                  className="table-all-row-select-checkbox"
+                  checked={selectedRows.length === tableData.length}
+                  type="checkbox"
+                  onClick={() => {
+                    if (selectedRows.length === tableData.length) {
+                      setSelectedRows([]);
+                    } else {
+                      setSelectedRows(tableData.map((d) => d[selectedId]));
+                    }
+                  }}
+                  onChange={() => {}}
+                />
+              </th>
+            ) : (
+              <th
+                key={ind}
+                style={{
+                  width: `calc((100% -50px)/${tableColumns.length - 1})`,
+                }}
+              >
+                {c.name}
+              </th>
+            )
+          )}
         </tr>
       </thead>
       <tbody>
@@ -105,12 +134,22 @@ const CustomTable = ({
                 className={rowClick ? "pointer" : ""}
                 onClick={(e) => {
                   //  && e.target.tagName === "TD"
-                  if (rowSelectable) rowSelect(d[selectedId])
+                  if (rowSelectable) rowSelect(d[selectedId]);
                   if (rowClick) rowClick(d);
                 }}
               >
                 {tableColumns.map((c, _ind) => (
-                  <td key={_ind} style={{ width: c.key === 'check' ? '50px' : `calc((100% -50px)/${tableColumns.length - 1})` }}>{c.render ? c.render(d) : d[c.key]}</td>
+                  <td
+                    key={_ind}
+                    style={{
+                      width:
+                        c.key === "check"
+                          ? "60px"
+                          : `calc((100% -50px)/${tableColumns.length - 1})`,
+                    }}
+                  >
+                    {c.render ? c.render(d) : d[c.key]}
+                  </td>
                 ))}
               </tr>
             ))
