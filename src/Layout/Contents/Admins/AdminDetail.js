@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -20,6 +20,7 @@ import {
 } from "../../../Constants/Api_Route";
 import { isADMINRole } from "../../../Constants/GetRole";
 import { connect } from "react-redux";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
 const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
   const {
@@ -30,15 +31,25 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
     lastName,
     phone,
     role,
-    countryCode,
+    dialCode,
     subAdminId,
     index,
   } = data;
   const history = useHistory();
   const isSelf = userProfile.email === email;
-  const [inputMobile, setInputMobile] = useState(countryCode + phone);
+  const [inputMobile, setInputMobile] = useState(dialCode + phone);
   const [inputCountryCode, setInputCountryCode] = useState(country);
-  const [inputDialCode, setInputDialCode] = useState(countryCode);
+  const [inputDialCode, setInputDialCode] = useState(dialCode);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const openConfirmModal = useCallback(() => {
+    setConfirmModal(true);
+  },[])
+
+  const closeConfirmModal = useCallback(() => {
+    setConfirmModal(false);
+  },[])
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -83,11 +94,14 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
 
   const onDelete = () => {
     if (role === "ADMIN") return message.error("관리자는 삭제할 수 없습니다.");
+    setConfirmLoading(true);
     CustomAxiosDelete(deleteSubAdminApi(adminId, subAdminId), () => {
+      setConfirmLoading(false);
       message.success('삭제 성공하였습니다.')
       deleteEvent(index);
       history.push("/Admins");
     }, () => {
+      setConfirmLoading(false);
       message.error('삭제 실패하였습니다.')
     });
   };
@@ -121,13 +135,13 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
               <span>New password</span>
               <input placeholder="패스워드를 입력하세요." name="password" />
             </div>
-            <div className="inputBox">
-              <span>Confirm new password</span>
-              <input
-                placeholder="패스워드를 입력하세요."
-                name="passwordConfirm"
-              />
-            </div></>}
+              <div className="inputBox">
+                <span>Confirm new password</span>
+                <input
+                  placeholder="패스워드를 입력하세요."
+                  name="passwordConfirm"
+                />
+              </div></>}
             <div className="inputBox2">
               <span>Phone</span>
               <div className="phoneBox">
@@ -150,17 +164,13 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
             >
               <UserSwitchOutlined /> 수정
             </Button>
-            <Popconfirm
-              placement="top"
-              title={"삭제하시겠습니까"}
-              okText="Yes"
-              cancelText="No"
-              onConfirm={onDelete}
-            >
-              <Button className="adminUpdateButton" htmlType="button" onClick={onDelete}>
-                <UserDeleteOutlined /> 삭제
-              </Button>
-            </Popconfirm>
+            <Button className="adminUpdateButton" htmlType="button" onClick={openConfirmModal}>
+              <UserDeleteOutlined /> 삭제
+            </Button>
+
+            <CustomConfirm visible={confirmModal} okLoading={confirmLoading} confirmCallback={onDelete} cancelCallback={closeConfirmModal}>
+              정말로 삭제하시겠습니까?
+            </CustomConfirm>
 
             {/* <button
               className="adminUpdateButton"

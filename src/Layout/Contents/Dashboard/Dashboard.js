@@ -162,7 +162,7 @@ const Dashboard = ({ userProfile }) => {
                           borderTop: "1px solid rgb(180, 180, 180)",
                         }}
                       >
-                        {plan.remainingTime}일{" "}
+                        {plan.remainingDate} 일
                       </td>
                     </tr>
                   </tbody>

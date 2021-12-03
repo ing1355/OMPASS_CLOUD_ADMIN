@@ -96,7 +96,7 @@ const CustomTable = ({
               <th key={ind} style={{ width: "60px" }}>
                 <input
                   className="table-all-row-select-checkbox"
-                  checked={selectedRows.length === tableData.length}
+                  checked={tableData.length > 0 && selectedRows.length === tableData.length}
                   type="checkbox"
                   onClick={() => {
                     if (selectedRows.length === tableData.length) {

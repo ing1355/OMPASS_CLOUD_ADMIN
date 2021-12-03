@@ -9,7 +9,7 @@ const CustomConfirm = ({ visible, children, confirmCallback, closable, cancelCal
         <div className="custom-modal-content-container">
             {children}
         </div>
-        {footer !== null && footer !== undefined && footer !== false && <div className="custom-modal-button-container">
+        {footer !== null && footer !== false && <div className="custom-modal-button-container">
             <CustomButton onClick={() => {
                 if (cancelCallback) cancelCallback();
             }}>Cancel</CustomButton>

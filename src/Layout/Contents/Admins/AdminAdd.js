@@ -78,10 +78,10 @@ const AdminAdd = ({ userProfile }) => {
     if(mobile.value.split(' ').length === 1) {
       return FailToTest(mobile,'전화번호를 입력해주세요.')
     }
-    console.log(mobile.value)
     // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
     //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
     // }
+    console.log(inputMobile.slice(inputDialCode.length,), inputMobile, inputDialCode)
     if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
     CustomAxiosPost(
       addSubAdminApi(adminId),
@@ -91,7 +91,7 @@ const AdminAdd = ({ userProfile }) => {
         firstName: firstName.value,
         lastName: lastName.value,
         phone: inputMobile.slice(inputDialCode.length,),
-        countryCode: inputDialCode,
+        dialCode: inputDialCode,
         role: "ADMIN",
       });
     message.success("인증 메일 발송에 성공하였습니다.");
