@@ -42,8 +42,8 @@ a {
 .contents-container {
   animation: fadeIn 0.5s;
   margin: 0 auto;
-  width: 1200px;
-  padding: 20px 64px;
+  width: 70rem;
+  padding: 3rem 4rem;
 }
 
 table {
@@ -67,7 +67,7 @@ table tr th {
   display: flex;
   background: #256e8b;
   height: 50px;
-  width: 100px;
+  width: 8rem;
   align-items: center;
   color: #fff;
   font-weight: 500;

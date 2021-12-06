@@ -323,7 +323,7 @@ const Billing = ({ userProfile }) => {
         ))}
       </section>
 
-      <section className="Payment-History-table">
+      <section className="Payment-History-table" style={{ border: "none" }}>
         <h2>Payment History</h2>
         <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
