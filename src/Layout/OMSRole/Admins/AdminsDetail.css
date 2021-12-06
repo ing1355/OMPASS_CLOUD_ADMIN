@@ -1,9 +1,3 @@
-.contents-container {
-  margin: 0 auto;
-  width: 1200px;
-  padding: 20px 64px;
-}
-
 .billing-change-help-container {
   display: flex;
   flex-direction: row;

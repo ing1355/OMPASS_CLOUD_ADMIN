@@ -1,22 +1,22 @@
 .menu-item {
-    height: 60px;
-    padding: 0 16px 0 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    font-weight: 500;
-    font-size: 19px;
+  height: 60px;
+  padding: 0 5rem 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  font-size: 19px;
 }
 
 .close > .menu-item {
-    display: none;
+  display: none;
 }
 
 .menu-item-arrow {
-    height: 15px;
+  height: 15px;
 }
 
 .menu-item.selected {
-    color: #00B6EC;
+  color: #00b6ec;
 }

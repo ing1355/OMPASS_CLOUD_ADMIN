@@ -320,7 +320,7 @@ function Global_Policy() {
           <label className="label-radio">
             Don't require up-to-date security patches for OMPASS Mobile.
           </label>
-          <p>Only applies to iOS AND aNDROID.</p>
+          <p>Only applies to iOS AND Android.</p>
         </div>
       </section>
     </div>
