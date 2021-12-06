@@ -35,6 +35,7 @@ const Applications = ({ userProfile }) => {
 
   const tableDatasDelete = (ids) => {
     setTableData(tableData.filter((d) => !ids.find(id => d.appId === id)));
+    setSelectedRows([]);
   };
 
   const tableDataUpdate = (appId, data) => {
@@ -43,6 +44,7 @@ const Applications = ({ userProfile }) => {
         t.appId === appId * 1 ? { appId: t.appId, ...data } : t
       )
     );
+    setSelectedRows([]);
   };
 
   useEffect(() => {
