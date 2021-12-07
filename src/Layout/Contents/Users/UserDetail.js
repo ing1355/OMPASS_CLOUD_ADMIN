@@ -42,25 +42,25 @@ const UserDetail = ({ data, userProfile, updateBypass }) => {
         <Redirect to="/Users" />
       ) : (
         <div className="ApplicationsBox">
-          <div className="billing-change-help-container">
+          {/* <div className="billing-change-help-container">
             <div className="billing-change-help-icon" />
             <div className="billing-change-help-msg">
               평가판이 종료되면 최대 10명의 사용자에게 항상 무료로 제공되는
               OMPASS Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로
               변경하십시오.
             </div>
-          </div>
+          </div> */}
           <form className="form-box" onSubmit={onFinish}>
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>User ID :</label>
+                <label>사용자 아이디 :</label>
               </div>
               <div className="ant-col ant-form-item-control">
                 <p className="userdetailP">{userId}</p>
               </div>
             </div>
 
-            <div className="ant-row inputBox ant-form-item">
+            {/* <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
                 <label>+ Add a username alias</label>
               </div>
@@ -74,11 +74,11 @@ const UserDetail = ({ data, userProfile, updateBypass }) => {
                   (e.g., Username alias 1 should only be used for Employee ID)
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>ByPass :</label>
+                <label>바이패스 :</label>
               </div>
               <div
                 className="ant-col ant-form-item-control"
@@ -95,10 +95,10 @@ const UserDetail = ({ data, userProfile, updateBypass }) => {
                       setInputByPass(true);
                     }}
                   />
-                  <label className="label"> Active</label>
+                  <label className="label"> 활성화</label>
                 </div>
                 <div className="label-bottom-text">
-                  Require two-factor authentication (default)
+                  OMPASS 인증 없이 로그인 가능합니다.
                 </div>
                 <div>
                   <input
@@ -111,10 +111,10 @@ const UserDetail = ({ data, userProfile, updateBypass }) => {
                       setInputByPass(false);
                     }}
                   />
-                  <label className="label"> Disabled</label>
+                  <label className="label"> 비활성화</label>
                 </div>
                 <div className="label-bottom-text">
-                  Automatically deny access
+                  바이패스 비활성화 (디폴트)
                 </div>
               </div>
             </div>

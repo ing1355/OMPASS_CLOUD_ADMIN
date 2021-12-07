@@ -14,7 +14,12 @@ import {
 } from "../../../Constants/Api_Route";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
-import { emailTest, FailToTest, mobileTest, nameTest } from "../../../Constants/InputRules";
+import {
+  emailTest,
+  FailToTest,
+  mobileTest,
+  nameTest,
+} from "../../../Constants/InputRules";
 import { useIntl } from "react-intl";
 
 const AdminAdd = ({ userProfile }) => {
@@ -54,46 +59,49 @@ const AdminAdd = ({ userProfile }) => {
   };
 
   const onFinish = (e) => {
-    const { email, lastName, firstName, agreeCheck, mobile } = e.target.elements;
+    const { email, lastName, firstName, agreeCheck, mobile } =
+      e.target.elements;
     e.preventDefault();
-    if(!firstName.value.length) {
-      return FailToTest(firstName, '성을 입력해주세요.')
+    if (!firstName.value.length) {
+      return FailToTest(firstName, "성을 입력해주세요.");
     }
-    if(!nameTest(firstName.value)) {
-      return FailToTest(firstName, formatMessage({id:'NAME_RULE_ERROR'}))
+    if (!nameTest(firstName.value)) {
+      return FailToTest(firstName, formatMessage({ id: "NAME_RULE_ERROR" }));
     }
-    if(!lastName.value.length) {
-      return FailToTest(lastName, '이름을 입력해주세요.')
+    if (!lastName.value.length) {
+      return FailToTest(lastName, "이름을 입력해주세요.");
     }
-    if(!nameTest(lastName.value)) {
-      return FailToTest(lastName, formatMessage({id:'NAME_RULE_ERROR'}))
+    if (!nameTest(lastName.value)) {
+      return FailToTest(lastName, formatMessage({ id: "NAME_RULE_ERROR" }));
     }
-    if(!email.value.length) {
-      return FailToTest(email, '이메일을 입력해주세요.')
+    if (!email.value.length) {
+      return FailToTest(email, "이메일을 입력해주세요.");
     }
-    if(!emailTest(email.value)) {
-      return FailToTest(email, formatMessage({id:'EMAIL_RULE_ERROR'}))
+    if (!emailTest(email.value)) {
+      return FailToTest(email, formatMessage({ id: "EMAIL_RULE_ERROR" }));
     }
-    if(!existCheck) return message.error('중복체크 해주세요.')
-    if(mobile.value.split(' ').length === 1) {
-      return FailToTest(mobile,'전화번호를 입력해주세요.')
+    if (!existCheck) return message.error("중복체크 해주세요.");
+    if (mobile.value.split(" ").length === 1) {
+      return FailToTest(mobile, "전화번호를 입력해주세요.");
     }
     // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
     //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
     // }
-    console.log(inputMobile.slice(inputDialCode.length,), inputMobile, inputDialCode)
-    if(!agreeCheck.checked) return message.error('체크박스에 체크해주세요.')
-    CustomAxiosPost(
-      addSubAdminApi(adminId),
-      {
-        country: inputCountry,
-        email: email.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        phone: inputMobile.slice(inputDialCode.length,),
-        dialCode: inputDialCode,
-        role: "ADMIN",
-      });
+    console.log(
+      inputMobile.slice(inputDialCode.length),
+      inputMobile,
+      inputDialCode
+    );
+    if (!agreeCheck.checked) return message.error("체크박스에 체크해주세요.");
+    CustomAxiosPost(addSubAdminApi(adminId), {
+      country: inputCountry,
+      email: email.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      phone: inputMobile.slice(inputDialCode.length),
+      dialCode: inputDialCode,
+      role: "ADMIN",
+    });
     message.success("인증 메일 발송에 성공하였습니다.");
     history.push("/Admins");
   };
@@ -103,15 +111,15 @@ const AdminAdd = ({ userProfile }) => {
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
-            <span>First Name</span>
+            <span>성</span>
             <input name="firstName" placeholder="이름을 입력하세요." />
           </div>
           <div className="inputBox">
-            <span>Last Name</span>
+            <span>이름</span>
             <input name="lastName" placeholder="이름을 입력하세요." />
           </div>
           <div className="inputBox">
-            <span>Email address</span>
+            <span>이메일 주소</span>
             <input
               name="email"
               placeholder="이메일을 입력하세요."
@@ -126,13 +134,13 @@ const AdminAdd = ({ userProfile }) => {
             </button>
           </div>
           <div className="inputBox2">
-            <span>Phone</span>
+            <span>전화번호</span>
             <div className="phoneBox">
               <PhoneInput
                 className="phoneInput"
                 country={"kr"}
                 inputProps={{
-                  name: 'mobile'
+                  name: "mobile",
                 }}
                 value={inputMobile}
                 onChange={changeMobileInput}
@@ -141,15 +149,15 @@ const AdminAdd = ({ userProfile }) => {
             </div>
           </div>
           <div className="checkBox">
-            <span>Complete account setup</span>
+            <span>계정 설정</span>
             <div>
               <span>
                 <input name="agreeCheck" type="checkbox" />
-                <p>Automatically send an account setup link via email</p>
+                <p>이메일을 통해 자동으로 계정 설정 링크 보내기</p>
               </span>
               <p>
-                This administrator will receive an email with instructions to
-                complete their account setup
+                이 관리자는 계정 설정을 완료하기 위한 지침이 포함된 이메일을
+                받게 됩니다.
               </p>
               <button className="adminAddButton button" type="submit">
                 관리자 등록

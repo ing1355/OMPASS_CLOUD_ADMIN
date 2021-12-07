@@ -6,22 +6,66 @@ import "../../../App.css";
 import GlobalPolicy from "./Global_Policy";
 import { message } from "antd";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { customPolicyColumns, globalPolicyColumns } from "../../../Constants/TableColumns";
+import {
+  customPolicyColumns,
+  globalPolicyColumns,
+} from "../../../Constants/TableColumns";
 
 const globalPolicyTableData = [
-  { status: 'Enabled', policy: 'Authentication policy', description: 'Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.' },
-  { status: '', policy: 'User location', description: 'No restrictions.' },
-  { status: '', policy: 'Browsers', description: "Don't require users to have the app" },
-  { status: '', policy: 'Authentication methods', description: 'No restrictions.' },
-  { status: '', policy: 'OMPASS Mobile app', description: 'No restrictions.' }
-]
+  {
+    status: "Enabled",
+    policy: "Authentication policy",
+    description:
+      "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
+  },
+  { status: "", policy: "User location", description: "No restrictions." },
+  {
+    status: "",
+    policy: "Browsers",
+    description: "Don't require users to have the app",
+  },
+  {
+    status: "",
+    policy: "Authentication methods",
+    description: "No restrictions.",
+  },
+  { status: "", policy: "OMPASS Mobile app", description: "No restrictions." },
+];
 
 const customPolicyTableMockData = [
-  { title: 'test1', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: true, mobile: true },
-  { title: 'test2', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: true, mobile: false },
-  { title: 'test3', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: false, mobile: true },
-  { title: 'test4', authenticationPolicy: true, userLocation: true, browsers: false, authenticationMethods: true, mobile: true }
-]
+  {
+    title: "test1",
+    authenticationPolicy: true,
+    userLocation: true,
+    browsers: true,
+    authenticationMethods: true,
+    mobile: true,
+  },
+  {
+    title: "test2",
+    authenticationPolicy: true,
+    userLocation: true,
+    browsers: true,
+    authenticationMethods: true,
+    mobile: false,
+  },
+  {
+    title: "test3",
+    authenticationPolicy: true,
+    userLocation: true,
+    browsers: true,
+    authenticationMethods: false,
+    mobile: true,
+  },
+  {
+    title: "test4",
+    authenticationPolicy: true,
+    userLocation: true,
+    browsers: false,
+    authenticationMethods: true,
+    mobile: true,
+  },
+];
 
 const Policies = () => {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
@@ -29,16 +73,21 @@ const Policies = () => {
 
   const saveCallback = (result) => {
     setEditDrawerOpen(false);
-    message.success('저장하였습니다.')
-    console.log('save test', result)
-  }
+    message.success("저장하였습니다.");
+    console.log("save test", result);
+  };
 
   return (
     <div
       className="contents-container"
-      style={{ position: "relative", overflow: "hidden" }}>
-
-      <GlobalPolicy visible={editDrawerOpen} setVisible={setEditDrawerOpen} isCustomPolicy={isCustomPolicy} saveCallback={saveCallback} />
+      style={{ position: "relative", overflow: "hidden" }}
+    >
+      <GlobalPolicy
+        visible={editDrawerOpen}
+        setVisible={setEditDrawerOpen}
+        isCustomPolicy={isCustomPolicy}
+        saveCallback={saveCallback}
+      />
 
       <ContentsTitle title="Policy Info" />
       <div className="PoliciesBox">
@@ -73,10 +122,14 @@ const Policies = () => {
             custom policy and assign it to those applications. Policy settings
             in a custom policy will override anything set in the global policy.
           </p>
-          <CustomTable columns={customPolicyColumns} datas={customPolicyTableMockData} rowClick={() => {
-            setIsCustomPolicy(true);
-            setEditDrawerOpen(true);
-          }}/>
+          <CustomTable
+            columns={customPolicyColumns}
+            datas={customPolicyTableMockData}
+            rowClick={() => {
+              setIsCustomPolicy(true);
+              setEditDrawerOpen(true);
+            }}
+          />
           <button
             className="button"
             onClick={() => {
