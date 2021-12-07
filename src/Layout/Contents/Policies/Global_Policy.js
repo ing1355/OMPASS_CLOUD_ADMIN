@@ -40,17 +40,17 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
 
   const _saveCallback = useCallback(() => {
-    if(isCustomPolicy) {
-      if(!inputTitle) return message.error('제목을 입력해주세요.')
+    if (isCustomPolicy) {
+      if (!inputTitle) return message.error('제목을 입력해주세요.')
     }
     const result = {};
-    if(inputTitle) result.title = inputTitle;
-    if(inputAuthCheck) result.authentication = inputAuthCheck;
-    if(inputUserLocations.length) result.userLocation = inputUserLocations;
-    if(inputBrowserCheck.length) result.browsers = inputBrowserCheck;
-    if(inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck;
-    if(inputMobileCheck) result.mobilePatch = inputMobileCheck
-    if (saveCallback) saveCallback();
+    if (inputTitle) result.title = inputTitle;
+    if (inputAuthCheck) result.authentication = inputAuthCheck;
+    if (inputUserLocations.length) result.userLocation = inputUserLocations;
+    if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
+    if (inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck;
+    if (inputMobileCheck) result.mobilePatch = inputMobileCheck
+    if (saveCallback) saveCallback(result);
   }, [saveCallback, inputTitle, inputAuthCheck, inputUserLocations, inputBrowserCheck, inputAuthMethodCheck, inputMobileCheck])
 
   const changeInputTitle = useCallback((e) => {
@@ -70,7 +70,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
   }, [inputUserLocations])
 
   const changeInputBrowserCheck = useCallback((value) => {
-    if(inputBrowserCheck.includes(value)) {
+    if (inputBrowserCheck.includes(value)) {
       setInputBrowserCheck(inputBrowserCheck.filter(b => b !== value))
     } else {
       setInputBrowserCheck([...inputBrowserCheck, value])
@@ -78,7 +78,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
   }, [inputBrowserCheck])
 
   const changeInputAuthMethodCheck = useCallback((value) => {
-    if(inputAuthMethodCheck.includes(value)) {
+    if (inputAuthMethodCheck.includes(value)) {
       setInputAuthMethodCheck(inputAuthMethodCheck.filter(m => m !== value))
     } else {
       setInputAuthMethodCheck([...inputAuthMethodCheck, value])
@@ -130,9 +130,10 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
         {/* -------------타이틀 ------------- */}
         {isCustomPolicy && <section className="policies-box">
           <h2>Title</h2>
-          {/* <p>FKDSNGMDSMVMVLOD~!~!#@!$#wfdsFDML</p> */}
-          <div>
-            <input className="userlocation-first" onChange={changeInputTitle} />
+          <div className="policies-sub-box">
+            <div>
+              <input className="title-input" maxLength={20} onChange={changeInputTitle} />
+            </div>
           </div>
         </section>}
 
@@ -189,10 +190,10 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               actions based on the country.
           </h3>
             {inputUserLocations.map((d, ind) => <div key={ind}>
-              <input maxLength={15} className="userlocation-first" value={d.ipAddress} onChange={e => {
+              <input maxLength={15} className="user-location-input" value={d.ipAddress} onChange={e => {
                 changeInputUserLocation(e.target.value, ind, 'ipAddress')
               }} />
-              <select name="order" value={d.policy} onChange={e => {
+              <select name="order" className="user-location-select" value={d.policy} onChange={e => {
                 changeInputUserLocation(e.target.value, ind, 'policy')
               }}>
                 <option value="active">Active</option>
@@ -211,13 +212,13 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
         </div>
 
           {
-            BrowsersList.map((bl,ind) => <div className="policies-sub-box" key={ind}>
+            BrowsersList.map((bl, ind) => <div className="policies-sub-box" key={ind}>
               <input
                 name="browser"
                 value={inputBrowserCheck.includes(bl)}
                 type="checkbox"
                 style={{ width: "15px" }}
-                onChange={() => {changeInputBrowserCheck(bl)}}
+                onChange={() => { changeInputBrowserCheck(bl) }}
               />
               <label className="label-radio">{bl}</label>
             </div>)
@@ -234,13 +235,13 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
         </div>
 
           {
-            AuthMethodsList.map((am,ind) => <div className="policies-sub-box" key={ind}>
+            AuthMethodsList.map((am, ind) => <div className="policies-sub-box" key={ind}>
               <input
                 name="method"
                 value={am}
                 type="checkbox"
                 style={{ width: "15px" }}
-                onChange={() => {changeInputAuthMethodCheck(am)}}
+                onChange={() => { changeInputAuthMethodCheck(am) }}
               />
               <label className="label-radio">{am}</label>
             </div>)
