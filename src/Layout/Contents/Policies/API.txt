@@ -1,0 +1,59 @@
+// Global Policy 
+// Get, Update 필요
+// Body 예시
+
+{
+    authenticationMethods: [],
+    browsers: [],
+    userLocation: [],
+    mobilePatch: string
+}
+
+// Custom Policy
+// Get, Insert, Update, Delete 필요
+// Body 예시
+
+{
+    title: string,
+    authenticationMethods: [],
+    browsers: [],
+    userLocation: [],
+    mobilePatch: string
+}
+
+// Default Policy
+// Get 필요
+// Response Body 예시
+
+{
+    authenticationMethods: [],
+    browsers: [],
+    userLocation: [],
+    mobilePatch: string
+}
+
+// 위 값은 셋팅되어 있는게 아닌 정책 옵션들은 키값을 빼서 주시면 될 듯 싶습니다.
+
+// Policy 옵션 리스트
+// Get 필요
+// Response Body 예시
+
+{
+    browsersList: [    
+        'Chrome',    
+        'Chrome Mobile',    
+        'Edge',    
+        'Firefox',    
+        'Mobile Safari',    
+        'Safari',    
+        'All other browsers'    
+        ],
+    authMethodsList: [
+        'OMPASS Push',    
+        'OMPASS Mobile passcodes',        
+        'SMS passcodes',        
+        'Security keys (U2F)',        
+        'WebAuthn',        
+        'Hardware tokens'
+    ]
+}

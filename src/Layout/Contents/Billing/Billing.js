@@ -35,7 +35,7 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(() => (country === "KR" ? true : false), []);
-  const [currentPlan, setCurrentPlan] = useState({});
+  const [currentPlan, setCurrentPlan] = useState(null);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
@@ -48,6 +48,22 @@ const Billing = ({ userProfile }) => {
   const [cost, setCost] = useState(0);
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
+
+  const slicePrice = useCallback((price) => {
+    const _price = price + '';
+    if(_price.length < 4) return _price;
+    else {
+      const result = [];
+      for(var i=0;i<_price.length / 3; i++) {
+        if(_price.length % 3 === 0) result.push(_price.substring(i * 3, i*3 + 3))
+        else {
+          if(i === 0) result.push(_price.substring(0, _price.length % 3))
+          else result.push(_price.substring(((i-1) * 3) + (_price.length % 3), ((i-1)*3) + (_price.length % 3) + 3))
+        }
+      }
+      return result.join(',');
+    }
+  },[])
 
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
@@ -63,7 +79,6 @@ const Billing = ({ userProfile }) => {
       [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
-          console.log(data);
           const { numberUsers, plan, pricing } = data;
           setAllUserNum(numberUsers);
           setCurrentPlan(plan);
@@ -85,7 +100,6 @@ const Billing = ({ userProfile }) => {
   const billingsInfo = [
     {
       cardTitle: "OMPASS Free",
-      billing: 0,
       itemLists: [
         { content: "Limited to 10 users", fontWeight: 700 },
         { content: "Designed for personal and home usage" },
@@ -93,7 +107,6 @@ const Billing = ({ userProfile }) => {
     },
     {
       cardTitle: "OMPASS",
-      billing: 1,
       itemLists: [
         { content: "2FA for VPN and Web Apps" },
         { content: "패스워드 없이 인증" },
@@ -274,10 +287,10 @@ const Billing = ({ userProfile }) => {
       </div>
       <section className="billing-edition-container">
         <div className="billing-edition">
-          <div className="billing-edition-data">{currentPlan.name}</div>
+          <div className="billing-edition-data">{currentPlan ? currentPlan.name : billingsInfo[0].cardTitle}</div>
           <div className="billing-edition-title">Edition</div>
           <div className="billing-edition-subtitle">
-            {currentPlan.remainingDate} days left
+            {currentPlan ? currentPlan.remainingDate : 0} days left
           </div>
         </div>
         <div className="billing-edition">
@@ -298,14 +311,14 @@ const Billing = ({ userProfile }) => {
         </div>
       </section>
       <section className="billing-info-container">
-        {billingsInfo.map((item, ind) => (
+        {editions.length > 0 && billingsInfo.map((item, ind) => (
           <div key={ind} className="billing-info-contents">
             <BillingInfoCard
-              title={item.cardTitle}
+              title={ind === 0 ? item.cardTitle : editions[ind-1].name}
               subTitle={`${
                 isKorea()
-                  ? cost * item.billing + " 원"
-                  : cost * item.billing + " $"
+                  ? slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " 원"
+                  : slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " $"
               } / ${isKorea() ? "1인" : "User"} / Month`}
             />
             {item.itemLists.map((itemList, _ind) => (
@@ -386,7 +399,7 @@ const Billing = ({ userProfile }) => {
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">Cost</label>
-            <b>{isKorea() ? cost + " 원" : "$" + cost}</b>
+            <b>{isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}</b>
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <div className="billing-change-item">
@@ -435,7 +448,7 @@ const Billing = ({ userProfile }) => {
             <br />
             Cost :{" "}
             <b style={{ color: "Red" }}>
-              {isKorea() ? cost + " 원" : "$" + cost}
+              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>

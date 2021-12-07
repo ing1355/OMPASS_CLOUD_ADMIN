@@ -4,7 +4,7 @@ import { allUserColumns } from "../../../Constants/TableColumns";
 import CustomTable from "../../../CustomComponents/CustomTable";
 
 const UsersTable = ({ tableData, setDetailData, columns }) => {
-  
+  // console.log(tableData);
   return (
     <>
       <ul className="UsersBox3_contents">

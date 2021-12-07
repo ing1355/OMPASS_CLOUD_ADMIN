@@ -52,6 +52,7 @@ export const allUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    width: '100px'
   },
 ];
 
@@ -64,6 +65,7 @@ export const disabledUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    width: '100px'
   },
 ];
 
@@ -76,6 +78,7 @@ export const byPassUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    width: '100px'
   },
 ];
 
@@ -88,5 +91,21 @@ export const unRegisteredUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    width: '100px'
   },
 ];
+
+export const globalPolicyColumns = [
+  { name: 'Status', key: 'status', render: row => <div style={{textAlign:'center'}}>{row.status}</div>, width: '100px' },
+  { name: 'Policy Name', key: 'policy', width: '200px' },
+  { name: 'Description', key: 'description' }
+]
+
+export const customPolicyColumns = [
+  { name: 'Title', key: 'title'},
+  { name: 'Auth policy', key: 'authenticationPolicy'},
+  { name: 'User location', key: 'userLocation'},
+  { name: 'Browsers', key: 'browsers'},
+  { name: 'Auth methods', key: 'authenticationMethods'},
+  { name: 'Mobile', key: 'mobile'}
+]
