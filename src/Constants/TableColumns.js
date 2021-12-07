@@ -36,11 +36,11 @@ export const DashboardLogColumns = [
 ];
 
 export const LogsColumns = [
-  { name: "User ID", key: "userId" },
-  { name: "Action", key: "act" },
+  { name: "User ID", key: "userId", width: 220 },
+  { name: "Action", key: "act", width: 170 },
   { name: "Application Name", key: "appName" },
-  { name: "Status", key: "status" },
-  { name: "Time", key: "createdDate" },
+  { name: "Status", key: "status", width: 130 },
+  { name: "Time", key: "createdDate", width: 220 },
 ];
 
 export const allUserColumns = [
@@ -51,7 +51,9 @@ export const allUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    render: (d) => {
+      return <CustomSwitch defaultChecked={d.byPass} />
+    },
     width: '100px'
   },
 ];

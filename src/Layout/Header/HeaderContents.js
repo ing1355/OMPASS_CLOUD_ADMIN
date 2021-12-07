@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import "antd/dist/antd.css";
 import { message } from "antd";
@@ -16,7 +16,7 @@ const HeaderContents = ({
   setIsLogin,
   menuChange,
   userProfile,
-  e,
+  locale
 }) => {
   const location = useLocation();
   const { role, email } = userProfile;
@@ -30,18 +30,24 @@ const HeaderContents = ({
 
   return (
     <div className="header-contents">
-      <div className="header-contents-route-title">{menuState}</div>
+      <div className="header-contents-route-title">{menuState && <FormattedMessage id={menuState}/>}</div>
 
       <div className="header-contents-button-box">
-        <p>
+        {locale === 'ko' ? <p>
           <b>
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
             {email}
-          </b>{" "}
-          님 안녕하세요.
-        </p>
+          </b>님 환영합니다.
+          </p> : <p>Welcome&nbsp;
+            <b>
+            <AliwangwangOutlined
+              style={{ fontSize: "1.1rem", marginRight: "4px" }}
+            />
+            {email}
+          </b>
+        </p>}
         <button
           className="loginButton button"
           onClick={() => {
@@ -63,6 +69,7 @@ function mapStateToProps(state) {
   return {
     menuState: state.menuState,
     userProfile: state.userProfile,
+    locale: state.locale,
   };
 }
 

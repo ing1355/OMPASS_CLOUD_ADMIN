@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import DoubleLeftArrow from "../customAssets/DoubleLeftArrow";
 import DoubleRightArrow from "../customAssets/DoubleRightArrow";
 import LeftArrow from "../customAssets/LeftArrow";
@@ -50,18 +50,16 @@ const CustomTable = ({
     ]
     : columns;
   const _numPerPage = numPerPage ? numPerPage : 10;
-  const pageNum =
-    parseInt(datas.length / _numPerPage) +
-    (datas.length % _numPerPage === 0 ? 0 : 1);
+  const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const rowSelect = (id) => {
+  const rowSelect = useCallback((id) => {
     if (selectedRows.includes(id)) {
       setSelectedRows(selectedRows.filter((r) => r !== id));
     } else {
       setSelectedRows([...selectedRows, id]);
     }
-  };
+  },[selectedRows]);
 
   useEffect(() => {
     firstRenderRef.current = true;
@@ -73,21 +71,45 @@ const CustomTable = ({
     }
   }, [selectedRows]);
 
-  const goToFirstPage = () => {
+  const goToFirstPage = useCallback(() => {
     setCurrentPage(0);
-  };
+  },[]);
 
   const goToLastPage = () => {
     setCurrentPage(pageNum - 1);
   };
 
-  const goToBeforePage = () => {
+  const goToBeforePage = useCallback(() => {
     setCurrentPage(currentPage - 1);
-  };
+  },[currentPage]);
 
-  const goToNextPage = () => {
+  const goToNextPage = useCallback(() => {
     setCurrentPage(currentPage + 1);
-  };
+  },[currentPage]);
+
+  const dataList = useMemo(() => tableData.slice(
+    currentPage * _numPerPage,
+    currentPage * _numPerPage + _numPerPage
+  ).map((d, ind) => (
+    <tr
+      key={ind}
+      className={rowClick ? "pointer" : ""}
+      onClick={(e) => {
+        //  && e.target.tagName === "TD"
+        if (rowSelectable) rowSelect(d[selectedId]);
+        if (rowClick) rowClick(d);
+      }}
+    >
+      {tableColumns.map((c, _ind) => (
+        <td
+          key={_ind}
+          style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : null}
+        >
+          {c.render ? c.render(d) : d[c.key]}
+        </td>
+      ))}
+    </tr>
+  )), [tableColumns, tableData, currentPage, numPerPage, rowSelectable, rowClick])
 
   return (
     <table className={className ? "custom-table-box " + className : 'custom-table-box'}>
@@ -124,47 +146,25 @@ const CustomTable = ({
       </thead>
       <tbody>
         {!loading && tableData && tableData.length > 0 ? (
-          tableData
-            .slice(
-              currentPage * _numPerPage,
-              currentPage * _numPerPage + _numPerPage
-            )
-            .map((d, ind) => (
-              <tr
-                key={ind}
-                className={rowClick ? "pointer" : ""}
-                onClick={(e) => {
-                  //  && e.target.tagName === "TD"
-                  if (rowSelectable) rowSelect(d[selectedId]);
-                  if (rowClick) rowClick(d);
-                }}
-              >
-                {tableColumns.map((c, _ind) => (
-                  <td
-                    key={_ind}
-                    style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : null}
-                  >
-                    {c.render ? c.render(d) : d[c.key]}
-                  </td>
-                ))}
-              </tr>
-            ))
+          dataList
         ) : (
           <tr className="no-data">
-            {loading ? (
-              <td className="loading-td">
-                <div className="box">
-                  <div className="loader6"></div>
-                  <p>data loading</p>
-                </div>
-              </td>
-            ) : (
-              <td className="no-data" colSpan={tableColumns.length}>No Data</td>
-            )}
+            {
+              loading ? (
+                <td className="loading-td" >
+                  <div className="box">
+                    <div className="loader6"></div>
+                    <p>data loading</p>
+                  </div>
+                </td>
+              ) : (
+                <td className="no-data" colSpan={tableColumns.length}>No Data</td>
+              )}
           </tr>
-        )}
-      </tbody>
-      {tableData && tableData.length > numPerPage && (
+        )
+        }
+      </tbody >
+      { tableData && tableData.length > numPerPage && (
         <tfoot>
           <tr className="custom-table-footer">
             {pagination && pageNum > 0 && (
@@ -223,7 +223,7 @@ const CustomTable = ({
           </tr>
         </tfoot>
       )}
-    </table>
+    </table >
   );
 };
 

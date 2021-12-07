@@ -16,6 +16,7 @@ import ExcelDownload from "./ExcelDownload";
 import { allUserColumns } from "../../../Constants/TableColumns";
 import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
+import UserAll from "./UserAll";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -122,7 +123,7 @@ const Users = ({ userProfile }) => {
                   </ul>
                   <ul className="UsersBox3_contents">
                     {selectView === 0 && (
-                      <UsersTable
+                      <UserAll
                         tableData={_tableData}
                         setDetailData={clickToDetail}
                       />
