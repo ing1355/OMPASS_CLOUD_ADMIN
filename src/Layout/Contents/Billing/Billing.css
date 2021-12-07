@@ -98,12 +98,16 @@
 
 .billing-change-item {
   display: flex;
-  padding: 32px 0;
+  padding: 22px 0;
+  align-items: center;
 }
 
 .billing-change-item:last-child {
   padding-left: 200px;
   display: block;
+}
+.billing-change-container select {
+  margin-bottom: 0;
 }
 
 .billing-change-form-label {

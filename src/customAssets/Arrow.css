@@ -24,24 +24,19 @@
 }
 
 .custom-arrow.left > div::after {
-    right: 3px;
+    right: 0;
     transform: rotate(-135deg);
 }
 
 .custom-arrow.right > div::after {
-    left: 3px;
+    left: 0;
     transform: rotate(45deg);
-}
-
-.custom-arrow:hover, .custom-double-arrow-container:hover {
-    /* background-color: red; */
 }
 
 .custom-double-arrow-container > div {
     position: absolute;
     width: 23px;
     height: 100%;
-    display: inline-block;
 }
 
 .custom-double-arrow-container.left > div:nth-child(2) {

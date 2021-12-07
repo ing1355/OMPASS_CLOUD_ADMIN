@@ -399,7 +399,7 @@ const Billing = ({ userProfile }) => {
                 setInputTerm(e.target.value);
               }}
             >
-              <option value="MONTHLY">30일</option>
+              <option value="MONTHLY">매 월</option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
@@ -411,18 +411,18 @@ const Billing = ({ userProfile }) => {
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">Agreement</label>
+            <label className="billing-change-form-label">이용 동의</label>
             <div>
               <input type="checkbox" name="check" />
-              <label> 이용약관, 가격 및 수수료 규정에 동의합니다.</label>
+              <label>
+                {" "}
+                이용약관, 가격 및 수수료 규정에 동의합니다.
+                <br /> 결제일로 부터 30일 간격으로 2,200원이 자동으로
+                결제됩니다.
+              </label>
             </div>
           </div>
           <div className="billing-change-item">
-            <div>
-              현재 청구 주기 동안 변경된 구독은 다음과 같이 변경될 수 있습니다.
-              <br />
-              결과는 비례 배분 구독 변경 사항이 업데이트되면 청구 됩니다.
-            </div>
             <button
               name="payType"
               className="button"

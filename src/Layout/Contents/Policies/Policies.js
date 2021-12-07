@@ -115,46 +115,6 @@ const Policies = () => {
           // columnsHide={true}
         />
 
-        {/* <table>
-          <tbody>
-            <tr>
-              <th></th>
-              <td>Authentication policy</td>
-              <td>
-                Require two-factor authentication or enrollment when applicable,
-                unless there is a superseding policy configured.
-              </td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>User location</td>
-              <td>No restrictions.</td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>Browsersn</td>
-              <td>Don't require users to have the app</td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>Authorized networks</td>
-              <td>
-                Do not remember devices for browser-based applications. Do not
-                remember devices for Windows Logon.
-              </td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>Authentication methods</td>
-              <td>No restrictions.</td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>Plugins</td>
-              <td>No restrictions.</td>
-            </tr>
-          </tbody>
-        </table> */}
         <div className="PoliciesBottomBox">
           <h5>Custom Policies</h5>
           <p>
@@ -165,6 +125,10 @@ const Policies = () => {
           <CustomTable
             columns={customPolicyColumns}
             datas={customPolicyTableMockData}
+            rowClick={() => {
+              setIsCustomPolicy(true);
+              setEditDrawerOpen(true);
+            }}
           />
           <button
             className="button"
