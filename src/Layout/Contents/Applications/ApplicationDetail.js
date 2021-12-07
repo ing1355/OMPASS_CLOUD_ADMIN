@@ -240,6 +240,14 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
             />
             <label className="label-radio">Inactive</label>
           </div>
+          <div className="Application-label-input-box">
+            <label>정책 설정</label>
+            <select name="order">
+              <option selected disabled></option>
+              <option value="1">없음</option>
+              <option value="2">ddddddddd</option>
+            </select>
+          </div>
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />

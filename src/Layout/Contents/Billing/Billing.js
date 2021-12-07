@@ -50,20 +50,27 @@ const Billing = ({ userProfile }) => {
   const inputUserNumRef = useRef(null);
 
   const slicePrice = useCallback((price) => {
-    const _price = price + '';
-    if(_price.length < 4) return _price;
+    const _price = price + "";
+    if (_price.length < 4) return _price;
     else {
       const result = [];
-      for(var i=0;i<_price.length / 3; i++) {
-        if(_price.length % 3 === 0) result.push(_price.substring(i * 3, i*3 + 3))
+      for (var i = 0; i < _price.length / 3; i++) {
+        if (_price.length % 3 === 0)
+          result.push(_price.substring(i * 3, i * 3 + 3));
         else {
-          if(i === 0) result.push(_price.substring(0, _price.length % 3))
-          else result.push(_price.substring(((i-1) * 3) + (_price.length % 3), ((i-1)*3) + (_price.length % 3) + 3))
+          if (i === 0) result.push(_price.substring(0, _price.length % 3));
+          else
+            result.push(
+              _price.substring(
+                (i - 1) * 3 + (_price.length % 3),
+                (i - 1) * 3 + (_price.length % 3) + 3
+              )
+            );
         }
       }
-      return result.join(',');
+      return result.join(",");
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
@@ -287,7 +294,9 @@ const Billing = ({ userProfile }) => {
       </div>
       <section className="billing-edition-container">
         <div className="billing-edition">
-          <div className="billing-edition-data">{currentPlan ? currentPlan.name : billingsInfo[0].cardTitle}</div>
+          <div className="billing-edition-data">
+            {currentPlan ? currentPlan.name : billingsInfo[0].cardTitle}
+          </div>
           <div className="billing-edition-title">Edition</div>
           <div className="billing-edition-subtitle">
             {currentPlan ? currentPlan.remainingDate : 0} days left
@@ -306,46 +315,51 @@ const Billing = ({ userProfile }) => {
             className="billing-edition-title"
             // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
-            Users
+            사용자
           </div>
         </div>
       </section>
       <section className="billing-info-container">
-        {editions.length > 0 && billingsInfo.map((item, ind) => (
-          <div key={ind} className="billing-info-contents">
-            <BillingInfoCard
-              title={ind === 0 ? item.cardTitle : editions[ind-1].name}
-              subTitle={`${
-                isKorea()
-                  ? slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " 원"
-                  : slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " $"
-              } / ${isKorea() ? "1인" : "User"} / Month`}
-            />
-            {item.itemLists.map((itemList, _ind) => (
-              <div
-                key={_ind}
-                style={{
-                  fontWeight: itemList.fontWeight,
-                }}
-                className="billing-info-contents-list"
-              >
-                {itemList.content}
-              </div>
-            ))}
-          </div>
-        ))}
+        {editions.length > 0 &&
+          billingsInfo.map((item, ind) => (
+            <div key={ind} className="billing-info-contents">
+              <BillingInfoCard
+                title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
+                subTitle={`${
+                  isKorea()
+                    ? slicePrice(
+                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
+                      ) + " 원"
+                    : slicePrice(
+                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
+                      ) + " $"
+                } / ${isKorea() ? "1인" : "User"} / Month`}
+              />
+              {item.itemLists.map((itemList, _ind) => (
+                <div
+                  key={_ind}
+                  style={{
+                    fontWeight: itemList.fontWeight,
+                  }}
+                  className="billing-info-contents-list"
+                >
+                  {itemList.content}
+                </div>
+              ))}
+            </div>
+          ))}
       </section>
 
       <section className="Payment-History-table" style={{ border: "none" }}>
-        <h2>Payment History</h2>
+        <h2>결제 내역</h2>
         <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
 
       <section className="billing-change-container">
-        <h2>Make Changes</h2>
+        <h2>OMPASS Plan 결제</h2>
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">Edition</label>
+            <label className="billing-change-form-label">플랜</label>
             <select
               className="billing-change-form-select"
               name="edition"
@@ -359,7 +373,7 @@ const Billing = ({ userProfile }) => {
             </select>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">Number of Users</label>
+            <label className="billing-change-form-label">사용자 수</label>
             <div>
               <select
                 className="billing-change-form-select"
@@ -374,18 +388,10 @@ const Billing = ({ userProfile }) => {
                   </option>
                 ))}
               </select>
-              <div style={{ marginTop: "16px" }}>
-                More than 2500 users? No problem.
-              </div>
-              <div>
-                Contact our sales team for multi-year discounts and invoiced
-                billing.
-              </div>
-              <div>Just call 0-000-000-0000 or contact us.</div>
             </div>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">Term</label>
+            <label className="billing-change-form-label">결제 주기</label>
             <select
               className="billing-change-form-select"
               name="term"
@@ -393,32 +399,29 @@ const Billing = ({ userProfile }) => {
                 setInputTerm(e.target.value);
               }}
             >
-              <option value="MONTHLY">Monthly</option>
+              <option value="MONTHLY">30일</option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">Cost</label>
-            <b>{isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}</b>
+            <label className="billing-change-form-label">가격</label>
+            <b>
+              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
+            </b>
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">Agreement</label>
             <div>
               <input type="checkbox" name="check" />
-              <label>
-                {" "}
-                I agree to the Terms and Conditions as well as well pricing and
-                fee rules
-              </label>
+              <label> 이용약관, 가격 및 수수료 규정에 동의합니다.</label>
             </div>
           </div>
           <div className="billing-change-item">
             <div>
-              Subscription changes made during your current billing cycle may
-              result in a prorate
+              현재 청구 주기 동안 변경된 구독은 다음과 같이 변경될 수 있습니다.
               <br />
-              charge once the subscription changes have benn updated
+              결과는 비례 배분 구독 변경 사항이 업데이트되면 청구 됩니다.
             </div>
             <button
               name="payType"
@@ -426,7 +429,7 @@ const Billing = ({ userProfile }) => {
               value="iamPort"
               type="submit"
             >
-              Update Subscription
+              결제하기
             </button>
           </div>
         </form>

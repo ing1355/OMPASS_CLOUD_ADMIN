@@ -3,6 +3,7 @@
 body {
   background: #efefef !important;
   font-family: "Noto Sans KR", sans-serif !important;
+  overflow-x: hidden;
 }
 
 .pointer {
@@ -57,7 +58,8 @@ table tr {
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 
-table td, table th {
+table td,
+table th {
   padding: 8px;
 }
 

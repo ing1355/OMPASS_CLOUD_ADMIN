@@ -131,13 +131,15 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
               </h2>
               <p>해당 어플리케이션에 커스텀 정책을 적용할 수 있습니다.</p>
             </div>
-            <select name="order">
-              <option selected disabled>
-                정책 설정
-              </option>
-              <option value="1">dddddddddd</option>
-              <option value="2">ddddddddd</option>
-            </select>
+            <div className="Application-label-input-box">
+              <label> 정책 설정</label>
+              <select name="order">
+                <option selected disabled></option>
+                <option value="1">dddddddddd</option>
+                <option value="2">ddddddddd</option>
+              </select>
+            </div>
+
             <button className="Application-Save-button button" type="submit">
               등록
             </button>
