@@ -101,11 +101,13 @@ export const globalPolicyColumns = [
   { name: 'Description', key: 'description' }
 ]
 
+const customPolicyItemWidth = 130;
+
 export const customPolicyColumns = [
   { name: 'Title', key: 'title'},
-  { name: 'Auth policy', key: 'authenticationPolicy'},
-  { name: 'User location', key: 'userLocation'},
-  { name: 'Browsers', key: 'browsers'},
-  { name: 'Auth methods', key: 'authenticationMethods'},
-  { name: 'Mobile', key: 'mobile'}
+  { name: 'Auth policy', key: 'authenticationPolicy', width: customPolicyItemWidth},
+  { name: 'User location', key: 'userLocation', width: customPolicyItemWidth},
+  { name: 'Browsers', key: 'browsers', width: customPolicyItemWidth},
+  { name: 'Auth methods', key: 'authenticationMethods', width: customPolicyItemWidth},
+  { name: 'Mobile', key: 'mobile', width: customPolicyItemWidth}
 ]

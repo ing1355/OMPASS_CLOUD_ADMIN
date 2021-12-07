@@ -23,31 +23,31 @@ const CustomTable = ({
   const [selectedRows, setSelectedRows] = useState([]);
   const tableData = multipleSelectable
     ? datas.map((d) => ({
-        check: "",
-        ...d,
-      }))
+      check: "",
+      ...d,
+    }))
     : datas;
   const tableColumns = multipleSelectable
     ? [
-        {
-          name: "",
-          key: "check",
-          render: (row) => (
-            <div>
-              <input
-                className="table-row-select-checkbox"
-                type="checkbox"
-                checked={selectedRows.includes(row[selectedId])}
-                onClick={() => {
-                  rowSelect(row[selectedId]);
-                }}
-                onChange={() => {}}
-              />
-            </div>
-          ),
-        },
-        ...columns,
-      ]
+      {
+        name: "",
+        key: "check",
+        render: (row) => (
+          <div>
+            <input
+              className="table-row-select-checkbox"
+              type="checkbox"
+              checked={selectedRows.includes(row[selectedId])}
+              onClick={() => {
+                rowSelect(row[selectedId]);
+              }}
+              onChange={() => { }}
+            />
+          </div>
+        ),
+      },
+      ...columns,
+    ]
     : columns;
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum =
@@ -90,11 +90,11 @@ const CustomTable = ({
   };
 
   return (
-    <table className={className ?  "custom-table-box " + className : 'custom-table-box'}>
+    <table className={className ? "custom-table-box " + className : 'custom-table-box'}>
       <colgroup>
-        {tableColumns.map((c, ind) => <col key={ind} style={c.key === 'check' ? {minWidth: '60px', width: '60px'} : {minWidth: c.width, width: c.width}}/>)}
+        {tableColumns.map((c, ind) => <col key={ind} style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : { minWidth: c.width, width: c.width }} />)}
       </colgroup>
-      <thead style={{display: columnsHide ? 'none' : ''}}>
+      <thead style={{ display: columnsHide ? 'none' : '' }}>
         <tr>
           {tableColumns.map((c, ind) =>
             c.key === "check" ? (
@@ -110,7 +110,7 @@ const CustomTable = ({
                       setSelectedRows(tableData.map((d) => d[selectedId]));
                     }
                   }}
-                  onChange={() => {}}
+                  onChange={() => { }}
                 />
               </th>
             ) : (
@@ -142,7 +142,7 @@ const CustomTable = ({
                 {tableColumns.map((c, _ind) => (
                   <td
                     key={_ind}
-                    style={c.key === 'check' ? {minWidth: '60px', width:'60px'} : null}
+                    style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : null}
                   >
                     {c.render ? c.render(d) : d[c.key]}
                   </td>
@@ -168,57 +168,56 @@ const CustomTable = ({
         <tfoot>
           <tr className="custom-table-footer">
             {pagination && pageNum > 0 && (
-              <td
-                className="custom-pagination-container"
-                style={{
-                  width: pageNum > 5 ? 300 : 100 + pageNum * 40,
-                }}
-              >
-                <DoubleLeftArrow
-                  onClick={goToFirstPage}
-                  disabled={currentPage === 0}
-                />
-                <LeftArrow
-                  onClick={goToBeforePage}
-                  disabled={currentPage === 0}
-                />
-                <div
-                  className="custom-pagination-pages-container"
-                  style={{ width: pageNum > 5 ? 200 : pageNum * 40 }}
-                >
-                  {new Array(pageNum).fill(1).map((p, ind) => {
-                    const temp = (
-                      <span
-                        className={
-                          "custom-pagination-page-item " +
-                          (currentPage === ind ? "selected" : null)
-                        }
-                        onClick={() => {
-                          setCurrentPage(ind);
-                        }}
-                        key={ind}
-                      >
-                        {ind + 1}
-                      </span>
-                    );
-                    if (currentPage < 3) {
-                      if (ind < 5) return temp;
-                    } else if (currentPage > pageNum - 3) {
-                      if (ind > pageNum - 6) return temp;
-                    } else if (currentPage) {
-                      if (ind < currentPage + 3 && ind > currentPage - 3)
-                        return temp;
-                    } else if (pageNum < 5) return temp;
-                  })}
+              <td colSpan={5}>
+                <div className="custom-pagination-container">
+                  <div className="custom-pagination-items" style={{ width: (pageNum > 5 ? 150 : pageNum * 30) + 92 }}>
+                    <DoubleLeftArrow
+                      onClick={goToFirstPage}
+                      disabled={currentPage === 0 || currentPage === 1}
+                    />
+                    <LeftArrow
+                      onClick={goToBeforePage}
+                      disabled={currentPage === 0}
+                    />
+                    <div
+                      className="custom-pagination-pages-container"
+                      style={{ width: pageNum > 5 ? 150 : pageNum * 30 }}
+                    >
+                      {new Array(pageNum).fill(1).map((p, ind) => {
+                        const temp = (
+                          <span
+                            className={
+                              "custom-pagination-page-item" +
+                              (currentPage === ind ? " selected" : '')
+                            }
+                            onClick={() => {
+                              setCurrentPage(ind);
+                            }}
+                            key={ind}
+                          >
+                            {ind + 1}
+                          </span>
+                        );
+                        if (currentPage < 3) {
+                          if (ind < 5) return temp;
+                        } else if (currentPage > pageNum - 3) {
+                          if (ind > pageNum - 6) return temp;
+                        } else if (currentPage) {
+                          if (ind < currentPage + 3 && ind > currentPage - 3)
+                            return temp;
+                        } else if (pageNum < 5) return temp;
+                      })}
+                    </div>
+                    <RightArrow
+                      onClick={goToNextPage}
+                      disabled={currentPage === pageNum - 1}
+                    />
+                    <DoubleRightArrow
+                      onClick={goToLastPage}
+                      disabled={currentPage === pageNum - 1 || currentPage === pageNum - 2}
+                    />
+                  </div>
                 </div>
-                <RightArrow
-                  onClick={goToNextPage}
-                  disabled={currentPage === pageNum - 1}
-                />
-                <DoubleRightArrow
-                  onClick={goToLastPage}
-                  disabled={currentPage === pageNum - 1}
-                />
               </td>
             )}
           </tr>

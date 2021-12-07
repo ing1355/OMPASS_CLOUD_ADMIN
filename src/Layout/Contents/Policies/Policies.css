@@ -38,9 +38,9 @@
 }
 
 .PoliciesBox table tbody tr:hover {
-  background: none !important;
-  cursor: auto;
+  /* background: none !important; */
 }
+
 .ant-drawer-mask {
   background: rgba(0, 0, 0, 0.671);
 }
