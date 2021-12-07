@@ -6,6 +6,7 @@ import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
   const isSelected = submenu
@@ -38,14 +39,14 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
       }
     }
   };
-
+  
   return (
     <Link to={route}>
       <div
         className={"menu-item pointer " + (isSelected ? "selected" : "")}
         onClick={menuClickEvent}
       >
-        <div className="menu-item-title">{name}</div>
+        <div className="menu-item-title"><FormattedMessage id={name}/></div>
         {submenu && (
           <img
             src={isSelected && subMenuOpen ? upArrow : downArrow}

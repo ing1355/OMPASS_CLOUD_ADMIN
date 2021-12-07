@@ -36,11 +36,11 @@ export const DashboardLogColumns = [
 ];
 
 export const LogsColumns = [
-  { name: "사용자 아이디", key: "userId" },
-  { name: "활동", key: "act" },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "status" },
-  { name: "시간", key: "createdDate" },
+  { name: "사용자 아이디", key: "userId", width: 220 },
+  { name: "활동", key: "act", width: 170 },
+  { name: "어플리케이션 Name", key: "appName" },
+  { name: "상태", key: "status", width: 130 },
+  { name: "시간", key: "createdDate", width: 220 },
 ];
 
 export const allUserColumns = [
@@ -51,8 +51,10 @@ export const allUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
-    width: '100px'
+    render: (d) => {
+      return <CustomSwitch defaultChecked={d.byPass} />;
+    },
+    width: "100px",
   },
 ];
 
@@ -65,7 +67,7 @@ export const disabledUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
-    width: '100px'
+    width: "100px",
   },
 ];
 
@@ -78,7 +80,7 @@ export const byPassUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
-    width: '100px'
+    width: "100px",
   },
 ];
 
@@ -91,23 +93,36 @@ export const unRegisteredUserColumns = [
     name: "바이패스",
     key: "byPass",
     render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
-    width: '100px'
+    width: "100px",
   },
 ];
 
 export const globalPolicyColumns = [
-  { name: 'Status', key: 'status', render: row => <div style={{textAlign:'center'}}>{row.status}</div>, width: '100px' },
-  { name: 'Policy Name', key: 'policy', width: '200px' },
-  { name: 'Description', key: 'description' }
-]
+  {
+    name: "Status",
+    key: "status",
+    render: (row) => <div style={{ textAlign: "center" }}>{row.status}</div>,
+    width: "100px",
+  },
+  { name: "Policy Name", key: "policy", width: "200px" },
+  { name: "Description", key: "description" },
+];
 
 const customPolicyItemWidth = 130;
 
 export const customPolicyColumns = [
-  { name: 'Title', key: 'title'},
-  { name: 'Auth policy', key: 'authenticationPolicy', width: customPolicyItemWidth},
-  { name: 'User location', key: 'userLocation', width: customPolicyItemWidth},
-  { name: 'Browsers', key: 'browsers', width: customPolicyItemWidth},
-  { name: 'Auth methods', key: 'authenticationMethods', width: customPolicyItemWidth},
-  { name: 'Mobile', key: 'mobile', width: customPolicyItemWidth}
-]
+  { name: "Title", key: "title" },
+  {
+    name: "Auth policy",
+    key: "authenticationPolicy",
+    width: customPolicyItemWidth,
+  },
+  { name: "User location", key: "userLocation", width: customPolicyItemWidth },
+  { name: "Browsers", key: "browsers", width: customPolicyItemWidth },
+  {
+    name: "Auth methods",
+    key: "authenticationMethods",
+    width: customPolicyItemWidth,
+  },
+  { name: "Mobile", key: "mobile", width: customPolicyItemWidth },
+];
