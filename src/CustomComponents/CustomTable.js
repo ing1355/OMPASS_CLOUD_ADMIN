@@ -105,7 +105,7 @@ const CustomTable = ({
           key={_ind}
           style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : null}
         >
-          {c.render ? c.render(d) : d[c.key]}
+          {c.render ? c.render(d[c.key], d) : d[c.key]}
         </td>
       ))}
     </tr>

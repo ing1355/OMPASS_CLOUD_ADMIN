@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
+import { slicePrice } from "../Functions/SlicePrice";
 
 export const AdminsColumns = [
   { name: "이름", key: "name" },
@@ -9,8 +10,8 @@ export const AdminsColumns = [
   { name: "국가", key: "country" },
 ];
 
-const makeDetail = (d) => (
-  <Link to={`/Applications/Detail/${d.appId}`}>
+const makeDetail = (data, row) => (
+  <Link to={`/Applications/Detail/${row.appId}`}>
     <button className="button">보기</button>
   </Link>
 );
@@ -22,7 +23,7 @@ export const ApplicationsColumns = [
 ];
 
 export const BillingColumns = [
-  { name: "금액", key: "amount" },
+  { name: "금액", key: "amount", render: amount => slicePrice(amount) },
   { name: "결제 날짜", key: "paymentDate" },
   { name: "결제 종류", key: "paymentHistory" },
 ];
@@ -51,8 +52,8 @@ export const allUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => {
-      return <CustomSwitch defaultChecked={d.byPass} />;
+    render: (byPass) => {
+      return <CustomSwitch defaultChecked={byPass} />;
     },
     width: "100px",
   },
@@ -66,7 +67,7 @@ export const disabledUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
     width: "100px",
   },
 ];
@@ -79,7 +80,7 @@ export const byPassUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
     width: "100px",
   },
 ];
@@ -92,7 +93,7 @@ export const unRegisteredUserColumns = [
   {
     name: "바이패스",
     key: "byPass",
-    render: (d) => <CustomSwitch defaultChecked={d.byPass} />,
+    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
     width: "100px",
   },
 ];
@@ -101,7 +102,7 @@ export const globalPolicyColumns = [
   {
     name: "Status",
     key: "status",
-    render: (row) => <div style={{ textAlign: "center" }}>{row.status}</div>,
+    render: (status) => <div style={{ textAlign: "center" }}>{status}</div>,
     width: "100px",
   },
   { name: "Policy Name", key: "policy", width: "200px" },
@@ -116,13 +117,15 @@ export const customPolicyColumns = [
     name: "Auth policy",
     key: "authenticationPolicy",
     width: customPolicyItemWidth,
+    render: data => data ? 'O' : 'X'
   },
-  { name: "User location", key: "userLocation", width: customPolicyItemWidth },
-  { name: "Browsers", key: "browsers", width: customPolicyItemWidth },
+  { name: "User location", key: "userLocation", width: customPolicyItemWidth, render: data => data && data.length > 0 ? 'O' : 'X' },
+  { name: "Browsers", key: "browsers", width: customPolicyItemWidth, render: data => data && data.length > 0 ? 'O' : 'X' },
   {
     name: "Auth methods",
     key: "authenticationMethods",
     width: customPolicyItemWidth,
+    render: data => data && data.length > 0 ? 'O' : 'X'
   },
-  { name: "Mobile", key: "mobile", width: customPolicyItemWidth },
+  { name: "Mobile", key: "mobile", width: customPolicyItemWidth, render: data => data ? 'O' : 'X' },
 ];

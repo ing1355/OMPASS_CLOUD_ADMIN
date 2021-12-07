@@ -114,14 +114,12 @@ li {
 }
 
 select {
-  width: 60%;
-  height: 3rem;
   margin-bottom: 1rem;
   padding-left: 10px;
   border: 1px solid #bfbfbf;
   background: #fff;
-  font-size: 0.8rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+  /* font-size: 0.8rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important; */
   outline: 0;
 }
 
