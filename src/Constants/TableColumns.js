@@ -36,11 +36,11 @@ export const DashboardLogColumns = [
 ];
 
 export const LogsColumns = [
-  { name: "User ID", key: "userId" },
-  { name: "Action", key: "act" },
-  { name: "Application Name", key: "appName" },
-  { name: "Status", key: "status" },
-  { name: "Time", key: "createdDate" },
+  { name: "사용자 아이디", key: "userId" },
+  { name: "활동", key: "act" },
+  { name: "어플리케이션", key: "appName" },
+  { name: "상태", key: "status" },
+  { name: "시간", key: "createdDate" },
 ];
 
 export const allUserColumns = [
