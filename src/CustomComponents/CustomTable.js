@@ -159,7 +159,7 @@ const CustomTable = ({
                 </div>
               </td>
             ) : (
-              <td className="no-data">No Data</td>
+              <td className="no-data" colSpan={tableColumns.length}>No Data</td>
             )}
           </tr>
         )}
