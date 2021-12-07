@@ -10,13 +10,13 @@ const AxiosController = ({setIsLogin}) => {
 
     useLayoutEffect(() => {
         axios.interceptors.request.use(req => {
-            console.log(req);
+            if(process.env.NODE_ENV !== 'production') console.log(req);
             return req;
         }, err => {
             console.log(err);
         })
         axios.interceptors.response.use(res => {
-            console.log(res);
+            if(process.env.NODE_ENV !== 'production') console.log(res);
             return res;
         }, (err) => {
             const url = err.response.config.url.split('/');
@@ -25,7 +25,6 @@ const AxiosController = ({setIsLogin}) => {
                 setIsLogin(false);
             }
             console.log(err.response.data);
-            // CustomConsoleLog(err);
         })
     }, [])
 
