@@ -44,10 +44,10 @@ export const LogsColumns = [
 ];
 
 export const allUserColumns = [
-  { name: "아이디", key: "userId" },
+  { name: "아이디", key: "userId", width: 230 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type" },
-  { name: "마지막 로그인", key: "lastLoginDate" },
+  { name: "상태", key: "type", width: 120 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
   {
     name: "바이패스",
     key: "byPass",
@@ -59,10 +59,10 @@ export const allUserColumns = [
 ];
 
 export const disabledUserColumns = [
-  { name: "아이디", key: "userId" },
+  { name: "아이디", key: "userId", width: 230 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type" },
-  { name: "마지막 로그인", key: "lastLoginDate" },
+  { name: "상태", key: "type", width: 120 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
   {
     name: "바이패스",
     key: "byPass",
@@ -72,10 +72,10 @@ export const disabledUserColumns = [
 ];
 
 export const byPassUserColumns = [
-  { name: "아이디", key: "userId" },
+  { name: "아이디", key: "userId", width: 230 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type" },
-  { name: "마지막 로그인", key: "lastLoginDate" },
+  { name: "상태", key: "type", width: 120 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
   {
     name: "바이패스",
     key: "byPass",
@@ -85,10 +85,10 @@ export const byPassUserColumns = [
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "아이디", key: "userId" },
+  { name: "아이디", key: "userId", width: 230 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type" },
-  { name: "마지막 로그인", key: "lastLoginDate" },
+  { name: "상태", key: "type", width: 120 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
   {
     name: "바이패스",
     key: "byPass",
