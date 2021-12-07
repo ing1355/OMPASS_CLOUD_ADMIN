@@ -16,6 +16,8 @@ const CustomTable = ({
   selectedId,
   onChangeSelectedRows,
   rowSelectable,
+  className,
+  columnsHide
 }) => {
   const firstRenderRef = useRef(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -88,12 +90,15 @@ const CustomTable = ({
   };
 
   return (
-    <table className="custom-table-box">
-      <thead>
+    <table className={className ?  "custom-table-box " + className : 'custom-table-box'}>
+      <colgroup>
+        {tableColumns.map((c, ind) => <col key={ind} style={c.key === 'check' ? {minWidth: '60px', width: '60px'} : {minWidth: c.width, width: c.width}}/>)}
+      </colgroup>
+      <thead style={{display: columnsHide ? 'none' : ''}}>
         <tr>
           {tableColumns.map((c, ind) =>
             c.key === "check" ? (
-              <th key={ind} style={{ width: "60px" }}>
+              <th key={ind} style={{ minWidth: "60px", width: '60px' }}>
                 <input
                   className="table-all-row-select-checkbox"
                   checked={tableData.length > 0 && selectedRows.length === tableData.length}
@@ -110,11 +115,7 @@ const CustomTable = ({
               </th>
             ) : (
               <th
-                key={ind}
-                style={{
-                  width: `calc((100% -50px)/${tableColumns.length - 1})`,
-                }}
-              >
+                key={ind}>
                 {c.name}
               </th>
             )
@@ -141,12 +142,7 @@ const CustomTable = ({
                 {tableColumns.map((c, _ind) => (
                   <td
                     key={_ind}
-                    style={{
-                      width:
-                        c.key === "check"
-                          ? "60px"
-                          : `calc((100% -50px)/${tableColumns.length - 1})`,
-                    }}
+                    style={c.key === 'check' ? {minWidth: '60px', width:'60px'} : null}
                   >
                     {c.render ? c.render(d) : d[c.key]}
                   </td>

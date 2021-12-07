@@ -49,42 +49,30 @@ a {
 table {
   width: 100%;
   height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 table tr {
-  height: 55px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-table tr th {
-  justify-content: center;
-  display: flex;
-  background: #256e8b;
-  height: 50px;
-  width: 8rem;
-  align-items: center;
-  color: #fff;
-  font-weight: 500;
-}
-table thead tr td,
-table tbody tr td {
-  justify-content: center;
-  display: flex;
-  align-items: center;
   height: 55px;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
+
+table td, table th {
+  padding: 8px;
+}
+
+table tr th {
+  background: #256e8b;
+  height: 100%;
+  color: #fff;
+  font-weight: 500;
+}
+
 .button {
   background-color: #00a9ec;
   padding: 0.5rem 1.7rem;
-  border: 0;
-  outline: 0;
+  border: none;
+  outline: none;
   color: #fff;
   cursor: pointer;
 }
@@ -95,9 +83,9 @@ table tbody tr td {
 table tbody tr:hover {
   background-color: #256e8b15;
 }
-table tbody tr:nth-child(1) {
+/* table tbody tr:nth-child(1) {
   margin-top: -0.18rem;
-}
+} */
 .ant-form-item-label
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   color: gray !important;

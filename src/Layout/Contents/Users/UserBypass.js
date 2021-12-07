@@ -4,7 +4,7 @@ import { byPassUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
 const UserBypass = ({ tableData, setDetailData }) => {
-
+  // console.log(tableData);
   return (
     <>
       <UsersTable tableData={tableData} setDetailData={setDetailData} columns={byPassUserColumns}/>

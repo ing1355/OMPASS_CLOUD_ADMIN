@@ -144,7 +144,7 @@ const Dashboard = ({ userProfile }) => {
                     <tr>
                       <td
                         style={{
-                          width: "100%",
+                          width: "50%",
                           background: "#256e8b",
                           color: "#fff",
                           fontWeight: "bold",
@@ -155,7 +155,7 @@ const Dashboard = ({ userProfile }) => {
                       </td>
                       <td
                         style={{
-                          width: "100%",
+                          width: "50%",
                           fontWeight: "bold",
                           fontSize: "1rem",
                           borderRight: "1px solid rgb(180, 180, 180)",

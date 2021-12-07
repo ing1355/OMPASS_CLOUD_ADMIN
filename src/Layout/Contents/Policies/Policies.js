@@ -1,99 +1,46 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import "./Policies.css";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
-import { Drawer, Space } from "antd";
 import GlobalPolicy from "./Global_Policy";
-import NewPolicy from "./New_Policy";
+import { message } from "antd";
+import CustomTable from "../../../CustomComponents/CustomTable";
+import { customPolicyColumns, globalPolicyColumns } from "../../../Constants/TableColumns";
 
-const policies = [{ name: "Users", items: [{ name: "New User policy" }] }];
+const globalPolicyTableData = [
+  { status: 'Enabled', policy: 'Authentication policy', description: 'Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.' },
+  { status: '', policy: 'User location', description: 'No restrictions.' },
+  { status: '', policy: 'Browsers', description: "Don't require users to have the app" },
+  { status: '', policy: 'Authentication methods', description: 'No restrictions.' },
+  { status: '', policy: 'OMPASS Mobile app', description: 'No restrictions.' }
+]
+
+const customPolicyTableMockData = [
+  { title: 'test1', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: true, mobile: true },
+  { title: 'test2', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: true, mobile: false },
+  { title: 'test3', authenticationPolicy: true, userLocation: true, browsers: true, authenticationMethods: false, mobile: true },
+  { title: 'test4', authenticationPolicy: true, userLocation: true, browsers: false, authenticationMethods: true, mobile: true }
+]
 
 const Policies = () => {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
-  const [newPolicy_editDrawerOpen, setNewPolicy_editDrawerOpen] =
-    useState(false);
-  const TopButton = () => {
-    window.scrollTo(0, 0);
-  };
+  const [isCustomPolicy, setIsCustomPolicy] = useState(false);
+
+  const saveCallback = () => {
+    setEditDrawerOpen(false);
+    message.success('저장하였습니다.')
+    console.log('save test')
+  }
+
   return (
     <div
       className="contents-container"
-      style={{ position: "relative", overflow: "hidden" }}
-    >
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div>Edit Global Policy</div>
-            <Space>
-              <button className="button">저장</button>
-              <button
-                className="button"
-                onClick={() => {
-                  setEditDrawerOpen(false);
-                }}
-              >
-                닫기
-              </button>
-            </Space>
-          </div>
-        }
-        visible={editDrawerOpen}
-        closable={false}
-        getContainer={false}
-        placement="right"
-        style={{ position: "absolute" }}
-        bodyStyle={{ paddingBottom: 80 }}
-        destroyOnClose
-        width={900}
-      >
-        <div>{editDrawerOpen === true ? <GlobalPolicy /> : null}</div>
-      </Drawer>
+      style={{ position: "relative", overflow: "hidden" }}>
 
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div>Custom Policies</div>
-            <Space>
-              <button className="button">저장</button>
-              <button
-                className="button"
-                onClick={() => {
-                  setNewPolicy_editDrawerOpen(false);
-                }}
-              >
-                닫기
-              </button>
-            </Space>
-          </div>
-        }
-        visible={newPolicy_editDrawerOpen}
-        closable={false}
-        getContainer={false}
-        placement="right"
-        style={{ position: "absolute" }}
-        bodyStyle={{ paddingBottom: 80 }}
-        destroyOnClose
-        width={900}
-      >
-        <div>{newPolicy_editDrawerOpen === true ? <NewPolicy /> : null}</div>
-      </Drawer>
+      <GlobalPolicy visible={editDrawerOpen} setVisible={setEditDrawerOpen} isCustomPolicy={isCustomPolicy} saveCallback={saveCallback} />
 
-      <ContentsTitle />
+      <ContentsTitle title="Policy Info" />
       <div className="PoliciesBox">
         <div className="PoliciesTitleBox">
           <p>
@@ -104,6 +51,7 @@ const Policies = () => {
           <button
             className="button"
             onClick={() => {
+              setIsCustomPolicy(false);
               setEditDrawerOpen(true);
             }}
           >
@@ -111,13 +59,15 @@ const Policies = () => {
           </button>
         </div>
 
-        <table>
+        <CustomTable
+          columns={globalPolicyColumns}
+          datas={globalPolicyTableData}
+          className="global-policy-table-container"
+          // columnsHide={true}
+        />
+
+        {/* <table>
           <tbody>
-            <tr>
-              <th style={{ color: "#000" }}>Enabled</th>
-              <td>New User policy</td>
-              <td>Prompt unenrolled users to enroll whenever possible.</td>
-            </tr>
             <tr>
               <th></th>
               <td>Authentication policy</td>
@@ -155,7 +105,7 @@ const Policies = () => {
               <td>No restrictions.</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
         <div className="PoliciesBottomBox">
           <h5>Custom Policies</h5>
           <p>
@@ -163,10 +113,12 @@ const Policies = () => {
             custom policy and assign it to those applications. Policy settings
             in a custom policy will override anything set in the global policy.
           </p>
+          <CustomTable columns={customPolicyColumns} datas={customPolicyTableMockData} />
           <button
             className="button"
             onClick={() => {
-              setNewPolicy_editDrawerOpen(true);
+              setIsCustomPolicy(true);
+              setEditDrawerOpen(true);
             }}
           >
             New Policy

@@ -1,38 +1,27 @@
 .PoliciesBox {
-  width: 100% !important;
-  margin-top: 1rem;
-  text-align: left !important;
-}
-.PoliciesBox table {
-  margin-top: 2rem !important;
   width: 100%;
-  margin: 0 auto;
-  margin-bottom: 5rem;
-  text-align: left !important;
+  margin-top: 1rem;
+  text-align: left;
 }
 .PoliciesBox button {
-  color: #fff !important;
+  color: #fff;
+}
+.PoliciesBox table {
+  margin-top: 2rem;
+  /* width: 100%; */
+  /* margin: 0 auto; */
+  margin-bottom: 5rem;
 }
 .PoliciesBox table tr {
   width: 100%;
   height: 60px;
-  border-bottom: 1px solid rgba(117, 117, 117, 0.158);
 }
-.PoliciesBox table tr td {
-  justify-content: left !important;
+
+.global-policy-table-container thead th:nth-child(2), .global-policy-table-container thead th:nth-child(3),
+.global-policy-table-container tbody td:nth-child(2), .global-policy-table-container tbody td:nth-child(3) {
+  text-align: left;
 }
-.PoliciesBox table tr th {
-  background: none !important;
-  justify-content: left !important;
-}
-.PoliciesBox table td:nth-child(2) {
-  flex: 2;
-  border: 0;
-}
-.PoliciesBox table td:nth-child(3) {
-  flex: 5;
-  border: 0;
-}
+
 .PoliciesTitleBox {
   width: 25rem;
 }

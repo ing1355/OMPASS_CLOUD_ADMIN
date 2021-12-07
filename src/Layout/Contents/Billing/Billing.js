@@ -49,6 +49,22 @@ const Billing = ({ userProfile }) => {
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
+  const slicePrice = useCallback((price) => {
+    const _price = price + '';
+    if(_price.length < 4) return _price;
+    else {
+      const result = [];
+      for(var i=0;i<_price.length / 3; i++) {
+        if(_price.length % 3 === 0) result.push(_price.substring(i * 3, i*3 + 3))
+        else {
+          if(i === 0) result.push(_price.substring(0, _price.length % 3))
+          else result.push(_price.substring(((i-1) * 3) + (_price.length % 3), ((i-1)*3) + (_price.length % 3) + 3))
+        }
+      }
+      return result.join(',');
+    }
+  },[])
+
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
       setCost(
@@ -63,7 +79,6 @@ const Billing = ({ userProfile }) => {
       [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
-          console.log(data);
           const { numberUsers, plan, pricing } = data;
           setAllUserNum(numberUsers);
           setCurrentPlan(plan);
@@ -302,8 +317,8 @@ const Billing = ({ userProfile }) => {
               title={ind === 0 ? item.cardTitle : editions[ind-1].name}
               subTitle={`${
                 isKorea()
-                  ? (ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " 원"
-                  : (ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " $"
+                  ? slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " 원"
+                  : slicePrice(ind === 0 ? 0 : editions[ind-1].priceForOneUser) + " $"
               } / ${isKorea() ? "1인" : "User"} / Month`}
             />
             {item.itemLists.map((itemList, _ind) => (
@@ -384,7 +399,7 @@ const Billing = ({ userProfile }) => {
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">Cost</label>
-            <b>{isKorea() ? cost + " 원" : "$" + cost}</b>
+            <b>{isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}</b>
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <div className="billing-change-item">
@@ -433,7 +448,7 @@ const Billing = ({ userProfile }) => {
             <br />
             Cost :{" "}
             <b style={{ color: "Red" }}>
-              {isKorea() ? cost + " 원" : "$" + cost}
+              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>

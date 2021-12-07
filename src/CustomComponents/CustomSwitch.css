@@ -19,7 +19,7 @@
     -moz-transition: all .3s; 
     -ms-transition: all .3s; 
     -o-transition: all .3s; 
-    transition: all .3s; 
+    transition: all .3s;
 } 
 
 .label__on-off > * { 
@@ -45,7 +45,8 @@
     border-radius: 50%; 
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
-    box-shadow: 0 0 10px rgba(0, 0, 0, .3); } 
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
+} 
     
     .label__on-off .on { 
         display: none; 
@@ -53,12 +54,13 @@
     } 
     
     .label__on-off .off { 
-        padding-left: 30px; 
+        padding-left: 20px; 
         line-height: 25px; 
     } 
     
     .input__on-off:checked + .label__on-off { 
         background-color: #0bba82; 
+        text-align: left;
     } 
     
     .input__on-off:checked + .label__on-off .on { 

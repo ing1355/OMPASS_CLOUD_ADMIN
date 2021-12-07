@@ -6,6 +6,11 @@ export const nameTest = (value) => {
     return _.test(value) && __.test(value);
 }
 
+export const ipAddressTest = (value) => {
+    const _ = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    return _.test(value);
+}
+
 export const mobileTest = (value) => {
     const _ = /^\d{2,3}-\d{3,4}-\d{4}$/
     return _.test(value);
