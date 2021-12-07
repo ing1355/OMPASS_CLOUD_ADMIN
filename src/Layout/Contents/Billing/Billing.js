@@ -285,13 +285,13 @@ const Billing = ({ userProfile }) => {
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billings Info" />
-      <div className="billing-change-help-container">
+      {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
-          평가판이 종료되면 최대 10명의 사용자에게 항상 무료로 제공되는 OMPASS
-          Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로 변경하십시오.
+          체험판이 종료되면 최대 10명의 사용자가 사용할 수 있는 OMPASS Plan으로
+          전환됩니다
         </div>
-      </div>
+      </div> */}
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">

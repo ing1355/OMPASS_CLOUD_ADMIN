@@ -22,6 +22,7 @@
 .billing-edition-container {
   display: flex;
   flex-direction: row;
+  border-top: 1px solid #bfc4c7;
 }
 
 .billing-edition-container > div {
@@ -105,6 +106,10 @@
 .billing-change-item:last-child {
   padding-left: 200px;
   display: block;
+}
+
+.billing-change-item button {
+  margin-top: -1rem !important;
 }
 .billing-change-container select {
   margin-bottom: 0;

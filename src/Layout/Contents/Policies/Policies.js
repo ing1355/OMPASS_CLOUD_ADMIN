@@ -71,10 +71,10 @@ const Policies = () => {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isCustomPolicy, setIsCustomPolicy] = useState(false);
 
-  const saveCallback = () => {
+  const saveCallback = (result) => {
     setEditDrawerOpen(false);
     message.success("저장하였습니다.");
-    console.log("save test");
+    console.log("save test", result);
   };
 
   return (
