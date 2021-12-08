@@ -18,7 +18,8 @@ import {
   FailToTest,
   nameTest,
 } from "../../../Constants/InputRules";
-
+import { CopyOutlined } from "@ant-design/icons";
+import CustomButton from "../../../CustomComponents/CustomButton";
 const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
@@ -114,6 +115,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
                 중복체크
               </button>
             </div>
+
             <div className="Application-label-input-box">
               <label>도메인 주소</label>
               <input name="domain" placeholder="도메인 주소를 입력하세요." />
@@ -125,13 +127,33 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
                 placeholder="Redirect URL를 입력하세요."
               />
             </div>
+            <div className="Application-label-input-box">
+              <label>상태</label>
+              <input
+                name="status"
+                value="Active"
+                type="radio"
+                style={{ width: "15px" }}
+              />
+              <label className="label-radio">Active</label>
+              <input
+                name="status"
+                value="Inactive"
+                type="radio"
+                style={{ width: "15px" }}
+              />
+              <label className="label-radio">Inactive</label>
+            </div>
             <div className="ApplicationsTitle" style={{ marginBottom: "0" }}>
               <h2 style={{ marginTop: "1rem", marginBottom: "0.5rem" }}>
                 정책
               </h2>
               <p>해당 어플리케이션에 커스텀 정책을 적용할 수 있습니다.</p>
             </div>
-            <div className="Application-label-input-box">
+            <div
+              className="Application-label-input-box"
+              style={{ marginTop: "1rem" }}
+            >
               <label> 정책 설정</label>
               <select name="order">
                 <option selected disabled></option>
