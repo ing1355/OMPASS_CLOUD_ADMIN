@@ -1,6 +1,6 @@
 .policies-box {
   width: 100% !important;
-  border-bottom: 1px solid rgb(180, 180, 180);
+  /* border-bottom: 1px solid rgb(180, 180, 180); */
   padding: 1rem 2rem;
 }
 .policies-box h2 {
@@ -32,7 +32,8 @@
   width: 60%;
 }
 
-.user-location-input, .title-input {
+.user-location-input,
+.title-input {
   height: 50px;
   border: 1px solid #bfc4c7;
   background: none;

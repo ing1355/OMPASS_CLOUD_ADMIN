@@ -84,8 +84,11 @@ const Billing = ({ userProfile }) => {
     {
       cardTitle: "OMPASS Free",
       itemLists: [
-        { content: "Limited to 10 users", fontWeight: 700 },
-        { content: "Designed for personal and home usage" },
+        { content: "30일 무료 체험", fontWeight: 700 },
+        { content: "2FA for VPN and Web Apps" },
+        { content: "패스워드 없이 인증" },
+        { content: "2차 인증" },
+        { content: "WEBAUTHN 지원" },
       ],
     },
     {
@@ -113,7 +116,8 @@ const Billing = ({ userProfile }) => {
   const onFinish = (e) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
-    if (!check.checked) return message.error("Agreement에 체크해주세요.");
+    if (allUserNum >= userNum.value) return message.error('변경할 사용자 수가 너무 적습니다.')
+    if (!check.checked) return message.error("이용 동의에 체크해주세요.");
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
@@ -393,7 +397,7 @@ const Billing = ({ userProfile }) => {
               <label>
                 {" "}
                 이용약관, 가격 및 수수료 규정에 동의합니다.
-                <br /> 결제일로 부터 30일 간격으로 2,200원이 자동으로
+                <br /> 결제일로 부터 30일 간격으로 {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}이 자동으로
                 결제됩니다.
               </label>
             </div>
