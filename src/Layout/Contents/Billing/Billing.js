@@ -16,14 +16,12 @@ import {
   getBillingKeyApi,
   getPaymentHistoryApi,
   getBillingInfoApi,
-  getUsersApi,
   startPaypalApi,
   subscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import {
-  CustomAxiosGet,
   CustomAxiosGetAll,
   CustomAxiosPost,
 } from "../../../Functions/CustomAxios";
@@ -31,6 +29,7 @@ import ContentsTitle from "../ContentsTitle";
 import "./Billing.css";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { BillingColumns } from "../../../Constants/TableColumns";
+import { slicePrice } from "../../../Functions/SlicePrice";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
@@ -48,29 +47,6 @@ const Billing = ({ userProfile }) => {
   const [cost, setCost] = useState(0);
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
-
-  const slicePrice = useCallback((price) => {
-    const _price = price + "";
-    if (_price.length < 4) return _price;
-    else {
-      const result = [];
-      for (var i = 0; i < _price.length / 3; i++) {
-        if (_price.length % 3 === 0)
-          result.push(_price.substring(i * 3, i * 3 + 3));
-        else {
-          if (i === 0) result.push(_price.substring(0, _price.length % 3));
-          else
-            result.push(
-              _price.substring(
-                (i - 1) * 3 + (_price.length % 3),
-                (i - 1) * 3 + (_price.length % 3) + 3
-              )
-            );
-        }
-      }
-      return result.join(",");
-    }
-  }, []);
 
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {

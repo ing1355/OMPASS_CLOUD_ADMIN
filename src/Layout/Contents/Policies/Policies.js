@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useCallback } from "react";
 import "./Policies.css";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
@@ -35,47 +35,80 @@ const globalPolicyTableData = [
 const customPolicyTableMockData = [
   {
     title: "test1",
-    authenticationPolicy: true,
-    userLocation: true,
-    browsers: true,
-    authenticationMethods: true,
-    mobile: true,
+    authenticationPolicy: 'active',
+    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
+    { ipAddress: '192.168.182.32', policy: 'inActive', },
+    { ipAddress: '192.168.182.22', policy: 'deny', }],
+    browsers: ['Chrome',
+    'Chrome Mobile',],
+    authenticationMethods: ['OMPASS Push',
+    'OMPASS Mobile passcodes',],
+    mobile: 'active',
   },
   {
     title: "test2",
-    authenticationPolicy: true,
-    userLocation: true,
-    browsers: true,
-    authenticationMethods: true,
-    mobile: false,
+    authenticationPolicy: 'inActive',
+    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
+    { ipAddress: '192.168.182.32', policy: 'inActive', },
+    { ipAddress: '192.168.182.22', policy: 'deny', }],
+    browsers: ['Chrome',
+    'Chrome Mobile',],
+    authenticationMethods: ['OMPASS Push',
+    'OMPASS Mobile passcodes',],
+    mobile: 'inActive',
   },
   {
     title: "test3",
-    authenticationPolicy: true,
-    userLocation: true,
-    browsers: true,
-    authenticationMethods: false,
-    mobile: true,
-  },
-  {
-    title: "test4",
-    authenticationPolicy: true,
-    userLocation: true,
-    browsers: false,
-    authenticationMethods: true,
-    mobile: true,
-  },
+    authenticationPolicy: 'deny',
+    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
+    { ipAddress: '192.168.182.32', policy: 'inActive', },
+    { ipAddress: '192.168.182.22', policy: 'deny', }],
+    browsers: ['Chrome',
+    'Chrome Mobile',],
+    authenticationMethods: ['OMPASS Push',
+    'OMPASS Mobile passcodes',],
+    mobile: 'active',
+  }
 ];
 
 const Policies = () => {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isCustomPolicy, setIsCustomPolicy] = useState(false);
+  const [isEditPolicy, setIsEditPolicy] = useState(false);
+  const [globalPoliciesData, setGlobalPoliciesData] = useState(globalPolicyTableData)
+  const [customPoliciesData, setCustomPoliciesData] = useState(customPolicyTableMockData)
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
-  const saveCallback = (result) => {
+  const saveCallback = useCallback((result) => {
+    console.log(isEditPolicy, isCustomPolicy)
     setEditDrawerOpen(false);
     message.success("저장하였습니다.");
+    if(isEditPolicy) {
+      if(isCustomPolicy) setCustomPoliciesData([...customPoliciesData, ({...result})])
+      else setGlobalPoliciesData(result)
+    } else { // Add New Policy
+      setCustomPoliciesData([...customPoliciesData, result])
+    }
     console.log("save test", result);
-  };
+  },[customPoliciesData, isEditPolicy, isCustomPolicy]);
+
+  const editCallback = useCallback((result, title) => {
+    if(isCustomPolicy) {
+      setCustomPoliciesData(customPoliciesData.map(c => c.title === title ? result : c))
+    } else {
+      setGlobalPoliciesData(result);
+    }
+  },[customPoliciesData, globalPoliciesData, isCustomPolicy])
+
+  const deleteCallback = useCallback((title) => {
+    message.success('삭제되었습니다.')
+    setEditDrawerOpen(false);
+    setCustomPoliciesData(customPoliciesData.filter(c => c.title !== title));
+  },[customPoliciesData])
+
+  useEffect(() => {
+    if(!editDrawerOpen) setSelectedRowData(null);
+  },[editDrawerOpen])
 
   return (
     <div
@@ -86,7 +119,11 @@ const Policies = () => {
         visible={editDrawerOpen}
         setVisible={setEditDrawerOpen}
         isCustomPolicy={isCustomPolicy}
+        isEditPolicy={isEditPolicy}
+        editData={selectedRowData}
         saveCallback={saveCallback}
+        editCallback={editCallback}
+        deleteCallback={deleteCallback}
       />
 
       <ContentsTitle title="Policy Info" />
@@ -100,6 +137,7 @@ const Policies = () => {
           <button
             className="button"
             onClick={() => {
+              setIsEditPolicy(true);
               setIsCustomPolicy(false);
               setEditDrawerOpen(true);
             }}
@@ -110,7 +148,7 @@ const Policies = () => {
 
         <CustomTable
           columns={globalPolicyColumns}
-          datas={globalPolicyTableData}
+          datas={globalPoliciesData}
           className="global-policy-table-container"
           // columnsHide={true}
         />
@@ -124,8 +162,10 @@ const Policies = () => {
           </p>
           <CustomTable
             columns={customPolicyColumns}
-            datas={customPolicyTableMockData}
-            rowClick={() => {
+            datas={customPoliciesData}
+            rowClick={(rowData) => {
+              setSelectedRowData(rowData);
+              setIsEditPolicy(true);
               setIsCustomPolicy(true);
               setEditDrawerOpen(true);
             }}
@@ -133,6 +173,7 @@ const Policies = () => {
           <button
             className="button"
             onClick={() => {
+              setIsEditPolicy(false);
               setIsCustomPolicy(true);
               setEditDrawerOpen(true);
             }}

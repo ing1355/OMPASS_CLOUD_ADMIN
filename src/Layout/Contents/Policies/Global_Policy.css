@@ -29,13 +29,12 @@
 }
 
 .title-input {
-  width: 100%;
+  width: 60%;
 }
 
 .user-location-input,
 .title-input {
   height: 50px;
-  /* display: inline-block; */
   border: 1px solid #bfc4c7;
   background: none;
   padding-left: 0.8rem;

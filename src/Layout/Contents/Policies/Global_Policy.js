@@ -5,6 +5,7 @@ import CustomButton from "../../../CustomComponents/CustomButton";
 import { UndoOutlined } from "@ant-design/icons";
 import { Drawer, message, Space } from "antd";
 import { ipAddressTest } from "../../../Constants/InputRules";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
 const userLocationsMockData = [
   { ipAddress: '192.168.182.42', policy: 'active', },
@@ -31,13 +32,34 @@ const AuthMethodsList = [
   'Hardware tokens'
 ]
 
-const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) => {
-  const [inputTitle, setInputTitle] = useState(null);
+const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback, editCallback, deleteCallback, isEditPolicy, editData }) => {
+  const [isExistTitle, setIsExistTitle] = useState(false);
+  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  const [inputTitle, setInputTitle] = useState('');
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState(userLocationsMockData);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
   const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
+
+  useLayoutEffect(() => {
+    if(editData) {
+      const {title, authenticationPolicy, userLocation, browsers, authenticationMethods, mobile} = editData
+      if(title) setInputTitle(title);
+      if(authenticationPolicy) setInputAuthCheck(authenticationPolicy)
+      if(userLocation) setInputUserLocations(userLocation)
+      if(browsers) setInputBrowserCheck(browsers)
+      if(authenticationMethods) setInputAuthMethodCheck(authenticationMethods)
+      if(mobile) setInputMobileCheck(mobile)
+    } else {
+      setInputTitle('');
+      setInputAuthCheck(null)
+      setInputUserLocations([])
+      setInputBrowserCheck([])
+      setInputAuthMethodCheck([])
+      setInputMobileCheck(null)
+    }
+  },[editData])
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {
@@ -50,8 +72,9 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
     if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
     if (inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck;
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck
-    if (saveCallback) saveCallback(result);
-  }, [saveCallback, inputTitle, inputAuthCheck, inputUserLocations, inputBrowserCheck, inputAuthMethodCheck, inputMobileCheck])
+    if (isEditPolicy && editCallback) editCallback(result);
+    if (!isEditPolicy && saveCallback) saveCallback(result);
+  }, [editCallback, saveCallback, inputTitle, inputAuthCheck, inputUserLocations, inputBrowserCheck, inputAuthMethodCheck, inputMobileCheck])
 
   const changeInputTitle = useCallback((e) => {
     setInputTitle(e.target.value);
@@ -89,6 +112,25 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
     setInputMobileCheck(e.target.value)
   }, [])
 
+  const checkExistTitle = useCallback(() => {
+    if (!inputTitle) return message.error('제목을 입력해주세요.')
+    setIsExistTitle(true);
+    message.success('사용 가능합니다.')
+  }, [inputTitle])
+
+  const openDeleteConfirm = useCallback(() => {
+    setDeleteConfirmVisible(true);
+  },[])
+
+  const closeDeleteConfirm = useCallback(() => {
+    setDeleteConfirmVisible(false)
+  }, [])
+
+  const _deleteCallback = useCallback(() => {
+    setDeleteConfirmVisible(false);
+    if(deleteCallback) deleteCallback(editData.title);
+  },[editData])
+
   return (
     <Drawer
       title={
@@ -103,6 +145,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
           <div>Edit {isCustomPolicy ? 'Custom' : 'Global'} Policy</div>
           <Space>
             <button className="button" onClick={_saveCallback}>저장</button>
+            <button className="button" onClick={openDeleteConfirm}>삭제</button>
             <button
               className="button"
               onClick={() => {
@@ -122,6 +165,15 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
       destroyOnClose
       width={900}
     >
+
+      <CustomConfirm
+        visible={deleteConfirmVisible}
+        footer={true}
+        cancelCallback={closeDeleteConfirm}
+        confirmCallback={_deleteCallback}
+      >
+        정말 삭제하시겠습니까?
+      </CustomConfirm>
       <div className="Global_Policy-box">
         <CustomButton className="policy-default-button" type="button">
           <UndoOutlined /> 기본값으로 변경
@@ -132,7 +184,10 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
           <h2>Title</h2>
           <div className="policies-sub-box">
             <div>
-              <input className="title-input" maxLength={20} onChange={changeInputTitle} />
+              <input className="title-input" maxLength={20} value={inputTitle} onChange={changeInputTitle} disabled={isEditPolicy}/>
+              <button className="select button" disabled={isExistTitle} type="button" style={{ height: '50px' }} onClick={checkExistTitle}>
+                중복체크
+            </button>
             </div>
           </div>
         </section>}
@@ -145,6 +200,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               name="status"
               value="active"
               type="radio"
+              checked={inputAuthCheck === 'active'}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -159,6 +215,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               name="status"
               value="inActive"
               type="radio"
+              checked={inputAuthCheck === 'inActive'}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -173,6 +230,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               name="status"
               value="deny"
               type="radio"
+              checked={inputAuthCheck === 'deny'}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -189,6 +247,25 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               OMPASS will do a country lookup on the host IP address and can apply
               actions based on the country.
           </h3>
+          <div>
+            <form onSubmit={e => {
+              e.preventDefault();
+              const {ipAddress, status} = e.target.elements
+              if(!ipAddress.value.length) return message.error('Ip를 입력해주세요.')
+              if(inputUserLocations.find(u => u.ipAddress === ipAddress.value)) return message.error('중복 Ip가 존재합니다.')
+              setInputUserLocations([...inputUserLocations, {ipAddress: ipAddress.value, policy: status.value}])
+              ipAddress.value = '';
+              status.value = 'active'
+            }}>
+              <input maxLength={15} name="ipAddress" className="user-location-input"/>
+              <select name="status" className="user-location-select">
+                <option value="active">Active</option>
+                <option value="inActive">Inactive</option>
+                <option value="deny">Deny</option>
+              </select>
+              <button type='submit' className="button">저장</button>
+            </form>
+            </div>
             {inputUserLocations.map((d, ind) => <div key={ind}>
               <input maxLength={15} className="user-location-input" value={d.ipAddress} onChange={e => {
                 changeInputUserLocation(e.target.value, ind, 'ipAddress')
@@ -200,6 +277,9 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
                 <option value="inActive">Inactive</option>
                 <option value="deny">Deny</option>
               </select>
+              <button className="button" onClick={() => {
+                setInputUserLocations(inputUserLocations.filter(u => u.ipAddress !== d.ipAddress))
+              }}>삭제</button>
             </div>)}
           </div>
         </section>
@@ -215,7 +295,8 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
             BrowsersList.map((bl, ind) => <div className="policies-sub-box" key={ind}>
               <input
                 name="browser"
-                value={inputBrowserCheck.includes(bl)}
+                value={bl}
+                checked={inputBrowserCheck.includes(bl)}
                 type="checkbox"
                 style={{ width: "15px" }}
                 onChange={() => { changeInputBrowserCheck(bl) }}
@@ -239,6 +320,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               <input
                 name="method"
                 value={am}
+                checked={inputAuthMethodCheck.includes(am)}
                 type="checkbox"
                 style={{ width: "15px" }}
                 onChange={() => { changeInputAuthMethodCheck(am) }}
@@ -257,6 +339,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               name="mobile"
               value="active"
               type="radio"
+              checked={inputMobileCheck === 'active'}
               style={{ width: "15px" }}
               onChange={changeInputMobilecheck}
             />
@@ -269,6 +352,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback }) =>
               name="mobile"
               value="inActive"
               type="radio"
+              checked={inputMobileCheck === 'inActive'}
               style={{ width: "15px" }}
               onChange={changeInputMobilecheck}
             />
