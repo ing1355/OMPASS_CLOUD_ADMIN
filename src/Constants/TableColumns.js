@@ -102,7 +102,7 @@ export const globalPolicyColumns = [
   {
     name: "Status",
     key: "status",
-    render: (status) => <div style={{ textAlign: "center" }}>{status}</div>,
+    render: (status,b) => <div style={{ textAlign: "center" }}>{status}{console.log(status,b)}</div>,
     width: "100px",
   },
   { name: "Policy Name", key: "policy", width: "200px" },

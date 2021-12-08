@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { allUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserAll = ({ tableData, setDetailData }) => {
+const UserAll = ({ tableData, setDetailData, tableLoading }) => {
 
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={allUserColumns}/>
+      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={allUserColumns} tableLoadng={tableLoading}/>
     </>
   );
 };

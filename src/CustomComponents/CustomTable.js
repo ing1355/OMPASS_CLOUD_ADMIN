@@ -151,7 +151,7 @@ const CustomTable = ({
           <tr className="no-data">
             {
               loading ? (
-                <td className="loading-td" >
+                <td className="loading-td" colSpan={tableColumns.length}>
                   <div className="box">
                     <div className="loader6"></div>
                     <p>data loading</p>

@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { byPassUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserBypass = ({ tableData, setDetailData }) => {
+const UserBypass = ({ tableData, setDetailData, tableLoading }) => {
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={byPassUserColumns}/>
+      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={byPassUserColumns} tableLoading={tableLoading}/>
     </>
   );
 };

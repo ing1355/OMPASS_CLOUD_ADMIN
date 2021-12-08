@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import "./Users.css";
 import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
@@ -42,30 +42,33 @@ const Users = ({ userProfile }) => {
   }, []);
 
   useLayoutEffect(() => {
+    setTableLoading(false);
+  },[_tableData])
+
+  useLayoutEffect(() => {
+    setTableLoading(true);
     switch (selectView) {
       case 0: _setTableData(tableData); break;
-      case 1: _setTableData(tableData); break;
-      case 2: _setTableData(tableData); break;
+      case 1: _setTableData(tableData.slice(0,1)); break;
+      case 2: _setTableData(tableData.slice(0,2)); break;
       case 3: _setTableData(tableData.filter((t) => t.byPass)); break;
       default: break;
     }
 
-  }, [selectView])
+  }, [selectView, tableData])
 
-  const updateEvent = (userId, byPass) => {
+  const updateEvent = useCallback((userId, byPass) => {
     setTableData(
       tableData.map((t) => (t.userId === userId ? { ...t, byPass } : t))
     );
-  };
+  },[tableData]);
 
-  const clickToDetail = (rowData) => {
+  const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
-  };
+  },[]);
 
-  const selectedBorder = (
-    <div className="selectedBorder" style={{ left: selectView * 25 + "%" }} />
-  );
+  const selectedBorder = useMemo(() =><div className="selectedBorder" style={{ left: selectView * 25 + "%" }} />,[selectView]);
 
   return (
     <div className="contents-container">
@@ -77,13 +80,6 @@ const Users = ({ userProfile }) => {
             exact
             render={() => (
               <>
-                {/* <div className="billing-change-help-container">
-                  <div className="billing-change-help-icon">test</div>
-                  <div className="billing-change-help-msg">
-                    Need to activate a replacement phone? Learn more about
-                    Reactivating Duo Mobile.
-                  </div>
-                </div> */}
 
                 <div className="UsersBox3">
                   <ul className="UsersBox3_title">
@@ -103,7 +99,7 @@ const Users = ({ userProfile }) => {
                     >
                       <h3>0</h3>
                       <p>등록되지 않은 사용자</p>
-                    </li>{" "}
+                    </li>
                     <li
                       onClick={() => {
                         setSelectView(2);
@@ -111,7 +107,7 @@ const Users = ({ userProfile }) => {
                     >
                       <h3>0</h3>
                       <p>비활성화된 사용자</p>
-                    </li>{" "}
+                    </li>
                     <li
                       onClick={() => {
                         setSelectView(3);
@@ -125,24 +121,28 @@ const Users = ({ userProfile }) => {
                     {selectView === 0 && (
                       <UserAll
                         tableData={_tableData}
+                        tableLoading={tableLoading}
                         setDetailData={clickToDetail}
                       />
                     )}
                     {selectView === 1 && (
                       <UserUnregistered
                         tableData={_tableData}
+                        tableLoading={tableLoading}
                         setDetailData={clickToDetail}
                       />
                     )}
                     {selectView === 2 && (
                       <UserDisabled
                         tableData={_tableData}
+                        tableLoading={tableLoading}
                         setDetailData={clickToDetail}
                       />
                     )}
                     {selectView === 3 && (
                       <UserBypass
                         tableData={_tableData}
+                        tableLoading={tableLoading}
                         setDetailData={clickToDetail}
                       />
                     )}

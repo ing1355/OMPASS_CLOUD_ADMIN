@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { disabledUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserDisabled = ({ tableData, setDetailData }) => {
+const UserDisabled = ({ tableData, setDetailData, tableLoading }) => {
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={disabledUserColumns} />
+      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={disabledUserColumns} tableLoading={tableLoading}/>
     </>
   );
 };

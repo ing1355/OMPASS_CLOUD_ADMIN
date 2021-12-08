@@ -42,7 +42,19 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback, edit
   const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
 
+  useEffect(() => {
+    if(visible) {
+      setInputTitle('');
+      setInputAuthCheck(null)
+      setInputUserLocations([])
+      setInputBrowserCheck([])
+      setInputAuthMethodCheck([])
+      setInputMobileCheck(null)
+    }
+  },[visible])
+
   useLayoutEffect(() => {
+    console.log(editData)
     if(editData) {
       const {title, authenticationPolicy, userLocation, browsers, authenticationMethods, mobile} = editData
       if(title) setInputTitle(title);
@@ -131,6 +143,10 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback, edit
     if(deleteCallback) deleteCallback(editData.title);
   },[editData])
 
+  const closePolicyDrawer = useCallback(() => {
+    setVisible(false);
+  },[])
+
   return (
     <Drawer
       title={
@@ -145,12 +161,10 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback, edit
           <div>Edit {isCustomPolicy ? 'Custom' : 'Global'} Policy</div>
           <Space>
             <button className="button" onClick={_saveCallback}>저장</button>
-            <button className="button" onClick={openDeleteConfirm}>삭제</button>
+            {isEditPolicy && isCustomPolicy && <button className="button" onClick={openDeleteConfirm}>삭제</button>}
             <button
               className="button"
-              onClick={() => {
-                setVisible(false);
-              }}
+              onClick={closePolicyDrawer}
             >
               닫기
               </button>
@@ -160,6 +174,7 @@ const Global_Policy = ({ visible, setVisible, isCustomPolicy, saveCallback, edit
       visible={visible}
       closable={false}
       placement="right"
+      // onClose={closePolicyDrawer}
       style={{ position: "absolute" }}
       bodyStyle={{ paddingBottom: 80 }}
       destroyOnClose

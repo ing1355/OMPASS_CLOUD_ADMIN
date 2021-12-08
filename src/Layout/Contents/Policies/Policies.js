@@ -11,9 +11,21 @@ import {
   globalPolicyColumns,
 } from "../../../Constants/TableColumns";
 
+const globalPolicyMockData = {
+  authenticationPolicy: 'active',
+  userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
+  { ipAddress: '192.168.182.32', policy: 'inActive', },
+  { ipAddress: '192.168.182.22', policy: 'deny', }],
+  browsers: ['Chrome',
+  'Chrome Mobile',],
+  authenticationMethods: ['OMPASS Push',
+  'OMPASS Mobile passcodes',],
+  mobile: 'active',
+}
+
 const globalPolicyTableData = [
   {
-    status: "Enabled",
+    status: "",
     policy: "Authentication policy",
     description:
       "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
@@ -137,6 +149,7 @@ const Policies = () => {
           <button
             className="button"
             onClick={() => {
+              setSelectedRowData(globalPoliciesData)
               setIsEditPolicy(true);
               setIsCustomPolicy(false);
               setEditDrawerOpen(true);

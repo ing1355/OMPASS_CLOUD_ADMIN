@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { unRegisteredUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserUnregistered = ({ tableData, setDetailData }) => {
+const UserUnregistered = ({ tableData, setDetailData, tableLoading }) => {
 
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={unRegisteredUserColumns}/>
+      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={unRegisteredUserColumns} tableLoading={tableLoading}/>
     </>
   );
 };
