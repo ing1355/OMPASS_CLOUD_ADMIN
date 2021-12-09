@@ -40,12 +40,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
             index === _index ? { ...ul, location: value } : ul
           )
         );
-      } else if (type === 'isEdit') {
-        setTempUserLocations(
-          tempUserLocations.map((ul, _index) =>
-            index === _index ? { ...ul, isEdit: value } : ul
-          )
-        );
       }
     },
     [tempUserLocations]
@@ -78,14 +72,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
         <Redirect to="/Users" />
       ) : (
         <div className="ApplicationsBox">
-          {/* <div className="billing-change-help-container">
-            <div className="billing-change-help-icon" />
-            <div className="billing-change-help-msg">
-              평가판이 종료되면 최대 10명의 사용자에게 항상 무료로 제공되는
-              OMPASS Free로 전환됩니다. 아래 양식을 사용하여 다른 버전으로
-              변경하십시오.
-            </div>
-          </div> */}
           <form className="form-box" onSubmit={onFinish}>
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
@@ -95,22 +81,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 <p className="userdetailP">{userId}</p>
               </div>
             </div>
-
-            {/* <div className="ant-row inputBox ant-form-item">
-              <div className="ant-col-4 ant-form-item-label-left">
-                <label>+ Add a username alias</label>
-              </div>
-              <div className="ant-col ant-form-item-control">
-                <p className="userdetailP">Users can have up to 8 aliases.</p>
-                <p className="userdetailP">
-                  Optionally, you may choose to reserve using an alias number
-                  for a specific alias
-                </p>
-                <p className="userdetailP">
-                  (e.g., Username alias 1 should only be used for Employee ID)
-                </p>
-              </div>
-            </div> */}
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
@@ -164,10 +134,10 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
                 재정의할 수 있습니다.
               </p>
-              <button onClick={() => {
-
+              <button type="button" onClick={() => {
+                setIsOwnPolicy(!isOwnPolicy)
               }}>{isOwnPolicy ? '비활성화' : '활성화'}</button>
-              <div className="user-policies-container">
+              <div className={"user-policies-container" + (isOwnPolicy ? '' : ' disabled')}>
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
                     <label>Authentication policy :</label>
@@ -179,35 +149,42 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                     <div>
                       <input
                         className="userDetailInput"
-                        name="byPass"
+                        name="status"
+                        value="ACTIVE"
                         type="radio"
-                        value={true}
-                        defaultChecked={byPass}
-                        onChange={(e) => {
-                          setInputByPass(true);
-                        }}
+                        defaultChecked={policyData.accessControl === "ACTIVE"}
                       />
-                      <label className="label"> 활성화</label>
+                      <label className="label"> 2차 인증 필수</label>
                     </div>
                     <div className="label-bottom-text">
-                      OMPASS 인증 없이 로그인 가능합니다.
-                    </div>
+                      Requir two-factor authentication or enrollment when applicable,<br />
+                      unless there is a superseding policy configured.
+                </div>
                     <div>
                       <input
-                        className="userDetailInput"
-                        name="byPass"
+                        name="status"
+                        value="INACTIVE"
                         type="radio"
-                        value={false}
-                        defaultChecked={!byPass}
-                        onChange={(e) => {
-                          setInputByPass(false);
-                        }}
+                        defaultChecked={policyData.accessControl === "INACTIVE"}
+                        style={{ width: "15px" }}
                       />
-                      <label className="label"> 비활성화</label>
+                      <label className="label-radio">2차 인증 패스</label>
                     </div>
                     <div className="label-bottom-text">
-                      바이패스 비활성화 (디폴트)
+                      Skip two-factor athentication and enrollment, unless there is a
+                      superseding pollcy configured.
+                      </div>
+                    <div>
+                      <input
+                        name="accessControl"
+                        value="DENY"
+                        type="radio"
+                        defaultChecked={policyData.accessControl === "DENY"}
+                        style={{ width: "15px" }}
+                      />
+                      <label className="label-radio">모두 거부</label>
                     </div>
+                    <div className="label-bottom-text">Deny authentication to all users</div>
                   </div>
                 </div>
                 <div className="ant-row inputBox ant-form-item">
@@ -223,7 +200,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         <select
                           className="user-location-select"
                           value={d.location}
-                          disabled={!d.isEdit}
                           onChange={(e) => {
                             changeInputUserLocation(e.target.value, ind, "location");
                           }}
@@ -236,7 +212,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         <select
                           className="user-location-select"
                           value={d.policy}
-                          disabled={!d.isEdit}
                           onChange={(e) => {
                             changeInputUserLocation(e.target.value, ind, "status");
                           }}
@@ -245,36 +220,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                           <option value="INACTIVE">INACTIVE</option>
                           <option value="DENY">DENY</option>
                         </select>
-                        {!d.isEdit && <button
-                          className="button"
-                          style={{ marginLeft: '1rem', height: 50 }}
-                          onClick={() => {
-                            changeInputUserLocation(true, ind, 'isEdit');
-                          }}
-                        >
-                          수정
-                        </button>}
                         <button
-                          className="button"
-                          style={{ marginLeft: '1rem', height: 50 }}
-                          onClick={() => {
-                            if (d.isEdit) {
-                              if (!tempUserLocations[ind].location) {
-                                return message.error('위치를 입력해주세요.')
-                              }
-                              setTempUserLocations(tempUserLocations.map((u, _ind) => ind === _ind ? { ...u, isEdit: false } : u))
-                            } else {
-                              setTempUserLocations(
-                                tempUserLocations.filter(
-                                  (u, _ind) => ind !== _ind
-                                )
-                              );
-                            }
-                          }}
-                        >
-                          {d.isEdit ? '저장' : '삭제'}
-                        </button>
-                        {d.isEdit && <button
                           className="button"
                           style={{ marginLeft: '1rem', height: 50 }}
                           onClick={() => {
@@ -285,10 +231,20 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                             );
                           }}
                         >
-                          취소
-                        </button>}
+                          삭제
+                        </button>
                       </div>
                     ))}
+                    <button
+                      type="button"
+                      className="button"
+                      onClick={() => {
+                        setTempUserLocations([...tempUserLocations, { location: Object.keys(lang === 'KR' ? countryCodes_KR : countryCodes_US)[0], status: 'ACTIVE' }])
+                      }}
+                      style={{ height: 50, width: 100 }}
+                    >
+                      추가
+                    </button>
                   </div>
                 </div>
                 <div className="ant-row inputBox ant-form-item">
@@ -300,7 +256,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                     style={{ justifyContent: "space-around" }}
                   >
                     {BrowsersList.map((bl, ind) => (
-                      <div className="policies-sub-box" key={ind}>
+                      <div key={ind}>
                         <input
                           name="browser"
                           value={bl}
@@ -322,7 +278,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                     style={{ justifyContent: "space-around" }}
                   >
                     {AuthMethodsList.map((am, ind) => (
-                      <div className="policies-sub-box" key={ind}>
+                      <div key={ind}>
                         <input
                           name="method"
                           value={am}
@@ -371,49 +327,6 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                   </div>
                 </div>
               </div>
-              {/* <h2>Authentication policy</h2>
-              <div className="policies-sub-box">
-                <input
-                  name="status"
-                  value="ACTIVE"
-                  type="radio"
-                  checked={policyData && policyData.inputAuthCheck === "ACTIVE"}
-                  style={{ width: "15px" }}
-                  onChange={changeInputAuthCheck}
-                />
-                <label className="label-radio">2차 인증 필수</label>
-                <p>
-                  Requir two-factor authentication or enrollment when applicable,
-                  unless there is a superseding policy configured.
-            </p>
-              </div>
-              <div className="policies-sub-box">
-                <input
-                  name="status"
-                  value="INACTIVE"
-                  type="radio"
-                  checked={policyData && policyData.inputAuthCheck === "INACTIVE"}
-                  style={{ width: "15px" }}
-                  onChange={changeInputAuthCheck}
-                />
-                <label className="label-radio">2차 인증 패스</label>
-                <p>
-                  Skip two-factor athentication and enrollment, unless there is a
-                  superseding pollcy configured.
-            </p>
-              </div>
-              <div className="policies-sub-box">
-                <input
-                  name="status"
-                  value="DENY"
-                  type="radio"
-                  checked={policyData && policyData.inputAuthCheck === "DENY"}
-                  style={{ width: "15px" }}
-                  onChange={changeInputAuthCheck}
-                />
-                <label className="label-radio">모두 거부</label>
-                <p>Deny authentication to all users..</p>
-              </div> */}
             </div>
             <CustomButton
               className="ApplicationsSave button user-save-button"

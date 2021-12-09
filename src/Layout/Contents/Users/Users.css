@@ -70,8 +70,8 @@
   margin-bottom: 1rem !important;
 }
 .form-box .ant-row {
-  padding-bottom: 2rem;
-  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 
@@ -119,4 +119,11 @@
   border-top: 1px solid rgb(189,189,189);
   width: 80%;
   margin-left: 5%;
+  transition: all .5s ease-out;
+  height: 960px;
+  overflow: hidden;
+}
+
+.user-policies-container.disabled {
+  height: 0;
 }
