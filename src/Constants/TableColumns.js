@@ -19,13 +19,13 @@ const makeDetail = (data, row) => (
 export const ApplicationsColumns = [
   { name: "이름", key: "name" },
   { name: "상태", key: "status" },
-  { name: '도메인', key: 'domain'},
-  { name: 'Redirect Uri', key: 'redirectUri'}
+  { name: "도메인", key: "domain" },
+  { name: "Redirect Uri", key: "redirectUri" },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [
-  { name: "금액", key: "amount", render: amount => slicePrice(amount) },
+  { name: "금액", key: "amount", render: (amount) => slicePrice(amount) },
   { name: "결제 날짜", key: "paymentDate" },
   { name: "결제 종류", key: "paymentHistory" },
 ];
@@ -104,30 +104,47 @@ export const globalPolicyColumns = [
   {
     name: "Status",
     key: "status",
-    render: (status,b) => <div style={{ textAlign: "center" }}>{status ? 'O' : 'X'}</div>,
+    render: (status, b) => (
+      <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
+    ),
     width: "100px",
   },
-  { name: "Policy Name", key: "policy", width: "200px"},
+  { name: "Policy Name", key: "policy", width: "200px" },
   { name: "Description", key: "description" },
 ];
 
 const customPolicyItemWidth = 130;
 
 export const customPolicyColumns = [
-  { name: "Title", key: "title" },
+  { name: "이름", key: "title" },
   {
-    name: "Auth policy",
+    name: "접근 제한",
     key: "accessControl",
     width: customPolicyItemWidth,
-    render: data => data ? 'O' : 'X'
+    render: (data) => (data ? "O" : "X"),
   },
-  { name: "User location", key: "userLocations", width: customPolicyItemWidth, render: (data,row) => data && data.length > 0 ? 'O' : 'X' },
-  { name: "Browsers", key: "browsers", width: customPolicyItemWidth, render: data => data && data.length > 0 ? 'O' : 'X' },
   {
-    name: "Auth methods",
+    name: "사용자 위치 제한",
+    key: "userLocations",
+    width: customPolicyItemWidth,
+    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
+  },
+  {
+    name: "브라우저 제한",
+    key: "browsers",
+    width: customPolicyItemWidth,
+    render: (data) => (data && data.length > 0 ? "O" : "X"),
+  },
+  {
+    name: "인증 방법 제한",
     key: "authenticationMethods",
     width: customPolicyItemWidth,
-    render: data => data && data.length > 0 ? 'O' : 'X'
+    render: (data) => (data && data.length > 0 ? "O" : "X"),
   },
-  { name: "Mobile", key: "mobilePatch", width: customPolicyItemWidth, render: data => data ? 'O' : 'X' },
+  {
+    name: "OMPASS APP 업데이트",
+    key: "mobilePatch",
+    width: customPolicyItemWidth,
+    render: (data) => (data ? "O" : "X"),
+  },
 ];

@@ -74,3 +74,16 @@
   border-color: #00a9ec;
   color: #00a9ec;
 }
+.close-button {
+  background: none;
+  border: 1px solid #00a9ec;
+  color: #00a9ec;
+}
+.close-button:hover {
+  color: #fff;
+}
+.del-button {
+  background: #f56464;
+  color: #fff;
+  border: 1px solid #f56464;
+}

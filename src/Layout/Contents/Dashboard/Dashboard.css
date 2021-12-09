@@ -201,7 +201,7 @@
 
 .DashboardSecond {
   width: 100%;
-  height: 700px;
+  height: auto;
   margin-top: 3rem;
 }
 .DashboardSecond .chart {

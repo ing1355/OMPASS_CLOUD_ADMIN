@@ -17,13 +17,17 @@
   height: 60px;
 }
 
-.global-policy-table-container thead th:nth-child(2), .global-policy-table-container thead th:nth-child(3),
-.global-policy-table-container tbody td:nth-child(2), .global-policy-table-container tbody td:nth-child(3) {
+.global-policy-table-container thead th:nth-child(2),
+.global-policy-table-container thead th:nth-child(3),
+.global-policy-table-container tbody td:nth-child(2),
+.global-policy-table-container tbody td:nth-child(3) {
   text-align: left;
 }
 
 .PoliciesTitleBox {
-  width: 25rem;
+  width: 100%;
+  border-top: 1px solid gray !important;
+  padding-top: 1rem;
 }
 .PoliciesBox button {
   margin-top: 1rem;
@@ -32,9 +36,10 @@
   width: 100%;
   margin-bottom: 3rem;
 }
-.PoliciesBottomBox h5 {
-  font-size: 1.5rem;
-  margin: 0;
+.policies-h5 {
+  font-size: 1.5rem !important;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .PoliciesBox table tbody tr:hover {
@@ -43,4 +48,10 @@
 
 .ant-drawer-mask {
   background: rgba(0, 0, 0, 0.671);
+}
+.PoliciesBottomBox th {
+  width: 16.5%;
+}
+.global-policy-table-container tr:hover {
+  background: none;
 }

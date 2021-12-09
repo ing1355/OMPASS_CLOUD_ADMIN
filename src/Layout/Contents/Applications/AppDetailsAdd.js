@@ -115,6 +115,20 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
                 중복체크
               </button>
             </div>
+            {/* <div className="Application-label-input-box">
+              <label>비밀 키</label>
+              <div className="secretKey-container">
+                <input name="secretKey" readOnly />
+                <div className="copyButton-container">
+                  <button className="copyButton">
+                    <CopyOutlined /> Copy
+                  </button>
+                </div>
+              </div>
+              <CustomButton type="button" className="button">
+                비밀 키 재설정
+              </CustomButton>
+            </div> */}
 
             <div className="Application-label-input-box">
               <label>도메인 주소</label>

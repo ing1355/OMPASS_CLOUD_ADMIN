@@ -77,9 +77,11 @@ table tr th {
   outline: none;
   color: #fff;
   cursor: pointer;
+  border: 1px solid #00a9ec;
 }
 .button:hover {
   background-color: #256e8b;
+  border: 1px solid #256e8b;
 }
 
 table tbody tr:hover {

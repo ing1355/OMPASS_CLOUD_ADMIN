@@ -11,8 +11,20 @@ import { UndoOutlined } from "@ant-design/icons";
 import { Drawer, message, Space } from "antd";
 import { ipAddressTest } from "../../../Constants/InputRules";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
-import { CustomAxiosDelete, CustomAxiosGet, CustomAxiosPost, CustomAxiosPut } from "../../../Functions/CustomAxios";
-import { addCustomPolicyApi, deleteCustomPoliciesApi, getDefaultPolicyApi, isExistencePolicyApi, updateCustomPoliciesApi, updateGlobalPolicyApi } from "../../../Constants/Api_Route";
+import {
+  CustomAxiosDelete,
+  CustomAxiosGet,
+  CustomAxiosPost,
+  CustomAxiosPut,
+} from "../../../Functions/CustomAxios";
+import {
+  addCustomPolicyApi,
+  deleteCustomPoliciesApi,
+  getDefaultPolicyApi,
+  isExistencePolicyApi,
+  updateCustomPoliciesApi,
+  updateGlobalPolicyApi,
+} from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 
@@ -47,9 +59,9 @@ const Global_Policy = ({
   isEditPolicy,
   editData,
   userProfile,
-  lang
+  lang,
 }) => {
-  const { adminId } = userProfile
+  const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
@@ -61,35 +73,42 @@ const Global_Policy = ({
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getDefaultPolicyApi(adminId), data => {
+    CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
       defaultPolicies = data;
-    })
-  }, [])
+    });
+  }, []);
 
   const InputInit = useCallback(() => {
-    setInputTitle('');
-    setInputAuthCheck(null)
-    setInputUserLocations([])
-    setInputBrowserCheck([])
-    setInputAuthMethodCheck([])
-    setInputMobileCheck(null)
-  }, [])
+    setInputTitle("");
+    setInputAuthCheck(null);
+    setInputUserLocations([]);
+    setInputBrowserCheck([]);
+    setInputAuthMethodCheck([]);
+    setInputMobileCheck(null);
+  }, []);
 
   useEffect(() => {
     if (!visible) {
       InputInit();
     }
-  }, [visible])
+  }, [visible]);
 
   useLayoutEffect(() => {
     if (editData) {
-      const { title, accessControl, userLocations, browsers, authenticationMethods, mobilePatch } = editData
+      const {
+        title,
+        accessControl,
+        userLocations,
+        browsers,
+        authenticationMethods,
+        mobilePatch,
+      } = editData;
       if (title) setInputTitle(title);
-      if (accessControl) setInputAuthCheck(accessControl)
-      if (userLocations) setInputUserLocations(userLocations)
-      if (browsers) setInputBrowserCheck(browsers)
-      if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods)
-      if (mobilePatch) setInputMobileCheck(mobilePatch)
+      if (accessControl) setInputAuthCheck(accessControl);
+      if (userLocations) setInputUserLocations(userLocations);
+      if (browsers) setInputBrowserCheck(browsers);
+      if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
+      if (mobilePatch) setInputMobileCheck(mobilePatch);
       setIsExistTitle(true);
     } else {
       InputInit();
@@ -100,36 +119,56 @@ const Global_Policy = ({
     if (isCustomPolicy) {
       if (!inputTitle) return message.error("제목을 입력해주세요.");
       if (!isExistTitle) {
-        return message.error('중복체크 먼저 진행해주세요.')
+        return message.error("중복체크 먼저 진행해주세요.");
       }
     }
     const result = {};
     if (inputTitle) result.title = inputTitle;
-    if (inputAuthCheck) result.accessControl = inputAuthCheck; else result.accessControl = null;
-    if (inputUserLocations.length) result.userLocations = inputUserLocations; else result.userLocations = [];
-    if (inputBrowserCheck.length) result.browsers = inputBrowserCheck; else result.browsers = [];
-    if (inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck; else result.authenticationMethods = [];
-    if (inputMobileCheck) result.mobilePatch = inputMobileCheck; else result.mobilePatch = null;
-    if (isCustomPolicy && Object.keys(result).length === 1) return message.error('최소 1가지 정책은 설정해주세요.')
+    if (inputAuthCheck) result.accessControl = inputAuthCheck;
+    else result.accessControl = null;
+    if (inputUserLocations.length) result.userLocations = inputUserLocations;
+    else result.userLocations = [];
+    if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
+    else result.browsers = [];
+    if (inputAuthMethodCheck.length)
+      result.authenticationMethods = inputAuthMethodCheck;
+    else result.authenticationMethods = [];
+    if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
+    else result.mobilePatch = null;
+    if (isCustomPolicy && Object.keys(result).length === 1)
+      return message.error("최소 1가지 정책은 설정해주세요.");
     if (isEditPolicy) {
-      let apiRoute = isCustomPolicy ? updateCustomPoliciesApi(adminId, editData.policyId) : updateGlobalPolicyApi(adminId)
-      CustomAxiosPut(apiRoute, {
-        ...result
-      }, (data) => {
-        message.success('정책 변경에 성공하였습니다.')
-        if (editCallback) editCallback(data, editData.policyId);
-        setVisible(false);
-      }, () => {
-        message.error('정책 변경에 실패하였습니다.')
-      })
-    } else { // Add New Policy
-      CustomAxiosPost(addCustomPolicyApi(adminId), result, (data) => {
-        message.success('정책 추가에 성공하였습니다.')
-        if (saveCallback) saveCallback(data);
-        setVisible(false);
-      }, () => {
-        message.error('정책 추가에 실패하였습니다.')
-      })
+      let apiRoute = isCustomPolicy
+        ? updateCustomPoliciesApi(adminId, editData.policyId)
+        : updateGlobalPolicyApi(adminId);
+      CustomAxiosPut(
+        apiRoute,
+        {
+          ...result,
+        },
+        (data) => {
+          message.success("정책 변경에 성공하였습니다.");
+          if (editCallback) editCallback(data, editData.policyId);
+          setVisible(false);
+        },
+        () => {
+          message.error("정책 변경에 실패하였습니다.");
+        }
+      );
+    } else {
+      // Add New Policy
+      CustomAxiosPost(
+        addCustomPolicyApi(adminId),
+        result,
+        (data) => {
+          message.success("정책 추가에 성공하였습니다.");
+          if (saveCallback) saveCallback(data);
+          setVisible(false);
+        },
+        () => {
+          message.error("정책 추가에 실패하였습니다.");
+        }
+      );
     }
   }, [
     editCallback,
@@ -141,7 +180,7 @@ const Global_Policy = ({
     inputAuthMethodCheck,
     inputMobileCheck,
     editData,
-    isExistTitle
+    isExistTitle,
   ]);
 
   const changeInputTitle = useCallback((e) => {
@@ -161,13 +200,13 @@ const Global_Policy = ({
             index === _index ? { ...ul, status: value } : ul
           )
         );
-      } else if (type === 'location') {
+      } else if (type === "location") {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
             index === _index ? { ...ul, location: value } : ul
           )
         );
-      } else if (type === 'isEdit') {
+      } else if (type === "isEdit") {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
             index === _index ? { ...ul, isEdit: value } : ul
@@ -208,14 +247,17 @@ const Global_Policy = ({
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return message.error("제목을 입력해주세요.");
-    CustomAxiosGet(isExistencePolicyApi(adminId, inputTitle), ({ duplicate }) => {
-      if (!duplicate) {
-        setIsExistTitle(true);
-        message.success("사용 가능합니다.");
-      } else {
-        message.error("사용 불가능한 제목입니다.");
+    CustomAxiosGet(
+      isExistencePolicyApi(adminId, inputTitle),
+      ({ duplicate }) => {
+        if (!duplicate) {
+          setIsExistTitle(true);
+          message.success("사용 가능합니다.");
+        } else {
+          message.error("사용 불가능한 제목입니다.");
+        }
       }
-    })
+    );
   }, [inputTitle]);
 
   const openDeleteConfirm = useCallback(() => {
@@ -228,30 +270,40 @@ const Global_Policy = ({
 
   const _deleteCallback = useCallback(() => {
     setDeleteConfirmLoading(true);
-    CustomAxiosDelete(deleteCustomPoliciesApi(adminId, editData.policyId), () => {
-      setDeleteConfirmLoading(false);
-      setDeleteConfirmVisible(false);
-      setVisible(false);
-      message.success('삭제되었습니다.')
-      if (deleteCallback) deleteCallback(editData.policyId);
-    }, () => {
-      message.error('삭제에 실패하였습니다.')
-      setDeleteConfirmLoading(false);
-    })
+    CustomAxiosDelete(
+      deleteCustomPoliciesApi(adminId, editData.policyId),
+      () => {
+        setDeleteConfirmLoading(false);
+        setDeleteConfirmVisible(false);
+        setVisible(false);
+        message.success("삭제되었습니다.");
+        if (deleteCallback) deleteCallback(editData.policyId);
+      },
+      () => {
+        message.error("삭제에 실패하였습니다.");
+        setDeleteConfirmLoading(false);
+      }
+    );
   }, [editData]);
 
   const closePolicyDrawer = useCallback(() => {
     setVisible(false);
-  }, [])
+  }, []);
 
   const defaultPolicySetting = () => {
-    const { accessControl, authenticationMethods, browsers, mobilePatch, userLocations } = defaultPolicies;
+    const {
+      accessControl,
+      authenticationMethods,
+      browsers,
+      mobilePatch,
+      userLocations,
+    } = defaultPolicies;
     setInputAuthCheck(accessControl);
     setInputAuthMethodCheck(authenticationMethods);
     setInputBrowserCheck(browsers);
     setInputMobileCheck(mobilePatch);
     setInputUserLocations(userLocations);
-  }
+  };
 
   return (
     <Drawer
@@ -266,12 +318,18 @@ const Global_Policy = ({
         >
           <div>Edit {isCustomPolicy ? "Custom" : "Global"} Policy</div>
           <Space>
-            <button className="button" onClick={_saveCallback}>저장</button>
-            {isEditPolicy && isCustomPolicy && <button className="button" onClick={openDeleteConfirm}>삭제</button>}
-            <button
-              className="button"
-              onClick={closePolicyDrawer}
-            >
+            <button className="button" onClick={_saveCallback}>
+              저장
+            </button>
+            {isEditPolicy && isCustomPolicy && (
+              <button
+                className="button close-button del-button"
+                onClick={openDeleteConfirm}
+              >
+                삭제
+              </button>
+            )}
+            <button className="button close-button" onClick={closePolicyDrawer}>
               닫기
             </button>
           </Space>
@@ -296,7 +354,11 @@ const Global_Policy = ({
         정말 삭제하시겠습니까?
       </CustomConfirm>
       <div className="Global_Policy-box">
-        <CustomButton className="policy-default-button" type="button" onClick={defaultPolicySetting}>
+        <CustomButton
+          className="policy-default-button"
+          type="button"
+          onClick={defaultPolicySetting}
+        >
           <UndoOutlined /> 기본값으로 변경
         </CustomButton>
 
@@ -390,10 +452,17 @@ const Global_Policy = ({
                     changeInputUserLocation(e.target.value, ind, "location");
                   }}
                 >
-                  {
-                    Object.keys((lang === 'KR' ? countryCodes_KR : countryCodes_US))
-                      .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
-                  }
+                  {Object.keys(
+                    lang === "KR" ? countryCodes_KR : countryCodes_US
+                  ).map((code, _ind) => (
+                    <option key={_ind} value={code}>
+                      {
+                        (lang === "KR" ? countryCodes_KR : countryCodes_US)[
+                          code
+                        ]
+                      }
+                    </option>
+                  ))}
                 </select>
                 <select
                   className="user-location-select"
@@ -408,27 +477,32 @@ const Global_Policy = ({
                 </select>
                 <button
                   className="button"
-                  style={{ marginLeft: '1rem', height: 50 }}
+                  style={{ marginLeft: "1rem", height: 50 }}
                   onClick={() => {
                     setInputUserLocations(
-                      inputUserLocations.filter(
-                        (u, _ind) => ind !== _ind
-                      )
+                      inputUserLocations.filter((u, _ind) => ind !== _ind)
                     );
                   }}
                 >
                   삭제
                 </button>
-
               </div>
             ))}
             <button
               type="button"
               className="button"
               onClick={() => {
-                setInputUserLocations([...inputUserLocations, { location: Object.keys(lang === 'KR' ? countryCodes_KR : countryCodes_US)[0], status: 'ACTIVE' }])
+                setInputUserLocations([
+                  ...inputUserLocations,
+                  {
+                    location: Object.keys(
+                      lang === "KR" ? countryCodes_KR : countryCodes_US
+                    )[0],
+                    status: "ACTIVE",
+                  },
+                ]);
               }}
-              style={{ height: 50, display: 'block' }}
+              style={{ height: 50, display: "block" }}
             >
               추가
             </button>
