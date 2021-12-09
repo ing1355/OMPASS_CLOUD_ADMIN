@@ -65,7 +65,7 @@ const Policies = ({ userProfile }) => {
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isCustomPolicy, setIsCustomPolicy] = useState(false);
   const [isEditPolicy, setIsEditPolicy] = useState(false);
-  const [globalPoliciesData, setGlobalPoliciesData] = useState(null);
+  const [globalPoliciesData, setGlobalPoliciesData] = useState({});
   const [globalPoliciesTableData, setGlobalPoliciesTableData] = useState([]);
   const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -114,15 +114,6 @@ const Policies = ({ userProfile }) => {
       }
     );
   }, []);
-
-  useLayoutEffect(() => {
-    // if(globalPoliciesData) setGlobalPoliciesTableData(globalPolicyTableDataFeature.map(td => {
-    //   return {
-    //     ...td,
-    //     status: result.find(r => Object.keys(r)[0] === td.key)[td.key].length > 0
-    //   }
-    // }))
-  }, [globalPoliciesData, globalPoliciesTableData]);
 
   const saveCallback = useCallback(
     (result) => {
@@ -215,7 +206,7 @@ const Policies = ({ userProfile }) => {
 
         <CustomTable
           columns={globalPolicyColumns}
-          datas={globalPoliciesTableData}
+          datas={[globalPoliciesData]}
           className="global-policy-table-container"
           // columnsHide={true}
         />

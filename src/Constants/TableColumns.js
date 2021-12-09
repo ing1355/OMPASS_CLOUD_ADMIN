@@ -117,31 +117,26 @@ export const globalPolicyColumns = [
   {
     name: "접근 제한",
     key: "accessControl",
-
     render: (data) => (data ? "O" : "X"),
   },
   {
     name: "사용자 위치 제한",
     key: "userLocations",
-
     render: (data, row) => (data && data.length > 0 ? "O" : "X"),
   },
   {
     name: "브라우저 제한",
     key: "browsers",
-
     render: (data) => (data && data.length > 0 ? "O" : "X"),
   },
   {
     name: "인증 방법 제한",
     key: "authenticationMethods",
-
     render: (data) => (data && data.length > 0 ? "O" : "X"),
   },
   {
     name: "OMPASS APP 업데이트",
     key: "mobilePatch",
-
     render: (data) => (data ? "O" : "X"),
   },
 ];

@@ -64,16 +64,17 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
-          setChartData(
-            data.map((d, ind) => ({
-              id: d.name,
-              data: d.chartData.map((_) => ({
-                x: _.date,
-                y: _.rank,
-                value: _.count,
-              })),
-            }))
-          );
+          setChartData(data.map(d => {
+            const _ = {};
+            _.name = d.name;
+            _.type = 'line';
+            _.animation = {
+              duration: 1000
+            }
+            _.data = d.chartData.map(cD => [cD.date, cD.rank])
+            _.yAxis = 0;
+            return _;
+          }));
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -215,7 +216,7 @@ const Dashboard = ({ userProfile }) => {
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
           <div className="chart">
-            <HighChart/>
+            <HighChart data={chartData}/>
             {/* <Line {...config(chartData)} 
             options={{
               plugins: {
