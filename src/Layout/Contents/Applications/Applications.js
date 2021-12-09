@@ -104,10 +104,12 @@ const Applications = ({ userProfile }) => {
                       등록
                     </Button>
                   </Link>
-                  <Button disabled={selectedRows.length !== 1}>
-                    <UserSwitchOutlined />
+                  <Link to={`/Applications/Detail/${selectedRows[0]}`}>
+                    <Button disabled={selectedRows.length !== 1}>
+                      <UserSwitchOutlined />
                     수정
                   </Button>
+                  </Link>
                   <Button disabled={selectedRows.length < 1} onClick={() => {
                     setConfirmVisible(true);
                   }}>

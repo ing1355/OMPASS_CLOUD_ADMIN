@@ -251,21 +251,8 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />
-              수정
+              저장
             </Button>
-
-            {/* <Popconfirm
-              placement="top"
-              title={"삭제하시겠습니까"}
-              okText="Yes"
-              cancelText="No"
-              onConfirm={applicationDelete}
-            >
-              <Button htmlType="button">
-                <UserDeleteOutlined />
-                삭제
-              </Button>
-            </Popconfirm> */}
           </Space>
         </form>
       </div>

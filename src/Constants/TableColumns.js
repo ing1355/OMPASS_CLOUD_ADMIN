@@ -19,7 +19,9 @@ const makeDetail = (data, row) => (
 export const ApplicationsColumns = [
   { name: "이름", key: "name" },
   { name: "상태", key: "status" },
-  { name: "상세정보", key: "detail", render: makeDetail },
+  { name: '도메인', key: 'domain'},
+  { name: 'Redirect Uri', key: 'redirectUri'}
+  // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [
@@ -102,10 +104,10 @@ export const globalPolicyColumns = [
   {
     name: "Status",
     key: "status",
-    render: (status,b) => <div style={{ textAlign: "center" }}>{status}{console.log(status,b)}</div>,
+    render: (status,b) => <div style={{ textAlign: "center" }}>{status ? 'O' : 'X'}</div>,
     width: "100px",
   },
-  { name: "Policy Name", key: "policy", width: "200px" },
+  { name: "Policy Name", key: "policy", width: "200px"},
   { name: "Description", key: "description" },
 ];
 
@@ -115,11 +117,11 @@ export const customPolicyColumns = [
   { name: "Title", key: "title" },
   {
     name: "Auth policy",
-    key: "authenticationPolicy",
+    key: "accessControl",
     width: customPolicyItemWidth,
     render: data => data ? 'O' : 'X'
   },
-  { name: "User location", key: "userLocation", width: customPolicyItemWidth, render: data => data && data.length > 0 ? 'O' : 'X' },
+  { name: "User location", key: "userLocations", width: customPolicyItemWidth, render: (data,row) => data && data.length > 0 ? 'O' : 'X' },
   { name: "Browsers", key: "browsers", width: customPolicyItemWidth, render: data => data && data.length > 0 ? 'O' : 'X' },
   {
     name: "Auth methods",
@@ -127,5 +129,5 @@ export const customPolicyColumns = [
     width: customPolicyItemWidth,
     render: data => data && data.length > 0 ? 'O' : 'X'
   },
-  { name: "Mobile", key: "mobile", width: customPolicyItemWidth, render: data => data ? 'O' : 'X' },
+  { name: "Mobile", key: "mobilePatch", width: customPolicyItemWidth, render: data => data ? 'O' : 'X' },
 ];

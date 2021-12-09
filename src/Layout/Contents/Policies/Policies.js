@@ -10,112 +10,111 @@ import {
   customPolicyColumns,
   globalPolicyColumns,
 } from "../../../Constants/TableColumns";
+import {CustomAxiosGetAll, CustomAxiosPost} from '../../../Functions/CustomAxios'
+import { addCustomPolicyApi, getCustomPoliciesApi, getGlobalPolicyApi } from "../../../Constants/Api_Route";
+import { connect } from "react-redux";
 
-const globalPolicyMockData = {
-  authenticationPolicy: 'active',
-  userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
-  { ipAddress: '192.168.182.32', policy: 'inActive', },
-  { ipAddress: '192.168.182.22', policy: 'deny', }],
-  browsers: ['Chrome',
-  'Chrome Mobile',],
-  authenticationMethods: ['OMPASS Push',
-  'OMPASS Mobile passcodes',],
-  mobile: 'active',
-}
-
-const globalPolicyTableData = [
+const globalPolicyTableDataFeature = [
   {
     status: "",
-    policy: "Authentication policy",
+    policy: "Access Control",
+    key: 'accessControl',
     description:
       "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
   },
-  { status: "", policy: "User location", description: "No restrictions." },
+  { status: "", policy: "User location", description: "No restrictions.", key: 'userLocations' },
   {
     status: "",
-    policy: "Browsers",
+    key: 'browsers',
+    policy: 'Browsers',
     description: "Don't require users to have the app",
   },
   {
     status: "",
+    key: 'authenticationMethods',
     policy: "Authentication methods",
     description: "No restrictions.",
   },
-  { status: "", policy: "OMPASS Mobile app", description: "No restrictions." },
+  { status: "", key:'mobilePatch', policy: "OMPASS Mobile app", description: "No restrictions." },
 ];
 
-const customPolicyTableMockData = [
-  {
-    title: "test1",
-    authenticationPolicy: 'active',
-    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
-    { ipAddress: '192.168.182.32', policy: 'inActive', },
-    { ipAddress: '192.168.182.22', policy: 'deny', }],
-    browsers: ['Chrome',
-    'Chrome Mobile',],
-    authenticationMethods: ['OMPASS Push',
-    'OMPASS Mobile passcodes',],
-    mobile: 'active',
-  },
-  {
-    title: "test2",
-    authenticationPolicy: 'inActive',
-    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
-    { ipAddress: '192.168.182.32', policy: 'inActive', },
-    { ipAddress: '192.168.182.22', policy: 'deny', }],
-    browsers: ['Chrome',
-    'Chrome Mobile',],
-    authenticationMethods: ['OMPASS Push',
-    'OMPASS Mobile passcodes',],
-    mobile: 'inActive',
-  },
-  {
-    title: "test3",
-    authenticationPolicy: 'deny',
-    userLocation: [{ ipAddress: '192.168.182.42', policy: 'active', },
-    { ipAddress: '192.168.182.32', policy: 'inActive', },
-    { ipAddress: '192.168.182.22', policy: 'deny', }],
-    browsers: ['Chrome',
-    'Chrome Mobile',],
-    authenticationMethods: ['OMPASS Push',
-    'OMPASS Mobile passcodes',],
-    mobile: 'active',
-  }
-];
-
-const Policies = () => {
+const Policies = ({userProfile}) => {
+  const {adminId} = userProfile
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isCustomPolicy, setIsCustomPolicy] = useState(false);
   const [isEditPolicy, setIsEditPolicy] = useState(false);
-  const [globalPoliciesData, setGlobalPoliciesData] = useState(globalPolicyTableData)
-  const [customPoliciesData, setCustomPoliciesData] = useState(customPolicyTableMockData)
+  const [globalPoliciesData, setGlobalPoliciesData] = useState(null);
+  const [globalPoliciesTableData, setGlobalPoliciesTableData] = useState([])
+  const [customPoliciesData, setCustomPoliciesData] = useState([])
   const [selectedRowData, setSelectedRowData] = useState(null);
 
+  const policyDatas = {
+    title: null,
+    accessControl: null,
+    userLocations: null,
+    browsers: null,
+    authenticationMethods: null,
+    mobilePatch: null
+  }
+
+  useLayoutEffect(() => {
+    CustomAxiosGetAll([getGlobalPolicyApi(adminId), getCustomPoliciesApi(adminId)], [(data) => {
+      const result = Object.keys(data).map(d => {
+        const result = {};
+        result[d] = data[d]
+        if(d === 'policyId' || d === 'title') return;
+        return result
+      }).filter(el => el !== undefined)
+      setGlobalPoliciesData(data);
+      setGlobalPoliciesTableData(globalPolicyTableDataFeature.map(td => {
+        return {
+          ...td,
+          status: result.find(r => Object.keys(r)[0] === td.key)[td.key].length > 0
+        }
+      }))
+    }, (data) => {
+      // console.log(data);
+      setCustomPoliciesData(data);
+    }],(err) => {
+      console.log(err);
+    })
+  },[])
+
+  useLayoutEffect(() => {
+    // if(globalPoliciesData) setGlobalPoliciesTableData(globalPolicyTableDataFeature.map(td => {
+    //   return {
+    //     ...td,
+    //     status: result.find(r => Object.keys(r)[0] === td.key)[td.key].length > 0
+    //   }
+    // }))
+  },[globalPoliciesData, globalPoliciesTableData])
+
   const saveCallback = useCallback((result) => {
-    console.log(isEditPolicy, isCustomPolicy)
-    setEditDrawerOpen(false);
-    message.success("저장하였습니다.");
-    if(isEditPolicy) {
-      if(isCustomPolicy) setCustomPoliciesData([...customPoliciesData, ({...result})])
-      else setGlobalPoliciesData(result)
-    } else { // Add New Policy
-      setCustomPoliciesData([...customPoliciesData, result])
-    }
-    console.log("save test", result);
+    setCustomPoliciesData([...customPoliciesData, result])
   },[customPoliciesData, isEditPolicy, isCustomPolicy]);
 
-  const editCallback = useCallback((result, title) => {
+  const editCallback = useCallback((result, policyId) => {
     if(isCustomPolicy) {
-      setCustomPoliciesData(customPoliciesData.map(c => c.title === title ? result : c))
+      setCustomPoliciesData(customPoliciesData.map(c => c.policyId === policyId ? result : c))
     } else {
-      setGlobalPoliciesData(result);
+      const data = Object.keys(result).map(d => {
+        const _ = {};
+        _[d] = result[d]
+        if(d === 'policyId' || d === 'title') return;
+        return _
+      }).filter(el => el !== undefined)
+      setGlobalPoliciesData(data);
+      setGlobalPoliciesTableData(globalPolicyTableDataFeature.map(td => {
+        return {
+          ...td,
+          status: data.find(r => Object.keys(r)[0] === td.key)[td.key].length > 0
+        }
+      }))
     }
-  },[customPoliciesData, globalPoliciesData, isCustomPolicy])
+  },[customPoliciesData, isCustomPolicy])
 
-  const deleteCallback = useCallback((title) => {
-    message.success('삭제되었습니다.')
-    setEditDrawerOpen(false);
-    setCustomPoliciesData(customPoliciesData.filter(c => c.title !== title));
+  const deleteCallback = useCallback((policyId) => {
+    setCustomPoliciesData(customPoliciesData.filter(c => c.policyId !== policyId));
   },[customPoliciesData])
 
   useEffect(() => {
@@ -161,7 +160,7 @@ const Policies = () => {
 
         <CustomTable
           columns={globalPolicyColumns}
-          datas={globalPoliciesData}
+          datas={globalPoliciesTableData}
           className="global-policy-table-container"
           // columnsHide={true}
         />
@@ -199,4 +198,14 @@ const Policies = () => {
   );
 };
 
-export default Policies;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Policies);

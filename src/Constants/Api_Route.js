@@ -3,6 +3,16 @@ export const getDashboardMiddleApi = (adminId) => `/v1/admins/${adminId}/dashboa
 export const getDashboardBottomApi = (adminId) => `/v1/admins/${adminId}/dashboard-bottom`
 export const getOMSDashboardTopApi = (adminId) => `/v1/admins/${adminId}/oms-dashboard-top`
 
+export const getCustomPoliciesApi = (adminId) => `/v1/admins/${adminId}/custom-policies`
+export const addCustomPolicyApi = (adminId) => `/v1/admins/${adminId}/custom-policy`
+export const getCustomPolicyApi = (adminId,policyId) => `/v1/admins/${adminId}/custom-policy/${policyId}`
+export const updateCustomPoliciesApi = (adminId,policyId) => `/v1/admins/${adminId}/custom-policy/${policyId}`
+export const deleteCustomPoliciesApi = (adminId,policyId) => `/v1/admins/${adminId}/custom-policy/${policyId}`
+export const getDefaultPolicyApi = (adminId) => `/v1/admins/${adminId}/default-policy`
+export const getGlobalPolicyApi = (adminId) => `/v1/admins/${adminId}/global-policy`
+export const updateGlobalPolicyApi = (adminId) => `/v1/admins/${adminId}/global-policy`
+export const isExistencePolicyApi = (adminId, title) => `/v1/admins/${adminId}/custom-policy/${title}/existence`
+
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 export const updateByPassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
 

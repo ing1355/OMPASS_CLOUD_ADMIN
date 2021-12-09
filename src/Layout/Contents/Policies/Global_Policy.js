@@ -11,12 +11,10 @@ import { UndoOutlined } from "@ant-design/icons";
 import { Drawer, message, Space } from "antd";
 import { ipAddressTest } from "../../../Constants/InputRules";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
-
-const userLocationsMockData = [
-  { ipAddress: "192.168.182.42", policy: "active" },
-  { ipAddress: "192.168.182.32", policy: "inActive" },
-  { ipAddress: "192.168.182.22", policy: "deny" },
-];
+import { CustomAxiosDelete, CustomAxiosGet, CustomAxiosPost, CustomAxiosPut } from "../../../Functions/CustomAxios";
+import { addCustomPolicyApi, deleteCustomPoliciesApi, getDefaultPolicyApi, isExistencePolicyApi, updateCustomPoliciesApi, updateGlobalPolicyApi } from "../../../Constants/Api_Route";
+import { connect } from "react-redux";
+import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 
 const BrowsersList = [
   "Chrome",
@@ -37,6 +35,8 @@ const AuthMethodsList = [
   "Hardware tokens",
 ];
 
+var defaultPolicies;
+
 const Global_Policy = ({
   visible,
   setVisible,
@@ -46,63 +46,90 @@ const Global_Policy = ({
   deleteCallback,
   isEditPolicy,
   editData,
+  userProfile,
+  lang
 }) => {
-  const [isExistTitle, setIsExistTitle] = useState(false);
+  const {adminId} = userProfile
+  const [isExistTitle, setIsExistTitle] = useState(isEditPolicy);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
-  const [inputUserLocations, setInputUserLocations] = useState(
-    userLocationsMockData
-  );
+  const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
   const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
+  const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    CustomAxiosGet(getDefaultPolicyApi(adminId), data => {
+      defaultPolicies = data;
+    })
+  },[])
+
+  const InputInit = useCallback(() => {
+    setInputTitle('');
+    setInputAuthCheck(null)
+    setInputUserLocations([])
+    setInputBrowserCheck([])
+    setInputAuthMethodCheck([])
+    setInputMobileCheck(null)
+  },[])
 
   useEffect(() => {
-    if(visible) {
-      setInputTitle('');
-      setInputAuthCheck(null)
-      setInputUserLocations([])
-      setInputBrowserCheck([])
-      setInputAuthMethodCheck([])
-      setInputMobileCheck(null)
+    if(!visible) {
+      InputInit();
     }
   },[visible])
 
   useLayoutEffect(() => {
-    console.log(editData)
     if(editData) {
-      const {title, authenticationPolicy, userLocation, browsers, authenticationMethods, mobile} = editData
+      const {title, accessControl, userLocations, browsers, authenticationMethods, mobilePatch} = editData
       if(title) setInputTitle(title);
-      if(authenticationPolicy) setInputAuthCheck(authenticationPolicy)
-      if(userLocation) setInputUserLocations(userLocation)
+      if(accessControl) setInputAuthCheck(accessControl)
+      if(userLocations) setInputUserLocations(userLocations)
       if(browsers) setInputBrowserCheck(browsers)
       if(authenticationMethods) setInputAuthMethodCheck(authenticationMethods)
-      if(mobile) setInputMobileCheck(mobile)
+      if(mobilePatch) setInputMobileCheck(mobilePatch)
     } else {
-      setInputTitle("");
-      setInputAuthCheck(null);
-      setInputUserLocations([]);
-      setInputBrowserCheck([]);
-      setInputAuthMethodCheck([]);
-      setInputMobileCheck(null);
+      InputInit();
     }
   }, [editData]);
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {
       if (!inputTitle) return message.error("제목을 입력해주세요.");
+      if (!isExistTitle) {
+        return message.error('중복체크 먼저 진행해주세요.')
+      }
     }
     const result = {};
     if (inputTitle) result.title = inputTitle;
-    if (inputAuthCheck) result.authentication = inputAuthCheck;
-    if (inputUserLocations.length) result.userLocation = inputUserLocations;
-    if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
-    if (inputAuthMethodCheck.length)
-      result.authenticationMethods = inputAuthMethodCheck;
-    if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
-    if (isEditPolicy && editCallback) editCallback(result);
-    if (!isEditPolicy && saveCallback) saveCallback(result);
+    if (inputAuthCheck) result.accessControl = inputAuthCheck; else result.accessControl = null;
+    if (inputUserLocations.length) result.userLocations = inputUserLocations; else result.userLocations = [];
+    if (inputBrowserCheck.length) result.browsers = inputBrowserCheck; else result.browsers = [];
+    if (inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck; else result.authenticationMethods = [];
+    if (inputMobileCheck) result.mobilePatch = inputMobileCheck; else result.mobilePatch = null;
+    if(isCustomPolicy && Object.keys(result).length === 1) return message.error('최소 1가지 정책은 설정해주세요.')
+    if(isEditPolicy) {
+      let apiRoute = isCustomPolicy ? updateCustomPoliciesApi(adminId, editData.policyId) : updateGlobalPolicyApi(adminId)
+      CustomAxiosPut(apiRoute, {
+        ...result
+      }, (data) => {
+        message.success('정책 변경에 성공하였습니다.')
+        if(editCallback) editCallback(data, editData.policyId);
+        setVisible(false);
+      }, () => {
+        message.error('정책 변경에 실패하였습니다.')
+      })
+    } else { // Add New Policy
+      CustomAxiosPost(addCustomPolicyApi(adminId),result, (data) => {
+        message.success('정책 추가에 성공하였습니다.')
+        if(saveCallback) saveCallback(data);
+        setVisible(false);
+      }, () => {
+        message.error('정책 추가에 실패하였습니다.')
+      })
+    }
   }, [
     editCallback,
     saveCallback,
@@ -112,9 +139,12 @@ const Global_Policy = ({
     inputBrowserCheck,
     inputAuthMethodCheck,
     inputMobileCheck,
+    editData,
+    isExistTitle
   ]);
 
   const changeInputTitle = useCallback((e) => {
+    setIsExistTitle(false);
     setInputTitle(e.target.value);
   }, []);
 
@@ -124,16 +154,22 @@ const Global_Policy = ({
 
   const changeInputUserLocation = useCallback(
     (value, index, type) => {
-      if (type === "policy") {
+      if (type === "status") {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
-            index === _index ? { ...ul, policy: value } : ul
+            index === _index ? { ...ul, status: value } : ul
           )
         );
-      } else {
+      } else if(type === 'location') {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
-            index === _index ? { ...ul, ipAddress: value } : ul
+            index === _index ? { ...ul, location: value } : ul
+          )
+        );
+      } else if(type === 'isEdit') {
+        setInputUserLocations(
+          inputUserLocations.map((ul, _index) =>
+            index === _index ? { ...ul, isEdit: value } : ul
           )
         );
       }
@@ -171,8 +207,14 @@ const Global_Policy = ({
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return message.error("제목을 입력해주세요.");
-    setIsExistTitle(true);
-    message.success("사용 가능합니다.");
+    CustomAxiosGet(isExistencePolicyApi(adminId, inputTitle), ({duplicate}) => {
+      if(!duplicate) {
+        setIsExistTitle(true);
+        message.success("사용 가능합니다.");
+      } else {
+        message.error("사용 불가능한 제목입니다.");
+      }
+    })
   }, [inputTitle]);
 
   const openDeleteConfirm = useCallback(() => {
@@ -184,13 +226,31 @@ const Global_Policy = ({
   }, []);
 
   const _deleteCallback = useCallback(() => {
-    setDeleteConfirmVisible(false);
-    if (deleteCallback) deleteCallback(editData.title);
+    setDeleteConfirmLoading(true);
+    CustomAxiosDelete(deleteCustomPoliciesApi(adminId, editData.policyId), () => {
+      setDeleteConfirmLoading(false);
+      setDeleteConfirmVisible(false);
+      setVisible(false);
+      message.success('삭제되었습니다.')
+      if (deleteCallback) deleteCallback(editData.policyId);
+    }, () => {
+      message.error('삭제에 실패하였습니다.')
+      setDeleteConfirmLoading(false);
+    })
   }, [editData]);
 
   const closePolicyDrawer = useCallback(() => {
     setVisible(false);
   },[])
+
+  const defaultPolicySetting = () => {
+    const {accessControl, authenticationMethods, browsers, mobilePatch, userLocations} = defaultPolicies;
+    setInputAuthCheck(accessControl);
+    setInputAuthMethodCheck(authenticationMethods);
+    setInputBrowserCheck(browsers);
+    setInputMobileCheck(mobilePatch);
+    setInputUserLocations(userLocations);
+  }
 
   return (
     <Drawer
@@ -228,13 +288,14 @@ const Global_Policy = ({
       <CustomConfirm
         visible={deleteConfirmVisible}
         footer={true}
+        okLoading={deleteConfirmLoading}
         cancelCallback={closeDeleteConfirm}
         confirmCallback={_deleteCallback}
       >
         정말 삭제하시겠습니까?
       </CustomConfirm>
       <div className="Global_Policy-box">
-        <CustomButton className="policy-default-button" type="button">
+        <CustomButton className="policy-default-button" type="button" onClick={defaultPolicySetting}>
           <UndoOutlined /> 기본값으로 변경
         </CustomButton>
 
@@ -249,7 +310,6 @@ const Global_Policy = ({
                   maxLength={20}
                   value={inputTitle}
                   onChange={changeInputTitle}
-                  disabled={isEditPolicy}
                 />
                 <button
                   className="select button"
@@ -271,9 +331,9 @@ const Global_Policy = ({
           <div className="policies-sub-box">
             <input
               name="status"
-              value="active"
+              value="ACTIVE"
               type="radio"
-              checked={inputAuthCheck === "active"}
+              checked={inputAuthCheck === "ACTIVE"}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -286,9 +346,9 @@ const Global_Policy = ({
           <div className="policies-sub-box">
             <input
               name="status"
-              value="inActive"
+              value="INACTIVE"
               type="radio"
-              checked={inputAuthCheck === "inActive"}
+              checked={inputAuthCheck === "INACTIVE"}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -301,9 +361,9 @@ const Global_Policy = ({
           <div className="policies-sub-box">
             <input
               name="status"
-              value="deny"
+              value="DENY"
               type="radio"
-              checked={inputAuthCheck === "deny"}
+              checked={inputAuthCheck === "DENY"}
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
@@ -320,82 +380,87 @@ const Global_Policy = ({
               OMPASS will do a country lookup on the host IP address and can
               apply actions based on the country.
             </h3>
-            <div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const { ipAddress, status } = e.target.elements;
-                  if (!ipAddress.value.length)
-                    return message.error("Ip를 입력해주세요.");
-                  if (
-                    inputUserLocations.find(
-                      (u) => u.ipAddress === ipAddress.value
-                    )
-                  )
-                    return message.error("중복 Ip가 존재합니다.");
-                  setInputUserLocations([
-                    ...inputUserLocations,
-                    { ipAddress: ipAddress.value, policy: status.value },
-                  ]);
-                  ipAddress.value = "";
-                  status.value = "active";
-                }}
-              >
-                <input
-                  maxLength={15}
-                  name="ipAddress"
-                  className="user-location-input"
-                />
-                <select name="status" className="user-location-select">
-                  <option value="active">Active</option>
-                  <option value="inActive">Inactive</option>
-                  <option value="deny">Deny</option>
-                </select>
-                <button
-                  type="submit"
-                  className="button"
-                  style={{ marginLeft: "1rem" }}
-                >
-                  저장
-                </button>
-              </form>
-            </div>
             {inputUserLocations.map((d, ind) => (
               <div key={ind}>
-                <input
-                  maxLength={15}
-                  className="user-location-input"
-                  value={d.ipAddress}
-                  onChange={(e) => {
-                    changeInputUserLocation(e.target.value, ind, "ipAddress");
-                  }}
-                />
                 <select
-                  name="order"
                   className="user-location-select"
-                  value={d.policy}
+                  value={d.location}
+                  disabled={!d.isEdit}
                   onChange={(e) => {
-                    changeInputUserLocation(e.target.value, ind, "policy");
+                    changeInputUserLocation(e.target.value, ind, "location");
                   }}
                 >
-                  <option value="active">Active</option>
-                  <option value="inActive">Inactive</option>
-                  <option value="deny">Deny</option>
+                  {
+                    Object.keys((lang === 'KR' ? countryCodes_KR : countryCodes_US))
+                    .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
+                  }
                 </select>
+                <select
+                  className="user-location-select"
+                  value={d.policy}
+                  disabled={!d.isEdit}
+                  onChange={(e) => {
+                    changeInputUserLocation(e.target.value, ind, "status");
+                  }}
+                >
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
+                  <option value="DENY">DENY</option>
+                </select>
+                {!d.isEdit && <button
+                  className="button"
+                  style={{marginLeft: '1rem', height: 50}}
+                  onClick={() => {
+                    changeInputUserLocation(true, ind, 'isEdit');
+                  }}
+                >
+                  수정
+                </button>}
                 <button
                   className="button"
+                  style={{marginLeft: '1rem', height: 50}}
+                  onClick={() => {
+                    if(d.isEdit) {
+                      if(!inputUserLocations[ind].location) {
+                        return message.error('위치를 입력해주세요.')
+                      }
+                      setInputUserLocations(inputUserLocations.map((u,_ind) => ind === _ind ? {...u, isEdit: false} : u))
+                    } else {
+                      setInputUserLocations(
+                        inputUserLocations.filter(
+                          (u,_ind) => ind !== _ind
+                        )
+                      );
+                    }
+                  }}
+                >
+                  {d.isEdit ? '저장' : '삭제'}
+                </button>
+                {d.isEdit && <button
+                  className="button"
+                  style={{marginLeft: '1rem', height: 50}}
                   onClick={() => {
                     setInputUserLocations(
                       inputUserLocations.filter(
-                        (u) => u.ipAddress !== d.ipAddress
+                        (u,_ind) => ind !== _ind
                       )
                     );
                   }}
                 >
-                  삭제
-                </button>
+                  취소
+                </button>}
               </div>
             ))}
+            <button
+              type="button"
+              className="button"
+              onClick={() => {
+                setInputUserLocations([...inputUserLocations, {location: '', policy: 'ACTIVE', isEdit: true}])
+              }}
+              style={{ height: 50, display:'block' }}
+            >
+              추가
+            </button>
           </div>
         </section>
 
@@ -455,9 +520,9 @@ const Global_Policy = ({
           <div className="policies-sub-box">
             <input
               name="mobile"
-              value="active"
+              value="ACTIVE"
               type="radio"
-              checked={inputMobileCheck === "active"}
+              checked={inputMobileCheck === "ACTIVE"}
               style={{ width: "15px" }}
               onChange={changeInputMobilecheck}
             />
@@ -468,9 +533,9 @@ const Global_Policy = ({
           <div className="policies-sub-box">
             <input
               name="mobile"
-              value="inActive"
+              value="INACTIVE"
               type="radio"
-              checked={inputMobileCheck === "inActive"}
+              checked={inputMobileCheck === "INACTIVE"}
               style={{ width: "15px" }}
               onChange={changeInputMobilecheck}
             />
@@ -485,53 +550,15 @@ const Global_Policy = ({
   );
 };
 
-export default Global_Policy;
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile,
+    lang: state.locale,
+  };
+}
 
-/*----------------Authorized networks ------------- */
-/* <section className="policies-box authorized-networks">
-  <h2>Authorized networks</h2>
-  <div className="policies-sub-box">
-    <h3>
-      Specify networks using a comma-separated list of OP addresses, IP
-      ranges, or CIDRs. These must be oublic IP addresses, and not local
-      or pivate IP addresses.
-  </h3>
-    <h4>Your IP address is 61.81.118.201</h4>
-    <h3>Allow access without 2FA from these networks:</h3>
-    <div>
-      <input className="userlocation-first" />
-    </div>
-    <div className="policies-sub-box no-left-box">
-      <input
-        name="status"
-        value="Inactive"
-        type="radio"
-        style={{ width: "15px" }}
-      />
-      <label className="label-radio">
-        Require enrollment from these networks.
-    </label>
-      <p>
-        If checked, unenrolled users will be subhect to the new user
-        policy, even if the login is from one of the IP addresses
-        specified above.
-    </p>
-    </div>
+function mapDispatchToProps(dispatch) {
+  return {};
+}
 
-    <h3>Require 2FA from these networks:</h3>
-    <div>
-      <input className="userlocation-first" />
-    </div>
-    <div className="policies-sub-box no-left-box">
-      <input
-        name="status"
-        value="Inactive"
-        type="radio"
-        style={{ width: "15px" }}
-      />
-      <label className="label-radio">
-        Deny access from all other networks.
-    </label>
-    </div>
-  </div>
-</section> */
+export default connect(mapStateToProps, mapDispatchToProps)(Global_Policy);

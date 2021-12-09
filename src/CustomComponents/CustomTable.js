@@ -32,7 +32,7 @@ const CustomTable = ({
       {
         name: "",
         key: "check",
-        render: (row) => (
+        render: (data, row) => (
           <div>
             <input
               className="table-row-select-checkbox"
@@ -93,7 +93,7 @@ const CustomTable = ({
   ).map((d, ind) => (
     <tr
       key={ind}
-      className={rowClick ? "pointer" : ""}
+      className={(rowClick || onChangeSelectedRows) ? "pointer" : ""}
       onClick={(e) => {
         //  && e.target.tagName === "TD"
         if (rowSelectable) rowSelect(d[selectedId]);
@@ -105,11 +105,11 @@ const CustomTable = ({
           key={_ind}
           style={c.key === 'check' ? { minWidth: '60px', width: '60px' } : null}
         >
-          {c.render ? c.render(d[c.key], d) : d[c.key]}
+          {c.render ? c.render(d[c.key], d, ind) : d[c.key]}
         </td>
       ))}
     </tr>
-  )), [tableColumns, tableData, currentPage, numPerPage, rowSelectable, rowClick])
+  )), [tableColumns, tableData, currentPage, numPerPage, rowSelectable, rowClick, selectedRows])
 
   return (
     <table className={className ? "custom-table-box " + className : 'custom-table-box'}>

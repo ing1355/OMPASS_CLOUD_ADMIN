@@ -41,8 +41,12 @@
 }
 
 .user-location-select {
-  width: 50%;
+  width: 30%;
   height: 50px;
+}
+
+.user-location-select:first-child {
+  margin-right: 1rem;
 }
 
 .policies-box .policies-sub-box select {

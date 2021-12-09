@@ -21,6 +21,7 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { ResponsiveBump } from "@nivo/bump";
 import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
+import HighChart from "./HighChart";
 
 var tooltipIndex = 0;
 
@@ -214,6 +215,7 @@ const Dashboard = ({ userProfile }) => {
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
           <div className="chart">
+            <HighChart/>
             {/* <Line {...config(chartData)} 
             options={{
               plugins: {
@@ -223,7 +225,7 @@ const Dashboard = ({ userProfile }) => {
               }
             }} 
             /> */}
-            <ResponsiveBump
+            {/* <ResponsiveBump
               data={chartData}
               margin={{ top: 20, right: 120, bottom: 70, left: 100 }}
               colors={{ scheme: "spectral" }}
@@ -293,7 +295,7 @@ const Dashboard = ({ userProfile }) => {
                 legendPosition: "middle",
                 legendOffset: -60,
               }}
-            />
+            /> */}
           </div>
         </div>
 
