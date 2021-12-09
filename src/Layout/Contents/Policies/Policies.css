@@ -55,3 +55,10 @@
 .global-policy-table-container tr:hover {
   background: none;
 }
+.PoliciesBox th {
+  width: 16.5%;
+  text-align: center !important;
+}
+.PoliciesBox table td {
+  text-align: center !important;
+}

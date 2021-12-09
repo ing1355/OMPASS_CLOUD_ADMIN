@@ -27,37 +27,37 @@ import {
 import { connect } from "react-redux";
 
 const globalPolicyTableDataFeature = [
-  {
-    status: "",
-    policy: "접근 제한",
-    key: "accessControl",
-    description:
-      "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
-  },
-  {
-    status: "",
-    policy: "사용자 위치 제한",
-    description: "No restrictions.",
-    key: "userLocations",
-  },
-  {
-    status: "",
-    key: "browsers",
-    policy: "브라우저 제한",
-    description: "Don't require users to have the app",
-  },
-  {
-    status: "",
-    key: "authenticationMethods",
-    policy: "인증 방법 제한",
-    description: "No restrictions.",
-  },
-  {
-    status: "",
-    key: "mobilePatch",
-    policy: "OMPASS APP 업데이트",
-    description: "No restrictions.",
-  },
+  // {
+  //   status: "",
+  //   policy: "접근 제한",
+  //   key: "accessControl",
+  //   description:
+  //     "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
+  // },
+  // {
+  //   status: "",
+  //   policy: "사용자 위치 제한",
+  //   description: "No restrictions.",
+  //   key: "userLocations",
+  // },
+  // {
+  //   status: "",
+  //   key: "browsers",
+  //   policy: "브라우저 제한",
+  //   description: "Don't require users to have the app",
+  // },
+  // {
+  //   status: "",
+  //   key: "authenticationMethods",
+  //   policy: "인증 방법 제한",
+  //   description: "No restrictions.",
+  // },
+  // {
+  //   status: "",
+  //   key: "mobilePatch",
+  //   policy: "OMPASS APP 업데이트",
+  //   description: "No restrictions.",
+  // },
 ];
 
 const Policies = ({ userProfile }) => {

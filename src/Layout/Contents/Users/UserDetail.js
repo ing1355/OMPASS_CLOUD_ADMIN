@@ -7,7 +7,7 @@ import { updateByPassApi } from "../../../Constants/Api_Route";
 import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
-import { BrowsersList, AuthMethodsList } from '../Policies/Global_Policy'
+import { BrowsersList, AuthMethodsList } from "../Policies/Global_Policy";
 import { countryCodes_KR, countryCodes_US } from "../Policies/Country_Code";
 
 const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
@@ -17,11 +17,11 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
   const [loading, setLoading] = useState(false);
   const [isOwnPolicy, setIsOwnPolicy] = useState(false);
   const [policyData, setPolicyData] = useState({
-    accessControl: 'INACTIVE',
+    accessControl: "INACTIVE",
     userLocations: [],
     browsers: [],
     authenticationMethods: [],
-    mobilePatch: 'INACTIVE'
+    mobilePatch: "INACTIVE",
   });
   const [tempUserLocations, setTempUserLocations] = useState([]);
   const history = useHistory();
@@ -34,7 +34,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
             index === _index ? { ...ul, status: value } : ul
           )
         );
-      } else if (type === 'location') {
+      } else if (type === "location") {
         setTempUserLocations(
           tempUserLocations.map((ul, _index) =>
             index === _index ? { ...ul, location: value } : ul
@@ -73,7 +73,10 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
       ) : (
         <div className="ApplicationsBox">
           <form className="form-box" onSubmit={onFinish}>
-            <div className="ant-row inputBox ant-form-item">
+            <div
+              style={{ marginBottom: "0" }}
+              className="ant-row inputBox ant-form-item"
+            >
               <div className="ant-col-4 ant-form-item-label-left">
                 <label>사용자 아이디 :</label>
               </div>
@@ -126,7 +129,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
             </div>
 
             <div className="ApplicationsTitle">
-              <h2>정책</h2>
+              <h2 style={{ marginTop: "3.5rem" }}>정책</h2>
               <p>
                 정책은 사용자가 이 애플리케이션에 액세스할 때 인증하는 시기와
                 방법을 정의합니다.
@@ -134,10 +137,21 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
                 재정의할 수 있습니다.
               </p>
-              <button type="button" onClick={() => {
-                setIsOwnPolicy(!isOwnPolicy)
-              }}>{isOwnPolicy ? '비활성화' : '활성화'}</button>
-              <div className={"user-policies-container" + (isOwnPolicy ? '' : ' disabled')}>
+              <button
+                style={{ marginBottom: "3.5rem" }}
+                className="policy-active-button"
+                type="button"
+                onClick={() => {
+                  setIsOwnPolicy(!isOwnPolicy);
+                }}
+              >
+                {isOwnPolicy ? "비활성화 ▲" : "활성화 ▼"}
+              </button>
+              <div
+                className={
+                  "user-policies-container" + (isOwnPolicy ? "" : " disabled")
+                }
+              >
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
                     <label>Authentication policy :</label>
@@ -157,9 +171,11 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       <label className="label"> 2차 인증 필수</label>
                     </div>
                     <div className="label-bottom-text">
-                      Requir two-factor authentication or enrollment when applicable,<br />
+                      Requir two-factor authentication or enrollment when
+                      applicable,
+                      <br />
                       unless there is a superseding policy configured.
-                </div>
+                    </div>
                     <div>
                       <input
                         name="status"
@@ -171,9 +187,9 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       <label className="label-radio">2차 인증 패스</label>
                     </div>
                     <div className="label-bottom-text">
-                      Skip two-factor athentication and enrollment, unless there is a
-                      superseding pollcy configured.
-                      </div>
+                      Skip two-factor athentication and enrollment, unless there
+                      is a superseding pollcy configured.
+                    </div>
                     <div>
                       <input
                         name="accessControl"
@@ -184,7 +200,9 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       />
                       <label className="label-radio">모두 거부</label>
                     </div>
-                    <div className="label-bottom-text">Deny authentication to all users</div>
+                    <div className="label-bottom-text">
+                      Deny authentication to all users
+                    </div>
                   </div>
                 </div>
                 <div className="ant-row inputBox ant-form-item">
@@ -201,19 +219,34 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                           className="user-location-select"
                           value={d.location}
                           onChange={(e) => {
-                            changeInputUserLocation(e.target.value, ind, "location");
+                            changeInputUserLocation(
+                              e.target.value,
+                              ind,
+                              "location"
+                            );
                           }}
                         >
-                          {
-                            Object.keys((lang === 'KR' ? countryCodes_KR : countryCodes_US))
-                              .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
-                          }
+                          {Object.keys(
+                            lang === "KR" ? countryCodes_KR : countryCodes_US
+                          ).map((code, _ind) => (
+                            <option key={_ind} value={code}>
+                              {
+                                (lang === "KR"
+                                  ? countryCodes_KR
+                                  : countryCodes_US)[code]
+                              }
+                            </option>
+                          ))}
                         </select>
                         <select
                           className="user-location-select"
                           value={d.policy}
                           onChange={(e) => {
-                            changeInputUserLocation(e.target.value, ind, "status");
+                            changeInputUserLocation(
+                              e.target.value,
+                              ind,
+                              "status"
+                            );
                           }}
                         >
                           <option value="ACTIVE">ACTIVE</option>
@@ -222,7 +255,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         </select>
                         <button
                           className="button"
-                          style={{ marginLeft: '1rem', height: 50 }}
+                          style={{ marginLeft: "1rem", height: 50 }}
                           onClick={() => {
                             setTempUserLocations(
                               tempUserLocations.filter(
@@ -239,7 +272,15 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       type="button"
                       className="button"
                       onClick={() => {
-                        setTempUserLocations([...tempUserLocations, { location: Object.keys(lang === 'KR' ? countryCodes_KR : countryCodes_US)[0], status: 'ACTIVE' }])
+                        setTempUserLocations([
+                          ...tempUserLocations,
+                          {
+                            location: Object.keys(
+                              lang === "KR" ? countryCodes_KR : countryCodes_US
+                            )[0],
+                            status: "ACTIVE",
+                          },
+                        ]);
                       }}
                       style={{ height: 50, width: 100 }}
                     >
@@ -282,7 +323,9 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         <input
                           name="method"
                           value={am}
-                          defaultChecked={policyData.authenticationMethods.includes(am)}
+                          defaultChecked={policyData.authenticationMethods.includes(
+                            am
+                          )}
                           type="checkbox"
                           style={{ width: "15px" }}
                         />
@@ -320,7 +363,8 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         style={{ width: "15px" }}
                       />
                       <label className="label-radio">
-                        Don't require up-to-date security patches for OMPASS Mobile.
+                        Don't require up-to-date security patches for OMPASS
+                        Mobile.
                       </label>
                       <p>Only applies to iOS AND Android.</p>
                     </div>

@@ -70,8 +70,8 @@
   margin-bottom: 1rem !important;
 }
 .form-box .ant-row {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
+  padding-bottom: 3.5rem;
+  padding-top: 3.5rem;
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 
@@ -81,6 +81,19 @@
 }
 .form-box .ant-row .label-bottom-text:last-child {
   padding-bottom: 0;
+}
+.user-policies-container {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.ant-form-item-control label {
+  margin-left: 0.5rem;
+}
+.ant-form-item-control .label-bottom-text {
+  margin-left: 0.5rem;
+}
+.ant-form-item-control p {
+  margin-left: 1.5rem;
 }
 .user-save-button {
   display: flex;
@@ -116,14 +129,25 @@
 }
 
 .user-policies-container {
-  border-top: 1px solid rgb(189,189,189);
+  border-top: 1px solid rgb(189, 189, 189);
   width: 80%;
   margin-left: 5%;
-  transition: all .5s ease-out;
+  transition: all 0.5s ease-out;
   height: 960px;
   overflow: hidden;
 }
 
 .user-policies-container.disabled {
   height: 0;
+}
+
+.policy-active-button {
+  padding: 0.3rem 1rem;
+  background: #256e8b;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.ant-form-item {
+  margin-bottom: 0 !important;
 }
