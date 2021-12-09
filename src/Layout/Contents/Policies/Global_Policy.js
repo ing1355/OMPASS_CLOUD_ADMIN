@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useState,
 } from "react";
 import "./Global_Policy.css";
@@ -59,6 +60,11 @@ const Global_Policy = ({
   const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
+  const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
+  const locationList = Object.keys(countryCodes_KR).sort((a, b) => {
+    const target = isKorea() ? countryCodes_KR : countryCodes_US
+    return target[a] > target[b] ? 1 : -1
+  })
 
   useLayoutEffect(() => {
     CustomAxiosGet(getDefaultPolicyApi(adminId), data => {
@@ -391,8 +397,7 @@ const Global_Policy = ({
                   }}
                 >
                   {
-                    Object.keys((lang === 'KR' ? countryCodes_KR : countryCodes_US))
-                      .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
+                    locationList.map((code, _ind) => <option key={_ind} value={code}>{(isKorea() ? countryCodes_KR : countryCodes_US)[code]}</option>)
                   }
                 </select>
                 <select
@@ -426,7 +431,7 @@ const Global_Policy = ({
               type="button"
               className="button"
               onClick={() => {
-                setInputUserLocations([...inputUserLocations, { location: Object.keys(lang === 'KR' ? countryCodes_KR : countryCodes_US)[0], status: 'ACTIVE' }])
+                setInputUserLocations([...inputUserLocations, { location: locationList[0], status: 'ACTIVE' }])
               }}
               style={{ height: 50, display: 'block' }}
             >

@@ -4,14 +4,14 @@ import localeText from "./LocaleText";
 
 const locales = {
   en: {
-    ...serverErrorMsg.en,
-    ...patternErrorMsg.en,
-    ...localeText.en,
+    ...serverErrorMsg.US,
+    ...patternErrorMsg.US,
+    ...localeText.US,
   },
   ko: {
-    ...serverErrorMsg.ko,
-    ...patternErrorMsg.ko,
-    ...localeText.ko,
+    ...serverErrorMsg.KR,
+    ...patternErrorMsg.KR,
+    ...localeText.KR,
   },
 };
 

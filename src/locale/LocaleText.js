@@ -1,5 +1,5 @@
 const locales = {
-    en: {
+    US: {
       localeChangeText: "한국어",
       logout: "Logout",
       detailColumn: '보기',
@@ -12,7 +12,7 @@ const locales = {
       Billing: 'Billing',
       Logs: 'Logs'
     },
-    ko: {
+    KR: {
       localeChangeText: "English",
       logout: "로그아웃",
       detailColumn: '보기',

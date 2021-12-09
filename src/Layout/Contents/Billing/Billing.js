@@ -33,7 +33,7 @@ import { slicePrice } from "../../../Functions/SlicePrice";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
-  const isKorea = useCallback(() => (country === "KR" ? true : false), []);
+  const isKorea = useCallback(() => (country === "KR" ? true : false), [country]);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
