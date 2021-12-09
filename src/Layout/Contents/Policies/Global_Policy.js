@@ -16,7 +16,7 @@ import { addCustomPolicyApi, deleteCustomPoliciesApi, getDefaultPolicyApi, isExi
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 
-const BrowsersList = [
+export const BrowsersList = [
   "Chrome",
   "Chrome Mobile",
   "Edge",
@@ -26,7 +26,7 @@ const BrowsersList = [
   "All other browsers",
 ];
 
-const AuthMethodsList = [
+export const AuthMethodsList = [
   "OMPASS Push",
   "OMPASS Mobile passcodes",
   "SMS passcodes",
@@ -49,7 +49,7 @@ const Global_Policy = ({
   userProfile,
   lang
 }) => {
-  const {adminId} = userProfile
+  const { adminId } = userProfile
   const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
@@ -64,7 +64,7 @@ const Global_Policy = ({
     CustomAxiosGet(getDefaultPolicyApi(adminId), data => {
       defaultPolicies = data;
     })
-  },[])
+  }, [])
 
   const InputInit = useCallback(() => {
     setInputTitle('');
@@ -73,23 +73,24 @@ const Global_Policy = ({
     setInputBrowserCheck([])
     setInputAuthMethodCheck([])
     setInputMobileCheck(null)
-  },[])
+  }, [])
 
   useEffect(() => {
-    if(!visible) {
+    if (!visible) {
       InputInit();
     }
-  },[visible])
+  }, [visible])
 
   useLayoutEffect(() => {
-    if(editData) {
-      const {title, accessControl, userLocations, browsers, authenticationMethods, mobilePatch} = editData
-      if(title) setInputTitle(title);
-      if(accessControl) setInputAuthCheck(accessControl)
-      if(userLocations) setInputUserLocations(userLocations)
-      if(browsers) setInputBrowserCheck(browsers)
-      if(authenticationMethods) setInputAuthMethodCheck(authenticationMethods)
-      if(mobilePatch) setInputMobileCheck(mobilePatch)
+    if (editData) {
+      const { title, accessControl, userLocations, browsers, authenticationMethods, mobilePatch } = editData
+      if (title) setInputTitle(title);
+      if (accessControl) setInputAuthCheck(accessControl)
+      if (userLocations) setInputUserLocations(userLocations)
+      if (browsers) setInputBrowserCheck(browsers)
+      if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods)
+      if (mobilePatch) setInputMobileCheck(mobilePatch)
+      setIsExistTitle(true);
     } else {
       InputInit();
     }
@@ -109,22 +110,22 @@ const Global_Policy = ({
     if (inputBrowserCheck.length) result.browsers = inputBrowserCheck; else result.browsers = [];
     if (inputAuthMethodCheck.length) result.authenticationMethods = inputAuthMethodCheck; else result.authenticationMethods = [];
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck; else result.mobilePatch = null;
-    if(isCustomPolicy && Object.keys(result).length === 1) return message.error('최소 1가지 정책은 설정해주세요.')
-    if(isEditPolicy) {
+    if (isCustomPolicy && Object.keys(result).length === 1) return message.error('최소 1가지 정책은 설정해주세요.')
+    if (isEditPolicy) {
       let apiRoute = isCustomPolicy ? updateCustomPoliciesApi(adminId, editData.policyId) : updateGlobalPolicyApi(adminId)
       CustomAxiosPut(apiRoute, {
         ...result
       }, (data) => {
         message.success('정책 변경에 성공하였습니다.')
-        if(editCallback) editCallback(data, editData.policyId);
+        if (editCallback) editCallback(data, editData.policyId);
         setVisible(false);
       }, () => {
         message.error('정책 변경에 실패하였습니다.')
       })
     } else { // Add New Policy
-      CustomAxiosPost(addCustomPolicyApi(adminId),result, (data) => {
+      CustomAxiosPost(addCustomPolicyApi(adminId), result, (data) => {
         message.success('정책 추가에 성공하였습니다.')
-        if(saveCallback) saveCallback(data);
+        if (saveCallback) saveCallback(data);
         setVisible(false);
       }, () => {
         message.error('정책 추가에 실패하였습니다.')
@@ -160,13 +161,13 @@ const Global_Policy = ({
             index === _index ? { ...ul, status: value } : ul
           )
         );
-      } else if(type === 'location') {
+      } else if (type === 'location') {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
             index === _index ? { ...ul, location: value } : ul
           )
         );
-      } else if(type === 'isEdit') {
+      } else if (type === 'isEdit') {
         setInputUserLocations(
           inputUserLocations.map((ul, _index) =>
             index === _index ? { ...ul, isEdit: value } : ul
@@ -207,8 +208,8 @@ const Global_Policy = ({
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return message.error("제목을 입력해주세요.");
-    CustomAxiosGet(isExistencePolicyApi(adminId, inputTitle), ({duplicate}) => {
-      if(!duplicate) {
+    CustomAxiosGet(isExistencePolicyApi(adminId, inputTitle), ({ duplicate }) => {
+      if (!duplicate) {
         setIsExistTitle(true);
         message.success("사용 가능합니다.");
       } else {
@@ -241,10 +242,10 @@ const Global_Policy = ({
 
   const closePolicyDrawer = useCallback(() => {
     setVisible(false);
-  },[])
+  }, [])
 
   const defaultPolicySetting = () => {
-    const {accessControl, authenticationMethods, browsers, mobilePatch, userLocations} = defaultPolicies;
+    const { accessControl, authenticationMethods, browsers, mobilePatch, userLocations } = defaultPolicies;
     setInputAuthCheck(accessControl);
     setInputAuthMethodCheck(authenticationMethods);
     setInputBrowserCheck(browsers);
@@ -385,20 +386,18 @@ const Global_Policy = ({
                 <select
                   className="user-location-select"
                   value={d.location}
-                  disabled={!d.isEdit}
                   onChange={(e) => {
                     changeInputUserLocation(e.target.value, ind, "location");
                   }}
                 >
                   {
                     Object.keys((lang === 'KR' ? countryCodes_KR : countryCodes_US))
-                    .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
+                      .map((code, _ind) => <option key={_ind} value={code}>{(lang === 'KR' ? countryCodes_KR : countryCodes_US)[code]}</option>)
                   }
                 </select>
                 <select
                   className="user-location-select"
-                  value={d.policy}
-                  disabled={!d.isEdit}
+                  value={d.status}
                   onChange={(e) => {
                     changeInputUserLocation(e.target.value, ind, "status");
                   }}
@@ -407,57 +406,29 @@ const Global_Policy = ({
                   <option value="INACTIVE">INACTIVE</option>
                   <option value="DENY">DENY</option>
                 </select>
-                {!d.isEdit && <button
-                  className="button"
-                  style={{marginLeft: '1rem', height: 50}}
-                  onClick={() => {
-                    changeInputUserLocation(true, ind, 'isEdit');
-                  }}
-                >
-                  수정
-                </button>}
                 <button
                   className="button"
-                  style={{marginLeft: '1rem', height: 50}}
-                  onClick={() => {
-                    if(d.isEdit) {
-                      if(!inputUserLocations[ind].location) {
-                        return message.error('위치를 입력해주세요.')
-                      }
-                      setInputUserLocations(inputUserLocations.map((u,_ind) => ind === _ind ? {...u, isEdit: false} : u))
-                    } else {
-                      setInputUserLocations(
-                        inputUserLocations.filter(
-                          (u,_ind) => ind !== _ind
-                        )
-                      );
-                    }
-                  }}
-                >
-                  {d.isEdit ? '저장' : '삭제'}
-                </button>
-                {d.isEdit && <button
-                  className="button"
-                  style={{marginLeft: '1rem', height: 50}}
+                  style={{ marginLeft: '1rem', height: 50 }}
                   onClick={() => {
                     setInputUserLocations(
                       inputUserLocations.filter(
-                        (u,_ind) => ind !== _ind
+                        (u, _ind) => ind !== _ind
                       )
                     );
                   }}
                 >
-                  취소
-                </button>}
+                  삭제
+                </button>
+
               </div>
             ))}
             <button
               type="button"
               className="button"
               onClick={() => {
-                setInputUserLocations([...inputUserLocations, {location: '', policy: 'ACTIVE', isEdit: true}])
+                setInputUserLocations([...inputUserLocations, { location: Object.keys(lang === 'KR' ? countryCodes_KR : countryCodes_US)[0], status: 'ACTIVE' }])
               }}
-              style={{ height: 50, display:'block' }}
+              style={{ height: 50, display: 'block' }}
             >
               추가
             </button>

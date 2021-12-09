@@ -114,3 +114,9 @@
   border: 1px solid #0f96cc;
   color: #0f96cc;
 }
+
+.user-policies-container {
+  border-top: 1px solid rgb(189,189,189);
+  width: 80%;
+  margin-left: 5%;
+}
