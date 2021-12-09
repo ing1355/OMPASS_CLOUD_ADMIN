@@ -50,7 +50,7 @@ const Global_Policy = ({
   lang
 }) => {
   const {adminId} = userProfile
-  const [isExistTitle, setIsExistTitle] = useState(isEditPolicy);
+  const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
