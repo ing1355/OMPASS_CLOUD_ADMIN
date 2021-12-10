@@ -17,6 +17,7 @@ import AxiosController from "./AxiosController";
 import locale from "./locale";
 import "antd/dist/antd.css";
 import ActionCreators from "./redux/actions";
+import MessageController from "./MessageController";
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
 const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
@@ -35,6 +36,7 @@ const App = ({ isLogin, lang, setUserProfile }) => {
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>
         <AxiosController />
+        <MessageController/>
         <React.Suspense fallback={<div>loading...</div>}>
           <Switch>
             <Route path="/admin-signup" component={AdminSignUp} />

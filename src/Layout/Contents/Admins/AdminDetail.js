@@ -21,8 +21,10 @@ import {
 import { isADMINRole } from "../../../Constants/GetRole";
 import { connect } from "react-redux";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
+import ActionCreators from "../../../redux/actions";
+import { useIntl } from "react-intl";
 
-const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
+const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessMessage, showErrorMessage }) => {
   const {
     adminId,
     country,
@@ -36,6 +38,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
     index,
   } = data;
   const history = useHistory();
+  const {formatMessage} = useIntl();
   const isSelf = userProfile.email === email;
   const [inputMobile, setInputMobile] = useState(dialCode + phone);
   const [inputCountryCode, setInputCountryCode] = useState(country);
@@ -57,7 +60,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
-        return message.error("비밀번호가 일치하지 않습니다.");
+        return showErrorMessage('NOT_EQUAL_PASSWORD')
       }
     }
     var route;
@@ -77,7 +80,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
         password: isSelf && password.value ? password.value : null,
       },
       () => {
-        message.success("수정되었습니다.");
+        showSuccessMessage('UPDATE_SUCCESS');
         updateEvent({
           ...data,
           country: inputCountryCode,
@@ -88,25 +91,25 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
         history.push("/Admins");
       },
       () => {
-        message.error("수정 실패하였습니다.");
+        showErrorMessage('UPDATE_FAIL');
       }
     );
   };
 
   const onDelete = () => {
-    if (role === "ADMIN") return message.error("관리자는 삭제할 수 없습니다.");
+    if (role === "ADMIN") return showErrorMessage('ADMIN_CANT_DELETE')
     setConfirmLoading(true);
     CustomAxiosDelete(
       deleteSubAdminApi(adminId, subAdminId),
       () => {
         setConfirmLoading(false);
-        message.success("삭제 성공하였습니다.");
+        showSuccessMessage('DELETE_SUCCESS');
         deleteEvent(index);
         history.push("/Admins");
       },
       () => {
         setConfirmLoading(false);
-        message.error("삭제 실패하였습니다.");
+        showErrorMessage('DELETE_FAIL')
       }
     );
   };
@@ -119,7 +122,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
             <div className="inputBox">
               <span>성</span>
               <input
-                placeholder="이름을 입력하세요."
+                placeholder={formatMessage({id: 'PLEASE_INPUT_FIRST_NAME'})}
                 name="firstName"
                 defaultValue={firstName}
               />
@@ -127,7 +130,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
             <div className="inputBox">
               <span>이름</span>
               <input
-                placeholder="이름을 입력하세요."
+                placeholder={formatMessage({id: 'PLEASE_INPUT_NAME'})}
                 name="lastName"
                 defaultValue={lastName}
               />
@@ -140,12 +143,12 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile }) => {
               <>
                 <div className="inputBox">
                   <span>비밀번호</span>
-                  <input placeholder="패스워드를 입력하세요." name="password" />
+                  <input placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})} name="password" />
                 </div>
                 <div className="inputBox">
                   <span>비밀번호 확인</span>
                   <input
-                    placeholder="패스워드를 입력하세요."
+                    placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})}
                     name="passwordConfirm"
                   />
                 </div>
@@ -216,7 +219,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminDetail);

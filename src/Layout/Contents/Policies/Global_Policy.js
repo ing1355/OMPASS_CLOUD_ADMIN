@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
-  useMemo,
   useState,
 } from "react";
 import "./Global_Policy.css";
@@ -10,7 +9,6 @@ import "./Global_Policy.css";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { UndoOutlined } from "@ant-design/icons";
 import { Drawer, message, Space } from "antd";
-import { ipAddressTest } from "../../../Constants/InputRules";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import {
   CustomAxiosDelete,
@@ -36,16 +34,16 @@ export const BrowsersList = [
   "Firefox",
   "Mobile Safari",
   "Safari",
-  "All other browsers",
+  // "All other browsers",
 ];
 
 export const AuthMethodsList = [
   "OMPASS Push",
-  "OMPASS Mobile passcodes",
-  "SMS passcodes",
-  "Security keys (U2F)",
+  // "OMPASS Mobile passcodes",
+  // "SMS passcodes",
+  // "Security keys (U2F)",
   "WebAuthn",
-  "Hardware tokens",
+  // "Hardware tokens",
 ];
 
 var defaultPolicies;
@@ -86,6 +84,7 @@ const Global_Policy = ({
 
   const InputInit = useCallback(() => {
     setInputTitle("");
+    setIsExistTitle(false);
     setInputAuthCheck(null);
     setInputUserLocations([]);
     setInputBrowserCheck([]);
@@ -344,7 +343,7 @@ const Global_Policy = ({
       visible={visible}
       closable={false}
       placement="right"
-      // onClose={closePolicyDrawer}
+      onClose={closePolicyDrawer}
       style={{ position: "absolute" }}
       bodyStyle={{ paddingBottom: 80 }}
       destroyOnClose
@@ -506,10 +505,10 @@ const Global_Policy = ({
 
         {/* -------------Browsers ------------- */}
         <section className="policies-box">
-          <h2>Browsers</h2>
-          <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
+          <h2>Browsers block</h2>
+          {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
             Always block
-          </div>
+          </div> */}
 
           {BrowsersList.map((bl, ind) => (
             <div className="policies-sub-box" key={ind}>
@@ -567,7 +566,7 @@ const Global_Policy = ({
               onChange={changeInputMobilecheck}
             />
             <label className="label-radio">
-              Require up-to-date securitu patches for OMPASS Mobile.
+              Require up-to-date security patches for OMPASS Mobile.
             </label>
           </div>
           <div className="policies-sub-box">

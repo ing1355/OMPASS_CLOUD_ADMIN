@@ -2,6 +2,8 @@ const types = {
     menuStateChange : 'MENUSTATECHANGE',
     localeChange: 'LOCALECHANGE',
     setIsLogin: 'SETISLOGIN',
-    setProfile: 'SETPROFILE'
+    setProfile: 'SETPROFILE',
+    successMessage: 'SUCCESSMESSAGE',
+    errorMessage: 'ERRORMESSAGE'
 }
 export default types;

@@ -10,8 +10,8 @@ import {
   UserSwitchOutlined,
   UserDeleteOutlined,
 } from "@ant-design/icons";
-import { CustomAxiosDelete, CustomAxiosGet } from "../../../Functions/CustomAxios";
-import { deleteApplicationApi, getApplicationApi } from "../../../Constants/Api_Route";
+import { CustomAxiosDelete, CustomAxiosGet, CustomAxiosGetAll } from "../../../Functions/CustomAxios";
+import { deleteApplicationApi, getApplicationApi, getCustomPoliciesApi } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
@@ -19,14 +19,16 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { ApplicationsColumns } from "../../../Constants/TableColumns";
 import { useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
+import ActionCreators from "../../../redux/actions";
 
-const Applications = ({ userProfile }) => {
+const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [selectedRows, setSelectedRows] = useState([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false)
+  const [customPolicies, setCustomPolicies] = useState([]);
   const { formatMessage } = useIntl();
 
   const tableDataAdd = (data) => {
@@ -48,27 +50,29 @@ const Applications = ({ userProfile }) => {
   };
 
   useEffect(() => {
-    CustomAxiosGet(
-      getApplicationApi(userProfile.adminId),
-      (data) => {
-        setTableData(data.map(d => ({ ...d, detail: formatMessage({ id: 'detailColumn' }) })));
-        setTableLoading(false);
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
+    CustomAxiosGetAll([getApplicationApi(userProfile.adminId), getCustomPoliciesApi(adminId)], [(data) => {
+      setTableData(data.map(d => ({ ...d, detail: formatMessage({ id: 'detailColumn' }) })));
+      setTableLoading(false);
+    }, (data) => {
+      setCustomPolicies(data);
+    }], () => {
+      setTableLoading(false);
+    })
   }, []);
 
   const confirmCallback = () => {
+    if(selectedRows.find(row => row.cloud)) {
+      setConfirmVisible(false);
+      return showErrorMessage('CANT_DELETE_ADMIN_APPLICATION')
+    }
     setConfirmLoading(true);
     CustomAxiosDelete(deleteApplicationApi(adminId, selectedRows.join(',')), (data) => {
-      message.success("삭제되었습니다.");
+      showSuccessMessage('DELETE_SUCCESS')
       tableDatasDelete(selectedRows);
       setConfirmLoading(false);
       setConfirmVisible(false);
     }, () => {
-      message.error('삭제 실패하였습니다.')
+      showErrorMessage('DELETE_FAIL')
       setConfirmLoading(false);
     });
   }
@@ -126,13 +130,14 @@ const Applications = ({ userProfile }) => {
           <Route
             path="/Applications/Add"
             exact
-            render={() => <ApplicationAdd tableDataAdd={tableDataAdd} />}
+            render={() => <ApplicationAdd tableDataAdd={tableDataAdd} policies={customPolicies}/>}
           />
           <Route
             path="/Applications/Detail/:appId"
             render={() => (
               <ApplicationDetail
                 tableDataUpdate={tableDataUpdate}
+                policies={customPolicies}
               />
             )}
           />
@@ -149,7 +154,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Applications);

@@ -13,7 +13,7 @@ const AxiosController = ({setIsLogin}) => {
         axios.interceptors.request.use(req => {
             if(process.env.NODE_ENV !== 'production') console.log(req);
             const non_authorization_apis = [loginApi, resetPasswordApi, resetPasswordVerifyApi, verifyOMPASSApi, verifyPasswordApi];
-            if(!non_authorization_apis.includes(req.url)) req.headers.Authorization = localStorage.getItem('Authorization');
+            if(!(non_authorization_apis.includes(req.url) || req.url.includes('/sub-admins/signup-token'))) req.headers.Authorization = localStorage.getItem('Authorization');
             return req;
         }, err => {
             console.log(err);

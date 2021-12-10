@@ -64,14 +64,13 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
-          setChartData(data.map(d => {
+          setChartData(data.map((d,ind) => {
             const _ = {};
             _.name = d.name;
-            _.type = 'line';
             _.animation = {
-              duration: 1000
+              duration: 500 * ind
             }
-            _.data = d.chartData.map(cD => [cD.date, cD.rank])
+            _.data = d.chartData.map(cD => ({date: cD.date, y: cD.rank, tip: cD.count}))
             _.yAxis = 0;
             return _;
           }));

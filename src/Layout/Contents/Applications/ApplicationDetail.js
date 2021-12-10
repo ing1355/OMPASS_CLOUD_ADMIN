@@ -20,45 +20,40 @@ import { CopyOutlined } from "@ant-design/icons";
 
 import "./Applications.css";
 
-import { Button, Space, Popconfirm } from "antd";
-import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
+import { Button, Space } from "antd";
+import { UserSwitchOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import {
   doaminTest,
   FailToTest,
   nameTest,
 } from "../../../Constants/InputRules";
+import ActionCreators from "../../../redux/actions";
 
-const columns = [
-  { name: "User ID", key: "userId" },
-  { name: "Action", key: "act" },
-  { name: "Application Name", key: "appName" },
-  { name: "Status", key: "status" },
-  { name: "Time", key: "createdDate" },
-];
-
-const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
+const ApplicationDetail = ({ userProfile, tableDataUpdate, policies, showSuccessMessage, showErrorMessage }) => {
   const history = useHistory();
   const { appId } = useParams();
   const { adminId } = userProfile;
-  const [secretKey, setSecretKey] = useState("");
-  const [inputName, setInputName] = useState("");
-  const [inputDomain, setInputDomain] = useState("");
-  const [inputRedirectURI, setInputRedirectURI] = useState("");
-  const [inputStatus, setInputStatus] = useState("");
+  const nameRef = useRef(null);
+  const doaminRef = useRef(null);
+  const redirectURIRef = useRef(null);
+  const statusRef = useRef(null);
+  const statusRef2 = useRef(null);
+  const secretKeyRef = useRef(null);
+  const policyRef = useRef(null);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
-  const secretKeyRef = useRef(null);
 
   useLayoutEffect(() => {
     CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
-      const { name, secretKey, domain, redirectUri, status, integrationKey } =
-        data;
-      setInputName(name);
-      setInputDomain(domain);
-      setInputRedirectURI(redirectUri);
-      setInputStatus(status);
-      setSecretKey(secretKey);
+      const { name, secretKey, domain, redirectUri, status, integrationKey, policyId } = data;
+        nameRef.current.value = name;
+        doaminRef.current.value = domain
+        redirectURIRef.current.value = redirectUri
+        if(status === 'ACTIVE') statusRef.current.checked = true
+        else statusRef2.current.checked = true
+        secretKeyRef.current.value = secretKey
+        policyRef.current.value = policyId
     });
   }, []);
 
@@ -68,7 +63,7 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
       getNewSecretKeyApi(adminId, appId),
       null,
       (data) => {
-        setSecretKey(data.secretKey);
+        secretKeyRef.current.value = data.secretKey;
         setResetLoading(false);
       },
       () => {
@@ -78,30 +73,17 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
   };
 
   const changeInputName = (e) => {
-    setInputName(e.target.value);
     if (isExistCheck) setIsExistCheck(false);
   };
 
-  const changeInputDomain = (e) => {
-    setInputDomain(e.target.value);
-  };
-
-  const changeInputRedirectURI = (e) => {
-    setInputRedirectURI(e.target.value);
-  };
-
-  const changeInputStatus = (e) => {
-    setInputStatus(e.target.value);
-  };
-
   const existCheck = () => {
-    if (!inputName) return message.error("이름을 입력해주세요.");
-    CustomAxiosGet(checkApplicationExistenceApi(adminId, inputName), (data) => {
+    if (!nameRef.current.value) return message.error("이름을 입력해주세요.");
+    CustomAxiosGet(checkApplicationExistenceApi(adminId, nameRef.current.value), (data) => {
       const { duplicate } = data;
       if (duplicate) {
-        message.error("이미 존재하는 이름입니다.");
+        showErrorMessage('IS_EXIST_APPLICATION')
       } else {
-        message.success("사용 가능한 이름입니다.");
+        showErrorMessage('IS_NOT_EXIST_APPLICATION')
         setIsExistCheck(true);
       }
     });
@@ -109,24 +91,26 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { name, domain, redirectUri, status } = e.target.elements;
+    const { name, domain, redirectUri, status, policy } = e.target.elements;
+    console.log(policy.value)
     if (!name.value.length) {
-      return FailToTest(name, "어플리케이션명을 입력해주세요.");
+      return FailToTest(name, showErrorMessage('PLEASE_INPUT_APPLICATION_NAME'));
     }
     if (!nameTest(name.value)) {
-      return FailToTest(name, "어플리케이션명의 형식이 잘못되었습니다.");
+      return FailToTest(name, showErrorMessage('APPLICATION_NAME_RULE_ERROR'));
     }
+    if (!isExistCheck) return showErrorMessage('PLEASE_CHECK_EXIST')
     if (!domain.value.length) {
-      return FailToTest(domain, "도메인을 입력해주세요.");
+      return FailToTest(domain, showErrorMessage('PLEASE_INPUT_DOMAIN'));
     }
     if (!doaminTest(domain.value)) {
-      return FailToTest(domain, "도메인 형식이 잘못되었습니다.");
+      return FailToTest(domain, showErrorMessage('DOMAIN_RULE_ERROR'));
     }
     if (!redirectUri.value.length) {
-      return FailToTest(redirectUri, "리다이렉트 URI를 입력해주세요.");
+      return FailToTest(redirectUri, showErrorMessage('PLEASE_INPUT_REDIRECT_URI'));
     }
     if (!doaminTest(redirectUri.value)) {
-      return FailToTest(redirectUri, "리다이렉트 URI 형식이 잘못되었습니다.");
+      return FailToTest(redirectUri, showErrorMessage('REDIRECT_URI_RULE_ERROR'));
     }
     CustomAxiosPut(
       updateApplicationApi(adminId, appId),
@@ -134,18 +118,15 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
         name: name.value,
         domain: domain.value,
         redirectUri: redirectUri.value,
-        status: inputStatus,
-        policyId: 0,
+        status: status.value.toUpperCase(),
+        policyId: policy.value,
       },
       (data) => {
-        message.success("수정되었습니다.");
-        tableDataUpdate(appId, {
-          name: name.value,
-          domain: domain.value,
-          redirectUri: redirectUri.value,
-          status: inputStatus,
-        });
+        showSuccessMessage('UPDATE_SUCCESS')
+        tableDataUpdate(appId, data);
         history.push("/Applications");
+      }, () => {
+        showErrorMessage('UPDATE_FAIL')
       }
     );
   };
@@ -154,7 +135,7 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
     e.preventDefault();
     secretKeyRef.current.select();
     document.execCommand("copy");
-    message.success("클립보드에 복사하였습니다.");
+    showSuccessMessage('COPY_SUCCESS');
     secretKeyRef.current.setSelectionRange(0, 0);
   };
 
@@ -166,9 +147,9 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
             <label>어플리케이션</label>
             <input
               name="name"
-              value={inputName}
+              ref={nameRef}
               onChange={changeInputName}
-              maxLength={20}
+              maxLength={16}
             />
             <CustomButton
               className="selectButton button"
@@ -184,7 +165,6 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
             <div className="secretKey-container">
               <input
                 name="secretKey"
-                value={secretKey}
                 readOnly
                 ref={secretKeyRef}
               />
@@ -207,16 +187,14 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
             <label>도메인</label>
             <input
               name="domain"
-              value={inputDomain}
-              onChange={changeInputDomain}
+              ref={doaminRef}
             />
           </div>
           <div className="Application-label-input-box">
             <label>리다이렉트 URL</label>
             <input
               name="redirectUri"
-              value={inputRedirectURI}
-              onChange={changeInputRedirectURI}
+              ref={redirectURIRef}
             />
           </div>
           <div className="Application-label-input-box">
@@ -224,28 +202,27 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate }) => {
             <input
               name="status"
               value="Active"
-              onChange={changeInputStatus}
+              ref={statusRef}
               type="radio"
               style={{ width: "15px" }}
-              checked={inputStatus === "Active"}
             />
             <label className="label-radio">Active</label>
             <input
               name="status"
               value="Inactive"
-              onChange={changeInputStatus}
+              ref={statusRef2}
               type="radio"
               style={{ width: "15px" }}
-              checked={inputStatus === "Inactive"}
             />
             <label className="label-radio">Inactive</label>
           </div>
           <div className="Application-label-input-box">
             <label>정책 설정</label>
-            <select name="order">
-              <option selected disabled></option>
-              <option value="1">없음</option>
-              <option value="2">ddddddddd</option>
+            <select name="policy" ref={policyRef}>
+              <option value={null}>선택 안함(Global Policy)</option>
+              {
+                policies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
+              }
             </select>
           </div>
           <Space className="cud">
@@ -267,7 +244,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationDetail);

@@ -1,8 +1,21 @@
 .sidebar {
   height: 100vh;
   padding-top: 80px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 15rem;
   background-color: #2f445a;
   position: fixed;
   z-index: 5;
+}
+
+.back-to-homepage {
+  cursor: pointer;
+  background-color: skyblue;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

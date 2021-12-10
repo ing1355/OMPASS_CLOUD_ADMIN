@@ -82,10 +82,6 @@
 .form-box .ant-row .label-bottom-text:last-child {
   padding-bottom: 0;
 }
-.user-policies-container {
-  width: 100% !important;
-  margin-left: 0 !important;
-}
 .ant-form-item-control label {
   margin-left: 0.5rem;
 }
@@ -130,11 +126,11 @@
 
 .user-policies-container {
   border-top: 1px solid rgb(189, 189, 189);
-  width: 80%;
+  width: 90%;
   margin-left: 5%;
-  transition: all 0.5s ease-out;
-  height: 960px;
-  overflow: hidden;
+  transition: all .5s ease-out;
+  height: 920px;
+  overflow: auto;
 }
 
 .user-policies-container.disabled {

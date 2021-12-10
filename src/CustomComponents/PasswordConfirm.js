@@ -6,6 +6,7 @@ import {verifyPasswordApi} from '../Constants/Api_Route'
 import { connect } from "react-redux";
 import { message } from "antd";
 import CustomButton from "./CustomButton";
+import ActionCreators from "../redux/actions";
 
 const PasswordConfirm = ({
   visible,
@@ -13,20 +14,22 @@ const PasswordConfirm = ({
   callback,
   loading,
   setLoading,
-  userProfile
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage
 }) => {
   const {email} = userProfile;
   const onFinish = (e) => {
     e.preventDefault();
     const { password } = e.target.elements;
-    if(!password.value.length) return message.error('비밀번호를 입력해주세요.')
+    if(!password.value.length) return showErrorMessage('PLEASE_INPUT_PASSWORD')
     setLoading(true);
     CustomAxiosPost(verifyPasswordApi, {
       email,
       password: password.value
     }, () => {
       setLoading(false);
-      message.success('성공하였습니다.')
+      showSuccessMessage('success')
       if (callback) callback();
       setVisible(false);
     }, () => {
@@ -82,6 +85,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
   };
 }
 

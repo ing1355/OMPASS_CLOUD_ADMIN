@@ -18,52 +18,54 @@ import {
   FailToTest,
   nameTest,
 } from "../../../Constants/InputRules";
-import { CopyOutlined } from "@ant-design/icons";
-import CustomButton from "../../../CustomComponents/CustomButton";
-const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
+import ActionCreators from "../../../redux/actions";
+import { useIntl } from "react-intl";
+
+const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErrorMessage, policies }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
   const history = useHistory();
+  const { formatMessage } = useIntl();
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { domain, redirectUri, name } = e.target.elements;
+    const { domain, redirectUri, name, policy } = e.target.elements;
     if (!isExistCheck)
-      return message.error("이름 중복체크를 먼저 진행해주세요.");
+      return showErrorMessage('PLEASE_CHECK_EXIST')
     if (!name.value.length) {
-      return FailToTest(name, "어플리케이션명을 입력해주세요.");
+      return FailToTest(name, showErrorMessage('PLEASE_INPUT_APPLICATION_NAME'));
     }
     if (!nameTest(name.value)) {
-      return FailToTest(name, "어플리케이션명의 형식이 잘못되었습니다.");
+      return FailToTest(name, showErrorMessage('APPLICATION_NAME_RULE_ERROR'));
     }
     if (!domain.value.length) {
-      return FailToTest(domain, "도메인을 입력해주세요.");
+      return FailToTest(domain, showErrorMessage('PLEASE_INPUT_DOMAIN'));
     }
     if (!doaminTest(domain.value)) {
-      return FailToTest(domain, "도메인 형식이 잘못되었습니다.");
+      return FailToTest(domain, showErrorMessage('DOMAIN_RULE_ERROR'));
     }
     if (!redirectUri.value.length) {
-      return FailToTest(redirectUri, "리다이렉트 URI를 입력해주세요.");
+      return FailToTest(redirectUri, showErrorMessage('PLEASE_INPUT_REDIRECT_URI'));
     }
     if (!doaminTest(redirectUri.value)) {
-      return FailToTest(redirectUri, "리다이렉트 URI 형식이 잘못되었습니다.");
+      return FailToTest(redirectUri, showErrorMessage('REDIRECT_URI_RULE_ERROR'));
     }
     CustomAxiosPost(
       addApplicationApi(userProfile.adminId),
       {
         domain: domain.value,
         name: name.value,
-        policyId: 0,
+        policyId: policy.value,
         redirectUri: redirectUri.value,
         status: "Inactive",
       },
       (data) => {
-        message.success("어플리케이션 등록에 성공하였습니다.");
+        showSuccessMessage('APPLICATION_ADD_SUCCESS')
         tableDataAdd(data);
         history.push("/Applications");
       },
       () => {
-        message.error("어플리케이션 등록에 실패하였습니다.");
+        showErrorMessage('APPLICATION_ADD_FAIL')
       }
     );
   };
@@ -75,9 +77,9 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
       (data) => {
         const { duplicate } = data;
         if (duplicate) {
-          message.error("이미 존재하는 이름입니다.");
+          showErrorMessage('IS_EXIST_APPLICATION')
         } else {
-          message.success("사용 가능한 이름입니다.");
+          showSuccessMessage('IS_NOT_EXIST_APPLICATION')
           setIsExistCheck(true);
         }
       }
@@ -103,7 +105,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
               <label>어플리케이션</label>
               <input
                 name="name"
-                placeholder="어플리케이션 이름을 입력하세요."
+                placeholder={formatMessage({ id: 'PLEASE_INPUT_APPLICATION_NAME' })}
                 onChange={changeInputName}
               />
               <button
@@ -132,13 +134,13 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
 
             <div className="Application-label-input-box">
               <label>도메인 주소</label>
-              <input name="domain" placeholder="도메인 주소를 입력하세요." />
+              <input name="domain" placeholder={formatMessage({ id: 'PLEASE_INPUT_DOMAIN' })} />
             </div>
             <div className="Application-label-input-box">
               <label>리다이렉트 URL</label>
               <input
                 name="redirectUri"
-                placeholder="Redirect URL를 입력하세요."
+                placeholder={formatMessage({ id: 'PLEASE_INPUT_REDIRECT_URI' })}
               />
             </div>
             <div className="Application-label-input-box">
@@ -169,10 +171,11 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd }) => {
               style={{ marginTop: "1rem" }}
             >
               <label> 정책 설정</label>
-              <select name="order">
-                <option selected disabled></option>
-                <option value="1">dddddddddd</option>
-                <option value="2">ddddddddd</option>
+              <select name="policy">
+                <option value={null}>선택 안함(Global Policy)</option>
+                {
+                  policies.map((p, ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
+                }
               </select>
             </div>
 
@@ -193,7 +196,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppDetailsAdd);

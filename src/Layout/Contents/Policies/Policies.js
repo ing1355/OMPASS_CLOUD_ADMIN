@@ -129,15 +129,7 @@ const Policies = ({ userProfile }) => {
           customPoliciesData.map((c) => (c.policyId === policyId ? result : c))
         );
       } else {
-        const data = Object.keys(result)
-          .map((d) => {
-            const _ = {};
-            _[d] = result[d];
-            if (d === "policyId" || d === "title") return;
-            return _;
-          })
-          .filter((el) => el !== undefined);
-        setGlobalPoliciesData(data);
+        setGlobalPoliciesData(result);
         setGlobalPoliciesTableData(
           globalPolicyTableDataFeature.map((td) => {
             return {

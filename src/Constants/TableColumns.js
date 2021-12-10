@@ -127,7 +127,7 @@ export const globalPolicyColumns = [
   {
     name: "브라우저 제한",
     key: "browsers",
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
+    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
   },
   {
     name: "인증 방법 제한",

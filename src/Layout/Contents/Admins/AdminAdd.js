@@ -21,8 +21,9 @@ import {
   nameTest,
 } from "../../../Constants/InputRules";
 import { useIntl } from "react-intl";
+import ActionCreators from "../../../redux/actions";
 
-const AdminAdd = ({ userProfile }) => {
+const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
   const [inputMobile, setInputMobile] = useState(null);
@@ -44,16 +45,15 @@ const AdminAdd = ({ userProfile }) => {
   };
 
   const existCheckFunc = () => {
-    if (!inputEmail) return message.error("이메일을 입력해주세요.");
-    if (!emailTest(inputEmail))
-      return message.error(formatMessage({ id: "EMAIL_RULE_ERROR" }));
+    if (!inputEmail) return showErrorMessage("PLEASE_INPUT_EAMIL");
+    if (!emailTest(inputEmail)) return showErrorMessage("EMAIL_RULE_ERROR");
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), (data) => {
       if (data.duplicate) {
         setExistCheck(false);
-        message.error("중복입니다.");
+        showErrorMessage('IS_EXIST_EMAIL');
       } else {
         setExistCheck(true);
-        message.success("사용 가능한 이메일입니다.");
+        showSuccessMessage('IS_NOT_EXIST_EMAIL');
       }
     });
   };
@@ -63,36 +63,31 @@ const AdminAdd = ({ userProfile }) => {
       e.target.elements;
     e.preventDefault();
     if (!firstName.value.length) {
-      return FailToTest(firstName, "성을 입력해주세요.");
+      return FailToTest(firstName, showErrorMessage('PLEASE_INPUT_FIRST_NAME'));
     }
     if (!nameTest(firstName.value)) {
-      return FailToTest(firstName, formatMessage({ id: "NAME_RULE_ERROR" }));
+      return FailToTest(firstName, showErrorMessage("NAME_RULE_ERROR"));
     }
     if (!lastName.value.length) {
-      return FailToTest(lastName, "이름을 입력해주세요.");
+      return FailToTest(lastName, showErrorMessage('PLEASE_INPUT_NAME'));
     }
     if (!nameTest(lastName.value)) {
-      return FailToTest(lastName, formatMessage({ id: "NAME_RULE_ERROR" }));
+      return FailToTest(lastName, showErrorMessage("NAME_RULE_ERROR"));
     }
     if (!email.value.length) {
-      return FailToTest(email, "이메일을 입력해주세요.");
+      return FailToTest(email, showErrorMessage('PLEASE_INPUT_EMAIL'));
     }
     if (!emailTest(email.value)) {
-      return FailToTest(email, formatMessage({ id: "EMAIL_RULE_ERROR" }));
+      return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
     }
-    if (!existCheck) return message.error("중복체크 해주세요.");
+    if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
     if (mobile.value.split(" ").length === 1) {
-      return FailToTest(mobile, "전화번호를 입력해주세요.");
+      return FailToTest(mobile, showErrorMessage('PLEASE_INPUT_MOBILE'));
     }
     // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
     //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
     // }
-    console.log(
-      inputMobile.slice(inputDialCode.length),
-      inputMobile,
-      inputDialCode
-    );
-    if (!agreeCheck.checked) return message.error("체크박스에 체크해주세요.");
+    if (!agreeCheck.checked) return showErrorMessage('PLEASE_INPUT_MOBILE');
     CustomAxiosPost(addSubAdminApi(adminId), {
       country: inputCountry,
       email: email.value,
@@ -102,7 +97,7 @@ const AdminAdd = ({ userProfile }) => {
       dialCode: inputDialCode,
       role: "ADMIN",
     });
-    message.success("인증 메일 발송에 성공하였습니다.");
+    showSuccessMessage('EMAIL_SEND_SUCCESS')
     history.push("/Admins");
   };
 
@@ -112,17 +107,17 @@ const AdminAdd = ({ userProfile }) => {
         <form onSubmit={onFinish}>
           <div className="inputBox">
             <span>성</span>
-            <input name="firstName" placeholder="이름을 입력하세요." />
+            <input name="firstName" placeholder={formatMessage({id: 'PLEASE_INPUT_FIRST_NAME'})} />
           </div>
           <div className="inputBox">
             <span>이름</span>
-            <input name="lastName" placeholder="이름을 입력하세요." />
+            <input name="lastName" placeholder={formatMessage({id: 'PLEASE_INPUT_NAME'})}/>
           </div>
           <div className="inputBox">
             <span>이메일 주소</span>
             <input
               name="email"
-              placeholder="이메일을 입력하세요."
+              placeholder={formatMessage({id: 'PLEASE_INPUT_EMAIL'})}
               onChange={changeEmailInput}
             />
             <button
@@ -177,7 +172,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminAdd);
