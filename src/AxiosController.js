@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useLayoutEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { loginApi, resetPasswordApi, resetPasswordVerifyApi, verifyOMPASSApi, verifyPasswordApi } from './Constants/Api_Route';
+import { loginApi, resetPasswordApi, resetPasswordVerifyApi, signUpAdminApi, verifyOMPASSApi, verifyPasswordApi } from './Constants/Api_Route';
 import ActionCreators from './redux/actions';
 
 const AxiosController = ({setIsLogin}) => {
@@ -12,7 +12,7 @@ const AxiosController = ({setIsLogin}) => {
     useLayoutEffect(() => {
         axios.interceptors.request.use(req => {
             if(process.env.NODE_ENV !== 'production') console.log(req);
-            const non_authorization_apis = [loginApi, resetPasswordApi, resetPasswordVerifyApi, verifyOMPASSApi, verifyPasswordApi];
+            const non_authorization_apis = [loginApi, resetPasswordApi, resetPasswordVerifyApi, verifyOMPASSApi, verifyPasswordApi, signUpAdminApi];
             if(!(non_authorization_apis.includes(req.url) || req.url.includes('/sub-admins/signup-token'))) req.headers.Authorization = localStorage.getItem('Authorization');
             return req;
         }, err => {

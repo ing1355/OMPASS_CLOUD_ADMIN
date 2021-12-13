@@ -39,10 +39,11 @@ const SubAdminSignUp = ({ location, history }) => {
       <form onSubmit={onFinish}>
         {" "}
         <h1>OMPASS 비밀번호 변경</h1>
-        <input placeholder="비밀번호를 입력해주세요" name="password" />
+        <input placeholder="비밀번호를 입력해주세요" name="password" type="password"/>
         <input
           placeholder="비밀번호를 한번 더 입력해주세요"
           name="passwordConfirm"
+          type="password"
         />
         <button type="submit">비밀번호 변경</button>
       </form>

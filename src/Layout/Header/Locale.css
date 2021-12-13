@@ -6,6 +6,17 @@
   user-select: none;
   width: 100px;
   position: relative;
+  color: black;
+}
+
+.header-contents-button-box button.locale-button {
+  color: black;
+  width: 60px;
+  height: 30px;
+  margin-right: 0;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
 }
 
 .header-contents-locale-icon {

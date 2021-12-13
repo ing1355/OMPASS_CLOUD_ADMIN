@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Locale.css";
 import localIcon from "../../assets/localeIcon.png";
 import { connect } from "react-redux";
@@ -19,9 +19,12 @@ const Locale = ({ locale, localeChange }) => {
   };
 
   return (
-    <div
-      className="header-contents-locale-container pointer"
-      onClick={() => {
+    <button
+      className="header-contents-locale-container pointer locale-button"
+      onBlur={() => {
+        setLangbox(false);
+      }}
+      onClick={(e) => {
         setLangbox(!langbox);
       }}
     >
@@ -39,7 +42,7 @@ const Locale = ({ locale, localeChange }) => {
           <p onClick={localeChangeEventKo}> KOREA / 한국어</p>
         </div>
       ) : null}
-    </div>
+    </button>
   );
 };
 

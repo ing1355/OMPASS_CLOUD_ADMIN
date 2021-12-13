@@ -87,7 +87,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
     //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
     // }
-    if (!agreeCheck.checked) return showErrorMessage('PLEASE_INPUT_MOBILE');
+    if (!agreeCheck.checked) return showErrorMessage('PLEASE_CHECK_CHECKBOX');
     CustomAxiosPost(addSubAdminApi(adminId), {
       country: inputCountry,
       email: email.value,
