@@ -14,8 +14,14 @@
 .back-to-homepage {
   cursor: pointer;
   background-color: skyblue;
+  color: #000;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.back-to-homepage:hover {
+  color: #256e8b;
+  font-weight: bold;
+  text-decoration: underline;
 }

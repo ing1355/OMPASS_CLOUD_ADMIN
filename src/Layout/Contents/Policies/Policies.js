@@ -181,7 +181,7 @@ const Policies = ({ userProfile }) => {
           인증하는지를 제어할 수 있는 기능을 제공합니다.
         </p>
         <div className="PoliciesTitleBox">
-          <h5 className="policies-h5">Global Policies</h5>
+          <h5 className="policies-h5">Global Policy</h5>
           <p>글로벌 정책은 모든 어플리케이션에 적용되는 정책입니다.</p>
           <button
             className="button"
@@ -204,7 +204,7 @@ const Policies = ({ userProfile }) => {
         />
 
         <div className="PoliciesBottomBox">
-          <h5 className="policies-h5">Custom Policies</h5>
+          <h5 className="policies-h5">Custom Policy</h5>
           <p>
             커스텀 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다. (정책의
             우선순위 글로벌 정책 ← 커스텀 정책)

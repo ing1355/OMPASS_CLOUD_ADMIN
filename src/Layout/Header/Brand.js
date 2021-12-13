@@ -5,10 +5,15 @@ import { useHistory } from "react-router";
 const Brand = () => {
   const history = useHistory();
   return (
-    <div className="brand" style={{ fontWeight: "bold", fontSize: "1.5rem", cursor:'pointer' }} onClick={() => {
-      history.push('/')
-    }}>
+    <div
+      className="brand"
+      style={{ fontWeight: "bold", fontSize: "1.5rem", cursor: "pointer" }}
+      onClick={() => {
+        history.push("/");
+      }}
+    >
       <img src={logo} />
+      {/* <p>OMPASS</p> */}
     </div>
   );
 };

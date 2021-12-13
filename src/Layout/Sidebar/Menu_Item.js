@@ -7,10 +7,18 @@ import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-
+import {
+  HomeOutlined,
+  SolutionOutlined,
+  SettingOutlined,
+  UserOutlined,
+  AppstoreOutlined,
+  DollarCircleOutlined,
+  ProfileOutlined,
+} from "@ant-design/icons";
 const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
   const isSelected = submenu
-    ? (submenu.find((sb) => sb.name === menuState) || name === menuState)
+    ? submenu.find((sb) => sb.name === menuState) || name === menuState
     : name === menuState;
   const [subMenuOpen, setSubMenuOpen] = useState(isSelected);
 
@@ -39,14 +47,23 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
       }
     }
   };
-  
+
   return (
     <Link to={route}>
       <div
         className={"menu-item pointer " + (isSelected ? "selected" : "")}
         onClick={menuClickEvent}
       >
-        <div className="menu-item-title"><FormattedMessage id={name}/></div>
+        <div className="menu-item-title">
+          {name === "Dashboard" ? <HomeOutlined /> : null}
+          {name === "Policies" ? <SettingOutlined /> : null}
+          {name === "Users" ? <UserOutlined /> : null}
+          {name === "Admins" ? <SolutionOutlined /> : null}
+          {name === "Applications" ? <AppstoreOutlined /> : null}
+          {name === "Billing" ? <DollarCircleOutlined /> : null}
+          {name === "Logs" ? <ProfileOutlined /> : null}
+          &nbsp; <FormattedMessage id={name} />
+        </div>
         {submenu && (
           <img
             src={isSelected && subMenuOpen ? upArrow : downArrow}

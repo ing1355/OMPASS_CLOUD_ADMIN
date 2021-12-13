@@ -5,6 +5,7 @@
   padding: 10px;
   user-select: none;
   width: 100px;
+  position: relative;
 }
 
 .header-contents-locale-icon {
@@ -16,4 +17,16 @@
 .header-contents-locale-text {
   align-self: center;
   margin-left: 7px;
+}
+.lang-div {
+  position: absolute;
+  top: 3rem;
+  right: 0rem;
+  width: 10rem;
+  background: #fff;
+  padding-left: 1.1rem;
+}
+
+.lang-div p:hover {
+  text-decoration: underline;
 }

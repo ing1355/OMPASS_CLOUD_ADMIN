@@ -1,6 +1,6 @@
 .menu-item {
   height: 60px;
-  padding: 0 0rem 0 2.5rem;
+  padding: 0 0rem 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,4 +19,6 @@
 
 .menu-item.selected {
   color: #00b6ec;
+  font-weight: bold;
+  background: #3c5570;
 }
