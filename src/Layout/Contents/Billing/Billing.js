@@ -18,6 +18,7 @@ import {
   getBillingInfoApi,
   startPaypalApi,
   subscriptionIamportApi,
+  cancelSubscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
@@ -39,6 +40,7 @@ const Billing = ({ userProfile }) => {
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
+  const [cancelConfirmModal, setCancelConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
@@ -62,6 +64,7 @@ const Billing = ({ userProfile }) => {
       [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
+          console.log(data);
           const { numberUsers, plan, pricing } = data;
           setAllUserNum(numberUsers);
           setCurrentPlan(plan);
@@ -111,6 +114,10 @@ const Billing = ({ userProfile }) => {
 
   const closeConfirmModal = () => {
     setConfirmModal(false);
+  };
+  
+  const closeCancelConfirmModal = () => {
+    setCancelConfirmModal(false);
   };
 
   const onFinish = (e) => {
@@ -262,6 +269,18 @@ const Billing = ({ userProfile }) => {
     );
   };
 
+  const cancelIamPort = () => {
+    setConfirmLoading(true);
+    CustomAxiosPost(cancelSubscriptionIamportApi(adminId), {}, () => {
+      message.success('구독 취소 성공하였습니다.')
+      setConfirmLoading(false);
+      setCancelConfirmModal(false);
+    }, () => {
+      message.error('구독 취소 실패하였습니다.')
+      setConfirmLoading(false);
+    })
+  }
+
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billings Info" />
@@ -411,6 +430,17 @@ const Billing = ({ userProfile }) => {
             >
               결제하기
             </button>
+            <button
+              name="payType"
+              className="button"
+              style={{marginLeft:'12px'}}
+              type="button"
+              onClick={() => {
+                setCancelConfirmModal(true);
+              }}
+            >
+              구독 취소
+            </button>
           </div>
         </form>
       </section>
@@ -437,11 +467,25 @@ const Billing = ({ userProfile }) => {
           </div>
           <br />
           상기 내용으로 결제를 진행하시겠습니까?
+          <div>
+            
+          </div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}
           >
             {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
+          </div>
+        </CustomConfirm>
+        <CustomConfirm
+          visible={cancelConfirmModal}
+          confirmCallback={cancelIamPort}
+          footer={isKorea()}
+          okLoading={confirmLoading}
+          cancelCallback={closeCancelConfirmModal}
+        >
+          <div>
+            정말 구독을 취소하시겠습니까?
           </div>
         </CustomConfirm>
       </div>

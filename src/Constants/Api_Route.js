@@ -41,6 +41,7 @@ export const getBillingInfoApi = (adminId) => `/v1/admins/${adminId}/billing`
 export const getPaymentHistoryApi = (adminId) => `/v1/admins/${adminId}/payment-histories`
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
+export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel-subscription`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`

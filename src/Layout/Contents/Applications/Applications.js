@@ -50,12 +50,22 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   };
 
   useEffect(() => {
-    CustomAxiosGetAll([getApplicationApi(userProfile.adminId), getCustomPoliciesApi(adminId)], [(data) => {
-      setTableData(data.map(d => ({ ...d, detail: formatMessage({ id: 'detailColumn' }) })));
-      setTableLoading(false);
-    }, (data) => {
-      setCustomPolicies(data);
-    }], () => {
+    CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
+      setCustomPolicies(customPoliciesData);
+      CustomAxiosGet(getApplicationApi(adminId), (applicationData) => {
+        console.log(customPoliciesData)
+        setTableData(applicationData.map(d => { 
+          const _p = customPoliciesData.find(cP => d.policyId === cP.policyId)
+          return {
+            ...d, 
+            policy: _p ? _p.name : '기본 정책'
+          } 
+        }));
+        setTableLoading(false);
+      }, () => {
+        setTableLoading(false);
+      })
+    }, () => {
       setTableLoading(false);
     })
   }, []);

@@ -18,10 +18,9 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { ResponsiveBump } from "@nivo/bump";
 import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
-import HighChart from "./HighChart";
+import { ResponsiveLine } from '@nivo/line'
 
 var tooltipIndex = 0;
 
@@ -64,16 +63,30 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
-          setChartData(data.map((d,ind) => {
-            const _ = {};
-            _.name = d.name;
-            _.animation = {
-              duration: 500 * ind
-            }
-            _.data = d.chartData.map(cD => ({date: cD.date, y: cD.rank, tip: cD.count}))
-            _.yAxis = 0;
-            return _;
-          }));
+          setChartData(data.map(d => ({
+            id: d.name,
+            data: d.chartData.map(_d => ({
+              x: _d.date,
+              y: _d.count
+            }))
+          })))
+          console.log(data.map(d => ({
+            id: d.name,
+            data: d.chartData.map(_d => ({
+              x: _d.date,
+              y: _d.count
+            }))
+          })))
+          // setChartData(data.map((d, ind) => {
+          //   const _ = {};
+          //   _.name = d.name;
+          //   _.animation = {
+          //     duration: 500 * ind
+          //   }
+          //   _.data = d.chartData.map(cD => ({ date: cD.date, y: cD.rank, tip: cD.count }))
+          //   _.yAxis = 0;
+          //   return _;
+          // }));
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -97,8 +110,8 @@ const Dashboard = ({ userProfile }) => {
         return pre.includes("월")
           ? pre + " " + cur + "일"
           : pre.includes("년")
-          ? pre + " " + cur + "월"
-          : pre + "년 " + cur + "월";
+            ? pre + " " + cur + "월"
+            : pre + "년 " + cur + "월";
       });
 
   return (
@@ -215,87 +228,65 @@ const Dashboard = ({ userProfile }) => {
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
           <div className="chart">
-            <HighChart data={chartData}/>
-            {/* <Line {...config(chartData)} 
-            options={{
-              plugins: {
-                legend: {
-                  position: 'right',
-                }
-              }
-            }} 
-            /> */}
-            {/* <ResponsiveBump
+            <ResponsiveLine
               data={chartData}
-              margin={{ top: 20, right: 120, bottom: 70, left: 100 }}
-              colors={{ scheme: "spectral" }}
-              interpolation="linear"
-              lineWidth={2}
-              activeLineWidth={3}
-              inactiveLineWidth={3}
-              inactiveOpacity={0.1}
-              pointSize={10}
-              tooltip={({ serie }) => (
-                <div className="custom-tooltip-container">
-                  <div className="custom-tooltip-title">
-                    날짜 : {chartData[0].data[tooltipDataIndex].x}
-                  </div>
-                  {chartData.map((t, ind) => (
-                    <div key={ind} className="custom-tooltip-item">
-                      {t.id} : <b>{t.data[tooltipDataIndex].value}</b>
-                    </div>
-                  ))}
-                </div>
-              )}
-              onMouseMove={(data, b) => {
-                const { offsetX, offsetY, clientX, clientY } = b.nativeEvent;
-                const { width } = b.target.getBoundingClientRect();
-                const dataLength = chartData[0].data.length;
-                const dataUnitAmount = width / dataLength;
-                const _offsetX = offsetX - 100;
-                if (_offsetX <= dataUnitAmount) {
-                  if (tooltipIndex !== 0) {
-                    tooltipIndex = 0;
-                    setTooltipDataIndex(0);
-                  }
-                } else if (_offsetX >= dataUnitAmount * (dataLength - 1)) {
-                  if (tooltipIndex !== data.data.length - 1) {
-                    tooltipIndex = data.data.length - 1;
-                    setTooltipDataIndex(data.data.length - 1);
-                  }
-                } else {
-                  if (tooltipIndex !== parseInt(_offsetX / dataUnitAmount)) {
-                    tooltipIndex = parseInt(_offsetX / dataUnitAmount);
-                    setTooltipDataIndex(parseInt(_offsetX / dataUnitAmount));
-                  }
-                }
-                // console.log(b.target.getAttribute('d').replace(/[LM]/gi, " ").slice(1,).split(' ').map(d => d.split(',')).flat().map(d => (d*1).toFixed(0)))
-              }}
-              activePointSize={16}
-              inactivePointSize={0}
-              pointColor={{ theme: "background" }}
-              pointBorderWidth={3}
-              activePointBorderWidth={3}
-              pointBorderColor={{ from: "serie.color" }}
+              margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+              xScale={{ type: 'point' }}
+              yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
+              yFormat=" >-.2f"
               axisTop={null}
               axisRight={null}
               axisBottom={{
-                tickSize: 0,
-                tickPadding: 0,
-                tickRotation: 0,
-                legend: "날짜",
-                legendPosition: "middle",
-                legendOffset: 42,
-              }}
-              axisLeft={{
-                tickSize: 0,
+                orient: 'bottom',
+                tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: "인증 횟수 Ranking",
-                legendPosition: "middle",
-                legendOffset: -60,
+                legend: 'transportation',
+                legendOffset: 36,
+                legendPosition: 'middle'
               }}
-            /> */}
+              axisLeft={{
+                orient: 'left',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'count',
+                legendOffset: -40,
+                legendPosition: 'middle'
+              }}
+              pointSize={10}
+              pointColor={{ theme: 'background' }}
+              pointBorderWidth={2}
+              pointBorderColor={{ from: 'serieColor' }}
+              pointLabelYOffset={-12}
+              useMesh={true}
+              legends={[
+                {
+                  anchor: 'bottom-right',
+                  direction: 'column',
+                  justify: false,
+                  translateX: 100,
+                  translateY: 0,
+                  itemsSpacing: 0,
+                  itemDirection: 'left-to-right',
+                  itemWidth: 80,
+                  itemHeight: 20,
+                  itemOpacity: 0.75,
+                  symbolSize: 12,
+                  symbolShape: 'circle',
+                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                  effects: [
+                    {
+                      on: 'hover',
+                      style: {
+                        itemBackground: 'rgba(0, 0, 0, .03)',
+                        itemOpacity: 1
+                      }
+                    }
+                  ]
+                }
+              ]}
+            />
           </div>
         </div>
 

@@ -92,7 +92,6 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate, policies, showSuccess
   const onFinish = (e) => {
     e.preventDefault();
     const { name, domain, redirectUri, status, policy } = e.target.elements;
-    console.log(policy.value)
     if (!name.value.length) {
       return FailToTest(name, showErrorMessage('PLEASE_INPUT_APPLICATION_NAME'));
     }
@@ -119,7 +118,7 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate, policies, showSuccess
         domain: domain.value,
         redirectUri: redirectUri.value,
         status: status.value.toUpperCase(),
-        policyId: policy.value,
+        policyId: policy.value === 'null' ? null : policy.value,
       },
       (data) => {
         showSuccessMessage('UPDATE_SUCCESS')
@@ -219,7 +218,7 @@ const ApplicationDetail = ({ userProfile, tableDataUpdate, policies, showSuccess
           <div className="Application-label-input-box">
             <label>정책 설정</label>
             <select name="policy" ref={policyRef}>
-              <option value={null}>선택 안함(Global Policy)</option>
+              <option value="null">기본 정책(Global Policy)</option>
               {
                 policies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
               }

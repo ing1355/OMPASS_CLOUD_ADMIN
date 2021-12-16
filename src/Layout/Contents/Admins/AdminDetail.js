@@ -179,13 +179,13 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
             <Button className="adminUpdateButton" htmlType="submit">
               <UserSwitchOutlined /> 수정
             </Button>
-            <Button
+            {role !== 'ADMIN' && <Button
               className="adminUpdateButton"
               htmlType="button"
               onClick={openConfirmModal}
             >
               <UserDeleteOutlined /> 삭제
-            </Button>
+            </Button>}
 
             <CustomConfirm
               visible={confirmModal}
@@ -195,14 +195,6 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
             >
               정말로 삭제하시겠습니까?
             </CustomConfirm>
-
-            {/* <button
-              className="adminUpdateButton"
-              type="button"
-              onClick={onDelete}
-            >
-              삭제
-            </button> */}
           </form>
         </div>
       ) : (

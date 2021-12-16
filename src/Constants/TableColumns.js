@@ -21,6 +21,7 @@ export const ApplicationsColumns = [
   { name: "상태", key: "status" },
   { name: "도메인", key: "domain" },
   { name: "Redirect Uri", key: "redirectUri" },
+  { name: "정책", key: "policy" }
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 

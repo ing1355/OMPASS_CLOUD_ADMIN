@@ -75,7 +75,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                   <input
                     className="email-input"
                     name="userId"
-                    placeholder="아이디"
+                    placeholder="아이디(이메일)"
                     type="text"
                   />
                   <input

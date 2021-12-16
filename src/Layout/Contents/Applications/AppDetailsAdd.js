@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Applications.css";
 
 import "antd/dist/antd.css";
@@ -55,7 +55,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
       {
         domain: domain.value,
         name: name.value,
-        policyId: policy.value,
+        policyId: policy.value === 'null' ? null : policy.value,
         redirectUri: redirectUri.value,
         status: "Inactive",
       },
@@ -147,15 +147,16 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
               <label>상태</label>
               <input
                 name="status"
-                value="Active"
+                value="ACTIVE"
                 type="radio"
                 style={{ width: "15px" }}
               />
               <label className="label-radio">Active</label>
               <input
                 name="status"
-                value="Inactive"
+                value="INACTIVE"
                 type="radio"
+                defaultChecked
                 style={{ width: "15px" }}
               />
               <label className="label-radio">Inactive</label>
@@ -172,7 +173,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
             >
               <label> 정책 설정</label>
               <select name="policy">
-                <option value={null}>선택 안함(Global Policy)</option>
+                <option value="null">기본 정책(Global Policy)</option>
                 {
                   policies.map((p, ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
                 }
