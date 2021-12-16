@@ -34,7 +34,10 @@ import { slicePrice } from "../../../Functions/SlicePrice";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
-  const isKorea = useCallback(() => (country === "KR" ? true : false), [country]);
+  const isKorea = useCallback(
+    () => (country === "KR" ? true : false),
+    [country]
+  );
   const [currentPlan, setCurrentPlan] = useState(null);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
@@ -123,7 +126,8 @@ const Billing = ({ userProfile }) => {
   const onFinish = (e) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
-    if (allUserNum >= userNum.value) return message.error('변경할 사용자 수가 너무 적습니다.')
+    if (allUserNum >= userNum.value)
+      return message.error("변경할 사용자 수가 너무 적습니다.");
     if (!check.checked) return message.error("이용 동의에 체크해주세요.");
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
@@ -283,7 +287,7 @@ const Billing = ({ userProfile }) => {
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title="Billings Info" />
+      <ContentsTitle title="요금" />
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
@@ -416,8 +420,9 @@ const Billing = ({ userProfile }) => {
               <label>
                 {" "}
                 이용약관, 가격 및 수수료 규정에 동의합니다.
-                <br /> 결제일로 부터 30일 간격으로 {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}이 자동으로
-                결제됩니다.
+                <br /> 결제일로 부터 30일 간격으로{" "}
+                {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
+                이 자동으로 결제됩니다.
               </label>
             </div>
           </div>

@@ -21,7 +21,9 @@
   margin: 0;
   flex-direction: row;
 }
-
+.dashboard-table {
+  margin-left: 1.1rem;
+}
 .DashboardFirst .plan-info-box {
   display: flex;
   flex-direction: row;

@@ -204,7 +204,7 @@ const Dashboard = ({ userProfile }) => {
                   </p>
                 </div>
                 <div>
-                  <h6>바이패스 수</h6>
+                  <h6>2차인증 바이패스 수</h6>
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;

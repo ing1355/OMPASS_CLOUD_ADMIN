@@ -8,8 +8,9 @@ import { popupCenter } from "./fidoPopUp";
 import "./Login.css";
 import "antd/dist/antd.css";
 import { message } from "antd";
+import { FormattedMessage } from "react-intl";
 
-const Login = ({ setIsLogin, setUserProfile }) => {
+const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
   const [login, setLogin] = useState(true);
 
   const resetPassword = (e) => {
@@ -63,6 +64,17 @@ const Login = ({ setIsLogin, setUserProfile }) => {
     );
   };
 
+  const localeChangeEventKo = () => {
+    if (locale === "en") {
+      localeChange("ko");
+    }
+  };
+  const localeChangeEventEn = () => {
+    if (locale === "ko") {
+      localeChange("en");
+    }
+  };
+
   return (
     <>
       <div className="LoginBox">
@@ -84,7 +96,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                     placeholder="비밀번호"
                   ></input>
                   <button className="button" type="submit">
-                    로그인
+                    <FormattedMessage id="login" />
                   </button>
                 </form>
                 <div className="forget">
@@ -95,6 +107,17 @@ const Login = ({ setIsLogin, setUserProfile }) => {
                   >
                     비밀번호 초기화
                   </span>
+                </div>
+                <div className="join">
+                  {locale === "en" ? (
+                    <a target="_blank" href="https://ompass.kr:4003/Login">
+                      회원가입
+                    </a>
+                  ) : (
+                    <a target="_blank" href="https://ompass.kr:4003/ko/Login">
+                      회원가입
+                    </a>
+                  )}
                 </div>
               </ul>
               <ul>
@@ -141,9 +164,9 @@ const Login = ({ setIsLogin, setUserProfile }) => {
         </div>
         <div className="span">
           <span>
-            <p>ENG</p>
+            <p onClick={localeChangeEventEn}>ENG</p>
             <p>　|　</p>
-            <p>KOR</p>
+            <p onClick={localeChangeEventKo}>KOR</p>
           </span>
         </div>
         <p className="copy">© OneMoreSecurity Inc. All Rights Reserved.</p>
@@ -153,7 +176,7 @@ const Login = ({ setIsLogin, setUserProfile }) => {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return { locale: state.locale };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -163,6 +186,9 @@ function mapDispatchToProps(dispatch) {
     },
     setUserProfile: (data) => {
       dispatch(ActionCreators.setProfile(data));
+    },
+    localeChange: (toggle) => {
+      dispatch(ActionCreators.localeChange(toggle));
     },
   };
 }

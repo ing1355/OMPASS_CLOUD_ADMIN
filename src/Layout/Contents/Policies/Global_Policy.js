@@ -28,12 +28,12 @@ import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 
 export const BrowsersList = [
-  "Chrome",
-  "Chrome Mobile",
-  "Edge",
-  "Firefox",
-  "Mobile Safari",
-  "Safari",
+  "크롬",
+  "크롬 모바일모드",
+  "엣지",
+  "파이어폭스",
+  "사파리 모바일모드",
+  "사파리",
   // "All other browsers",
 ];
 
@@ -321,7 +321,10 @@ const Global_Policy = ({
             alignItems: "center",
           }}
         >
-          <div>Edit {isCustomPolicy ? "Custom" : "Global"} Policy</div>
+          <div>
+            {isCustomPolicy ? "커스텀 정책" : "글로벌 정책"}
+            {isEditPolicy ? " 수정" : " 추가"}
+          </div>
           <Space>
             <button className="button" onClick={_saveCallback}>
               저장
@@ -370,7 +373,7 @@ const Global_Policy = ({
         {/* -------------타이틀 ------------- */}
         {isCustomPolicy && (
           <section className="policies-box">
-            <h2>Title</h2>
+            <h2>제목</h2>
             <div className="policies-sub-box">
               <div>
                 <input
@@ -395,7 +398,7 @@ const Global_Policy = ({
 
         {/* -------------Authentication policy ------------- */}
         <section className="policies-box">
-          <h2>Authentication policy</h2>
+          <h2>인증 접근 제한</h2>
           <div className="policies-sub-box">
             <input
               name="status"
@@ -407,8 +410,8 @@ const Global_Policy = ({
             />
             <label className="label-radio">2차 인증 필수</label>
             <p>
-              Requir two-factor authentication or enrollment when applicable,
-              unless there is a superseding policy configured.
+              대체 정책이 구성되어 있지 않은 한 2차 인증이 필요합니다. (없을
+              경우 2차 인증 등록)
             </p>
           </div>
           <div className="policies-sub-box">
@@ -421,10 +424,7 @@ const Global_Policy = ({
               onChange={changeInputAuthCheck}
             />
             <label className="label-radio">2차 인증 패스</label>
-            <p>
-              Skip two-factor athentication and enrollment, unless there is a
-              superseding pollcy configured.
-            </p>
+            <p>2차 인증 및 등록을 패스하겠습니다.</p>
           </div>
           <div className="policies-sub-box">
             <input
@@ -436,18 +436,20 @@ const Global_Policy = ({
               onChange={changeInputAuthCheck}
             />
             <label className="label-radio">모두 거부</label>
-            <p>Deny authentication to all users..</p>
+            <p>모든 사용자에 대한 인증 거부합니다.</p>
+          </div>
+          <div className="policies-sub-box">
+            <p style={{ marginTop: "0", color: "#066b93" }}>
+              이 옵션을 활성화하면 모든 사용자에게 적용됩니다.
+            </p>
           </div>
         </section>
 
         {/* -------------User location ------------- */}
         <section className="policies-box">
-          <h2>User location</h2>
+          <h2>사용자 위치</h2>
           <div className="policies-sub-box">
-            <h3>
-              OMPASS will do a country lookup on the host IP address and can
-              apply actions based on the country.
-            </h3>
+            <h3>사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.</h3>
             {inputUserLocations.map((d, ind) => (
               <div key={ind}>
                 <select
@@ -487,6 +489,9 @@ const Global_Policy = ({
                 </button>
               </div>
             ))}
+            <p style={{ marginLeft: "0", color: "#066b93" }}>
+              내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.
+            </p>
             <button
               type="button"
               className="button"
@@ -505,7 +510,7 @@ const Global_Policy = ({
 
         {/* -------------Browsers ------------- */}
         <section className="policies-box">
-          <h2>Browsers block</h2>
+          <h2>브라우저 차단</h2>
           {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
             Always block
           </div> */}
@@ -529,10 +534,9 @@ const Global_Policy = ({
 
         {/*----------------Authentication methods ------------- */}
         <section className="policies-box">
-          <h2>Authentication methods</h2>
+          <h2>인증 방법</h2>
           <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
-            Users will only be allowed to authenticate with 2FA ising the
-            checked methods.
+            사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.
           </div>
 
           {AuthMethodsList.map((am, ind) => (
@@ -554,7 +558,7 @@ const Global_Policy = ({
 
         {/* -------------OMPASS Mobile app ------------- */}
         <section className="policies-box">
-          <h2>OMPASS Mobile app</h2>
+          <h2>OMPASS 모바일 앱</h2>
 
           <div className="policies-sub-box">
             <input
@@ -566,7 +570,7 @@ const Global_Policy = ({
               onChange={changeInputMobilecheck}
             />
             <label className="label-radio">
-              Require up-to-date security patches for OMPASS Mobile.
+              OMPASS 모바일용 최신 보안 패치가 필요합니다.
             </label>
           </div>
           <div className="policies-sub-box">
@@ -579,9 +583,12 @@ const Global_Policy = ({
               onChange={changeInputMobilecheck}
             />
             <label className="label-radio">
-              Don't require up-to-date security patches for OMPASS Mobile.
+              OMPASS 모바일용에 대한 최신 보안 패치가 필요하지 않습니다.
             </label>
-            <p>Only applies to iOS AND Android.</p>
+          </div>
+
+          <div>
+            <p style={{ color: "#066b93" }}>iOS 및 Android에만 적용됩니다.</p>
           </div>
         </section>
       </div>

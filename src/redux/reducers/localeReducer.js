@@ -1,6 +1,6 @@
-import types from '../types';
+import types from "../types";
 
-const locale = 'ko';
+const locale = "en";
 
 const localeReducer = (state = locale, action) => {
   switch (action.type) {
@@ -12,10 +12,10 @@ const localeReducer = (state = locale, action) => {
 };
 
 export function localeChange(info) {
-    return {
-        type: types.localeChange,
-        payload: info
-    };
+  return {
+    type: types.localeChange,
+    payload: info,
+  };
 }
 
 export default localeReducer;

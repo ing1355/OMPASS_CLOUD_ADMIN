@@ -42,9 +42,9 @@ export const DashboardLogColumns = [
 export const LogsColumns = [
   { name: "사용자 아이디", key: "userId", width: 220 },
   { name: "활동", key: "act", width: 170 },
-  { name: "어플리케이션 Name", key: "appName" },
-  { name: "상태", key: "status", width: 130 },
-  { name: "시간", key: "createdDate", width: 220 },
+  { name: "어플리케이션", key: "appName" },
+  { name: "상태", key: "status", width: 200 },
+  { name: "시간", key: "createdDate", width: 200 },
 ];
 
 export const allUserColumns = [
@@ -53,7 +53,7 @@ export const allUserColumns = [
   { name: "상태", key: "type", width: 200 },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
-    name: "바이패스",
+    name: "2차인증 바이패스",
     key: "byPass",
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
@@ -63,41 +63,41 @@ export const allUserColumns = [
 ];
 
 export const disabledUserColumns = [
-  { name: "아이디", key: "userId", width: 230 },
+  { name: "아이디", key: "userId", width: 200 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 120 },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
+  { name: "상태", key: "type", width: 200 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
-    name: "바이패스",
+    name: "2차인증 바이패스",
     key: "byPass",
     render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "100px",
+    width: "200px",
   },
 ];
 
 export const byPassUserColumns = [
-  { name: "아이디", key: "userId", width: 230 },
+  { name: "아이디", key: "userId", width: 200 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 120 },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
+  { name: "상태", key: "type", width: 200 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
-    name: "바이패스",
+    name: "2차인증 바이패스",
     key: "byPass",
     render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "100px",
+    width: "200px",
   },
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "아이디", key: "userId", width: 230 },
+  { name: "아이디", key: "userId", width: 200 },
   { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 120 },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 220 },
+  { name: "상태", key: "type", width: 200 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
-    name: "바이패스",
+    name: "2차인증 바이패스",
     key: "byPass",
     render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "100px",
+    width: "200px",
   },
 ];
 
@@ -116,7 +116,7 @@ export const unRegisteredUserColumns = [
 
 export const globalPolicyColumns = [
   {
-    name: "접근 제한",
+    name: "인증 접근 제한",
     key: "accessControl",
     render: (data) => (data ? "O" : "X"),
   },
@@ -147,7 +147,7 @@ const customPolicyItemWidth = 130;
 export const customPolicyColumns = [
   { name: "이름", key: "title" },
   {
-    name: "접근 제한",
+    name: "인증 접근 제한",
     key: "accessControl",
     width: customPolicyItemWidth,
     render: (data) => (data ? "O" : "X"),

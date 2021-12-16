@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
-
+import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import ApplicationAdd from "./AppDetailsAdd";
 
 import { Button, message, Space } from "antd";
@@ -10,8 +10,16 @@ import {
   UserSwitchOutlined,
   UserDeleteOutlined,
 } from "@ant-design/icons";
-import { CustomAxiosDelete, CustomAxiosGet, CustomAxiosGetAll } from "../../../Functions/CustomAxios";
-import { deleteApplicationApi, getApplicationApi, getCustomPoliciesApi } from "../../../Constants/Api_Route";
+import {
+  CustomAxiosDelete,
+  CustomAxiosGet,
+  CustomAxiosGetAll,
+} from "../../../Functions/CustomAxios";
+import {
+  deleteApplicationApi,
+  getApplicationApi,
+  getCustomPoliciesApi,
+} from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
@@ -21,13 +29,17 @@ import { useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
-const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
+const Applications = ({
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage,
+}) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [selectedRows, setSelectedRows] = useState([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [confirmVisible, setConfirmVisible] = useState(false)
+  const [confirmVisible, setConfirmVisible] = useState(false);
   const [customPolicies, setCustomPolicies] = useState([]);
   const { formatMessage } = useIntl();
 
@@ -36,7 +48,7 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   };
 
   const tableDatasDelete = (ids) => {
-    setTableData(tableData.filter((d) => !ids.find(id => d.appId === id)));
+    setTableData(tableData.filter((d) => !ids.find((id) => d.appId === id)));
     setSelectedRows([]);
   };
 
@@ -71,29 +83,34 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   }, []);
 
   const confirmCallback = () => {
-    if(selectedRows.find(row => row.cloud)) {
+    if (selectedRows.find((row) => row.cloud)) {
       setConfirmVisible(false);
-      return showErrorMessage('CANT_DELETE_ADMIN_APPLICATION')
+      return showErrorMessage("CANT_DELETE_ADMIN_APPLICATION");
     }
     setConfirmLoading(true);
-    CustomAxiosDelete(deleteApplicationApi(adminId, selectedRows.join(',')), (data) => {
-      showSuccessMessage('DELETE_SUCCESS')
-      tableDatasDelete(selectedRows);
-      setConfirmLoading(false);
-      setConfirmVisible(false);
-    }, () => {
-      showErrorMessage('DELETE_FAIL')
-      setConfirmLoading(false);
-    });
-  }
+    CustomAxiosDelete(
+      deleteApplicationApi(adminId, selectedRows.join(",")),
+      (data) => {
+        showSuccessMessage("DELETE_SUCCESS");
+        tableDatasDelete(selectedRows);
+        setConfirmLoading(false);
+        setConfirmVisible(false);
+      },
+      () => {
+        showErrorMessage("DELETE_FAIL");
+        setConfirmLoading(false);
+      }
+    );
+  };
 
   const closeConfirmModal = () => {
     setConfirmVisible(false);
-  }
+  };
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="Applications Info" />
+      <Breadcrumb />
+      <ContentsTitle title="어플리케이션" />
       <div className="ApplicationsBox">
         <Switch>
           <Route
@@ -106,11 +123,12 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
                   columns={ApplicationsColumns}
                   datas={tableData}
                   multipleSelectable={true}
-                  selectedId={'appId'}
+                  selectedId={"appId"}
                   rowSelectable={true}
-                  onChangeSelectedRows={rows => {
+                  onChangeSelectedRows={(rows) => {
                     setSelectedRows(rows);
-                  }} />
+                  }}
+                />
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>
@@ -121,17 +139,25 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
                   <Link to={`/Applications/Detail/${selectedRows[0]}`}>
                     <Button disabled={selectedRows.length !== 1}>
                       <UserSwitchOutlined />
-                    수정
-                  </Button>
+                      수정
+                    </Button>
                   </Link>
-                  <Button disabled={selectedRows.length < 1} onClick={() => {
-                    setConfirmVisible(true);
-                  }}>
+                  <Button
+                    disabled={selectedRows.length < 1}
+                    onClick={() => {
+                      setConfirmVisible(true);
+                    }}
+                  >
                     <UserDeleteOutlined />
                     삭제
                   </Button>
                 </Space>
-                <CustomConfirm visible={confirmVisible} okLoading={confirmLoading} confirmCallback={confirmCallback} cancelCallback={closeConfirmModal}>
+                <CustomConfirm
+                  visible={confirmVisible}
+                  okLoading={confirmLoading}
+                  confirmCallback={confirmCallback}
+                  cancelCallback={closeConfirmModal}
+                >
                   정말로 삭제하시겠습니까?
                 </CustomConfirm>
               </div>
@@ -140,7 +166,12 @@ const Applications = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
           <Route
             path="/Applications/Add"
             exact
-            render={() => <ApplicationAdd tableDataAdd={tableDataAdd} policies={customPolicies}/>}
+            render={() => (
+              <ApplicationAdd
+                tableDataAdd={tableDataAdd}
+                policies={customPolicies}
+              />
+            )}
           />
           <Route
             path="/Applications/Detail/:appId"

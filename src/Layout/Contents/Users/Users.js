@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 import "./Users.css";
 import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
@@ -17,6 +23,7 @@ import { allUserColumns } from "../../../Constants/TableColumns";
 import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
 import UserAll from "./UserAll";
+import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -43,36 +50,53 @@ const Users = ({ userProfile }) => {
 
   useLayoutEffect(() => {
     setTableLoading(false);
-  },[_tableData])
+  }, [_tableData]);
 
   useLayoutEffect(() => {
     setTableLoading(true);
     switch (selectView) {
-      case 0: _setTableData(tableData); break;
-      case 1: _setTableData(tableData.slice(0,1)); break;
-      case 2: _setTableData(tableData.slice(0,2)); break;
-      case 3: _setTableData(tableData.filter((t) => t.byPass)); break;
-      default: break;
+      case 0:
+        _setTableData(tableData);
+        break;
+      case 1:
+        _setTableData(tableData.slice(0, 1));
+        break;
+      case 2:
+        _setTableData(tableData.slice(0, 2));
+        break;
+      case 3:
+        _setTableData(tableData.filter((t) => t.byPass));
+        break;
+      default:
+        break;
     }
+  }, [selectView, tableData]);
 
-  }, [selectView, tableData])
-
-  const updateEvent = useCallback((userId, byPass) => {
-    setTableData(
-      tableData.map((t) => (t.userId === userId ? { ...t, byPass } : t))
-    );
-  },[tableData]);
+  const updateEvent = useCallback(
+    (userId, byPass) => {
+      setTableData(
+        tableData.map((t) => (t.userId === userId ? { ...t, byPass } : t))
+      );
+    },
+    [tableData]
+  );
 
   const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
-  },[]);
+  }, []);
 
-  const selectedBorder = useMemo(() =><div className="selectedBorder" style={{ left: selectView * 25 + "%" }} />,[selectView]);
+  const selectedBorder = useMemo(
+    () => (
+      <div className="selectedBorder" style={{ left: selectView * 25 + "%" }} />
+    ),
+    [selectView]
+  );
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="Users Info" />
+      <Breadcrumb />
+      <ContentsTitle title="사용자" />
       <div className="UsersdBox">
         <Switch>
           <Route
@@ -80,7 +104,6 @@ const Users = ({ userProfile }) => {
             exact
             render={() => (
               <>
-
                 <div className="UsersBox3">
                   <ul className="UsersBox3_title">
                     {selectedBorder}
@@ -98,7 +121,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>0</h3>
-                      <p>등록되지 않은 사용자</p>
+                      <p>등록된 사용자</p>
                     </li>
                     <li
                       onClick={() => {
@@ -106,7 +129,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>0</h3>
-                      <p>비활성화된 사용자</p>
+                      <p>등록되지 않은 사용자</p>
                     </li>
                     <li
                       onClick={() => {
@@ -114,7 +137,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
-                      <p>바이패스 사용자</p>
+                      <p>2차인증 바이패스 사용자</p>
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
@@ -151,37 +174,62 @@ const Users = ({ userProfile }) => {
                 <div className="excel-button-box">
                   <div>
                     <CustomButton>
-                      <label htmlFor="excel-upload" className="pointer center-position full-size"><UploadOutlined /> 엑셀 업로드</label>
-                      <input id="excel-upload" type="file" accept=".csv" style={{ display: 'none' }} onInput={e => {
-                        ReadCsvData(e.target.files[0], jsonData => {
-                          const columns = allUserColumns.filter(c => c.key !== 'lastLoginDate');
-                          const result = [];
-                          jsonData.map(data => {
-                            const _result = {};
-                            columns.map((c,ind) => {
-                              _result[c.key] = c.key === 'byPass' ? (data[ind] === 'O' ? true : false) : data[ind]
-                            })
-                            result.push(_result);
-                          })
-                          console.log(result);
-                        })
-                      }} />
+                      <label
+                        htmlFor="excel-upload"
+                        className="pointer center-position full-size"
+                      >
+                        <UploadOutlined /> 엑셀 업로드
+                      </label>
+                      <input
+                        id="excel-upload"
+                        type="file"
+                        accept=".csv"
+                        style={{ display: "none" }}
+                        onInput={(e) => {
+                          ReadCsvData(e.target.files[0], (jsonData) => {
+                            const columns = allUserColumns.filter(
+                              (c) => c.key !== "lastLoginDate"
+                            );
+                            const result = [];
+                            jsonData.map((data) => {
+                              const _result = {};
+                              columns.map((c, ind) => {
+                                _result[c.key] =
+                                  c.key === "byPass"
+                                    ? data[ind] === "O"
+                                      ? true
+                                      : false
+                                    : data[ind];
+                              });
+                              result.push(_result);
+                            });
+                            console.log(result);
+                          });
+                        }}
+                      />
                     </CustomButton>
                   </div>
                   <div style={{ marginLeft: "1rem" }}>
-                    <CustomButton id="download" style={{ float: "right" }} onClick={() => {
-                      SaveCsvData([{
-                        userId: '아이디',
-                        appName: '어플리케이션명',
-                        type: '타입',
-                        byPass: '바이패스 유무'
-                      }, ..._tableData.map(t => ({
-                        userId: t.userId,
-                        appName: t.appName,
-                        type: t.type,
-                        byPass: t.byPass ? 'O' : 'X',
-                      }))])
-                    }}>
+                    <CustomButton
+                      id="download"
+                      style={{ float: "right" }}
+                      onClick={() => {
+                        SaveCsvData([
+                          {
+                            userId: "아이디",
+                            appName: "어플리케이션명",
+                            type: "타입",
+                            byPass: "바이패스 유무",
+                          },
+                          ..._tableData.map((t) => ({
+                            userId: t.userId,
+                            appName: t.appName,
+                            type: t.type,
+                            byPass: t.byPass ? "O" : "X",
+                          })),
+                        ]);
+                      }}
+                    >
                       <DownloadOutlined /> 엑셀 다운로드
                     </CustomButton>
                     {/* <ExcelDownload

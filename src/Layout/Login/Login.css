@@ -105,7 +105,20 @@ li {
   width: 60%;
   height: 2rem;
   margin-top: 1rem;
-
+  display: flex;
+  justify-content: space-between;
+}
+.loginInputBox .join a:hover {
+  color: #0ca6ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.loginInputBox .join a {
+  color: #000;
+}
+.loginInputBox .join {
+  width: 60%;
+  height: 1rem;
   display: flex;
   justify-content: space-between;
 }

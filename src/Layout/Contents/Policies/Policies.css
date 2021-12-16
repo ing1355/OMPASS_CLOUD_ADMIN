@@ -42,19 +42,13 @@
   font-weight: bold;
 }
 
-.PoliciesBox table tbody tr:hover {
-  /* background: none !important; */
-}
-
 .ant-drawer-mask {
   background: rgba(0, 0, 0, 0.671);
 }
 .PoliciesBottomBox th {
   width: 16.5%;
 }
-.global-policy-table-container tr:hover {
-  background: none;
-}
+
 .PoliciesBox th {
   width: 16.5%;
   text-align: center !important;
