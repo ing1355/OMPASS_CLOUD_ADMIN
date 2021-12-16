@@ -1,6 +1,6 @@
 import types from "../types";
 
-const locale = "en";
+const locale = "ko";
 
 const localeReducer = (state = locale, action) => {
   switch (action.type) {
