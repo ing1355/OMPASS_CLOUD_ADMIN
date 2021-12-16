@@ -176,10 +176,7 @@ const Policies = ({ userProfile }) => {
 
       <ContentsTitle title="정책" />
       <div className="PoliciesBox">
-        <p>
-          OMPASS 의 정책은 사용자가 어디에서 어떤 유형의 장치를 사용하여
-          인증하는지를 제어할 수 있는 기능을 제공합니다.
-        </p>
+        <p>OMPASS 정책은 Global 정책과 Custom 정책으로 구분됩니다.</p>
         <div className="PoliciesTitleBox">
           <h5 className="policies-h5">글로벌 정책</h5>
           <p>글로벌 정책은 모든 어플리케이션에 적용되는 정책입니다.</p>
@@ -212,8 +209,9 @@ const Policies = ({ userProfile }) => {
         <div className="PoliciesBottomBox">
           <h5 className="policies-h5">커스텀 정책</h5>
           <p>
-            커스텀 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다. (정책의
-            우선순위는 글로벌 정책보다 커스텀 정책의 우선순위가 높습니다.)
+            커스텀 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.
+            {/* (정책의
+            우선순위는 글로벌 정책보다 커스텀 정책의 우선순위가 높습니다.) */}
           </p>
           <button
             className="button"
