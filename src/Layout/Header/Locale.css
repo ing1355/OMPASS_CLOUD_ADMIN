@@ -36,6 +36,7 @@
   width: 10rem;
   background: #fff;
   padding-left: 1.1rem;
+  text-align: left;
 }
 
 .lang-div p:hover {

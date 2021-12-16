@@ -64,16 +64,22 @@ const Dashboard = ({ userProfile }) => {
           setPlan(plan);
         },
         (data) => {
-          setChartData(data.map((d,ind) => {
-            const _ = {};
-            _.name = d.name;
-            _.animation = {
-              duration: 500 * ind
-            }
-            _.data = d.chartData.map(cD => ({date: cD.date, y: cD.rank, tip: cD.count}))
-            _.yAxis = 0;
-            return _;
-          }));
+          setChartData(
+            data.map((d, ind) => {
+              const _ = {};
+              _.name = d.name;
+              _.animation = {
+                duration: 500 * ind,
+              };
+              _.data = d.chartData.map((cD) => ({
+                date: cD.date,
+                y: cD.rank,
+                tip: cD.count,
+              }));
+              _.yAxis = 0;
+              return _;
+            })
+          );
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -191,7 +197,7 @@ const Dashboard = ({ userProfile }) => {
                   </p>
                 </div>
                 <div>
-                  <h6>바이패스 수</h6>
+                  <h6>2차인증 바이패스 수</h6>
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
@@ -215,7 +221,7 @@ const Dashboard = ({ userProfile }) => {
             <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
           </h4>
           <div className="chart">
-            <HighChart data={chartData}/>
+            <HighChart data={chartData} />
             {/* <Line {...config(chartData)} 
             options={{
               plugins: {

@@ -13,15 +13,18 @@
 
 .back-to-homepage {
   cursor: pointer;
-  background-color: skyblue;
+  background-color: #62bbff;
+  border-radius: 15px;
   color: #000;
-  height: 60px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
 }
 .back-to-homepage:hover {
-  color: #256e8b;
-  font-weight: bold;
-  text-decoration: underline;
+  color: #fff;
+  background: #256e8b;
 }

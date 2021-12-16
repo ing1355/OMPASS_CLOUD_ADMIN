@@ -87,7 +87,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>바이패스 :</label>
+                <label>2차인증 바이패스 :</label>
               </div>
               <div
                 className="ant-col ant-form-item-control"
@@ -154,7 +154,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
               >
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
-                    <label>Authentication policy :</label>
+                    <label>인증 접근 제한 :</label>
                   </div>
                   <div
                     className="ant-col ant-form-item-control"
@@ -171,10 +171,8 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       <label className="label"> 2차 인증 필수</label>
                     </div>
                     <div className="label-bottom-text">
-                      Requir two-factor authentication or enrollment when
-                      applicable,
-                      <br />
-                      unless there is a superseding policy configured.
+                      대체 정책이 구성되어 있지 않은 한 2차 인증이 필요합니다.
+                      (없을 경우 2차 인증 등록)
                     </div>
                     <div>
                       <input
@@ -187,8 +185,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       <label className="label-radio">2차 인증 패스</label>
                     </div>
                     <div className="label-bottom-text">
-                      Skip two-factor athentication and enrollment, unless there
-                      is a superseding pollcy configured.
+                      2차 인증 및 등록을 패스하겠습니다.
                     </div>
                     <div>
                       <input
@@ -201,17 +198,28 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       <label className="label-radio">모두 거부</label>
                     </div>
                     <div className="label-bottom-text">
-                      Deny authentication to all users
+                      모든 사용자에 대한 인증 거부합니다.
                     </div>
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        marginTop: "2rem",
+                        color: "#066b93",
+                        marginBottom: "0",
+                      }}
+                    >
+                      * 이 옵션을 활성화하면 모든 사용자에게 적용됩니다.
+                    </p>
                   </div>
                 </div>
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
-                    <label>User location :</label>
+                    <label>사용자 위치 :</label>
                   </div>
                   <div
                     className="ant-col ant-form-item-control"
-                    style={{ justifyContent: "space-around" }}
+                    style={{ justifyContent: "space-around", width: "50%" }}
                   >
                     {tempUserLocations.map((d, ind) => (
                       <div key={ind}>
@@ -287,10 +295,23 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       추가
                     </button>
                   </div>
+                  <div style={{ display: "block" }}>
+                    <p
+                      style={{
+                        marginTop: "2rem",
+                        color: "#066b93",
+                        marginBottom: "0",
+                      }}
+                    >
+                      *내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지
+                      않습니다.
+                    </p>
+                  </div>
                 </div>
+
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
-                    <label>Browsers :</label>
+                    <label>브라우저 차단 :</label>
                   </div>
                   <div
                     className="ant-col ant-form-item-control"
@@ -312,7 +333,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 </div>
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
-                    <label>Authentication methods :</label>
+                    <label>인증 방법 :</label>
                   </div>
                   <div
                     className="ant-col ant-form-item-control"
@@ -336,11 +357,11 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 </div>
                 <div className="ant-row inputBox ant-form-item">
                   <div className="ant-col-6 ant-form-item-label-left">
-                    <label>OMPASS Mobile app :</label>
+                    <label>OMPASS 모바일 앱 :</label>
                   </div>
                   <div
                     className="ant-col ant-form-item-control"
-                    style={{ justifyContent: "space-around" }}
+                    style={{ justifyContent: "space-around", width: "50%" }}
                   >
                     <div>
                       <input
@@ -351,7 +372,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         style={{ width: "15px" }}
                       />
                       <label className="label-radio">
-                        Require up-to-date securitu patches for OMPASS Mobile.
+                        OMPASS 모바일용 최신 보안 패치가 필요합니다.
                       </label>
                     </div>
                     <div>
@@ -363,11 +384,21 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                         style={{ width: "15px" }}
                       />
                       <label className="label-radio">
-                        Don't require up-to-date security patches for OMPASS
-                        Mobile.
+                        OMPASS 모바일용에 대한 최신 보안 패치가 필요하지
+                        않습니다.
                       </label>
-                      <p>Only applies to iOS AND Android.</p>
                     </div>
+                  </div>
+                  <div style={{ display: "block" }}>
+                    <p
+                      style={{
+                        marginTop: "2rem",
+                        color: "#066b93",
+                        marginBottom: "0",
+                      }}
+                    >
+                      *iOS 및 Android에만 적용됩니다.
+                    </p>
                   </div>
                 </div>
               </div>

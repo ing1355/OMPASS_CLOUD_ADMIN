@@ -94,3 +94,15 @@ table tbody tr:hover {
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   color: gray !important;
 }
+@media (max-width: 1600px) {
+  .contents-container {
+    animation: fadeIn 0.5s;
+    margin: 0 auto;
+    width: 100% !important;
+    padding: 3rem 4rem;
+  }
+  .menu-item {
+    height: 55px !important;
+    font-size: 17px !important;
+  }
+}

@@ -21,11 +21,11 @@ const Locale = ({ locale, localeChange }) => {
   return (
     <button
       className="header-contents-locale-container pointer locale-button"
+      onClick={() => {
+        setLangbox(!langbox);
+      }}
       onBlur={() => {
         setLangbox(false);
-      }}
-      onClick={(e) => {
-        setLangbox(!langbox);
       }}
     >
       <img

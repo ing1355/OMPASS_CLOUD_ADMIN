@@ -17,7 +17,8 @@ const Logs = ({ userProfile }) => {
       (data) => {
         setTableData(data);
         setTableLoading(false);
-      },() => {
+      },
+      () => {
         setTableLoading(false);
       }
     );
@@ -25,9 +26,14 @@ const Logs = ({ userProfile }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="Logs Info" />
+      <ContentsTitle title="로그" />
       <div className="LogBox">
-        <CustomTable columns={LogsColumns} datas={tableData} pagination numPerPage={10}/>
+        <CustomTable
+          columns={LogsColumns}
+          datas={tableData}
+          pagination
+          numPerPage={10}
+        />
       </div>
     </div>
   );
@@ -35,14 +41,12 @@ const Logs = ({ userProfile }) => {
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Logs);

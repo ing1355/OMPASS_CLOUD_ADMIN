@@ -20,6 +20,7 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
 import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 import { AdminsColumns } from "../../../Constants/TableColumns";
+import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 
 const Admins = ({ userProfile, history }) => {
   const { adminId } = userProfile;
@@ -55,19 +56,25 @@ const Admins = ({ userProfile, history }) => {
     history.push("/Admins/Detail");
   }, []);
 
-  const updateAdmin = useCallback((rowData) => {
-    setTableData(
-      tableData.map((t) =>
-        t.index === rowData.index
-          ? { ...rowData, name: rowData.firstName + rowData.lastName }
-          : t
-      )
-    );
-  }, [tableData]);
+  const updateAdmin = useCallback(
+    (rowData) => {
+      setTableData(
+        tableData.map((t) =>
+          t.index === rowData.index
+            ? { ...rowData, name: rowData.firstName + rowData.lastName }
+            : t
+        )
+      );
+    },
+    [tableData]
+  );
 
-  const deleteAdmin = useCallback((index) => {
-    setTableData(tableData.filter((t) => t.index !== index * 1));
-  }, [tableData]);
+  const deleteAdmin = useCallback(
+    (index) => {
+      setTableData(tableData.filter((t) => t.index !== index * 1));
+    },
+    [tableData]
+  );
 
   const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
@@ -93,7 +100,8 @@ const Admins = ({ userProfile, history }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="Admins Info" />
+      <Breadcrumb />
+      <ContentsTitle title="관리자" />
       <Switch>
         <Route
           path="/Admins"

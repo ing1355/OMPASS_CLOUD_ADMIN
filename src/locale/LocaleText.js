@@ -29,6 +29,7 @@ const locales = {
     COPY_SUCCESS: "클립보드에 복사하였습니다.",
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
+    login: "Login",
   },
   KR: {
     localeChangeText: "KO",
@@ -60,6 +61,7 @@ const locales = {
     COPY_SUCCESS: "클립보드에 복사하였습니다.",
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
+    login: "로그인",
   },
 };
 
