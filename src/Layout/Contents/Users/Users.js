@@ -24,6 +24,7 @@ import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
 import UserAll from "./UserAll";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
+import { FormattedMessage } from "react-intl";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -113,7 +114,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>{tableData.length}</h3>
-                      <p>전체 사용자 수</p>
+                      <p><FormattedMessage id="ALLUSERNUM"/></p>
                     </li>
                     <li
                       onClick={() => {
@@ -121,7 +122,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>0</h3>
-                      <p>등록된 사용자</p>
+                      <p><FormattedMessage id="REGISTEREDUSERNUM"/></p>
                     </li>
                     <li
                       onClick={() => {
@@ -129,7 +130,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>0</h3>
-                      <p>등록되지 않은 사용자</p>
+                      <p><FormattedMessage id="UNREGISTEREDUSERNUM"/></p>
                     </li>
                     <li
                       onClick={() => {
@@ -137,7 +138,7 @@ const Users = ({ userProfile }) => {
                       }}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
-                      <p>2차인증 바이패스 사용자</p>
+                      <p><FormattedMessage id="BYPASSUSERNUM"/></p>
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
@@ -178,7 +179,7 @@ const Users = ({ userProfile }) => {
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
                       >
-                        <UploadOutlined /> 엑셀 업로드
+                        <UploadOutlined /> <FormattedMessage id="EXCELUPLOAD"/>
                       </label>
                       <input
                         id="excel-upload"
@@ -230,7 +231,7 @@ const Users = ({ userProfile }) => {
                         ]);
                       }}
                     >
-                      <DownloadOutlined /> 엑셀 다운로드
+                      <DownloadOutlined /> <FormattedMessage id="EXCELDOWNLOAD"/>
                     </CustomButton>
                     {/* <ExcelDownload
                       data={tableData}

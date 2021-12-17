@@ -87,16 +87,16 @@ const Billing = ({ userProfile }) => {
   };
 
   const billingsInfo = [
-    {
-      cardTitle: "OMPASS Free",
-      itemLists: [
-        { content: "30일 무료 체험", fontWeight: 700 },
-        { content: "2FA for VPN and Web Apps" },
-        { content: "패스워드 없이 인증" },
-        { content: "2차 인증" },
-        { content: "WEBAUTHN 지원" },
-      ],
-    },
+    // {
+    //   cardTitle: "OMPASS Free",
+    //   itemLists: [
+    //     { content: "30일 무료 체험", fontWeight: 700 },
+    //     { content: "2FA for VPN and Web Apps" },
+    //     { content: "패스워드 없이 인증" },
+    //     { content: "2차 인증" },
+    //     { content: "WEBAUTHN 지원" },
+    //   ],
+    // },
     {
       cardTitle: "OMPASS",
       itemLists: [

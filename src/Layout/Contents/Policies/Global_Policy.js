@@ -26,6 +26,7 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
+import { FormattedMessage } from "react-intl";
 
 export const BrowsersList = [
   "크롬",
@@ -322,23 +323,23 @@ const Global_Policy = ({
           }}
         >
           <div>
-            {isCustomPolicy ? "커스텀 정책" : "글로벌 정책"}
-            {isEditPolicy ? " 수정" : " 추가"}
+            {isCustomPolicy ? <FormattedMessage id="CUSTOMPOLICY"/> : <FormattedMessage id="DEFAULTPOLICY"/>}&nbsp;
+            {isEditPolicy ? <FormattedMessage id="UPDATE"/> : <FormattedMessage id="ADD"/>}
           </div>
           <Space>
             <button className="button" onClick={_saveCallback}>
-              저장
+              <FormattedMessage id="SAVE"/>
             </button>
             {isEditPolicy && isCustomPolicy && (
               <button
                 className="button close-button del-button"
                 onClick={openDeleteConfirm}
               >
-                삭제
+                <FormattedMessage id="DELETE"/>
               </button>
             )}
             <button className="button close-button" onClick={closePolicyDrawer}>
-              닫기
+              <FormattedMessage id="CLOSE"/>
             </button>
           </Space>
         </div>
@@ -389,7 +390,7 @@ const Global_Policy = ({
                   style={{ height: "50px" }}
                   onClick={checkExistTitle}
                 >
-                  중복체크
+                  <FormattedMessage id="DUPLICATECHECK"/>
                 </button>
               </div>
             </div>
@@ -485,7 +486,7 @@ const Global_Policy = ({
                     );
                   }}
                 >
-                  삭제
+                  <FormattedMessage id="DELETE"/>
                 </button>
               </div>
             ))}
@@ -503,7 +504,7 @@ const Global_Policy = ({
               }}
               style={{ height: 50, display: "block" }}
             >
-              추가
+              <FormattedMessage id="ADD"/>
             </button>
           </div>
         </section>

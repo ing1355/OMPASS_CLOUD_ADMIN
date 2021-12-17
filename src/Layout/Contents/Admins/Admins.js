@@ -23,7 +23,7 @@ import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 
 const Admins = ({ userProfile, history }) => {
-  const { adminId } = userProfile;
+  const { adminId, role } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
@@ -118,13 +118,13 @@ const Admins = ({ userProfile, history }) => {
                       관리자 등록
                     </button>
                   </Link>
-                  <button
+                  {role === 'ADMIN' && <button
                     className="button two-Auth-button admin-button"
                     disabled={tableLoading}
                     onClick={openConfirmModal}
                   >
                     2차 인증 {ompassToggle ? "비활성화" : "활성화"}
-                  </button>
+                  </button>}
                 </div>
                 <CustomTable
                   columns={AdminsColumns}

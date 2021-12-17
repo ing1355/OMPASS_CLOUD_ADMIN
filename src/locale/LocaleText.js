@@ -30,6 +30,22 @@ const locales = {
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
     login: "Login",
+    DEFAULTPOLICY:'기본 정책',
+    CUSTOMPOLICY:'사용자 정의 정책',
+    ADD:'추가',
+    UPDATE:'수정',
+    SAVE:'저장',
+    DELETE:'삭제',
+    CLOSE:'닫기',
+    DUPLICATECHECK:'중복체크',
+    ALLUSERNUM: '전체 사용자 수',
+    REGISTEREDUSERNUM: '등록된 사용자 수',
+    UNREGISTEREDUSERNUM: '등록되지 않은 사용자 수',
+    BYPASSUSERNUM: '2차인증 바이패스 사용자 수',
+    EXCELUPLOAD: '엑셀 업로드',
+    EXCELDOWNLOAD: '엑셀 다운로드',
+    REGISTER:'등록',
+    DELETECONFIRM:'정말로 삭제하시겠습니까?'
   },
   KR: {
     localeChangeText: "KO",
@@ -62,6 +78,22 @@ const locales = {
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
     login: "로그인",
+    DEFAULTPOLICY:'기본 정책',
+    CUSTOMPOLICY:'사용자 정의 정책',
+    ADD:'추가',
+    UPDATE:'수정',
+    SAVE:'저장',
+    DELETE:'삭제',
+    CLOSE:'닫기',
+    DUPLICATECHECK:'중복체크',
+    ALLUSERNUM: '전체 사용자 수',
+    REGISTEREDUSERNUM: '등록된 사용자 수',
+    UNREGISTEREDUSERNUM: '등록되지 않은 사용자 수',
+    BYPASSUSERNUM: '2차인증 바이패스 사용자 수',
+    EXCELUPLOAD: '엑셀 업로드',
+    EXCELDOWNLOAD: '엑셀 다운로드',
+    REGISTER:'등록',
+    DELETECONFIRM:'정말로 삭제하시겠습니까?'
   },
 };
 

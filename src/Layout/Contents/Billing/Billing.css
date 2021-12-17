@@ -63,8 +63,8 @@
   flex-direction: row;
 }
 
-.billing-info-container > div {
-  width: 50%;
+.billing-info-container > div:first-child {
+  width: 100%;
   flex: 0 0 auto;
   padding: 8px 12px 8px 0;
 }
@@ -86,6 +86,8 @@
 }
 
 .billing-info-contents-list {
+  width: 400px;
+  margin: 0 auto;
   text-align: center;
   height: 45px;
   letter-spacing: -0.5px;

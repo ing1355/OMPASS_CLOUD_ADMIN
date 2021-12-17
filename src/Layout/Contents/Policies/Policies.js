@@ -25,6 +25,7 @@ import {
   getGlobalPolicyApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const globalPolicyTableDataFeature = [
   // {
@@ -69,6 +70,7 @@ const Policies = ({ userProfile }) => {
   const [globalPoliciesTableData, setGlobalPoliciesTableData] = useState([]);
   const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const {formatMessage} = useIntl();
 
   const policyDatas = {
     title: null,
@@ -174,11 +176,11 @@ const Policies = ({ userProfile }) => {
         deleteCallback={deleteCallback}
       />
 
-      <ContentsTitle title="정책" />
+      <ContentsTitle title={formatMessage({id:'Policies'})} />
       <div className="PoliciesBox">
         <p>OMPASS 정책은 Global 정책과 Custom 정책으로 구분됩니다.</p>
         <div className="PoliciesTitleBox">
-          <h5 className="policies-h5">글로벌 정책</h5>
+          <h5 className="policies-h5"><FormattedMessage id="DEFAULTPOLICY"/></h5>
           <p>글로벌 정책은 모든 어플리케이션에 적용되는 정책입니다.</p>
           <button
             className="button"
@@ -189,7 +191,7 @@ const Policies = ({ userProfile }) => {
               setEditDrawerOpen(true);
             }}
           >
-            글로벌 정책 수정
+            <FormattedMessage id="DEFAULTPOLICY"/>&nbsp;<FormattedMessage id="UPDATE"/>
           </button>
         </div>
 
@@ -207,7 +209,7 @@ const Policies = ({ userProfile }) => {
         />
 
         <div className="PoliciesBottomBox">
-          <h5 className="policies-h5">커스텀 정책</h5>
+          <h5 className="policies-h5"><FormattedMessage id="CUSTOMPOLICY"/></h5>
           <p>
             커스텀 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.
             {/* (정책의
@@ -221,7 +223,7 @@ const Policies = ({ userProfile }) => {
               setEditDrawerOpen(true);
             }}
           >
-            커스텀 정책 추가
+            <FormattedMessage id="CUSTOMPOLICY"/>&nbsp;<FormattedMessage id="ADD"/>
           </button>
           <CustomTable
             columns={customPolicyColumns}

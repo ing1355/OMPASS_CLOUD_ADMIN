@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ApplicationsColumns } from "../../../Constants/TableColumns";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
@@ -132,14 +132,14 @@ const Applications = ({
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>
-                      <AppstoreAddOutlined />
-                      등록
+                      <AppstoreAddOutlined />&nbsp;
+                      <FormattedMessage id="REGISTER"/>
                     </Button>
                   </Link>
                   <Link to={`/Applications/Detail/${selectedRows[0]}`}>
                     <Button disabled={selectedRows.length !== 1}>
-                      <UserSwitchOutlined />
-                      수정
+                      <UserSwitchOutlined />&nbsp;
+                      <FormattedMessage id="UPDATE"/>
                     </Button>
                   </Link>
                   <Button
@@ -148,8 +148,8 @@ const Applications = ({
                       setConfirmVisible(true);
                     }}
                   >
-                    <UserDeleteOutlined />
-                    삭제
+                    <UserDeleteOutlined />&nbsp;
+                    <FormattedMessage id="DELETE"/>
                   </Button>
                 </Space>
                 <CustomConfirm
@@ -158,7 +158,7 @@ const Applications = ({
                   confirmCallback={confirmCallback}
                   cancelCallback={closeConfirmModal}
                 >
-                  정말로 삭제하시겠습니까?
+                  <FormattedMessage id="DELETECONFIRM"/>
                 </CustomConfirm>
               </div>
             )}
