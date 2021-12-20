@@ -31,6 +31,7 @@ import "./Billing.css";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
@@ -50,6 +51,7 @@ const Billing = ({ userProfile }) => {
   const [inputUserNum, setInputUserNum] = useState(1);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
+  const {formatMessage} = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
@@ -287,7 +289,7 @@ const Billing = ({ userProfile }) => {
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title="요금" />
+      <ContentsTitle title={formatMessage({id:'Billing'})} />
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
@@ -318,7 +320,7 @@ const Billing = ({ userProfile }) => {
             className="billing-edition-title"
             // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
-            사용자
+            <FormattedMessage id="USER"/>
           </div>
         </div>
       </section>
@@ -328,15 +330,7 @@ const Billing = ({ userProfile }) => {
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
                 title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
-                subTitle={`${
-                  isKorea()
-                    ? slicePrice(
-                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
-                      ) + " 원"
-                    : slicePrice(
-                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
-                      ) + " $"
-                } / ${isKorea() ? "1인" : "User"} / Month`}
+                subTitle={`${formatMessage({id:'PRICEUNIT'},{param:slicePrice(editions[ind].priceForOneUser)})} / ${formatMessage({id:'PERUSER'})} / Month`}
               />
               {item.itemLists.map((itemList, _ind) => (
                 <div
@@ -354,7 +348,7 @@ const Billing = ({ userProfile }) => {
       </section>
 
       <section className="Payment-History-table" style={{ border: "none" }}>
-        <h2>결제 내역</h2>
+        <h2><FormattedMessage id="PAYMENTHISTORY"/></h2>
         <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
 
@@ -402,27 +396,25 @@ const Billing = ({ userProfile }) => {
                 setInputTerm(e.target.value);
               }}
             >
-              <option value="MONTHLY">매 월</option>
+              <option value="MONTHLY">{formatMessage({id:'EVERYMONTH'})}</option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">가격</label>
+            <label className="billing-change-form-label"><FormattedMessage id="PRICE"/></label>
             <b>
-              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
+              {formatMessage({id:'PRICEUNIT'},{param: slicePrice(cost)})}
             </b>
-            <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
+            <span>&nbsp;/ <FormattedMessage id="PERMONTH"/></span>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">이용 동의</label>
+            <label className="billing-change-form-label"><FormattedMessage id="AGREE"/></label>
             <div>
               <input type="checkbox" name="check" />
-              <label>
-                {" "}
-                이용약관, 가격 및 수수료 규정에 동의합니다.
-                <br /> 결제일로 부터 30일 간격으로{" "}
-                {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
-                이 자동으로 결제됩니다.
+              <label>&nbsp;
+                <FormattedMessage id="BILLINGCHECKDESCRIPTION"/>
+                <br /> 
+                {formatMessage({id:'BILLINGPRICEDESCRIPTION'}, {param: slicePrice(cost)})}
               </label>
             </div>
           </div>
@@ -490,7 +482,7 @@ const Billing = ({ userProfile }) => {
           cancelCallback={closeCancelConfirmModal}
         >
           <div>
-            정말 구독을 취소하시겠습니까?
+            <FormattedMessage id="CANCELSUBSCRIPTION"/>
           </div>
         </CustomConfirm>
       </div>

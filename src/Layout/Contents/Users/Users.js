@@ -112,6 +112,7 @@ const Users = ({ userProfile }) => {
                       onClick={() => {
                         setSelectView(0);
                       }}
+                      className={"user-concept-title" + (selectView === 0 ? ' selected' : '')}
                     >
                       <h3>{tableData.length}</h3>
                       <p><FormattedMessage id="ALLUSERNUM"/></p>
@@ -120,6 +121,7 @@ const Users = ({ userProfile }) => {
                       onClick={() => {
                         setSelectView(1);
                       }}
+                      className={"user-concept-title" + (selectView === 1 ? ' selected' : '')}
                     >
                       <h3>0</h3>
                       <p><FormattedMessage id="REGISTEREDUSERNUM"/></p>
@@ -128,6 +130,7 @@ const Users = ({ userProfile }) => {
                       onClick={() => {
                         setSelectView(2);
                       }}
+                      className={"user-concept-title" + (selectView === 2 ? ' selected' : '')}
                     >
                       <h3>0</h3>
                       <p><FormattedMessage id="UNREGISTEREDUSERNUM"/></p>
@@ -136,6 +139,7 @@ const Users = ({ userProfile }) => {
                       onClick={() => {
                         setSelectView(3);
                       }}
+                      className={"user-concept-title" + (selectView === 3 ? ' selected' : '')}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
                       <p><FormattedMessage id="BYPASSUSERNUM"/></p>

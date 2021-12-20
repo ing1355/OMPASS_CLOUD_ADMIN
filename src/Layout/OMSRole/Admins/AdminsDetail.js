@@ -11,6 +11,7 @@ import {
   ApplicationsColumns,
   BillingColumns,
 } from "../../../Constants/TableColumns";
+import { FormattedMessage } from "react-intl";
 
 const testData = [
   {
@@ -107,7 +108,7 @@ const AdminsDetail = ({ data }) => {
         cancelCallback={closeConfirm}
         confirmCallback={confirmCallback}
       >
-        정말 삭제하시겠습니까?
+        <FormattedMessage id="DELETECONFIRM"/>
       </CustomConfirm>
     </>
   ) : (

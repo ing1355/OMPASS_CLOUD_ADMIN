@@ -6,10 +6,12 @@ import { getLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { LogsColumns } from "../../../Constants/TableColumns";
+import { useIntl } from "react-intl";
 
 const Logs = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
+  const {formatMessage} = useIntl()
 
   useEffect(() => {
     CustomAxiosGet(
@@ -26,12 +28,13 @@ const Logs = ({ userProfile }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="로그" />
+      <ContentsTitle title={formatMessage({id:'Logs'})} />
       <div className="LogBox">
         <CustomTable
           columns={LogsColumns}
           datas={tableData}
           pagination
+          searched
           numPerPage={10}
         />
       </div>

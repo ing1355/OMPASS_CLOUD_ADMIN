@@ -29,6 +29,7 @@ import {
   nameTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const ApplicationDetail = ({
   userProfile,
@@ -47,6 +48,8 @@ const ApplicationDetail = ({
   const statusRef2 = useRef(null);
   const secretKeyRef = useRef(null);
   const policyRef = useRef(null);
+  const {formatMessage} = useIntl()
+  const [isCloud, setIsCloud] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
 
@@ -60,6 +63,7 @@ const ApplicationDetail = ({
         status,
         integrationKey,
         policyId,
+        cloud
       } = data;
       nameRef.current.value = name;
       doaminRef.current.value = domain;
@@ -68,6 +72,7 @@ const ApplicationDetail = ({
       else statusRef2.current.checked = true;
       secretKeyRef.current.value = secretKey;
       policyRef.current.value = policyId;
+      setIsCloud(cloud);
     });
   }, []);
 
@@ -91,7 +96,7 @@ const ApplicationDetail = ({
   };
 
   const existCheck = () => {
-    if (!nameRef.current.value) return message.error("이름을 입력해주세요.");
+    if (!nameRef.current.value) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
     CustomAxiosGet(
       checkApplicationExistenceApi(adminId, nameRef.current.value),
       (data) => {
@@ -171,7 +176,7 @@ const ApplicationDetail = ({
       <div className="ApplicationsBox">
         <form className="ApplicationForm" onSubmit={onFinish}>
           <div className="Application-label-input-box">
-            <label>어플리케이션</label>
+            <label><FormattedMessage id="APPLICATION"/></label>
             <input
               name="name"
               ref={nameRef}
@@ -184,11 +189,11 @@ const ApplicationDetail = ({
               disabled={isExistCheck}
               onClick={existCheck}
             >
-              중복 체크
+              <FormattedMessage id="DUPLICATECHECK"/>
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label>비밀 키</label>
+            <label><FormattedMessage id="SECRETKEY"/></label>
             <div className="secretKey-container">
               <input name="secretKey" readOnly ref={secretKeyRef} />
               <div className="copyButton-container">
@@ -203,22 +208,23 @@ const ApplicationDetail = ({
               className="button"
               onClick={resetSecretKey}
             >
-              비밀 키 재설정
+              <FormattedMessage id="SECRETKEYRESET"/>
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label>도메인</label>
-            <input name="domain" ref={doaminRef} />
+            <label><FormattedMessage id="DOMAIN"/></label>
+            <input name="domain" ref={doaminRef} readOnly={isCloud}/>
           </div>
           <div className="Application-label-input-box">
-            <label>리다이렉트 URL</label>
-            <input name="redirectUri" ref={redirectURIRef} />
+            <label><FormattedMessage id="REDIRECTURI"/></label>
+            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud}/>
           </div>
           <div className="Application-label-input-box">
-            <label>상태</label>
+            <label><FormattedMessage id="STATUS"/></label>
             <input
               name="status"
-              value="Active"
+              value="ACTIVE"
+              disabled={isCloud}
               ref={statusRef}
               type="radio"
               style={{ width: "15px" }}
@@ -226,7 +232,8 @@ const ApplicationDetail = ({
             <label className="label-radio">Active</label>
             <input
               name="status"
-              value="Inactive"
+              value="INACTIVE"
+              disabled={isCloud}
               ref={statusRef2}
               type="radio"
               style={{ width: "15px" }}
@@ -234,9 +241,9 @@ const ApplicationDetail = ({
             <label className="label-radio">Inactive</label>
           </div>
           <div className="Application-label-input-box">
-            <label>정책 설정</label>
+            <label><FormattedMessage id="POLICYSETTING"/></label>
             <select name="policy" ref={policyRef}>
-              <option value="null">기본 정책(Global Policy)</option>
+              <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
               {
                 policies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
               }
@@ -245,7 +252,7 @@ const ApplicationDetail = ({
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />
-              저장
+                <FormattedMessage id="SAVE"/>
             </Button>
           </Space>
         </form>

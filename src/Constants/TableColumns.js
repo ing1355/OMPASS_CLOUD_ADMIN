@@ -40,17 +40,17 @@ export const DashboardLogColumns = [
 ];
 
 export const LogsColumns = [
-  { name: "사용자 아이디", key: "userId", width: 220 },
-  { name: "활동", key: "act", width: 170 },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "status", width: 200 },
+  { name: "사용자 아이디", key: "userId", width: 220, searched: true },
+  { name: "활동", key: "act", width: 170, searched: true, searchedOptions: ['register', 'authenticate'] },
+  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "상태", key: "status", width: 200, searched: true, searchedOptions: ['success', 'fail'] },
   { name: "시간", key: "createdDate", width: 200 },
 ];
 
 export const allUserColumns = [
-  { name: "아이디", key: "userId", width: 200 },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 200 },
+  { name: "아이디", key: "userId", width: 200, searched: true },
+  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
     name: "2차인증 바이패스",
@@ -58,46 +58,52 @@ export const allUserColumns = [
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px",
+    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
   },
 ];
 
 export const disabledUserColumns = [
-  { name: "아이디", key: "userId", width: 200 },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 200 },
+  { name: "아이디", key: "userId", width: 200, searched: true },
+  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
     name: "2차인증 바이패스",
     key: "byPass",
-    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "200px",
+    render: (byPass) => {
+      return <CustomSwitch defaultChecked={byPass} />;
+    },
+    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
   },
 ];
 
 export const byPassUserColumns = [
-  { name: "아이디", key: "userId", width: 200 },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 200 },
+  { name: "아이디", key: "userId", width: 200, searched: true },
+  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
     name: "2차인증 바이패스",
     key: "byPass",
-    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "200px",
+    render: (byPass) => {
+      return <CustomSwitch defaultChecked={byPass} />;
+    },
+    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
   },
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "아이디", key: "userId", width: 200 },
-  { name: "어플리케이션", key: "appName" },
-  { name: "상태", key: "type", width: 200 },
+  { name: "아이디", key: "userId", width: 200, searched: true },
+  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
     name: "2차인증 바이패스",
     key: "byPass",
-    render: (byPass) => <CustomSwitch defaultChecked={byPass} />,
-    width: "200px",
+    render: (byPass) => {
+      return <CustomSwitch defaultChecked={byPass} />;
+    },
+    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
   },
 ];
 

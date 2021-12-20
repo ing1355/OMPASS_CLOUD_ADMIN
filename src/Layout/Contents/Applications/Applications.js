@@ -65,12 +65,11 @@ const Applications = ({
     CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
       setCustomPolicies(customPoliciesData);
       CustomAxiosGet(getApplicationApi(adminId), (applicationData) => {
-        console.log(customPoliciesData)
         setTableData(applicationData.map(d => { 
           const _p = customPoliciesData.find(cP => d.policyId === cP.policyId)
           return {
             ...d, 
-            policy: _p ? _p.name : '기본 정책'
+            policy: _p ? _p.name : formatMessage({id:'DEFAULTPOLICY'})
           } 
         }));
         setTableLoading(false);
@@ -110,7 +109,7 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title="어플리케이션" />
+      <ContentsTitle title={formatMessage({id:'Applications'})} />
       <div className="ApplicationsBox">
         <Switch>
           <Route

@@ -142,3 +142,11 @@ td.no-data {
   height: 1rem;
   width: 1rem;
 }
+
+.table-search-form-container {
+  float: right;
+}
+
+.table-search-column-select, .table-search-column-input {
+  height: 40px;
+}

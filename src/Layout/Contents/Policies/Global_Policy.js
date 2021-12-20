@@ -360,7 +360,7 @@ const Global_Policy = ({
         cancelCallback={closeDeleteConfirm}
         confirmCallback={_deleteCallback}
       >
-        정말 삭제하시겠습니까?
+        <FormattedMessage id="DELETECONFIRM"/>
       </CustomConfirm>
       <div className="Global_Policy-box">
         <CustomButton
@@ -368,13 +368,13 @@ const Global_Policy = ({
           type="button"
           onClick={defaultPolicySetting}
         >
-          <UndoOutlined /> 기본값으로 변경
+          <UndoOutlined /> <FormattedMessage id="SETTINGTODEFAULT"/>
         </CustomButton>
 
         {/* -------------타이틀 ------------- */}
         {isCustomPolicy && (
           <section className="policies-box">
-            <h2>제목</h2>
+            <h2><FormattedMessage id="TITLE"/></h2>
             <div className="policies-sub-box">
               <div>
                 <input

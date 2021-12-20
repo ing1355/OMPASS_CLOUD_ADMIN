@@ -21,9 +21,11 @@ import ActionCreators from "../../../redux/actions";
 import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Admins = ({ userProfile, history }) => {
   const { adminId, role } = userProfile;
+  const {formatMessage} = useIntl();
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
@@ -101,7 +103,7 @@ const Admins = ({ userProfile, history }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title="관리자" />
+      <ContentsTitle title={formatMessage({id:'Admins'})} />
       <Switch>
         <Route
           path="/Admins"
@@ -115,7 +117,7 @@ const Admins = ({ userProfile, history }) => {
                       className="button admin-button"
                       disabled={tableLoading}
                     >
-                      관리자 등록
+                      <FormattedMessage id="ADMINREGISTER"/>
                     </button>
                   </Link>
                   {role === 'ADMIN' && <button
@@ -123,7 +125,7 @@ const Admins = ({ userProfile, history }) => {
                     disabled={tableLoading}
                     onClick={openConfirmModal}
                   >
-                    2차 인증 {ompassToggle ? "비활성화" : "활성화"}
+                    {ompassToggle ? formatMessage({id:'SECONDAUTHENTICATIONINACTIVE'}) : formatMessage({id: 'SECONDAUTHENTICATIONACTIVE'})}
                   </button>}
                 </div>
                 <CustomTable

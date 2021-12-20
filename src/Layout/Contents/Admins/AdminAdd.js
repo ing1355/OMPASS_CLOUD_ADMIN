@@ -20,7 +20,7 @@ import {
   mobileTest,
   nameTest,
 } from "../../../Constants/InputRules";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
 
 const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
@@ -106,15 +106,15 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
-            <span>성</span>
+            <span><FormattedMessage id="FIRSTNAME"/></span>
             <input name="firstName" placeholder={formatMessage({ id: 'PLEASE_INPUT_FIRST_NAME' })} />
           </div>
           <div className="inputBox">
-            <span>이름</span>
+            <span><FormattedMessage id="LASTNAME"/></span>
             <input name="lastName" placeholder={formatMessage({ id: 'PLEASE_INPUT_NAME' })} />
           </div>
           <div className="inputBox">
-            <span>이메일 주소</span>
+            <span><FormattedMessage id="EMAIL"/></span>
             <input
               name="email"
               placeholder={formatMessage({ id: 'PLEASE_INPUT_EMAIL' })}
@@ -125,11 +125,11 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
               type="button"
               onClick={existCheckFunc}
             >
-              중복체크
+              <FormattedMessage id="DUPLICATECHECK"/>
             </button>
           </div>
           <div className="inputBox2">
-            <span>전화번호</span>
+            <span><FormattedMessage id="MOBILE"/></span>
             <div className="phoneBox">
               <PhoneInput
                 className="phoneInput"
@@ -156,8 +156,8 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
               </p>
             </div> */}
             <button className="adminAddButton button" type="submit">
-              관리자 등록
-              </button>
+              <FormattedMessage id="REGISTER"/>
+            </button>
           </div>
         </form>
       </div>
