@@ -30,6 +30,16 @@ const locales = {
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
     login: "Login",
+    loginText1: "Welcome,",
+    loginText2: "Only administrator can access this page.",
+    id: "ID",
+    password: "Password",
+    PasswordAssistance: "Password assistance",
+    Registration: "Registration",
+    PasswordAssistanceText:
+      "Enter the email address associated with your OMPASS account.",
+    ResetPassword: "Reset password",
+    GoBack: "Go back",
   },
   KR: {
     localeChangeText: "KO",
@@ -62,6 +72,16 @@ const locales = {
     CANT_DELETE_ADMIN_APPLICATION:
       "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
     login: "로그인",
+    loginText1: "환영합니다.",
+    loginText2: "본 페이지는 관리자만을 위한",
+    loginText3: "로그인 페이지입니다.",
+    id: "아이디",
+    password: "패스워드",
+    PasswordAssistance: "비밀번호 초기화",
+    Registration: "회원가입",
+    PasswordAssistanceText: "비밀번호를 초기화 할 이메일을 입력해 주세요.",
+    ResetPassword: "이메일 인증",
+    GoBack: "돌아가기",
   },
 };
 
