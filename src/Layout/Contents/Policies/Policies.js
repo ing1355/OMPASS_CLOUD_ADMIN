@@ -28,37 +28,36 @@ import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const globalPolicyTableDataFeature = [
-  // {
-  //   status: "",
-  //   policy: "접근 제한",
-  //   key: "accessControl",
-  //   description:
-  //     "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
-  // },
-  // {
-  //   status: "",
-  //   policy: "사용자 위치 제한",
-  //   description: "No restrictions.",
-  //   key: "userLocations",
-  // },
-  // {
-  //   status: "",
-  //   key: "browsers",
-  //   policy: "브라우저 제한",
-  //   description: "Don't require users to have the app",
-  // },
-  // {
-  //   status: "",
-  //   key: "authenticationMethods",
-  //   policy: "인증 방법 제한",
-  //   description: "No restrictions.",
-  // },
-  // {
-  //   status: "",
-  //   key: "mobilePatch",
-  //   policy: "OMPASS APP 업데이트",
-  //   description: "No restrictions.",
-  // },
+  {
+    status: "",
+    policy: "접근 제한",
+    key: "accessControl",
+    description: "GLOBALPOLICYDESCRIPTION_1",
+  },
+  {
+    status: "",
+    policy: "사용자 위치 제한",
+    description: "GLOBALPOLICYDESCRIPTION_2",
+    key: "userLocations",
+  },
+  {
+    status: "",
+    key: "browsers",
+    policy: "브라우저 제한",
+    description: "GLOBALPOLICYDESCRIPTION_3",
+  },
+  {
+    status: "",
+    key: "authenticationMethods",
+    policy: "인증 방법 제한",
+    description: "GLOBALPOLICYDESCRIPTION_4",
+  },
+  {
+    status: "",
+    key: "mobilePatch",
+    policy: "OMPASS APP 업데이트",
+    description: "GLOBALPOLICYDESCRIPTION_5",
+  },
 ];
 
 const Policies = ({ userProfile }) => {
@@ -136,9 +135,7 @@ const Policies = ({ userProfile }) => {
           globalPolicyTableDataFeature.map((td) => {
             return {
               ...td,
-              status:
-                data.find((r) => Object.keys(r)[0] === td.key)[td.key].length >
-                0,
+              status: result[td.key].length > 0,
             };
           })
         );
@@ -178,10 +175,10 @@ const Policies = ({ userProfile }) => {
 
       <ContentsTitle title={formatMessage({id:'Policies'})} />
       <div className="PoliciesBox">
-        <p>OMPASS 정책은 Global 정책과 Custom 정책으로 구분됩니다.</p>
+        <p><FormattedMessage id="POLICIESDESCRIPTION"/></p>
         <div className="PoliciesTitleBox">
           <h5 className="policies-h5"><FormattedMessage id="DEFAULTPOLICY"/></h5>
-          <p>글로벌 정책은 모든 어플리케이션에 적용되는 정책입니다.</p>
+          <p><FormattedMessage id="GLOBALPOLICYDESCRIPTION"/></p>
           <button
             className="button"
             onClick={() => {
@@ -197,21 +194,14 @@ const Policies = ({ userProfile }) => {
 
         <CustomTable
           columns={globalPolicyColumns}
-          datas={[globalPoliciesData]}
+          datas={globalPoliciesTableData}
           className="global-policy-table-container"
-          // columnsHide={true}
-          rowClick={(rowData) => {
-            setSelectedRowData(rowData);
-            setIsEditPolicy(true);
-            setIsCustomPolicy(false);
-            setEditDrawerOpen(true);
-          }}
         />
 
         <div className="PoliciesBottomBox">
           <h5 className="policies-h5"><FormattedMessage id="CUSTOMPOLICY"/></h5>
           <p>
-            커스텀 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.
+            <FormattedMessage id="CUSTOMPOLICYDESCRIPTION"/>
             {/* (정책의
             우선순위는 글로벌 정책보다 커스텀 정책의 우선순위가 높습니다.) */}
           </p>

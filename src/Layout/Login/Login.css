@@ -126,16 +126,6 @@ li {
   margin-bottom: 2rem;
 }
 
-select {
-  margin-bottom: 1rem;
-  padding-left: 10px;
-  border: 1px solid #bfbfbf;
-  background: #fff;
-  /* font-size: 0.8rem;
-  font-family: Verdana, Geneva, Tahoma, sans-serif !important; */
-  outline: 0;
-}
-
 .LoginBox .copy {
   color: rgb(128, 128, 128);
   font-size: 0.9rem;

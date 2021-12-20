@@ -122,6 +122,7 @@ const Applications = ({
                   columns={ApplicationsColumns}
                   datas={tableData}
                   multipleSelectable={true}
+                  searched
                   selectedId={"appId"}
                   rowSelectable={true}
                   onChangeSelectedRows={(rows) => {

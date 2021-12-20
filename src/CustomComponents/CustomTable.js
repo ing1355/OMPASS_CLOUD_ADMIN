@@ -49,6 +49,7 @@ const CustomTable = ({
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
   const [searchColumn, setSearchColumn] = useState(null);
+  const [searchTarget, setSearchTarget] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
 
   const getAllTableData = useCallback(() => multipleSelectable
@@ -70,6 +71,12 @@ const CustomTable = ({
       if(initialColumn) setSearchColumn(initialColumn.key)
     }
   },[searched])
+
+  useLayoutEffect(() => {
+    if(searchColumn) {
+      setSearchTarget(columns.find(c => c.key === searchColumn))
+    }
+  },[searchColumn])
 
   const rowSelect = useCallback((id) => {
     if (selectedRows.includes(id)) {
@@ -134,8 +141,14 @@ const CustomTable = ({
       {searched && <form className="table-search-form-container" onSubmit={(e) => {
         e.preventDefault();
         const { column, content } = e.target.elements;
-        if (!content.value) setTableData(getAllTableData())
-        else setTableData(getAllTableData().filter(tD => tD[column.value].includes(content.value)))
+        const _data = getAllTableData();
+        if(content.value === 'true' || content.value === 'false') {
+          if(content.value === 'true') setTableData(_data.filter(tD => tD[column.value]))
+          else setTableData(_data.filter(tD => !tD[column.value]))
+        } else {
+          if (!content.value) setTableData(_data)
+          else setTableData(_data.filter(tD => tD[column.value].includes(content.value)))
+        }
       }}>
         <select className="table-search-column-select" name="column" onChange={e => {
           setSearchColumn(e.target.value);
@@ -145,10 +158,10 @@ const CustomTable = ({
           }
         </select>
         {
-          searchColumn && columns.find(c => c.key === searchColumn).searchedOptions ? <select className="table-search-column-select" name="content">
-            {columns.find(c => c.key === searchColumn).searchedOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          searchColumn && searchTarget.searchedOptions ? <select className="table-search-column-select" name="content">
+            {searchTarget.searchedOptions.map(opt => <option key={opt} value={opt}>{searchTarget.getSearchedLabel ? searchTarget.getSearchedLabel(opt) : opt}</option>)}
           </select> :
-            <input className="table-search-column-input" name="content" />
+            <input className="table-search-column-input" name="content" maxLength={20}/>
         }
         <button type="submit" className="button">
           검색

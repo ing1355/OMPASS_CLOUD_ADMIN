@@ -14,7 +14,13 @@ const locales = {
         IS_EXIST_APPLICATION: "이미 존재하는 어플리케이션명입니다.",
         IS_NOT_EXIST_APPLICATION: "사용 가능한 어플리케이션명입니다.",
         COPY_SUCCESS: "클립보드에 복사하였습니다.",
-        CANT_DELETE_ADMIN_APPLICATION: "관리자 페이지 어플리케이션은 삭제할 수 없습니다."
+        CANT_DELETE_ADMIN_APPLICATION: "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
+        POLICY_UPDATE_SUCCESS: '정책 변경에 성공하였습니다.',
+        POLICY_UPDATE_FAIL: '정책 변경에 실패하였습니다.',
+        POLICY_ADD_SUCCESS: '정책 추가에 성공하였습니다.',
+        POLICY_ADD_FAIL: '정책 추가에 실패하였습니다.',
+        IS_EXIST_POLICY_NAME: '이미 존재하는 정책명입니다.',
+        IS_NOT_EXIST_POLICY_NAME: '사용 가능한 정책명입니다.'
     },
     KR: {
         success: "성공하였습니다!",
@@ -31,7 +37,13 @@ const locales = {
         IS_EXIST_APPLICATION: "이미 존재하는 어플리케이션명입니다.",
         IS_NOT_EXIST_APPLICATION: "사용 가능한 어플리케이션명입니다.",
         COPY_SUCCESS: "클립보드에 복사하였습니다.",
-        CANT_DELETE_ADMIN_APPLICATION: "관리자 페이지 어플리케이션은 삭제할 수 없습니다."
+        CANT_DELETE_ADMIN_APPLICATION: "관리자 페이지 어플리케이션은 삭제할 수 없습니다.",
+        POLICY_UPDATE_SUCCESS: '정책 변경에 성공하였습니다.',
+        POLICY_UPDATE_FAIL: '정책 변경에 실패하였습니다.',
+        POLICY_ADD_SUCCESS: '정책 추가에 성공하였습니다.',
+        POLICY_ADD_FAIL: '정책 추가에 실패하였습니다.',
+        IS_EXIST_POLICY_NAME: '이미 존재하는 정책명입니다.',
+        IS_NOT_EXIST_POLICY_NAME: '사용 가능한 정책명입니다.'
     },
 };
 

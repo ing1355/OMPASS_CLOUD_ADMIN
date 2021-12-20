@@ -65,13 +65,13 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
   };
 
   const localeChangeEventKo = () => {
-    if (locale === "en") {
-      localeChange("ko");
+    if (locale === "US") {
+      localeChange("KR");
     }
   };
   const localeChangeEventEn = () => {
-    if (locale === "ko") {
-      localeChange("en");
+    if (locale === "KR") {
+      localeChange("US");
     }
   };
 
@@ -109,7 +109,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                   </span>
                 </div>
                 <div className="join">
-                  {locale === "en" ? (
+                  {locale === "US" ? (
                     <a target="_blank" href="https://ompass.kr:4003/Login">
                       회원가입
                     </a>

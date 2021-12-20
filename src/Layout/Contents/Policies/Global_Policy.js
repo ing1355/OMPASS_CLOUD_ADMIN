@@ -27,14 +27,15 @@ import {
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 import { FormattedMessage } from "react-intl";
+import ActionCreators from "../../../redux/actions";
 
 export const BrowsersList = [
-  "크롬",
-  "크롬 모바일모드",
-  "엣지",
-  "파이어폭스",
-  "사파리 모바일모드",
-  "사파리",
+  "Chrome",
+  "Chrome Mobile",
+  "Microsoft Edge",
+  "Firefox",
+  "Safari",
+  "Safari Mobile",
   // "All other browsers",
 ];
 
@@ -60,6 +61,8 @@ const Global_Policy = ({
   editData,
   userProfile,
   lang,
+  showSuccessMessage,
+  showErrorMessage
 }) => {
   const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
@@ -71,7 +74,7 @@ const Global_Policy = ({
   const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
-  const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
+  const isKorea = useCallback(() => (lang === "KR" ? true : false), [lang]);
   const locationList = Object.keys(countryCodes_KR).sort((a, b) => {
     const target = isKorea() ? countryCodes_KR : countryCodes_US;
     return target[a] > target[b] ? 1 : -1;
@@ -123,9 +126,9 @@ const Global_Policy = ({
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {
-      if (!inputTitle) return message.error("제목을 입력해주세요.");
+      if (!inputTitle) return showErrorMessage('PLEASE_INPUT_POLICY_NAME');
       if (!isExistTitle) {
-        return message.error("중복체크 먼저 진행해주세요.");
+        return showErrorMessage('PLEASE_CHECK_EXIST');
       }
     }
     const result = {};
@@ -142,7 +145,7 @@ const Global_Policy = ({
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
     else result.mobilePatch = null;
     if (isCustomPolicy && Object.keys(result).length === 1)
-      return message.error("최소 1가지 정책은 설정해주세요.");
+      return showErrorMessage('PLEASE_INPUT_POLICY');
     if (isEditPolicy) {
       let apiRoute = isCustomPolicy
         ? updateCustomPoliciesApi(adminId, editData.policyId)
@@ -153,12 +156,12 @@ const Global_Policy = ({
           ...result,
         },
         (data) => {
-          message.success("정책 변경에 성공하였습니다.");
+          showSuccessMessage('POLICY_UPDATE_SUCCESS')
           if (editCallback) editCallback(data, editData.policyId);
           setVisible(false);
         },
         () => {
-          message.error("정책 변경에 실패하였습니다.");
+          showErrorMessage('POLICY_UPDATE_FAIL')
         }
       );
     } else {
@@ -167,12 +170,12 @@ const Global_Policy = ({
         addCustomPolicyApi(adminId),
         result,
         (data) => {
-          message.success("정책 추가에 성공하였습니다.");
+          showSuccessMessage('POLICY_ADD_SUCCESS')
           if (saveCallback) saveCallback(data);
           setVisible(false);
         },
         () => {
-          message.error("정책 추가에 실패하였습니다.");
+          showErrorMessage('POLICY_ADD_FAIL')
         }
       );
     }
@@ -252,15 +255,15 @@ const Global_Policy = ({
   }, []);
 
   const checkExistTitle = useCallback(() => {
-    if (!inputTitle) return message.error("제목을 입력해주세요.");
+    if (!inputTitle) return showErrorMessage('PLEASE_INPUT_POLICY_NAME')
     CustomAxiosGet(
       isExistencePolicyApi(adminId, inputTitle),
       ({ duplicate }) => {
         if (!duplicate) {
           setIsExistTitle(true);
-          message.success("사용 가능합니다.");
+          showSuccessMessage('IS_NOT_EXIST_POLICY_NAME')
         } else {
-          message.error("사용 불가능한 제목입니다.");
+          showErrorMessage('IS_EXIST_POLICY_NAME')
         }
       }
     );
@@ -282,11 +285,11 @@ const Global_Policy = ({
         setDeleteConfirmLoading(false);
         setDeleteConfirmVisible(false);
         setVisible(false);
-        message.success("삭제되었습니다.");
+        showSuccessMessage('DELETE_SUCCESS')
         if (deleteCallback) deleteCallback(editData.policyId);
       },
       () => {
-        message.error("삭제에 실패하였습니다.");
+        showErrorMessage('DELETE_FAIL')
         setDeleteConfirmLoading(false);
       }
     );
@@ -399,7 +402,7 @@ const Global_Policy = ({
 
         {/* -------------Authentication policy ------------- */}
         <section className="policies-box">
-          <h2>인증 접근 제한</h2>
+          <h2><FormattedMessage id="ACCESSCONTROLTITLE"/></h2>
           <div className="policies-sub-box">
             <input
               name="status"
@@ -409,10 +412,9 @@ const Global_Policy = ({
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
-            <label className="label-radio">2차 인증 필수</label>
+            <label className="label-radio"><FormattedMessage id="ACCESSCONTROLACTIVE"/></label>
             <p>
-              대체 정책이 구성되어 있지 않은 한 2차 인증이 필요합니다. (없을
-              경우 2차 인증 등록)
+              <FormattedMessage id="ACCESSCONTROLACTIVEDESCRIPTION"/>
             </p>
           </div>
           <div className="policies-sub-box">
@@ -424,8 +426,8 @@ const Global_Policy = ({
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
-            <label className="label-radio">2차 인증 패스</label>
-            <p>2차 인증 및 등록을 패스하겠습니다.</p>
+            <label className="label-radio"><FormattedMessage id="ACCESSCONTROLINACTIVE"/></label>
+            <p><FormattedMessage id="ACCESSCONTROLINACTIVEDESCRIPTION"/></p>
           </div>
           <div className="policies-sub-box">
             <input
@@ -436,21 +438,21 @@ const Global_Policy = ({
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
-            <label className="label-radio">모두 거부</label>
-            <p>모든 사용자에 대한 인증 거부합니다.</p>
+            <label className="label-radio"><FormattedMessage id="ACCESSCONTROLDENY"/></label>
+            <p><FormattedMessage id="ACCESSCONTROLDENYDESCRIPTION"/></p>
           </div>
           <div className="policies-sub-box">
             <p style={{ marginTop: "0", color: "#066b93" }}>
-              이 옵션을 활성화하면 모든 사용자에게 적용됩니다.
+              <FormattedMessage id="ACCESSCONTROLDESCRIPTION"/>
             </p>
           </div>
         </section>
 
         {/* -------------User location ------------- */}
         <section className="policies-box">
-          <h2>사용자 위치</h2>
+          <h2><FormattedMessage id="USERLOCATIONPOLICYTITLE"/></h2>
           <div className="policies-sub-box">
-            <h3>사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.</h3>
+            <h3><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1"/></h3>
             {inputUserLocations.map((d, ind) => (
               <div key={ind}>
                 <select
@@ -491,7 +493,7 @@ const Global_Policy = ({
               </div>
             ))}
             <p style={{ marginLeft: "0", color: "#066b93" }}>
-              내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.
+              <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1"/>
             </p>
             <button
               type="button"
@@ -511,7 +513,7 @@ const Global_Policy = ({
 
         {/* -------------Browsers ------------- */}
         <section className="policies-box">
-          <h2>브라우저 차단</h2>
+          <h2><FormattedMessage id="BROWSERSPOLICYTITLE"/></h2>
           {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
             Always block
           </div> */}
@@ -528,16 +530,16 @@ const Global_Policy = ({
                   changeInputBrowserCheck(bl);
                 }}
               />
-              <label className="label-radio">{bl}</label>
+              <label className="label-radio"><FormattedMessage id={bl}/></label>
             </div>
           ))}
         </section>
 
         {/*----------------Authentication methods ------------- */}
         <section className="policies-box">
-          <h2>인증 방법</h2>
+          <h2><FormattedMessage id="AUTHENTICATIONMETHODPOLICYTITLE"/></h2>
           <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
-            사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.
+            <FormattedMessage id="AUTHENTICATIONMETHODPOLICYDESCRIPTION"/>
           </div>
 
           {AuthMethodsList.map((am, ind) => (
@@ -559,7 +561,7 @@ const Global_Policy = ({
 
         {/* -------------OMPASS Mobile app ------------- */}
         <section className="policies-box">
-          <h2>OMPASS 모바일 앱</h2>
+          <h2><FormattedMessage id="OMPASSMOBILEPOLICYTITLE"/></h2>
 
           <div className="policies-sub-box">
             <input
@@ -571,7 +573,7 @@ const Global_Policy = ({
               onChange={changeInputMobilecheck}
             />
             <label className="label-radio">
-              OMPASS 모바일용 최신 보안 패치가 필요합니다.
+              <FormattedMessage id="OMPASSMOBILEPOLICYACTIVE"/>
             </label>
           </div>
           <div className="policies-sub-box">
@@ -584,12 +586,12 @@ const Global_Policy = ({
               onChange={changeInputMobilecheck}
             />
             <label className="label-radio">
-              OMPASS 모바일용에 대한 최신 보안 패치가 필요하지 않습니다.
+              <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE"/>
             </label>
           </div>
 
           <div>
-            <p style={{ color: "#066b93" }}>iOS 및 Android에만 적용됩니다.</p>
+            <p style={{ color: "#066b93" }}><FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION"/></p>
           </div>
         </section>
       </div>
@@ -605,7 +607,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Global_Policy);

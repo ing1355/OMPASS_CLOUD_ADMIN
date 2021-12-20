@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
@@ -17,10 +18,10 @@ const makeDetail = (data, row) => (
 );
 
 export const ApplicationsColumns = [
-  { name: "이름", key: "name" },
-  { name: "상태", key: "status" },
-  { name: "도메인", key: "domain" },
-  { name: "Redirect Uri", key: "redirectUri" },
+  { name: "이름", key: "name", searched: true },
+  { name: "상태", key: "status", searched: true, searchedOptions: ['ACTIVE', 'INACTIVE'], getSearchedLabel: (value) => value === 'ACTIVE' ? 'Active' : 'Inactive' },
+  { name: "도메인", key: "domain", searched: true },
+  { name: "Redirect Uri", key: "redirectUri", searched: true },
   { name: "정책", key: "policy" }
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
@@ -58,7 +59,7 @@ export const allUserColumns = [
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
+    width: "200px", searched: true, searchedOptions: [true, false], getSearchedLabel: (value) => value ? 'ON' : 'OFF'
   },
 ];
 
@@ -73,7 +74,7 @@ export const disabledUserColumns = [
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
+    width: "200px", searched: true, searchedOptions: [true, false], getSearchedLabel: (value) => value ? 'ON' : 'OFF'
   },
 ];
 
@@ -88,7 +89,7 @@ export const byPassUserColumns = [
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
+    width: "200px", searched: true, searchedOptions: [true, false], getSearchedLabel: (value) => value ? 'ON' : 'OFF'
   },
 ];
 
@@ -103,50 +104,50 @@ export const unRegisteredUserColumns = [
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px", searched: true, searchedOptions: ['ON', 'OFF']
+    width: "200px", searched: true, searchedOptions: [true, false], getSearchedLabel: (value) => value ? 'ON' : 'OFF'
   },
+];
+
+export const globalPolicyColumns = [
+  {
+    name: "Status",
+    key: "status",
+    render: (status, b) => (
+      <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
+    ),
+    width: 100
+  },
+  { name: "Policy Name", key: "policy", width: 200 },
+  { name: "Description", key: "description", width: 600, render: (descriptionKey, row) => <FormattedMessage id={row.status ? descriptionKey : 'NORESTRICTION'}/> },
 ];
 
 // export const globalPolicyColumns = [
 //   {
-//     name: "Status",
-//     key: "status",
-//     render: (status, b) => (
-//       <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
-//     ),
-//     width: "100px",
+//     name: "인증 접근 제한",
+//     key: "accessControl",
+//     render: (data) => (data ? "O" : "X"),
 //   },
-//   { name: "Policy Name", key: "policy", width: "200px" },
-//   { name: "Description", key: "description" },
+//   {
+//     name: "사용자 위치 제한",
+//     key: "userLocations",
+//     render: (data, row) => (data && data.length > 0 ? "O" : "X"),
+//   },
+//   {
+//     name: "브라우저 제한",
+//     key: "browsers",
+//     render: (data, row) => (data && data.length > 0 ? "O" : "X"),
+//   },
+//   {
+//     name: "인증 방법 제한",
+//     key: "authenticationMethods",
+//     render: (data) => (data && data.length > 0 ? "O" : "X"),
+//   },
+//   {
+//     name: "OMPASS APP 업데이트",
+//     key: "mobilePatch",
+//     render: (data) => (data ? "O" : "X"),
+//   },
 // ];
-
-export const globalPolicyColumns = [
-  {
-    name: "인증 접근 제한",
-    key: "accessControl",
-    render: (data) => (data ? "O" : "X"),
-  },
-  {
-    name: "사용자 위치 제한",
-    key: "userLocations",
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "브라우저 제한",
-    key: "browsers",
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "인증 방법 제한",
-    key: "authenticationMethods",
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "OMPASS APP 업데이트",
-    key: "mobilePatch",
-    render: (data) => (data ? "O" : "X"),
-  },
-];
 
 const customPolicyItemWidth = 130;
 

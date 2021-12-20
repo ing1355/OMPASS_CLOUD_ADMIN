@@ -32,8 +32,9 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import { FormattedMessage, useIntl } from "react-intl";
+import ActionCreators from "../../../redux/actions";
 
-const Billing = ({ userProfile }) => {
+const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -330,7 +331,8 @@ const Billing = ({ userProfile }) => {
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
                 title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
-                subTitle={`${formatMessage({id:'PRICEUNIT'},{param:slicePrice(editions[ind].priceForOneUser)})} / ${formatMessage({id:'PERUSER'})} / Month`}
+                subTitle={`${formatMessage({id:'PRICEUNIT'},{param:slicePrice(editions[ind].priceForOneUser)})} ${editions[ind].monetaryUnit === '원화' ? '원' : '$'} 
+                / ${formatMessage({id:'PERUSER'})} / ${formatMessage({id:'PERMONTH'})}`}
               />
               {item.itemLists.map((itemList, _ind) => (
                 <div
@@ -404,6 +406,7 @@ const Billing = ({ userProfile }) => {
             <label className="billing-change-form-label"><FormattedMessage id="PRICE"/></label>
             <b>
               {formatMessage({id:'PRICEUNIT'},{param: slicePrice(cost)})}
+              {editions.length > 0 && editions[0].monetaryUnit === '원화' ? ' 원' : ' $'}
             </b>
             <span>&nbsp;/ <FormattedMessage id="PERMONTH"/></span>
           </div>
@@ -456,7 +459,7 @@ const Billing = ({ userProfile }) => {
             <br />
             Term : {inputTerm}
             <br />
-            Cost :{" "}
+            Cost :
             <b style={{ color: "Red" }}>
               {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
@@ -476,8 +479,8 @@ const Billing = ({ userProfile }) => {
         </CustomConfirm>
         <CustomConfirm
           visible={cancelConfirmModal}
+          footer={true}
           confirmCallback={cancelIamPort}
-          footer={isKorea()}
           okLoading={confirmLoading}
           cancelCallback={closeCancelConfirmModal}
         >
@@ -499,7 +502,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Billing);

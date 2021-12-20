@@ -16,7 +16,9 @@ const locales = {
         PLEASE_INPUT_DOMAIN: '도메인을 입력해주세요.',
         DOMAIN_RULE_ERROR:'도메인의 형식이 잘못되었습니다.',
         PLEASE_INPUT_REDIRECT_URI:'리다이렉트 URI를 입력해주세요.',
-        REDIRECT_URI_RULE_ERROR:'리다이렉트 URI 형식이 잘못되었습니다.'
+        REDIRECT_URI_RULE_ERROR:'리다이렉트 URI 형식이 잘못되었습니다.',
+        PLEASE_INPUT_POLICY_NAME: '정책명을 입력해주세요.',
+        PLEASE_INPUT_POLICY: '최소 1가지 정책은 설정해주세요'
     },
     KR: {
         NAME_RULE_ERROR: '이름은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.',
@@ -35,7 +37,9 @@ const locales = {
         PLEASE_INPUT_DOMAIN: '도메인을 입력해주세요.',
         DOMAIN_RULE_ERROR:'도메인의 형식이 잘못되었습니다.',
         PLEASE_INPUT_REDIRECT_URI:'리다이렉트 URI를 입력해주세요.',
-        REDIRECT_URI_RULE_ERROR:'리다이렉트 URI 형식이 잘못되었습니다.'
+        REDIRECT_URI_RULE_ERROR:'리다이렉트 URI 형식이 잘못되었습니다.',
+        PLEASE_INPUT_POLICY_NAME: '정책명을 입력해주세요.',
+        PLEASE_INPUT_POLICY: '최소 1가지 정책은 설정해주세요'
     },
 };
 

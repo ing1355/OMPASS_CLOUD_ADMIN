@@ -9,11 +9,23 @@
   font-size: 19px;
 }
 
+.submenu-item {
+  height: 60px;
+  padding: 0 0rem 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: 300;
+  font-size: 16px;
+}
+
 .close > .menu-item {
   display: none;
 }
 
 .menu-item-arrow {
+  margin-right: 20px;
   height: 15px;
 }
 
@@ -21,4 +33,9 @@
   color: #00b6ec;
   font-weight: bold;
   background: #3c5570;
+}
+
+.submenu-item.selected {
+  color: #00b6ec;
+  font-weight: bold;
 }

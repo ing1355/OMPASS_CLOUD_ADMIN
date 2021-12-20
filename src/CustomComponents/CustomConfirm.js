@@ -3,8 +3,8 @@ import { Modal } from 'antd';
 import './CustomConfirm.css';
 import CustomButton from './CustomButton';
 
-const CustomConfirm = ({ visible, children, confirmCallback, closable, cancelCallback, okLoading, footer, centered }) => {
-    return <Modal visible={visible} destroyOnClose closable={false} onOk={confirmCallback} confirmLoading={okLoading} onCancel={cancelCallback} maskClosable={false}
+const CustomConfirm = ({ visible, children, confirmCallback, destroyOnClose, cancelCallback, okLoading, footer, centered }) => {
+    return <Modal visible={visible} destroyOnClose={true} closable={false} onOk={confirmCallback} confirmLoading={okLoading} onCancel={cancelCallback} maskClosable={false}
         okButtonProps={{ id: '' }} centered={centered} footer={null}>
         <div className="custom-modal-content-container">
             {children}

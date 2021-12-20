@@ -8,7 +8,7 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { LogsColumns } from "../../../Constants/TableColumns";
 import { useIntl } from "react-intl";
 
-const Logs = ({ userProfile }) => {
+const PolicyLogs = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const {formatMessage} = useIntl()
@@ -32,6 +32,7 @@ const Logs = ({ userProfile }) => {
       <div className="LogBox">
         <CustomTable
           columns={LogsColumns}
+          loading={tableLoading}
           datas={tableData}
           pagination
           searched
@@ -52,4 +53,4 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logs);
+export default connect(mapStateToProps, mapDispatchToProps)(PolicyLogs);

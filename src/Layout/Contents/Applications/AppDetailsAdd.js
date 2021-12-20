@@ -29,7 +29,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { domain, redirectUri, name, policy } = e.target.elements;
+    const { domain, redirectUri, name, policy, status } = e.target.elements;
     if (!isExistCheck)
       return showErrorMessage('PLEASE_CHECK_EXIST')
     if (!name.value.length) {
@@ -57,7 +57,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
         name: name.value,
         policyId: policy.value === 'null' ? null : policy.value,
         redirectUri: redirectUri.value,
-        status: "Inactive",
+        status: status.value,
       },
       (data) => {
         showSuccessMessage('APPLICATION_ADD_SUCCESS')
