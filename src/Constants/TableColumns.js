@@ -3,7 +3,16 @@ import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faUserCog,
+  faUserAltSlash,
+  faHandSparkles,
+  faCaretRight,
+  faCheckSquare,
+  faCalendarCheck,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -236,7 +245,7 @@ export const PolicyColumns = [
     name: "POLICYNAME",
     key: "policy",
     width: 200,
-    render: (d) => <faCheckSquare id={d} />,
+    render: (d) => <FormattedMessage id={d} />,
   },
   {
     name: "DESCRIPTION",
