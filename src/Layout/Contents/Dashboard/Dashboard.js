@@ -215,7 +215,7 @@ const Dashboard = ({ userProfile, locale }) => {
               <div className="countBox">
                 <div>
                   <h6>
-                    <FormattedMessage id="TotalUsers" />
+                    <FormattedMessage id="ALLUSERNUM"/>
                   </h6>
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
@@ -236,7 +236,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 <div>
                   <h6>
                     {/* 2차인증 바이패스 수 */}
-                    <FormattedMessage id="BypassUsers" />
+                    <FormattedMessage id="BYPASSUSERNUM" />
                   </h6>
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
@@ -246,7 +246,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 </div>
                 <div>
                   <h6>
-                    <FormattedMessage id="InactiveUsers" />
+                    <FormattedMessage id="REGISTEREDUSERNUM" />
                   </h6>
                   <p>
                     <FontAwesomeIcon icon={faUserAltSlash} />
