@@ -101,7 +101,6 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     //   ],
     // },
     {
-      cardTitle: "OMPASS",
       itemLists: [
         { content: "2FA for VPN and Web Apps" },
         { content: "패스워드 없이 인증" },
@@ -307,7 +306,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
-            {currentPlan ? currentPlan.name : billingsInfo[0].cardTitle}
+            {console.log(currentPlan)}
+            {currentPlan ? currentPlan.name : null}
           </div>
           <div className="billing-edition-title">Edition</div>
           <div className="billing-edition-subtitle">
@@ -336,7 +336,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           billingsInfo.map((item, ind) => (
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
-                title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
+                title={editions[ind].name + ' ' + formatMessage({id:'PLAN'})}
                 subTitle={`${formatMessage(
                   { id: "PRICEUNIT" },
                   { param: slicePrice(editions[ind].priceForOneUser) }

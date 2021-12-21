@@ -114,7 +114,6 @@ const ApplicationDetail = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { name, domain, redirectUri, status, policy } = e.target.elements;
-    console.log(policy.value);
     if (!name.value.length) {
       return FailToTest(
         name,

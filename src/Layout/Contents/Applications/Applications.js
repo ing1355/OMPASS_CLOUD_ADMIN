@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
@@ -43,32 +43,33 @@ const Applications = ({
   const [customPolicies, setCustomPolicies] = useState([]);
   const { formatMessage } = useIntl();
 
-  const tableDataAdd = (data) => {
+  const tableDataAdd = useCallback((data) => {
     const _p = customPolicies.find((cP) => data.policyId === cP.policyId);
     setTableData([
       {
         ...data,
-        policy: _p ? _p.name : formatMessage({ id: "DEFAULTPOLICY" }),
+        policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
       },
       ...tableData,
     ]);
-  };
+  },[customPolicies, tableData]);
 
-  const tableDatasDelete = (ids) => {
+  const tableDatasDelete = useCallback((ids) => {
     setTableData(tableData.filter((d) => !ids.find((id) => d.appId === id)));
-    setSelectedRows([]);
-  };
+  },[tableData]);
 
-  const tableDataUpdate = (appId, data) => {
+  const tableDataUpdate = useCallback((appId, data) => {
     setTableData(
       tableData.map((t) =>
-        t.appId === appId * 1 ? { appId: t.appId, ...data } : t
+        t.appId === appId * 1 ? {
+          appId: t.appId, ...data, policy: data.policyId ? customPolicies.find(c => c.policyId === data.policyId).title
+            : formatMessage({ id: 'DEFAULTPOLICY' })
+        } : t
       )
     );
-    setSelectedRows([]);
-  };
+  },[tableData, customPolicies]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     CustomAxiosGet(
       getCustomPoliciesApi(adminId),
       (customPoliciesData) => {
@@ -83,7 +84,7 @@ const Applications = ({
                 );
                 return {
                   ...d,
-                  policy: _p ? _p.name : formatMessage({ id: "DEFAULTPOLICY" }),
+                  policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
                 };
               })
             );
@@ -125,9 +126,17 @@ const Applications = ({
     );
   };
 
-  const closeConfirmModal = () => {
+  const openConfirmModal = useCallback(() => {
+    setConfirmVisible(true);
+  },[])
+
+  const closeConfirmModal = useCallback(() => {
     setConfirmVisible(false);
-  };
+  },[]);
+
+  const changeSelectedRows = useCallback((rows) => {
+    setSelectedRows(rows);
+  },[])
 
   return (
     <div className="contents-container">
@@ -148,9 +157,8 @@ const Applications = ({
                   searched
                   selectedId={"appId"}
                   rowSelectable={true}
-                  onChangeSelectedRows={(rows) => {
-                    setSelectedRows(rows);
-                  }}
+                  selectedRows={selectedRows}
+                  onChangeSelectedRows={changeSelectedRows}
                 />
                 <Space className="cud">
                   <Link to="/Applications/Add">
@@ -169,9 +177,7 @@ const Applications = ({
                   </Link>
                   <Button
                     disabled={selectedRows.length < 1}
-                    onClick={() => {
-                      setConfirmVisible(true);
-                    }}
+                    onClick={openConfirmModal}
                   >
                     <UserDeleteOutlined />
                     &nbsp;

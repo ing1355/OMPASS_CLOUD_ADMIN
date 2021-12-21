@@ -73,9 +73,22 @@
   border-bottom: 1px solid rgb(180, 180, 180);
 }
 
+.user-email-input {
+  transition: height .5s ease-in;
+  overflow: hidden;
+}
+
+.user-email-input.active {
+  height: 42px;
+}
+
+.user-email-input.inactive {
+  height: 0px;
+}
+
 .form-box .ant-row .label-bottom-text {
   padding-left: 1rem;
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .form-box .ant-row .label-bottom-text:last-child {
   padding-bottom: 0;
@@ -137,11 +150,29 @@
 
 .policy-active-button {
   padding: 0.3rem 1rem;
+  height: 32px;
   background: #256e8b;
   border: 0;
   color: #fff;
   cursor: pointer;
+  margin-right: 1rem;
+  transition: width .5s ease-out;
 }
+
+.policy-active-button.active {
+  width: 100px;
+}
+
+.policy-active-button.inactive {
+  width: 80px;
+}
+
+.user-policy-list {
+  height: 32px;
+  text-align: center;
+  padding: 0px 12px;
+}
+
 .ant-form-item {
   margin-bottom: 0 !important;
 }

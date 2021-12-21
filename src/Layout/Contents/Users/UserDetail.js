@@ -7,21 +7,17 @@ import { updateByPassApi } from "../../../Constants/Api_Route";
 import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
+import { useIntl } from "react-intl";
 
-const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
+const UserDetail = ({ data, userProfile, updateBypass, lang, customPolicies }) => {
+  console.log(data)
   const { adminId } = userProfile;
   const { userId, byPass, appId } = data;
   const [inputByPass, setInputByPass] = useState(byPass);
   const [loading, setLoading] = useState(false);
   const [isOwnPolicy, setIsOwnPolicy] = useState(false);
-  const [policyData, setPolicyData] = useState({
-    accessControl: "INACTIVE",
-    userLocations: [],
-    browsers: [],
-    authenticationMethods: [],
-    mobilePatch: "INACTIVE",
-  });
   const history = useHistory();
+  const { formatMessage } = useIntl();
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -52,6 +48,10 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
     setInputByPass(false);
   }, []);
 
+  const changeIsOwnPolicy = useCallback(() => {
+    setIsOwnPolicy(!isOwnPolicy)
+  }, [isOwnPolicy])
+
   return (
     <>
       {Object.keys(data).length < 1 ? (
@@ -73,7 +73,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>2차인증 바이패스 :</label>
+                <label>OMPASS 인증 바이패스 :</label>
               </div>
               <div
                 className="ant-col ant-form-item-control"
@@ -93,12 +93,10 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                 <div className="label-bottom-text">
                   OMPASS 인증 없이 로그인 가능합니다.
                 </div>
-                {inputByPass && (
-                  <div className="label-bottom-text">
-                    이메일 입력 : <input />
-                    <button>저장</button>
-                  </div>
-                )}
+                <div className={"label-bottom-text user-email-input" + (inputByPass ? ' active' : ' inactive')}>
+                  이메일 입력 : <input />
+                  <button>저장</button>
+                </div>
                 <div>
                   <input
                     className="userDetailInput"
@@ -116,33 +114,29 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
               </div>
             </div>
 
-            <div className="ApplicationsTitle">
+            {/* <div className="ApplicationsTitle">
               <h2 style={{ marginTop: "3.5rem" }}>정책</h2>
               <p>
                 정책은 사용자가 이 애플리케이션에 액세스할 때 인증하는 시기와
                 방법을 정의합니다.
                 <br />
-                글로벌 정책은 항상 적용되지만 사용자 지정 정책으로 해당 규칙을
+                기본 정책은 항상 적용되지만 활성화 버튼을 누른 뒤 사용자 지정 정책으로 해당 규칙을
                 재정의할 수 있습니다.
+                <br />
+                비활성화 상태에서는 항상 기본 정책이 적용됩니다.
               </p>
               <button
-                style={{ marginBottom: "3.5rem" }}
-                className="policy-active-button"
+                className={"policy-active-button" + (isOwnPolicy ? ' active' : ' inactive')}
                 type="button"
-                onClick={() => {
-                  setIsOwnPolicy(!isOwnPolicy);
-                }}
+                onClick={changeIsOwnPolicy}
               >
-                {isOwnPolicy ? "비활성화 ▲" : "활성화 ▼"}
+                {isOwnPolicy ? "비활성화" : "활성화"}
               </button>
-              <div
-                className={
-                  "user-policies-container" + (isOwnPolicy ? "" : " disabled")
-                }
-              >
-                test
-              </div>
-            </div>
+              <select className="user-policy-list" disabled={!isOwnPolicy} defaultValue={data.policyId}>
+                <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
+                {customPolicies.map(c => <option key={c.policyId} value={c.policyId}>{c.title}</option>)}
+              </select>
+            </div> */}
             <CustomButton
               className="ApplicationsSave button user-save-button"
               type="submit"

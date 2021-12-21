@@ -27,6 +27,7 @@ const CustomTable = ({
   className,
   columnsHide,
   searched,
+  selectedRows
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -53,7 +54,6 @@ const CustomTable = ({
       ]
     : columns;
   const firstRenderRef = useRef(false);
-  const [selectedRows, setSelectedRows] = useState([]);
 
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum =
@@ -96,13 +96,17 @@ const CustomTable = ({
   const rowSelect = useCallback(
     (id) => {
       if (selectedRows.includes(id)) {
-        setSelectedRows(selectedRows.filter((r) => r !== id));
+        onChangeSelectedRows(selectedRows.filter((r) => r !== id));
       } else {
-        setSelectedRows([...selectedRows, id]);
+        onChangeSelectedRows([...selectedRows, id]);
       }
     },
     [selectedRows]
   );
+
+  useLayoutEffect(() => {
+    if(onChangeSelectedRows) onChangeSelectedRows([])
+  },[])
 
   useEffect(() => {
     firstRenderRef.current = true;
@@ -260,9 +264,9 @@ const CustomTable = ({
                     type="checkbox"
                     onClick={() => {
                       if (selectedRows.length === tableData.length) {
-                        setSelectedRows([]);
+                        onChangeSelectedRows([]);
                       } else {
-                        setSelectedRows(tableData.map((d) => d[selectedId]));
+                        onChangeSelectedRows(tableData.map((d) => d[selectedId]));
                       }
                     }}
                     onChange={() => {}}
