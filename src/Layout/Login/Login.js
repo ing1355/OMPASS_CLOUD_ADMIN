@@ -12,6 +12,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
   const [login, setLogin] = useState(true);
+  const { formatMessage } = useIntl();
 
   const resetPassword = (e) => {
     e.preventDefault();
@@ -65,16 +66,14 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
   };
 
   const localeChangeEventKo = () => {
-    if (locale === "en") {
-      localeChange("ko");
-    }
+    localeChange("ko");
+    localStorage.setItem('locale', 'ko')
   };
   const localeChangeEventEn = () => {
-    if (locale === "ko") {
-      localeChange("en");
-    }
+    localeChange("en");
+    localStorage.setItem('locale', 'en')
   };
-  const { formatMessage } = useIntl();
+
   return (
     <>
       <div className="LoginBox">
@@ -122,17 +121,12 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                 </div>
               </ul>
               <ul>
-                <p>
+              <p className="login-welcome-text">
                   <FormattedMessage id="loginText1" />
                 </p>
-                <p>
+                <p className="login-welcome-text">
                   <FormattedMessage id="loginText2" />
                 </p>
-                {locale === "ko" ? (
-                  <p>
-                    <FormattedMessage id="loginText3" />
-                  </p>
-                ) : null}
               </ul>
             </div>
           ) : (
@@ -167,17 +161,12 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                 </div>
               </ul>
               <ul style={{ height: "400px" }}>
-                <p>
+                <p className="login-welcome-text">
                   <FormattedMessage id="loginText1" />
                 </p>
-                <p>
+                <p className="login-welcome-text">
                   <FormattedMessage id="loginText2" />
                 </p>
-                {locale === "ko" ? (
-                  <p>
-                    <FormattedMessage id="loginText3" />
-                  </p>
-                ) : null}
               </ul>
             </div>
           )}

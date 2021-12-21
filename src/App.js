@@ -29,7 +29,7 @@ const App = ({ isLogin, lang, setUserProfile, localeChange, userProfile, menuCha
   useEffect(() => {
     if (!isLogin) {
       setUserProfile({});
-      localStorage.clear();
+      localStorage.removeItem('Authorization')
     } else {
       const routes = route_info(userProfile.role);
       const target = [...routes, ...routes.filter(item => item.submenu).map(item => item.submenu).flat()].find(item => window.location.pathname === item.route);

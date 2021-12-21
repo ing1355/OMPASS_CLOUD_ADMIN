@@ -25,6 +25,8 @@ const locales = {
     Password: "Password",
     ID: "ID (Email)",
     Email: "Email",
+    EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
+    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -52,6 +54,8 @@ const locales = {
     Password: "비밀번호",
     ID: "아이디 (이메일)",
     Email: "이메일",
+    EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
+    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.'
   },
 };
 

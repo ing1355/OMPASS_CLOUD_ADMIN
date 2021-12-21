@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { message } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
@@ -8,24 +8,30 @@ import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
 import { useIntl } from "react-intl";
+import ActionCreators from "../../../redux/actions";
+import { emailTest, FailToTest } from "../../../Constants/InputRules";
 
-const UserDetail = ({ data, userProfile, updateBypass, lang, customPolicies }) => {
-  console.log(data)
+const UserDetail = ({ data, userProfile, updateBypass, lang, customPolicies, showSuccessMessage, showErrorMessage }) => {
   const { adminId } = userProfile;
   const { userId, byPass, appId } = data;
   const [inputByPass, setInputByPass] = useState(byPass);
   const [loading, setLoading] = useState(false);
   const [isOwnPolicy, setIsOwnPolicy] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(data.email)
+  const inputEmailRef = useRef(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
   const onFinish = (e) => {
     e.preventDefault();
+    const {email} = e.target.elements;
+    if(inputByPass && !emailCheck) return showErrorMessage('EMAIL_REGISTER_NEEDED')
     setLoading(true);
     CustomAxiosPatch(
       updateByPassApi(adminId, appId, userId),
       {
         byPass: inputByPass,
+        email: email.value
       },
       (data) => {
         setLoading(false);
@@ -51,6 +57,21 @@ const UserDetail = ({ data, userProfile, updateBypass, lang, customPolicies }) =
   const changeIsOwnPolicy = useCallback(() => {
     setIsOwnPolicy(!isOwnPolicy)
   }, [isOwnPolicy])
+
+  const emailSetting = () => {
+    if (!inputEmailRef.current.value.length) {
+      return FailToTest(inputEmailRef.current, showErrorMessage('PLEASE_INPUT_EMAIL'));
+    }
+    if (!emailTest(inputEmailRef.current.value)) {
+      return FailToTest(inputEmailRef.current, showErrorMessage("EMAIL_RULE_ERROR"));
+    }
+    showSuccessMessage('EMAIL_REGISTER_SUCCESS')
+    setEmailCheck(true);
+  }
+
+  const changeInputEmail = () => {
+    setEmailCheck(false);
+  }
 
   return (
     <>
@@ -94,8 +115,8 @@ const UserDetail = ({ data, userProfile, updateBypass, lang, customPolicies }) =
                   OMPASS 인증 없이 로그인 가능합니다.
                 </div>
                 <div className={"label-bottom-text user-email-input" + (inputByPass ? ' active' : ' inactive')}>
-                  이메일 입력 : <input />
-                  <button>저장</button>
+                  이메일 입력 : <input ref={inputEmailRef} name="email" defaultValue={data.email} onChange={changeInputEmail}/>
+                  <button type="button" onClick={emailSetting}>저장</button>
                 </div>
                 <div>
                   <input
@@ -159,7 +180,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

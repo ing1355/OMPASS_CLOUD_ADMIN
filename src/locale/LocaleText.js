@@ -77,7 +77,7 @@ const locales = {
     APPLICATIONNAME: "어플리케이션명",
     CONTENTS: "항목",
     DOMAIN: "도메인 주소",
-    REDIRECTURI: "리다이렉트 URI",
+    REDIRECTURI: "Redirect URI",
     STATUS: "상태",
     POLICYSETTING: "정책 설정",
     APPLICATIONPOLICYSETTINGDESCRIPTION:
@@ -175,8 +175,7 @@ const locales = {
     INACTIVE: "비활성화",
     login: "로그인",
     loginText1: "환영합니다.",
-    loginText2: "본 페이지는 관리자만을 위한",
-    loginText3: "로그인 페이지입니다.",
+    loginText2: "본 페이지는 관리자만을 위한\n로그인 페이지입니다.",
     id: "아이디",
     password: "패스워드",
     PasswordAssistance: "비밀번호 초기화",
