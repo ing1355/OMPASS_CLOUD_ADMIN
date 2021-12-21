@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";

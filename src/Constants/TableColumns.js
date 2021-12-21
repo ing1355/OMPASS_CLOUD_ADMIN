@@ -37,15 +37,15 @@ export const ApplicationsColumns = [
     width: 250,
     searched: true,
   },
-  { name: "Redirect Uri", key: "redirectUri", width: 250, searched: true },
+  { name: "REDIRECTURI", key: "redirectUri", width: 250, searched: true },
   { name: "Policies", key: "policy" },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [
-  { name: "금액", key: "amount", render: (amount) => slicePrice(amount) },
-  { name: "결제 날짜", key: "paymentDate" },
-  { name: "결제 종류", key: "paymentHistory" },
+  { name: "PRICECOLUMN", key: "amount", render: (amount) => slicePrice(amount) },
+  { name: "PAYMENTDATE", key: "paymentDate" },
+  { name: "PAYMENTTYPE", key: "paymentHistory" },
 ];
 
 export const DashboardLogColumns = [
@@ -104,7 +104,7 @@ export const allUserColumns = [
     searchedOptions: ["ompass"],
   },
   {
-    name: <FormattedMessage id="LastLogin" />,
+    name: "LastLogin",
     key: "lastLoginDate",
     width: 250,
   },
@@ -135,9 +135,9 @@ export const disabledUserColumns = [
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 200 },
   {
-    name: "2차인증 바이패스",
+    name: "Bypass",
     key: "byPass",
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
@@ -159,9 +159,9 @@ export const byPassUserColumns = [
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 200 },
   {
-    name: "2차인증 바이패스",
+    name: "Bypass",
     key: "byPass",
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
@@ -174,18 +174,18 @@ export const byPassUserColumns = [
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "아이디", key: "userId", width: 200, searched: true },
-  { name: "어플리케이션", key: "appName", searched: true },
+  { name: "Users", key: "userId", width: 200, searched: true },
+  { name: "Application", key: "appName", searched: true },
   {
-    name: "상태",
+    name: "Status",
     key: "type",
     width: 200,
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 200 },
   {
-    name: "2차인증 바이패스",
+    name: "Bypass",
     key: "byPass",
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
@@ -207,13 +207,13 @@ export const PolicyColumns = [
     width: 100,
   },
   {
-    name: "Policy Name",
+    name: "POLICYNAME",
     key: "policy",
     width: 200,
     render: (d) => <FormattedMessage id={d} />,
   },
   {
-    name: "Description",
+    name: "DESCRIPTION",
     key: "description",
     width: 600,
     render: (descriptionKey, row) => (
