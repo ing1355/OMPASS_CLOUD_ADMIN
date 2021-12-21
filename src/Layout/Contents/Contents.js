@@ -13,7 +13,7 @@ const Contents = ({ userProfile }) => {
         <div className="contents-inner">
           <React.Suspense fallback={<div>loading...</div>}>
             <Switch>
-              {[...Route_items(role), ...Route_items(role).filter(item => item.submenu).map(item => item.submenu).flat()].map((item) => (
+              {Route_items(role).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
                 <Route
                   key={item.key}
                   path={item.route}

@@ -230,7 +230,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   receipt_url,
                   status,
                 },
-                () => {}
+                () => {
+                  
+                }
               );
             } else {
             }
@@ -266,6 +268,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             },
             onApprove: function (data, actions) {
               console.log(data, actions);
+              window.location.reload();
             },
             onError: function (err) {
               console.log(err);
@@ -428,9 +431,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               value="iamPort"
               type="submit"
             >
-              결제하기
+              <FormattedMessage id="SUBSCRIPTION"/>
             </button>
-            <button
+            {currentPlan && currentPlan.status === 'RUN' && editions.find(e => e.name === currentPlan.name) && <button
               name="payType"
               className="button"
               style={{marginLeft:'12px'}}
@@ -439,8 +442,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 setCancelConfirmModal(true);
               }}
             >
-              구독 취소
-            </button>
+              <FormattedMessage id="SUBSCRIPTIONCANCEL"/>
+            </button>}
           </div>
         </form>
       </section>
@@ -449,6 +452,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           visible={confirmModal}
           confirmCallback={requestIamPort}
           footer={isKorea()}
+          closable={!isKorea()}
           okLoading={confirmLoading}
           cancelCallback={closeConfirmModal}
         >
@@ -459,7 +463,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <br />
             Term : {inputTerm}
             <br />
-            Cost :
+            Cost&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
               {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>

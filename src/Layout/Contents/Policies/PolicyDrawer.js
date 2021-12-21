@@ -4,7 +4,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
-import "./Global_Policy.css";
+import "./PolicyDrawer.css";
 
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { UndoOutlined } from "@ant-design/icons";
@@ -71,7 +71,7 @@ const Global_Policy = ({
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
-  const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
+  // const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
   const isKorea = useCallback(() => (lang === "KR" ? true : false), [lang]);
@@ -79,7 +79,7 @@ const Global_Policy = ({
     const target = isKorea() ? countryCodes_KR : countryCodes_US;
     return target[a] > target[b] ? 1 : -1;
   });
-
+  
   useLayoutEffect(() => {
     CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
       defaultPolicies = data;
@@ -92,7 +92,7 @@ const Global_Policy = ({
     setInputAuthCheck(null);
     setInputUserLocations([]);
     setInputBrowserCheck([]);
-    setInputAuthMethodCheck([]);
+    // setInputAuthMethodCheck([]);
     setInputMobileCheck(null);
   }, []);
 
@@ -116,7 +116,7 @@ const Global_Policy = ({
       if (accessControl) setInputAuthCheck(accessControl);
       if (userLocations) setInputUserLocations(userLocations);
       if (browsers) setInputBrowserCheck(browsers);
-      if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
+      // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
       setIsExistTitle(true);
     } else {
@@ -139,9 +139,9 @@ const Global_Policy = ({
     else result.userLocations = [];
     if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
     else result.browsers = [];
-    if (inputAuthMethodCheck.length)
-      result.authenticationMethods = inputAuthMethodCheck;
-    else result.authenticationMethods = [];
+    // if (inputAuthMethodCheck.length)
+    //   result.authenticationMethods = inputAuthMethodCheck;
+    // else result.authenticationMethods = [];
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
     else result.mobilePatch = null;
     if (isCustomPolicy && Object.keys(result).length === 1)
@@ -186,7 +186,7 @@ const Global_Policy = ({
     inputAuthCheck,
     inputUserLocations,
     inputBrowserCheck,
-    inputAuthMethodCheck,
+    // inputAuthMethodCheck,
     inputMobileCheck,
     editData,
     isExistTitle,
@@ -237,18 +237,18 @@ const Global_Policy = ({
     [inputBrowserCheck]
   );
 
-  const changeInputAuthMethodCheck = useCallback(
-    (value) => {
-      if (inputAuthMethodCheck.includes(value)) {
-        setInputAuthMethodCheck(
-          inputAuthMethodCheck.filter((m) => m !== value)
-        );
-      } else {
-        setInputAuthMethodCheck([...inputAuthMethodCheck, value]);
-      }
-    },
-    [inputAuthMethodCheck]
-  );
+  // const changeInputAuthMethodCheck = useCallback(
+  //   (value) => {
+  //     if (inputAuthMethodCheck.includes(value)) {
+  //       setInputAuthMethodCheck(
+  //         inputAuthMethodCheck.filter((m) => m !== value)
+  //       );
+  //     } else {
+  //       setInputAuthMethodCheck([...inputAuthMethodCheck, value]);
+  //     }
+  //   },
+  //   [inputAuthMethodCheck]
+  // );
 
   const changeInputMobilecheck = useCallback((e) => {
     setInputMobileCheck(e.target.value);
@@ -302,13 +302,13 @@ const Global_Policy = ({
   const defaultPolicySetting = () => {
     const {
       accessControl,
-      authenticationMethods,
+      // authenticationMethods,
       browsers,
       mobilePatch,
       userLocations,
     } = defaultPolicies;
     setInputAuthCheck(accessControl);
-    setInputAuthMethodCheck(authenticationMethods);
+    // setInputAuthMethodCheck(authenticationMethods);
     setInputBrowserCheck(browsers);
     setInputMobileCheck(mobilePatch);
     setInputUserLocations(userLocations);
@@ -536,7 +536,7 @@ const Global_Policy = ({
         </section>
 
         {/*----------------Authentication methods ------------- */}
-        <section className="policies-box">
+        {/* <section className="policies-box">
           <h2><FormattedMessage id="AUTHENTICATIONMETHODPOLICYTITLE"/></h2>
           <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
             <FormattedMessage id="AUTHENTICATIONMETHODPOLICYDESCRIPTION"/>
@@ -557,7 +557,7 @@ const Global_Policy = ({
               <label className="label-radio">{am}</label>
             </div>
           ))}
-        </section>
+        </section> */}
 
         {/* -------------OMPASS Mobile app ------------- */}
         <section className="policies-box">

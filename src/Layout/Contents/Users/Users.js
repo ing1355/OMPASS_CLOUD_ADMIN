@@ -9,7 +9,7 @@ import "./Users.css";
 import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
-import { getUsersApi } from "../../../Constants/Api_Route";
+import { getUsersApi, getCustomPoliciesApi } from "../../../Constants/Api_Route";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
@@ -24,7 +24,7 @@ import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
 import UserAll from "./UserAll";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Users = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -32,21 +32,31 @@ const Users = ({ userProfile }) => {
   const [_tableData, _setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
-  const history = useHistory();
   const [selectView, setSelectView] = useState(0);
+  const [customPolicies, setCustomPolicies] = useState([]);
+  const history = useHistory();
+  const {formatMessage} = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getUsersApi(adminId),
-      (data) => {
-        setTableData(data);
-        _setTableData(data);
-        setTableLoading(false);
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
+    CustomAxiosGet(getCustomPoliciesApi(adminId), customPoliciesData => {
+      CustomAxiosGet(
+        getUsersApi(adminId),
+        (data) => {
+          const result = data.map(d => ({
+            ...d,
+            policy: d.policyId ? customPoliciesData.find(c => c.policyId === d.policyId) : formatMessage({id:'DEFAULTPOLICY'})
+          }))
+          setTableData([...result]);
+          _setTableData([...result]);
+          setTableLoading(false);
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }, () => {
+      setTableLoading(false);
+    })
   }, []);
 
   useLayoutEffect(() => {
@@ -115,7 +125,7 @@ const Users = ({ userProfile }) => {
                       className={"user-concept-title" + (selectView === 0 ? ' selected' : '')}
                     >
                       <h3>{tableData.length}</h3>
-                      <p><FormattedMessage id="ALLUSERNUM"/></p>
+                      <p><FormattedMessage id="ALLUSERNUM" /></p>
                     </li>
                     <li
                       onClick={() => {
@@ -124,7 +134,7 @@ const Users = ({ userProfile }) => {
                       className={"user-concept-title" + (selectView === 1 ? ' selected' : '')}
                     >
                       <h3>0</h3>
-                      <p><FormattedMessage id="REGISTEREDUSERNUM"/></p>
+                      <p><FormattedMessage id="REGISTEREDUSERNUM" /></p>
                     </li>
                     <li
                       onClick={() => {
@@ -133,7 +143,7 @@ const Users = ({ userProfile }) => {
                       className={"user-concept-title" + (selectView === 2 ? ' selected' : '')}
                     >
                       <h3>0</h3>
-                      <p><FormattedMessage id="UNREGISTEREDUSERNUM"/></p>
+                      <p><FormattedMessage id="UNREGISTEREDUSERNUM" /></p>
                     </li>
                     <li
                       onClick={() => {
@@ -142,7 +152,7 @@ const Users = ({ userProfile }) => {
                       className={"user-concept-title" + (selectView === 3 ? ' selected' : '')}
                     >
                       <h3>{tableData.filter((t) => t.byPass).length}</h3>
-                      <p><FormattedMessage id="BYPASSUSERNUM"/></p>
+                      <p><FormattedMessage id="BYPASSUSERNUM" /></p>
                     </li>
                   </ul>
                   <ul className="UsersBox3_contents">
@@ -183,7 +193,7 @@ const Users = ({ userProfile }) => {
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
                       >
-                        <UploadOutlined /> <FormattedMessage id="EXCELUPLOAD"/>
+                        <UploadOutlined /> <FormattedMessage id="EXCELUPLOAD" />
                       </label>
                       <input
                         id="excel-upload"
@@ -235,7 +245,7 @@ const Users = ({ userProfile }) => {
                         ]);
                       }}
                     >
-                      <DownloadOutlined /> <FormattedMessage id="EXCELDOWNLOAD"/>
+                      <DownloadOutlined /> <FormattedMessage id="EXCELDOWNLOAD" />
                     </CustomButton>
                     {/* <ExcelDownload
                       data={tableData}

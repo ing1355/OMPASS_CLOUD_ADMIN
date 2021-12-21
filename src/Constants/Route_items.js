@@ -15,7 +15,8 @@ const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins/Admins"));
 const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));
-const Policies = lazy(() => import("../Layout/Contents/Policies/Policies"));
+const DefaultPolicies = lazy(() => import("../Layout/Contents/Policies/DefaultPolicy"));
+const CustomPolicies = lazy(() => import("../Layout/Contents/Policies/CustomPolicy"));
 const Users = lazy(() => import("../Layout/Contents/Users/Users"));
 // const TwoFactorDevices = lazy(() =>
 //   import("../Layout/Contents/TwoFactorDevices/TwoFactorDevices")
@@ -47,9 +48,21 @@ const AdminRoutes = [
   {
     key: "Policies",
     name: "Policies",
-    route: "/Policies",
-    component: Policies,
-    icon: PoliciesIcon
+    icon: PoliciesIcon,
+    submenu: [
+      {
+        key: "GlobalPolicy",
+        name: "DEFAULTPOLICY",
+        route: "/DefaultPolicy",
+        component: DefaultPolicies
+      },
+      {
+        key: "CustomPolicy",
+        name: "CUSTOMPOLICY",
+        route: "/CustomPolicy",
+        component: CustomPolicies
+      }
+    ]
   },
   {
     key: "Users",
@@ -88,7 +101,6 @@ const AdminRoutes = [
   {
     key: "Logs",
     name: "Logs",
-    route: "/Logs",
     icon: LogsIcon,
     submenu: [
       {

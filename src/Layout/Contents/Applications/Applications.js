@@ -44,7 +44,11 @@ const Applications = ({
   const { formatMessage } = useIntl();
 
   const tableDataAdd = (data) => {
-    setTableData([data, ...tableData]);
+    const _p = customPolicies.find(cP => data.policyId === cP.policyId) 
+    setTableData([{
+      ...data, 
+      policy: _p ? _p.name : formatMessage({id:'DEFAULTPOLICY'})
+    }, ...tableData]);
   };
 
   const tableDatasDelete = (ids) => {
@@ -82,7 +86,7 @@ const Applications = ({
   }, []);
 
   const confirmCallback = () => {
-    if (selectedRows.find((row) => row.cloud)) {
+    if (selectedRows.find((rowId) => tableData.find(tD => tD.appId === rowId).cloud)) {
       setConfirmVisible(false);
       return showErrorMessage("CANT_DELETE_ADMIN_APPLICATION");
     }

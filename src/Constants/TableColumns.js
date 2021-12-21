@@ -51,8 +51,9 @@ export const LogsColumns = [
 export const allUserColumns = [
   { name: "아이디", key: "userId", width: 200, searched: true },
   { name: "어플리케이션", key: "appName", searched: true },
+  { name: "정책명", key: "policy", width: 150 },
   { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
-  { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
+  { name: "마지막 로그인", key: "lastLoginDate", width: 150 },
   {
     name: "2차인증 바이패스",
     key: "byPass",
@@ -66,6 +67,7 @@ export const allUserColumns = [
 export const disabledUserColumns = [
   { name: "아이디", key: "userId", width: 200, searched: true },
   { name: "어플리케이션", key: "appName", searched: true },
+  { name: "정책명", key: "policy", width: 150 },
   { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
@@ -81,6 +83,7 @@ export const disabledUserColumns = [
 export const byPassUserColumns = [
   { name: "아이디", key: "userId", width: 200, searched: true },
   { name: "어플리케이션", key: "appName", searched: true },
+  { name: "정책명", key: "policy", width: 150 },
   { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
@@ -96,6 +99,7 @@ export const byPassUserColumns = [
 export const unRegisteredUserColumns = [
   { name: "아이디", key: "userId", width: 200, searched: true },
   { name: "어플리케이션", key: "appName", searched: true },
+  { name: "정책명", key: "policy", width: 150 },
   { name: "상태", key: "type", width: 200, searched: true, searchedOptions: ['ompass'] },
   { name: "마지막 로그인", key: "lastLoginDate", width: 200 },
   {
@@ -108,7 +112,7 @@ export const unRegisteredUserColumns = [
   },
 ];
 
-export const globalPolicyColumns = [
+export const PolicyColumns = [
   {
     name: "Status",
     key: "status",
@@ -117,7 +121,7 @@ export const globalPolicyColumns = [
     ),
     width: 100
   },
-  { name: "Policy Name", key: "policy", width: 200 },
+  { name: "Policy Name", key: "policy", width: 200, render: d => <FormattedMessage id={d}/> },
   { name: "Description", key: "description", width: 600, render: (descriptionKey, row) => <FormattedMessage id={row.status ? descriptionKey : 'NORESTRICTION'}/> },
 ];
 
@@ -149,38 +153,32 @@ export const globalPolicyColumns = [
 //   },
 // ];
 
-const customPolicyItemWidth = 130;
+// const customPolicyItemWidth = 130;
 
-export const customPolicyColumns = [
-  { name: "이름", key: "title" },
-  {
-    name: "인증 접근 제한",
-    key: "accessControl",
-    width: customPolicyItemWidth,
-    render: (data) => (data ? "O" : "X"),
-  },
-  {
-    name: "사용자 위치 제한",
-    key: "userLocations",
-    width: customPolicyItemWidth,
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "브라우저 제한",
-    key: "browsers",
-    width: customPolicyItemWidth,
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "인증 방법 제한",
-    key: "authenticationMethods",
-    width: customPolicyItemWidth,
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "OMPASS APP 업데이트",
-    key: "mobilePatch",
-    width: customPolicyItemWidth,
-    render: (data) => (data ? "O" : "X"),
-  },
-];
+// export const customPolicyColumns = [
+//   { name: "이름", key: "title" },
+//   {
+//     name: "인증 접근 제한",
+//     key: "accessControl",
+//     width: customPolicyItemWidth,
+//     render: (data) => (data ? "O" : "X"),
+//   },
+//   {
+//     name: "사용자 위치 제한",
+//     key: "userLocations",
+//     width: customPolicyItemWidth,
+//     render: (data, row) => (data && data.length > 0 ? "O" : "X"),
+//   },
+//   {
+//     name: "브라우저 제한",
+//     key: "browsers",
+//     width: customPolicyItemWidth,
+//     render: (data) => (data && data.length > 0 ? "O" : "X"),
+//   },
+//   {
+//     name: "OMPASS APP 업데이트",
+//     key: "mobilePatch",
+//     width: customPolicyItemWidth,
+//     render: (data) => (data ? "O" : "X"),
+//   },
+// ];
