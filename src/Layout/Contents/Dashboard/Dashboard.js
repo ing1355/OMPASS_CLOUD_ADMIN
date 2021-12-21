@@ -18,14 +18,15 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { ResponsiveBump } from "@nivo/bump";
 import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
-import HighChart from "./HighChart";
+import { ResponsiveLine } from "@nivo/line";
+import CustomApexChart from "./ApexChart";
+import { FormattedMessage } from "react-intl";
 
 var tooltipIndex = 0;
 
-const Dashboard = ({ userProfile }) => {
+const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
   const [adminNum, setAdminNum] = useState(0);
@@ -38,7 +39,7 @@ const Dashboard = ({ userProfile }) => {
 
   const planStatusCodes = {
     STOPPED: "사용하지 않음",
-    RUN: "현재 사용중",
+    RUN: <FormattedMessage id="Valid" />,
   };
 
   const getDashboardData = () => {
@@ -65,21 +66,24 @@ const Dashboard = ({ userProfile }) => {
         },
         (data) => {
           setChartData(
-            data.map((d, ind) => {
-              const _ = {};
-              _.name = d.name;
-              _.animation = {
-                duration: 500 * ind,
-              };
-              _.data = d.chartData.map((cD) => ({
-                date: cD.date,
-                y: cD.rank,
-                tip: cD.count,
-              }));
-              _.yAxis = 0;
-              return _;
-            })
+            data.map((d) => ({
+              name: d.name,
+              data: d.chartData.map((_d) => ({
+                x: new Date(_d.date),
+                y: _d.count,
+              })),
+            }))
           );
+          // setChartData(data.map((d, ind) => {
+          //   const _ = {};
+          //   _.name = d.name;
+          //   _.animation = {
+          //     duration: 500 * ind
+          //   }
+          //   _.data = d.chartData.map(cD => ({ date: cD.date, y: cD.rank, tip: cD.count }))
+          //   _.yAxis = 0;
+          //   return _;
+          // }));
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -107,12 +111,25 @@ const Dashboard = ({ userProfile }) => {
           : pre + "년 " + cur + "월";
       });
 
+  const getDateFormatEn = (date) =>
+    date
+      .split(" ")[0]
+      .split("-")
+      .reduce((pre, cur) => {
+        return pre.includes("월")
+          ? pre + " " + cur + "일"
+          : pre.includes("")
+          ? pre + " " + cur + "월"
+          : pre + "년 " + cur + "월";
+      });
+
   return (
     <div className="contents-container" style={{ width: 1400 }}>
       <div className="flag kr" />
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
-          <FontAwesomeIcon icon={faCaretRight} /> 사용자 정보
+          <FontAwesomeIcon icon={faCaretRight} />{" "}
+          <FormattedMessage id="Overview" />
         </h4>
         <div className="DashboardFirst">
           <ul className="plan-info-box">
@@ -135,10 +152,26 @@ const Dashboard = ({ userProfile }) => {
                     icon={faCalendarCheck}
                   />
                   &nbsp;&nbsp;
-                  {plan.createDate
+                  {locale === "ko" ? (
+                    <>
+                      {plan.createDate ? getDateFormat(plan.createDate) : null}~
+                      {plan.expireDate ? getDateFormat(plan.expireDate) : null}
+                    </>
+                  ) : (
+                    <>
+                      {plan.createDate
+                        ? getDateFormatEn(plan.createDate)
+                        : null}
+                      ~
+                      {plan.expireDate
+                        ? getDateFormatEn(plan.expireDate)
+                        : null}
+                    </>
+                  )}
+                  {/* {plan.createDate
                     ? getDateFormat(plan.createDate)
                     : null} ~{" "}
-                  {plan.expireDate ? getDateFormat(plan.expireDate) : null}
+                  {plan.expireDate ? getDateFormat(plan.expireDate) : null} */}
                 </h6>
               </div>
               <div>
@@ -158,7 +191,7 @@ const Dashboard = ({ userProfile }) => {
                           fontSize: "1rem",
                         }}
                       >
-                        남은 일 수
+                        <FormattedMessage id="ValidDate" />
                       </td>
                       <td
                         style={{
@@ -169,7 +202,7 @@ const Dashboard = ({ userProfile }) => {
                           borderTop: "1px solid rgb(180, 180, 180)",
                         }}
                       >
-                        {plan.remainingDate} 일
+                        {plan.remainingDate} <FormattedMessage id="daysleft" />
                       </td>
                     </tr>
                   </tbody>
@@ -181,7 +214,9 @@ const Dashboard = ({ userProfile }) => {
             <li>
               <div className="countBox">
                 <div>
-                  <h6>사용자 수</h6>
+                  <h6>
+                    <FormattedMessage id="TotalUsers" />
+                  </h6>
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
@@ -189,7 +224,9 @@ const Dashboard = ({ userProfile }) => {
                   </p>
                 </div>
                 <div>
-                  <h6>관리자 수</h6>
+                  <h6>
+                    <FormattedMessage id="Administrators" />
+                  </h6>
                   <p>
                     <FontAwesomeIcon icon={faUserCog} />
                     &nbsp;
@@ -197,7 +234,10 @@ const Dashboard = ({ userProfile }) => {
                   </p>
                 </div>
                 <div>
-                  <h6>2차인증 바이패스 수</h6>
+                  <h6>
+                    {/* 2차인증 바이패스 수 */}
+                    <FormattedMessage id="BypassUsers" />
+                  </h6>
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
@@ -205,7 +245,9 @@ const Dashboard = ({ userProfile }) => {
                   </p>
                 </div>
                 <div>
-                  <h6>비활성화 수</h6>
+                  <h6>
+                    <FormattedMessage id="InactiveUsers" />
+                  </h6>
                   <p>
                     <FontAwesomeIcon icon={faUserAltSlash} />
                     &nbsp;
@@ -218,96 +260,20 @@ const Dashboard = ({ userProfile }) => {
         </div>
         <div className="DashboardSecond">
           <h4 className="DashboardTitle">
-            <FontAwesomeIcon icon={faCaretRight} /> 인증 횟수 차트
+            <FontAwesomeIcon icon={faCaretRight} />
+            &nbsp;
+            <FormattedMessage id="Authentications" />
           </h4>
-          <div className="chart">
-            <HighChart data={chartData} />
-            {/* <Line {...config(chartData)} 
-            options={{
-              plugins: {
-                legend: {
-                  position: 'right',
-                }
-              }
-            }} 
-            /> */}
-            {/* <ResponsiveBump
-              data={chartData}
-              margin={{ top: 20, right: 120, bottom: 70, left: 100 }}
-              colors={{ scheme: "spectral" }}
-              interpolation="linear"
-              lineWidth={2}
-              activeLineWidth={3}
-              inactiveLineWidth={3}
-              inactiveOpacity={0.1}
-              pointSize={10}
-              tooltip={({ serie }) => (
-                <div className="custom-tooltip-container">
-                  <div className="custom-tooltip-title">
-                    날짜 : {chartData[0].data[tooltipDataIndex].x}
-                  </div>
-                  {chartData.map((t, ind) => (
-                    <div key={ind} className="custom-tooltip-item">
-                      {t.id} : <b>{t.data[tooltipDataIndex].value}</b>
-                    </div>
-                  ))}
-                </div>
-              )}
-              onMouseMove={(data, b) => {
-                const { offsetX, offsetY, clientX, clientY } = b.nativeEvent;
-                const { width } = b.target.getBoundingClientRect();
-                const dataLength = chartData[0].data.length;
-                const dataUnitAmount = width / dataLength;
-                const _offsetX = offsetX - 100;
-                if (_offsetX <= dataUnitAmount) {
-                  if (tooltipIndex !== 0) {
-                    tooltipIndex = 0;
-                    setTooltipDataIndex(0);
-                  }
-                } else if (_offsetX >= dataUnitAmount * (dataLength - 1)) {
-                  if (tooltipIndex !== data.data.length - 1) {
-                    tooltipIndex = data.data.length - 1;
-                    setTooltipDataIndex(data.data.length - 1);
-                  }
-                } else {
-                  if (tooltipIndex !== parseInt(_offsetX / dataUnitAmount)) {
-                    tooltipIndex = parseInt(_offsetX / dataUnitAmount);
-                    setTooltipDataIndex(parseInt(_offsetX / dataUnitAmount));
-                  }
-                }
-                // console.log(b.target.getAttribute('d').replace(/[LM]/gi, " ").slice(1,).split(' ').map(d => d.split(',')).flat().map(d => (d*1).toFixed(0)))
-              }}
-              activePointSize={16}
-              inactivePointSize={0}
-              pointColor={{ theme: "background" }}
-              pointBorderWidth={3}
-              activePointBorderWidth={3}
-              pointBorderColor={{ from: "serie.color" }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                tickSize: 0,
-                tickPadding: 0,
-                tickRotation: 0,
-                legend: "날짜",
-                legendPosition: "middle",
-                legendOffset: 42,
-              }}
-              axisLeft={{
-                tickSize: 0,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: "인증 횟수 Ranking",
-                legendPosition: "middle",
-                legendOffset: -60,
-              }}
-            /> */}
+          <div className="chart" id="chart">
+            <CustomApexChart data={chartData} />
           </div>
         </div>
 
         <div className="DashboardThird">
           <h4 className="DashboardTitle">
-            <FontAwesomeIcon icon={faCaretRight} /> 최근 인증 로그
+            <FontAwesomeIcon icon={faCaretRight} />
+            &nbsp;
+            <FormattedMessage id="AuthenticationLog" />
           </h4>
           <CustomTable columns={DashboardLogColumns} datas={authLogs} />
         </div>
@@ -319,6 +285,7 @@ const Dashboard = ({ userProfile }) => {
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale,
   };
 }
 

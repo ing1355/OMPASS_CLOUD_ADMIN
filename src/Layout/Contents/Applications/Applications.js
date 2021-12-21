@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ApplicationsColumns } from "../../../Constants/TableColumns";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
@@ -62,26 +62,23 @@ const Applications = ({
   };
 
   useEffect(() => {
-    CustomAxiosGetAll(
-      [getApplicationApi(userProfile.adminId), getCustomPoliciesApi(adminId)],
-      [
-        (data) => {
-          setTableData(
-            data.map((d) => ({
-              ...d,
-              detail: formatMessage({ id: "detailColumn" }),
-            }))
-          );
-          setTableLoading(false);
-        },
-        (data) => {
-          setCustomPolicies(data);
-        },
-      ],
-      () => {
+    CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
+      setCustomPolicies(customPoliciesData);
+      CustomAxiosGet(getApplicationApi(adminId), (applicationData) => {
+        setTableData(applicationData.map(d => { 
+          const _p = customPoliciesData.find(cP => d.policyId === cP.policyId)
+          return {
+            ...d, 
+            policy: _p ? _p.name : formatMessage({id:'DEFAULTPOLICY'})
+          } 
+        }));
         setTableLoading(false);
-      }
-    );
+      }, () => {
+        setTableLoading(false);
+      })
+    }, () => {
+      setTableLoading(false);
+    })
   }, []);
 
   const confirmCallback = () => {
@@ -112,7 +109,7 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title="어플리케이션" />
+      <ContentsTitle title={formatMessage({id:'Applications'})} />
       <div className="ApplicationsBox">
         <Switch>
           <Route
@@ -134,14 +131,14 @@ const Applications = ({
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>
-                      <AppstoreAddOutlined />
-                      등록
+                      <AppstoreAddOutlined />&nbsp;
+                      <FormattedMessage id="REGISTER"/>
                     </Button>
                   </Link>
                   <Link to={`/Applications/Detail/${selectedRows[0]}`}>
                     <Button disabled={selectedRows.length !== 1}>
-                      <UserSwitchOutlined />
-                      수정
+                      <UserSwitchOutlined />&nbsp;
+                      <FormattedMessage id="UPDATE"/>
                     </Button>
                   </Link>
                   <Button
@@ -150,8 +147,8 @@ const Applications = ({
                       setConfirmVisible(true);
                     }}
                   >
-                    <UserDeleteOutlined />
-                    삭제
+                    <UserDeleteOutlined />&nbsp;
+                    <FormattedMessage id="DELETE"/>
                   </Button>
                 </Space>
                 <CustomConfirm
@@ -160,7 +157,7 @@ const Applications = ({
                   confirmCallback={confirmCallback}
                   cancelCallback={closeConfirmModal}
                 >
-                  정말로 삭제하시겠습니까?
+                  <FormattedMessage id="DELETECONFIRM"/>
                 </CustomConfirm>
               </div>
             )}

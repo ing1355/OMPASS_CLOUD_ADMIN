@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Applications.css";
 
 import "antd/dist/antd.css";
@@ -19,7 +19,7 @@ import {
   nameTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErrorMessage, policies }) => {
   const [inputName, setInputName] = useState("");
@@ -55,7 +55,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
       {
         domain: domain.value,
         name: name.value,
-        policyId: policy.value,
+        policyId: policy.value === 'null' ? null : policy.value,
         redirectUri: redirectUri.value,
         status: "Inactive",
       },
@@ -98,11 +98,11 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
           <div className="ApplicationForm">
             <div className="ApplicationsTitle">
               <span>
-                <h2>항목</h2>
+                <h2><FormattedMessage id="CONTENTS"/></h2>
               </span>
             </div>
             <div className="Application-label-input-box">
-              <label>어플리케이션</label>
+              <label><FormattedMessage id="APPLICATIONNAME"/></label>
               <input
                 name="name"
                 placeholder={formatMessage({ id: 'PLEASE_INPUT_APPLICATION_NAME' })}
@@ -114,7 +114,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
                 disabled={isExistCheck}
                 onClick={existCheck}
               >
-                중복체크
+                <FormattedMessage id="DUPLICATECHECK"/>
               </button>
             </div>
             {/* <div className="Application-label-input-box">
@@ -133,46 +133,47 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
             </div> */}
 
             <div className="Application-label-input-box">
-              <label>도메인 주소</label>
+              <label><FormattedMessage id="DOMAIN"/></label>
               <input name="domain" placeholder={formatMessage({ id: 'PLEASE_INPUT_DOMAIN' })} />
             </div>
             <div className="Application-label-input-box">
-              <label>리다이렉트 URL</label>
+              <label><FormattedMessage id="REDIRECTURI"/></label>
               <input
                 name="redirectUri"
                 placeholder={formatMessage({ id: 'PLEASE_INPUT_REDIRECT_URI' })}
               />
             </div>
             <div className="Application-label-input-box">
-              <label>상태</label>
+              <label><FormattedMessage id="STATUS"/></label>
               <input
                 name="status"
-                value="Active"
+                value="ACTIVE"
                 type="radio"
                 style={{ width: "15px" }}
               />
               <label className="label-radio">Active</label>
               <input
                 name="status"
-                value="Inactive"
+                value="INACTIVE"
                 type="radio"
+                defaultChecked
                 style={{ width: "15px" }}
               />
               <label className="label-radio">Inactive</label>
             </div>
             <div className="ApplicationsTitle" style={{ marginBottom: "0" }}>
               <h2 style={{ marginTop: "1rem", marginBottom: "0.5rem" }}>
-                정책
+                <FormattedMessage id="Policies"/>
               </h2>
-              <p>해당 어플리케이션에 커스텀 정책을 적용할 수 있습니다.</p>
+              <p><FormattedMessage id="APPLICATIONPOLICYSETTINGDESCRIPTION"/></p>
             </div>
             <div
               className="Application-label-input-box"
               style={{ marginTop: "1rem" }}
             >
-              <label> 정책 설정</label>
+              <label><FormattedMessage id="POLICYSETTING"/></label>
               <select name="policy">
-                <option value={null}>선택 안함(Global Policy)</option>
+                <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
                 {
                   policies.map((p, ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
                 }
@@ -180,7 +181,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
             </div>
 
             <button className="Application-Save-button button" type="submit">
-              등록
+              <FormattedMessage id="REGISTER"/>
             </button>
           </div>
         </form>

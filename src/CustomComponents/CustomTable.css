@@ -137,8 +137,20 @@ td.no-data {
   }
 }
 
-.table-row-select-checkbox, .table-all-row-select-checkbox {
+.table-row-select-checkbox,
+.table-all-row-select-checkbox {
   cursor: pointer;
   height: 1rem;
   width: 1rem;
+}
+
+.table-search-form-container {
+  float: right;
+}
+
+.table-search-column-select,
+.table-search-column-input {
+  height: 40px;
+  margin-right: 0.5rem;
+  width: 10rem;
 }

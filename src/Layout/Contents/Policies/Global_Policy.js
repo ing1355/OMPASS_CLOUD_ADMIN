@@ -26,6 +26,7 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
+import { FormattedMessage } from "react-intl";
 
 export const BrowsersList = [
   "크롬",
@@ -322,23 +323,32 @@ const Global_Policy = ({
           }}
         >
           <div>
-            {isCustomPolicy ? "커스텀 정책" : "글로벌 정책"}
-            {isEditPolicy ? " 수정" : " 추가"}
+            {isCustomPolicy ? (
+              <FormattedMessage id="CUSTOMPOLICY" />
+            ) : (
+              <FormattedMessage id="DEFAULTPOLICY" />
+            )}
+            &nbsp;
+            {isEditPolicy ? (
+              <FormattedMessage id="UPDATE" />
+            ) : (
+              <FormattedMessage id="ADD" />
+            )}
           </div>
           <Space>
             <button className="button" onClick={_saveCallback}>
-              저장
+              <FormattedMessage id="SAVE" />
             </button>
             {isEditPolicy && isCustomPolicy && (
               <button
                 className="button close-button del-button"
                 onClick={openDeleteConfirm}
               >
-                삭제
+                <FormattedMessage id="DELETE" />
               </button>
             )}
             <button className="button close-button" onClick={closePolicyDrawer}>
-              닫기
+              <FormattedMessage id="CLOSE" />
             </button>
           </Space>
         </div>
@@ -359,7 +369,7 @@ const Global_Policy = ({
         cancelCallback={closeDeleteConfirm}
         confirmCallback={_deleteCallback}
       >
-        정말 삭제하시겠습니까?
+        <FormattedMessage id="DELETECONFIRM" />
       </CustomConfirm>
       <div className="Global_Policy-box">
         <CustomButton
@@ -367,13 +377,15 @@ const Global_Policy = ({
           type="button"
           onClick={defaultPolicySetting}
         >
-          <UndoOutlined /> 기본값으로 변경
+          <UndoOutlined /> <FormattedMessage id="SETTINGTODEFAULT" />
         </CustomButton>
 
         {/* -------------타이틀 ------------- */}
         {isCustomPolicy && (
           <section className="policies-box">
-            <h2>제목</h2>
+            <h2>
+              <FormattedMessage id="TITLE" />
+            </h2>
             <div className="policies-sub-box">
               <div>
                 <input
@@ -389,7 +401,7 @@ const Global_Policy = ({
                   style={{ height: "50px" }}
                   onClick={checkExistTitle}
                 >
-                  중복체크
+                  <FormattedMessage id="DUPLICATECHECK" />
                 </button>
               </div>
             </div>
@@ -398,7 +410,7 @@ const Global_Policy = ({
 
         {/* -------------Authentication policy ------------- */}
         <section className="policies-box">
-          <h2>인증 접근 제한</h2>
+          <h2>2차 인증 제어</h2>
           <div className="policies-sub-box">
             <input
               name="status"
@@ -435,7 +447,7 @@ const Global_Policy = ({
               style={{ width: "15px" }}
               onChange={changeInputAuthCheck}
             />
-            <label className="label-radio">모두 거부</label>
+            <label className="label-radio">엑세스 거부</label>
             <p>모든 사용자에 대한 인증 거부합니다.</p>
           </div>
           <div className="policies-sub-box">
@@ -447,7 +459,7 @@ const Global_Policy = ({
 
         {/* -------------User location ------------- */}
         <section className="policies-box">
-          <h2>사용자 위치</h2>
+          <h2>사용자 위치 제한</h2>
           <div className="policies-sub-box">
             <h3>사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.</h3>
             {inputUserLocations.map((d, ind) => (
@@ -485,7 +497,7 @@ const Global_Policy = ({
                     );
                   }}
                 >
-                  삭제
+                  <FormattedMessage id="DELETE" />
                 </button>
               </div>
             ))}
@@ -503,7 +515,7 @@ const Global_Policy = ({
               }}
               style={{ height: 50, display: "block" }}
             >
-              추가
+              <FormattedMessage id="ADD" />
             </button>
           </div>
         </section>

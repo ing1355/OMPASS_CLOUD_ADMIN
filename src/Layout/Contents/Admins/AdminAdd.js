@@ -20,7 +20,7 @@ import {
   mobileTest,
   nameTest,
 } from "../../../Constants/InputRules";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
 
 const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
@@ -87,7 +87,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
     //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
     // }
-    if (!agreeCheck.checked) return showErrorMessage('PLEASE_CHECK_CHECKBOX');
+    // if (!agreeCheck.checked) return showErrorMessage('PLEASE_CHECK_CHECKBOX');
     CustomAxiosPost(addSubAdminApi(adminId), {
       country: inputCountry,
       email: email.value,
@@ -106,18 +106,18 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
-            <span>성</span>
-            <input name="firstName" placeholder={formatMessage({id: 'PLEASE_INPUT_FIRST_NAME'})} />
+            <span><FormattedMessage id="FIRSTNAME"/></span>
+            <input name="firstName" placeholder={formatMessage({ id: 'PLEASE_INPUT_FIRST_NAME' })} />
           </div>
           <div className="inputBox">
-            <span>이름</span>
-            <input name="lastName" placeholder={formatMessage({id: 'PLEASE_INPUT_NAME'})}/>
+            <span><FormattedMessage id="LASTNAME"/></span>
+            <input name="lastName" placeholder={formatMessage({ id: 'PLEASE_INPUT_NAME' })} />
           </div>
           <div className="inputBox">
-            <span>이메일 주소</span>
+            <span><FormattedMessage id="EMAIL"/></span>
             <input
               name="email"
-              placeholder={formatMessage({id: 'PLEASE_INPUT_EMAIL'})}
+              placeholder={formatMessage({ id: 'PLEASE_INPUT_EMAIL' })}
               onChange={changeEmailInput}
             />
             <button
@@ -125,11 +125,11 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
               type="button"
               onClick={existCheckFunc}
             >
-              중복체크
+              <FormattedMessage id="DUPLICATECHECK"/>
             </button>
           </div>
           <div className="inputBox2">
-            <span>전화번호</span>
+            <span><FormattedMessage id="MOBILE"/></span>
             <div className="phoneBox">
               <PhoneInput
                 className="phoneInput"
@@ -144,7 +144,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
             </div>
           </div>
           <div className="checkBox">
-            <span>계정 설정</span>
+            {/* <span>계정 설정</span>
             <div>
               <span>
                 <input name="agreeCheck" type="checkbox" />
@@ -154,10 +154,10 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
                 이 관리자는 계정 설정을 완료하기 위한 지침이 포함된 이메일을
                 받게 됩니다.
               </p>
-              <button className="adminAddButton button" type="submit">
-                관리자 등록
-              </button>
-            </div>
+            </div> */}
+            <button className="adminAddButton button" type="submit">
+              <FormattedMessage id="REGISTER"/>
+            </button>
           </div>
         </form>
       </div>

@@ -8,7 +8,7 @@ import { popupCenter } from "./fidoPopUp";
 import "./Login.css";
 import "antd/dist/antd.css";
 import { message } from "antd";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
   const [login, setLogin] = useState(true);
@@ -74,7 +74,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
       localeChange("en");
     }
   };
-
+  const { formatMessage } = useIntl();
   return (
     <>
       <div className="LoginBox">
@@ -84,34 +84,17 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
               <ul style={{ height: "400px" }}>
                 <h1>OMPASS Login</h1>
                 <form onSubmit={loginRequest} className="form login-input">
-                  {locale === "ko" ? (
-                    <input
-                      className="email-input"
-                      name="userId"
-                      placeholder="아이디"
-                      type="text"
-                    />
-                  ) : (
-                    <input
-                      className="email-input"
-                      name="userId"
-                      placeholder="ID"
-                      type="text"
-                    />
-                  )}
-                  {locale === "ko" ? (
-                    <input
-                      name="password"
-                      type="password"
-                      placeholder="비밀번호"
-                    ></input>
-                  ) : (
-                    <input
-                      name="password"
-                      type="password"
-                      placeholder="Password"
-                    ></input>
-                  )}
+                  <input
+                    className="email-input"
+                    name="userId"
+                    placeholder={formatMessage({ id: "ID" })}
+                    type="text"
+                  />
+                  <input
+                    name="password"
+                    type="password"
+                    placeholder={formatMessage({ id: "Password" })}
+                  ></input>
 
                   <button className="button" type="submit">
                     <FormattedMessage id="login" />
@@ -162,21 +145,12 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                   <FormattedMessage id="PasswordAssistanceText" />
                 </h5>
                 <form onSubmit={resetPassword} className="form login-input">
-                  {locale === "ko" ? (
-                    <input
-                      name="email"
-                      className="forgetEmail"
-                      placeholder="이메일"
-                      type="text"
-                    ></input>
-                  ) : (
-                    <input
-                      name="email"
-                      className="forgetEmail"
-                      placeholder="Email"
-                      type="text"
-                    ></input>
-                  )}
+                  <input
+                    name="email"
+                    className="forgetEmail"
+                    placeholder={formatMessage({ id: "Email" })}
+                    type="text"
+                  ></input>
 
                   <button className="button" type="submit">
                     <FormattedMessage id="ResetPassword" />

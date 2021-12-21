@@ -8,7 +8,7 @@ const UsersTable = ({ tableData, tableLoadng, setDetailData, columns }) => {
     <>
       <ul className="UsersBox3_contents">
         <li>
-          <CustomTable columns={columns ? columns : allUserColumns} datas={tableData} rowClick={setDetailData} pagination loading={tableLoadng}/>
+          <CustomTable columns={columns ? columns : allUserColumns} datas={tableData} rowClick={setDetailData} pagination loading={tableLoadng} searched/>
         </li>
       </ul>
     </>

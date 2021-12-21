@@ -18,6 +18,7 @@ import {
   getBillingInfoApi,
   startPaypalApi,
   subscriptionIamportApi,
+  cancelSubscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
@@ -30,6 +31,7 @@ import "./Billing.css";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const Billing = ({ userProfile }) => {
   const { adminId, country } = userProfile;
@@ -42,12 +44,14 @@ const Billing = ({ userProfile }) => {
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
+  const [cancelConfirmModal, setCancelConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(1);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
+  const {formatMessage} = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
@@ -65,6 +69,7 @@ const Billing = ({ userProfile }) => {
       [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
+          console.log(data);
           const { numberUsers, plan, pricing } = data;
           setAllUserNum(numberUsers);
           setCurrentPlan(plan);
@@ -84,16 +89,16 @@ const Billing = ({ userProfile }) => {
   };
 
   const billingsInfo = [
-    {
-      cardTitle: "OMPASS Free",
-      itemLists: [
-        { content: "30일 무료 체험", fontWeight: 700 },
-        { content: "2FA for VPN and Web Apps" },
-        { content: "패스워드 없이 인증" },
-        { content: "2차 인증" },
-        { content: "WEBAUTHN 지원" },
-      ],
-    },
+    // {
+    //   cardTitle: "OMPASS Free",
+    //   itemLists: [
+    //     { content: "30일 무료 체험", fontWeight: 700 },
+    //     { content: "2FA for VPN and Web Apps" },
+    //     { content: "패스워드 없이 인증" },
+    //     { content: "2차 인증" },
+    //     { content: "WEBAUTHN 지원" },
+    //   ],
+    // },
     {
       cardTitle: "OMPASS",
       itemLists: [
@@ -114,6 +119,10 @@ const Billing = ({ userProfile }) => {
 
   const closeConfirmModal = () => {
     setConfirmModal(false);
+  };
+  
+  const closeCancelConfirmModal = () => {
+    setCancelConfirmModal(false);
   };
 
   const onFinish = (e) => {
@@ -266,9 +275,21 @@ const Billing = ({ userProfile }) => {
     );
   };
 
+  const cancelIamPort = () => {
+    setConfirmLoading(true);
+    CustomAxiosPost(cancelSubscriptionIamportApi(adminId), {}, () => {
+      message.success('구독 취소 성공하였습니다.')
+      setConfirmLoading(false);
+      setCancelConfirmModal(false);
+    }, () => {
+      message.error('구독 취소 실패하였습니다.')
+      setConfirmLoading(false);
+    })
+  }
+
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title="요금" />
+      <ContentsTitle title={formatMessage({id:'Billing'})} />
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
@@ -299,7 +320,7 @@ const Billing = ({ userProfile }) => {
             className="billing-edition-title"
             // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
-            사용자
+            <FormattedMessage id="USER"/>
           </div>
         </div>
       </section>
@@ -309,15 +330,7 @@ const Billing = ({ userProfile }) => {
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
                 title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
-                subTitle={`${
-                  isKorea()
-                    ? slicePrice(
-                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
-                      ) + " 원"
-                    : slicePrice(
-                        ind === 0 ? 0 : editions[ind - 1].priceForOneUser
-                      ) + " $"
-                } / ${isKorea() ? "1인" : "User"} / Month`}
+                subTitle={`${formatMessage({id:'PRICEUNIT'},{param:slicePrice(editions[ind].priceForOneUser)})} / ${formatMessage({id:'PERUSER'})} / Month`}
               />
               {item.itemLists.map((itemList, _ind) => (
                 <div
@@ -335,7 +348,7 @@ const Billing = ({ userProfile }) => {
       </section>
 
       <section className="Payment-History-table" style={{ border: "none" }}>
-        <h2>결제 내역</h2>
+        <h2><FormattedMessage id="PAYMENTHISTORY"/></h2>
         <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
 
@@ -383,27 +396,25 @@ const Billing = ({ userProfile }) => {
                 setInputTerm(e.target.value);
               }}
             >
-              <option value="MONTHLY">매 월</option>
+              <option value="MONTHLY">{formatMessage({id:'EVERYMONTH'})}</option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">가격</label>
+            <label className="billing-change-form-label"><FormattedMessage id="PRICE"/></label>
             <b>
-              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
+              {formatMessage({id:'PRICEUNIT'},{param: slicePrice(cost)})}
             </b>
-            <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
+            <span>&nbsp;/ <FormattedMessage id="PERMONTH"/></span>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">이용 동의</label>
+            <label className="billing-change-form-label"><FormattedMessage id="AGREE"/></label>
             <div>
               <input type="checkbox" name="check" />
-              <label>
-                {" "}
-                이용약관, 가격 및 수수료 규정에 동의합니다.
-                <br /> 결제일로 부터 30일 간격으로{" "}
-                {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
-                이 자동으로 결제됩니다.
+              <label>&nbsp;
+                <FormattedMessage id="BILLINGCHECKDESCRIPTION"/>
+                <br /> 
+                {formatMessage({id:'BILLINGPRICEDESCRIPTION'}, {param: slicePrice(cost)})}
               </label>
             </div>
           </div>
@@ -415,6 +426,17 @@ const Billing = ({ userProfile }) => {
               type="submit"
             >
               결제하기
+            </button>
+            <button
+              name="payType"
+              className="button"
+              style={{marginLeft:'12px'}}
+              type="button"
+              onClick={() => {
+                setCancelConfirmModal(true);
+              }}
+            >
+              구독 취소
             </button>
           </div>
         </form>
@@ -442,11 +464,25 @@ const Billing = ({ userProfile }) => {
           </div>
           <br />
           상기 내용으로 결제를 진행하시겠습니까?
+          <div>
+            
+          </div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}
           >
             {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
+          </div>
+        </CustomConfirm>
+        <CustomConfirm
+          visible={cancelConfirmModal}
+          confirmCallback={cancelIamPort}
+          footer={isKorea()}
+          okLoading={confirmLoading}
+          cancelCallback={closeCancelConfirmModal}
+        >
+          <div>
+            <FormattedMessage id="CANCELSUBSCRIPTION"/>
           </div>
         </CustomConfirm>
       </div>

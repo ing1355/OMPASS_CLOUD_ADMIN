@@ -389,7 +389,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                       </label>
                     </div>
                   </div>
-                  <div style={{ display: "block" }}>
+                  {/* <div style={{ display: "block" }}>
                     <p
                       style={{
                         marginTop: "2rem",
@@ -399,7 +399,7 @@ const UserDetail = ({ data, userProfile, updateBypass, lang }) => {
                     >
                       *iOS 및 Android에만 적용됩니다.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

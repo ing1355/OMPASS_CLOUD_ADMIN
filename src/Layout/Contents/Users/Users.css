@@ -27,6 +27,7 @@
   align-items: center;
   margin-top: 2rem !important;
 }
+
 .UsersBox3 .UsersBox3_title li {
   flex: 1;
   width: 100%;
@@ -36,9 +37,6 @@
   justify-content: center;
   border-bottom: 5px solid #fff;
   cursor: pointer;
-}
-.UsersBox3 > .UsersBox3_title > li.selected {
-  border-bottom: 5px solid rgb(92, 106, 119);
 }
 
 .UsersBox3_contents {
@@ -146,4 +144,18 @@
 }
 .ant-form-item {
   margin-bottom: 0 !important;
+}
+
+.user-concept-title > h3 {
+  padding-left: 12px;
+}
+
+.user-concept-title > h3, .user-concept-title > p {
+  color: rgba(128,128,128,.5);
+  font-weight: 300;
+}
+
+.user-concept-title.selected > h3, .user-concept-title.selected > p {
+  color: rgba(0,0,0,.85);
+  font-weight: 700;
 }

@@ -22,7 +22,7 @@ import { isADMINRole } from "../../../Constants/GetRole";
 import { connect } from "react-redux";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessMessage, showErrorMessage }) => {
   const {
@@ -120,7 +120,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
             <div className="inputBox">
-              <span>성</span>
+              <span><FormattedMessage id="FIRSTNAME"/></span>
               <input
                 placeholder={formatMessage({id: 'PLEASE_INPUT_FIRST_NAME'})}
                 name="firstName"
@@ -128,7 +128,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               />
             </div>
             <div className="inputBox">
-              <span>이름</span>
+              <span><FormattedMessage id="LASTNAME"/></span>
               <input
                 placeholder={formatMessage({id: 'PLEASE_INPUT_NAME'})}
                 name="lastName"
@@ -136,17 +136,17 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               />
             </div>
             <div className="inputBox">
-              <span>이메일 주소</span>
+              <span><FormattedMessage id="EMAIL"/></span>
               <p className="updateInfo">{email}</p>
             </div>
             {isSelf && (
               <>
                 <div className="inputBox">
-                  <span>비밀번호</span>
+                  <span><FormattedMessage id="PASSWORD"/></span>
                   <input placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})} name="password" />
                 </div>
                 <div className="inputBox">
-                  <span>비밀번호 확인</span>
+                  <span><FormattedMessage id="PASSWORDCONFIRM"/></span>
                   <input
                     placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})}
                     name="passwordConfirm"
@@ -155,7 +155,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               </>
             )}
             <div className="inputBox2">
-              <span>전화번호</span>
+              <span><FormattedMessage id="MOBILE"/></span>
               <div className="phoneBox">
                 <PhoneInput
                   className="phoneInput"
@@ -177,15 +177,15 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               </div>
             </div>
             <Button className="adminUpdateButton" htmlType="submit">
-              <UserSwitchOutlined /> 수정
+              <UserSwitchOutlined /> <FormattedMessage id="UPDATE"/>
             </Button>
-            <Button
+            {role !== 'ADMIN' && <Button
               className="adminUpdateButton"
               htmlType="button"
               onClick={openConfirmModal}
             >
-              <UserDeleteOutlined /> 삭제
-            </Button>
+              <UserDeleteOutlined /> <FormattedMessage id="DELETE"/>
+            </Button>}
 
             <CustomConfirm
               visible={confirmModal}
@@ -193,16 +193,8 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               confirmCallback={onDelete}
               cancelCallback={closeConfirmModal}
             >
-              정말로 삭제하시겠습니까?
+              <FormattedMessage id="DELETECONFIRM"/>
             </CustomConfirm>
-
-            {/* <button
-              className="adminUpdateButton"
-              type="button"
-              onClick={onDelete}
-            >
-              삭제
-            </button> */}
           </form>
         </div>
       ) : (

@@ -1,5 +1,4 @@
 import { lazy } from "react";
-import { FormattedMessage } from "react-intl";
 
 const OMSDashboard = lazy(() => import("../Layout/OMSRole/Dashboard"));
 const OMSPolicies = lazy(() => import("../Layout/OMSRole/Policies"));
