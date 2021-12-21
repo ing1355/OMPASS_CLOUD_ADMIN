@@ -138,27 +138,28 @@ export const allUserColumns = [
 ];
 
 export const disabledUserColumns = [
-  { name: "Users", key: "userId", width: 200, searched: true },
+  { name: "Users", key: "userId", width: 250, searched: true },
   {
     name: "Application",
     key: "appName",
+    width: 250,
     searched: true,
   },
   {
     name: "AUTHTYPE",
     key: "type",
-    width: 200,
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250 },
   {
     name: "Bypass",
     key: "byPass",
+    width: "200px",
     render: (byPass) => {
       return <CustomSwitch defaultChecked={byPass} />;
     },
-    width: "200px",
+
     searched: true,
     searchedOptions: [true, false],
     getSearchedLabel: (value) => (value ? "ON" : "OFF"),
@@ -166,16 +167,15 @@ export const disabledUserColumns = [
 ];
 
 export const byPassUserColumns = [
-  { name: "Users", key: "userId", width: 200, searched: true },
-  { name: "Application", key: "appName", searched: true },
+  { name: "Users", key: "userId", width: 250, searched: true },
+  { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
     key: "type",
-    width: 200,
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250 },
   {
     name: "Bypass",
     key: "byPass",
@@ -190,16 +190,15 @@ export const byPassUserColumns = [
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "Users", key: "userId", width: 200, searched: true },
-  { name: "Application", key: "appName", searched: true },
+  { name: "Users", key: "userId", width: 250, searched: true },
+  { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
     key: "type",
-    width: 200,
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 200 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250 },
   {
     name: "Bypass",
     key: "byPass",
