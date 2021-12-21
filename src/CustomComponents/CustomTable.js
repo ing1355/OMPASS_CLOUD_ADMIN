@@ -1,4 +1,3 @@
-import locale from "antd/lib/date-picker/locale/en_US";
 import React, {
   useCallback,
   useEffect,
@@ -7,12 +6,12 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import DoubleLeftArrow from "../customAssets/DoubleLeftArrow";
 import DoubleRightArrow from "../customAssets/DoubleRightArrow";
 import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
-import { FormattedMessage } from "react-intl";
 
 const CustomTable = ({
   columns,
@@ -28,8 +27,8 @@ const CustomTable = ({
   className,
   columnsHide,
   searched,
-  locale,
 }) => {
+  const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
   const tableColumns = multipleSelectable
     ? [
@@ -61,6 +60,7 @@ const CustomTable = ({
     parseInt(datas.length / _numPerPage) +
     (datas.length % _numPerPage === 0 ? 0 : 1);
   const [searchColumn, setSearchColumn] = useState(null);
+  const [searchTarget, setSearchTarget] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
 
   const getAllTableData = useCallback(
@@ -86,6 +86,12 @@ const CustomTable = ({
       if (initialColumn) setSearchColumn(initialColumn.key);
     }
   }, [searched]);
+
+  useLayoutEffect(() => {
+    if (searchColumn) {
+      setSearchTarget(columns.find((c) => c.key === searchColumn));
+    }
+  }, [searchColumn]);
 
   const rowSelect = useCallback(
     (id) => {
@@ -172,13 +178,18 @@ const CustomTable = ({
           onSubmit={(e) => {
             e.preventDefault();
             const { column, content } = e.target.elements;
-            if (!content.value) setTableData(getAllTableData());
-            else
-              setTableData(
-                getAllTableData().filter((tD) =>
-                  tD[column.value].includes(content.value)
-                )
-              );
+            const _data = getAllTableData();
+            if (content.value === "true" || content.value === "false") {
+              if (content.value === "true")
+                setTableData(_data.filter((tD) => tD[column.value]));
+              else setTableData(_data.filter((tD) => !tD[column.value]));
+            } else {
+              if (!content.value) setTableData(_data);
+              else
+                setTableData(
+                  _data.filter((tD) => tD[column.value].includes(content.value))
+                );
+            }
           }}
         >
           <select
@@ -192,23 +203,26 @@ const CustomTable = ({
               .filter((c) => c.searched)
               .map((c) => (
                 <option key={c.key} value={c.key}>
-                  {c.title}
+                  {formatMessage({ id: c.name })}
                 </option>
               ))}
           </select>
-          {searchColumn &&
-          columns.find((c) => c.key === searchColumn).searchedOptions ? (
+          {searchColumn && searchTarget.searchedOptions ? (
             <select className="table-search-column-select" name="content">
-              {columns
-                .find((c) => c.key === searchColumn)
-                .searchedOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
+              {searchTarget.searchedOptions.map((opt) => (
+                <option key={opt} value={opt}>
+                  {searchTarget.getSearchedLabel
+                    ? searchTarget.getSearchedLabel(opt)
+                    : opt}
+                </option>
+              ))}
             </select>
           ) : (
-            <input className="table-search-column-input" name="content" />
+            <input
+              className="table-search-column-input"
+              name="content"
+              maxLength={20}
+            />
           )}
           <button type="submit" className="button">
             검색
@@ -255,7 +269,9 @@ const CustomTable = ({
                   />
                 </th>
               ) : (
-                <th key={ind}>{c.name}</th>
+                <th key={ind}>
+                  <FormattedMessage id={c.name} />
+                </th>
               )
             )}
           </tr>

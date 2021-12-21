@@ -32,8 +32,9 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import { FormattedMessage, useIntl } from "react-intl";
+import ActionCreators from "../../../redux/actions";
 
-const Billing = ({ userProfile }) => {
+const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -51,7 +52,7 @@ const Billing = ({ userProfile }) => {
   const [inputUserNum, setInputUserNum] = useState(1);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
-  const {formatMessage} = useIntl();
+  const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
@@ -120,7 +121,7 @@ const Billing = ({ userProfile }) => {
   const closeConfirmModal = () => {
     setConfirmModal(false);
   };
-  
+
   const closeCancelConfirmModal = () => {
     setCancelConfirmModal(false);
   };
@@ -265,6 +266,7 @@ const Billing = ({ userProfile }) => {
             },
             onApprove: function (data, actions) {
               console.log(data, actions);
+              window.location.reload();
             },
             onError: function (err) {
               console.log(err);
@@ -277,19 +279,24 @@ const Billing = ({ userProfile }) => {
 
   const cancelIamPort = () => {
     setConfirmLoading(true);
-    CustomAxiosPost(cancelSubscriptionIamportApi(adminId), {}, () => {
-      message.success('구독 취소 성공하였습니다.')
-      setConfirmLoading(false);
-      setCancelConfirmModal(false);
-    }, () => {
-      message.error('구독 취소 실패하였습니다.')
-      setConfirmLoading(false);
-    })
-  }
+    CustomAxiosPost(
+      cancelSubscriptionIamportApi(adminId),
+      {},
+      () => {
+        message.success("구독 취소 성공하였습니다.");
+        setConfirmLoading(false);
+        setCancelConfirmModal(false);
+      },
+      () => {
+        message.error("구독 취소 실패하였습니다.");
+        setConfirmLoading(false);
+      }
+    );
+  };
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title={formatMessage({id:'Billing'})} />
+      <ContentsTitle title={formatMessage({ id: "Billing" })} />
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
@@ -320,7 +327,7 @@ const Billing = ({ userProfile }) => {
             className="billing-edition-title"
             // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
-            <FormattedMessage id="USER"/>
+            <FormattedMessage id="USER" />
           </div>
         </div>
       </section>
@@ -330,7 +337,13 @@ const Billing = ({ userProfile }) => {
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
                 title={ind === 0 ? item.cardTitle : editions[ind - 1].name}
-                subTitle={`${formatMessage({id:'PRICEUNIT'},{param:slicePrice(editions[ind].priceForOneUser)})} / ${formatMessage({id:'PERUSER'})} / Month`}
+                subTitle={`${formatMessage(
+                  { id: "PRICEUNIT" },
+                  { param: slicePrice(editions[ind].priceForOneUser) }
+                )} ${editions[ind].monetaryUnit === "원화" ? "원" : "$"} 
+                / ${formatMessage({ id: "PERUSER" })} / ${formatMessage({
+                  id: "PERMONTH",
+                })}`}
               />
               {item.itemLists.map((itemList, _ind) => (
                 <div
@@ -348,7 +361,9 @@ const Billing = ({ userProfile }) => {
       </section>
 
       <section className="Payment-History-table" style={{ border: "none" }}>
-        <h2><FormattedMessage id="PAYMENTHISTORY"/></h2>
+        <h2>
+          <FormattedMessage id="PAYMENTHISTORY" />
+        </h2>
         <CustomTable columns={BillingColumns} datas={tableData} />
       </section>
 
@@ -396,25 +411,40 @@ const Billing = ({ userProfile }) => {
                 setInputTerm(e.target.value);
               }}
             >
-              <option value="MONTHLY">{formatMessage({id:'EVERYMONTH'})}</option>
+              <option value="MONTHLY">
+                {formatMessage({ id: "EVERYMONTH" })}
+              </option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label"><FormattedMessage id="PRICE"/></label>
+            <label className="billing-change-form-label">
+              <FormattedMessage id="PRICE" />
+            </label>
             <b>
-              {formatMessage({id:'PRICEUNIT'},{param: slicePrice(cost)})}
+              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(cost) })}
+              {editions.length > 0 && editions[0].monetaryUnit === "원화"
+                ? " 원"
+                : " $"}
             </b>
-            <span>&nbsp;/ <FormattedMessage id="PERMONTH"/></span>
+            <span>
+              &nbsp;/ <FormattedMessage id="PERMONTH" />
+            </span>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label"><FormattedMessage id="AGREE"/></label>
+            <label className="billing-change-form-label">
+              <FormattedMessage id="AGREE" />
+            </label>
             <div>
               <input type="checkbox" name="check" />
-              <label>&nbsp;
-                <FormattedMessage id="BILLINGCHECKDESCRIPTION"/>
-                <br /> 
-                {formatMessage({id:'BILLINGPRICEDESCRIPTION'}, {param: slicePrice(cost)})}
+              <label>
+                &nbsp;
+                <FormattedMessage id="BILLINGCHECKDESCRIPTION" />
+                <br />
+                {formatMessage(
+                  { id: "BILLINGPRICEDESCRIPTION" },
+                  { param: slicePrice(cost) }
+                )}
               </label>
             </div>
           </div>
@@ -425,19 +455,23 @@ const Billing = ({ userProfile }) => {
               value="iamPort"
               type="submit"
             >
-              결제하기
+              <FormattedMessage id="SUBSCRIPTION" />
             </button>
-            <button
-              name="payType"
-              className="button"
-              style={{marginLeft:'12px'}}
-              type="button"
-              onClick={() => {
-                setCancelConfirmModal(true);
-              }}
-            >
-              구독 취소
-            </button>
+            {currentPlan &&
+              currentPlan.status === "RUN" &&
+              editions.find((e) => e.name === currentPlan.name) && (
+                <button
+                  name="payType"
+                  className="button"
+                  style={{ marginLeft: "12px" }}
+                  type="button"
+                  onClick={() => {
+                    setCancelConfirmModal(true);
+                  }}
+                >
+                  <FormattedMessage id="SUBSCRIPTIONCANCEL" />
+                </button>
+              )}
           </div>
         </form>
       </section>
@@ -446,6 +480,7 @@ const Billing = ({ userProfile }) => {
           visible={confirmModal}
           confirmCallback={requestIamPort}
           footer={isKorea()}
+          closable={!isKorea()}
           okLoading={confirmLoading}
           cancelCallback={closeConfirmModal}
         >
@@ -456,7 +491,7 @@ const Billing = ({ userProfile }) => {
             <br />
             Term : {inputTerm}
             <br />
-            Cost :{" "}
+            Cost&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
               {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
@@ -464,9 +499,7 @@ const Billing = ({ userProfile }) => {
           </div>
           <br />
           상기 내용으로 결제를 진행하시겠습니까?
-          <div>
-            
-          </div>
+          <div></div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}
@@ -476,13 +509,13 @@ const Billing = ({ userProfile }) => {
         </CustomConfirm>
         <CustomConfirm
           visible={cancelConfirmModal}
+          footer={true}
           confirmCallback={cancelIamPort}
-          footer={isKorea()}
           okLoading={confirmLoading}
           cancelCallback={closeCancelConfirmModal}
         >
           <div>
-            <FormattedMessage id="CANCELSUBSCRIPTION"/>
+            <FormattedMessage id="CANCELSUBSCRIPTION" />
           </div>
         </CustomConfirm>
       </div>
@@ -499,7 +532,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Billing);

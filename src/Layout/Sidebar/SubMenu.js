@@ -4,9 +4,11 @@ import './SubMenu.css'
 
 const SubMenu = ({data, open}) => {
     return <>
-        <div className={"submenu " + (open ? 'open' : 'close')}>
+        <div className={"submenu " + (open ? 'open' : 'close')} style={{
+            height: open ? data.length * 60 : 0
+        }}>
             {
-                data.map(item => <MenuItem {...item}/>)
+                data.map((item, ind) => <MenuItem key={ind} isSubmenu {...item}/>)
             }
         </div>
     </>

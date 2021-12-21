@@ -9,7 +9,7 @@ const Policies = () => {
         <div className="policies-sub-box">
           <input
             name="status"
-            value="Inactive"
+            value="ACTIVE"
             type="radio"
             style={{ width: "15px" }}
           />
@@ -22,7 +22,7 @@ const Policies = () => {
         <div className="policies-sub-box">
           <input
             name="status"
-            value="Inactive"
+            value="INACTIVE"
             type="radio"
             style={{ width: "15px" }}
           />

@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./Menu_Item.css";
 import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import {
-  HomeOutlined,
-  SolutionOutlined,
-  SettingOutlined,
-  UserOutlined,
-  AppstoreOutlined,
-  DollarCircleOutlined,
-  ProfileOutlined,
-} from "@ant-design/icons";
-const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
-  const isSelected = submenu
-    ? submenu.find((sb) => sb.name === menuState) || name === menuState
-    : name === menuState;
-  const [subMenuOpen, setSubMenuOpen] = useState(isSelected);
+
+const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmenu }) => {
+  const history = useHistory();
+  const isSelected = useMemo(() =>  submenu ? submenu.find((sb) => sb.name === menuState) || name === menuState
+      : name === menuState
+  , [submenu, menuState, name]);
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
+
+  useLayoutEffect(() => {
+    if (isSelected && !subMenuOpen) setSubMenuOpen(true);
+  }, [isSelected])
 
   useEffect(() => {
     if (
@@ -36,6 +33,8 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
       if (subMenuOpen) {
         setSubMenuOpen(false);
       } else {
+        menuChange(submenu[0].name)
+        history.push(submenu[0].route)
         setSubMenuOpen(true);
       }
     } else {
@@ -48,32 +47,29 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route }) => {
     }
   };
 
-  return (
-    <Link to={route}>
-      <div
-        className={"menu-item pointer " + (isSelected ? "selected" : "")}
-        onClick={menuClickEvent}
-      >
-        <div className="menu-item-title">
-          {name === "Dashboard" ? <HomeOutlined /> : null}
-          {name === "Policies" ? <SettingOutlined /> : null}
-          {name === "Users" ? <UserOutlined /> : null}
-          {name === "Admins" ? <SolutionOutlined /> : null}
-          {name === "Applications" ? <AppstoreOutlined /> : null}
-          {name === "Billing" ? <DollarCircleOutlined /> : null}
-          {name === "Logs" ? <ProfileOutlined /> : null}
-          &nbsp; <FormattedMessage id={name} />
-        </div>
-        {submenu && (
-          <img
-            src={isSelected && subMenuOpen ? upArrow : downArrow}
-            className="menu-item-arrow"
-            alt=""
-          />
-        )}
+  const children = <>
+    <div
+      className={(isSubmenu ? "submenu-item" : "menu-item") + " pointer" + (isSelected ? " selected" : "")}
+      onClick={menuClickEvent}
+    >
+      <div className="menu-item-title">
+        {icon} &nbsp;<FormattedMessage id={name} />
       </div>
-      {submenu && <SubMenu data={submenu} open={subMenuOpen} />}
-    </Link>
+      {submenu && (
+        <img
+          src={isSelected && subMenuOpen ? upArrow : downArrow}
+          className="menu-item-arrow"
+          alt=""
+        />
+      )}
+    </div>
+    { submenu && <SubMenu data={submenu} open={subMenuOpen} />}
+  </>
+
+  return (
+    !submenu ? <Link to={route}>
+      {children}
+    </Link> : children
   );
 };
 

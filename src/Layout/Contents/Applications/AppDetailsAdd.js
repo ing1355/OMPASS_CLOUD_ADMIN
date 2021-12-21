@@ -21,7 +21,13 @@ import {
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErrorMessage, policies }) => {
+const AppDetailsAdd = ({
+  userProfile,
+  tableDataAdd,
+  showSuccessMessage,
+  showErrorMessage,
+  policies,
+}) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
   const history = useHistory();
@@ -29,43 +35,51 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { domain, redirectUri, name, policy } = e.target.elements;
-    if (!isExistCheck)
-      return showErrorMessage('PLEASE_CHECK_EXIST')
+    const { domain, redirectUri, name, policy, status } = e.target.elements;
+    if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
     if (!name.value.length) {
-      return FailToTest(name, showErrorMessage('PLEASE_INPUT_APPLICATION_NAME'));
+      return FailToTest(
+        name,
+        showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
+      );
     }
     if (!nameTest(name.value)) {
-      return FailToTest(name, showErrorMessage('APPLICATION_NAME_RULE_ERROR'));
+      return FailToTest(name, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
     }
     if (!domain.value.length) {
-      return FailToTest(domain, showErrorMessage('PLEASE_INPUT_DOMAIN'));
+      return FailToTest(domain, showErrorMessage("PLEASE_INPUT_DOMAIN"));
     }
     if (!doaminTest(domain.value)) {
-      return FailToTest(domain, showErrorMessage('DOMAIN_RULE_ERROR'));
+      return FailToTest(domain, showErrorMessage("DOMAIN_RULE_ERROR"));
     }
     if (!redirectUri.value.length) {
-      return FailToTest(redirectUri, showErrorMessage('PLEASE_INPUT_REDIRECT_URI'));
+      return FailToTest(
+        redirectUri,
+        showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
+      );
     }
     if (!doaminTest(redirectUri.value)) {
-      return FailToTest(redirectUri, showErrorMessage('REDIRECT_URI_RULE_ERROR'));
+      return FailToTest(
+        redirectUri,
+        showErrorMessage("REDIRECT_URI_RULE_ERROR")
+      );
     }
     CustomAxiosPost(
       addApplicationApi(userProfile.adminId),
       {
         domain: domain.value,
         name: name.value,
-        policyId: policy.value === 'null' ? null : policy.value,
+        policyId: policy.value === "null" ? null : policy.value,
         redirectUri: redirectUri.value,
-        status: "Inactive",
+        status: status.value,
       },
       (data) => {
-        showSuccessMessage('APPLICATION_ADD_SUCCESS')
+        showSuccessMessage("APPLICATION_ADD_SUCCESS");
         tableDataAdd(data);
         history.push("/Applications");
       },
       () => {
-        showErrorMessage('APPLICATION_ADD_FAIL')
+        showErrorMessage("APPLICATION_ADD_FAIL");
       }
     );
   };
@@ -77,9 +91,9 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
       (data) => {
         const { duplicate } = data;
         if (duplicate) {
-          showErrorMessage('IS_EXIST_APPLICATION')
+          showErrorMessage("IS_EXIST_APPLICATION");
         } else {
-          showSuccessMessage('IS_NOT_EXIST_APPLICATION')
+          showSuccessMessage("IS_NOT_EXIST_APPLICATION");
           setIsExistCheck(true);
         }
       }
@@ -98,14 +112,20 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
           <div className="ApplicationForm">
             <div className="ApplicationsTitle">
               <span>
-                <h2><FormattedMessage id="CONTENTS"/></h2>
+                <h2>
+                  <FormattedMessage id="CONTENTS" />
+                </h2>
               </span>
             </div>
             <div className="Application-label-input-box">
-              <label><FormattedMessage id="APPLICATIONNAME"/></label>
+              <label>
+                <FormattedMessage id="APPLICATIONNAME" />
+              </label>
               <input
                 name="name"
-                placeholder={formatMessage({ id: 'PLEASE_INPUT_APPLICATION_NAME' })}
+                placeholder={formatMessage({
+                  id: "PLEASE_INPUT_APPLICATION_NAME",
+                })}
                 onChange={changeInputName}
               />
               <button
@@ -114,7 +134,7 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
                 disabled={isExistCheck}
                 onClick={existCheck}
               >
-                <FormattedMessage id="DUPLICATECHECK"/>
+                <FormattedMessage id="DUPLICATECHECK" />
               </button>
             </div>
             {/* <div className="Application-label-input-box">
@@ -133,18 +153,27 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
             </div> */}
 
             <div className="Application-label-input-box">
-              <label><FormattedMessage id="DOMAIN"/></label>
-              <input name="domain" placeholder={formatMessage({ id: 'PLEASE_INPUT_DOMAIN' })} />
-            </div>
-            <div className="Application-label-input-box">
-              <label><FormattedMessage id="REDIRECTURI"/></label>
+              <label>
+                <FormattedMessage id="DOMAIN" />
+              </label>
               <input
-                name="redirectUri"
-                placeholder={formatMessage({ id: 'PLEASE_INPUT_REDIRECT_URI' })}
+                name="domain"
+                placeholder={formatMessage({ id: "PLEASE_INPUT_DOMAIN" })}
               />
             </div>
             <div className="Application-label-input-box">
-              <label><FormattedMessage id="STATUS"/></label>
+              <label>
+                <FormattedMessage id="REDIRECTURI" />
+              </label>
+              <input
+                name="redirectUri"
+                placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
+              />
+            </div>
+            <div className="Application-label-input-box">
+              <label>
+                <FormattedMessage id="STATUS" />
+              </label>
               <input
                 name="status"
                 value="ACTIVE"
@@ -163,25 +192,33 @@ const AppDetailsAdd = ({ userProfile, tableDataAdd, showSuccessMessage, showErro
             </div>
             <div className="ApplicationsTitle" style={{ marginBottom: "0" }}>
               <h2 style={{ marginTop: "1rem", marginBottom: "0.5rem" }}>
-                <FormattedMessage id="Policies"/>
+                <FormattedMessage id="Policies" />
               </h2>
-              <p><FormattedMessage id="APPLICATIONPOLICYSETTINGDESCRIPTION"/></p>
+              <p>
+                <FormattedMessage id="APPLICATIONPOLICYSETTINGDESCRIPTION" />
+              </p>
             </div>
             <div
               className="Application-label-input-box"
               style={{ marginTop: "1rem" }}
             >
-              <label><FormattedMessage id="POLICYSETTING"/></label>
+              <label>
+                <FormattedMessage id="POLICYSETTING" />
+              </label>
               <select name="policy">
-                <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
-                {
-                  policies.map((p, ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
-                }
+                <option value="null">
+                  {formatMessage({ id: "DEFAULTPOLICY" })}
+                </option>
+                {policies.map((p, ind) => (
+                  <option key={ind} value={p.policyId}>
+                    {p.title}
+                  </option>
+                ))}
               </select>
             </div>
 
             <button className="Application-Save-button button" type="submit">
-              <FormattedMessage id="REGISTER"/>
+              <FormattedMessage id="REGISTER" />
             </button>
           </div>
         </form>

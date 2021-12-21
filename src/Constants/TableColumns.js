@@ -18,11 +18,27 @@ const makeDetail = (data, row) => (
 );
 
 export const ApplicationsColumns = [
-  { name: <FormattedMessage id="Application" />, key: "name", width: 250 },
-  { name: <FormattedMessage id="Status" />, key: "status" },
-  { name: <FormattedMessage id="Domain" />, key: "domain", width: 250 },
-  { name: "Redirect Uri", key: "redirectUri", width: 250 },
-  { name: <FormattedMessage id="Policies" />, key: "policy" },
+  {
+    name: "Application",
+    key: "name",
+    width: 250,
+    searched: true,
+  },
+  {
+    name: "Status",
+    key: "status",
+    searched: true,
+    searchedOptions: ["ACTIVE", "INACTIVE"],
+    getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
+  },
+  {
+    name: "Domain",
+    key: "domain",
+    width: 250,
+    searched: true,
+  },
+  { name: "Redirect Uri", key: "redirectUri", width: 250, searched: true },
+  { name: "Policies", key: "policy" },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
@@ -108,7 +124,8 @@ export const allUserColumns = [
     },
     width: "200px",
     searched: true,
-    searchedOptions: ["ON", "OFF"],
+    searchedOptions: [true, false],
+    getSearchedLabel: (value) => (value ? "ON" : "OFF"),
   },
 ];
 
@@ -135,7 +152,8 @@ export const disabledUserColumns = [
     },
     width: "200px",
     searched: true,
-    searchedOptions: ["ON", "OFF"],
+    searchedOptions: [true, false],
+    getSearchedLabel: (value) => (value ? "ON" : "OFF"),
   },
 ];
 
@@ -158,7 +176,8 @@ export const byPassUserColumns = [
     },
     width: "200px",
     searched: true,
-    searchedOptions: ["ON", "OFF"],
+    searchedOptions: [true, false],
+    getSearchedLabel: (value) => (value ? "ON" : "OFF"),
   },
 ];
 
@@ -181,83 +200,32 @@ export const unRegisteredUserColumns = [
     },
     width: "200px",
     searched: true,
-    searchedOptions: ["ON", "OFF"],
+    searchedOptions: [true, false],
+    getSearchedLabel: (value) => (value ? "ON" : "OFF"),
   },
 ];
 
-// export const globalPolicyColumns = [
-//   {
-//     name: "Status",
-//     key: "status",
-//     render: (status, b) => (
-//       <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
-//     ),
-//     width: "100px",
-//   },
-//   { name: "Policy Name", key: "policy", width: "200px" },
-//   { name: "Description", key: "description" },
-// ];
-
-export const globalPolicyColumns = [
+export const PolicyColumns = [
   {
-    name: "인증 접근 제한",
-    key: "accessControl",
-    render: (data) => (data ? "O" : "X"),
+    name: "Status",
+    key: "status",
+    render: (status, b) => (
+      <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
+    ),
+    width: 100,
   },
   {
-    name: "사용자 위치 제한",
-    key: "userLocations",
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
+    name: "Policy Name",
+    key: "policy",
+    width: 200,
+    render: (d) => <FormattedMessage id={d} />,
   },
   {
-    name: "브라우저 제한",
-    key: "browsers",
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "인증 방법 제한",
-    key: "authenticationMethods",
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "OMPASS APP 업데이트",
-    key: "mobilePatch",
-    render: (data) => (data ? "O" : "X"),
-  },
-];
-
-const customPolicyItemWidth = 130;
-
-export const customPolicyColumns = [
-  { name: "이름", key: "title" },
-  {
-    name: "인증 접근 제한",
-    key: "accessControl",
-    width: customPolicyItemWidth,
-    render: (data) => (data ? "O" : "X"),
-  },
-  {
-    name: "사용자 위치 제한",
-    key: "userLocations",
-    width: customPolicyItemWidth,
-    render: (data, row) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "브라우저 제한",
-    key: "browsers",
-    width: customPolicyItemWidth,
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "인증 방법 제한",
-    key: "authenticationMethods",
-    width: customPolicyItemWidth,
-    render: (data) => (data && data.length > 0 ? "O" : "X"),
-  },
-  {
-    name: "OMPASS APP 업데이트",
-    key: "mobilePatch",
-    width: customPolicyItemWidth,
-    render: (data) => (data ? "O" : "X"),
+    name: "Description",
+    key: "description",
+    width: 600,
+    render: (descriptionKey, row) => (
+      <FormattedMessage id={row.status ? descriptionKey : "NORESTRICTION"} />
+    ),
   },
 ];

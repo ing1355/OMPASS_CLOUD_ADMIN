@@ -146,11 +146,13 @@ td.no-data {
 
 .table-search-form-container {
   float: right;
+  margin-bottom: 12px;
 }
 
 .table-search-column-select,
 .table-search-column-input {
   height: 40px;
+  text-align: center;
   margin-right: 0.5rem;
   width: 10rem;
 }

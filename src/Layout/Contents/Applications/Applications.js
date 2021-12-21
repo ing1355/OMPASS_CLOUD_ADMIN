@@ -44,7 +44,14 @@ const Applications = ({
   const { formatMessage } = useIntl();
 
   const tableDataAdd = (data) => {
-    setTableData([data, ...tableData]);
+    const _p = customPolicies.find((cP) => data.policyId === cP.policyId);
+    setTableData([
+      {
+        ...data,
+        policy: _p ? _p.name : formatMessage({ id: "DEFAULTPOLICY" }),
+      },
+      ...tableData,
+    ]);
   };
 
   const tableDatasDelete = (ids) => {
@@ -62,27 +69,43 @@ const Applications = ({
   };
 
   useEffect(() => {
-    CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
-      setCustomPolicies(customPoliciesData);
-      CustomAxiosGet(getApplicationApi(adminId), (applicationData) => {
-        setTableData(applicationData.map(d => { 
-          const _p = customPoliciesData.find(cP => d.policyId === cP.policyId)
-          return {
-            ...d, 
-            policy: _p ? _p.name : formatMessage({id:'DEFAULTPOLICY'})
-          } 
-        }));
+    CustomAxiosGet(
+      getCustomPoliciesApi(adminId),
+      (customPoliciesData) => {
+        setCustomPolicies(customPoliciesData);
+        CustomAxiosGet(
+          getApplicationApi(adminId),
+          (applicationData) => {
+            setTableData(
+              applicationData.map((d) => {
+                const _p = customPoliciesData.find(
+                  (cP) => d.policyId === cP.policyId
+                );
+                return {
+                  ...d,
+                  policy: _p ? _p.name : formatMessage({ id: "DEFAULTPOLICY" }),
+                };
+              })
+            );
+            setTableLoading(false);
+          },
+          () => {
+            setTableLoading(false);
+          }
+        );
+      },
+      () => {
         setTableLoading(false);
-      }, () => {
-        setTableLoading(false);
-      })
-    }, () => {
-      setTableLoading(false);
-    })
+      }
+    );
   }, []);
 
   const confirmCallback = () => {
-    if (selectedRows.find((row) => row.cloud)) {
+    if (
+      selectedRows.find(
+        (rowId) => tableData.find((tD) => tD.appId === rowId).cloud
+      )
+    ) {
       setConfirmVisible(false);
       return showErrorMessage("CANT_DELETE_ADMIN_APPLICATION");
     }
@@ -109,7 +132,7 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title={formatMessage({id:'Applications'})} />
+      <ContentsTitle title={formatMessage({ id: "Applications" })} />
       <div className="ApplicationsBox">
         <Switch>
           <Route
@@ -122,6 +145,7 @@ const Applications = ({
                   columns={ApplicationsColumns}
                   datas={tableData}
                   multipleSelectable={true}
+                  searched
                   selectedId={"appId"}
                   rowSelectable={true}
                   onChangeSelectedRows={(rows) => {
@@ -131,14 +155,16 @@ const Applications = ({
                 <Space className="cud">
                   <Link to="/Applications/Add">
                     <Button>
-                      <AppstoreAddOutlined />&nbsp;
-                      <FormattedMessage id="REGISTER"/>
+                      <AppstoreAddOutlined />
+                      &nbsp;
+                      <FormattedMessage id="REGISTER" />
                     </Button>
                   </Link>
                   <Link to={`/Applications/Detail/${selectedRows[0]}`}>
                     <Button disabled={selectedRows.length !== 1}>
-                      <UserSwitchOutlined />&nbsp;
-                      <FormattedMessage id="UPDATE"/>
+                      <UserSwitchOutlined />
+                      &nbsp;
+                      <FormattedMessage id="UPDATE" />
                     </Button>
                   </Link>
                   <Button
@@ -147,8 +173,9 @@ const Applications = ({
                       setConfirmVisible(true);
                     }}
                   >
-                    <UserDeleteOutlined />&nbsp;
-                    <FormattedMessage id="DELETE"/>
+                    <UserDeleteOutlined />
+                    &nbsp;
+                    <FormattedMessage id="DELETE" />
                   </Button>
                 </Space>
                 <CustomConfirm
@@ -157,7 +184,7 @@ const Applications = ({
                   confirmCallback={confirmCallback}
                   cancelCallback={closeConfirmModal}
                 >
-                  <FormattedMessage id="DELETECONFIRM"/>
+                  <FormattedMessage id="DELETECONFIRM" />
                 </CustomConfirm>
               </div>
             )}
