@@ -1,4 +1,5 @@
 .submenu {
+    overflow: hidden;
     padding-left: 12px;
     height: auto;
 }

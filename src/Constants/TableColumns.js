@@ -41,6 +41,7 @@ export const ApplicationsColumns = [
     searched: true,
     searchedOptions: ["ACTIVE", "INACTIVE"],
     getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
+    render: d => <FormattedMessage id={d}/>
   },
   {
     name: "Domain",

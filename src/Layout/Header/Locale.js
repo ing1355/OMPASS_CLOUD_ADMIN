@@ -10,11 +10,13 @@ const Locale = ({ locale, localeChange }) => {
   const localeChangeEventKo = () => {
     if (locale === "en") {
       localeChange("ko");
+      localStorage.setItem('locale','ko')
     }
   };
   const localeChangeEventEn = () => {
     if (locale === "ko") {
       localeChange("en");
+      localStorage.setItem('locale','en')
     }
   };
 

@@ -196,3 +196,8 @@ li {
 .login-input input {
   margin-bottom: 1rem;
 }
+
+.login-welcome-text {
+  white-space: pre-wrap;
+  text-align: center;
+}
