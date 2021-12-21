@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -43,7 +45,11 @@ export const ApplicationsColumns = [
 ];
 
 export const BillingColumns = [
-  { name: "PRICECOLUMN", key: "amount", render: (amount) => slicePrice(amount) },
+  {
+    name: "PRICECOLUMN",
+    key: "amount",
+    render: (amount) => slicePrice(amount),
+  },
   { name: "PAYMENTDATE", key: "paymentDate" },
   { name: "PAYMENTTYPE", key: "paymentHistory" },
 ];
@@ -202,15 +208,35 @@ export const PolicyColumns = [
     name: "Status",
     key: "status",
     render: (status, b) => (
-      <div style={{ textAlign: "center" }}>{status ? "O" : "X"}</div>
+      <div style={{ textAlign: "center" }}>
+        {status ? (
+          <FontAwesomeIcon
+            style={{
+              color: "rgb(0, 209, 52)",
+              width: "100%",
+              height: "20px",
+            }}
+            icon={faCheckSquare}
+          />
+        ) : (
+          <FontAwesomeIcon
+            style={{
+              color: "rgb(162 162 162)",
+              width: "100%",
+              height: "20px",
+            }}
+            icon={faTimes}
+          />
+        )}
+      </div>
     ),
-    width: 100,
+    width: 80,
   },
   {
     name: "POLICYNAME",
     key: "policy",
     width: 200,
-    render: (d) => <FormattedMessage id={d} />,
+    render: (d) => <faCheckSquare id={d} />,
   },
   {
     name: "DESCRIPTION",

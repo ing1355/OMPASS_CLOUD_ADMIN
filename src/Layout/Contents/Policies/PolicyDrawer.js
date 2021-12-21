@@ -507,7 +507,7 @@ const Global_Policy = ({
                   <option value="DENY">DENY</option>
                 </select>
                 <button
-                  className="button"
+                  className="button policy-location-button"
                   style={{ marginLeft: "1rem", height: 50 }}
                   onClick={() => {
                     setInputUserLocations(

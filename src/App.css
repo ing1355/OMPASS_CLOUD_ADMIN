@@ -96,6 +96,10 @@ table tbody tr:hover {
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   color: gray !important;
 }
+
+.svg-inline--fa {
+  vertical-align: -0.3rem !important;
+}
 @media (max-width: 1600px) {
   .contents-container {
     animation: fadeIn 0.5s;
