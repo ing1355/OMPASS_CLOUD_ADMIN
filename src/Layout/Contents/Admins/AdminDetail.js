@@ -24,7 +24,15 @@ import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessMessage, showErrorMessage }) => {
+const AdminDetail = ({
+  locale,
+  data,
+  deleteEvent,
+  updateEvent,
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage,
+}) => {
   const {
     adminId,
     country,
@@ -38,7 +46,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
     index,
   } = data;
   const history = useHistory();
-  const {formatMessage} = useIntl();
+  const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
   const [inputMobile, setInputMobile] = useState(dialCode + phone);
   const [inputCountryCode, setInputCountryCode] = useState(country);
@@ -60,7 +68,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
-        return showErrorMessage('NOT_EQUAL_PASSWORD')
+        return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
     var route;
@@ -80,7 +88,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
         password: isSelf && password.value ? password.value : null,
       },
       () => {
-        showSuccessMessage('UPDATE_SUCCESS');
+        showSuccessMessage("UPDATE_SUCCESS");
         updateEvent({
           ...data,
           country: inputCountryCode,
@@ -91,25 +99,25 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
         history.push("/Admins");
       },
       () => {
-        showErrorMessage('UPDATE_FAIL');
+        showErrorMessage("UPDATE_FAIL");
       }
     );
   };
 
   const onDelete = () => {
-    if (role === "ADMIN") return showErrorMessage('ADMIN_CANT_DELETE')
+    if (role === "ADMIN") return showErrorMessage("ADMIN_CANT_DELETE");
     setConfirmLoading(true);
     CustomAxiosDelete(
       deleteSubAdminApi(adminId, subAdminId),
       () => {
         setConfirmLoading(false);
-        showSuccessMessage('DELETE_SUCCESS');
+        showSuccessMessage("DELETE_SUCCESS");
         deleteEvent(index);
         history.push("/Admins");
       },
       () => {
         setConfirmLoading(false);
-        showErrorMessage('DELETE_FAIL')
+        showErrorMessage("DELETE_FAIL");
       }
     );
   };
@@ -119,43 +127,90 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
       {Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
+            {locale === "ko" ? (
+              <>
+                <div className="inputBox">
+                  <span>
+                    <FormattedMessage id="FIRSTNAME" />
+                  </span>
+                  <input
+                    placeholder={formatMessage({
+                      id: "PLEASE_INPUT_FIRST_NAME",
+                    })}
+                    name="firstName"
+                    defaultValue={firstName}
+                  />
+                </div>
+                <div className="inputBox">
+                  <span>
+                    <FormattedMessage id="LASTNAME" />
+                  </span>
+                  <input
+                    placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                    name="lastName"
+                    defaultValue={lastName}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="inputBox">
+                  <span>
+                    <FormattedMessage id="FIRSTNAME" />
+                  </span>
+                  <input
+                    placeholder={formatMessage({
+                      id: "PLEASE_INPUT_FIRST_NAME",
+                    })}
+                    name="lastName"
+                    defaultValue={firstName}
+                  />
+                </div>
+                <div className="inputBox">
+                  <span>
+                    <FormattedMessage id="LASTNAME" />
+                  </span>
+                  <input
+                    placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                    name="firstName"
+                    defaultValue={lastName}
+                  />
+                </div>
+              </>
+            )}
+
             <div className="inputBox">
-              <span><FormattedMessage id="FIRSTNAME"/></span>
-              <input
-                placeholder={formatMessage({id: 'PLEASE_INPUT_FIRST_NAME'})}
-                name="firstName"
-                defaultValue={firstName}
-              />
-            </div>
-            <div className="inputBox">
-              <span><FormattedMessage id="LASTNAME"/></span>
-              <input
-                placeholder={formatMessage({id: 'PLEASE_INPUT_NAME'})}
-                name="lastName"
-                defaultValue={lastName}
-              />
-            </div>
-            <div className="inputBox">
-              <span><FormattedMessage id="EMAIL"/></span>
+              <span>
+                <FormattedMessage id="EMAIL" />
+              </span>
               <p className="updateInfo">{email}</p>
             </div>
             {isSelf && (
               <>
                 <div className="inputBox">
-                  <span><FormattedMessage id="PASSWORD"/></span>
-                  <input placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})} name="password" />
+                  <span>
+                    <FormattedMessage id="PASSWORD" />
+                  </span>
+                  <input
+                    placeholder={formatMessage({ id: "PLEASE_INPUT_PASSWORD" })}
+                    name="password"
+                  />
                 </div>
                 <div className="inputBox">
-                  <span><FormattedMessage id="PASSWORDCONFIRM"/></span>
+                  <span>
+                    <FormattedMessage id="PASSWORDCONFIRM" />
+                  </span>
                   <input
-                    placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})}
+                    placeholder={formatMessage({ id: "PLEASE_INPUT_PASSWORD" })}
                     name="passwordConfirm"
                   />
                 </div>
               </>
             )}
             <div className="inputBox2">
-              <span><FormattedMessage id="MOBILE"/></span>
+              <span>
+                <FormattedMessage id="MOBILE" />
+              </span>
               <div className="phoneBox">
                 <PhoneInput
                   className="phoneInput"
@@ -177,15 +232,17 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               </div>
             </div>
             <Button className="adminUpdateButton" htmlType="submit">
-              <UserSwitchOutlined /> <FormattedMessage id="UPDATE"/>
+              <UserSwitchOutlined /> <FormattedMessage id="UPDATE" />
             </Button>
-            {role !== 'ADMIN' && <Button
-              className="adminUpdateButton"
-              htmlType="button"
-              onClick={openConfirmModal}
-            >
-              <UserDeleteOutlined /> <FormattedMessage id="DELETE"/>
-            </Button>}
+            {role !== "ADMIN" && (
+              <Button
+                className="adminUpdateButton"
+                htmlType="button"
+                onClick={openConfirmModal}
+              >
+                <UserDeleteOutlined /> <FormattedMessage id="DELETE" />
+              </Button>
+            )}
 
             <CustomConfirm
               visible={confirmModal}
@@ -193,7 +250,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
               confirmCallback={onDelete}
               cancelCallback={closeConfirmModal}
             >
-              <FormattedMessage id="DELETECONFIRM"/>
+              <FormattedMessage id="DELETECONFIRM" />
             </CustomConfirm>
           </form>
         </div>
@@ -207,6 +264,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale,
   };
 }
 

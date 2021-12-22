@@ -3,16 +3,7 @@ import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faUserCog,
-  faUserAltSlash,
-  faHandSparkles,
-  faCaretRight,
-  faCheckSquare,
-  faCalendarCheck,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -41,7 +32,7 @@ export const ApplicationsColumns = [
     searched: true,
     searchedOptions: ["ACTIVE", "INACTIVE"],
     getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
-    render: d => <FormattedMessage id={d}/>
+    render: (d) => <FormattedMessage id={d} />,
   },
   {
     name: "Domain",

@@ -135,7 +135,11 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{plan.name} Plan</h2>
+                {plan.name === "OMPASS" ? (
+                  <h2>{plan.name} Plan</h2>
+                ) : (
+                  <h2>{plan.name} Trial</h2>
+                )}
                 <h5>
                   <FontAwesomeIcon
                     style={{ color: "rgb(0, 209, 52)", fontSize: "1.1rem" }}

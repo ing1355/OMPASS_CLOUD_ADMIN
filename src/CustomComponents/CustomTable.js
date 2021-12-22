@@ -27,7 +27,7 @@ const CustomTable = ({
   className,
   columnsHide,
   searched,
-  selectedRows
+  selectedRows,
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -105,8 +105,8 @@ const CustomTable = ({
   );
 
   useLayoutEffect(() => {
-    if(onChangeSelectedRows) onChangeSelectedRows([])
-  },[])
+    if (onChangeSelectedRows) onChangeSelectedRows([]);
+  }, []);
 
   useEffect(() => {
     firstRenderRef.current = true;
@@ -266,7 +266,9 @@ const CustomTable = ({
                       if (selectedRows.length === tableData.length) {
                         onChangeSelectedRows([]);
                       } else {
-                        onChangeSelectedRows(tableData.map((d) => d[selectedId]));
+                        onChangeSelectedRows(
+                          tableData.map((d) => d[selectedId])
+                        );
                       }
                     }}
                     onChange={() => {}}

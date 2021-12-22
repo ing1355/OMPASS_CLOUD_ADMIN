@@ -464,11 +464,10 @@ const Global_Policy = ({
               <FormattedMessage id="ACCESSCONTROLDENYDESCRIPTION" />
             </p>
           </div>
-          <div className="policies-sub-box">
-            <p style={{ marginTop: "0", color: "#066b93" }}>
-              <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
-            </p>
-          </div>
+
+          <p style={{ marginTop: "0", color: "#066b93" }}>
+            <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
+          </p>
         </section>
 
         {/* -------------User location ------------- */}
@@ -483,6 +482,7 @@ const Global_Policy = ({
             {inputUserLocations.map((d, ind) => (
               <div key={ind}>
                 <select
+                  style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
                   value={d.location}
                   onChange={(e) => {
@@ -496,6 +496,7 @@ const Global_Policy = ({
                   ))}
                 </select>
                 <select
+                  style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
                   value={d.status}
                   onChange={(e) => {
@@ -508,7 +509,11 @@ const Global_Policy = ({
                 </select>
                 <button
                   className="button policy-location-button"
-                  style={{ marginLeft: "1rem", height: 50 }}
+                  style={{
+                    marginLeft: "1rem",
+                    height: 50,
+                    marginBottom: "2rem",
+                  }}
                   onClick={() => {
                     setInputUserLocations(
                       inputUserLocations.filter((u, _ind) => ind !== _ind)
@@ -519,9 +524,9 @@ const Global_Policy = ({
                 </button>
               </div>
             ))}
-            <p style={{ marginLeft: "0", color: "#066b93" }}>
+            {/* <p style={{ marginLeft: "0", color: "#066b93" }}>
               <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
-            </p>
+            </p> */}
             <button
               type="button"
               className="button"
@@ -622,12 +627,9 @@ const Global_Policy = ({
               <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
             </label>
           </div>
-
-          <div>
-            <p style={{ color: "#066b93" }}>
-              <FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION" />
-            </p>
-          </div>
+          <p style={{ marginTop: "10px", color: "#066b93" }}>
+            <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
+          </p>
         </section>
       </div>
     </Drawer>

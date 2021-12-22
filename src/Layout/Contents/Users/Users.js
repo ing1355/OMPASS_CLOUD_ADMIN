@@ -44,7 +44,7 @@ const Users = ({ userProfile }) => {
     CustomAxiosGet(
       getCustomPoliciesApi(adminId),
       (customPoliciesData) => {
-        setCustomPolicies(customPoliciesData)
+        setCustomPolicies(customPoliciesData);
         CustomAxiosGet(
           getUsersApi(adminId),
           (data) => {
@@ -103,7 +103,7 @@ const Users = ({ userProfile }) => {
   );
 
   const clickToDetail = useCallback((rowData) => {
-    console.log(rowData)
+    console.log(rowData);
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
   }, []);
