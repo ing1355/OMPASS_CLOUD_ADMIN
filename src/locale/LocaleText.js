@@ -101,7 +101,7 @@ const locales = {
     POLICYNAME: '정책명',
     DESCRIPTION: '설명',
     SETTINGTODEFAULT: "기본값으로 변경",
-    TITLE: "제목",
+    POLICYTITLE: "정책명",
     CANCELSUBSCRIPTION: "정말 구독을 취소하시겠습니까?",
     NORESTRICTION: "No restrictions",
     GLOBALPOLICYDESCRIPTION_1:
@@ -121,13 +121,13 @@ const locales = {
     CUSTOMPOLICYDESCRIPTION:
       "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.",
     ACCESSCONTROLTITLE: "OMPASS 인증 제어",
-    ACCESSCONTROLACTIVE: "2차 인증 필수",
+    ACCESSCONTROLACTIVE: "OMPASS 인증 필수",
     ACCESSCONTROLACTIVEDESCRIPTION:
-      "대체 정책이 구성되어 있지 않은 한 2차 인증이 필요합니다. (없을 경우 2차 인증 등록)",
-    ACCESSCONTROLINACTIVE: "2차 인증 패스",
-    ACCESSCONTROLINACTIVEDESCRIPTION: "2차 인증 및 등록을 패스하겠습니다.",
+      "대체 정책이 구성되어 있지 않은 한 OMPASS 인증이 필요합니다. (없을 경우 OMPASS 인증 등록)",
+    ACCESSCONTROLINACTIVE: "OMPASS 인증 패스",
+    ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 인증 및 등록을 패스하겠습니다.",
     ACCESSCONTROLDENY: "모두 거부",
-    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 인증 거부합니다.",
+    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
@@ -140,9 +140,9 @@ const locales = {
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",
     OMPASSMOBILEPOLICYTITLE: "OMPASS 모바일 앱",
-    OMPASSMOBILEPOLICYACTIVE: "OMPASS 모바일용 최신 보안 패치가 필요합니다.",
+    OMPASSMOBILEPOLICYACTIVE: "OMPASS 모바일 앱 최신 보안 패치가 필요합니다.",
     OMPASSMOBILEPOLICYINACTIVE:
-      "OMPASS 모바일용에 대한 최신 보안 패치가 필요하지 않습니다.",
+      "OMPASS 모바일 앱 최신 보안 패치가 필요하지 않습니다.",
     OMPASSMOBILEPOLICYDESCRIPTION: "iOS 및 Android에만 적용됩니다.",
     Chrome: "Chrome",
     "Chrome Mobile": "Chrome Mobile",
@@ -155,7 +155,8 @@ const locales = {
     PolicyLogs: "PolicyLogs",
     SUBSCRIPTION: "결제하기",
     SUBSCRIPTIONCANCEL: "구독 취소",
-    AUTHTYPE: 'Authentication Type'
+    AUTHTYPE: 'Authentication Type',
+    ETCUSERLOCATION: 'All Other Countries'
   },
   KR: {
     localeChangeText: "KO",
@@ -258,9 +259,9 @@ const locales = {
     POLICYNAME: '정책명',
     DESCRIPTION: '설명',
     SETTINGTODEFAULT: "기본값으로 변경",
-    TITLE: "제목",
+    POLICYTITLE: "정책명",
     CANCELSUBSCRIPTION: "정말 구독을 취소하시겠습니까?",
-    NORESTRICTION: "No restrictions",
+    NORESTRICTION: "제한 사항 없음.",
     GLOBALPOLICYDESCRIPTION_1:
       "Require two-factor authentication or enrollment when applicable, unless there is a superseding policy configured.",
     GLOBALPOLICYDESCRIPTION_2:
@@ -278,13 +279,13 @@ const locales = {
     CUSTOMPOLICYDESCRIPTION:
       "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.",
     ACCESSCONTROLTITLE: "OMPASS 인증 제어",
-    ACCESSCONTROLACTIVE: "2차 인증 필수",
+    ACCESSCONTROLACTIVE: "OMPASS 인증 필수",
     ACCESSCONTROLACTIVEDESCRIPTION:
-      "대체 정책이 구성되어 있지 않은 한 2차 인증이 필요합니다. (없을 경우 2차 인증 등록)",
-    ACCESSCONTROLINACTIVE: "2차 인증 패스",
-    ACCESSCONTROLINACTIVEDESCRIPTION: "2차 인증 및 등록을 패스하겠습니다.",
+      "대체 정책이 구성되어 있지 않은 한 OMPASS 인증이 필요합니다. (없을 경우 OMPASS 인증 등록)",
+    ACCESSCONTROLINACTIVE: "OMPASS 인증 패스",
+    ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 인증 및 등록을 패스하겠습니다.",
     ACCESSCONTROLDENY: "모두 거부",
-    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 인증 거부합니다.",
+    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
@@ -297,9 +298,9 @@ const locales = {
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",
     OMPASSMOBILEPOLICYTITLE: "OMPASS 모바일 앱",
-    OMPASSMOBILEPOLICYACTIVE: "OMPASS 모바일용 최신 보안 패치가 필요합니다.",
+    OMPASSMOBILEPOLICYACTIVE: "OMPASS 모바일 앱 최신 보안 패치가 필요합니다.",
     OMPASSMOBILEPOLICYINACTIVE:
-      "OMPASS 모바일용에 대한 최신 보안 패치가 필요하지 않습니다.",
+      "OMPASS 모바일 앱 최신 보안 패치가 필요하지 않습니다.",
     OMPASSMOBILEPOLICYDESCRIPTION: "iOS 및 Android에만 적용됩니다.",
     Chrome: "크롬",
     "Chrome Mobile": "크롬 모바일",
@@ -312,7 +313,8 @@ const locales = {
     PolicyLogs: "정책 로그",
     SUBSCRIPTION: "결제하기",
     SUBSCRIPTIONCANCEL: "구독 취소",
-    AUTHTYPE: '인증 유형'
+    AUTHTYPE: '인증 유형',
+    ETCUSERLOCATION: '그 외의 다른 나라들'
   },
 };
 

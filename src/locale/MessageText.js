@@ -26,7 +26,8 @@ const locales = {
     ID: "ID (Email)",
     Email: "Email",
     EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
-    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.'
+    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.',
+    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -55,7 +56,8 @@ const locales = {
     ID: "아이디 (이메일)",
     Email: "이메일",
     EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
-    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.'
+    EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.',
+    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.'
   },
 };
 

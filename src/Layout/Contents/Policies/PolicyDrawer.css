@@ -87,3 +87,8 @@
   color: #fff;
   border: 1px solid #f56464;
 }
+
+.user-location-input-container select {
+  margin-bottom: 8px;
+  text-align: center;
+}

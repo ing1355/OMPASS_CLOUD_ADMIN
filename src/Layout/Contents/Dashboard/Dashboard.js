@@ -215,6 +215,16 @@ const Dashboard = ({ userProfile, locale }) => {
               <div className="countBox">
                 <div>
                   <h6>
+                    <FormattedMessage id="Administrators" />
+                  </h6>
+                  <p>
+                    <FontAwesomeIcon icon={faUserCog} />
+                    &nbsp;
+                    <b>{adminNum}명</b>
+                  </p>
+                </div>
+                <div>
+                  <h6>
                     <FormattedMessage id="ALLUSERNUM"/>
                   </h6>
                   <p>
@@ -225,12 +235,12 @@ const Dashboard = ({ userProfile, locale }) => {
                 </div>
                 <div>
                   <h6>
-                    <FormattedMessage id="Administrators" />
+                    <FormattedMessage id="REGISTEREDUSERNUM" />
                   </h6>
                   <p>
-                    <FontAwesomeIcon icon={faUserCog} />
+                    <FontAwesomeIcon icon={faUserAltSlash} />
                     &nbsp;
-                    <b>{adminNum}명</b>
+                    <b>{disableNum}명</b>
                   </p>
                 </div>
                 <div>
@@ -242,16 +252,6 @@ const Dashboard = ({ userProfile, locale }) => {
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
                     <b>{byPassNum}&nbsp;명</b>
-                  </p>
-                </div>
-                <div>
-                  <h6>
-                    <FormattedMessage id="REGISTEREDUSERNUM" />
-                  </h6>
-                  <p>
-                    <FontAwesomeIcon icon={faUserAltSlash} />
-                    &nbsp;
-                    <b>{disableNum}명</b>
                   </p>
                 </div>
               </div>

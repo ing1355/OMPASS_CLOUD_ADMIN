@@ -90,6 +90,24 @@ const CustomPolicy = ({ userProfile }) => {
     );
   }, []);
 
+  useLayoutEffect(() => {
+    const result = customPoliciesData.map(d => Object.keys(d).map(_d => {
+      const result = {};
+      result[_d] = d[_d];
+      if (_d === "policyId" || _d === "title") return;
+      return result;
+    }).filter(_d => _d));
+    setCustomPoliciesTableData(result.map((d, ind) => {
+      return PolicyTableDataFeature.map(td => {
+        const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key]
+        return {
+          ...td,
+          status: target !== null && target.length > 0,
+        }
+      })
+    }))
+  },[customPoliciesData])
+
   const saveCallback = useCallback(
     (result) => {
       setCustomPoliciesData([...customPoliciesData, result]);
@@ -100,10 +118,15 @@ const CustomPolicy = ({ userProfile }) => {
   const editCallback = useCallback(
     (result, policyId) => {
       setCustomPoliciesData(
-        customPoliciesData.map((c) => (c.policyId === policyId ? result : c))
+        customPoliciesData.map((c, ind) => {
+          if(c.policyId === policyId) {
+            return result;
+          }
+          return c
+        })
       );
     },
-    [customPoliciesData]
+    [customPoliciesData, customPoliciesTableData]
   );
 
   const deleteCallback = useCallback(
@@ -152,7 +175,7 @@ const CustomPolicy = ({ userProfile }) => {
         </div>
         {
           customPoliciesTableData.map((cD, ind) => <div key={ind} className="PoliciesBottomBox">
-            <div style={{display:'flex', justifyContent:'space-between'}}><h3>{customPoliciesData[ind].title}</h3><button className="button" onClick={() => {
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}><h3>{customPoliciesData[ind].title}</h3><button className="button" onClick={() => {
               setSelectedRowData(customPoliciesData[ind]);
               setIsEditPolicy(true);
               setEditDrawerOpen(true);
