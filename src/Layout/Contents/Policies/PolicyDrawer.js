@@ -624,9 +624,11 @@ const Global_Policy = ({
             </label>
           </div>
 
-          <p style={{ color: "#066b93" }}>
-            <FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION" />
-          </p>
+          <div className="policies-sub-box">
+            <p style={{ color: "#066b93", marginTop: 0, marginBottom: 0 }}>
+              <FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION" />
+            </p>
+          </div>
 
         </section>
       </div>

@@ -45,7 +45,6 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
   const [inputDialCode, setInputDialCode] = useState(dialCode);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-
   const openConfirmModal = useCallback(() => {
     setConfirmModal(true);
   }, []);
@@ -69,7 +68,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
     } else {
       route = updateSubAdminApi(adminId, subAdminId);
     }
-    console.log(inputMobile, inputDialCode, inputCountryCode);
+    
     CustomAxiosPut(
       route,
       {
@@ -179,7 +178,7 @@ const AdminDetail = ({ data, deleteEvent, updateEvent, userProfile, showSuccessM
             <Button className="adminUpdateButton" htmlType="submit">
               <UserSwitchOutlined /> <FormattedMessage id="UPDATE"/>
             </Button>
-            {role !== 'ADMIN' && <Button
+            {role !== 'ADMIN' && !isSelf && <Button
               className="adminUpdateButton"
               htmlType="button"
               onClick={openConfirmModal}

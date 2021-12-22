@@ -103,7 +103,7 @@ const Admins = ({ userProfile, history }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title={formatMessage({ id: "Admins" })} />
+      <ContentsTitle title="Admins" />
       <Switch>
         <Route
           path="/Admins"

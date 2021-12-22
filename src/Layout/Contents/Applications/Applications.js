@@ -141,7 +141,7 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title={formatMessage({ id: "Applications" })} />
+      <ContentsTitle title="Applications"/>
       <div className="ApplicationsBox">
         <Switch>
           <Route

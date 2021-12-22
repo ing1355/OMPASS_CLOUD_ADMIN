@@ -45,6 +45,7 @@ export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
+export const getPolicyLogsApi = (adminId) => `/v1/admins/${adminId}/policy-logs`
 
 export const loginApi = '/v1/login';
 export const resetPasswordApi = '/v1/reset-password';

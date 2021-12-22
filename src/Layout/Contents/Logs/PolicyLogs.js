@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
-import { getLogsApi } from "../../../Constants/Api_Route";
+import { getPolicyLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { LogsColumns } from "../../../Constants/TableColumns";
+import { PolicyLogsColumns } from "../../../Constants/TableColumns";
 import { useIntl } from "react-intl";
 
 const PolicyLogs = ({ userProfile }) => {
+  const {adminId} = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const {formatMessage} = useIntl()
 
   useEffect(() => {
     CustomAxiosGet(
-      getLogsApi(userProfile.adminId),
+      getPolicyLogsApi(adminId),
       (data) => {
         setTableData(data);
         setTableLoading(false);
@@ -28,10 +29,10 @@ const PolicyLogs = ({ userProfile }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title={formatMessage({id:'Logs'})} />
+      <ContentsTitle title='PolicyLogs'/>
       <div className="LogBox">
         <CustomTable
-          columns={LogsColumns}
+          columns={PolicyLogsColumns}
           loading={tableLoading}
           datas={tableData}
           pagination

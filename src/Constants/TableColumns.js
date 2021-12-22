@@ -100,6 +100,30 @@ export const LogsColumns = [
   { name: "Date", key: "createdDate", width: 250 },
 ];
 
+export const PolicyLogsColumns = [
+  {
+    name: "POLICYNAME",
+    key: "policyName",
+    searched: true,
+    width: 250,
+    searched: true,
+    render: (value,row) => row.policyType === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY"/> : value
+  },
+  {
+    name: "User",
+    key: "userId",
+    width: 250,
+    searched: true,
+  },
+  {
+    name: "Action",
+    key: "act",
+    searched: true,
+    searchedOptions: ['CREATE','UPDATE','DELETE']
+  },
+  { name: "Date", key: "createdDate", width: 250 },
+];
+
 export const allUserColumns = [
   {
     name: "Users",

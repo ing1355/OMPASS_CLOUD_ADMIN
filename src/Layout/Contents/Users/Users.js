@@ -118,7 +118,7 @@ const Users = ({ userProfile }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title="사용자" />
+      <ContentsTitle title="USER" />
       <div className="UsersdBox">
         <Switch>
           <Route

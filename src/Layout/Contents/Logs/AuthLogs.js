@@ -28,7 +28,7 @@ const AuthLogs = ({ userProfile }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title={formatMessage({ id: "Logs" })} />
+      <ContentsTitle title="AuthLogs"/>
       <div className="LogBox">
         <CustomTable
           columns={LogsColumns}

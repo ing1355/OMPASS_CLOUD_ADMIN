@@ -295,7 +295,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title={formatMessage({ id: "Billing" })} />
+      <ContentsTitle title="Billing"/>
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
