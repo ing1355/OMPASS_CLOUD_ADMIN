@@ -229,7 +229,7 @@ const CustomTable = ({
             />
           )}
           <button type="submit" className="button">
-            검색
+            Search
           </button>
         </form>
       )}

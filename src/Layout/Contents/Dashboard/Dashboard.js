@@ -9,6 +9,7 @@ import {
   faCaretRight,
   faCheckSquare,
   faCalendarCheck,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -135,14 +136,14 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                {plan.name === "OMPASS" ? (
-                  <h2>{plan.name} Plan</h2>
-                ) : (
-                  <h2>{plan.name} Trial</h2>
-                )}
+                <h2>{plan.name}</h2>
                 <h5>
                   <FontAwesomeIcon
-                    style={{ color: "rgb(0, 209, 52)", fontSize: "1.1rem" }}
+                    style={{
+                      color: "rgb(0, 209, 52)",
+                      fontSize: "1.1rem",
+                      marginBottom: "0.12rem",
+                    }}
                     icon={faCheckSquare}
                   />
                   &nbsp;&nbsp;
@@ -152,7 +153,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 </h5>
                 <h6>
                   <FontAwesomeIcon
-                    style={{ fontSize: "1.1rem" }}
+                    style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
                     icon={faCalendarCheck}
                   />
                   &nbsp;&nbsp;
@@ -219,16 +220,6 @@ const Dashboard = ({ userProfile, locale }) => {
               <div className="countBox">
                 <div>
                   <h6>
-                    <FormattedMessage id="TotalUsers" />
-                  </h6>
-                  <p>
-                    <FontAwesomeIcon className="countBox-icon" icon={faUser} />
-                    &nbsp;
-                    <b>{userNum}명</b>
-                  </p>
-                </div>
-                <div>
-                  <h6>
                     <FormattedMessage id="Administrators" />
                   </h6>
                   <p>
@@ -239,23 +230,33 @@ const Dashboard = ({ userProfile, locale }) => {
                 </div>
                 <div>
                   <h6>
+                    <FormattedMessage id="ALLUSERNUM" />
+                  </h6>
+                  <p>
+                    <FontAwesomeIcon className="countBox-icon" icon={faUser} />
+                    &nbsp;
+                    <b>{userNum}명</b>
+                  </p>
+                </div>
+                <div>
+                  <h6>
+                    <FormattedMessage id="REGISTEREDUSERNUM" />
+                  </h6>
+                  <p>
+                    <FontAwesomeIcon icon={faUserPlus} />
+                    &nbsp;
+                    <b>{disableNum}명</b>
+                  </p>
+                </div>
+                <div>
+                  <h6>
                     {/* 2차인증 바이패스 수 */}
-                    <FormattedMessage id="BypassUsers" />
+                    <FormattedMessage id="BYPASSUSERNUM" />
                   </h6>
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
                     <b>{byPassNum}&nbsp;명</b>
-                  </p>
-                </div>
-                <div>
-                  <h6>
-                    <FormattedMessage id="InactiveUsers" />
-                  </h6>
-                  <p>
-                    <FontAwesomeIcon icon={faUserAltSlash} />
-                    &nbsp;
-                    <b>{disableNum}명</b>
                   </p>
                 </div>
               </div>

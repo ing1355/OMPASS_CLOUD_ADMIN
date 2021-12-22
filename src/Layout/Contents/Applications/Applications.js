@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
@@ -43,31 +48,46 @@ const Applications = ({
   const [customPolicies, setCustomPolicies] = useState([]);
   const { formatMessage } = useIntl();
 
-  const tableDataAdd = useCallback((data) => {
-    const _p = customPolicies.find((cP) => data.policyId === cP.policyId);
-    setTableData([
-      {
-        ...data,
-        policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
-      },
-      ...tableData,
-    ]);
-  },[customPolicies, tableData]);
+  const tableDataAdd = useCallback(
+    (data) => {
+      const _p = customPolicies.find((cP) => data.policyId === cP.policyId);
+      setTableData([
+        {
+          ...data,
+          policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
+        },
+        ...tableData,
+      ]);
+    },
+    [customPolicies, tableData]
+  );
 
-  const tableDatasDelete = useCallback((ids) => {
-    setTableData(tableData.filter((d) => !ids.find((id) => d.appId === id)));
-  },[tableData]);
+  const tableDatasDelete = useCallback(
+    (ids) => {
+      setTableData(tableData.filter((d) => !ids.find((id) => d.appId === id)));
+    },
+    [tableData]
+  );
 
-  const tableDataUpdate = useCallback((appId, data) => {
-    setTableData(
-      tableData.map((t) =>
-        t.appId === appId * 1 ? {
-          appId: t.appId, ...data, policy: data.policyId ? customPolicies.find(c => c.policyId === data.policyId).title
-            : formatMessage({ id: 'DEFAULTPOLICY' })
-        } : t
-      )
-    );
-  },[tableData, customPolicies]);
+  const tableDataUpdate = useCallback(
+    (appId, data) => {
+      setTableData(
+        tableData.map((t) =>
+          t.appId === appId * 1
+            ? {
+                appId: t.appId,
+                ...data,
+                policy: data.policyId
+                  ? customPolicies.find((c) => c.policyId === data.policyId)
+                      .title
+                  : formatMessage({ id: "DEFAULTPOLICY" }),
+              }
+            : t
+        )
+      );
+    },
+    [tableData, customPolicies]
+  );
 
   useLayoutEffect(() => {
     CustomAxiosGet(
@@ -84,7 +104,9 @@ const Applications = ({
                 );
                 return {
                   ...d,
-                  policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
+                  policy: _p
+                    ? _p.title
+                    : formatMessage({ id: "DEFAULTPOLICY" }),
                 };
               })
             );
@@ -128,15 +150,15 @@ const Applications = ({
 
   const openConfirmModal = useCallback(() => {
     setConfirmVisible(true);
-  },[])
+  }, []);
 
   const closeConfirmModal = useCallback(() => {
     setConfirmVisible(false);
-  },[]);
+  }, []);
 
   const changeSelectedRows = useCallback((rows) => {
     setSelectedRows(rows);
-  },[])
+  }, []);
 
   return (
     <div className="contents-container">
@@ -162,7 +184,7 @@ const Applications = ({
                 />
                 <Space className="cud">
                   <Link to="/Applications/Add">
-                    <Button>
+                    <Button disabled={selectedRows.length !== 0}>
                       <AppstoreAddOutlined />
                       &nbsp;
                       <FormattedMessage id="REGISTER" />

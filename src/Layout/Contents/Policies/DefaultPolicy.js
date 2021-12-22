@@ -63,34 +63,42 @@ const DefaultPolicy = ({ userProfile }) => {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const { formatMessage } = useIntl();
 
+  const convertDataToTableData = useCallback((_) => {
+    const data = _ || globalPoliciesData
+    const result = Object.keys(data)
+    .map((d) => {
+      const result = {};
+      result[d] = data[d];
+      if (d === "policyId" || d === "title") return;
+      return result;
+    })
+    .filter((el) => el !== undefined);
+    if(!result.length) return result
+    return PolicyTableDataFeature.map((td) => {
+      return {
+        ...td,
+        status:
+          result.find((r) => Object.keys(r)[0] === td.key)[td.key]
+            .length > 0,
+      };
+    })
+  },[globalPoliciesData])
+
   useLayoutEffect(() => {
     CustomAxiosGet(getGlobalPolicyApi(adminId),
       (data) => {
-        const result = Object.keys(data)
-          .map((d) => {
-            const result = {};
-            result[d] = data[d];
-            if (d === "policyId" || d === "title") return;
-            return result;
-          })
-          .filter((el) => el !== undefined);
         setGlobalPoliciesData(data);
-        setGlobalPoliciesTableData(
-          PolicyTableDataFeature.map((td) => {
-            return {
-              ...td,
-              status:
-                result.find((r) => Object.keys(r)[0] === td.key)[td.key]
-                  .length > 0,
-            };
-          })
-        );
+        setGlobalPoliciesTableData(convertDataToTableData(data));
       },
       (err) => {
         console.log(err);
       }
     );
   }, []);
+
+  useLayoutEffect(() => {
+    setGlobalPoliciesTableData(convertDataToTableData(globalPoliciesData))
+  },[globalPoliciesData])
 
   const editCallback = useCallback(
     (result, policyId) => {

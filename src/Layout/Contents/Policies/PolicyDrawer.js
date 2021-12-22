@@ -26,7 +26,7 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
 
 export const BrowsersList = [
@@ -64,6 +64,7 @@ const Global_Policy = ({
   showSuccessMessage,
   showErrorMessage,
 }) => {
+  console.log(editData);
   const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
@@ -74,11 +75,11 @@ const Global_Policy = ({
   // const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
-  const isKorea = useCallback(() => (lang === "KR" ? true : false), [lang]);
-  const locationList = Object.keys(countryCodes_KR).sort((a, b) => {
-    const target = isKorea() ? countryCodes_KR : countryCodes_US;
-    return target[a] > target[b] ? 1 : -1;
-  });
+  const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
+  const locationList = Object.keys(
+    isKorea() ? countryCodes_KR : countryCodes_US
+  );
+  const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
     CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
@@ -114,7 +115,9 @@ const Global_Policy = ({
       } = editData;
       if (title) setInputTitle(title);
       if (accessControl) setInputAuthCheck(accessControl);
-      if (userLocations) setInputUserLocations(userLocations);
+      if (userLocations && userLocations.length)
+        setInputUserLocations(userLocations);
+      else setInputUserLocations([{ location: "ETC", status: "PERMIT" }]);
       if (browsers) setInputBrowserCheck(browsers);
       // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
@@ -387,7 +390,7 @@ const Global_Policy = ({
         {isCustomPolicy && (
           <section className="policies-box">
             <h2>
-              <FormattedMessage id="TITLE" />
+              <FormattedMessage id="POLICYTITLE" />
             </h2>
             <div className="policies-sub-box">
               <div>
@@ -469,7 +472,7 @@ const Global_Policy = ({
             <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
           </p>
         </section>
-
+        {console.log(inputUserLocations)}
         {/* -------------User location ------------- */}
         <section className="policies-box">
           <h2>
@@ -480,7 +483,7 @@ const Global_Policy = ({
               <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
             </h3>
             {inputUserLocations.map((d, ind) => (
-              <div key={ind}>
+              <div key={ind} className="user-location-input-container">
                 <select
                   style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
@@ -489,11 +492,23 @@ const Global_Policy = ({
                     changeInputUserLocation(e.target.value, ind, "location");
                   }}
                 >
-                  {locationList.map((code, _ind) => (
-                    <option key={_ind} value={code}>
-                      {(isKorea() ? countryCodes_KR : countryCodes_US)[code]}
+                  {d.location === "ETC" ? (
+                    <option value="ETC">
+                      {formatMessage({ id: "ETCUSERLOCATION" })}
                     </option>
-                  ))}
+                  ) : (
+                    locationList.map((code) => (
+                      <option
+                        disabled={inputUserLocations.find(
+                          (l) => l.location === code
+                        )}
+                        key={code}
+                        value={code}
+                      >
+                        {(isKorea() ? countryCodes_KR : countryCodes_US)[code]}
+                      </option>
+                    ))
+                  )}
                 </select>
                 <select
                   style={{ paddingLeft: "0.3rem" }}
@@ -503,9 +518,8 @@ const Global_Policy = ({
                     changeInputUserLocation(e.target.value, ind, "status");
                   }}
                 >
-                  <option value="ACTIVE">ACTIVE</option>
-                  <option value="INACTIVE">INACTIVE</option>
-                  <option value="DENY">DENY</option>
+                  <option value="PERMIT">Permit</option>
+                  <option value="DENY">Deny</option>
                 </select>
                 <button
                   className="button policy-location-button"
@@ -515,6 +529,8 @@ const Global_Policy = ({
                     marginBottom: "2rem",
                   }}
                   onClick={() => {
+                    if (d.location === "ETC")
+                      return showErrorMessage("USER_LOCATION_DELETE_FAIL");
                     setInputUserLocations(
                       inputUserLocations.filter((u, _ind) => ind !== _ind)
                     );
@@ -533,7 +549,12 @@ const Global_Policy = ({
               onClick={() => {
                 setInputUserLocations([
                   ...inputUserLocations,
-                  { location: locationList[0], status: "ACTIVE" },
+                  {
+                    location: locationList.find(
+                      (l) => !inputUserLocations.find((_l) => _l.location === l)
+                    ),
+                    status: "PERMIT",
+                  },
                 ]);
               }}
               style={{ height: 50, display: "block" }}
@@ -627,9 +648,10 @@ const Global_Policy = ({
               <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
             </label>
           </div>
-          <p style={{ marginTop: "10px", color: "#066b93" }}>
-            <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
-          </p>
+
+          {/* <p style={{ color: "#066b93" }}>
+            <FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION" />
+          </p> */}
         </section>
       </div>
     </Drawer>

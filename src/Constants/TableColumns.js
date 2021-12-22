@@ -105,7 +105,7 @@ export const allUserColumns = [
     searched: true,
   },
   {
-    name: "Status",
+    name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
@@ -137,7 +137,7 @@ export const disabledUserColumns = [
     searched: true,
   },
   {
-    name: "Status",
+    name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
@@ -161,7 +161,7 @@ export const byPassUserColumns = [
   { name: "Users", key: "userId", width: 250, searched: true },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
-    name: "Status",
+    name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
@@ -184,7 +184,7 @@ export const unRegisteredUserColumns = [
   { name: "Users", key: "userId", width: 250, searched: true },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
-    name: "Status",
+    name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],

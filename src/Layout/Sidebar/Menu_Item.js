@@ -33,8 +33,10 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
       if (subMenuOpen) {
         setSubMenuOpen(false);
       } else {
-        menuChange(submenu[0].name)
-        history.push(submenu[0].route)
+        if(!submenu.find(sb => sb.name === menuState)) {
+          menuChange(submenu[0].name)
+          history.push(submenu[0].route)
+        }
         setSubMenuOpen(true);
       }
     } else {
