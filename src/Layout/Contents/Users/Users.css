@@ -74,7 +74,7 @@
 }
 
 .user-email-input {
-  transition: height .5s ease-in;
+  transition: height 0.5s ease-in;
   overflow: hidden;
 }
 
@@ -139,7 +139,7 @@
   border-top: 1px solid rgb(189, 189, 189);
   width: 90%;
   margin-left: 5%;
-  transition: all .5s ease-out;
+  transition: all 0.5s ease-out;
   height: 920px;
   overflow: auto;
 }
@@ -156,7 +156,7 @@
   color: #fff;
   cursor: pointer;
   margin-right: 1rem;
-  transition: width .5s ease-out;
+  transition: width 0.5s ease-out;
 }
 
 .policy-active-button.active {
@@ -181,12 +181,30 @@
   padding-left: 12px;
 }
 
-.user-concept-title > h3, .user-concept-title > p {
-  color: rgba(128,128,128,.5);
+.user-concept-title > h3,
+.user-concept-title > p {
+  color: rgba(128, 128, 128, 0.5);
   font-weight: 300;
 }
 
-.user-concept-title.selected > h3, .user-concept-title.selected > p {
-  color: rgba(0,0,0,.85);
+.user-concept-title.selected > h3,
+.user-concept-title.selected > p {
+  color: rgba(0, 0, 0, 0.85);
   font-weight: 700;
+}
+
+.user-detatil-button {
+  height: 25px;
+  background: #00a9ec;
+  border: 1px solid #00a9ec;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  width: 3rem;
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.user-detatil-button:hover {
+  background: #256e8b;
 }

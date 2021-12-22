@@ -9,6 +9,7 @@ import {
   faCaretRight,
   faCheckSquare,
   faCalendarCheck,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -135,10 +136,14 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{plan.name} Plan</h2>
+                <h2>{plan.name}</h2>
                 <h5>
                   <FontAwesomeIcon
-                    style={{ color: "rgb(0, 209, 52)", fontSize: "1.1rem" }}
+                    style={{
+                      color: "rgb(0, 209, 52)",
+                      fontSize: "1.1rem",
+                      marginBottom: "0.12rem",
+                    }}
                     icon={faCheckSquare}
                   />
                   &nbsp;&nbsp;
@@ -148,7 +153,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 </h5>
                 <h6>
                   <FontAwesomeIcon
-                    style={{ fontSize: "1.1rem" }}
+                    style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
                     icon={faCalendarCheck}
                   />
                   &nbsp;&nbsp;
@@ -225,7 +230,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 </div>
                 <div>
                   <h6>
-                    <FormattedMessage id="ALLUSERNUM"/>
+                    <FormattedMessage id="ALLUSERNUM" />
                   </h6>
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
@@ -238,7 +243,7 @@ const Dashboard = ({ userProfile, locale }) => {
                     <FormattedMessage id="REGISTEREDUSERNUM" />
                   </h6>
                   <p>
-                    <FontAwesomeIcon icon={faUserAltSlash} />
+                    <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
                     <b>{disableNum}명</b>
                   </p>

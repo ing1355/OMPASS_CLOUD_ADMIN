@@ -64,7 +64,7 @@ const Global_Policy = ({
   showSuccessMessage,
   showErrorMessage,
 }) => {
-  console.log(editData)
+  console.log(editData);
   const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
@@ -76,8 +76,10 @@ const Global_Policy = ({
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
-  const locationList = Object.keys(isKorea() ? countryCodes_KR : countryCodes_US)
-  const { formatMessage } = useIntl()
+  const locationList = Object.keys(
+    isKorea() ? countryCodes_KR : countryCodes_US
+  );
+  const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
     CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
@@ -113,8 +115,9 @@ const Global_Policy = ({
       } = editData;
       if (title) setInputTitle(title);
       if (accessControl) setInputAuthCheck(accessControl);
-      if (userLocations && userLocations.length) setInputUserLocations(userLocations);
-      else setInputUserLocations([{ location: 'ETC', status: 'PERMIT' }])
+      if (userLocations && userLocations.length)
+        setInputUserLocations(userLocations);
+      else setInputUserLocations([{ location: "ETC", status: "PERMIT" }]);
       if (browsers) setInputBrowserCheck(browsers);
       // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
@@ -464,11 +467,10 @@ const Global_Policy = ({
               <FormattedMessage id="ACCESSCONTROLDENYDESCRIPTION" />
             </p>
           </div>
-          <div className="policies-sub-box">
-            <p style={{ marginTop: "0", color: "#066b93" }}>
-              <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
-            </p>
-          </div>
+
+          <p style={{ marginTop: "0", color: "#066b93" }}>
+            <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
+          </p>
         </section>
         {console.log(inputUserLocations)}
         {/* -------------User location ------------- */}
@@ -483,20 +485,33 @@ const Global_Policy = ({
             {inputUserLocations.map((d, ind) => (
               <div key={ind} className="user-location-input-container">
                 <select
+                  style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
                   value={d.location}
                   onChange={(e) => {
                     changeInputUserLocation(e.target.value, ind, "location");
                   }}
                 >
-                  {d.location === 'ETC' ? <option value="ETC">{formatMessage({ id: 'ETCUSERLOCATION' })}</option>
-                    : locationList.map(code => (
-                      <option disabled={inputUserLocations.find(l => l.location === code)} key={code} value={code}>
+                  {d.location === "ETC" ? (
+                    <option value="ETC">
+                      {formatMessage({ id: "ETCUSERLOCATION" })}
+                    </option>
+                  ) : (
+                    locationList.map((code) => (
+                      <option
+                        disabled={inputUserLocations.find(
+                          (l) => l.location === code
+                        )}
+                        key={code}
+                        value={code}
+                      >
                         {(isKorea() ? countryCodes_KR : countryCodes_US)[code]}
                       </option>
-                    ))}
+                    ))
+                  )}
                 </select>
                 <select
+                  style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
                   value={d.status}
                   onChange={(e) => {
@@ -508,9 +523,14 @@ const Global_Policy = ({
                 </select>
                 <button
                   className="button policy-location-button"
-                  style={{ marginLeft: "1rem", height: 50 }}
+                  style={{
+                    marginLeft: "1rem",
+                    height: 50,
+                    marginBottom: "2rem",
+                  }}
                   onClick={() => {
-                    if (d.location === 'ETC') return showErrorMessage('USER_LOCATION_DELETE_FAIL')
+                    if (d.location === "ETC")
+                      return showErrorMessage("USER_LOCATION_DELETE_FAIL");
                     setInputUserLocations(
                       inputUserLocations.filter((u, _ind) => ind !== _ind)
                     );
@@ -520,16 +540,21 @@ const Global_Policy = ({
                 </button>
               </div>
             ))}
-            <p style={{ marginLeft: "0", color: "#066b93" }}>
+            {/* <p style={{ marginLeft: "0", color: "#066b93" }}>
               <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
-            </p>
+            </p> */}
             <button
               type="button"
               className="button"
               onClick={() => {
                 setInputUserLocations([
                   ...inputUserLocations,
-                  { location: locationList.find(l => !inputUserLocations.find(_l => _l.location === l)), status: "PERMIT" },
+                  {
+                    location: locationList.find(
+                      (l) => !inputUserLocations.find((_l) => _l.location === l)
+                    ),
+                    status: "PERMIT",
+                  },
                 ]);
               }}
               style={{ height: 50, display: "block" }}
@@ -622,12 +647,6 @@ const Global_Policy = ({
             <label className="label-radio">
               <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
             </label>
-          </div>
-
-          <div className="policies-sub-box">
-            <p style={{ color: "#066b93", marginTop: 0, marginBottom: 0 }}>
-              <FormattedMessage id="OMPASSMOBILEPOLICYDESCRIPTION" />
-            </p>
           </div>
 
         </section>

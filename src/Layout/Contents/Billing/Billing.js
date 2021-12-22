@@ -309,7 +309,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             {console.log(currentPlan)}
             {currentPlan ? currentPlan.name : null}
           </div>
-          <div className="billing-edition-title">Edition</div>
+          {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
             {currentPlan ? currentPlan.remainingDate : 0} days left
           </div>
@@ -336,7 +336,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           billingsInfo.map((item, ind) => (
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
-                title={editions[ind].name + ' ' + formatMessage({id:'PLAN'})}
+                title={editions[ind].name + " " + formatMessage({ id: "PLAN" })}
                 subTitle={`${formatMessage(
                   { id: "PRICEUNIT" },
                   { param: slicePrice(editions[ind].priceForOneUser) }
@@ -462,7 +462,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               editions.find((e) => e.name === currentPlan.name) && (
                 <button
                   name="payType"
-                  className="button"
+                  className="button Cancel-subscription"
                   style={{ marginLeft: "12px" }}
                   type="button"
                   onClick={() => {
