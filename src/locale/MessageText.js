@@ -27,7 +27,9 @@ const locales = {
     Email: "Email",
     EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
     EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.',
-    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.'
+    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.',
+    PAYMENT_SUCCESS: '결제 성공하였습니다.',
+    PAYMENT_FAIL: '결제 실패하였습니다.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -57,7 +59,9 @@ const locales = {
     Email: "이메일",
     EMAIL_REGISTER_SUCCESS:'이메일을 등록하였습니다.',
     EMAIL_REGISTER_NEEDED: '이메일을 등록해주세요.',
-    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.'
+    USER_LOCATION_DELETE_FAIL: '해당 데이터는 삭제할 수 없습니다.',
+    PAYMENT_SUCCESS: '결제 성공하였습니다.',
+    PAYMENT_FAIL: '결제 실패하였습니다.'
   },
 };
 

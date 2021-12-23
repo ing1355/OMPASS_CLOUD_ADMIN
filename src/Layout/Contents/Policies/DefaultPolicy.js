@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useCallback,
+  useRef,
 } from "react";
 import "./Policies.css";
 import "../../../App.css";
@@ -21,39 +22,6 @@ import {
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const PolicyTableDataFeature = [
-  {
-    status: "",
-    policy: "ACCESSCONTROLTITLE",
-    key: "accessControl",
-    description: "GLOBALPOLICYDESCRIPTION_1",
-  },
-  {
-    status: "",
-    policy: "USERLOCATIONPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_2",
-    key: "userLocations",
-  },
-  {
-    status: "",
-    key: "browsers",
-    policy: "BROWSERSPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_3",
-  },
-  // {
-  //   status: "",
-  //   key: "authenticationMethods",
-  //   policy: "인증 방법 제한",
-  //   description: "GLOBALPOLICYDESCRIPTION_4",
-  // },
-  {
-    status: "",
-    key: "mobilePatch",
-    policy: "OMPASSMOBILEPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_5",
-  },
-];
-
 const DefaultPolicy = ({ userProfile }) => {
   const { adminId } = userProfile;
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
@@ -61,19 +29,68 @@ const DefaultPolicy = ({ userProfile }) => {
   const [globalPoliciesData, setGlobalPoliciesData] = useState({});
   const [globalPoliciesTableData, setGlobalPoliciesTableData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const globalPoliciesDataRef = useRef(null);
   const { formatMessage } = useIntl();
+
+  const getDescription = (key) => {
+    const value = globalPoliciesDataRef.current[key];
+    switch(key) {
+      case "accessControl":
+        return formatMessage({id:value === 'ACTIVE' ? 'ACCESSCONTROLACTIVEDESCRIPTION' : (value === 'INACTIVE' ? 'ACCESSCONTROLINACTIVEDESCRIPTION' : 'ACCESSCONTROLDENYDESCRIPTION')})
+      case "userLocations":
+        return formatMessage({id:'USERLOCATIONPOLICYDESCRIPTION2'})
+      case "browsers":
+        return formatMessage({id:'BROWSERSPOLICYDESCRIPTION'},{param: value.toString()})
+      case "mobilePatch":
+        return formatMessage({id:value === 'ACTIVE' ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE'})
+      default: break;
+    }
+  }
+
+  const PolicyTableDataFeature = [
+    {
+      status: "",
+      policy: "ACCESSCONTROLTITLE",
+      key: "accessControl",
+      description: getDescription
+    },
+    {
+      status: "",
+      policy: "USERLOCATIONPOLICYTITLE",
+      key: "userLocations",
+      description: getDescription
+    },
+    {
+      status: "",
+      key: "browsers",
+      policy: "BROWSERSPOLICYTITLE",
+      description: getDescription
+    },
+    // {
+    //   status: "",
+    //   key: "authenticationMethods",
+    //   policy: "인증 방법 제한",
+    //   description: "GLOBALPOLICYDESCRIPTION_4",
+    // },
+    {
+      status: "",
+      key: "mobilePatch",
+      policy: "OMPASSMOBILEPOLICYTITLE",
+      description: getDescription
+    },
+  ];
 
   const convertDataToTableData = useCallback((_) => {
     const data = _ || globalPoliciesData
     const result = Object.keys(data)
-    .map((d) => {
-      const result = {};
-      result[d] = data[d];
-      if (d === "policyId" || d === "title") return;
-      return result;
-    })
-    .filter((el) => el !== undefined);
-    if(!result.length) return result
+      .map((d) => {
+        const result = {};
+        result[d] = data[d];
+        if (d === "policyId" || d === "title") return;
+        return result;
+      })
+      .filter((el) => el !== undefined);
+    if (!result.length) return result
     return PolicyTableDataFeature.map((td) => {
       return {
         ...td,
@@ -82,7 +99,7 @@ const DefaultPolicy = ({ userProfile }) => {
             .length > 0,
       };
     })
-  },[globalPoliciesData])
+  }, [globalPoliciesData])
 
   useLayoutEffect(() => {
     CustomAxiosGet(getGlobalPolicyApi(adminId),
@@ -97,19 +114,13 @@ const DefaultPolicy = ({ userProfile }) => {
   }, []);
 
   useLayoutEffect(() => {
+    globalPoliciesDataRef.current = globalPoliciesData
     setGlobalPoliciesTableData(convertDataToTableData(globalPoliciesData))
-  },[globalPoliciesData])
+  }, [globalPoliciesData])
 
   const editCallback = useCallback(
     (result, policyId) => {
-      setGlobalPoliciesTableData(
-        PolicyTableDataFeature.map((td) => {
-          return {
-            ...td,
-            status: result[td.key].length > 0,
-          };
-        })
-      );
+      setGlobalPoliciesData(result)
     },
     [globalPoliciesTableData]
   );
@@ -120,8 +131,8 @@ const DefaultPolicy = ({ userProfile }) => {
 
   return (
     <div
-      className="contents-container"
-      style={{ position: "relative", overflow: "hidden" }}
+    className="contents-container"
+    style={{ position: "relative", overflow: "hidden" }}
     >
       <PolicyDrawer
         visible={editDrawerOpen}
@@ -130,7 +141,7 @@ const DefaultPolicy = ({ userProfile }) => {
         isEditPolicy={isEditPolicy}
         editData={selectedRowData}
         editCallback={editCallback}
-      />
+        />
 
       <div className="PoliciesBox">
         <div className="PoliciesTitleBox">
@@ -147,7 +158,7 @@ const DefaultPolicy = ({ userProfile }) => {
           className="button"
           style={{ float: 'right' }}
           onClick={() => {
-            setSelectedRowData(globalPoliciesData);
+            setSelectedRowData({...globalPoliciesData});
             setIsEditPolicy(true);
             setEditDrawerOpen(true);
           }}

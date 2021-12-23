@@ -56,6 +56,8 @@ const locales = {
     DELETE: "삭제",
     CLOSE: "닫기",
     DUPLICATECHECK: "중복체크",
+    BILLINGCYCLE: 'Billing Cycle',
+    USERNUM: 'User Count',
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -93,8 +95,8 @@ const locales = {
       "결제일로 부터 30일 간격으로 {param}원이 자동으로 결제됩니다.",
     PERMONTH: "Month",
     EVERYMONTH: "매 월",
-    AGREE: "이용 동의",
-    PRICE: "가격",
+    AGREE: "Agreement",
+    PRICE: "Price",
     PRICECOLUMN: "금액",
     PAYMENTDATE: "결제 날짜",
     PAYMENTTYPE: "결제 종류",
@@ -132,10 +134,11 @@ const locales = {
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
-      "사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.",
-    USERLOCATIONPOLICYDESCRIPTION2:
       "내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
+    USERLOCATIONPOLICYDESCRIPTION2:
+      "사용자 IP 주소에 의거하여 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
+    BROWSERSPOLICYDESCRIPTION: '선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}',
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",
@@ -214,6 +217,8 @@ const locales = {
     DELETE: "삭제",
     CLOSE: "닫기",
     DUPLICATECHECK: "중복체크",
+    BILLINGCYCLE: '결제 주기',
+    USERNUM: '사용자 수',
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -290,10 +295,11 @@ const locales = {
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
-      "사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.",
-    USERLOCATIONPOLICYDESCRIPTION2:
       "내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
+    USERLOCATIONPOLICYDESCRIPTION2:
+      "사용자 IP 주소에 의거하여 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
+    BROWSERSPOLICYDESCRIPTION: '선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}',
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",

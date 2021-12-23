@@ -38,10 +38,7 @@ const AppDetailsAdd = ({
     const { domain, redirectUri, name, policy, status } = e.target.elements;
     if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
     if (!name.value.length) {
-      return FailToTest(
-        name,
-        showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
-      );
+      return FailToTest(name,showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
     }
     if (!nameTest(name.value)) {
       return FailToTest(name, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));

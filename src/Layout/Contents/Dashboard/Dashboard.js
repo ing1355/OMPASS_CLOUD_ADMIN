@@ -30,9 +30,9 @@ var tooltipIndex = 0;
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
-  const [adminNum, setAdminNum] = useState(0);
+  const [registerNum, setRegisterNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
-  const [disableNum, setDisableNum] = useState(0);
+  const [unRegisterNum, setUnRegisterNum] = useState(0);
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
@@ -41,6 +41,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const planStatusCodes = {
     STOPPED: "사용하지 않음",
     RUN: <FormattedMessage id="Valid" />,
+    CANCEL: <FormattedMessage id="Valid" />
   };
 
   const getDashboardData = () => {
@@ -55,14 +56,15 @@ const Dashboard = ({ userProfile, locale }) => {
           const {
             adminsNumber,
             byPassUsersNumber,
-            inActiveUsersNumber,
-            usersNumber,
+            registerUsersNumber,
+            unRegisterUsersNumber,
+            totalUsersNumber,
             plan,
           } = data;
-          setAdminNum(adminsNumber);
-          setUserNum(usersNumber);
+          setRegisterNum(registerUsersNumber);
+          setUserNum(totalUsersNumber);
           setByPassNum(byPassUsersNumber);
-          setDisableNum(inActiveUsersNumber);
+          setUnRegisterNum(unRegisterUsersNumber);
           setPlan(plan);
         },
         (data) => {
@@ -136,7 +138,7 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{plan.name}</h2>
+                <h2>{plan.name} Plan</h2>
                 <h5>
                   <FontAwesomeIcon
                     style={{
@@ -147,6 +149,7 @@ const Dashboard = ({ userProfile, locale }) => {
                     icon={faCheckSquare}
                   />
                   &nbsp;&nbsp;
+                  {console.log(plan)}
                   {plan.status
                     ? planStatusCodes[plan.status]
                     : planStatusCodes["STOPPED"]}
@@ -220,16 +223,6 @@ const Dashboard = ({ userProfile, locale }) => {
               <div className="countBox">
                 <div>
                   <h6>
-                    <FormattedMessage id="Administrators" />
-                  </h6>
-                  <p>
-                    <FontAwesomeIcon icon={faUserCog} />
-                    &nbsp;
-                    <b>{adminNum}명</b>
-                  </p>
-                </div>
-                <div>
-                  <h6>
                     <FormattedMessage id="ALLUSERNUM" />
                   </h6>
                   <p>
@@ -245,7 +238,17 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
-                    <b>{disableNum}명</b>
+                    <b>{registerNum}명</b>
+                  </p>
+                </div>
+                <div>
+                  <h6>
+                    <FormattedMessage id="UNREGISTEREDUSERNUM" />
+                  </h6>
+                  <p>
+                    <FontAwesomeIcon icon={faUserCog} />
+                    &nbsp;
+                    <b>{unRegisterNum}명</b>
                   </p>
                 </div>
                 <div>
