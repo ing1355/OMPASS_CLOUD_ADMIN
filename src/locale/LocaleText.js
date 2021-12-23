@@ -135,7 +135,7 @@ const locales = {
       "사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.",
     USERLOCATIONPOLICYDESCRIPTION2:
       "내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
-    BROWSERSPOLICYTITLE: "브라우저 차단",
+    BROWSERSPOLICYTITLE: "브라우저 접근 허용",
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",
@@ -293,7 +293,7 @@ const locales = {
       "사용자 IP 주소를 위치에 맞게 조치를 적용할 수 있습니다.",
     USERLOCATIONPOLICYDESCRIPTION2:
       "내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
-    BROWSERSPOLICYTITLE: "브라우저 허용",
+    BROWSERSPOLICYTITLE: "브라우저 접근 허용",
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",

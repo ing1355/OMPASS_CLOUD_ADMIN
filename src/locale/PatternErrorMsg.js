@@ -1,5 +1,6 @@
 const locales = {
   US: {
+    POLICY_NAME_RULE_ERROR: "정책명은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
     NAME_RULE_ERROR:
       "이름은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
     EMAIL_RULE_ERROR: "이메일 형식이 잘못되었습니다.",
@@ -23,6 +24,7 @@ const locales = {
     PLEASE_INPUT_POLICY: "최소 1가지 정책은 설정해주세요",
   },
   KR: {
+    POLICY_NAME_RULE_ERROR: "정책명은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
     NAME_RULE_ERROR:
       "이름은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
     EMAIL_RULE_ERROR: "이메일 형식이 잘못되었습니다.",

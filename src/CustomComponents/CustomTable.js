@@ -56,9 +56,7 @@ const CustomTable = ({
   const firstRenderRef = useRef(false);
 
   const _numPerPage = numPerPage ? numPerPage : 10;
-  const pageNum =
-    parseInt(datas.length / _numPerPage) +
-    (datas.length % _numPerPage === 0 ? 0 : 1);
+  const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
   const [searchColumn, setSearchColumn] = useState(null);
   const [searchTarget, setSearchTarget] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
@@ -75,7 +73,7 @@ const CustomTable = ({
   );
 
   useLayoutEffect(() => {
-    if (datas.length) {
+    if (datas) {
       setTableData(getAllTableData());
     }
   }, [datas]);
@@ -136,7 +134,8 @@ const CustomTable = ({
 
   const dataList = useMemo(
     () =>
-      tableData
+      {
+        return tableData
         .slice(
           currentPage * _numPerPage,
           currentPage * _numPerPage + _numPerPage
@@ -162,7 +161,7 @@ const CustomTable = ({
               </td>
             ))}
           </tr>
-        )),
+        ))},
     [
       tableColumns,
       tableData,

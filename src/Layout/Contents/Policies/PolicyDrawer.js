@@ -28,6 +28,7 @@ import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
+import { nameTest } from "../../../Constants/InputRules";
 
 export const BrowsersList = [
   "Chrome",
@@ -64,7 +65,6 @@ const Global_Policy = ({
   showSuccessMessage,
   showErrorMessage,
 }) => {
-  console.log(editData);
   const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
@@ -259,6 +259,7 @@ const Global_Policy = ({
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
+    if (!nameTest) return showErrorMessage('POLICY_NAME_RULE_ERROR')
     CustomAxiosGet(
       isExistencePolicyApi(adminId, inputTitle),
       ({ duplicate }) => {
@@ -472,7 +473,6 @@ const Global_Policy = ({
             <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
           </p>
         </section>
-        {console.log(inputUserLocations)}
         {/* -------------User location ------------- */}
         <section className="policies-box">
           <h2>
@@ -488,6 +488,7 @@ const Global_Policy = ({
                   style={{ paddingLeft: "0.3rem" }}
                   className="user-location-select"
                   value={d.location}
+                  disabled={d.location === 'ETC'}
                   onChange={(e) => {
                     changeInputUserLocation(e.target.value, ind, "location");
                   }}

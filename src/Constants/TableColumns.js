@@ -132,7 +132,7 @@ export const allUserColumns = [
     name: "AUTHTYPE",
     key: "type",
     searched: true,
-    searchedOptions: ["ompass"],
+    searchedOptions: ["OMPASS", "WEBAUTHN"],
   },
   {
     name: "LastLogin",

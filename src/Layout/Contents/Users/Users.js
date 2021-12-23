@@ -79,11 +79,11 @@ const Users = ({ userProfile }) => {
       case 0:
         _setTableData(tableData);
         break;
-      case 1:
-        _setTableData(tableData.slice(0, 1));
+      case 1:        
+        _setTableData(tableData.filter(t => t.register));
         break;
       case 2:
-        _setTableData(tableData.slice(0, 2));
+        _setTableData(tableData.filter(t => !t.register));
         break;
       case 3:
         _setTableData(tableData.filter((t) => t.byPass));
@@ -152,7 +152,7 @@ const Users = ({ userProfile }) => {
                         (selectView === 1 ? " selected" : "")
                       }
                     >
-                      <h3>0</h3>
+                      <h3>{tableData.filter(t => t.register).length}</h3>
                       <p>
                         <FormattedMessage id="REGISTEREDUSERNUM" />
                       </p>
@@ -166,7 +166,7 @@ const Users = ({ userProfile }) => {
                         (selectView === 2 ? " selected" : "")
                       }
                     >
-                      <h3>0</h3>
+                      <h3>{tableData.filter(t => !t.register).length}</h3>
                       <p>
                         <FormattedMessage id="UNREGISTEREDUSERNUM" />
                       </p>

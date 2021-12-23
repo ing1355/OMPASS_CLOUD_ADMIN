@@ -16,11 +16,10 @@ import {
   CustomAxiosGet
 } from "../../../Functions/CustomAxios";
 import {
-  addCustomPolicyApi,
   getCustomPoliciesApi
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 const PolicyTableDataFeature = [
   {
@@ -62,7 +61,6 @@ const CustomPolicy = ({ userProfile }) => {
   const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [customPoliciesTableData, setCustomPoliciesTableData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
-  const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
     CustomAxiosGet(getCustomPoliciesApi(adminId),
@@ -107,7 +105,7 @@ const CustomPolicy = ({ userProfile }) => {
       })
     }))
   },[customPoliciesData])
-
+  
   const saveCallback = useCallback(
     (result) => {
       setCustomPoliciesData([...customPoliciesData, result]);
@@ -174,15 +172,15 @@ const CustomPolicy = ({ userProfile }) => {
           </button>
         </div>
         {
-          customPoliciesTableData.map((cD, ind) => <div key={ind} className="PoliciesBottomBox">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><h3>{customPoliciesData[ind].title}</h3><button className="button" onClick={() => {
-              setSelectedRowData(customPoliciesData[ind]);
+          customPoliciesData.map((cD, ind) => <div key={ind} className="PoliciesBottomBox">
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}><h3>{cD.title}</h3><button className="button" onClick={() => {
+              setSelectedRowData(cD);
               setIsEditPolicy(true);
               setEditDrawerOpen(true);
             }}>사용자 정의 정책 수정</button></div>
             <CustomTable
               columns={PolicyColumns}
-              datas={cD}
+              datas={customPoliciesTableData[ind] || []}
             />
           </div>)
         }
