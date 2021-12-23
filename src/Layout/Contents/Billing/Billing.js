@@ -229,9 +229,17 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   receipt_url,
                   status,
                 },
-                () => {}
+                (data) => {
+                  console.log(data);
+                  const { paymentSuccess, paymentHistory } = data;
+                  if (paymentSuccess) {
+                    setTableData(paymentHistory);
+                    showSuccessMessage("PAYMENT_SUCCESS");
+                  } else showErrorMessage("PAYMENT_FAIL");
+                }
               );
             } else {
+              showErrorMessage("PAYMENT_FAIL");
             }
           }
         );
@@ -306,8 +314,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
-            {console.log(currentPlan)}
-            {currentPlan ? currentPlan.name : null}
+            {currentPlan ? currentPlan.name : null} Plan
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
@@ -368,24 +375,14 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           ))}
       </section>
 
-      <section className="Payment-History-table" style={{ border: "none" }}>
-        <h2>
-          <FormattedMessage id="PAYMENTHISTORY" />
-        </h2>
-        <CustomTable columns={BillingColumns} datas={tableData} />
-      </section>
-
       <section className="billing-change-container">
         <h2>OMPASS Plan 결제</h2>
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">플랜</label>
-            {editions.map((item, ind) => (
-              <p style={{ marginBottom: "0" }} key={ind} value={item.name}>
-                {item.name}
-              </p>
-            ))}
-            {/* <select
+            <label className="billing-change-form-label">
+              <FormattedMessage id="PLAN" />
+            </label>
+            <select
               className="billing-change-form-select"
               name="edition"
               onChange={changeEdition}
@@ -395,10 +392,12 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   {item.name}
                 </option>
               ))}
-            </select> */}
+            </select>{" "}
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">사용자 수</label>
+            <label className="billing-change-form-label">
+              <FormattedMessage id="USERNUM" />
+            </label>
             <div>
               <select
                 className="billing-change-form-select"
@@ -416,7 +415,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             </div>
           </div>
           <div className="billing-change-item">
-            <label className="billing-change-form-label">결제 주기</label>
+            <label className="billing-change-form-label">
+              <FormattedMessage id="BILLINGCYCLE" />
+            </label>
             <select
               className="billing-change-form-select"
               name="term"
@@ -492,6 +493,19 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           </div>
         </form>
       </section>
+
+      <section className="Payment-History-table" style={{ border: "none" }}>
+        <h2>
+          <FormattedMessage id="PAYMENTHISTORY" />
+        </h2>
+        <CustomTable
+          columns={BillingColumns}
+          datas={tableData}
+          pagination
+          numPerPage={5}
+        />
+      </section>
+
       <div className="pay-CustomConfirm">
         <CustomConfirm
           visible={confirmModal}
@@ -515,8 +529,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
           </div>
           <br />
-          상기 내용으로 결제를 진행하시겠습니까?
-          <div></div>
+          <div>상기 내용으로 결제를 진행하시겠습니까?</div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}

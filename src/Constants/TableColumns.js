@@ -47,12 +47,16 @@ export const ApplicationsColumns = [
 
 export const BillingColumns = [
   {
+    name: 'BILLINGCYCLE',
+    key: 'billingCycle'
+  },
+  {
     name: "PRICECOLUMN",
     key: "amount",
     render: (amount) => slicePrice(amount),
   },
+  { name: "USERNUM", key: "userNum" },
   { name: "PAYMENTDATE", key: "paymentDate" },
-  { name: "PAYMENTTYPE", key: "paymentHistory" },
 ];
 
 export const DashboardLogColumns = [
@@ -266,8 +270,10 @@ export const PolicyColumns = [
     name: "DESCRIPTION",
     key: "description",
     width: 600,
-    render: (descriptionKey, row) => (
-      <FormattedMessage id={row.status ? descriptionKey : "NORESTRICTION"} />
-    ),
+    render: (getDescription, row) => {
+      console.log(row)
+      const {status, key, index} = row;
+      return status ? getDescription(key, index) : <FormattedMessage id="NORESTRICTION" />
+    },
   },
 ];

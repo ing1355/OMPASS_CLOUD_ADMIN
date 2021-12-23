@@ -86,10 +86,10 @@ const AdminDetail = ({
         lastName: lastName.value,
         password: isSelf && password.value ? password.value : null,
       },
-      () => {
+      (updatedData) => {
         showSuccessMessage("UPDATE_SUCCESS");
         updateEvent({
-          ...data,
+          ...updatedData,
           country: inputCountryCode,
           phone: inputMobile.slice(inputDialCode.length),
           firstName: firstName.value,
@@ -217,12 +217,13 @@ const AdminDetail = ({
                   value={inputMobile}
                   onChange={(value, countryInfo) => {
                     setInputMobile(value);
-                    if (
-                      inputCountryCode !== countryInfo.countryCode.toUpperCase()
-                    )
-                      setInputCountryCode(
-                        countryInfo.countryCode.toUpperCase()
-                      );
+                    console.log(countryInfo, inputDialCode)
+                    if(inputCountryCode.length) {
+                      if (inputCountryCode !== countryInfo.countryCode.toUpperCase())
+                        setInputCountryCode(
+                          countryInfo.countryCode.toUpperCase()
+                        );
+                    }
                     if (inputDialCode !== countryInfo.dialCode)
                       setInputDialCode(countryInfo.dialCode);
                   }}

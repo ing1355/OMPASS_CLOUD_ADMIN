@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useCallback,
+  useRef,
 } from "react";
 import "./Policies.css";
 import "../../../App.css";
@@ -19,40 +20,7 @@ import {
   getCustomPoliciesApi
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-
-const PolicyTableDataFeature = [
-  {
-    status: "",
-    policy: "ACCESSCONTROLTITLE",
-    key: "accessControl",
-    description: "GLOBALPOLICYDESCRIPTION_1",
-  },
-  {
-    status: "",
-    policy: "USERLOCATIONPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_2",
-    key: "userLocations",
-  },
-  {
-    status: "",
-    key: "browsers",
-    policy: "BROWSERSPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_3",
-  },
-  // {
-  //   status: "",
-  //   key: "authenticationMethods",
-  //   policy: "인증 방법 제한",
-  //   description: "GLOBALPOLICYDESCRIPTION_4",
-  // },
-  {
-    status: "",
-    key: "mobilePatch",
-    policy: "OMPASSMOBILEPOLICYTITLE",
-    description: "GLOBALPOLICYDESCRIPTION_5",
-  },
-];
+import { FormattedMessage, useIntl } from "react-intl";
 
 const CustomPolicy = ({ userProfile }) => {
   const { adminId } = userProfile;
@@ -61,6 +29,56 @@ const CustomPolicy = ({ userProfile }) => {
   const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [customPoliciesTableData, setCustomPoliciesTableData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const customPoliciesDataRef = useRef(null);
+  const {formatMessage} = useIntl();
+
+  const getDescription = (key, index) => {
+    const value = customPoliciesDataRef.current[index][key];
+    switch(key) {
+      case "accessControl":
+        return formatMessage({id:value === 'ACTIVE' ? 'ACCESSCONTROLACTIVEDESCRIPTION' : (value === 'INACTIVE' ? 'ACCESSCONTROLINACTIVEDESCRIPTION' : 'ACCESSCONTROLDENYDESCRIPTION')})
+      case "userLocations":
+        return formatMessage({id:'USERLOCATIONPOLICYDESCRIPTION2'})
+      case "browsers":
+        return formatMessage({id:'BROWSERSPOLICYDESCRIPTION'},{param: value.toString()})
+      case "mobilePatch":
+        return formatMessage({id:value === 'ACTIVE' ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE'})
+      default: break;
+    }
+  }
+
+  const PolicyTableDataFeature = [
+    {
+      status: "",
+      policy: "ACCESSCONTROLTITLE",
+      key: "accessControl",
+      description: getDescription
+    },
+    {
+      status: "",
+      policy: "USERLOCATIONPOLICYTITLE",
+      key: "userLocations",
+      description: getDescription
+    },
+    {
+      status: "",
+      key: "browsers",
+      policy: "BROWSERSPOLICYTITLE",
+      description: getDescription
+    },
+    // {
+    //   status: "",
+    //   key: "authenticationMethods",
+    //   policy: "인증 방법 제한",
+    //   description: "GLOBALPOLICYDESCRIPTION_4",
+    // },
+    {
+      status: "",
+      key: "mobilePatch",
+      policy: "OMPASSMOBILEPOLICYTITLE",
+      description: getDescription
+    },
+  ];
 
   useLayoutEffect(() => {
     CustomAxiosGet(getCustomPoliciesApi(adminId),
@@ -77,6 +95,7 @@ const CustomPolicy = ({ userProfile }) => {
             const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key]
             return {
               ...td,
+              index: ind,
               status: target !== null && target.length > 0,
             }
           })
@@ -89,6 +108,7 @@ const CustomPolicy = ({ userProfile }) => {
   }, []);
 
   useLayoutEffect(() => {
+    customPoliciesDataRef.current = customPoliciesData;
     const result = customPoliciesData.map(d => Object.keys(d).map(_d => {
       const result = {};
       result[_d] = d[_d];
@@ -100,6 +120,7 @@ const CustomPolicy = ({ userProfile }) => {
         const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key]
         return {
           ...td,
+          index: ind,
           status: target !== null && target.length > 0,
         }
       })

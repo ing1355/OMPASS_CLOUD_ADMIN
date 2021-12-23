@@ -97,6 +97,9 @@ const ApplicationDetail = ({
 
   const existCheck = () => {
     if (!nameRef.current.value) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
+    if (!nameTest(nameRef.current.value)) {
+      return FailToTest(nameRef.current, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
+    }
     CustomAxiosGet(
       checkApplicationExistenceApi(adminId, nameRef.current.value),
       (data) => {
