@@ -41,7 +41,9 @@
   bottom: 0;
   border-right: 1px solid #e4ecf1;
 }
-
+.billing-edition:nth-child(2):before {
+  border-right: 0;
+}
 .billing-edition-data {
   font-size: 32px;
   font-weight: bold;
@@ -95,10 +97,6 @@
   margin-bottom: 24px;
 }
 
-.billing-info-contents-list:last-child {
-  border-bottom: none;
-}
-
 .billing-change-item {
   display: flex;
   padding: 22px 0;
@@ -124,7 +122,7 @@
 }
 
 .billing-change-form-select {
-  width: 300px;
+  width: 400px;
   padding: 8px 16px;
   border-radius: 4px;
   outline: none;
@@ -163,4 +161,24 @@
 .Cancel-subscription {
   background: #000;
   border: 1px solid #000;
+}
+
+.billing-info-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.billing-info-contents-list {
+  display: flex;
+  width: 50%;
+  float: left;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1.5rem;
+}
+.Payment-History-table h2 {
+  margin-bottom: 1rem;
 }

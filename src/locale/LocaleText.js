@@ -27,7 +27,7 @@ const locales = {
     Overview: "Overview",
     Authentications: "Authentications",
     AuthenticationLog: "Authentication Log",
-    ValidDate: "Valid Date",
+    ValidDate: "Remaining days",
     daysleft: "days left",
     Administrators: "Administrators",
     User: "User ID",
@@ -127,7 +127,8 @@ const locales = {
     ACCESSCONTROLINACTIVE: "OMPASS 인증 패스",
     ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 인증 및 등록을 패스하겠습니다.",
     ACCESSCONTROLDENY: "모두 거부",
-    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
+    ACCESSCONTROLDENYDESCRIPTION:
+      "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
@@ -155,8 +156,8 @@ const locales = {
     PolicyLogs: "PolicyLogs",
     SUBSCRIPTION: "결제하기",
     SUBSCRIPTIONCANCEL: "구독 취소",
-    AUTHTYPE: 'Authentication Type',
-    ETCUSERLOCATION: 'All Other Countries'
+    AUTHTYPE: "Authentication Type",
+    ETCUSERLOCATION: "All Other Countries",
   },
   KR: {
     localeChangeText: "KO",
@@ -285,7 +286,8 @@ const locales = {
     ACCESSCONTROLINACTIVE: "OMPASS 인증 패스",
     ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 인증 및 등록을 패스하겠습니다.",
     ACCESSCONTROLDENY: "모두 거부",
-    ACCESSCONTROLDENYDESCRIPTION: "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
+    ACCESSCONTROLDENYDESCRIPTION:
+      "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
@@ -313,8 +315,8 @@ const locales = {
     PolicyLogs: "정책 로그",
     SUBSCRIPTION: "결제하기",
     SUBSCRIPTIONCANCEL: "구독 취소",
-    AUTHTYPE: '인증 유형',
-    ETCUSERLOCATION: '그 외의 다른 나라들'
+    AUTHTYPE: "인증 유형",
+    ETCUSERLOCATION: "그 외의 다른 나라들",
   },
 };
 

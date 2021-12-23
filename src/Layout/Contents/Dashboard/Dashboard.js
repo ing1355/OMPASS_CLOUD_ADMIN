@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faUserCog,
-  faUserAltSlash,
   faHandSparkles,
   faCaretRight,
   faCheckSquare,
   faCalendarCheck,
   faUserPlus,
+  faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -250,7 +250,6 @@ const Dashboard = ({ userProfile, locale }) => {
                 </div>
                 <div>
                   <h6>
-                    {/* 2차인증 바이패스 수 */}
                     <FormattedMessage id="BYPASSUSERNUM" />
                   </h6>
                   <p>

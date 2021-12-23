@@ -295,7 +295,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
-      <ContentsTitle title="Billing"/>
+      <ContentsTitle title="Billing" />
       {/* <div className="billing-change-help-container">
         <div className="billing-change-help-icon">test</div>
         <div className="billing-change-help-msg">
@@ -321,7 +321,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               icon={faUser}
             />
             &nbsp; &nbsp;
-            <b style={{ color: "#00a9ec", fontWeight: "bold" }}>{allUserNum}</b>
+            <b
+              style={{
+                marginLeft: "1.5rem",
+                color: "#00a9ec",
+                fontWeight: "bold",
+              }}
+            >
+              {allUserNum}
+            </b>
           </div>
           <div
             className="billing-edition-title"
@@ -372,7 +380,12 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
             <label className="billing-change-form-label">플랜</label>
-            <select
+            {editions.map((item, ind) => (
+              <p style={{ marginBottom: "0" }} key={ind} value={item.name}>
+                {item.name}
+              </p>
+            ))}
+            {/* <select
               className="billing-change-form-select"
               name="edition"
               onChange={changeEdition}
@@ -382,7 +395,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   {item.name}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">사용자 수</label>
@@ -414,6 +427,10 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               <option value="MONTHLY">
                 {formatMessage({ id: "EVERYMONTH" })}
               </option>
+              <option value="MONTHLY">3개월</option>
+              <option value="MONTHLY">6개월</option>
+              <option value="MONTHLY">9개월</option>
+              <option value="MONTHLY">1년</option>
               {/* <option value="ANNUALY">Annual</option> */}
             </select>
           </div>
