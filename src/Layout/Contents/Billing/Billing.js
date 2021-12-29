@@ -10,7 +10,16 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faUserCog,
+  faHandSparkles,
+  faCaretRight,
+  faCheckSquare,
+  faCalendarCheck,
+  faUserPlus,
+  faUserTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   getBillingKeyApi,
@@ -230,10 +239,11 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 },
                 (data) => {
                   console.log(data);
-                  const { paymentSuccess, paymentHistoryResponses, plan } = data;
+                  const { paymentSuccess, paymentHistoryResponses, plan } =
+                    data;
                   if (paymentSuccess) {
                     setTableData(paymentHistoryResponses);
-                    setCurrentPlan(plan)
+                    setCurrentPlan(plan);
                     showSuccessMessage("PAYMENT_SUCCESS");
                   } else showErrorMessage("PAYMENT_FAIL");
                 }
@@ -320,6 +330,28 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           <div className="billing-edition-subtitle">
             {currentPlan ? currentPlan.remainingDate : 0} days left
           </div>
+        </div>
+        <div className="billing-edition billing-info">
+          <h5>
+            <FontAwesomeIcon
+              style={{
+                color: "rgb(0, 209, 52)",
+                fontSize: "1.1rem",
+                marginBottom: "0.12rem",
+              }}
+              icon={faCheckSquare}
+            />
+            &nbsp;&nbsp; ddd
+          </h5>
+          <h6>
+            <FontAwesomeIcon
+              style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
+              icon={faCalendarCheck}
+            />
+            &nbsp;&nbsp; 2021-12-29 ~ ddd
+          </h6>
+
+          <button>구독 취소</button>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -481,7 +513,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             >
               <FormattedMessage id="SUBSCRIPTION" />
             </button>
-            {currentPlan &&
+            {/* {currentPlan &&
               currentPlan.status === "RUN" &&
               editions.find((e) => e.name === currentPlan.name) && (
                 <button
@@ -495,7 +527,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 >
                   <FormattedMessage id="SUBSCRIPTIONCANCEL" />
                 </button>
-              )}
+              )} */}
           </div>
         </form>
       </section>

@@ -96,9 +96,9 @@ table tbody tr:hover {
   color: gray !important;
 }
 
-.svg-inline--fa {
+/* .svg-inline--fa {
   vertical-align: -0.3rem !important;
-}
+} */
 @media (max-width: 1600px) {
   .contents-container {
     animation: fadeIn 0.5s;
