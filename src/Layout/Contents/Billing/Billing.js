@@ -382,6 +382,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <label className="billing-change-form-label">
               <FormattedMessage id="PLAN" />
             </label>
+
             <select
               className="billing-change-form-select"
               name="edition"
@@ -392,7 +393,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   {item.name}
                 </option>
               ))}
-            </select>{" "}
+            </select>
           </div>
           <div className="billing-change-item">
             <label className="billing-change-form-label">

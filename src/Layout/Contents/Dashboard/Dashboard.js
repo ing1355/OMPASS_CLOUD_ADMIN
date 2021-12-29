@@ -41,7 +41,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const planStatusCodes = {
     STOPPED: "사용하지 않음",
     RUN: <FormattedMessage id="Valid" />,
-    CANCEL: <FormattedMessage id="Valid" />
+    CANCEL: <FormattedMessage id="Valid" />,
   };
 
   const getDashboardData = () => {
@@ -201,17 +201,33 @@ const Dashboard = ({ userProfile, locale }) => {
                       >
                         <FormattedMessage id="ValidDate" />
                       </td>
-                      <td
-                        style={{
-                          width: "50%",
-                          fontWeight: "bold",
-                          fontSize: "1rem",
-                          borderRight: "1px solid rgb(180, 180, 180)",
-                          borderTop: "1px solid rgb(180, 180, 180)",
-                        }}
-                      >
-                        {plan.remainingDate} <FormattedMessage id="daysleft" />
-                      </td>
+
+                      {locale === "ko" ? (
+                        <td
+                          style={{
+                            width: "50%",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            borderRight: "1px solid rgb(180, 180, 180)",
+                            borderTop: "1px solid rgb(180, 180, 180)",
+                          }}
+                        >
+                          {plan.remainingDate}&nbsp;
+                          <FormattedMessage id="daysleft" />
+                        </td>
+                      ) : (
+                        <td
+                          style={{
+                            width: "50%",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            borderRight: "1px solid rgb(180, 180, 180)",
+                            borderTop: "1px solid rgb(180, 180, 180)",
+                          }}
+                        >
+                          {plan.remainingDate}
+                        </td>
+                      )}
                     </tr>
                   </tbody>
                 </table>
@@ -228,7 +244,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
-                    <b>{userNum}명</b>
+                    {locale === "ko" ? <b>{userNum}명</b> : <b>{userNum}</b>}
                   </p>
                 </div>
                 <div>
@@ -238,7 +254,11 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
-                    <b>{registerNum}명</b>
+                    {locale === "ko" ? (
+                      <b>{registerNum}명</b>
+                    ) : (
+                      <b>{registerNum}</b>
+                    )}
                   </p>
                 </div>
                 <div>
@@ -246,9 +266,13 @@ const Dashboard = ({ userProfile, locale }) => {
                     <FormattedMessage id="UNREGISTEREDUSERNUM" />
                   </h6>
                   <p>
-                    <FontAwesomeIcon icon={faUserCog} />
+                    <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
-                    <b>{unRegisterNum}명</b>
+                    {locale === "ko" ? (
+                      <b>{unRegisterNum}명</b>
+                    ) : (
+                      <b>{unRegisterNum}</b>
+                    )}
                   </p>
                 </div>
                 <div>
@@ -258,7 +282,11 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
-                    <b>{byPassNum}&nbsp;명</b>
+                    {locale === "ko" ? (
+                      <b>{byPassNum}명</b>
+                    ) : (
+                      <b>{byPassNum}</b>
+                    )}
                   </p>
                 </div>
               </div>
