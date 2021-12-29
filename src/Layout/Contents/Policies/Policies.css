@@ -69,6 +69,7 @@
 }
 .PoliciesBox table td {
   text-align: center !important;
+  white-space: pre-wrap;
 }
 .PoliciesBox table tr:hover {
   cursor: auto;

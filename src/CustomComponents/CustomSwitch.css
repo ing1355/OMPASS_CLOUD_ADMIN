@@ -3,6 +3,7 @@
 }
 
 .label__on-off { 
+    text-align: center;
     overflow: hidden; 
     position: relative; 
     display: inline-block; 

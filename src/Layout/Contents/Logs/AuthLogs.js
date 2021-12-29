@@ -6,12 +6,10 @@ import { getLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { LogsColumns } from "../../../Constants/TableColumns";
-import { useIntl } from "react-intl";
 
 const AuthLogs = ({ userProfile }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
-  const { formatMessage } = useIntl();
 
   useEffect(() => {
     CustomAxiosGet(

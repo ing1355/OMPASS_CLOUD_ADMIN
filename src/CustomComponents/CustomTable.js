@@ -224,7 +224,7 @@ const CustomTable = ({
             <input
               className="table-search-column-input"
               name="content"
-              maxLength={20}
+              maxLength={16}
             />
           )}
           <button type="submit" className="button">

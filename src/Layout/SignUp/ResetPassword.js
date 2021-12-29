@@ -1,28 +1,34 @@
 import { message } from "antd";
 import React, { useLayoutEffect } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import { resetPasswordVerifyApi } from "../../Constants/Api_Route";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
+import ActionCreators from "../../redux/actions";
 import "./SubAdminSignUp.css";
 
-const ResetPassword = ({ location, history }) => {
+const ResetPassword = ({ location, history, showSuccessMessage, showErrorMessage, localeChange }) => {
   const token = location ? location.pathname.split("/")[5] : null;
+  const {formatMessage} = useIntl();
+
+  useLayoutEffect(() => {
+    const lang = location ? location.pathname.split("/")[7] : null;
+    localeChange(lang === 'KR' ? 'ko' : 'en');
+  },[])
 
   const onFinish = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = e.target.elements;
 
     if (password.value !== passwordConfirm.value)
-      return message.error("비밀번호가 일치하지 않습니다.");
+      return showErrorMessage('RESET_PASSWORD_FAIL_MESSAGE')
     CustomAxiosPatch(
       resetPasswordVerifyApi,
       {
         password: password.value,
       },
       () => {
-        alert(
-          "이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다."
-        );
+        alert(formatMessage({id:'RESET_PASSWORD_SUCCESS_MESSAGE'}));
         history.push("/");
       },
       null,
@@ -36,19 +42,20 @@ const ResetPassword = ({ location, history }) => {
   return (
     <div className="signupBox">
       <form onSubmit={onFinish}>
-        {" "}
-        <h1>OMPASS 비밀번호 초기화</h1>
+        <h1>OMPASS <FormattedMessage id="PasswordAssistance"/></h1>
         <input
-          placeholder="비밀번호를 입력해주세요"
+          placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD'})}
           name="password"
+          maxLength={16}
           type="password"
         />
         <input
-          placeholder="비밀번호를 한번 더 입력해주세요"
+          placeholder={formatMessage({id:'PLEASE_INPUT_PASSWORD_ONE_MORE'})}
           name="passwordConfirm"
+          maxLength={16}
           type="password"
         />
-        <button type="submit">비밀번호 초기화</button>
+        <button type="submit"><FormattedMessage id="PasswordAssistance"/></button>
       </form>
     </div>
   );
@@ -59,7 +66,17 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+    localeChange: (lang) => {
+      dispatch(ActionCreators.localeChange(lang));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);

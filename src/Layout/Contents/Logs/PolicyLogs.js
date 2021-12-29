@@ -6,13 +6,11 @@ import { getPolicyLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { PolicyLogsColumns } from "../../../Constants/TableColumns";
-import { useIntl } from "react-intl";
 
 const PolicyLogs = ({ userProfile }) => {
   const {adminId} = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
-  const {formatMessage} = useIntl()
 
   useEffect(() => {
     CustomAxiosGet(

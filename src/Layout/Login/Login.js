@@ -86,11 +86,13 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                   <input
                     className="email-input"
                     name="userId"
+                    maxLength={48}
                     placeholder={formatMessage({ id: "ID" })}
                     type="text"
                   />
                   <input
                     name="password"
+                    maxLength={16}
                     type="password"
                     placeholder={formatMessage({ id: "Password" })}
                   ></input>
@@ -141,6 +143,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
                 <form onSubmit={resetPassword} className="form login-input">
                   <input
                     name="email"
+                    maxLength={48}
                     className="forgetEmail"
                     placeholder={formatMessage({ id: "Email" })}
                     type="text"
