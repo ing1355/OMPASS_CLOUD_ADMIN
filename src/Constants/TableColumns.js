@@ -47,6 +47,10 @@ export const ApplicationsColumns = [
 
 export const BillingColumns = [
   {
+    name: 'PLAN',
+    key: 'paymentHistory'
+  },
+  {
     name: 'BILLINGCYCLE',
     key: 'billingCycle'
   },
@@ -147,7 +151,7 @@ export const allUserColumns = [
     name: "Bypass",
     key: "byPass",
     render: (byPass) => {
-      return <CustomSwitch defaultChecked={byPass} />;
+      return <CustomSwitch checked={byPass} />;
     },
     width: "200px",
     searched: true,
@@ -176,7 +180,7 @@ export const disabledUserColumns = [
     key: "byPass",
     width: "200px",
     render: (byPass) => {
-      return <CustomSwitch defaultChecked={byPass} />;
+      return <CustomSwitch checked={byPass} />;
     },
 
     searched: true,
@@ -199,7 +203,7 @@ export const byPassUserColumns = [
     name: "Bypass",
     key: "byPass",
     render: (byPass) => {
-      return <CustomSwitch defaultChecked={byPass} />;
+      return <CustomSwitch checked={byPass} />;
     },
     width: "200px",
     searched: true,
@@ -222,7 +226,7 @@ export const unRegisteredUserColumns = [
     name: "Bypass",
     key: "byPass",
     render: (byPass) => {
-      return <CustomSwitch defaultChecked={byPass} />;
+      return <CustomSwitch checked={byPass} />;
     },
     width: "200px",
     searched: true,
@@ -271,7 +275,6 @@ export const PolicyColumns = [
     key: "description",
     width: 600,
     render: (getDescription, row) => {
-      console.log(row)
       const {status, key, index} = row;
       return status ? getDescription(key, index) : <FormattedMessage id="NORESTRICTION" />
     },

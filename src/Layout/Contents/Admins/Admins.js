@@ -60,9 +60,10 @@ const Admins = ({ userProfile, history }) => {
 
   const updateAdmin = useCallback(
     (rowData) => {
+      console.log(rowData)
       setTableData(
         tableData.map((t) =>
-          t.index === rowData.index
+          t.email === rowData.email
             ? { ...rowData, name: rowData.firstName + rowData.lastName }
             : t
         )

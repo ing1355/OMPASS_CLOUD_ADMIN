@@ -111,3 +111,11 @@ table tbody tr:hover {
     font-size: 17px !important;
   }
 }
+
+input {
+  padding: 0 0.3rem;
+}
+
+select option {
+  text-align: left;
+}

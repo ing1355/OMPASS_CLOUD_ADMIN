@@ -70,7 +70,6 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
       [
         (data) => {
-          console.log(data);
           const { numberUsers, plan, pricing } = data;
           setAllUserNum(numberUsers);
           setCurrentPlan(plan);
@@ -129,8 +128,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
     if (allUserNum >= userNum.value)
-      return message.error("변경할 사용자 수가 너무 적습니다.");
-    if (!check.checked) return message.error("이용 동의에 체크해주세요.");
+      return showErrorMessage('PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE')
+    if (!check.checked) return showErrorMessage('PLEASE_AGREEMENT_CHECK')
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
@@ -290,12 +289,12 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       cancelSubscriptionIamportApi(adminId),
       {},
       () => {
-        message.success("구독 취소 성공하였습니다.");
+        showSuccessMessage('SUBCRIPTION_CANCEL_SUCCESS')
         setConfirmLoading(false);
         setCancelConfirmModal(false);
       },
       () => {
-        message.error("구독 취소 실패하였습니다.");
+        showErrorMessage('SUBCRIPTION_CANCEL_FAIL')
         setConfirmLoading(false);
       }
     );
@@ -357,7 +356,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   { param: slicePrice(editions[ind].priceForOneUser) }
                 )} ${editions[ind].monetaryUnit === "원화" ? "원" : "$"} 
                 / ${formatMessage({ id: "PERUSER" })} / ${formatMessage({
-                  id: "PERMONTH",
+                  id: 'MONTHLY',
                 })}`}
               />
               {item.itemLists.map((itemList, _ind) => (
@@ -376,9 +375,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       </section>
 
       <section className="billing-change-container">
-        <h2>OMPASS Plan 결제</h2>
+        <h2>OMPASS Plan <FormattedMessage id="PAYMENT"/></h2>
         <form onSubmit={onFinish}>
-          <div className="billing-change-item">
+          {/* <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="PLAN" />
             </label>
@@ -392,8 +391,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   {item.name}
                 </option>
               ))}
-            </select>{" "}
-          </div>
+            </select>
+          </div> */}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="USERNUM" />
@@ -426,13 +425,11 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               }}
             >
               <option value="MONTHLY">
-                {formatMessage({ id: "EVERYMONTH" })}
+                {formatMessage({ id: "MONTHLY" })}
               </option>
-              <option value="MONTHLY">3개월</option>
-              <option value="MONTHLY">6개월</option>
-              <option value="MONTHLY">9개월</option>
-              <option value="MONTHLY">1년</option>
-              {/* <option value="ANNUALY">Annual</option> */}
+              <option value="ANNUALY">
+                {formatMessage({ id: "ANNUALY" })}
+              </option>
             </select>
           </div>
           <div className="billing-change-item">
@@ -446,7 +443,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 : " $"}
             </b>
             <span>
-              &nbsp;/ <FormattedMessage id="PERMONTH" />
+              &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
           <div className="billing-change-item">
@@ -459,10 +456,10 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 &nbsp;
                 <FormattedMessage id="BILLINGCHECKDESCRIPTION" />
                 <br />
-                {formatMessage(
-                  { id: "BILLINGPRICEDESCRIPTION" },
-                  { param: slicePrice(cost) }
-                )}
+                {inputTerm === 'MONTHLY' ? formatMessage(
+                  { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                  { param: slicePrice(cost) + (isKorea() ? '원' : '$') }
+                ) : formatMessage({id: 'BILLINGPRICEDESCRIPTIONANNUALY'}, { param: slicePrice(cost) + (isKorea() ? '원' : '$') })}
               </label>
             </div>
           </div>
@@ -526,15 +523,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <b style={{ color: "Red" }}>
               {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
-            <span>&nbsp;/ {isKorea() ? "월" : "month"}</span>
+            <span>&nbsp;/ <FormattedMessage id={inputTerm}/></span>
           </div>
           <br />
-          <div>상기 내용으로 결제를 진행하시겠습니까?</div>
+          <div><FormattedMessage id="BILLINGCONFIRMMESSAGE"/></div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}
           >
-            {paypalLoading && <Spin>결제 창 불러오는 중...</Spin>}
+            {paypalLoading && <Spin><FormattedMessage id="BILLINGLOADING"/></Spin>}
           </div>
         </CustomConfirm>
         <CustomConfirm

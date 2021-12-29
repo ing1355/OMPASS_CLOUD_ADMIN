@@ -9,7 +9,6 @@ import {
   faCheckSquare,
   faCalendarCheck,
   faUserPlus,
-  faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -21,11 +20,8 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
-import { ResponsiveLine } from "@nivo/line";
-import CustomApexChart from "./ApexChart";
 import { FormattedMessage } from "react-intl";
-
-var tooltipIndex = 0;
+import {LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line} from 'recharts';
 
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -36,7 +32,6 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const [tooltipDataIndex, setTooltipDataIndex] = useState(0);
 
   const planStatusCodes = {
     STOPPED: "사용하지 않음",
@@ -54,7 +49,6 @@ const Dashboard = ({ userProfile, locale }) => {
       [
         (data) => {
           const {
-            adminsNumber,
             byPassUsersNumber,
             registerUsersNumber,
             unRegisterUsersNumber,
@@ -69,24 +63,14 @@ const Dashboard = ({ userProfile, locale }) => {
         },
         (data) => {
           setChartData(
-            data.map((d) => ({
-              name: d.name,
-              data: d.chartData.map((_d) => ({
-                x: new Date(_d.date),
-                y: _d.count,
-              })),
+            data.map(d => ({
+              name : d.name,
+              data: d.chartData.map(_d => ({
+                category: _d.date,
+                value: _d.count
+              }))
             }))
           );
-          // setChartData(data.map((d, ind) => {
-          //   const _ = {};
-          //   _.name = d.name;
-          //   _.animation = {
-          //     duration: 500 * ind
-          //   }
-          //   _.data = d.chartData.map(cD => ({ date: cD.date, y: cD.rank, tip: cD.count }))
-          //   _.yAxis = 0;
-          //   return _;
-          // }));
         },
         (data) => {
           setAuthLogs(data.slice(-5));
@@ -114,17 +98,14 @@ const Dashboard = ({ userProfile, locale }) => {
           : pre + "년 " + cur + "월";
       });
 
-  const getDateFormatEn = (date) =>
-    date
-      .split(" ")[0]
-      .split("-")
-      .reduce((pre, cur) => {
-        return pre.includes("월")
-          ? pre + " " + cur + "일"
-          : pre.includes("")
-          ? pre + " " + cur + "월"
-          : pre + "년 " + cur + "월";
-      });
+  const getDateFormatEn = (date) => {
+    const options = {
+      day: 'numeric',
+      year: 'numeric',
+      month: 'long'
+    }
+    return new Date(date).toLocaleDateString('en-US',options)
+  }
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
@@ -149,7 +130,6 @@ const Dashboard = ({ userProfile, locale }) => {
                     icon={faCheckSquare}
                   />
                   &nbsp;&nbsp;
-                  {console.log(plan)}
                   {plan.status
                     ? planStatusCodes[plan.status]
                     : planStatusCodes["STOPPED"]}
@@ -170,7 +150,7 @@ const Dashboard = ({ userProfile, locale }) => {
                       {plan.createDate
                         ? getDateFormatEn(plan.createDate)
                         : null}
-                      ~
+                      &nbsp;~&nbsp;
                       {plan.expireDate
                         ? getDateFormatEn(plan.expireDate)
                         : null}
@@ -272,7 +252,16 @@ const Dashboard = ({ userProfile, locale }) => {
             <FormattedMessage id="Authentications" />
           </h4>
           <div className="chart" id="chart">
-            <CustomApexChart data={chartData} />
+              <LineChart width={1200} height={550}>
+                <CartesianGrid strokeDasharray="2 2" />
+                <XAxis dataKey="category" type="category" allowDuplicatedCategory={false}/>
+                <YAxis dataKey="value"/>
+                <Tooltip/>
+                <Legend/>
+                {
+                  chartData.map(s => <Line color="#000000" dataKey="value" data={s.data} name={s.name} key={s.name}/>)
+                }
+              </LineChart>
           </div>
         </div>
 

@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import { Popconfirm, message, Button } from "antd";
+import { Button } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
 
 import { Redirect, useHistory } from "react-router-dom";
@@ -41,29 +41,25 @@ const AdminDetail = ({
     lastName,
     phone,
     role,
-    dialCode,
     subAdminId,
-    index,
+    index
   } = data;
   const history = useHistory();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
-  const [inputMobile, setInputMobile] = useState(dialCode + phone);
   const [inputCountryCode, setInputCountryCode] = useState(country);
-  const [inputDialCode, setInputDialCode] = useState(dialCode);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const openConfirmModal = useCallback(() => {
     setConfirmModal(true);
   }, []);
-
   const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
   }, []);
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { firstName, lastName, password, passwordConfirm } =
+    const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
@@ -81,7 +77,7 @@ const AdminDetail = ({
       route,
       {
         country: inputCountryCode,
-        phone: inputMobile.slice(inputDialCode.length),
+        phone: mobile.value,
         firstName: firstName.value,
         lastName: lastName.value,
         password: isSelf && password.value ? password.value : null,
@@ -91,7 +87,7 @@ const AdminDetail = ({
         updateEvent({
           ...updatedData,
           country: inputCountryCode,
-          phone: inputMobile.slice(inputDialCode.length),
+          phone: mobile.value,
           firstName: firstName.value,
           lastName: lastName.value,
         });
@@ -126,7 +122,6 @@ const AdminDetail = ({
       {Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
-            {locale === "ko" ? (
               <>
                 <div className="inputBox">
                   <span>
@@ -136,6 +131,7 @@ const AdminDetail = ({
                     placeholder={formatMessage({
                       id: "PLEASE_INPUT_FIRST_NAME",
                     })}
+                    maxLength={16}
                     name="firstName"
                     defaultValue={firstName}
                   />
@@ -146,37 +142,12 @@ const AdminDetail = ({
                   </span>
                   <input
                     placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                    maxLength={16}
                     name="lastName"
                     defaultValue={lastName}
                   />
                 </div>
               </>
-            ) : (
-              <>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="FIRSTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({
-                      id: "PLEASE_INPUT_FIRST_NAME",
-                    })}
-                    name="lastName"
-                    defaultValue={firstName}
-                  />
-                </div>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="LASTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
-                    name="firstName"
-                    defaultValue={lastName}
-                  />
-                </div>
-              </>
-            )}
 
             <div className="inputBox">
               <span>
@@ -192,6 +163,8 @@ const AdminDetail = ({
                   </span>
                   <input
                     placeholder={formatMessage({ id: "PLEASE_INPUT_PASSWORD" })}
+                    maxLength={16}
+                    type="password"
                     name="password"
                   />
                 </div>
@@ -201,6 +174,8 @@ const AdminDetail = ({
                   </span>
                   <input
                     placeholder={formatMessage({ id: "PLEASE_INPUT_PASSWORD" })}
+                    maxLength={16}
+                    type="password"
                     name="passwordConfirm"
                   />
                 </div>
@@ -214,18 +189,18 @@ const AdminDetail = ({
                 <PhoneInput
                   className="phoneInput"
                   country={inputCountryCode}
-                  value={inputMobile}
+                  value={phone}
+                  jumpCursorToEnd
+                  inputProps={{
+                    name: "mobile"
+                  }}
                   onChange={(value, countryInfo) => {
-                    setInputMobile(value);
-                    console.log(countryInfo, inputDialCode)
-                    if(inputCountryCode.length) {
+                    if(inputCountryCode.length && Object.keys(countryInfo).length > 0) {
                       if (inputCountryCode !== countryInfo.countryCode.toUpperCase())
                         setInputCountryCode(
                           countryInfo.countryCode.toUpperCase()
                         );
                     }
-                    if (inputDialCode !== countryInfo.dialCode)
-                      setInputDialCode(countryInfo.dialCode);
                   }}
                   preferredCountries={["kr", "us"]}
                 />

@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import "./PolicyDrawer.css";
 
+import CustomSwitch from "../../../CustomComponents/CustomSwitch";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { UndoOutlined } from "@ant-design/icons";
 import { Drawer, message, Space } from "antd";
@@ -75,6 +76,7 @@ const Global_Policy = ({
   // const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
+  const [userLocationsEnable, setUserLocationsEnable] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
   const locationList = Object.keys(
     isKorea() ? countryCodes_KR : countryCodes_US
@@ -111,6 +113,7 @@ const Global_Policy = ({
         userLocations,
         browsers,
         authenticationMethods,
+        userLocationsEnable,
         mobilePatch,
       } = editData;
       if (title) setInputTitle(title);
@@ -121,6 +124,7 @@ const Global_Policy = ({
       if (browsers) setInputBrowserCheck(browsers);
       // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
+      if(userLocationsEnable) setUserLocationsEnable(userLocationsEnable)
       setIsExistTitle(true);
     } else {
       InputInit();
@@ -135,6 +139,7 @@ const Global_Policy = ({
       }
     }
     const result = {};
+    console.log(userLocationsEnable)
     if (inputTitle) result.title = inputTitle;
     if (inputAuthCheck) result.accessControl = inputAuthCheck;
     else result.accessControl = null;
@@ -147,6 +152,7 @@ const Global_Policy = ({
     // else result.authenticationMethods = [];
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
     else result.mobilePatch = null;
+    result.userLocationsEnable = userLocationsEnable;
     if (isCustomPolicy && Object.keys(result).length === 1)
       return showErrorMessage("PLEASE_INPUT_POLICY");
     if (isEditPolicy) {
@@ -192,6 +198,7 @@ const Global_Policy = ({
     // inputAuthMethodCheck,
     inputMobileCheck,
     editData,
+    userLocationsEnable,
     isExistTitle,
   ]);
 
@@ -475,10 +482,15 @@ const Global_Policy = ({
         </section>
         {/* -------------User location ------------- */}
         <section className="policies-box">
-          <h2>
-            <FormattedMessage id="USERLOCATIONPOLICYTITLE" />
-          </h2>
-          <div className="policies-sub-box">
+          <div style={{display:'flex', alignItems:'center'}}>
+            <h2 style={{display:'inline', marginBottom: 0, marginRight:'12px'}}>
+              <FormattedMessage id="USERLOCATIONPOLICYTITLE" />
+            </h2>
+            <CustomSwitch checked={userLocationsEnable} onChange={(value) => {
+              setUserLocationsEnable(value);
+            }}/>
+          </div>
+          <div className={"policies-sub-box user-locations-container" + (userLocationsEnable ? '' : ' disabled')} style={{height: userLocationsEnable ? inputUserLocations.length * 82.24 + 123.14 : 0}}>
             <h3>
               <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
             </h3>

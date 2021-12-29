@@ -7,6 +7,7 @@ const locales = {
     PASSWORD_RULE_ERROR:
       "비밀번호는 8자 이상 3가지 조합 혹은 10자 이상 2가지 조합이어야 합니다.",
     PLEASE_INPUT_PASSWORD: "Please Input Your Password",
+    PLEASE_INPUT_PASSWORD_ONE_MORE: '비밀번호를 한번 더 입력해주세요.',
     PLEASE_INPUT_EMAIL: "이메일을 입력해주세요",
     PLEASE_INPUT_FIRST_NAME: "성을 입력해주세요.",
     PLEASE_INPUT_NAME: "이름을 입력해주세요.",
@@ -31,6 +32,7 @@ const locales = {
     PASSWORD_RULE_ERROR:
       "비밀번호는 8자 이상 3가지 조합 혹은 10자 이상 2가지 조합이어야 합니다.",
     PLEASE_INPUT_PASSWORD: "비밀번호를 입력해주세요.",
+    PLEASE_INPUT_PASSWORD_ONE_MORE: '비밀번호를 한번 더 입력해주세요.',
     PLEASE_INPUT_EMAIL: "이메일을 입력해주세요",
     PLEASE_INPUT_FIRST_NAME: "성을 입력하세요.",
     PLEASE_INPUT_NAME: "이름을 입력해주세요.",

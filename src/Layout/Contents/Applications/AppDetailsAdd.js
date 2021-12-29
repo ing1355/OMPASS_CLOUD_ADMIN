@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import "./Applications.css";
 
 import "antd/dist/antd.css";
-import { message, Form } from "antd";
 import {
   CustomAxiosGet,
   CustomAxiosPost,
@@ -16,7 +15,7 @@ import { useHistory } from "react-router";
 import {
   doaminTest,
   FailToTest,
-  nameTest,
+  ApplicationNameTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -30,6 +29,7 @@ const AppDetailsAdd = ({
 }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
+  const inputNameRef = useRef(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
@@ -40,7 +40,7 @@ const AppDetailsAdd = ({
     if (!name.value.length) {
       return FailToTest(name,showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
     }
-    if (!nameTest(name.value)) {
+    if (!ApplicationNameTest(name.value)) {
       return FailToTest(name, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
     }
     if (!domain.value.length) {
@@ -82,7 +82,10 @@ const AppDetailsAdd = ({
   };
 
   const existCheck = () => {
-    if (!inputName) return message.error("이름을 입력해주세요.");
+    if (!inputName) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
+    if (!ApplicationNameTest(inputName)) {
+      return FailToTest(inputNameRef.current, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
+    }
     CustomAxiosGet(
       checkApplicationExistenceApi(userProfile.adminId, inputName),
       (data) => {
@@ -120,6 +123,8 @@ const AppDetailsAdd = ({
               </label>
               <input
                 name="name"
+                ref={inputNameRef}
+                maxLength={20}
                 placeholder={formatMessage({
                   id: "PLEASE_INPUT_APPLICATION_NAME",
                 })}
@@ -155,6 +160,7 @@ const AppDetailsAdd = ({
               </label>
               <input
                 name="domain"
+                maxLength={48}
                 placeholder={formatMessage({ id: "PLEASE_INPUT_DOMAIN" })}
               />
             </div>
@@ -164,6 +170,7 @@ const AppDetailsAdd = ({
               </label>
               <input
                 name="redirectUri"
+                maxLength={48}
                 placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
               />
             </div>

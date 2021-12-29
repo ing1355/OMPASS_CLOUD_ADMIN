@@ -26,18 +26,14 @@ import ActionCreators from "../../../redux/actions";
 const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
-  const [inputMobile, setInputMobile] = useState(null);
   const [inputCountry, setInputCountry] = useState(null);
-  const [inputDialCode, setInputDialCode] = useState("");
   const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
   const changeMobileInput = (value, countryInfo) => {
-    const { countryCode, dialCode } = countryInfo;
+    const { countryCode } = countryInfo;
     setInputCountry(countryCode.toUpperCase());
-    setInputMobile(value);
-    setInputDialCode(dialCode);
   };
 
   const changeEmailInput = (e) => {
@@ -93,8 +89,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       email: email.value,
       firstName: firstName.value,
       lastName: lastName.value,
-      phone: inputMobile.slice(inputDialCode.length),
-      dialCode: inputDialCode,
+      phone: mobile.value,
       role: "ADMIN",
     });
     showSuccessMessage('EMAIL_SEND_SUCCESS')
@@ -107,16 +102,17 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
         <form onSubmit={onFinish}>
           <div className="inputBox">
             <span><FormattedMessage id="FIRSTNAME"/></span>
-            <input name="firstName" placeholder={formatMessage({ id: 'PLEASE_INPUT_FIRST_NAME' })} />
+            <input name="firstName" maxLength={16} placeholder={formatMessage({ id: 'PLEASE_INPUT_FIRST_NAME' })} />
           </div>
           <div className="inputBox">
             <span><FormattedMessage id="LASTNAME"/></span>
-            <input name="lastName" placeholder={formatMessage({ id: 'PLEASE_INPUT_NAME' })} />
+            <input name="lastName" maxLength={16} placeholder={formatMessage({ id: 'PLEASE_INPUT_NAME' })} />
           </div>
           <div className="inputBox">
             <span><FormattedMessage id="EMAIL"/></span>
             <input
               name="email"
+              maxLength={48}
               placeholder={formatMessage({ id: 'PLEASE_INPUT_EMAIL' })}
               onChange={changeEmailInput}
             />
@@ -136,8 +132,8 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
                 country={"kr"}
                 inputProps={{
                   name: "mobile",
+                  
                 }}
-                value={inputMobile}
                 onChange={changeMobileInput}
                 preferredCountries={["kr", "us"]}
               />

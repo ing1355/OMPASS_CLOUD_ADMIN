@@ -92,3 +92,12 @@
   margin-bottom: 8px;
   text-align: center;
 }
+
+.user-locations-container {
+  transition: height .5s ease;
+  overflow: hidden;
+}
+
+.user-locations-container.disabled {
+  padding: 0 1rem;
+}

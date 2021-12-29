@@ -149,14 +149,21 @@ td.no-data {
   margin-bottom: 12px;
 }
 
+.table-search-column-input {
+  width: 250px;
+}
+
+.table-search-column-select {
+  padding: 0 0.5rem 0 1.2rem;
+}
+
 .table-search-column-select,
 .table-search-column-input {
   height: 40px;
   text-align: center;
   margin-right: 0.5rem;
-  padding-left: 0.3rem;
 }
-.table-search-column-select,
-.table-search-column-input option {
-  padding: 0;
+
+tfoot tr {
+  border-bottom: none;
 }
