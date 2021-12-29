@@ -11,9 +11,10 @@ import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
 import {
   getUsersApi,
-  getCustomPoliciesApi,
+  getApplicationApi,
+  updateCSVApi,
 } from "../../../Constants/Api_Route";
-import { CustomAxiosGet } from "../../../Functions/CustomAxios";
+import { CustomAxiosGet, CustomAxiosGetAll, CustomAxiosPost } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import UserDetail from "./UserDetail";
@@ -28,45 +29,44 @@ import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
 import UserAll from "./UserAll";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage, useIntl } from "react-intl";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
+import ActionCreators from "../../../redux/actions";
 
-const Users = ({ userProfile }) => {
+const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [_tableData, _setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
   const [selectView, setSelectView] = useState(0);
-  const [customPolicies, setCustomPolicies] = useState([]);
+  const [applicationsData, setApplicationsData] = useState([])
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  // const [customPolicies, setCustomPolicies] = useState([]);
+  const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false)
+  const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
+  const [excelData, setExcelData] = useState(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getCustomPoliciesApi(adminId),
-      (customPoliciesData) => {
-        setCustomPolicies(customPoliciesData);
-        CustomAxiosGet(
-          getUsersApi(adminId),
-          (data) => {
-            const result = data.map((d) => ({
-              ...d,
-              policy: d.policyId
-                ? customPoliciesData.find((c) => c.policyId === d.policyId)
-                : formatMessage({ id: "DEFAULTPOLICY" }),
-            }));
-            setTableData([...result]);
-            _setTableData([...result]);
-            setTableLoading(false);
-          },
-          () => {
-            setTableLoading(false);
-          }
-        );
-      },
-      () => {
+    CustomAxiosGetAll([getUsersApi(adminId), getApplicationApi(adminId)], [(userData) => {
+        // const result = userData.map((d) => ({
+        //   ...d,
+        //   policy: d.policyId
+        //     ? customPoliciesData.find((c) => c.policyId === d.policyId)
+        //     : formatMessage({ id: "DEFAULTPOLICY" }),
+        // }));
+        setTableData(userData)
+        _setTableData(userData)
+        // setTableData([...result]);
+        // _setTableData([...result]);
         setTableLoading(false);
-      }
-    );
+    }, (applicationData) => {
+      setApplicationsData(applicationData)
+      setSelectedApplication(applicationData[0].appId)
+    }], () => {
+      setTableLoading(false);
+    })
   }, []);
 
   useLayoutEffect(() => {
@@ -103,7 +103,6 @@ const Users = ({ userProfile }) => {
   );
 
   const clickToDetail = useCallback((rowData) => {
-    console.log(rowData);
     setDetailData(rowData);
     history.push("/Users/Detail/" + rowData.userId);
   }, []);
@@ -114,6 +113,31 @@ const Users = ({ userProfile }) => {
     ),
     [selectView]
   );
+
+  const closeConfirmModal = useCallback(() => {
+    setUploadConfirmVisible(false);
+    document.getElementById('excel-upload').value = null;
+  },[])
+
+  const changeSelectedApplication = useCallback((e) => {
+    setSelectedApplication(e.target.value)
+  },[])
+
+  const submitCSV = useCallback(() => {
+    setCsvConfirmLoading(true);
+    CustomAxiosPost(updateCSVApi(adminId, selectedApplication), excelData.map(d => ({
+      email: '',
+      userId: d.userId
+    })), (data) => {
+      document.getElementById('excel-upload').value = null;
+      setCsvConfirmLoading(false);
+      setUploadConfirmVisible(false);
+      showSuccessMessage('SUCCESS_CSV_UPLOAD')
+    }, () => {
+      setCsvConfirmLoading(false);
+      showErrorMessage('FAIL_CSV_UPLOAD')
+    })
+  },[adminId, selectedApplication, excelData])
 
   return (
     <div className="contents-container">
@@ -219,12 +243,12 @@ const Users = ({ userProfile }) => {
                 </div>
                 <div className="excel-button-box">
                   <div>
-                    <CustomButton>
+                    <CustomButton className="excel-button">
                       <label
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
                       >
-                        <UploadOutlined /> <FormattedMessage id="EXCELUPLOAD" />
+                        <UploadOutlined />&nbsp;&nbsp;<FormattedMessage id="EXCELUPLOAD" />
                       </label>
                       <input
                         id="excel-upload"
@@ -249,7 +273,8 @@ const Users = ({ userProfile }) => {
                               });
                               result.push(_result);
                             });
-                            console.log(result);
+                            setExcelData(result);
+                            setUploadConfirmVisible(true)
                           });
                         }}
                       />
@@ -258,6 +283,7 @@ const Users = ({ userProfile }) => {
                   <div style={{ marginLeft: "1rem" }}>
                     <CustomButton
                       id="download"
+                      className="excel-button"
                       style={{ float: "right" }}
                       onClick={() => {
                         SaveCsvData([
@@ -276,9 +302,7 @@ const Users = ({ userProfile }) => {
                         ]);
                       }}
                     >
-                      <DownloadOutlined />{" "}
-                      <FormattedMessage id="EXCELDOWNLOAD" />
-                    </CustomButton>
+                      <DownloadOutlined />&nbsp;&nbsp;<FormattedMessage id="EXCELDOWNLOAD" /></CustomButton>
                     {/* <ExcelDownload
                       data={tableData}
                       className="button"
@@ -295,12 +319,18 @@ const Users = ({ userProfile }) => {
               <UserDetail
                 {...routeInfo}
                 data={detailData}
-                customPolicies={customPolicies}
+                // customPolicies={customPolicies}
                 updateBypass={updateEvent}
               />
             )}
           />
         </Switch>
+        <CustomConfirm visible={uploadConfirmVisible} cancelCallback={closeConfirmModal} confirmCallback={submitCSV} okLoading={csvConfirmLoading}>
+          사용자를 추가할 어플리케이션을 선택해주세요.
+          <select value={selectedApplication} onChange={changeSelectedApplication}>
+              {applicationsData.map((d, ind) => <option key={ind} value={d.appId}>{d.name}</option>)}
+          </select>
+        </CustomConfirm>
       </div>
     </div>
   );
@@ -313,7 +343,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

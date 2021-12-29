@@ -208,3 +208,7 @@
 .user-detatil-button:hover {
   background: #256e8b;
 }
+
+.excel-button {
+  min-width: 170px;
+}

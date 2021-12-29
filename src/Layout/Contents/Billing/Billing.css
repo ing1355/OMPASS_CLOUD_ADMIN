@@ -201,7 +201,7 @@
   border-radius: 4px;
   font-size: 0.7rem;
 }
-.billing-info button:hover {
+.billing-info button:hover:not(:disabled) {
   background: #256e8b;
   cursor: pointer;
   color: #fff;

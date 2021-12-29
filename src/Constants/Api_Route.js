@@ -15,6 +15,8 @@ export const isExistencePolicyApi = (adminId, title) => `/v1/admins/${adminId}/c
 
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 export const updateByPassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
+export const updateEmailApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/email`
+export const updateCSVApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/csv`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`

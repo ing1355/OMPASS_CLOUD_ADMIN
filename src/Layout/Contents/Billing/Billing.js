@@ -125,13 +125,17 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     </div>
   );
 
-  const closeConfirmModal = () => {
+  const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
-  };
+  },[]);
 
-  const closeCancelConfirmModal = () => {
+  const openCancelConfirmModal = useCallback(() => {
+    setCancelConfirmModal(true);
+  },[])
+
+  const closeCancelConfirmModal = useCallback(() => {
     setCancelConfirmModal(false);
-  };
+  },[]);
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -350,8 +354,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             />
             &nbsp;&nbsp; 2021-12-29 ~ ddd
           </h6>
-
-          <button>구독 취소</button>
+          <button disabled onClick={openCancelConfirmModal}>구독 취소</button>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">

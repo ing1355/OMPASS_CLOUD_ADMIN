@@ -3,11 +3,10 @@ import { message } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
 import { Redirect, useHistory } from "react-router";
-import { updateByPassApi } from "../../../Constants/Api_Route";
-import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import { updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
+import { CustomAxiosPatch, CustomAxiosPost } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
-import { useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
 import { emailTest, FailToTest } from "../../../Constants/InputRules";
 
@@ -15,8 +14,6 @@ const UserDetail = ({
   data,
   userProfile,
   updateBypass,
-  lang,
-  customPolicies,
   showSuccessMessage,
   showErrorMessage,
 }) => {
@@ -26,13 +23,12 @@ const UserDetail = ({
   const [loading, setLoading] = useState(false);
   const [isOwnPolicy, setIsOwnPolicy] = useState(false);
   const [emailCheck, setEmailCheck] = useState(data.email);
+  const [emailLoading, setEmailLoading] = useState(false);
   const inputEmailRef = useRef(null);
   const history = useHistory();
-  const { formatMessage } = useIntl();
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { email } = e.target.elements;
     if (inputByPass && !emailCheck)
       return showErrorMessage("EMAIL_REGISTER_NEEDED");
     setLoading(true);
@@ -40,7 +36,6 @@ const UserDetail = ({
       updateByPassApi(adminId, appId, userId),
       {
         byPass: inputByPass,
-        email: email.value,
       },
       (data) => {
         setLoading(false);
@@ -80,8 +75,16 @@ const UserDetail = ({
         showErrorMessage("EMAIL_RULE_ERROR")
       );
     }
-    showSuccessMessage("EMAIL_REGISTER_SUCCESS");
-    setEmailCheck(true);
+    setEmailLoading(true);
+    CustomAxiosPatch(updateEmailApi(adminId, appId, userId), {
+      email: inputEmailRef.current.value
+    }, (data) => {
+      setEmailLoading(false);
+      showSuccessMessage("EMAIL_REGISTER_SUCCESS");
+      setEmailCheck(true);
+    }, () => {
+      setEmailLoading(false);
+    })
   };
 
   const changeInputEmail = () => {
@@ -143,13 +146,14 @@ const UserDetail = ({
                     defaultValue={data.email}
                     onChange={changeInputEmail}
                   />
-                  <button
+                  <CustomButton
                     className="user-detatil-button"
                     type="button"
                     onClick={emailSetting}
+                    loading={emailLoading}
                   >
                     저장
-                  </button>
+                  </CustomButton>
                 </div>
                 <div>
                   <input
