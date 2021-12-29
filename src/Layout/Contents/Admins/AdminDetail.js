@@ -71,14 +71,15 @@ const AdminDetail = ({
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
-      console.log(mobile.value)
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
-    if(!mobile.value.startsWith('+' + inputDialCode)) return showErrorMessage('NO_DIAL_CODE')
-    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if(!mobile.value.startsWith('+' + inputDialCode)) {
+      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
+      if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    }
     var route;
     if (isADMINRole(role)) {
       route = updateAdminApi(adminId);

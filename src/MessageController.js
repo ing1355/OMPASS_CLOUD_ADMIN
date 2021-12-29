@@ -9,8 +9,14 @@ const MessageController = ({msg}) => {
 
     useLayoutEffect(() => {
         if(msg) {
-            if(msg.type === 'success') message.success(formatMessage({id: msg.id}))
-            else if(msg.type === 'error') message.error(formatMessage({id: msg.id}))
+            if(msg.id) {
+                if(msg.type === 'success') message.success(formatMessage({id: msg.id}))
+                else if(msg.type === 'error') message.error(formatMessage({id: msg.id}))
+            } else {
+                if(msg.type === 'error') {
+                    message.error('Fail to Connect!')
+                }
+            }
         }
     }, [msg])
 

@@ -82,8 +82,8 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     }
     if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
     if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
+      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
       if(inputFormat && mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
-      return showErrorMessage('NO_DIAL_CODE')
     }
     CustomAxiosPost(addSubAdminApi(adminId), {
       country: inputCountry ? inputCountry : 'KR',

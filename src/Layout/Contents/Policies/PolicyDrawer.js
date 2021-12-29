@@ -58,7 +58,6 @@ const Global_Policy = ({
   isCustomPolicy,
   saveCallback,
   editCallback,
-  deleteCallback,
   isEditPolicy,
   editData,
   userProfile,
@@ -68,14 +67,12 @@ const Global_Policy = ({
 }) => {
   const { adminId } = userProfile;
   const [isExistTitle, setIsExistTitle] = useState(false);
-  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [inputTitle, setInputTitle] = useState("");
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
   // const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
-  const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
   const [userLocationsEnable, setUserLocationsEnable] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
   const locationList = Object.keys(
@@ -104,7 +101,7 @@ const Global_Policy = ({
       InputInit();
     }
   }, [visible]);
-
+  
   useLayoutEffect(() => {
     if (editData) {
       const {
@@ -113,7 +110,7 @@ const Global_Policy = ({
         userLocations,
         browsers,
         authenticationMethods,
-        userLocationsEnable,
+        userLocationEnable,
         mobilePatch,
       } = editData;
       if (title) setInputTitle(title);
@@ -124,7 +121,7 @@ const Global_Policy = ({
       if (browsers) setInputBrowserCheck(browsers);
       // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
-      if(userLocationsEnable) setUserLocationsEnable(userLocationsEnable)
+      if(userLocationEnable) setUserLocationsEnable(userLocationEnable)
       setIsExistTitle(true);
     } else {
       InputInit();
@@ -279,32 +276,6 @@ const Global_Policy = ({
     );
   }, [inputTitle]);
 
-  const openDeleteConfirm = useCallback(() => {
-    setDeleteConfirmVisible(true);
-  }, []);
-
-  const closeDeleteConfirm = useCallback(() => {
-    setDeleteConfirmVisible(false);
-  }, []);
-
-  const _deleteCallback = useCallback(() => {
-    setDeleteConfirmLoading(true);
-    CustomAxiosDelete(
-      deleteCustomPoliciesApi(adminId, editData.policyId),
-      () => {
-        setDeleteConfirmLoading(false);
-        setDeleteConfirmVisible(false);
-        setVisible(false);
-        showSuccessMessage("DELETE_SUCCESS");
-        if (deleteCallback) deleteCallback(editData.policyId);
-      },
-      () => {
-        showErrorMessage("DELETE_FAIL");
-        setDeleteConfirmLoading(false);
-      }
-    );
-  }, [editData]);
-
   const closePolicyDrawer = useCallback(() => {
     setVisible(false);
   }, []);
@@ -352,14 +323,6 @@ const Global_Policy = ({
             <button className="button" onClick={_saveCallback}>
               <FormattedMessage id="SAVE" />
             </button>
-            {isEditPolicy && isCustomPolicy && (
-              <button
-                className="button close-button del-button"
-                onClick={openDeleteConfirm}
-              >
-                <FormattedMessage id="DELETE" />
-              </button>
-            )}
             <button className="button close-button" onClick={closePolicyDrawer}>
               <FormattedMessage id="CLOSE" />
             </button>
@@ -375,15 +338,6 @@ const Global_Policy = ({
       destroyOnClose
       width={900}
     >
-      <CustomConfirm
-        visible={deleteConfirmVisible}
-        footer={true}
-        okLoading={deleteConfirmLoading}
-        cancelCallback={closeDeleteConfirm}
-        confirmCallback={_deleteCallback}
-      >
-        <FormattedMessage id="DELETECONFIRM" />
-      </CustomConfirm>
       <div className="Global_Policy-box">
         <CustomButton
           className="policy-default-button"

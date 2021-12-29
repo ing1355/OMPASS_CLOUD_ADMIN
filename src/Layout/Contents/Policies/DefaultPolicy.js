@@ -34,6 +34,7 @@ const DefaultPolicy = ({ userProfile }) => {
 
   const getDescription = (key) => {
     const value = globalPoliciesDataRef.current[key];
+    console.log(value, key)
     switch(key) {
       case "accessControl":
         return formatMessage({id:value === 'ACTIVE' ? 'ACCESSCONTROLACTIVEDESCRIPTION' : (value === 'INACTIVE' ? 'ACCESSCONTROLINACTIVEDESCRIPTION' : 'ACCESSCONTROLDENYDESCRIPTION')})
@@ -93,10 +94,9 @@ const DefaultPolicy = ({ userProfile }) => {
     if (!result.length) return result
     return PolicyTableDataFeature.map((td) => {
       const target = result.find((r) => Object.keys(r)[0] === td.key)[td.key];
-      const locationCheck = td.key !== 'userLocations' || data.userLocationsEnable
       return {
         ...td,
-        status: target.length > 0 && locationCheck,
+        status: td.key === 'userLocations' ? data.userLocationEnable : target.length > 0,
       };
     })
   }, [globalPoliciesData])
