@@ -128,8 +128,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
     if (allUserNum >= userNum.value)
-      return showErrorMessage('PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE')
-    if (!check.checked) return showErrorMessage('PLEASE_AGREEMENT_CHECK')
+      return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
+    if (!check.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
@@ -290,12 +290,12 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       cancelSubscriptionIamportApi(adminId),
       {},
       () => {
-        showSuccessMessage('SUBCRIPTION_CANCEL_SUCCESS')
+        showSuccessMessage("SUBCRIPTION_CANCEL_SUCCESS");
         setConfirmLoading(false);
         setCancelConfirmModal(false);
       },
       () => {
-        showErrorMessage('SUBCRIPTION_CANCEL_FAIL')
+        showErrorMessage("SUBCRIPTION_CANCEL_FAIL");
         setConfirmLoading(false);
       }
     );
@@ -357,7 +357,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                   { param: slicePrice(editions[ind].priceForOneUser) }
                 )} ${editions[ind].monetaryUnit === "원화" ? "원" : "$"} 
                 / ${formatMessage({ id: "PERUSER" })} / ${formatMessage({
-                  id: 'MONTHLY',
+                  id: "MONTHLY",
                 })}`}
               />
               {item.itemLists.map((itemList, _ind) => (
@@ -376,12 +376,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       </section>
 
       <section className="billing-change-container">
-        <h2>OMPASS Plan <FormattedMessage id="PAYMENT"/></h2>
+        <h2>
+          OMPASS Plan <FormattedMessage id="PAYMENT" />
+        </h2>
         <form onSubmit={onFinish}>
           {/* <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="PLAN" />
             </label>
+
             <select
               className="billing-change-form-select"
               name="edition"
@@ -457,10 +460,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 &nbsp;
                 <FormattedMessage id="BILLINGCHECKDESCRIPTION" />
                 <br />
-                {inputTerm === 'MONTHLY' ? formatMessage(
-                  { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                  { param: slicePrice(cost) + (isKorea() ? '원' : '$') }
-                ) : formatMessage({id: 'BILLINGPRICEDESCRIPTIONANNUALY'}, { param: slicePrice(cost) + (isKorea() ? '원' : '$') })}
+                {inputTerm === "MONTHLY"
+                  ? formatMessage(
+                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                      { param: slicePrice(cost) + (isKorea() ? "원" : "$") }
+                    )
+                  : formatMessage(
+                      { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
+                      { param: slicePrice(cost) + (isKorea() ? "원" : "$") }
+                    )}
               </label>
             </div>
           </div>
@@ -524,15 +532,23 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <b style={{ color: "Red" }}>
               {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
             </b>
-            <span>&nbsp;/ <FormattedMessage id={inputTerm}/></span>
+            <span>
+              &nbsp;/ <FormattedMessage id={inputTerm} />
+            </span>
           </div>
           <br />
-          <div><FormattedMessage id="BILLINGCONFIRMMESSAGE"/></div>
+          <div>
+            <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
+          </div>
           <div
             id="paypal-button-container"
             style={{ textAlign: "center", marginTop: "2rem" }}
           >
-            {paypalLoading && <Spin><FormattedMessage id="BILLINGLOADING"/></Spin>}
+            {paypalLoading && (
+              <Spin>
+                <FormattedMessage id="BILLINGLOADING" />
+              </Spin>
+            )}
           </div>
         </CustomConfirm>
         <CustomConfirm

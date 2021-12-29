@@ -28,7 +28,7 @@ const locales = {
     Authentications: "Authentications",
     AuthenticationLog: "Authentication Log",
     ValidDate: "Remaining days",
-    daysleft: "days left",
+    daysleft: "",
     Administrators: "Administrators",
     User: "User ID",
     Action: "Action",
@@ -56,12 +56,12 @@ const locales = {
     DELETE: "삭제",
     CLOSE: "닫기",
     DUPLICATECHECK: "중복체크",
-    BILLINGCYCLE: 'Billing Cycle',
-    USERNUM: 'User Count',
-    ALLUSERNUM: "전체 사용자 수",
-    REGISTEREDUSERNUM: "등록된 사용자 수",
-    UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
-    BYPASSUSERNUM: "OMPASS 인증 바이패스 사용자 수",
+    BILLINGCYCLE: "Billing Cycle",
+    USERNUM: "User Count",
+    ALLUSERNUM: "Total Users",
+    REGISTEREDUSERNUM: "Registered Users",
+    UNREGISTEREDUSERNUM: "	Unregistered Users",
+    BYPASSUSERNUM: "OMPASS AuthN Bypass",
     EXCELUPLOAD: "엑셀 업로드",
     EXCELDOWNLOAD: "엑셀 다운로드",
     REGISTER: "등록",
@@ -145,7 +145,8 @@ const locales = {
     USERLOCATIONPOLICYDESCRIPTION2:
       "사용자 IP 주소에 의거하여 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
-    BROWSERSPOLICYDESCRIPTION: '선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}',
+    BROWSERSPOLICYDESCRIPTION:
+      "선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}",
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",
@@ -224,8 +225,8 @@ const locales = {
     DELETE: "삭제",
     CLOSE: "닫기",
     DUPLICATECHECK: "중복체크",
-    BILLINGCYCLE: '결제 주기',
-    USERNUM: '사용자 수',
+    BILLINGCYCLE: "결제 주기",
+    USERNUM: "사용자 수",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -313,7 +314,8 @@ const locales = {
     USERLOCATIONPOLICYDESCRIPTION2:
       "사용자 IP 주소에 의거하여 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
-    BROWSERSPOLICYDESCRIPTION: '선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}',
+    BROWSERSPOLICYDESCRIPTION:
+      "선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}",
     AUTHENTICATIONMETHODPOLICYTITLE: "인증 방법",
     AUTHENTICATIONMETHODPOLICYDESCRIPTION:
       "사용자는 체크된 방법인 2FA로만 인증할 수 있습니다.",

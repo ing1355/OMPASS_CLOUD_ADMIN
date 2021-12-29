@@ -9,6 +9,7 @@ import {
   faCheckSquare,
   faCalendarCheck,
   faUserPlus,
+  faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -21,7 +22,15 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
 import { FormattedMessage } from "react-intl";
-import {LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line} from 'recharts';
+import {
+  LineChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Line,
+} from "recharts";
 
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -36,7 +45,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const planStatusCodes = {
     STOPPED: "사용하지 않음",
     RUN: <FormattedMessage id="Valid" />,
-    CANCEL: <FormattedMessage id="Valid" />
+    CANCEL: <FormattedMessage id="Valid" />,
   };
 
   const getDashboardData = () => {
@@ -63,12 +72,12 @@ const Dashboard = ({ userProfile, locale }) => {
         },
         (data) => {
           setChartData(
-            data.map(d => ({
-              name : d.name,
-              data: d.chartData.map(_d => ({
+            data.map((d) => ({
+              name: d.name,
+              data: d.chartData.map((_d) => ({
                 category: _d.date,
-                value: _d.count
-              }))
+                value: _d.count,
+              })),
             }))
           );
         },
@@ -100,12 +109,12 @@ const Dashboard = ({ userProfile, locale }) => {
 
   const getDateFormatEn = (date) => {
     const options = {
-      day: 'numeric',
-      year: 'numeric',
-      month: 'long'
-    }
-    return new Date(date).toLocaleDateString('en-US',options)
-  }
+      day: "numeric",
+      year: "numeric",
+      month: "long",
+    };
+    return new Date(date).toLocaleDateString("en-US", options);
+  };
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
@@ -181,17 +190,33 @@ const Dashboard = ({ userProfile, locale }) => {
                       >
                         <FormattedMessage id="ValidDate" />
                       </td>
-                      <td
-                        style={{
-                          width: "50%",
-                          fontWeight: "bold",
-                          fontSize: "1rem",
-                          borderRight: "1px solid rgb(180, 180, 180)",
-                          borderTop: "1px solid rgb(180, 180, 180)",
-                        }}
-                      >
-                        {plan.remainingDate} <FormattedMessage id="daysleft" />
-                      </td>
+
+                      {locale === "ko" ? (
+                        <td
+                          style={{
+                            width: "50%",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            borderRight: "1px solid rgb(180, 180, 180)",
+                            borderTop: "1px solid rgb(180, 180, 180)",
+                          }}
+                        >
+                          {plan.remainingDate}&nbsp;
+                          <FormattedMessage id="daysleft" />
+                        </td>
+                      ) : (
+                        <td
+                          style={{
+                            width: "50%",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            borderRight: "1px solid rgb(180, 180, 180)",
+                            borderTop: "1px solid rgb(180, 180, 180)",
+                          }}
+                        >
+                          {plan.remainingDate}
+                        </td>
+                      )}
                     </tr>
                   </tbody>
                 </table>
@@ -208,7 +233,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
-                    <b>{userNum}명</b>
+                    {locale === "ko" ? <b>{userNum}명</b> : <b>{userNum}</b>}
                   </p>
                 </div>
                 <div>
@@ -218,7 +243,11 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
-                    <b>{registerNum}명</b>
+                    {locale === "ko" ? (
+                      <b>{registerNum}명</b>
+                    ) : (
+                      <b>{registerNum}</b>
+                    )}
                   </p>
                 </div>
                 <div>
@@ -226,9 +255,13 @@ const Dashboard = ({ userProfile, locale }) => {
                     <FormattedMessage id="UNREGISTEREDUSERNUM" />
                   </h6>
                   <p>
-                    <FontAwesomeIcon icon={faUserCog} />
+                    <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
-                    <b>{unRegisterNum}명</b>
+                    {locale === "ko" ? (
+                      <b>{unRegisterNum}명</b>
+                    ) : (
+                      <b>{unRegisterNum}</b>
+                    )}
                   </p>
                 </div>
                 <div>
@@ -238,7 +271,11 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
-                    <b>{byPassNum}&nbsp;명</b>
+                    {locale === "ko" ? (
+                      <b>{byPassNum}명</b>
+                    ) : (
+                      <b>{byPassNum}</b>
+                    )}
                   </p>
                 </div>
               </div>
@@ -252,16 +289,26 @@ const Dashboard = ({ userProfile, locale }) => {
             <FormattedMessage id="Authentications" />
           </h4>
           <div className="chart" id="chart">
-              <LineChart width={1200} height={550}>
-                <CartesianGrid strokeDasharray="2 2" />
-                <XAxis dataKey="category" type="category" allowDuplicatedCategory={false}/>
-                <YAxis dataKey="value"/>
-                <Tooltip/>
-                <Legend/>
-                {
-                  chartData.map(s => <Line color="#000000" dataKey="value" data={s.data} name={s.name} key={s.name}/>)
-                }
-              </LineChart>
+            <LineChart width={1200} height={550}>
+              <CartesianGrid strokeDasharray="2 2" />
+              <XAxis
+                dataKey="category"
+                type="category"
+                allowDuplicatedCategory={false}
+              />
+              <YAxis dataKey="value" />
+              <Tooltip />
+              <Legend />
+              {chartData.map((s) => (
+                <Line
+                  color="#000000"
+                  dataKey="value"
+                  data={s.data}
+                  name={s.name}
+                  key={s.name}
+                />
+              ))}
+            </LineChart>
           </div>
         </div>
 

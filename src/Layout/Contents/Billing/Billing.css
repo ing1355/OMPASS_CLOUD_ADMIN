@@ -84,19 +84,27 @@
   line-height: 25px;
   color: white;
   background-color: #405665;
-  margin-bottom: 32px;
 }
 
 .billing-info-contents-list {
-  width: 400px;
   margin: 0 auto;
   text-align: center;
   height: 45px;
   letter-spacing: -0.5px;
+  /* border-bottom: 0.5px solid rgba(128, 128, 128, 0.5); */
+  display: flex;
+  width: 50%;
+  float: left;
+  height: 70px;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f8;
+  border-left: 0.5px solid rgba(128, 128, 128, 0.5);
   border-bottom: 0.5px solid rgba(128, 128, 128, 0.5);
-  margin-bottom: 24px;
 }
-
+.billing-info-contents-list:nth-child(2n-1) {
+  border-right: 0.5px solid rgba(128, 128, 128, 0.5);
+}
 .billing-change-item {
   display: flex;
   padding: 22px 0;
@@ -171,14 +179,6 @@
   margin-bottom: 0;
 }
 
-.billing-info-contents-list {
-  display: flex;
-  width: 50%;
-  float: left;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 1.5rem;
-}
 .Payment-History-table h2 {
   margin-bottom: 1rem;
 }
