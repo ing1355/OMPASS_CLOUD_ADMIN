@@ -23,6 +23,8 @@ const locales = {
     REDIRECT_URI_RULE_ERROR: "리다이렉트 URI 형식이 잘못되었습니다.",
     PLEASE_INPUT_POLICY_NAME: "정책명을 입력해주세요.",
     PLEASE_INPUT_POLICY: "최소 1가지 정책은 설정해주세요",
+    NO_DIAL_CODE: '국가번호가 존재하지 않습니다.',
+    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.'
   },
   KR: {
     POLICY_NAME_RULE_ERROR: "정책명은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
@@ -48,6 +50,8 @@ const locales = {
     REDIRECT_URI_RULE_ERROR: "리다이렉트 URI 형식이 잘못되었습니다.",
     PLEASE_INPUT_POLICY_NAME: "정책명을 입력해주세요.",
     PLEASE_INPUT_POLICY: "최소 1가지 정책은 설정해주세요",
+    NO_DIAL_CODE: '국가번호가 존재하지 않습니다.',
+    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.'
   },
 };
 

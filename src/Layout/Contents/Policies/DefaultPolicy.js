@@ -93,10 +93,10 @@ const DefaultPolicy = ({ userProfile }) => {
     if (!result.length) return result
     return PolicyTableDataFeature.map((td) => {
       const target = result.find((r) => Object.keys(r)[0] === td.key)[td.key];
-      const locationCheck = td.key === 'userLocations' && data.userLocationsEnable
+      const locationCheck = td.key !== 'userLocations' || data.userLocationsEnable
       return {
         ...td,
-        status: target.length > 0 || locationCheck,
+        status: target.length > 0 && locationCheck,
       };
     })
   }, [globalPoliciesData])

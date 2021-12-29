@@ -27,12 +27,16 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
   const [inputCountry, setInputCountry] = useState(null);
+  const [inputFormat, setInputFormat] = useState(null);
+  const [inputDialCode, setInputDialCode] = useState(null);
   const [inputEmail, setInputEmail] = useState(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
   const changeMobileInput = (value, countryInfo) => {
-    const { countryCode } = countryInfo;
+    const { countryCode, format, dialCode } = countryInfo;
+    if(inputFormat !== format) setInputFormat(format);
+    if(inputDialCode !== dialCode) setInputDialCode(dialCode);
     setInputCountry(countryCode.toUpperCase());
   };
 
@@ -77,15 +81,12 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
     }
     if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
-    if (mobile.value.split(" ").length === 1) {
-      return FailToTest(mobile, showErrorMessage('PLEASE_INPUT_MOBILE'));
+    if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
+      if(inputFormat && mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+      return showErrorMessage('NO_DIAL_CODE')
     }
-    // if(!mobileTest(mobile.value.split(' ').slice(1,).join(''))) {
-    //   return FailToTest(mobile,'잘못된 전화번호 형식입니다.')
-    // }
-    // if (!agreeCheck.checked) return showErrorMessage('PLEASE_CHECK_CHECKBOX');
     CustomAxiosPost(addSubAdminApi(adminId), {
-      country: inputCountry,
+      country: inputCountry ? inputCountry : 'KR',
       email: email.value,
       firstName: firstName.value,
       lastName: lastName.value,
@@ -130,6 +131,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
               <PhoneInput
                 className="phoneInput"
                 country={"kr"}
+                jumpCursorToEnd
                 inputProps={{
                   name: "mobile",
                   

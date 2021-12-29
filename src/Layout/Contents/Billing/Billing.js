@@ -230,9 +230,10 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 },
                 (data) => {
                   console.log(data);
-                  const { paymentSuccess, paymentHistory } = data;
+                  const { paymentSuccess, paymentHistoryResponses, plan } = data;
                   if (paymentSuccess) {
-                    setTableData(paymentHistory);
+                    setTableData(paymentHistoryResponses);
+                    setCurrentPlan(plan)
                     showSuccessMessage("PAYMENT_SUCCESS");
                   } else showErrorMessage("PAYMENT_FAIL");
                 }

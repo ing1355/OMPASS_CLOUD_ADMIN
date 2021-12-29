@@ -52,14 +52,14 @@ export const BillingColumns = [
   },
   {
     name: 'BILLINGCYCLE',
-    key: 'billingCycle'
+    key: 'paymentInterval'
   },
   {
     name: "PRICECOLUMN",
     key: "amount",
     render: (amount) => slicePrice(amount),
   },
-  { name: "USERNUM", key: "userNum" },
+  { name: "USERNUM", key: "numberUsers" },
   { name: "PAYMENTDATE", key: "paymentDate" },
 ];
 

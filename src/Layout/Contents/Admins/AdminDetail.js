@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -48,8 +48,18 @@ const AdminDetail = ({
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
   const [inputCountryCode, setInputCountryCode] = useState(country);
+  const [inputFormat, setInputFormat] = useState(null);
+  const [inputDialCode, setInputDialCode] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    if(phone) {
+      setInputDialCode(phone.split(' ')[0].slice(1,));
+      setInputFormat(phone)
+    }
+  },[phone])
+
   const openConfirmModal = useCallback(() => {
     setConfirmModal(true);
   }, []);
@@ -61,11 +71,14 @@ const AdminDetail = ({
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
+      console.log(mobile.value)
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
+    if(!mobile.value.startsWith('+' + inputDialCode)) return showErrorMessage('NO_DIAL_CODE')
+    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     var route;
     if (isADMINRole(role)) {
       route = updateAdminApi(adminId);
@@ -195,6 +208,8 @@ const AdminDetail = ({
                     name: "mobile"
                   }}
                   onChange={(value, countryInfo) => {
+                    if(inputFormat !== countryInfo.format) setInputFormat(countryInfo.format)
+                    if(inputDialCode !== countryInfo.dialCode) setInputDialCode(countryInfo.dialCode)
                     if(inputCountryCode.length && Object.keys(countryInfo).length > 0) {
                       if (inputCountryCode !== countryInfo.countryCode.toUpperCase())
                         setInputCountryCode(

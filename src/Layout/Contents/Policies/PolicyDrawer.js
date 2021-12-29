@@ -139,7 +139,6 @@ const Global_Policy = ({
       }
     }
     const result = {};
-    console.log(userLocationsEnable)
     if (inputTitle) result.title = inputTitle;
     if (inputAuthCheck) result.accessControl = inputAuthCheck;
     else result.accessControl = null;
