@@ -14,7 +14,11 @@ import {
   getApplicationApi,
   updateCSVApi,
 } from "../../../Constants/Api_Route";
-import { CustomAxiosGet, CustomAxiosGetAll, CustomAxiosPost } from "../../../Functions/CustomAxios";
+import {
+  CustomAxiosGet,
+  CustomAxiosGetAll,
+  CustomAxiosPost,
+} from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import UserDetail from "./UserDetail";
@@ -39,34 +43,41 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
   const [selectView, setSelectView] = useState(0);
-  const [applicationsData, setApplicationsData] = useState([])
+  const [applicationsData, setApplicationsData] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
   // const [customPolicies, setCustomPolicies] = useState([]);
-  const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false)
+  const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
   const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
   const [excelData, setExcelData] = useState(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGetAll([getUsersApi(adminId), getApplicationApi(adminId)], [(userData) => {
-        // const result = userData.map((d) => ({
-        //   ...d,
-        //   policy: d.policyId
-        //     ? customPoliciesData.find((c) => c.policyId === d.policyId)
-        //     : formatMessage({ id: "DEFAULTPOLICY" }),
-        // }));
-        setTableData(userData)
-        _setTableData(userData)
-        // setTableData([...result]);
-        // _setTableData([...result]);
+    CustomAxiosGetAll(
+      [getUsersApi(adminId), getApplicationApi(adminId)],
+      [
+        (userData) => {
+          // const result = userData.map((d) => ({
+          //   ...d,
+          //   policy: d.policyId
+          //     ? customPoliciesData.find((c) => c.policyId === d.policyId)
+          //     : formatMessage({ id: "DEFAULTPOLICY" }),
+          // }));
+          setTableData(userData);
+          _setTableData(userData);
+          // setTableData([...result]);
+          // _setTableData([...result]);
+          setTableLoading(false);
+        },
+        (applicationData) => {
+          setApplicationsData(applicationData);
+          setSelectedApplication(applicationData[0].appId);
+        },
+      ],
+      () => {
         setTableLoading(false);
-    }, (applicationData) => {
-      setApplicationsData(applicationData)
-      setSelectedApplication(applicationData[0].appId)
-    }], () => {
-      setTableLoading(false);
-    })
+      }
+    );
   }, []);
 
   useLayoutEffect(() => {
@@ -79,11 +90,11 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       case 0:
         _setTableData(tableData);
         break;
-      case 1:        
-        _setTableData(tableData.filter(t => t.register));
+      case 1:
+        _setTableData(tableData.filter((t) => t.register));
         break;
       case 2:
-        _setTableData(tableData.filter(t => !t.register));
+        _setTableData(tableData.filter((t) => !t.register));
         break;
       case 3:
         _setTableData(tableData.filter((t) => t.byPass));
@@ -116,28 +127,33 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 
   const closeConfirmModal = useCallback(() => {
     setUploadConfirmVisible(false);
-    document.getElementById('excel-upload').value = null;
-  },[])
+    document.getElementById("excel-upload").value = null;
+  }, []);
 
   const changeSelectedApplication = useCallback((e) => {
-    setSelectedApplication(e.target.value)
-  },[])
+    setSelectedApplication(e.target.value);
+  }, []);
 
   const submitCSV = useCallback(() => {
     setCsvConfirmLoading(true);
-    CustomAxiosPost(updateCSVApi(adminId, selectedApplication), excelData.map(d => ({
-      email: '',
-      userId: d.userId
-    })), (data) => {
-      document.getElementById('excel-upload').value = null;
-      setCsvConfirmLoading(false);
-      setUploadConfirmVisible(false);
-      showSuccessMessage('SUCCESS_CSV_UPLOAD')
-    }, () => {
-      setCsvConfirmLoading(false);
-      showErrorMessage('FAIL_CSV_UPLOAD')
-    })
-  },[adminId, selectedApplication, excelData])
+    CustomAxiosPost(
+      updateCSVApi(adminId, selectedApplication),
+      excelData.map((d) => ({
+        email: "",
+        userId: d.userId,
+      })),
+      (data) => {
+        document.getElementById("excel-upload").value = null;
+        setCsvConfirmLoading(false);
+        setUploadConfirmVisible(false);
+        showSuccessMessage("SUCCESS_CSV_UPLOAD");
+      },
+      () => {
+        setCsvConfirmLoading(false);
+        showErrorMessage("FAIL_CSV_UPLOAD");
+      }
+    );
+  }, [adminId, selectedApplication, excelData]);
 
   return (
     <div className="contents-container">
@@ -176,7 +192,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                         (selectView === 1 ? " selected" : "")
                       }
                     >
-                      <h3>{tableData.filter(t => t.register).length}</h3>
+                      <h3>{tableData.filter((t) => t.register).length}</h3>
                       <p>
                         <FormattedMessage id="REGISTEREDUSERNUM" />
                       </p>
@@ -190,7 +206,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                         (selectView === 2 ? " selected" : "")
                       }
                     >
-                      <h3>{tableData.filter(t => !t.register).length}</h3>
+                      <h3>{tableData.filter((t) => !t.register).length}</h3>
                       <p>
                         <FormattedMessage id="UNREGISTEREDUSERNUM" />
                       </p>
@@ -248,7 +264,9 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
                       >
-                        <UploadOutlined />&nbsp;&nbsp;<FormattedMessage id="EXCELUPLOAD" />
+                        <UploadOutlined />
+                        &nbsp;&nbsp;
+                        <FormattedMessage id="EXCELUPLOAD" />
                       </label>
                       <input
                         id="excel-upload"
@@ -274,7 +292,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                               result.push(_result);
                             });
                             setExcelData(result);
-                            setUploadConfirmVisible(true)
+                            setUploadConfirmVisible(true);
                           });
                         }}
                       />
@@ -302,7 +320,10 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                         ]);
                       }}
                     >
-                      <DownloadOutlined />&nbsp;&nbsp;<FormattedMessage id="EXCELDOWNLOAD" /></CustomButton>
+                      <DownloadOutlined />
+                      &nbsp;&nbsp;
+                      <FormattedMessage id="EXCELDOWNLOAD" />
+                    </CustomButton>
                     {/* <ExcelDownload
                       data={tableData}
                       className="button"
@@ -325,10 +346,25 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             )}
           />
         </Switch>
-        <CustomConfirm visible={uploadConfirmVisible} cancelCallback={closeConfirmModal} confirmCallback={submitCSV} okLoading={csvConfirmLoading}>
-          사용자를 추가할 어플리케이션을 선택해주세요.
-          <select value={selectedApplication} onChange={changeSelectedApplication}>
-              {applicationsData.map((d, ind) => <option key={ind} value={d.appId}>{d.name}</option>)}
+        <CustomConfirm
+          visible={uploadConfirmVisible}
+          cancelCallback={closeConfirmModal}
+          confirmCallback={submitCSV}
+          okLoading={csvConfirmLoading}
+        >
+          <h6 className="execel-modal-text">
+            사용자를 추가할 어플리케이션을 선택해주세요.
+          </h6>
+          <select
+            className="excel-select"
+            value={selectedApplication}
+            onChange={changeSelectedApplication}
+          >
+            {applicationsData.map((d, ind) => (
+              <option key={ind} value={d.appId}>
+                {d.name}
+              </option>
+            ))}
           </select>
         </CustomConfirm>
       </div>

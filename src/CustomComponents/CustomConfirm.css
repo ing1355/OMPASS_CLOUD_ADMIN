@@ -31,5 +31,6 @@
 }
 .custom-modal-button-container button:hover {
   background: #256e8b;
+  border: 1px solid #256e8b;
   color: #fff;
 }
