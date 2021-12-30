@@ -96,22 +96,6 @@
   border-bottom: none;
 }
 
-.billing-change-item {
-  display: flex;
-  padding: 32px 0;
-}
-
-.billing-change-item:last-child {
-  padding-left: 200px;
-  display: block;
-}
-
-.billing-change-form-label {
-  width: 200px;
-  font-weight: 500;
-  font-size: 14px;
-}
-
 .billing-change-form-select {
   width: 300px;
   padding: 8px 16px;

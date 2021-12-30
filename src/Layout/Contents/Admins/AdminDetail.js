@@ -25,7 +25,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { FailToTest, passwordTest } from "../../../Constants/InputRules";
 
 const AdminDetail = ({
-  locale,
   data,
   deleteEvent,
   updateEvent,
@@ -82,15 +81,11 @@ const AdminDetail = ({
       if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
       if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     }
-    var route;
-    if (isADMINRole(role)) {
-      route = updateAdminApi(adminId);
-    } else {
-      route = updateSubAdminApi(adminId, subAdminId);
-    }
+
+    if(role === 'ADMIN' && data.country !== inputCountryCode) return showErrorMessage('DIFFERENT_COUNTRY_CODE')
     
     CustomAxiosPut(
-      route,
+      isADMINRole(role) ? updateAdminApi(adminId) : updateSubAdminApi(adminId),
       {
         country: inputCountryCode,
         phone: mobile.value,
@@ -253,8 +248,7 @@ const AdminDetail = ({
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile,
-    locale: state.locale,
+    userProfile: state.userProfile
   };
 }
 

@@ -122,7 +122,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) 
                       <FormattedMessage id="ADMINREGISTER" />
                     </button>
                   </Link>
-                  {role === "ADMIN" && (
+                  {/* {role === "ADMIN" && (
                     <button
                       className="button two-Auth-button admin-button"
                       disabled={tableLoading}
@@ -132,7 +132,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) 
                         ? formatMessage({ id: "SECONDAUTHENTICATIONINACTIVE" })
                         : formatMessage({ id: "SECONDAUTHENTICATIONACTIVE" })}
                     </button>
-                  )}
+                  )} */}
                 </div>
                 <CustomTable
                   columns={AdminsColumns}

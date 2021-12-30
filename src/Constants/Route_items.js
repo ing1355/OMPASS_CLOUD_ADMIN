@@ -50,25 +50,6 @@ const AdminRoutes = [
     icon: DashboardIcon,
   },
   {
-    key: "Policies",
-    name: "Policies",
-    icon: PoliciesIcon,
-    submenu: [
-      {
-        key: "GlobalPolicy",
-        name: "DEFAULTPOLICY",
-        route: "/DefaultPolicy",
-        component: DefaultPolicies,
-      },
-      {
-        key: "CustomPolicy",
-        name: "CUSTOMPOLICY",
-        route: "/CustomPolicy",
-        component: CustomPolicies,
-      },
-    ],
-  },
-  {
     key: "Users",
     name: "Users",
     route: "/Users",
@@ -91,9 +72,27 @@ const AdminRoutes = [
   {
     key: "Applications",
     name: "Applications",
-    route: "/Applications",
-    component: Applications,
     icon: ApplicationsIcon,
+    submenu: [
+      {
+        key: 'Applications',
+        name: 'Applications',
+        route: "/Applications",
+        component: Applications,
+      },
+      {
+        key: "GlobalPolicy",
+        name: "DEFAULTPOLICY",
+        route: "/DefaultPolicy",
+        component: DefaultPolicies,
+      },
+      {
+        key: "CustomPolicy",
+        name: "CUSTOMPOLICY",
+        route: "/CustomPolicy",
+        component: CustomPolicies,
+      }
+    ]
   },
   {
     key: "Billing",
@@ -126,37 +125,37 @@ const AdminRoutes = [
 const route_info = (role) =>
   role === "OMS"
     ? [
-        {
-          key: "Dashboard",
-          name: "Dashboard",
-          route: "/",
-          component: OMSDashboard,
-          icon: DashboardIcon,
-        },
-        {
-          key: "Policies",
-          name: "Policies",
-          route: "/Policies",
-          component: OMSPolicies,
-          icon: PoliciesIcon,
-        },
-        {
-          key: "Admins",
-          name: "Admins",
-          route: "/Admins",
-          component: OMSAdmins,
-          icon: AdminsIcon,
-        },
-        {
-          key: "Billing",
-          name: "Billing",
-          route: "/Billing",
-          component: OMSBilling,
-          icon: BillingIcon,
-        },
-      ]
+      {
+        key: "Dashboard",
+        name: "Dashboard",
+        route: "/",
+        component: OMSDashboard,
+        icon: DashboardIcon,
+      },
+      {
+        key: "Policies",
+        name: "Policies",
+        route: "/Policies",
+        component: OMSPolicies,
+        icon: PoliciesIcon,
+      },
+      {
+        key: "Admins",
+        name: "Admins",
+        route: "/Admins",
+        component: OMSAdmins,
+        icon: AdminsIcon,
+      },
+      {
+        key: "Billing",
+        name: "Billing",
+        route: "/Billing",
+        component: OMSBilling,
+        icon: BillingIcon,
+      },
+    ]
     : role === "ADMIN"
-    ? AdminRoutes
-    : AdminRoutes.filter((route) => route.route !== "/Billing");
+      ? AdminRoutes
+      : AdminRoutes.filter((route) => route.route !== "/Billing");
 
 export default route_info;
