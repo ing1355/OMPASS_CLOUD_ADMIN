@@ -29,7 +29,6 @@ const locales = {
     AuthenticationLog: "Authentication Log",
     ValidDate: "Remaining days",
     daysleft: "",
-    Administrators: "Administrators",
     User: "User ID",
     Action: "Action",
     PLAN: "Plan",
@@ -169,6 +168,9 @@ const locales = {
     SUBSCRIPTIONCANCEL: "구독 취소",
     AUTHTYPE: "Authentication Type",
     ETCUSERLOCATION: "All Other Countries",
+    NONEUSERLOCATIONS: '모든 국가의 접속이 허용됩니다.',
+    NONEBROWSERS: '모든 브라우저의 접속이 차단됩니다.',
+    NOMOBILEPATCH: '모바일 앱 패치를 강제하지 않습니다.'
   },
   KR: {
     localeChangeText: "KO",
@@ -199,7 +201,6 @@ const locales = {
     AuthenticationLog: "최근 인증 로그",
     ValidDate: "남은 일 수",
     daysleft: "일",
-    Administrators: "관리자 수",
     User: "사용자 아이디",
     Action: "활동",
     PLAN: "플랜",
@@ -265,7 +266,7 @@ const locales = {
     BILLINGCHECKDESCRIPTION: "이용약관, 가격 및 수수료 규정에 동의합니다.",
     BILLINGPRICEDESCRIPTIONMONTHLY:
       "결제일로 부터 30일 간격으로 {param}(이)가 자동으로 결제됩니다.",
-    BILLINGPRICEDESCRIPTIONANNUALY: "결제일로 부터 365일 간격으로 {param}(이)가 자동으로 결제됩니다.",
+    BILLINGPRICEDESCRIPTIONANNUALY: "결제일로 부터 1년 간격으로 {param}(이)가 자동으로 결제됩니다.",
     BILLINGCONFIRMMESSAGE:'상기 내용으로 결제를 진행하시겠습니까?',
     BILLINGLOADING: '결제 창 불러오는 중...',
     MONTHLY: "월",
@@ -339,6 +340,9 @@ const locales = {
     SUBSCRIPTIONCANCEL: "구독 취소",
     AUTHTYPE: "인증 유형",
     ETCUSERLOCATION: "그 외의 다른 나라들",
+    NONEUSERLOCATIONS: '모든 국가의 접속이 허용됩니다.',
+    NONEBROWSERS: '모든 브라우저의 접속이 차단됩니다.',
+    NOMOBILEPATCH: '모바일 앱 패치를 강제하지 않습니다.'
   },
 };
 

@@ -39,6 +39,7 @@ const Applications = ({
   userProfile,
   showSuccessMessage,
   showErrorMessage,
+  lang
 }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
@@ -52,11 +53,10 @@ const Applications = ({
 
   const tableDataAdd = useCallback(
     (data) => {
-      const _p = customPolicies.find((cP) => data.policyId === cP.policyId);
       setTableData([
         {
           ...data,
-          policy: _p ? _p.title : formatMessage({ id: "DEFAULTPOLICY" }),
+          policy: data.policyId === globalPolicy.policyId ? formatMessage({ id: "DEFAULTPOLICY" }) : customPolicies.find((c) => c.policyId === data.policyId).title
         },
         ...tableData,
       ]);
@@ -79,10 +79,7 @@ const Applications = ({
             ? {
                 appId: t.appId,
                 ...data,
-                policy: data.policyId
-                  ? customPolicies.find((c) => c.policyId === data.policyId)
-                      .title
-                  : formatMessage({ id: "DEFAULTPOLICY" }),
+                policy: data.policyId === globalPolicy.policyId ? '!DEFAULTPOLICY!' : customPolicies.find((c) => c.policyId === data.policyId).title
               }
             : t
         )
@@ -101,16 +98,9 @@ const Applications = ({
             (applicationData) => {
               setTableData(
                 applicationData.map((d) => {
-                  if(d.policyId === globalPolicyData.policyId) return ({
-                    ...d,
-                    policy: formatMessage({ id: "DEFAULTPOLICY" })
-                  })
-                  const _p = customPoliciesData.find(
-                    (cP) => d.policyId === cP.policyId
-                  );
                   return {
                     ...d,
-                    policy: _p.title
+                    policy: d.policyId === globalPolicyData.policyId ? '!DEFAULTPOLICY!' : customPoliciesData.find((c) => d.policyId === c.policyId).title
                   };
                 })
               );
@@ -254,6 +244,7 @@ const Applications = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    lang: state.locale
   };
 }
 

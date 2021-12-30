@@ -87,10 +87,7 @@ const Dashboard = ({ userProfile, locale }) => {
         (data) => {
           setAuthLogs(data.slice(-5));
         },
-      ],
-      () => {
-        message.error("대시보드 정보를 가져오는데 실패하였습니다.");
-      }
+      ]
     );
   };
 

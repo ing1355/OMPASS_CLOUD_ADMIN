@@ -92,11 +92,18 @@ const Global_Policy = ({
     setInputAuthCheck(null);
     setInputUserLocations([]);
     setInputBrowserCheck([]);
+    setUserLocationsEnable(false);
     // setInputAuthMethodCheck([]);
     setInputMobileCheck(null);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if(visible && saveCallback) {
+      setInputUserLocations([{ location: "ETC", status: "PERMIT" }]);
+    }
+  },[saveCallback, visible])
+
+  useLayoutEffect(() => {
     if (!visible) {
       InputInit();
     }

@@ -14,7 +14,6 @@ import {
 } from "../../../Functions/CustomAxios";
 import {
   updateAdminApi,
-  deleteAdminApi,
   updateSubAdminApi,
   deleteSubAdminApi,
 } from "../../../Constants/Api_Route";
@@ -23,6 +22,7 @@ import { connect } from "react-redux";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
+import { FailToTest, passwordTest } from "../../../Constants/InputRules";
 
 const AdminDetail = ({
   locale,
@@ -44,6 +44,7 @@ const AdminDetail = ({
     subAdminId,
     index
   } = data;
+  
   const history = useHistory();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
@@ -72,6 +73,7 @@ const AdminDetail = ({
     const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
+      if(!passwordTest(password.value)) return FailToTest(password, showErrorMessage('INCORRECT_PASSWORD'))
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
@@ -97,7 +99,6 @@ const AdminDetail = ({
         password: isSelf && password.value ? password.value : null,
       },
       (updatedData) => {
-        showSuccessMessage("UPDATE_SUCCESS");
         updateEvent({
           ...updatedData,
           country: inputCountryCode,

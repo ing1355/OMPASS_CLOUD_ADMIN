@@ -27,7 +27,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
       }
     );
     setLogin(true);
-    alert("메일로 전송했습니다. 인증해주세요.");
+    alert(formatMessage({id:'RESET_PASSWORD_SEND_MAIL'}));
   };
 
   const loginRequest = (e) => {

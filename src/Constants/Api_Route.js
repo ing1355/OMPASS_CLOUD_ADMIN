@@ -45,6 +45,7 @@ export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamp
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
 export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel-subscription`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
+export const cancelSubscriptionPayPalApi = (adminId) => `/v1/admins/${adminId}/paypal/cancel-subscription`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
 export const getPolicyLogsApi = (adminId) => `/v1/admins/${adminId}/policy-logs`

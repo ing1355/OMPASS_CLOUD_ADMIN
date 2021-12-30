@@ -24,7 +24,8 @@ const locales = {
     PLEASE_INPUT_POLICY_NAME: "정책명을 입력해주세요.",
     PLEASE_INPUT_POLICY: "최소 1가지 정책은 설정해주세요",
     NO_DIAL_CODE: '국가번호가 존재하지 않습니다.',
-    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.'
+    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.',
+    INCORRECT_PASSWORD: '비밀번호는 8자 이상 3가지 조합 혹은 10자 이상 2가지 조합이어야 합니다.'
   },
   KR: {
     POLICY_NAME_RULE_ERROR: "정책명은 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
@@ -51,7 +52,8 @@ const locales = {
     PLEASE_INPUT_POLICY_NAME: "정책명을 입력해주세요.",
     PLEASE_INPUT_POLICY: "최소 1가지 정책은 설정해주세요",
     NO_DIAL_CODE: '국가번호가 존재하지 않습니다.',
-    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.'
+    PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.',
+    INCORRECT_PASSWORD: '비밀번호는 8자 이상 3가지 조합 혹은 10자 이상 2가지 조합이어야 합니다.'
   },
 };
 

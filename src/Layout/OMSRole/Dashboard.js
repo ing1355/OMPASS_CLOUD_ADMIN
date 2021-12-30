@@ -21,10 +21,7 @@ const Dashboard = ({userProfile}) => {
                     console.log(data);
                     setTopData(data);
                 },
-            ],
-            () => {
-                message.error("대시보드 정보를 가져오는데 실패하였습니다.");
-            }
+            ]
         );
     }, [])
 

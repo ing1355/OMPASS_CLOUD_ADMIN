@@ -41,7 +41,7 @@ export const ApplicationsColumns = [
     searched: true,
   },
   { name: "REDIRECTURI", key: "redirectUri", width: 250, searched: true },
-  { name: "Policies", key: "policy" },
+  { name: "Policies", key: "policy", render: d => d === '!DEFAULTPOLICY!' ? <FormattedMessage id={'DEFAULTPOLICY'}/> : d },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
@@ -52,7 +52,8 @@ export const BillingColumns = [
   },
   {
     name: 'BILLINGCYCLE',
-    key: 'paymentInterval'
+    key: 'paymentInterval',
+    render: data => <FormattedMessage id={data}/>
   },
   {
     name: "PRICECOLUMN",
@@ -235,6 +236,13 @@ export const unRegisteredUserColumns = [
   },
 ];
 
+const getPolicyInActiveDescription = (key) => ({
+  accessControl: 'NORESTRICTION',
+  userLocations: 'NONEUSERLOCATIONS',
+  browsers: 'NONEBROWSERS',
+  mobilePatch: 'NOMOBILEPATCH'
+}[key])
+
 export const PolicyColumns = [
   {
     name: "Status",
@@ -276,7 +284,7 @@ export const PolicyColumns = [
     width: 600,
     render: (getDescription, row) => {
       const {status, key, index} = row;
-      return status ? getDescription(key, index) : <FormattedMessage id="NORESTRICTION" />
+      return status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />
     },
   },
 ];

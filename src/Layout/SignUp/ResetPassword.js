@@ -3,6 +3,7 @@ import React, { useLayoutEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import { resetPasswordVerifyApi } from "../../Constants/Api_Route";
+import { FailToTest, passwordTest } from "../../Constants/InputRules";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./SubAdminSignUp.css";
@@ -19,9 +20,12 @@ const ResetPassword = ({ location, history, showSuccessMessage, showErrorMessage
   const onFinish = (e) => {
     e.preventDefault();
     const { password, passwordConfirm } = e.target.elements;
+    
+    if(!passwordTest(password.value)) return FailToTest(password, showErrorMessage('INCORRECT_PASSWORD'))
+    if (password.value !== passwordConfirm.value) {
+      return showErrorMessage("NOT_EQUAL_PASSWORD");
+    }
 
-    if (password.value !== passwordConfirm.value)
-      return showErrorMessage('RESET_PASSWORD_FAIL_MESSAGE')
     CustomAxiosPatch(
       resetPasswordVerifyApi,
       {

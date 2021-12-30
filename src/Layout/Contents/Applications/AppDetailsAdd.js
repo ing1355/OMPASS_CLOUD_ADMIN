@@ -67,7 +67,7 @@ const AppDetailsAdd = ({
       {
         domain: domain.value,
         name: name.value,
-        policyId: policy.value === "null" ? null : policy.value,
+        policyId: policy.value,
         redirectUri: redirectUri.value,
         status: status.value,
       },
@@ -75,9 +75,6 @@ const AppDetailsAdd = ({
         showSuccessMessage("APPLICATION_ADD_SUCCESS");
         tableDataAdd(data);
         history.push("/Applications");
-      },
-      () => {
-        showErrorMessage("APPLICATION_ADD_FAIL");
       }
     );
   };
@@ -111,13 +108,13 @@ const AppDetailsAdd = ({
       <div className="ApplicationsBox">
         <form onSubmit={onFinish}>
           <div className="ApplicationForm">
-            <div className="ApplicationsTitle">
+            {/* <div className="ApplicationsTitle">
               <span>
                 <h2>
                   <FormattedMessage id="CONTENTS" />
                 </h2>
               </span>
-            </div>
+            </div> */}
             <div className="Application-label-input-box">
               <label>
                 <FormattedMessage id="APPLICATIONNAME" />

@@ -31,13 +31,15 @@ const locales = {
     PAYMENT_SUCCESS: '결제 성공하였습니다.',
     PAYMENT_FAIL: '결제 실패하였습니다.',
     SUBCRIPTION_CANCEL_SUCCESS: '구독 취소에 성공하였습니다.',
-    SUBCRIPTION_CANCEL_FAIL: '구독 취소에 실패하였습니다.',
     PLEASE_AGREEMENT_CHECK: '이용 동의에 체크해주세요.',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '변경할 사용자 수가 너무 적습니다.',
-    RESET_PASSWORD_SUCCESS_MESSAGE: '이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다.',
+    RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다.',
     RESET_PASSWORD_FAIL_MESSAGE: '비밀번호가 일치하지 않습니다.',
     SUCCESS_CSV_UPLOAD: 'CSV 업로드에 성공하였습니다.',
-    FAIL_CSV_UPLOAD: 'CSV 업로드에 실패하였습니다.'
+    FAIL_CSV_UPLOAD: 'CSV 업로드에 실패하였습니다.',
+    ADMIN_UPDATE_SUCCESS:'관리자 수정에 성공하였습니다.',
+    ADMIN_DELETE_SUCCESS: '관리자 삭제에 성공하였습니다.',
+    RESET_PASSWORD_SEND_MAIL: '메일로 비밀번호 초기화 링크를 전송하였습니다.\n메일함을 확인해주세요.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -71,13 +73,15 @@ const locales = {
     PAYMENT_SUCCESS: '결제 성공하였습니다.',
     PAYMENT_FAIL: '결제 실패하였습니다.',
     SUBCRIPTION_CANCEL_SUCCESS: '구독 취소에 성공하였습니다.',
-    SUBCRIPTION_CANCEL_FAIL: '구독 취소에 실패하였습니다.',
     PLEASE_AGREEMENT_CHECK: '이용 동의에 체크해주세요.',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '변경할 사용자 수가 너무 적습니다.',
-    RESET_PASSWORD_SUCCESS_MESSAGE: '이제 변경한 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다.',
+    RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다.',
     RESET_PASSWORD_FAIL_MESSAGE: '비밀번호가 일치하지 않습니다.',
     SUCCESS_CSV_UPLOAD: 'CSV 업로드에 성공하였습니다.',
-    FAIL_CSV_UPLOAD: 'CSV 업로드에 실패하였습니다.'
+    FAIL_CSV_UPLOAD: 'CSV 업로드에 실패하였습니다.',
+    ADMIN_UPDATE_SUCCESS:'관리자 수정에 성공하였습니다.',
+    ADMIN_DELETE_SUCCESS: '관리자 삭제에 성공하였습니다.',
+    RESET_PASSWORD_SEND_MAIL: '메일로 비밀번호 초기화 링크를 전송하였습니다.\n메일함을 확인해주세요.'
   },
 };
 

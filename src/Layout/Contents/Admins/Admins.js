@@ -23,7 +23,7 @@ import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const Admins = ({ userProfile, history }) => {
+const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) => {
   const { adminId, role } = userProfile;
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -60,14 +60,14 @@ const Admins = ({ userProfile, history }) => {
 
   const updateAdmin = useCallback(
     (rowData) => {
-      console.log(rowData)
       setTableData(
         tableData.map((t) =>
           t.email === rowData.email
-            ? { ...rowData, name: rowData.firstName + rowData.lastName }
+            ? { ...rowData, name: rowData.firstName + " " + rowData.lastName }
             : t
         )
       );
+      showSuccessMessage('ADMIN_UPDATE_SUCCESS')
     },
     [tableData]
   );
@@ -75,6 +75,7 @@ const Admins = ({ userProfile, history }) => {
   const deleteAdmin = useCallback(
     (index) => {
       setTableData(tableData.filter((t) => t.index !== index * 1));
+      showSuccessMessage('ADMIN_DELETE_SUCCESS')
     },
     [tableData]
   );
@@ -173,7 +174,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admins);

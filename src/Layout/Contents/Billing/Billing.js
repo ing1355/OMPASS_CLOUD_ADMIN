@@ -28,6 +28,7 @@ import {
   startPaypalApi,
   subscriptionIamportApi,
   cancelSubscriptionIamportApi,
+  cancelSubscriptionPayPalApi,
 } from "../../../Constants/Api_Route";
 
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
@@ -303,15 +304,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const cancelIamPort = () => {
     setConfirmLoading(true);
     CustomAxiosPost(
-      cancelSubscriptionIamportApi(adminId),
+      !isKorea() ? cancelSubscriptionPayPalApi : cancelSubscriptionIamportApi(adminId),
       {},
-      () => {
+      (data) => {
         showSuccessMessage("SUBCRIPTION_CANCEL_SUCCESS");
+        setCurrentPlan(data);
         setConfirmLoading(false);
         setCancelConfirmModal(false);
       },
       () => {
-        showErrorMessage("SUBCRIPTION_CANCEL_FAIL");
         setConfirmLoading(false);
       }
     );
@@ -481,10 +482,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               <FormattedMessage id="PRICE" />
             </label>
             <b>
-              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(cost) })}
-              {editions.length > 0 && editions[0].monetaryUnit === "원화"
-                ? " 원"
-                : " $"}
+              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) })}
+              {isKorea() ? " 원" : " $"}
             </b>
             <span>
               &nbsp;/ <FormattedMessage id={inputTerm} />
@@ -503,11 +502,11 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
                       { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                      { param: slicePrice(cost) + (isKorea() ? "원" : "$") }
+                      { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + (isKorea() ? "원" : "$") }
                     )
                   : formatMessage(
                       { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
-                      { param: slicePrice(cost) + (isKorea() ? "원" : "$") }
+                      { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + (isKorea() ? "원" : "$") }
                     )}
               </label>
             </div>
@@ -570,7 +569,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <br />
             Cost&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
-              {isKorea() ? slicePrice(cost) + " 원" : "$" + slicePrice(cost)}
+              {isKorea() ? (slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + " 원") : ("$" + slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12))}
             </b>
             <span>
               &nbsp;/ <FormattedMessage id={inputTerm} />

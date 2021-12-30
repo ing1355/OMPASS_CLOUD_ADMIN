@@ -307,12 +307,14 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                         SaveCsvData([
                           {
                             userId: "아이디",
+                            email: '이메일',
                             appName: "어플리케이션명",
                             type: "타입",
                             byPass: "바이패스 유무",
                           },
                           ..._tableData.map((t) => ({
                             userId: t.userId,
+                            email: t.email,
                             appName: t.appName,
                             type: t.type,
                             byPass: t.byPass ? "O" : "X",

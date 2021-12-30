@@ -153,15 +153,12 @@ const ApplicationDetail = ({
         domain: domain.value,
         redirectUri: redirectUri.value,
         status: status.value.toUpperCase(),
-        policyId: policy.value === 'null' ? null : policy.value,
+        policyId: policy.value,
       },
       (data) => {
         showSuccessMessage("UPDATE_SUCCESS");
         tableDataUpdate(appId, data);
         history.push("/Applications");
-      },
-      () => {
-        showErrorMessage("UPDATE_FAIL");
       }
     );
   };
