@@ -50,26 +50,6 @@ const AdminRoutes = [
     icon: DashboardIcon,
   },
   {
-    key: "Users",
-    name: "Users",
-    route: "/Users",
-    component: Users,
-    icon: UsersIcon,
-  },
-  // {
-  //   key: "2FA Devices",
-  //   name: "2FA Devices",
-  //   route: "/2FADevices",
-  //   component: TwoFactorDevices,
-  // },
-  {
-    key: "Admins",
-    name: "Admins",
-    route: "/Admins",
-    component: Admins,
-    icon: AdminsIcon,
-  },
-  {
     key: "Applications",
     name: "Applications",
     icon: ApplicationsIcon,
@@ -93,6 +73,21 @@ const AdminRoutes = [
         component: CustomPolicies,
       }
     ]
+  },
+
+  {
+    key: "Users",
+    name: "Users",
+    route: "/Users",
+    component: Users,
+    icon: UsersIcon,
+  },
+  {
+    key: "Admins",
+    name: "Admins",
+    route: "/Admins",
+    component: Admins,
+    icon: AdminsIcon,
   },
   {
     key: "Billing",
