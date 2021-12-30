@@ -32,7 +32,7 @@ const App = ({ isLogin, lang, setUserProfile, localeChange, userProfile, menuCha
       localStorage.removeItem('Authorization')
     } else {
       const routes = route_info(userProfile.role);
-      const target = [...routes, ...routes.filter(item => item.submenu).map(item => item.submenu).flat()].find(item => window.location.pathname === item.route);
+      const target = [...routes, ...routes.filter(item => item.submenu).map(item => item.submenu).flat()].find(item => '/' + window.location.pathname.split('/')[1] === item.route);
       if(target) menuChange(target.name);
       if(localStorage.getItem('locale')) localeChange(localStorage.getItem('locale'))
       else {

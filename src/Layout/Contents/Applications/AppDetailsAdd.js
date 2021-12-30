@@ -39,7 +39,7 @@ const AppDetailsAdd = ({
     const { domain, redirectUri, name, policy, status } = e.target.elements;
     if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
     if (!name.value.length) {
-      return FailToTest(name,showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
+      return FailToTest(name, showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
     }
     if (!ApplicationNameTest(name.value)) {
       return FailToTest(name, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
@@ -108,13 +108,6 @@ const AppDetailsAdd = ({
       <div className="ApplicationsBox">
         <form onSubmit={onFinish}>
           <div className="ApplicationForm">
-            {/* <div className="ApplicationsTitle">
-              <span>
-                <h2>
-                  <FormattedMessage id="CONTENTS" />
-                </h2>
-              </span>
-            </div> */}
             <div className="Application-label-input-box">
               <label>
                 <FormattedMessage id="APPLICATIONNAME" />
@@ -137,20 +130,6 @@ const AppDetailsAdd = ({
                 <FormattedMessage id="DUPLICATECHECK" />
               </button>
             </div>
-            {/* <div className="Application-label-input-box">
-              <label>비밀 키</label>
-              <div className="secretKey-container">
-                <input name="secretKey" readOnly />
-                <div className="copyButton-container">
-                  <button className="copyButton">
-                    <CopyOutlined /> Copy
-                  </button>
-                </div>
-              </div>
-              <CustomButton type="button" className="button">
-                비밀 키 재설정
-              </CustomButton>
-            </div> */}
 
             <div className="Application-label-input-box">
               <label>
@@ -192,18 +171,7 @@ const AppDetailsAdd = ({
               />
               <label className="label-radio">Inactive</label>
             </div>
-            <div className="ApplicationsTitle" style={{ marginBottom: "0" }}>
-              <h2 style={{ marginTop: "1rem", marginBottom: "0.5rem" }}>
-                <FormattedMessage id="Policies" />
-              </h2>
-              <p>
-                <FormattedMessage id="APPLICATIONPOLICYSETTINGDESCRIPTION" />
-              </p>
-            </div>
-            <div
-              className="Application-label-input-box"
-              style={{ marginTop: "1rem" }}
-            >
+            <div className="Application-label-input-box">
               <label>
                 <FormattedMessage id="POLICYSETTING" />
               </label>
