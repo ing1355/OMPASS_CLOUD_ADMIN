@@ -24,6 +24,7 @@ import {
   deleteApplicationApi,
   getApplicationApi,
   getCustomPoliciesApi,
+  getGlobalPolicyApi,
 } from "../../../Constants/Api_Route";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -46,6 +47,7 @@ const Applications = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [customPolicies, setCustomPolicies] = useState([]);
+  const [globalPolicy, setGlobalPolicy] = useState(null);
   const { formatMessage } = useIntl();
 
   const tableDataAdd = useCallback(
@@ -90,37 +92,42 @@ const Applications = ({
   );
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getCustomPoliciesApi(adminId),
-      (customPoliciesData) => {
-        setCustomPolicies(customPoliciesData);
-        CustomAxiosGet(
-          getApplicationApi(adminId),
-          (applicationData) => {
-            setTableData(
-              applicationData.map((d) => {
-                const _p = customPoliciesData.find(
-                  (cP) => d.policyId === cP.policyId
-                );
-                return {
-                  ...d,
-                  policy: _p
-                    ? _p.title
-                    : formatMessage({ id: "DEFAULTPOLICY" }),
-                };
-              })
-            );
-            setTableLoading(false);
-          },
-          () => {
-            setTableLoading(false);
-          }
-        );
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
+    CustomAxiosGet(getGlobalPolicyApi(adminId), (globalPolicyData) => {
+      setGlobalPolicy(globalPolicyData)
+      CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
+          setCustomPolicies(customPoliciesData);
+          CustomAxiosGet(
+            getApplicationApi(adminId),
+            (applicationData) => {
+              setTableData(
+                applicationData.map((d) => {
+                  if(d.policyId === globalPolicyData.policyId) return ({
+                    ...d,
+                    policy: formatMessage({ id: "DEFAULTPOLICY" })
+                  })
+                  const _p = customPoliciesData.find(
+                    (cP) => d.policyId === cP.policyId
+                  );
+                  return {
+                    ...d,
+                    policy: _p.title
+                  };
+                })
+              );
+              setTableLoading(false);
+            },
+            () => {
+              setTableLoading(false);
+            }
+          );
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }, () => {
+      setTableLoading(false);
+    })
   }, []);
 
   const confirmCallback = () => {
@@ -223,7 +230,8 @@ const Applications = ({
             render={() => (
               <ApplicationAdd
                 tableDataAdd={tableDataAdd}
-                policies={customPolicies}
+                globalPolicy={globalPolicy}
+                customPolicies={customPolicies}
               />
             )}
           />
@@ -232,7 +240,8 @@ const Applications = ({
             render={() => (
               <ApplicationDetail
                 tableDataUpdate={tableDataUpdate}
-                policies={customPolicies}
+                globalPolicy={globalPolicy}
+                customPolicies={customPolicies}
               />
             )}
           />

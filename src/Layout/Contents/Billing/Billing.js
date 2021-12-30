@@ -42,6 +42,8 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
+import { getDateFormatEn, getDateFormatKr } from "../../../Functions/GetFullDate";
+import { planStatusCodes } from "../Dashboard/Dashboard";
 
 const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const { adminId, country } = userProfile;
@@ -328,7 +330,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
-            {currentPlan ? currentPlan.name : null} Plan
+            {currentPlan ? currentPlan.name : null}
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
@@ -345,16 +347,19 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               }}
               icon={faCheckSquare}
             />
-            &nbsp;&nbsp; ddd
+            &nbsp;&nbsp; {currentPlan && currentPlan.status
+                    ? planStatusCodes[currentPlan.status]
+                    : planStatusCodes["STOPPED"]}
           </h5>
           <h6>
             <FontAwesomeIcon
               style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
               icon={faCalendarCheck}
             />
-            &nbsp;&nbsp; 2021-12-29 ~ ddd
+            &nbsp;&nbsp; {currentPlan && (isKorea() ? getDateFormatKr(currentPlan.createDate) + ' ~ ' + getDateFormatKr(currentPlan.expireDate) 
+            : getDateFormatEn(currentPlan.createDate) + ' ~ ' + getDateFormatEn(currentPlan.expireDate))}
           </h6>
-          <button disabled onClick={openCancelConfirmModal}>구독 취소</button>
+          <button disabled={(currentPlan && currentPlan.status !== 'RUN') || !editions.find(e => e.name === currentPlan.name)} onClick={openCancelConfirmModal}>구독 취소</button>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
