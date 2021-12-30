@@ -25,7 +25,8 @@ const AppDetailsAdd = ({
   tableDataAdd,
   showSuccessMessage,
   showErrorMessage,
-  policies,
+  globalPolicy,
+  customPolicies,
 }) => {
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
@@ -210,10 +211,10 @@ const AppDetailsAdd = ({
                 <FormattedMessage id="POLICYSETTING" />
               </label>
               <select name="policy">
-                <option value="null">
+                <option value={globalPolicy && globalPolicy.policyId}>
                   {formatMessage({ id: "DEFAULTPOLICY" })}
                 </option>
-                {policies.map((p, ind) => (
+                {customPolicies.map((p, ind) => (
                   <option key={ind} value={p.policyId}>
                     {p.title}
                   </option>

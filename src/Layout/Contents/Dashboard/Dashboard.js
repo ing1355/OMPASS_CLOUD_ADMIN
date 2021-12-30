@@ -31,6 +31,13 @@ import {
   Legend,
   Line,
 } from "recharts";
+import { getDateFormatEn, getDateFormatKr } from "../../../Functions/GetFullDate";
+
+export const planStatusCodes = {
+  STOPPED: "사용하지 않음",
+  RUN: <FormattedMessage id="Valid" />,
+  CANCEL: <><FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel"/></>,
+};
 
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -42,11 +49,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
 
-  const planStatusCodes = {
-    STOPPED: "사용하지 않음",
-    RUN: <FormattedMessage id="Valid" />,
-    CANCEL: <FormattedMessage id="Valid" />,
-  };
+  
 
   const getDashboardData = () => {
     CustomAxiosGetAll(
@@ -95,27 +98,6 @@ const Dashboard = ({ userProfile, locale }) => {
     getDashboardData();
   }, []);
 
-  const getDateFormat = (date) =>
-    date
-      .split(" ")[0]
-      .split("-")
-      .reduce((pre, cur) => {
-        return pre.includes("월")
-          ? pre + " " + cur + "일"
-          : pre.includes("년")
-          ? pre + " " + cur + "월"
-          : pre + "년 " + cur + "월";
-      });
-
-  const getDateFormatEn = (date) => {
-    const options = {
-      day: "numeric",
-      year: "numeric",
-      month: "long",
-    };
-    return new Date(date).toLocaleDateString("en-US", options);
-  };
-
   return (
     <div className="contents-container" style={{ width: 1400 }}>
       <div className="flag kr" />
@@ -128,7 +110,7 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{plan.name} Plan</h2>
+                <h2>{plan.name}</h2>
                 <h5>
                   <FontAwesomeIcon
                     style={{
@@ -151,8 +133,8 @@ const Dashboard = ({ userProfile, locale }) => {
                   &nbsp;&nbsp;
                   {locale === "ko" ? (
                     <>
-                      {plan.createDate ? getDateFormat(plan.createDate) : null}~
-                      {plan.expireDate ? getDateFormat(plan.expireDate) : null}
+                      {plan.createDate ? getDateFormatKr(plan.createDate) : null}~
+                      {plan.expireDate ? getDateFormatKr(plan.expireDate) : null}
                     </>
                   ) : (
                     <>

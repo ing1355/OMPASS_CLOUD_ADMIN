@@ -34,7 +34,6 @@ const DefaultPolicy = ({ userProfile }) => {
 
   const getDescription = (key) => {
     const value = globalPoliciesDataRef.current[key];
-    console.log(value, key)
     switch(key) {
       case "accessControl":
         return formatMessage({id:value === 'ACTIVE' ? 'ACCESSCONTROLACTIVEDESCRIPTION' : (value === 'INACTIVE' ? 'ACCESSCONTROLINACTIVEDESCRIPTION' : 'ACCESSCONTROLDENYDESCRIPTION')})

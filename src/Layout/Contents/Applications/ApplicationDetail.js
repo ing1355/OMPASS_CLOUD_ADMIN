@@ -34,7 +34,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 const ApplicationDetail = ({
   userProfile,
   tableDataUpdate,
-  policies,
+  globalPolicy,
+  customPolicies,
   showSuccessMessage,
   showErrorMessage,
 }) => {
@@ -245,9 +246,9 @@ const ApplicationDetail = ({
           <div className="Application-label-input-box">
             <label><FormattedMessage id="POLICYSETTING"/></label>
             <select name="policy" ref={policyRef}>
-              <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
+              <option value={globalPolicy && globalPolicy.policyId}>{formatMessage({id:'DEFAULTPOLICY'})}</option>
               {
-                policies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
+                customPolicies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
               }
             </select>
           </div>
