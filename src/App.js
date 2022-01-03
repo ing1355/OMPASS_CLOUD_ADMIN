@@ -25,20 +25,36 @@ const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
 const ResetPassword = lazy(() => import("./Layout/SignUp/ResetPassword"));
 const OMPASSVerify = lazy(() => import("./Layout/OMPASS/OMPASSVerify"));
 
-const App = ({ isLogin, lang, setUserProfile, localeChange, userProfile, menuChange }) => {
+const App = ({
+  isLogin,
+  lang,
+  setUserProfile,
+  localeChange,
+  userProfile,
+  menuChange,
+}) => {
   useEffect(() => {
     if (!isLogin) {
       setUserProfile({});
-      localStorage.removeItem('Authorization')
+      localStorage.removeItem("Authorization");
     } else {
       const routes = route_info(userProfile.role);
-      const target = [...routes, ...routes.filter(item => item.submenu).map(item => item.submenu).flat()].find(item => '/' + window.location.pathname.split('/')[1] === item.route);
-      if(target) menuChange(target.name);
-      if(localStorage.getItem('locale')) localeChange(localStorage.getItem('locale'))
+      const target = [
+        ...routes,
+        ...routes
+          .filter((item) => item.submenu)
+          .map((item) => item.submenu)
+          .flat(),
+      ].find(
+        (item) => "/" + window.location.pathname.split("/")[1] === item.route
+      );
+      if (target) menuChange(target.name);
+      if (localStorage.getItem("locale"))
+        localeChange(localStorage.getItem("locale"));
       else {
-        const {country} = userProfile;
-        localStorage.setItem('locale', country === 'KR' ? 'ko' : 'en');
-        localeChange(country === 'KR' ? 'ko' : 'en');
+        const { country } = userProfile;
+        localStorage.setItem("locale", country === "KR" ? "ko" : "en");
+        localeChange(country === "KR" ? "ko" : "en");
       }
     }
   }, [isLogin]);
@@ -47,7 +63,7 @@ const App = ({ isLogin, lang, setUserProfile, localeChange, userProfile, menuCha
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>
         <AxiosController />
-        <MessageController/>
+        <MessageController />
         <React.Suspense fallback={<div>loading...</div>}>
           <Switch>
             <Route path="/admin-signup" component={AdminSignUp} />
