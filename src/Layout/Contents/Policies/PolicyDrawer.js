@@ -435,10 +435,6 @@ const Global_Policy = ({
               <FormattedMessage id="ACCESSCONTROLDENYDESCRIPTION" />
             </p>
           </div>
-
-          <p style={{ marginTop: "0", color: "#066b93" }}>
-            <FormattedMessage id="ACCESSCONTROLDESCRIPTION" />
-          </p>
         </section>
         {/* -------------User location ------------- */}
         <section className="policies-box">

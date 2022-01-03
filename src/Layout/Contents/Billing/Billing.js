@@ -72,7 +72,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-          editions.find((e) => e.name === inputEdition).priceForOneUser
+        editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -120,15 +120,15 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 
   const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
-  },[]);
+  }, []);
 
   const openCancelConfirmModal = useCallback(() => {
     setCancelConfirmModal(true);
-  },[])
+  }, [])
 
   const closeCancelConfirmModal = useCallback(() => {
     setCancelConfirmModal(false);
-  },[]);
+  }, []);
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -339,18 +339,22 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               icon={faCheckSquare}
             />
             &nbsp;&nbsp; {currentPlan && currentPlan.status
-                    ? planStatusCodes[currentPlan.status]
-                    : planStatusCodes["STOPPED"]}
+              ? planStatusCodes[currentPlan.status]
+              : planStatusCodes["STOPPED"]}
           </h5>
           <h6>
             <FontAwesomeIcon
               style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
               icon={faCalendarCheck}
             />
-            &nbsp;&nbsp; {currentPlan && (isKorea() ? getDateFormatKr(currentPlan.createDate) + ' ~ ' + getDateFormatKr(currentPlan.expireDate) 
-            : getDateFormatEn(currentPlan.createDate) + ' ~ ' + getDateFormatEn(currentPlan.expireDate))}
+            &nbsp;&nbsp; {currentPlan && (isKorea() ? getDateFormatKr(currentPlan.createDate) + ' ~ ' + getDateFormatKr(currentPlan.expireDate)
+              : getDateFormatEn(currentPlan.createDate) + ' ~ ' + getDateFormatEn(currentPlan.expireDate))}
           </h6>
-          <button disabled={(currentPlan && currentPlan.status !== 'RUN') || !editions.find(e => e.name === currentPlan.name)} onClick={openCancelConfirmModal}>구독 취소</button>
+          <button
+            disabled={(currentPlan && currentPlan.status !== 'RUN') || !editions.find(e => e.name === currentPlan.name)}
+            onClick={openCancelConfirmModal}>
+            <FormattedMessage id="SUBSCRIPTIONCANCEL" />
+          </button>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -371,7 +375,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           </div>
           <div
             className="billing-edition-title"
-            // style={{ color: "#00a9ec", fontWeight: "bold" }}
+          // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
             <FormattedMessage id="USER" />
           </div>
@@ -472,7 +476,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               <FormattedMessage id="PRICE" />
             </label>
             <b>
-              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) })}
+              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) })}
               {isKorea() ? " 원" : " $"}
             </b>
             <span>
@@ -491,13 +495,13 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 <br />
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                      { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + (isKorea() ? "원" : "$") }
-                    )
+                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                    { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + (isKorea() ? "원" : "$") }
+                  )
                   : formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
-                      { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + (isKorea() ? "원" : "$") }
-                    )}
+                    { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
+                    { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + (isKorea() ? "원" : "$") }
+                  )}
               </label>
             </div>
           </div>
@@ -510,21 +514,6 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             >
               <FormattedMessage id="SUBSCRIPTION" />
             </button>
-            {/* {currentPlan &&
-              currentPlan.status === "RUN" &&
-              editions.find((e) => e.name === currentPlan.name) && (
-                <button
-                  name="payType"
-                  className="button Cancel-subscription"
-                  style={{ marginLeft: "12px" }}
-                  type="button"
-                  onClick={() => {
-                    setCancelConfirmModal(true);
-                  }}
-                >
-                  <FormattedMessage id="SUBSCRIPTIONCANCEL" />
-                </button>
-              )} */}
           </div>
         </form>
       </section>
@@ -559,7 +548,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <br />
             Cost&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
-              {isKorea() ? (slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12) + " 원") : ("$" + slicePrice(inputTerm === 'MONTHLY' ? cost : cost*12))}
+              {isKorea() ? (slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + " 원") : ("$" + slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12))}
             </b>
             <span>
               &nbsp;/ <FormattedMessage id={inputTerm} />
