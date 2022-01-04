@@ -33,7 +33,7 @@ const HeaderContents = ({
       <div className="header-contents-route-title">{menuState && <FormattedMessage id={menuState}/>}</div>
 
       <div className="header-contents-button-box">
-        {locale === 'KR' ? <p>
+        {locale === 'ko' ? <p>
           <b>
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}

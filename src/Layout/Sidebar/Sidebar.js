@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Menu from "./Menu";
 import "./Sidebar.css";
 import { ImportOutlined } from "@ant-design/icons";

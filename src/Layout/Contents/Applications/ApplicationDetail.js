@@ -1,10 +1,8 @@
-import { message } from "antd";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import {
   checkApplicationExistenceApi,
-  deleteApplicationApi,
   getApplicationDetailApi,
   getNewSecretKeyApi,
   updateApplicationApi,
@@ -12,8 +10,7 @@ import {
 import {
   CustomAxiosGet,
   CustomAxiosPatch,
-  CustomAxiosPut,
-  CustomAxiosDelete,
+  CustomAxiosPut
 } from "../../../Functions/CustomAxios";
 
 import { CopyOutlined } from "@ant-design/icons";
@@ -62,7 +59,6 @@ const ApplicationDetail = ({
         domain,
         redirectUri,
         status,
-        integrationKey,
         policyId,
         cloud
       } = data;

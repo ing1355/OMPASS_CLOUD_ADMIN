@@ -3,7 +3,6 @@ import "./Contents.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Route_items from "../../Constants/Route_items";
 import { connect } from "react-redux";
-import ActionCreators from "../../redux/actions";
 
 const Contents = ({ userProfile }) => {
   const { role } = userProfile;

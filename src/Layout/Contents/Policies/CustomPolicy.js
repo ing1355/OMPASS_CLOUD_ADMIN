@@ -76,7 +76,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
       case "browsers":
         return formatMessage({ id: 'BROWSERSPOLICYDESCRIPTION' }, { param: value.toString() })
       case "mobilePatch":
-        return formatMessage({ id: value === 'ACTIVE' ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE' })
+        return formatMessage({ id: value ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE' })
       default: break;
     }
   }
@@ -117,23 +117,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   useLayoutEffect(() => {
     CustomAxiosGet(getCustomPoliciesApi(adminId),
       (data) => {
-        const result = data.map(d => Object.keys(d).map(_d => {
-          const result = {};
-          result[_d] = d[_d];
-          if (_d === "policyId" || _d === "title") return;
-          return result;
-        }).filter(_d => _d));
         setCustomPoliciesData(data);
-        setCustomPoliciesTableData(result.map((d, ind) => {
-          return PolicyTableDataFeature.map(td => {
-            const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key]
-            return {
-              ...td,
-              index: ind,
-              status: td.key === 'userLocations' ? data[ind].userLocationEnable : target && target.length > 0,
-            }
-          })
-        }))
       },
       (err) => {
         console.log(err);
@@ -146,7 +130,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
     const result = customPoliciesData.map(d => Object.keys(d).map(_d => {
       const result = {};
       result[_d] = d[_d];
-      if (_d === "policyId" || _d === "title") return;
+      if (_d === "policyId" || _d === "title") return undefined;
       return result;
     }).filter(_d => _d));
     setCustomPoliciesTableData(result.map((d, ind) => {
@@ -155,7 +139,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
         return {
           ...td,
           index: ind,
-          status: td.key === 'userLocations' ? customPoliciesData[ind].userLocationEnable : target && target.length > 0,
+          status: (td.key !== 'accessControl' && customPoliciesData[ind].accessControl !== 'ACTIVE') ? 'disable' : (td.key === 'mobilePatch' ? target : (td.key === 'userLocations' ? customPoliciesData[ind].userLocationEnable : target && target.length > 0)),
         }
       })
     }))
@@ -163,7 +147,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
 
   const saveCallback = useCallback(
     (result) => {
-      setCustomPoliciesData([...customPoliciesData, result]);
+      setCustomPoliciesData([result, ...customPoliciesData]);
     },
     [customPoliciesData, isEditPolicy]
   );
@@ -247,11 +231,13 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
       <CustomConfirm
         visible={deleteConfirmVisible}
         footer={true}
+        style={{flexDirection:'column'}}
         okLoading={deleteConfirmLoading}
         cancelCallback={closeDeleteConfirm}
         confirmCallback={_deleteCallback}
       >
-        <FormattedMessage id="DELETECONFIRM" />
+        <h3><FormattedMessage id="DELETECONFIRM" /></h3>
+        {deleteConfirmVisible && customPoliciesData[deleteTargetIndex].active && <h5 style={{color:'red'}}>현재 정책은 특정 어플리케이션에서 사용 중입니다.<br/>삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.</h5>}
       </CustomConfirm>
     </div>
   );

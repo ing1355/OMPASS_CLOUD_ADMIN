@@ -1,10 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react';
 import CustomCard from '../../CustomComponents/CustomCard';
 import './Dashboard.css'
-import { barTestData, pieCountryTestData, pieDeviceTestData } from './ChartData';
 import { CustomAxiosGetAll } from '../../Functions/CustomAxios';
 import { getOMSDashboardTopApi } from '../../Constants/Api_Route';
-import { message } from 'antd';
 import { connect } from 'react-redux';
 
 const Dashboard = ({userProfile}) => {

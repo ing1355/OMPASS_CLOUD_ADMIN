@@ -7,7 +7,7 @@ import ActionCreators from '../../redux/actions';
 
 const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
     const query = queryString.parse(location.search);
-    const { isRegisterSuccess, username, access_token, key } = query;
+    const { username, access_token } = query;
     
     useLayoutEffect(() => {
         CustomAxiosPost(verifyOMPASSApi, {

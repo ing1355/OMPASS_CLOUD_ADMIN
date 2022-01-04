@@ -1,12 +1,10 @@
 import React, {
   useCallback,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useState,
 } from "react";
 import "./Users.css";
-import UsersTable from "./UsersTable";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
 import {
@@ -15,7 +13,6 @@ import {
   updateCSVApi,
 } from "../../../Constants/Api_Route";
 import {
-  CustomAxiosGet,
   CustomAxiosGetAll,
   CustomAxiosPost,
 } from "../../../Functions/CustomAxios";
@@ -26,7 +23,6 @@ import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
 import CustomButton from "../../../CustomComponents/CustomButton";
-import ExcelDownload from "./ExcelDownload";
 import { allUserColumns } from "../../../Constants/TableColumns";
 import { UploadOutlined, DownloadOutlined } from "@ant-design/icons";
 import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
@@ -36,7 +32,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
-const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
+const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [_tableData, _setTableData] = useState([]);
@@ -45,7 +41,6 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const [selectView, setSelectView] = useState(0);
   const [applicationsData, setApplicationsData] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
-  // const [customPolicies, setCustomPolicies] = useState([]);
   const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
   const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
   const [excelData, setExcelData] = useState(null);
@@ -57,16 +52,8 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       [getUsersApi(adminId), getApplicationApi(adminId)],
       [
         (userData) => {
-          // const result = userData.map((d) => ({
-          //   ...d,
-          //   policy: d.policyId
-          //     ? customPoliciesData.find((c) => c.policyId === d.policyId)
-          //     : formatMessage({ id: "DEFAULTPOLICY" }),
-          // }));
           setTableData(userData);
           _setTableData(userData);
-          // setTableData([...result]);
-          // _setTableData([...result]);
           setTableLoading(false);
         },
         (applicationData) => {
@@ -259,7 +246,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 </div>
                 <div className="excel-button-box">
                   <div>
-                    <CustomButton className="excel-button">
+                    <CustomButton className="excel-button" style={{minWidth: lang === 'ko' ? 170 : 200}}>
                       <label
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
@@ -279,9 +266,9 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                               (c) => c.key !== "lastLoginDate"
                             );
                             const result = [];
-                            jsonData.map((data) => {
+                            jsonData.forEach((data) => {
                               const _result = {};
-                              columns.map((c, ind) => {
+                              columns.forEach((c, ind) => {
                                 _result[c.key] =
                                   c.key === "byPass"
                                     ? data[ind] === "O"
@@ -302,21 +289,19 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                     <CustomButton
                       id="download"
                       className="excel-button"
-                      style={{ float: "right" }}
+                      style={{ float: "right", minWidth: lang === 'ko' ? 170 : 200 }}
                       onClick={() => {
                         SaveCsvData([
                           {
-                            userId: "아이디",
-                            email: '이메일',
-                            appName: "어플리케이션명",
-                            type: "타입",
-                            byPass: "바이패스 유무",
+                            userId: formatMessage({id:'id'}),
+                            email: formatMessage({id:'Email'}),
+                            appName: formatMessage({id:'APPLICATIONNAME'}),
+                            byPass: formatMessage({id:'ISBYPASS'}),
                           },
                           ..._tableData.map((t) => ({
                             userId: t.userId,
                             email: t.email,
                             appName: t.appName,
-                            type: t.type,
                             byPass: t.byPass ? "O" : "X",
                           })),
                         ]);
@@ -326,11 +311,6 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                       &nbsp;&nbsp;
                       <FormattedMessage id="EXCELDOWNLOAD" />
                     </CustomButton>
-                    {/* <ExcelDownload
-                      data={tableData}
-                      className="button"
-                      columns={allUserColumns}
-                    /> */}
                   </div>
                 </div>
               </>
@@ -355,7 +335,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           okLoading={csvConfirmLoading}
         >
           <h6 className="execel-modal-text">
-            사용자를 추가할 어플리케이션을 선택해주세요.
+            <FormattedMessage id="EXCELIMPORTTEXT"/>
           </h6>
           <select
             className="excel-select"
@@ -377,6 +357,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    lang: state.locale
   };
 }
 

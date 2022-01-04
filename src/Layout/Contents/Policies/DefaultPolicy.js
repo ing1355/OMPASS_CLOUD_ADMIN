@@ -31,7 +31,7 @@ const DefaultPolicy = ({ userProfile }) => {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const globalPoliciesDataRef = useRef(null);
   const { formatMessage } = useIntl();
-
+  
   const getDescription = (key) => {
     const value = globalPoliciesDataRef.current[key];
     switch(key) {
@@ -42,7 +42,7 @@ const DefaultPolicy = ({ userProfile }) => {
       case "browsers":
         return formatMessage({id:'BROWSERSPOLICYDESCRIPTION'},{param: value.toString()})
       case "mobilePatch":
-        return formatMessage({id:value === 'ACTIVE' ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE'})
+        return formatMessage({id:value ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE'})
       default: break;
     }
   }
@@ -66,12 +66,6 @@ const DefaultPolicy = ({ userProfile }) => {
       policy: "BROWSERSPOLICYTITLE",
       description: getDescription
     },
-    // {
-    //   status: "",
-    //   key: "authenticationMethods",
-    //   policy: "인증 방법 제한",
-    //   description: "GLOBALPOLICYDESCRIPTION_4",
-    // },
     {
       status: "",
       key: "mobilePatch",
@@ -81,12 +75,12 @@ const DefaultPolicy = ({ userProfile }) => {
   ];
 
   const convertDataToTableData = useCallback((_) => {
-    const data = _ || globalPoliciesData
+    const data = _ || {...globalPoliciesData}
     const result = Object.keys(data)
       .map((d) => {
         const result = {};
         result[d] = data[d];
-        if (d === "policyId" || d === "title") return;
+        if (d === "policyId" || d === "title") return undefined;
         return result;
       })
       .filter((el) => el !== undefined);
@@ -95,11 +89,11 @@ const DefaultPolicy = ({ userProfile }) => {
       const target = result.find((r) => Object.keys(r)[0] === td.key)[td.key];
       return {
         ...td,
-        status: td.key === 'userLocations' ? data.userLocationEnable : target.length > 0,
+        status: (td.key !== 'accessControl' && data.accessControl !== 'ACTIVE') ? 'disable' : (td.key === 'mobilePatch' ? target : (td.key === 'userLocations' ? data.userLocationEnable : target.length > 0)),
       };
     })
   }, [globalPoliciesData])
-
+  
   useLayoutEffect(() => {
     CustomAxiosGet(getGlobalPolicyApi(adminId),
       (data) => {

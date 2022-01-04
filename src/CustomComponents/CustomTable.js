@@ -69,8 +69,7 @@ const CustomTable = ({
             ...d,
           }))
         : datas,
-    [multipleSelectable, datas]
-  );
+    [multipleSelectable, datas]);
 
   useLayoutEffect(() => {
     if (datas) {
@@ -83,13 +82,13 @@ const CustomTable = ({
       const initialColumn = columns.find((c) => c.searched);
       if (initialColumn) setSearchColumn(initialColumn.key);
     }
-  }, [searched]);
+  }, [searched, columns]);
 
   useLayoutEffect(() => {
     if (searchColumn) {
       setSearchTarget(columns.find((c) => c.key === searchColumn));
     }
-  }, [searchColumn]);
+  }, [searchColumn, columns]);
 
   const rowSelect = useCallback(
     (id) => {
@@ -104,7 +103,7 @@ const CustomTable = ({
 
   useLayoutEffect(() => {
     if (onChangeSelectedRows) onChangeSelectedRows([]);
-  }, []);
+  }, [onChangeSelectedRows]);
 
   useEffect(() => {
     firstRenderRef.current = true;

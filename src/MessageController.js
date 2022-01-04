@@ -2,7 +2,6 @@ import { message } from 'antd';
 import React, { useLayoutEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import ActionCreators from './redux/actions';
 
 const MessageController = ({msg}) => {
     const { formatMessage } = useIntl();

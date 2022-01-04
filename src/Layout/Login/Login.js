@@ -7,10 +7,9 @@ import ActionCreators from "../../redux/actions";
 import { popupCenter } from "./fidoPopUp";
 import "./Login.css";
 import "antd/dist/antd.css";
-import { message } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
+const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMessage, showErrorMessage }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
 
@@ -56,9 +55,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange }) => {
             country,
           });
           setIsLogin(true);
-          message.success({
-            content: "로그인 되었습니다.",
-          });
+          showSuccessMessage('LOGIN_SUCCESS')
           if (callback) callback();
         }
       }
@@ -201,6 +198,12 @@ function mapDispatchToProps(dispatch) {
     },
     localeChange: (toggle) => {
       dispatch(ActionCreators.localeChange(toggle));
+    },
+    showSuccessMessage: (id) => {
+      dispatch(ActionCreators.showSuccessMessage(id));
+    },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
     },
   };
 }

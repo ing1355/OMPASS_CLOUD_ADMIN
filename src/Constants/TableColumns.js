@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
@@ -12,12 +11,6 @@ export const AdminsColumns = [
   { name: "phoneNumber", key: "phone", width: 250 },
   { name: "Country", key: "country" },
 ];
-
-const makeDetail = (data, row) => (
-  <Link to={`/Applications/Detail/${row.appId}`}>
-    <button className="button">보기</button>
-  </Link>
-);
 
 export const ApplicationsColumns = [
   {
@@ -106,7 +99,6 @@ export const PolicyLogsColumns = [
     key: "policyName",
     searched: true,
     width: 250,
-    searched: true,
     render: (value,row) => row.policyType === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY"/> : value
   },
   {
@@ -249,7 +241,7 @@ export const PolicyColumns = [
     key: "status",
     render: (status, b) => (
       <div style={{ textAlign: "center" }}>
-        {status ? (
+        {status === true ? (
           <FontAwesomeIcon
             style={{
               color: "rgb(0, 209, 52)",
@@ -284,7 +276,7 @@ export const PolicyColumns = [
     width: 600,
     render: (getDescription, row) => {
       const {status, key, index} = row;
-      return status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />
+      return status === 'disable' ? <FormattedMessage id="DISABLEDPOLICY"/> : (status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />)
     },
   },
 ];

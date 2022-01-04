@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { message } from "antd";
 import {
   CustomAxiosGet,
   CustomAxiosPost,
@@ -17,7 +16,6 @@ import { connect } from "react-redux";
 import {
   emailTest,
   FailToTest,
-  mobileTest,
   nameTest,
 } from "../../../Constants/InputRules";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -59,7 +57,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   };
 
   const onFinish = (e) => {
-    const { email, lastName, firstName, agreeCheck, mobile } =
+    const { email, lastName, firstName, mobile } =
       e.target.elements;
     e.preventDefault();
     if (!firstName.value.length) {
@@ -81,9 +79,9 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
     }
     if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
+    if(inputFormat && mobile.value.length !== inputFormat.length && mobile.value.length !== inputDialCode.length + 1) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
       if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
-      if(inputFormat && mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     }
     CustomAxiosPost(addSubAdminApi(adminId), {
       country: inputCountry ? inputCountry : 'KR',
@@ -142,17 +140,6 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
             </div>
           </div>
           <div className="checkBox">
-            {/* <span>계정 설정</span>
-            <div>
-              <span>
-                <input name="agreeCheck" type="checkbox" />
-                <p>이메일을 통해 자동으로 계정 설정 링크 보내기</p>
-              </span>
-              <p>
-                이 관리자는 계정 설정을 완료하기 위한 지침이 포함된 이메일을
-                받게 됩니다.
-              </p>
-            </div> */}
             <button className="adminAddButton button" type="submit">
               <FormattedMessage id="REGISTER"/>
             </button>

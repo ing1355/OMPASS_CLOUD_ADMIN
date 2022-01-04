@@ -1,4 +1,4 @@
-import { message, Spin } from "antd";
+import { Spin } from "antd";
 import React, {
   useCallback,
   useEffect,
@@ -12,13 +12,8 @@ import { Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faUserCog,
-  faHandSparkles,
-  faCaretRight,
   faCheckSquare,
   faCalendarCheck,
-  faUserPlus,
-  faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -95,10 +90,6 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
       ]
     );
   }, []);
-
-  const changeEdition = (e) => {
-    setInputEdition(e.target.value);
-  };
 
   const billingsInfo = [
     {
@@ -387,10 +378,10 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
                 title={editions[ind].name + " " + formatMessage({ id: "PLAN" })}
-                subTitle={`${formatMessage(
+                subTitle={`${isKorea() ? "" : "$ "}${formatMessage(
                   { id: "PRICEUNIT" },
                   { param: slicePrice(editions[ind].priceForOneUser) }
-                )} ${editions[ind].monetaryUnit === "원화" ? "원" : "$"} 
+                )} ${isKorea() ? "원" : ""} 
                 / ${formatMessage({ id: "PERUSER" })} / ${formatMessage({
                   id: "MONTHLY",
                 })}`}
@@ -415,23 +406,6 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           OMPASS Plan <FormattedMessage id="PAYMENT" />
         </h2>
         <form onSubmit={onFinish}>
-          {/* <div className="billing-change-item">
-            <label className="billing-change-form-label">
-              <FormattedMessage id="PLAN" />
-            </label>
-
-            <select
-              className="billing-change-form-select"
-              name="edition"
-              onChange={changeEdition}
-            >
-              {editions.map((item, ind) => (
-                <option key={ind} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div> */}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="USERNUM" />
@@ -476,8 +450,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               <FormattedMessage id="PRICE" />
             </label>
             <b>
+              {isKorea() ? "" : "$ "}
               {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) })}
-              {isKorea() ? " 원" : " $"}
+              {isKorea() ? " 원" : ""}
             </b>
             <span>
               &nbsp;/ <FormattedMessage id={inputTerm} />

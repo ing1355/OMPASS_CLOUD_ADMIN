@@ -12,12 +12,12 @@ export const ReadCsvData = (file, callback) => {
 }
 
 export const SaveCsvData = (data) => {
-  var array = typeof data != 'object' ? JSON.parse(data) : data;
+  var array = typeof data !== 'object' ? JSON.parse(data) : data;
   var str = '';
   for (var i = 0; i < array.length; i++) {
     var line = '';
     for (var index in array[i]) {
-      if (line != '') line += ','
+      if (line !== '') line += ','
       line += array[i][index];
     }
     str += line + '\n';

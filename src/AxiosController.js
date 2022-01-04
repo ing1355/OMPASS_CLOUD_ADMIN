@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import axios from 'axios';
 import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';

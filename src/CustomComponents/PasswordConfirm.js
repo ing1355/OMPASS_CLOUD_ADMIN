@@ -4,7 +4,6 @@ import CustomConfirm from "./CustomConfirm";
 import "./PasswordConfirm.css";
 import { verifyPasswordApi } from "../Constants/Api_Route";
 import { connect } from "react-redux";
-import { message } from "antd";
 import CustomButton from "./CustomButton";
 import ActionCreators from "../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";

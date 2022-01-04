@@ -4,11 +4,12 @@ import "../Billing/Billing.css";
 import "./Users.css";
 import { Redirect, useHistory } from "react-router";
 import { updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
-import { CustomAxiosPatch, CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
 import ActionCreators from "../../../redux/actions";
 import { emailTest, FailToTest } from "../../../Constants/InputRules";
+import { FormattedMessage } from "react-intl";
 
 const UserDetail = ({
   data,
@@ -21,7 +22,6 @@ const UserDetail = ({
   const { userId, byPass, appId } = data;
   const [inputByPass, setInputByPass] = useState(byPass);
   const [loading, setLoading] = useState(false);
-  const [isOwnPolicy, setIsOwnPolicy] = useState(false);
   const [emailCheck, setEmailCheck] = useState(data.email);
   const [emailLoading, setEmailLoading] = useState(false);
   const inputEmailRef = useRef(null);
@@ -40,12 +40,11 @@ const UserDetail = ({
       (data) => {
         setLoading(false);
         updateBypass(userId, inputByPass);
-        message.success("성공!");
+        showSuccessMessage('SUCCESS_USER_UPDATED')
         history.push("/Users");
       },
       () => {
         setLoading(false);
-        message.error("실패!");
       }
     );
   };
@@ -57,10 +56,6 @@ const UserDetail = ({
   const inputByPassUnCheck = useCallback(() => {
     setInputByPass(false);
   }, []);
-
-  const changeIsOwnPolicy = useCallback(() => {
-    setIsOwnPolicy(!isOwnPolicy);
-  }, [isOwnPolicy]);
 
   const emailSetting = () => {
     if (!inputEmailRef.current.value.length) {
@@ -103,7 +98,7 @@ const UserDetail = ({
               className="ant-row inputBox ant-form-item"
             >
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>사용자 아이디 :</label>
+                <label><FormattedMessage id="User"/> :</label>
               </div>
               <div className="ant-col ant-form-item-control">
                 <p className="userdetailP">{userId}</p>
@@ -112,7 +107,7 @@ const UserDetail = ({
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label>OMPASS 인증 바이패스 :</label>
+                <label><FormattedMessage id="Bypass"/> :</label>
               </div>
               <div
                 className="ant-col ant-form-item-control"
@@ -127,10 +122,10 @@ const UserDetail = ({
                     defaultChecked={byPass}
                     onChange={inputByPassCheck}
                   />
-                  <label className="label"> 활성화</label>
+                  <label className="label"> <FormattedMessage id="ACTIVE"/></label>
                 </div>
                 <div className="label-bottom-text">
-                  OMPASS 인증 없이 로그인 가능합니다.
+                  <FormattedMessage id="USERBYPASSDESCRIPTION"/>
                 </div>
                 <div
                   className={
@@ -138,11 +133,12 @@ const UserDetail = ({
                     (inputByPass ? " active" : " inactive")
                   }
                 >
-                  이메일 입력 :{" "}
+                  <FormattedMessage id="INPUTEMAIL"/> : 
                   <input
                     style={{ width: "15rem" }}
                     ref={inputEmailRef}
                     name="email"
+                    maxLength={48}
                     defaultValue={data.email}
                     onChange={changeInputEmail}
                   />
@@ -152,7 +148,7 @@ const UserDetail = ({
                     onClick={emailSetting}
                     loading={emailLoading}
                   >
-                    저장
+                    <FormattedMessage id="SAVE"/>
                   </CustomButton>
                 </div>
                 <div>
@@ -164,43 +160,19 @@ const UserDetail = ({
                     defaultChecked={!byPass}
                     onChange={inputByPassUnCheck}
                   />
-                  <label className="label"> 비활성화</label>
+                  <label className="label"> <FormattedMessage id="INACTIVE"/></label>
                 </div>
                 <div className="label-bottom-text">
-                  바이패스 비활성화 (디폴트)
+                  <FormattedMessage id="USERBYPASSDESCRIPTION2"/>
                 </div>
               </div>
             </div>
-
-            {/* <div className="ApplicationsTitle">
-              <h2 style={{ marginTop: "3.5rem" }}>정책</h2>
-              <p>
-                정책은 사용자가 이 애플리케이션에 액세스할 때 인증하는 시기와
-                방법을 정의합니다.
-                <br />
-                기본 정책은 항상 적용되지만 활성화 버튼을 누른 뒤 사용자 지정 정책으로 해당 규칙을
-                재정의할 수 있습니다.
-                <br />
-                비활성화 상태에서는 항상 기본 정책이 적용됩니다.
-              </p>
-              <button
-                className={"policy-active-button" + (isOwnPolicy ? ' active' : ' inactive')}
-                type="button"
-                onClick={changeIsOwnPolicy}
-              >
-                {isOwnPolicy ? "비활성화" : "활성화"}
-              </button>
-              <select className="user-policy-list" disabled={!isOwnPolicy} defaultValue={data.policyId}>
-                <option value="null">{formatMessage({id:'DEFAULTPOLICY'})}</option>
-                {customPolicies.map(c => <option key={c.policyId} value={c.policyId}>{c.title}</option>)}
-              </select>
-            </div> */}
             <CustomButton
               className="ApplicationsSave button user-save-button"
               type="submit"
               loading={loading}
             >
-              저장
+              <FormattedMessage id="SAVE"/>
             </CustomButton>
           </form>
         </div>

@@ -1,7 +1,7 @@
 import React, {
   useCallback,
-  useEffect,
   useLayoutEffect,
+  useMemo,
   useState,
 } from "react";
 import "./PolicyDrawer.css";
@@ -9,17 +9,14 @@ import "./PolicyDrawer.css";
 import CustomSwitch from "../../../CustomComponents/CustomSwitch";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { UndoOutlined } from "@ant-design/icons";
-import { Drawer, message, Space } from "antd";
-import CustomConfirm from "../../../CustomComponents/CustomConfirm";
+import { Drawer, Space } from "antd";
 import {
-  CustomAxiosDelete,
   CustomAxiosGet,
   CustomAxiosPost,
   CustomAxiosPut,
 } from "../../../Functions/CustomAxios";
 import {
   addCustomPolicyApi,
-  deleteCustomPoliciesApi,
   getDefaultPolicyApi,
   isExistencePolicyApi,
   updateCustomPoliciesApi,
@@ -29,7 +26,8 @@ import { connect } from "react-redux";
 import { countryCodes_US, countryCodes_KR } from "./Country_Code";
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
-import { nameTest } from "../../../Constants/InputRules";
+import { policyTitleTest } from "../../../Constants/InputRules";
+import policyDisableIcon from '../../../assets/policyDisableIcon.png'
 
 export const BrowsersList = [
   "Chrome",
@@ -39,15 +37,6 @@ export const BrowsersList = [
   "Safari",
   "Safari Mobile",
   // "All other browsers",
-];
-
-export const AuthMethodsList = [
-  "OMPASS Push",
-  // "OMPASS Mobile passcodes",
-  // "SMS passcodes",
-  // "Security keys (U2F)",
-  "WebAuthn",
-  // "Hardware tokens",
 ];
 
 var defaultPolicies;
@@ -71,7 +60,6 @@ const Global_Policy = ({
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
-  // const [inputAuthMethodCheck, setInputAuthMethodCheck] = useState([]);
   const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [userLocationsEnable, setUserLocationsEnable] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
@@ -86,6 +74,8 @@ const Global_Policy = ({
     });
   }, []);
 
+  const isDisabled = useMemo(() => inputAuthCheck !== 'ACTIVE', [inputAuthCheck])
+
   const InputInit = useCallback(() => {
     setInputTitle("");
     setIsExistTitle(false);
@@ -93,22 +83,21 @@ const Global_Policy = ({
     setInputUserLocations([]);
     setInputBrowserCheck([]);
     setUserLocationsEnable(false);
-    // setInputAuthMethodCheck([]);
     setInputMobileCheck(null);
   }, []);
 
   useLayoutEffect(() => {
-    if(visible && saveCallback) {
-      setInputUserLocations([{ location: "ETC", status: "PERMIT" }]);
+    if (visible && saveCallback) {
+      setInputUserLocations([{ location: "ETC", status: true }]);
     }
-  },[saveCallback, visible])
+  }, [saveCallback, visible])
 
   useLayoutEffect(() => {
     if (!visible) {
       InputInit();
     }
   }, [visible]);
-  
+
   useLayoutEffect(() => {
     if (editData) {
       const {
@@ -116,7 +105,6 @@ const Global_Policy = ({
         accessControl,
         userLocations,
         browsers,
-        authenticationMethods,
         userLocationEnable,
         mobilePatch,
       } = editData;
@@ -124,11 +112,10 @@ const Global_Policy = ({
       if (accessControl) setInputAuthCheck(accessControl);
       if (userLocations && userLocations.length)
         setInputUserLocations(userLocations);
-      else setInputUserLocations([{ location: "ETC", status: "PERMIT" }]);
+      else setInputUserLocations([{ location: "ETC", status: true }]);
       if (browsers) setInputBrowserCheck(browsers);
-      // if (authenticationMethods) setInputAuthMethodCheck(authenticationMethods);
       if (mobilePatch) setInputMobileCheck(mobilePatch);
-      if(userLocationEnable) setUserLocationsEnable(userLocationEnable)
+      if (userLocationEnable) setUserLocationsEnable(userLocationEnable)
       setIsExistTitle(true);
     } else {
       InputInit();
@@ -150,9 +137,6 @@ const Global_Policy = ({
     else result.userLocations = [];
     if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
     else result.browsers = [];
-    // if (inputAuthMethodCheck.length)
-    //   result.authenticationMethods = inputAuthMethodCheck;
-    // else result.authenticationMethods = [];
     if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
     else result.mobilePatch = null;
     result.userLocationsEnable = userLocationsEnable;
@@ -198,7 +182,6 @@ const Global_Policy = ({
     inputAuthCheck,
     inputUserLocations,
     inputBrowserCheck,
-    // inputAuthMethodCheck,
     inputMobileCheck,
     editData,
     userLocationsEnable,
@@ -250,26 +233,13 @@ const Global_Policy = ({
     [inputBrowserCheck]
   );
 
-  // const changeInputAuthMethodCheck = useCallback(
-  //   (value) => {
-  //     if (inputAuthMethodCheck.includes(value)) {
-  //       setInputAuthMethodCheck(
-  //         inputAuthMethodCheck.filter((m) => m !== value)
-  //       );
-  //     } else {
-  //       setInputAuthMethodCheck([...inputAuthMethodCheck, value]);
-  //     }
-  //   },
-  //   [inputAuthMethodCheck]
-  // );
-
   const changeInputMobilecheck = useCallback((e) => {
     setInputMobileCheck(e.target.value);
   }, []);
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
-    if (!nameTest(inputTitle)) return showErrorMessage('POLICY_NAME_RULE_ERROR')
+    if (!policyTitleTest(inputTitle)) return showErrorMessage('POLICY_NAME_RULE_ERROR')
     CustomAxiosGet(
       isExistencePolicyApi(adminId, inputTitle),
       ({ duplicate }) => {
@@ -290,13 +260,11 @@ const Global_Policy = ({
   const defaultPolicySetting = () => {
     const {
       accessControl,
-      // authenticationMethods,
       browsers,
       mobilePatch,
       userLocations,
     } = defaultPolicies;
     setInputAuthCheck(accessControl);
-    // setInputAuthMethodCheck(authenticationMethods);
     setInputBrowserCheck(browsers);
     setInputMobileCheck(mobilePatch);
     setInputUserLocations(userLocations);
@@ -437,188 +405,172 @@ const Global_Policy = ({
           </div>
         </section>
         {/* -------------User location ------------- */}
-        <section className="policies-box">
-          <div style={{display:'flex', alignItems:'center'}}>
-            <h2 style={{display:'inline', marginBottom: 0, marginRight:'12px'}}>
-              <FormattedMessage id="USERLOCATIONPOLICYTITLE" />
-            </h2>
-            <CustomSwitch checked={userLocationsEnable} onChange={(value) => {
-              setUserLocationsEnable(value);
-            }}/>
-          </div>
-          <div className={"policies-sub-box user-locations-container" + (userLocationsEnable ? '' : ' disabled')} style={{height: userLocationsEnable ? inputUserLocations.length * 82.24 + 123.14 : 0}}>
-            <h3>
-              <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
-            </h3>
-            {inputUserLocations.map((d, ind) => (
-              <div key={ind} className="user-location-input-container">
-                <select
-                  style={{ paddingLeft: "0.3rem" }}
-                  className="user-location-select"
-                  value={d.location}
-                  disabled={d.location === 'ETC'}
-                  onChange={(e) => {
-                    changeInputUserLocation(e.target.value, ind, "location");
-                  }}
-                >
-                  {d.location === "ETC" ? (
-                    <option value="ETC">
-                      {formatMessage({ id: "ETCUSERLOCATION" })}
-                    </option>
-                  ) : (
-                    locationList.map((code) => (
-                      <option
-                        disabled={inputUserLocations.find(
-                          (l) => l.location === code
-                        )}
-                        key={code}
-                        value={code}
-                      >
-                        {(isKorea() ? countryCodes_KR : countryCodes_US)[code]}
+        <div className={"policies-container" + (isDisabled ? ' disable' : '')}>
+          {
+            isDisabled && <div className="disable-policies-container">
+              <img src={policyDisableIcon}/>
+              <h1>해당 정책은 선택할 수 없습니다.</h1>
+              <h3>해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.</h3>
+            </div>
+          }
+          <section className="policies-box">
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h2 style={{ display: 'inline', marginBottom: 0, marginRight: '12px' }}>
+                <FormattedMessage id="USERLOCATIONPOLICYTITLE" />
+              </h2>
+              <CustomSwitch checked={userLocationsEnable} onChange={(value) => {
+                setUserLocationsEnable(value);
+              }} />
+            </div>
+            <div className={"policies-sub-box user-locations-container" + (userLocationsEnable ? '' : ' disabled')} style={{ height: userLocationsEnable ? inputUserLocations.length * 82.24 + 123.14 : 0 }}>
+              <h3>
+                <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
+              </h3>
+              {inputUserLocations.map((d, ind, arr) => (
+                <div key={ind} className="user-location-input-container">
+                  <select
+                    style={{ paddingLeft: "0.3rem" }}
+                    className="user-location-select"
+                    value={d.location}
+                    disabled={d.location === 'ETC'}
+                    onChange={(e) => {
+                      changeInputUserLocation(e.target.value, ind, "location");
+                    }}
+                  >
+                    {d.location === "ETC" ? (
+                      <option value="ETC">
+                        {arr.length > 1 ? formatMessage({ id: "ETCUSERLOCATION" }) : formatMessage({ id: "ALLUSERLOCATION" })}
                       </option>
-                    ))
-                  )}
-                </select>
-                <select
-                  style={{ paddingLeft: "0.3rem" }}
-                  className="user-location-select"
-                  value={d.status}
-                  onChange={(e) => {
-                    changeInputUserLocation(e.target.value, ind, "status");
-                  }}
-                >
-                  <option value="PERMIT">Permit</option>
-                  <option value="DENY">Deny</option>
-                </select>
-                <button
-                  className="button policy-location-button"
-                  style={{
-                    marginLeft: "1rem",
-                    height: 50,
-                    marginBottom: "2rem",
-                  }}
-                  onClick={() => {
-                    if (d.location === "ETC")
-                      return showErrorMessage("USER_LOCATION_DELETE_FAIL");
-                    setInputUserLocations(
-                      inputUserLocations.filter((u, _ind) => ind !== _ind)
-                    );
-                  }}
-                >
-                  <FormattedMessage id="DELETE" />
-                </button>
-              </div>
-            ))}
-            {/* <p style={{ marginLeft: "0", color: "#066b93" }}>
-              <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION1" />
-            </p> */}
-            <button
-              type="button"
-              className="button"
-              onClick={() => {
-                setInputUserLocations([
-                  ...inputUserLocations,
-                  {
-                    location: locationList.find(
-                      (l) => !inputUserLocations.find((_l) => _l.location === l)
-                    ),
-                    status: "PERMIT",
-                  },
-                ]);
-              }}
-              style={{ height: 50, display: "block" }}
-            >
-              <FormattedMessage id="ADD" />
-            </button>
-          </div>
-        </section>
+                    ) : (
+                      locationList.map((code) => (
+                        <option
+                          disabled={inputUserLocations.find(
+                            (l) => l.location === code
+                          )}
+                          key={code}
+                          value={code}
+                        >
+                          {(isKorea() ? countryCodes_KR : countryCodes_US)[code]}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                  <select
+                    style={{ paddingLeft: "0.3rem" }}
+                    className="user-location-select"
+                    value={d.status}
+                    onChange={(e) => {
+                      changeInputUserLocation(e.target.value, ind, "status");
+                    }}
+                  >
+                    <option value={true}>Permit</option>
+                    <option value={false}>Deny</option>
+                  </select>
+                  <button
+                    className="button policy-location-button"
+                    style={{
+                      marginLeft: "1rem",
+                      height: 50,
+                      marginBottom: "2rem",
+                    }}
+                    onClick={() => {
+                      if (d.location === "ETC")
+                        return showErrorMessage("USER_LOCATION_DELETE_FAIL");
+                      setInputUserLocations(
+                        inputUserLocations.filter((u, _ind) => ind !== _ind)
+                      );
+                    }}
+                  >
+                    <FormattedMessage id="DELETE" />
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="button"
+                onClick={() => {
+                  setInputUserLocations([
+                    {
+                      location: locationList.find(
+                        (l) => !inputUserLocations.find((_l) => _l.location === l)
+                      ),
+                      status: true,
+                    },
+                    ...inputUserLocations
+                  ]);
+                }}
+                style={{ height: 50, display: "block" }}
+              >
+                <FormattedMessage id="ADD" />
+              </button>
+            </div>
+          </section>
 
-        {/* -------------Browsers ------------- */}
-        <section className="policies-box">
-          <h2>
-            <FormattedMessage id="BROWSERSPOLICYTITLE" />
-          </h2>
-          {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
+          {/* -------------Browsers ------------- */}
+          <section className="policies-box">
+            <h2>
+              <FormattedMessage id="BROWSERSPOLICYTITLE" />
+            </h2>
+            {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
             Always block
           </div> */}
 
-          {BrowsersList.map((bl, ind) => (
-            <div className="policies-sub-box" key={ind}>
+            {BrowsersList.map((bl, ind) => (
+              <div className="policies-sub-box" key={ind}>
+                <input
+                  name="browser"
+                  value={bl}
+                  checked={inputBrowserCheck.includes(bl)}
+                  disabled={isDisabled}
+                  type="checkbox"
+                  style={{ width: "15px" }}
+                  onChange={() => {
+                    changeInputBrowserCheck(bl);
+                  }}
+                />
+                <label className="label-radio">
+                  <FormattedMessage id={bl} />
+                </label>
+              </div>
+            ))}
+          </section>
+
+          {/* -------------OMPASS Mobile app ------------- */}
+          <section className="policies-box">
+            <h2>
+              <FormattedMessage id="OMPASSMOBILEPOLICYTITLE" />
+            </h2>
+            <div className="policies-sub-box">
               <input
-                name="browser"
-                value={bl}
-                checked={inputBrowserCheck.includes(bl)}
-                type="checkbox"
+                name="mobile"
+                value={true}
+                type="radio"
+                disabled={isDisabled}
+                checked={inputMobileCheck === true || inputMobileCheck === 'true'}
                 style={{ width: "15px" }}
-                onChange={() => {
-                  changeInputBrowserCheck(bl);
-                }}
+                onChange={changeInputMobilecheck}
               />
               <label className="label-radio">
-                <FormattedMessage id={bl} />
+                <FormattedMessage id="OMPASSMOBILEPOLICYACTIVE" />
               </label>
             </div>
-          ))}
-        </section>
-
-        {/*----------------Authentication methods ------------- */}
-        {/* <section className="policies-box">
-          <h2><FormattedMessage id="AUTHENTICATIONMETHODPOLICYTITLE"/></h2>
-          <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
-            <FormattedMessage id="AUTHENTICATIONMETHODPOLICYDESCRIPTION"/>
-          </div>
-
-          {AuthMethodsList.map((am, ind) => (
-            <div className="policies-sub-box" key={ind}>
+            <div className="policies-sub-box">
               <input
-                name="method"
-                value={am}
-                checked={inputAuthMethodCheck.includes(am)}
-                type="checkbox"
+                name="mobile"
+                value={false}
+                type="radio"
+                disabled={isDisabled}
+                checked={inputMobileCheck === false || inputMobileCheck === 'false'}
                 style={{ width: "15px" }}
-                onChange={() => {
-                  changeInputAuthMethodCheck(am);
-                }}
+                onChange={changeInputMobilecheck}
               />
-              <label className="label-radio">{am}</label>
+              <label className="label-radio">
+                <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
+              </label>
             </div>
-          ))}
-        </section> */}
 
-        {/* -------------OMPASS Mobile app ------------- */}
-        <section className="policies-box">
-          <h2>
-            <FormattedMessage id="OMPASSMOBILEPOLICYTITLE" />
-          </h2>
-
-          <div className="policies-sub-box">
-            <input
-              name="mobile"
-              value="ACTIVE"
-              type="radio"
-              checked={inputMobileCheck === "ACTIVE"}
-              style={{ width: "15px" }}
-              onChange={changeInputMobilecheck}
-            />
-            <label className="label-radio">
-              <FormattedMessage id="OMPASSMOBILEPOLICYACTIVE" />
-            </label>
-          </div>
-          <div className="policies-sub-box">
-            <input
-              name="mobile"
-              value="INACTIVE"
-              type="radio"
-              checked={inputMobileCheck === "INACTIVE"}
-              style={{ width: "15px" }}
-              onChange={changeInputMobilecheck}
-            />
-            <label className="label-radio">
-              <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
-            </label>
-          </div>
-
-        </section>
+          </section>
+        </div>
       </div>
     </Drawer>
   );

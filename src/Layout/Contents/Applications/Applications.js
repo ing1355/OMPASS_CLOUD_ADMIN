@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useEffect,
   useLayoutEffect,
   useState,
 } from "react";
@@ -9,7 +8,7 @@ import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import ApplicationAdd from "./AppDetailsAdd";
 
-import { Button, message, Space } from "antd";
+import { Button, Space } from "antd";
 import {
   AppstoreAddOutlined,
   UserSwitchOutlined,
@@ -18,7 +17,6 @@ import {
 import {
   CustomAxiosDelete,
   CustomAxiosGet,
-  CustomAxiosGetAll,
 } from "../../../Functions/CustomAxios";
 import {
   deleteApplicationApi,
@@ -38,8 +36,7 @@ import ActionCreators from "../../../redux/actions";
 const Applications = ({
   userProfile,
   showSuccessMessage,
-  showErrorMessage,
-  lang
+  showErrorMessage
 }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);

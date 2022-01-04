@@ -1,9 +1,8 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faUserCog,
   faHandSparkles,
   faCaretRight,
   faCheckSquare,
@@ -19,7 +18,6 @@ import {
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import { message } from "antd";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
 import { FormattedMessage } from "react-intl";
 import {
@@ -34,7 +32,7 @@ import {
 import { getDateFormatEn, getDateFormatKr } from "../../../Functions/GetFullDate";
 
 export const planStatusCodes = {
-  STOPPED: "사용하지 않음",
+  STOPPED: <FormattedMessage id="NONEUSED"/>,
   RUN: <FormattedMessage id="Valid" />,
   CANCEL: <><FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel"/></>,
 };

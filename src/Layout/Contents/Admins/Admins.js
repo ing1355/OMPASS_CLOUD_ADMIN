@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useEffect,
   useLayoutEffect,
   useState,
 } from "react";
@@ -21,11 +20,10 @@ import ActionCreators from "../../../redux/actions";
 import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
-const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) => {
-  const { adminId, role } = userProfile;
-  const { formatMessage } = useIntl();
+const Admins = ({ userProfile, history, showSuccessMessage }) => {
+  const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
@@ -80,10 +78,6 @@ const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) 
     [tableData]
   );
 
-  const openConfirmModal = useCallback(() => {
-    setConfirmVisible(true);
-  }, []);
-
   const OMPASSToggle = useCallback(() => {
     setConfirmLoading(true);
     CustomAxiosPatch(
@@ -122,17 +116,6 @@ const Admins = ({ userProfile, history, showSuccessMessage, showErrorMessage }) 
                       <FormattedMessage id="ADMINREGISTER" />
                     </button>
                   </Link>
-                  {/* {role === "ADMIN" && (
-                    <button
-                      className="button two-Auth-button admin-button"
-                      disabled={tableLoading}
-                      onClick={openConfirmModal}
-                    >
-                      {ompassToggle
-                        ? formatMessage({ id: "SECONDAUTHENTICATIONINACTIVE" })
-                        : formatMessage({ id: "SECONDAUTHENTICATIONACTIVE" })}
-                    </button>
-                  )} */}
                 </div>
                 <CustomTable
                   columns={AdminsColumns}

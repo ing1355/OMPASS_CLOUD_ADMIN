@@ -1,4 +1,3 @@
-import { message } from "antd";
 import React, { useLayoutEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
