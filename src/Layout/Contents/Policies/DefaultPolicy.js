@@ -156,7 +156,7 @@ const DefaultPolicy = ({ userProfile }) => {
             setEditDrawerOpen(true);
           }}
         >
-          <FormattedMessage id="DEFAULTPOLICY" />&nbsp;<FormattedMessage id="UPDATE" />
+          <FormattedMessage id="DEFAULTPOLICYUPDATE" />
         </button>
       </div>
     </div>

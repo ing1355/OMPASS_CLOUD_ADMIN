@@ -197,7 +197,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
               setEditDrawerOpen(true);
             }}
           >
-            <FormattedMessage id="CUSTOMPOLICY" />&nbsp;<FormattedMessage id="ADD" />
+            <FormattedMessage id="CUSTOMPOLICYADD" />
           </button>
         </div>
         {

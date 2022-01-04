@@ -133,9 +133,9 @@ const UserDetail = ({
                     (inputByPass ? " active" : " inactive")
                   }
                 >
-                  <FormattedMessage id="INPUTEMAIL"/> : 
+                  <FormattedMessage id="INPUTEMAIL"/> :&nbsp;
                   <input
-                    style={{ width: "15rem" }}
+                    style={{ width: "22rem" }}
                     ref={inputEmailRef}
                     name="email"
                     maxLength={48}
