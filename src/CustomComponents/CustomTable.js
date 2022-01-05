@@ -12,6 +12,7 @@ import DoubleRightArrow from "../customAssets/DoubleRightArrow";
 import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
+import searchIcon from '../assets/searchIcon.png'
 
 const CustomTable = ({
   columns,
@@ -54,7 +55,7 @@ const CustomTable = ({
       ]
     : columns;
   const firstRenderRef = useRef(false);
-
+  const searchInputRef = useRef(null);
   const _numPerPage = numPerPage ? numPerPage : 10;
   const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
   const [searchColumn, setSearchColumn] = useState(null);
@@ -86,6 +87,7 @@ const CustomTable = ({
 
   useLayoutEffect(() => {
     if (searchColumn) {
+      if(searchInputRef.current) searchInputRef.current.value = '';
       setSearchTarget(columns.find((c) => c.key === searchColumn));
     }
   }, [searchColumn, columns]);
@@ -223,11 +225,12 @@ const CustomTable = ({
             <input
               className="table-search-column-input"
               name="content"
-              maxLength={16}
+              ref={searchInputRef}
+              maxLength={searchColumn ? columns.find(c => c.key === searchColumn).maxLength || 16 : 0}
             />
           )}
-          <button type="submit" className="button">
-            Search
+          <button type="submit" className="button searchButton">
+            <img src={searchIcon} width="60%" height="50%"/>
           </button>
         </form>
       )}

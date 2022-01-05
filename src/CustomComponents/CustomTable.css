@@ -167,3 +167,12 @@ td.no-data {
 tfoot tr {
   border-bottom: none;
 }
+
+.searchButton {
+  width: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5.8px 4px;
+  height: 40px;
+}

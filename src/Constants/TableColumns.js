@@ -18,6 +18,7 @@ export const ApplicationsColumns = [
     key: "name",
     width: 250,
     searched: true,
+    maxLength: 20
   },
   {
     name: "Status",
@@ -32,8 +33,9 @@ export const ApplicationsColumns = [
     key: "domain",
     width: 250,
     searched: true,
+    maxLength: 48
   },
-  { name: "REDIRECTURI", key: "redirectUri", width: 250, searched: true },
+  { name: "REDIRECTURI", key: "redirectUri", width: 250, searched: true, maxLength: 48 },
   { name: "Policies", key: "policy", render: d => d === '!DEFAULTPOLICY!' ? <FormattedMessage id={'DEFAULTPOLICY'}/> : d },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
@@ -82,6 +84,7 @@ export const LogsColumns = [
     name: "Application",
     key: "appName",
     searched: true,
+    maxLength: 20,
     width: 250,
   },
   {
@@ -98,6 +101,7 @@ export const PolicyLogsColumns = [
     name: "POLICYNAME",
     key: "policyName",
     searched: true,
+    maxLength: 20,
     width: 250,
     render: (value,row) => row.policyType === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY"/> : value
   },
@@ -118,7 +122,7 @@ export const PolicyLogsColumns = [
 
 export const allUserColumns = [
   {
-    name: "Users",
+    name: "User",
     key: "userId",
     width: 250,
     searched: true,
@@ -128,6 +132,7 @@ export const allUserColumns = [
     key: "appName",
     width: 250,
     searched: true,
+    maxLength: 20
   },
   {
     name: "AUTHTYPE",
@@ -154,12 +159,13 @@ export const allUserColumns = [
 ];
 
 export const disabledUserColumns = [
-  { name: "Users", key: "userId", width: 250, searched: true },
+  { name: "User", key: "userId", width: 250, searched: true },
   {
     name: "Application",
     key: "appName",
     width: 250,
     searched: true,
+    maxLength: 20
   },
   {
     name: "AUTHTYPE",
@@ -183,7 +189,7 @@ export const disabledUserColumns = [
 ];
 
 export const byPassUserColumns = [
-  { name: "Users", key: "userId", width: 250, searched: true },
+  { name: "User", key: "userId", width: 250, searched: true, maxLength: 20 },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
@@ -206,7 +212,7 @@ export const byPassUserColumns = [
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "Users", key: "userId", width: 250, searched: true },
+  { name: "User", key: "userId", width: 250, searched: true, maxLength: 20 },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
