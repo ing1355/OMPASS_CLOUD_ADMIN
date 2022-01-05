@@ -332,7 +332,7 @@ const Global_Policy = ({
               <div>
                 <input
                   className="title-input"
-                  maxLength={20}
+                  maxLength={24}
                   value={inputTitle}
                   onChange={changeInputTitle}
                 />

@@ -32,6 +32,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
+var excelData;
+
 const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
@@ -43,7 +45,6 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
   const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
-  const [excelData, setExcelData] = useState(null);
   const history = useHistory();
   const { formatMessage } = useIntl();
 
@@ -114,7 +115,6 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
 
   const closeConfirmModal = useCallback(() => {
     setUploadConfirmVisible(false);
-    document.getElementById("excel-upload").value = null;
   }, []);
 
   const changeSelectedApplication = useCallback((e) => {
@@ -126,11 +126,11 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
     CustomAxiosPost(
       updateCSVApi(adminId, selectedApplication),
       excelData.map((d) => ({
-        email: "",
+        email: d.email,
         userId: d.userId,
       })),
       (data) => {
-        document.getElementById("excel-upload").value = null;
+        setTableData(data);
         setCsvConfirmLoading(false);
         setUploadConfirmVisible(false);
         showSuccessMessage("SUCCESS_CSV_UPLOAD");
@@ -140,7 +140,11 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
         showErrorMessage("FAIL_CSV_UPLOAD");
       }
     );
-  }, [adminId, selectedApplication, excelData]);
+  }, [adminId, selectedApplication]);
+
+  const deleteCallback = (userId) => {
+    setTableData(tableData.filter(t => t.userId !== userId))
+  }
 
   return (
     <div className="contents-container">
@@ -262,23 +266,17 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
                         style={{ display: "none" }}
                         onInput={(e) => {
                           ReadCsvData(e.target.files[0], (jsonData) => {
-                            const columns = allUserColumns.filter(
-                              (c) => c.key !== "lastLoginDate"
-                            );
+                            const columns = ['userId', 'email']
                             const result = [];
                             jsonData.forEach((data) => {
                               const _result = {};
                               columns.forEach((c, ind) => {
-                                _result[c.key] =
-                                  c.key === "byPass"
-                                    ? data[ind] === "O"
-                                      ? true
-                                      : false
-                                    : data[ind];
+                                _result[c] = data[ind];
                               });
                               result.push(_result);
                             });
-                            setExcelData(result);
+                            excelData = result;
+                            e.target.value = null;
                             setUploadConfirmVisible(true);
                           });
                         }}
@@ -322,6 +320,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
               <UserDetail
                 {...routeInfo}
                 data={detailData}
+                deleteCallback={deleteCallback}
                 // customPolicies={customPolicies}
                 updateBypass={updateEvent}
               />

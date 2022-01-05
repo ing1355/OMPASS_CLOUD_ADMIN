@@ -103,8 +103,8 @@
   margin-left: 1.5rem;
 }
 .user-save-button {
-  display: flex;
-  margin: 2.5rem auto;
+  /* display: flex; */
+  margin: 2.5rem 12px auto;
 }
 
 .selectedBorder {

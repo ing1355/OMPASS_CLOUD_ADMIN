@@ -37,10 +37,10 @@ const locales = {
     RESET_PASSWORD_FAIL_MESSAGE: 'Passwords do not match.',
     SUCCESS_CSV_UPLOAD: 'Successfully uploaded the CSV file.',
     FAIL_CSV_UPLOAD: 'Failed to upload the CSV file.',
-    ADMIN_UPDATE_SUCCESS: '관리자 수정에 성공하였습니다.',
-    ADMIN_DELETE_SUCCESS: '관리자 삭제에 성공하였습니다.',
-    RESET_PASSWORD_SEND_MAIL: '메일로 비밀번호 초기화 링크를 전송하였습니다.\n메일함을 확인해주세요.',
-    SUCCESS_USER_UPDATED: '사용자 정보를 성공적으로 변경하였습니다.',
+    ADMIN_UPDATE_SUCCESS: 'Successfully updated the admin information!',
+    ADMIN_DELETE_SUCCESS: 'Successfully deleted the admin account!',
+    RESET_PASSWORD_SEND_MAIL: 'We have e-mailed your password reset link.\nPlease check your email.',
+    SUCCESS_USER_UPDATED: 'Successfully changed the user information.',
     LOGIN_SUCCESS: '로그인 되었습니다.'
   },
   KR: {

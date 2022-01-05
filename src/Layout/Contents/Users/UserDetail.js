@@ -3,8 +3,8 @@ import { message } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
 import { Redirect, useHistory } from "react-router";
-import { updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
-import { CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import { deleteUserApi, updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
+import { CustomAxiosDelete, CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
 import ActionCreators from "../../../redux/actions";
@@ -17,6 +17,7 @@ const UserDetail = ({
   updateBypass,
   showSuccessMessage,
   showErrorMessage,
+  deleteCallback
 }) => {
   const { adminId } = userProfile;
   const { userId, byPass, appId } = data;
@@ -167,6 +168,7 @@ const UserDetail = ({
                 </div>
               </div>
             </div>
+            <div style={{textAlign:'center'}}>
             <CustomButton
               className="ApplicationsSave button user-save-button"
               type="submit"
@@ -174,6 +176,20 @@ const UserDetail = ({
             >
               <FormattedMessage id="SAVE"/>
             </CustomButton>
+            <CustomButton
+              className="ApplicationsSave button user-save-button"
+              type="button"
+              onClick={() => {
+                CustomAxiosDelete(deleteUserApi(adminId, appId, userId), () => {
+                  if(deleteCallback) deleteCallback(userId);
+                  history.push('/Users')
+                })
+              }}
+              loading={loading}
+            >
+              <FormattedMessage id="DELETE"/>
+            </CustomButton>
+            </div>
           </form>
         </div>
       )}

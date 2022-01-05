@@ -6,13 +6,13 @@ export const nameTest = (value) => {
 
 export const policyTitleTest = (value) => {
     const _ = /^[^ㄱ-ㅎㅏ-ㅣ]*$|^\s[^ㄱ-ㅎㅏ-ㅣ]*$|^[^ㄱ-ㅎㅏ-ㅣ]*$/
-    const __ = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9 ]{1,20}$/
+    const __ = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9 ]{1,24}$/
     return _.test(value) && __.test(value);
 }
 
 export const ApplicationNameTest = (value) => {
     const _ = /^[^ㄱ-ㅎㅏ-ㅣ]*$|^\s[^ㄱ-ㅎㅏ-ㅣ]*$|^[^ㄱ-ㅎㅏ-ㅣ]*$/
-    const __ = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9 ]{1,20}$/
+    const __ = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9 ]{1,24}$/
     return _.test(value) && __.test(value);
 }
 

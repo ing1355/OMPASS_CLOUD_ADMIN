@@ -51,7 +51,7 @@ const AdminRoutes = [
   },
   {
     key: "Applications",
-    name: "Applications",
+    name: "ApplicationsRoute",
     icon: ApplicationsIcon,
     submenu: [
       {

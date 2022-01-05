@@ -24,7 +24,7 @@ const locales = {
     NO_DIAL_CODE: 'Country code does not exist.',
     PLEASE_COMPLETE_ADMIN_MOBILE: 'Please complete your phone number.',
     INCORRECT_PASSWORD: "Password must be 3 combinations of 8 or more characters or 2 combinations of 10 or more characters using capital letters, lowercase letters, numbers and special characters.",
-    DIFFERENT_COUNTRY_CODE: '관리자의 국가는 변경될 수 없습니다.'
+    DIFFERENT_COUNTRY_CODE: 'A country of the admin user cannot be changed.'
   },
   KR: {
     POLICY_NAME_RULE_ERROR: "정책명은 20자 이하의 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",

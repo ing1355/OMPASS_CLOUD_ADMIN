@@ -115,7 +115,7 @@ const AppDetailsAdd = ({
               <input
                 name="name"
                 ref={inputNameRef}
-                maxLength={20}
+                maxLength={24}
                 placeholder={formatMessage({
                   id: "PLEASE_INPUT_APPLICATION_NAME",
                 })}
