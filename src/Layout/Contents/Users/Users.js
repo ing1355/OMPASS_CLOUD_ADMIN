@@ -31,6 +31,7 @@ import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
+import { emailTest } from "../../../Constants/InputRules";
 
 var excelData;
 
@@ -271,7 +272,10 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
                             jsonData.forEach((data) => {
                               const _result = {};
                               columns.forEach((c, ind) => {
-                                _result[c] = data[ind];
+                                if(c === 'email') {
+                                  if(!emailTest(data[ind])) _result[c] = ''
+                                  else _result[c] = data[ind];
+                                } else _result[c] = data[ind];
                               });
                               result.push(_result);
                             });
@@ -336,6 +340,8 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
           <h6 className="execel-modal-text">
             <FormattedMessage id="EXCELIMPORTTEXT"/>
           </h6>
+          <div>* 이미 존재하는 사용자는 덮어쓰기 됩니다.</div>
+          <div>* 이메일 형식이 잘못되어 있을 경우 무시됩니다.</div>
           <select
             className="excel-select"
             value={selectedApplication}

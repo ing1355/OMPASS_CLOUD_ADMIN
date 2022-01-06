@@ -116,9 +116,9 @@ const locales = {
     ACCESSCONTROLTITLE: "OMPASS Access Control",
     ACCESSCONTROLACTIVE: "Enable OMPASS Authentication",
     ACCESSCONTROLACTIVEDESCRIPTION:
-      "Use OMPASS authentication to log in to access the application.",
+      "Use OMPASS authentication to login to access the application.",
     ACCESSCONTROLINACTIVE: "Disable OMPASS Authentication",
-    ACCESSCONTROLINACTIVEDESCRIPTION: "Do not use OMPASS authentication to log in to access the application.",
+    ACCESSCONTROLINACTIVEDESCRIPTION: "Do not use OMPASS authentication to login to access the application.",
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION:
       "Deny OMPASS authentication for all users.",
@@ -157,9 +157,9 @@ const locales = {
     ISBYPASS: 'Bypass',
     NONEUSED: 'Expired',
     INPUTEMAIL: 'Email Address',
-    USERBYPASSDESCRIPTION: 'Log in via email verification without OMPASS authentication.',
-    USERBYPASSDESCRIPTION2: 'Log in after OMPASS authentication.".',
-    DISABLEDPOLICY: '비활성화 된 정책입니다. 인증 제어를 활성화하면 적용됩니다.'
+    USERBYPASSDESCRIPTION: 'Login via email verification without OMPASS authentication.',
+    USERBYPASSDESCRIPTION2: 'Login after OMPASS authentication.',
+    DISABLEDPOLICY: 'Enable OMPASS authentication from edit to see the description.'
   },
   KR: {
     localeChangeText: "KO",
