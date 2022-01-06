@@ -17,6 +17,7 @@ import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   const { adminId } = userProfile;
@@ -95,26 +96,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/Admin"}
-            >
-              문서 &#62; 관리자 관리 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Admin"}>
-              <b>Go</b> Admins Management &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
-
+      <LinkDocument link="/Document/Admin"/>
       <ContentsTitle title="Admins" />
       <Switch>
         <Route
