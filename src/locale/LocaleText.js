@@ -159,7 +159,11 @@ const locales = {
     INPUTEMAIL: 'Email Address',
     USERBYPASSDESCRIPTION: 'Login via email verification without OMPASS authentication.',
     USERBYPASSDESCRIPTION2: 'Login after OMPASS authentication.',
-    DISABLEDPOLICY: 'Enable OMPASS authentication from edit to see the description.'
+    DISABLEDPOLICY: 'Enable OMPASS authentication from edit to see the description.',
+    BILLINGPLANDESCRIPTION1_1: "2FA for VPN and Web Apps",
+    BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
+    BILLINGPLANDESCRIPTION1_3: "2차 인증",
+    BILLINGPLANDESCRIPTION1_4: "WebAuthn 지원"
   },
   KR: {
     localeChangeText: "KO",
@@ -328,7 +332,11 @@ const locales = {
     INPUTEMAIL: '이메일 입력',
     USERBYPASSDESCRIPTION: 'OMPASS 인증 없이 이메일 인증을 통해서 로그인이 가능합니다.',
     USERBYPASSDESCRIPTION2: 'OMPASS 인증 후 로그인 가능합니다. (기본값)',
-    DISABLEDPOLICY: '비활성화 된 정책입니다. 인증 제어를 활성화하면 적용됩니다.'
+    DISABLEDPOLICY: '비활성화 된 정책입니다. 인증 제어를 활성화하면 적용됩니다.',
+    BILLINGPLANDESCRIPTION1_1: "2FA for VPN and Web Apps",
+    BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
+    BILLINGPLANDESCRIPTION1_3: "2차 인증",
+    BILLINGPLANDESCRIPTION1_4: "WebAuthn 지원"
   },
 };
 
