@@ -102,10 +102,10 @@ const Billing = ({
   const billingsInfo = [
     {
       itemLists: [
-        { content: "2FA for VPN and Web Apps" },
-        { content: "패스워드 없이 인증" },
-        { content: "2차 인증" },
-        { content: "WebAuthn 지원" },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_1"/> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_2"/> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_3"/> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_4"/> },
       ],
     },
   ];
