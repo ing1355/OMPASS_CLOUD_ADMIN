@@ -38,10 +38,18 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
-import { getDateFormatEn, getDateFormatKr } from "../../../Functions/GetFullDate";
+import {
+  getDateFormatEn,
+  getDateFormatKr,
+} from "../../../Functions/GetFullDate";
 import { planStatusCodes } from "../Dashboard/Dashboard";
 
-const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
+const Billing = ({
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage,
+  locale,
+}) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -67,7 +75,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-        editions.find((e) => e.name === inputEdition).priceForOneUser
+          editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -115,7 +123,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
 
   const openCancelConfirmModal = useCallback(() => {
     setCancelConfirmModal(true);
-  }, [])
+  }, []);
 
   const closeCancelConfirmModal = useCallback(() => {
     setCancelConfirmModal(false);
@@ -285,7 +293,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   const cancelIamPort = () => {
     setConfirmLoading(true);
     CustomAxiosPost(
-      !isKorea() ? cancelSubscriptionPayPalApi : cancelSubscriptionIamportApi(adminId),
+      !isKorea()
+        ? cancelSubscriptionPayPalApi
+        : cancelSubscriptionIamportApi(adminId),
       {},
       (data) => {
         showSuccessMessage("SUBCRIPTION_CANCEL_SUCCESS");
@@ -302,13 +312,26 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billing" />
-      {/* <div className="billing-change-help-container">
-        <div className="billing-change-help-icon">test</div>
-        <div className="billing-change-help-msg">
-          체험판이 종료되면 최대 10명의 사용자가 사용할 수 있는 OMPASS Plan으로
-          전환됩니다
-        </div>
-      </div> */}
+
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/Billing"}
+            >
+              문서 &#62; 요금 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a target="_blank" href={"https://ompass.kr:4003/Document/Billing"}>
+              <b>Go</b> Billing &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -329,7 +352,8 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               }}
               icon={faCheckSquare}
             />
-            &nbsp;&nbsp; {currentPlan && currentPlan.status
+            &nbsp;&nbsp;{" "}
+            {currentPlan && currentPlan.status
               ? planStatusCodes[currentPlan.status]
               : planStatusCodes["STOPPED"]}
           </h5>
@@ -338,12 +362,23 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
               style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
               icon={faCalendarCheck}
             />
-            &nbsp;&nbsp; {currentPlan && (isKorea() ? getDateFormatKr(currentPlan.createDate) + ' ~ ' + getDateFormatKr(currentPlan.expireDate)
-              : getDateFormatEn(currentPlan.createDate) + ' ~ ' + getDateFormatEn(currentPlan.expireDate))}
+            &nbsp;&nbsp;{" "}
+            {currentPlan &&
+              (isKorea()
+                ? getDateFormatKr(currentPlan.createDate) +
+                  " ~ " +
+                  getDateFormatKr(currentPlan.expireDate)
+                : getDateFormatEn(currentPlan.createDate) +
+                  " ~ " +
+                  getDateFormatEn(currentPlan.expireDate))}
           </h6>
           <button
-            disabled={(currentPlan && currentPlan.status !== 'RUN') || !editions.find(e => e.name === currentPlan.name)}
-            onClick={openCancelConfirmModal}>
+            disabled={
+              (currentPlan && currentPlan.status !== "RUN") ||
+              !editions.find((e) => e.name === currentPlan.name)
+            }
+            onClick={openCancelConfirmModal}
+          >
             <FormattedMessage id="SUBSCRIPTIONCANCEL" />
           </button>
         </div>
@@ -366,7 +401,7 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
           </div>
           <div
             className="billing-edition-title"
-          // style={{ color: "#00a9ec", fontWeight: "bold" }}
+            // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
             <FormattedMessage id="USER" />
           </div>
@@ -451,7 +486,12 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             </label>
             <b>
               {isKorea() ? "" : "$ "}
-              {formatMessage({ id: "PRICEUNIT" }, { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) })}
+              {formatMessage(
+                { id: "PRICEUNIT" },
+                {
+                  param: slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12),
+                }
+              )}
               {isKorea() ? " 원" : ""}
             </b>
             <span>
@@ -470,13 +510,23 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
                 <br />
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                    { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + (isKorea() ? "원" : "$") }
-                  )
+                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )
                   : formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
-                    { param: slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + (isKorea() ? "원" : "$") }
-                  )}
+                      { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )}
               </label>
             </div>
           </div>
@@ -523,7 +573,9 @@ const Billing = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
             <br />
             Cost&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
-              {isKorea() ? (slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12) + " 원") : ("$" + slicePrice(inputTerm === 'MONTHLY' ? cost : cost * 12))}
+              {isKorea()
+                ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
+                : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
             </b>
             <span>
               &nbsp;/ <FormattedMessage id={inputTerm} />

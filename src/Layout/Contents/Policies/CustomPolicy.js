@@ -10,23 +10,26 @@ import "./Policies.css";
 import "../../../App.css";
 import PolicyDrawer from "./PolicyDrawer";
 import CustomTable from "../../../CustomComponents/CustomTable";
-import {
-  PolicyColumns
-} from "../../../Constants/TableColumns";
+import { PolicyColumns } from "../../../Constants/TableColumns";
 import {
   CustomAxiosDelete,
-  CustomAxiosGet
+  CustomAxiosGet,
 } from "../../../Functions/CustomAxios";
 import {
   deleteCustomPoliciesApi,
-  getCustomPoliciesApi
+  getCustomPoliciesApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
-const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => {
+const CustomPolicy = ({
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage,
+  locale,
+}) => {
   const { adminId } = userProfile;
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
@@ -38,7 +41,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   const [selectedRowData, setSelectedRowData] = useState(null);
   const customPoliciesDataRef = useRef(null);
   const { formatMessage } = useIntl();
-  
+
   const closeDeleteConfirm = useCallback(() => {
     setDeleteConfirmVisible(false);
   }, []);
@@ -50,14 +53,17 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
   const _deleteCallback = useCallback(() => {
     setDeleteConfirmLoading(true);
     CustomAxiosDelete(
-      deleteCustomPoliciesApi(adminId, customPoliciesData[deleteTargetIndex].policyId),
+      deleteCustomPoliciesApi(
+        adminId,
+        customPoliciesData[deleteTargetIndex].policyId
+      ),
       () => {
         setDeleteConfirmLoading(false);
         setDeleteConfirmVisible(false);
         showSuccessMessage("DELETE_SUCCESS");
         setCustomPoliciesData(
-          customPoliciesData.filter((c,ind) => ind !== deleteTargetIndex)
-          );
+          customPoliciesData.filter((c, ind) => ind !== deleteTargetIndex)
+        );
       },
       () => {
         showErrorMessage("DELETE_FAIL");
@@ -70,35 +76,48 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
     const value = customPoliciesDataRef.current[index][key];
     switch (key) {
       case "accessControl":
-        return formatMessage({ id: value === 'ACTIVE' ? 'ACCESSCONTROLACTIVEDESCRIPTION' : (value === 'INACTIVE' ? 'ACCESSCONTROLINACTIVEDESCRIPTION' : 'ACCESSCONTROLDENYDESCRIPTION') })
+        return formatMessage({
+          id:
+            value === "ACTIVE"
+              ? "ACCESSCONTROLACTIVEDESCRIPTION"
+              : value === "INACTIVE"
+              ? "ACCESSCONTROLINACTIVEDESCRIPTION"
+              : "ACCESSCONTROLDENYDESCRIPTION",
+        });
       case "userLocations":
-        return formatMessage({ id: 'USERLOCATIONPOLICYDESCRIPTION2' })
+        return formatMessage({ id: "USERLOCATIONPOLICYDESCRIPTION2" });
       case "browsers":
-        return formatMessage({ id: 'BROWSERSPOLICYDESCRIPTION' }, { param: value.toString() })
+        return formatMessage(
+          { id: "BROWSERSPOLICYDESCRIPTION" },
+          { param: value.toString() }
+        );
       case "mobilePatch":
-        return formatMessage({ id: value ? 'OMPASSMOBILEPOLICYACTIVE' : 'OMPASSMOBILEPOLICYINACTIVE' })
-      default: break;
+        return formatMessage({
+          id: value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE",
+        });
+      default:
+        break;
     }
-  }
+  };
 
   const PolicyTableDataFeature = [
     {
       status: "",
       policy: "ACCESSCONTROLTITLE",
       key: "accessControl",
-      description: getDescription
+      description: getDescription,
     },
     {
       status: "",
       policy: "USERLOCATIONPOLICYTITLE",
       key: "userLocations",
-      description: getDescription
+      description: getDescription,
     },
     {
       status: "",
       key: "browsers",
       policy: "BROWSERSPOLICYTITLE",
-      description: getDescription
+      description: getDescription,
     },
     // {
     //   status: "",
@@ -110,12 +129,13 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
       status: "",
       key: "mobilePatch",
       policy: "OMPASSMOBILEPOLICYTITLE",
-      description: getDescription
+      description: getDescription,
     },
   ];
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getCustomPoliciesApi(adminId),
+    CustomAxiosGet(
+      getCustomPoliciesApi(adminId),
       (data) => {
         setCustomPoliciesData(data);
       },
@@ -127,23 +147,37 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
 
   useLayoutEffect(() => {
     customPoliciesDataRef.current = customPoliciesData;
-    const result = customPoliciesData.map(d => Object.keys(d).map(_d => {
-      const result = {};
-      result[_d] = d[_d];
-      if (_d === "policyId" || _d === "title") return undefined;
-      return result;
-    }).filter(_d => _d));
-    setCustomPoliciesTableData(result.map((d, ind) => {
-      return PolicyTableDataFeature.map(td => {
-        const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key]
-        return {
-          ...td,
-          index: ind,
-          status: (td.key !== 'accessControl' && customPoliciesData[ind].accessControl !== 'ACTIVE') ? 'disable' : (td.key === 'mobilePatch' ? target : (td.key === 'userLocations' ? customPoliciesData[ind].userLocationEnable : target && target.length > 0)),
-        }
+    const result = customPoliciesData.map((d) =>
+      Object.keys(d)
+        .map((_d) => {
+          const result = {};
+          result[_d] = d[_d];
+          if (_d === "policyId" || _d === "title") return undefined;
+          return result;
+        })
+        .filter((_d) => _d)
+    );
+    setCustomPoliciesTableData(
+      result.map((d, ind) => {
+        return PolicyTableDataFeature.map((td) => {
+          const target = d.find((r) => Object.keys(r)[0] === td.key)[td.key];
+          return {
+            ...td,
+            index: ind,
+            status:
+              td.key !== "accessControl" &&
+              customPoliciesData[ind].accessControl !== "ACTIVE"
+                ? "disable"
+                : td.key === "mobilePatch"
+                ? target
+                : td.key === "userLocations"
+                ? customPoliciesData[ind].userLocationEnable
+                : target && target.length > 0,
+          };
+        });
       })
-    }))
-  }, [customPoliciesData])
+    );
+  }, [customPoliciesData]);
 
   const saveCallback = useCallback(
     (result) => {
@@ -159,7 +193,7 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
           if (c.policyId === policyId) {
             return result;
           }
-          return c
+          return c;
         })
       );
     },
@@ -175,6 +209,28 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
       className="contents-container"
       style={{ position: "relative", overflow: "hidden" }}
     >
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/UserPolicy"}
+            >
+              문서 &#62; 사용자 정의 정책 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/Document/UserPolicy"}
+            >
+              <b>Go</b> Custom Policy &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <PolicyDrawer
         visible={editDrawerOpen}
         setVisible={setEditDrawerOpen}
@@ -187,11 +243,15 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
 
       <div className="PoliciesBox">
         <div className="PoliciesTitleBox">
-          <h5 className="policies-h5"><FormattedMessage id="CUSTOMPOLICY" /></h5>
-          <p><FormattedMessage id="CUSTOMPOLICYDESCRIPTION" /></p>
+          <h5 className="policies-h5">
+            <FormattedMessage id="CUSTOMPOLICY" />
+          </h5>
+          <p>
+            <FormattedMessage id="CUSTOMPOLICYDESCRIPTION" />
+          </p>
           <button
             className="button"
-            style={{ marginBottom: '2rem' }}
+            style={{ marginBottom: "2rem" }}
             onClick={() => {
               setIsEditPolicy(false);
               setEditDrawerOpen(true);
@@ -200,21 +260,27 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
             <FormattedMessage id="CUSTOMPOLICYADD" />
           </button>
         </div>
-        {
-          customPoliciesData.map((cD, ind) => <div key={ind} className="PoliciesBottomBox">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        {customPoliciesData.map((cD, ind) => (
+          <div key={ind} className="PoliciesBottomBox">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h3>{cD.title}</h3>
               <span>
-                <button className="button" style={{ marginRight: '8px' }} onClick={() => {
-                  setSelectedRowData(cD);
-                  setIsEditPolicy(true);
-                  setEditDrawerOpen(true);
-                }}><FormattedMessage id="UPDATE" /></button>
+                <button
+                  className="button"
+                  style={{ marginRight: "8px" }}
+                  onClick={() => {
+                    setSelectedRowData(cD);
+                    setIsEditPolicy(true);
+                    setEditDrawerOpen(true);
+                  }}
+                >
+                  <FormattedMessage id="UPDATE" />
+                </button>
                 <button
                   className="button close-button del-button"
                   onClick={() => {
-                    setDeleteTargetIndex(ind)
-                    openDeleteConfirm()
+                    setDeleteTargetIndex(ind);
+                    openDeleteConfirm();
                   }}
                 >
                   <FormattedMessage id="DELETE" />
@@ -225,19 +291,27 @@ const CustomPolicy = ({ userProfile, showSuccessMessage, showErrorMessage }) => 
               columns={PolicyColumns}
               datas={customPoliciesTableData[ind] || []}
             />
-          </div>)
-        }
+          </div>
+        ))}
       </div>
       <CustomConfirm
         visible={deleteConfirmVisible}
         footer={true}
-        style={{flexDirection:'column'}}
+        style={{ flexDirection: "column" }}
         okLoading={deleteConfirmLoading}
         cancelCallback={closeDeleteConfirm}
         confirmCallback={_deleteCallback}
       >
-        <h3><FormattedMessage id="DELETECONFIRM" /></h3>
-        {deleteConfirmVisible && customPoliciesData[deleteTargetIndex].active && <h5 style={{color:'red'}}>현재 정책은 특정 어플리케이션에서 사용 중입니다.<br/>삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.</h5>}
+        <h3>
+          <FormattedMessage id="DELETECONFIRM" />
+        </h3>
+        {deleteConfirmVisible && customPoliciesData[deleteTargetIndex].active && (
+          <h5 style={{ color: "red" }}>
+            현재 정책은 특정 어플리케이션에서 사용 중입니다.
+            <br />
+            삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.
+          </h5>
+        )}
       </CustomConfirm>
     </div>
   );

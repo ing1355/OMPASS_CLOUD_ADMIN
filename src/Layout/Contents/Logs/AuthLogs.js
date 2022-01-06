@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { LogsColumns } from "../../../Constants/TableColumns";
 
-const AuthLogs = ({ userProfile }) => {
+const AuthLogs = ({ userProfile, locale }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
 
@@ -26,7 +26,30 @@ const AuthLogs = ({ userProfile }) => {
 
   return (
     <div className="contents-container">
-      <ContentsTitle title="AuthLogs"/>
+      <ContentsTitle title="AuthLogs" />
+
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/OMPASSLog"}
+            >
+              문서 &#62; OMPASS 로그 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/Document/OMPASSLog"}
+            >
+              <b>Go</b> OMPASS Logs &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <div className="LogBox">
         <CustomTable
           columns={LogsColumns}

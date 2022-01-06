@@ -176,7 +176,7 @@ const Policies = ({ userProfile }) => {
         deleteCallback={deleteCallback}
       />
 
-      <ContentsTitle title="Policies"/>
+      <ContentsTitle title="Policies" />
       <div className="PoliciesBox">
         <p>OMPASS 정책은 Global 정책과 Custom 정책으로 구분됩니다.</p>
         <div className="PoliciesTitleBox">

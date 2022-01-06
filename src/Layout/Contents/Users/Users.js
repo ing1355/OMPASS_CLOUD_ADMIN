@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import "./Users.css";
 import ContentsTitle from "../ContentsTitle";
 import "../../../App.css";
@@ -34,7 +29,13 @@ import ActionCreators from "../../../redux/actions";
 
 var excelData;
 
-const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
+const Users = ({
+  userProfile,
+  showSuccessMessage,
+  showErrorMessage,
+  lang,
+  locale,
+}) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [_tableData, _setTableData] = useState([]);
@@ -143,12 +144,32 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
   }, [adminId, selectedApplication]);
 
   const deleteCallback = (userId) => {
-    setTableData(tableData.filter(t => t.userId !== userId))
-  }
+    setTableData(tableData.filter((t) => t.userId !== userId));
+  };
 
   return (
     <div className="contents-container">
       <Breadcrumb />
+
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/Users"}
+            >
+              문서 &#62; 사용자 관리 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a target="_blank" href={"https://ompass.kr:4003/Document/Users"}>
+              <b>Go</b> Users Management &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <ContentsTitle title="USER" />
       <div className="UsersdBox">
         <Switch>
@@ -250,7 +271,10 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
                 </div>
                 <div className="excel-button-box">
                   <div>
-                    <CustomButton className="excel-button" style={{minWidth: lang === 'ko' ? 170 : 200}}>
+                    <CustomButton
+                      className="excel-button"
+                      style={{ minWidth: lang === "ko" ? 170 : 200 }}
+                    >
                       <label
                         htmlFor="excel-upload"
                         className="pointer center-position full-size"
@@ -266,7 +290,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
                         style={{ display: "none" }}
                         onInput={(e) => {
                           ReadCsvData(e.target.files[0], (jsonData) => {
-                            const columns = ['userId', 'email']
+                            const columns = ["userId", "email"];
                             const result = [];
                             jsonData.forEach((data) => {
                               const _result = {};
@@ -287,14 +311,17 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
                     <CustomButton
                       id="download"
                       className="excel-button"
-                      style={{ float: "right", minWidth: lang === 'ko' ? 170 : 200 }}
+                      style={{
+                        float: "right",
+                        minWidth: lang === "ko" ? 170 : 200,
+                      }}
                       onClick={() => {
                         SaveCsvData([
                           {
-                            userId: formatMessage({id:'id'}),
-                            email: formatMessage({id:'Email'}),
-                            appName: formatMessage({id:'APPLICATIONNAME'}),
-                            byPass: formatMessage({id:'ISBYPASS'}),
+                            userId: formatMessage({ id: "id" }),
+                            email: formatMessage({ id: "Email" }),
+                            appName: formatMessage({ id: "APPLICATIONNAME" }),
+                            byPass: formatMessage({ id: "ISBYPASS" }),
                           },
                           ..._tableData.map((t) => ({
                             userId: t.userId,
@@ -334,7 +361,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
           okLoading={csvConfirmLoading}
         >
           <h6 className="execel-modal-text">
-            <FormattedMessage id="EXCELIMPORTTEXT"/>
+            <FormattedMessage id="EXCELIMPORTTEXT" />
           </h6>
           <select
             className="excel-select"
@@ -356,7 +383,7 @@ const Users = ({ userProfile, showSuccessMessage, showErrorMessage, lang }) => {
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
-    lang: state.locale
+    lang: state.locale,
   };
 }
 

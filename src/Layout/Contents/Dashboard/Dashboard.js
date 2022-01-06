@@ -29,12 +29,19 @@ import {
   Legend,
   Line,
 } from "recharts";
-import { getDateFormatEn, getDateFormatKr } from "../../../Functions/GetFullDate";
+import {
+  getDateFormatEn,
+  getDateFormatKr,
+} from "../../../Functions/GetFullDate";
 
 export const planStatusCodes = {
-  STOPPED: <FormattedMessage id="NONEUSED"/>,
+  STOPPED: <FormattedMessage id="NONEUSED" />,
   RUN: <FormattedMessage id="Valid" />,
-  CANCEL: <><FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel"/></>,
+  CANCEL: (
+    <>
+      <FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel" />
+    </>
+  ),
 };
 
 const Dashboard = ({ userProfile, locale }) => {
@@ -46,8 +53,6 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
-
-  
 
   const getDashboardData = () => {
     CustomAxiosGetAll(
@@ -95,6 +100,30 @@ const Dashboard = ({ userProfile, locale }) => {
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              className=""
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/Dashboard"}
+            >
+              문서 &#62; 대시보드 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              className=""
+              target="_blank"
+              href={"https://ompass.kr:4003/Document/Dashboard"}
+            >
+              <b>Go</b> Document &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <div className="flag kr" />
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
@@ -128,8 +157,13 @@ const Dashboard = ({ userProfile, locale }) => {
                   &nbsp;&nbsp;
                   {locale === "ko" ? (
                     <>
-                      {plan.createDate ? getDateFormatKr(plan.createDate) : null}~
-                      {plan.expireDate ? getDateFormatKr(plan.expireDate) : null}
+                      {plan.createDate
+                        ? getDateFormatKr(plan.createDate)
+                        : null}
+                      ~
+                      {plan.expireDate
+                        ? getDateFormatKr(plan.expireDate)
+                        : null}
                     </>
                   ) : (
                     <>
@@ -288,7 +322,6 @@ const Dashboard = ({ userProfile, locale }) => {
             </LineChart>
           </div>
         </div>
-
         <div className="DashboardThird">
           <h4 className="DashboardTitle">
             <FontAwesomeIcon icon={faCaretRight} />

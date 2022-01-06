@@ -1,8 +1,4 @@
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
@@ -36,7 +32,8 @@ import ActionCreators from "../../../redux/actions";
 const Applications = ({
   userProfile,
   showSuccessMessage,
-  showErrorMessage
+  showErrorMessage,
+  locale,
 }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
@@ -53,7 +50,10 @@ const Applications = ({
       setTableData([
         {
           ...data,
-          policy: data.policyId === globalPolicy.policyId ? formatMessage({ id: "DEFAULTPOLICY" }) : customPolicies.find((c) => c.policyId === data.policyId).title
+          policy:
+            data.policyId === globalPolicy.policyId
+              ? formatMessage({ id: "DEFAULTPOLICY" })
+              : customPolicies.find((c) => c.policyId === data.policyId).title,
         },
         ...tableData,
       ]);
@@ -76,7 +76,11 @@ const Applications = ({
             ? {
                 appId: t.appId,
                 ...data,
-                policy: data.policyId === globalPolicy.policyId ? '!DEFAULTPOLICY!' : customPolicies.find((c) => c.policyId === data.policyId).title
+                policy:
+                  data.policyId === globalPolicy.policyId
+                    ? "!DEFAULTPOLICY!"
+                    : customPolicies.find((c) => c.policyId === data.policyId)
+                        .title,
               }
             : t
         )
@@ -86,35 +90,46 @@ const Applications = ({
   );
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getGlobalPolicyApi(adminId), (globalPolicyData) => {
-      setGlobalPolicy(globalPolicyData)
-      CustomAxiosGet(getCustomPoliciesApi(adminId), (customPoliciesData) => {
-          setCustomPolicies(customPoliciesData);
-          CustomAxiosGet(
-            getApplicationApi(adminId),
-            (applicationData) => {
-              setTableData(
-                applicationData.map((d) => {
-                  return {
-                    ...d,
-                    policy: d.policyId === globalPolicyData.policyId ? '!DEFAULTPOLICY!' : customPoliciesData.find((c) => d.policyId === c.policyId).title
-                  };
-                })
-              );
-              setTableLoading(false);
-            },
-            () => {
-              setTableLoading(false);
-            }
-          );
-        },
-        () => {
-          setTableLoading(false);
-        }
-      );
-    }, () => {
-      setTableLoading(false);
-    })
+    CustomAxiosGet(
+      getGlobalPolicyApi(adminId),
+      (globalPolicyData) => {
+        setGlobalPolicy(globalPolicyData);
+        CustomAxiosGet(
+          getCustomPoliciesApi(adminId),
+          (customPoliciesData) => {
+            setCustomPolicies(customPoliciesData);
+            CustomAxiosGet(
+              getApplicationApi(adminId),
+              (applicationData) => {
+                setTableData(
+                  applicationData.map((d) => {
+                    return {
+                      ...d,
+                      policy:
+                        d.policyId === globalPolicyData.policyId
+                          ? "!DEFAULTPOLICY!"
+                          : customPoliciesData.find(
+                              (c) => d.policyId === c.policyId
+                            ).title,
+                    };
+                  })
+                );
+                setTableLoading(false);
+              },
+              () => {
+                setTableLoading(false);
+              }
+            );
+          },
+          () => {
+            setTableLoading(false);
+          }
+        );
+      },
+      () => {
+        setTableLoading(false);
+      }
+    );
   }, []);
 
   const confirmCallback = () => {
@@ -157,7 +172,33 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <ContentsTitle title="Applications"/>
+
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              className=""
+              target="_blank"
+              href={"https://ompass.kr:4003/Document/Application"}
+            >
+              문서 &#62; 어플리케이션 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              className=""
+              target="_blank"
+              href={"https://ompass.kr:4003/Document/Application"}
+            >
+              <b>Go</b> Applications &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
+      <ContentsTitle title="Applications" />
+
       <div className="ApplicationsBox">
         <Switch>
           <Route
@@ -233,6 +274,16 @@ const Applications = ({
             )}
           />
         </Switch>
+        <br /> <br />
+        {/* <div className="document-link">
+          <a
+            className=""
+            target="_blank"
+            href={"https://ompass.kr:4003/ko/Document/Dashboard"}
+          >
+            문서 &#62; 대시보드 <b>이동하기</b>
+          </a>
+        </div> */}
       </div>
     </div>
   );
@@ -241,7 +292,7 @@ const Applications = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
-    lang: state.locale
+    lang: state.locale,
   };
 }
 

@@ -1,8 +1,8 @@
 .breadcrumb-route-name {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .breadcrumb-route-name:hover {
-    color: skyblue;
-    text-decoration: underline;
+  color: skyblue;
+  text-decoration: underline;
 }

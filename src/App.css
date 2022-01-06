@@ -99,6 +99,36 @@ table tbody tr:hover {
 /* .svg-inline--fa {
   vertical-align: -0.3rem !important;
 } */
+
+.contents-container {
+  position: relative;
+}
+.document-link {
+  width: 100%;
+  /* background: rgb(230, 230, 230); */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  color: rgb(44, 44, 44);
+  position: absolute;
+  top: 2.5rem;
+  right: 3.5rem;
+}
+/* .document-link b {
+  text-decoration: underline;
+} */
+.document-link a {
+  /* color: rgb(44, 44, 44); */
+  /* background: #00a9ec71; */
+  padding: 0.5rem;
+  color: #256e8b;
+  text-decoration: underline;
+}
+/* .document-link a:hover {
+  text-decoration: underline;
+  color: #256e8b;
+} */
 @media (max-width: 1600px) {
   .contents-container {
     animation: fadeIn 0.5s;

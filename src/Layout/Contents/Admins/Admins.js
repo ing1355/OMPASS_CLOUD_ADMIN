@@ -1,8 +1,4 @@
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Admins.css";
 // import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
@@ -22,7 +18,7 @@ import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
 
-const Admins = ({ userProfile, history, showSuccessMessage }) => {
+const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
@@ -65,7 +61,7 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
             : t
         )
       );
-      showSuccessMessage('ADMIN_UPDATE_SUCCESS')
+      showSuccessMessage("ADMIN_UPDATE_SUCCESS");
     },
     [tableData]
   );
@@ -73,7 +69,7 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
   const deleteAdmin = useCallback(
     (index) => {
       setTableData(tableData.filter((t) => t.index !== index * 1));
-      showSuccessMessage('ADMIN_DELETE_SUCCESS')
+      showSuccessMessage("ADMIN_DELETE_SUCCESS");
     },
     [tableData]
   );
@@ -99,6 +95,26 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
+
+      <div className="document-link">
+        {locale === "ko" ? (
+          <>
+            <a
+              target="_blank"
+              href={"https://ompass.kr:4003/ko/Document/Admin"}
+            >
+              문서 &#62; 관리자 관리 <b>이동하기</b>
+            </a>
+          </>
+        ) : (
+          <>
+            <a target="_blank" href={"https://ompass.kr:4003/Document/Admin"}>
+              <b>Go</b> Admins Management &#62; Dashboard
+            </a>
+          </>
+        )}
+      </div>
+
       <ContentsTitle title="Admins" />
       <Switch>
         <Route
