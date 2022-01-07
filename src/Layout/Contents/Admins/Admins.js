@@ -96,7 +96,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <LinkDocument link="/Document/Admin"/>
+      <LinkDocument link="/document/admin" />
       <ContentsTitle title="Admins" />
       <Switch>
         <Route

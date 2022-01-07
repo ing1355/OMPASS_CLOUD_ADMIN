@@ -23,6 +23,7 @@ import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 const CustomPolicy = ({
   userProfile,
@@ -209,27 +210,7 @@ const CustomPolicy = ({
       className="contents-container"
       style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/UserPolicy"}
-            >
-              문서 &#62; 사용자 정의 정책 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/Document/UserPolicy"}
-            >
-              <b>Go</b> Custom Policy &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/user-policy" />
 
       <PolicyDrawer
         visible={editDrawerOpen}

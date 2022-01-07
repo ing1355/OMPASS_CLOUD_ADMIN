@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -102,10 +103,10 @@ const Billing = ({
   const billingsInfo = [
     {
       itemLists: [
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_1"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_2"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_3"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_4"/> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_1" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_2" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_3" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_4" /> },
       ],
     },
   ];
@@ -313,24 +314,7 @@ const Billing = ({
     <div className="contents-container">
       <ContentsTitle title="Billing" />
 
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/Billing"}
-            >
-              문서 &#62; 요금 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Billing"}>
-              <b>Go</b> Billing &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/billing" />
 
       <section className="billing-edition-container">
         <div className="billing-edition">

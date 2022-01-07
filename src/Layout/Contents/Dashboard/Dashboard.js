@@ -33,6 +33,7 @@ import {
   getDateFormatEn,
   getDateFormatKr,
 } from "../../../Functions/GetFullDate";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 export const planStatusCodes = {
   STOPPED: <FormattedMessage id="NONEUSED" />,
@@ -100,29 +101,7 @@ const Dashboard = ({ userProfile, locale }) => {
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              className=""
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/Dashboard"}
-            >
-              문서 &#62; 대시보드 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a
-              className=""
-              target="_blank"
-              href={"https://ompass.kr:4003/Document/Dashboard"}
-            >
-              <b>Go</b> Document &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/dashboard" />
 
       <div className="flag kr" />
       <div className="DashboardBox">

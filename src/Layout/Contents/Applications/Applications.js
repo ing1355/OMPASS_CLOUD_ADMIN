@@ -3,6 +3,7 @@ import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import ApplicationAdd from "./AppDetailsAdd";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { Button, Space } from "antd";
 import {
@@ -173,29 +174,7 @@ const Applications = ({
     <div className="contents-container">
       <Breadcrumb />
 
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              className=""
-              target="_blank"
-              href={"https://ompass.kr:4003/Document/Application"}
-            >
-              문서 &#62; 어플리케이션 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a
-              className=""
-              target="_blank"
-              href={"https://ompass.kr:4003/Document/Application"}
-            >
-              <b>Go</b> Applications &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/application" />
 
       <ContentsTitle title="Applications" />
 

@@ -15,6 +15,7 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getGlobalPolicyApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 const DefaultPolicy = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -145,21 +146,7 @@ const DefaultPolicy = ({ userProfile, locale }) => {
       className="contents-container"
       style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Policy"}>
-              문서 &#62; 기본 정책 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Policy"}>
-              <b>Go</b> Default Policy &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/policy" />
 
       <PolicyDrawer
         visible={editDrawerOpen}
