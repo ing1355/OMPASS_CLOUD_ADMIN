@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useCallback,
-  useRef,
+  useRef
 } from "react";
 import "./Policies.css";
 import "../../../App.css";
@@ -14,7 +14,7 @@ import { PolicyColumns } from "../../../Constants/TableColumns";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getGlobalPolicyApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 const DefaultPolicy = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -24,35 +24,26 @@ const DefaultPolicy = ({ userProfile, locale }) => {
   const [globalPoliciesTableData, setGlobalPoliciesTableData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const globalPoliciesDataRef = useRef(null);
-  const { formatMessage } = useIntl();
 
-  const getDescription = (key) => {
+  const getDescription = useCallback((key) => {
     const value = globalPoliciesDataRef.current[key];
     switch (key) {
       case "accessControl":
-        return formatMessage({
-          id:
-            value === "ACTIVE"
-              ? "ACCESSCONTROLACTIVEDESCRIPTION"
-              : value === "INACTIVE"
-              ? "ACCESSCONTROLINACTIVEDESCRIPTION"
-              : "ACCESSCONTROLDENYDESCRIPTION",
-        });
+        return <FormattedMessage id={value === "ACTIVE"
+        ? "ACCESSCONTROLACTIVEDESCRIPTION"
+        : value === "INACTIVE"
+        ? "ACCESSCONTROLINACTIVEDESCRIPTION"
+        : "ACCESSCONTROLDENYDESCRIPTION"}/>;
       case "userLocations":
-        return formatMessage({ id: "USERLOCATIONPOLICYDESCRIPTION2" });
+        return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
       case "browsers":
-        return formatMessage(
-          { id: "BROWSERSPOLICYDESCRIPTION" },
-          { param: value.toString() }
-        );
+        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
       case "mobilePatch":
-        return formatMessage({
-          id: value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE",
-        });
+        return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
       default:
         break;
     }
-  };
+  }, locale);
 
   const PolicyTableDataFeature = [
     {
@@ -202,6 +193,7 @@ const DefaultPolicy = ({ userProfile, locale }) => {
 };
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
     userProfile: state.userProfile,
   };

@@ -282,6 +282,7 @@ export const PolicyColumns = [
     width: 600,
     render: (getDescription, row) => {
       const {status, key, index} = row;
+      console.log(getDescription(key, index))
       return status === 'disable' ? <FormattedMessage id="DISABLEDPOLICY"/> : (status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />)
     },
   },

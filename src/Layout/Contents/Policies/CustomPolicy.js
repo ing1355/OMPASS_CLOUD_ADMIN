@@ -20,7 +20,7 @@ import {
   getCustomPoliciesApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 
@@ -40,7 +40,6 @@ const CustomPolicy = ({
   const [customPoliciesTableData, setCustomPoliciesTableData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const customPoliciesDataRef = useRef(null);
-  const { formatMessage } = useIntl();
 
   const closeDeleteConfirm = useCallback(() => {
     setDeleteConfirmVisible(false);
@@ -76,25 +75,17 @@ const CustomPolicy = ({
     const value = customPoliciesDataRef.current[index][key];
     switch (key) {
       case "accessControl":
-        return formatMessage({
-          id:
-            value === "ACTIVE"
-              ? "ACCESSCONTROLACTIVEDESCRIPTION"
-              : value === "INACTIVE"
-              ? "ACCESSCONTROLINACTIVEDESCRIPTION"
-              : "ACCESSCONTROLDENYDESCRIPTION",
-        });
+        return <FormattedMessage id={value === "ACTIVE"
+        ? "ACCESSCONTROLACTIVEDESCRIPTION"
+        : value === "INACTIVE"
+        ? "ACCESSCONTROLINACTIVEDESCRIPTION"
+        : "ACCESSCONTROLDENYDESCRIPTION"}/>;
       case "userLocations":
-        return formatMessage({ id: "USERLOCATIONPOLICYDESCRIPTION2" });
+        return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
       case "browsers":
-        return formatMessage(
-          { id: "BROWSERSPOLICYDESCRIPTION" },
-          { param: value.toString() }
-        );
+        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
       case "mobilePatch":
-        return formatMessage({
-          id: value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE",
-        });
+        return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
       default:
         break;
     }
