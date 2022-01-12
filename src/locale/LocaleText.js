@@ -107,6 +107,7 @@ const locales = {
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
+    DAYSLEFT: 'days left',
     SUBSCRIPTION_CANCEL_TITLE: 'OMPASS 구독 취소',
     SUBSCRIPTION_CANCEL_DESCRIPTION: '{email}님의 사용 만료일은 {date}입니다.\n재사용을 원할 시 다시 결제처리를 진행해주세요.',
     CANCELSUBSCRIPTION: "Are you sure you want to cancel automatic payments?",
@@ -162,11 +163,13 @@ const locales = {
     USERBYPASSDESCRIPTION: 'Login via email verification without OMPASS authentication.',
     USERBYPASSDESCRIPTION2: 'Login after OMPASS authentication.',
     DISABLEDPOLICY: 'Enable OMPASS authentication from edit to see the description.',
-    BILLINGPLANDESCRIPTION1_1: "2FA for VPN and Web Apps",
-    BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
-    BILLINGPLANDESCRIPTION1_3: "2차 인증",
-    BILLINGPLANDESCRIPTION1_4: "WebAuthn 지원",
-    GODOCUMENT:'Go Document'
+    BILLINGPLANDESCRIPTION1_1: "Two-Factor Authentication (2FA) for VPN and Web Apps",
+    BILLINGPLANDESCRIPTION1_2: "Authenticate without password",
+    BILLINGPLANDESCRIPTION1_3: "Two-Factor Authentication (2FA)",
+    BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
+    GODOCUMENT: 'Go Document',
+    POLICYDISABLEDTITLE: '해당 정책은 선택할 수 없습니다.',
+    POLICYDISABLEDDESCRIPTION: '해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.'
   },
   KR: {
     localeChangeText: "KO",
@@ -277,6 +280,7 @@ const locales = {
     DESCRIPTION: "설명",
     SETTINGTODEFAULT: "기본값으로 변경",
     POLICYTITLE: "정책명",
+    DAYSLEFT: '일 남음',
     SUBSCRIPTION_CANCEL_TITLE: 'OMPASS 구독 취소',
     SUBSCRIPTION_CANCEL_DESCRIPTION: '{email}님의 사용 만료일은 {date}입니다.\n재사용을 원할 시 다시 결제처리를 진행해주세요.',
     CANCELSUBSCRIPTION: "정말 구독을 취소하시겠습니까?",
@@ -342,7 +346,7 @@ const locales = {
     BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
     BILLINGPLANDESCRIPTION1_3: "2차 인증",
     BILLINGPLANDESCRIPTION1_4: "WebAuthn 지원",
-    GODOCUMENT:'문서로 이동하기',
+    GODOCUMENT: '문서로 이동하기',
     POLICYDISABLEDTITLE: '해당 정책은 선택할 수 없습니다.',
     POLICYDISABLEDDESCRIPTION: '해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.'
   },

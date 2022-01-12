@@ -10,6 +10,7 @@
   flex-direction: row;
   text-align: center;
   position: relative;
+  user-select: none;
 }
 .brand p {
   width: 100%;

@@ -9,7 +9,9 @@ import "./SubAdminSignUp.css";
 
 const SubAdminSignUp = ({ location, history, showErrorMessage }) => {
   const adminId = location ? location.pathname.split("/")[3] : null;
-  const token = location ? location.pathname.split("/")[5] : null;
+  const token = location ? location.pathname.split("/")[7] : null;
+  const country = location ? location.pathname.split("/")[5] : null;
+  const isKorea = country === 'KR'
   const {formatMessage} = useIntl();
 
   const onFinish = (e) => {
@@ -41,14 +43,14 @@ const SubAdminSignUp = ({ location, history, showErrorMessage }) => {
   return (
     <div className="signupBox">
       <form onSubmit={onFinish}>
-        <h1>OMPASS 비밀번호 변경</h1>
-        <input placeholder="비밀번호를 입력해주세요" name="password" type="password" />
+        <h1>{isKorea ? 'OMPASS 비밀번호 변경' : 'OMPASS Password change'}</h1>
+        <input placeholder={isKorea ? "비밀번호를 입력해주세요." : 'Please enter your password.'} name="password" type="password" />
         <input
-          placeholder="비밀번호를 한번 더 입력해주세요"
+          placeholder={isKorea ? "비밀번호를 한번 더 입력해주세요." : 'Please enter your password again.'}
           name="passwordConfirm"
           type="password"
         />
-        <button type="submit">비밀번호 변경</button>
+        <button type="submit">{isKorea ? '비밀번호 변경' : 'password change'}</button>
       </form>
     </div>
   );

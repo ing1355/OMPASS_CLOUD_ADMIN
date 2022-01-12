@@ -42,6 +42,7 @@ import SubscriptionCancel from "./SubscriptionCancel";
 
 const Billing = ({
   userProfile,
+  locale,
   showErrorMessage
 }) => {
   const { adminId, country } = userProfile;
@@ -178,7 +179,7 @@ const Billing = ({
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
-            {currentPlan ? currentPlan.remainingDate : 0} days left
+            {currentPlan ? currentPlan.remainingDate : 0} <FormattedMessage id="DAYSLEFT"/>
           </div>
         </div>
         <div className="billing-edition billing-info">
@@ -203,7 +204,7 @@ const Billing = ({
             />
             &nbsp;&nbsp;{" "}
             {currentPlan &&
-              (isKorea()
+              (locale === 'ko'
                 ? getDateFormatKr(currentPlan.createDate) +
                 " ~ " +
                 getDateFormatKr(currentPlan.expireDate)
@@ -408,6 +409,7 @@ const Billing = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale
   };
 }
 

@@ -4,15 +4,15 @@ import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SubAdminSignUp.css";
 
 const AdminSignUp = ({ history, location }) => {
-    const token = location ? location.pathname.split("/")[3] : null;
+    const token = location ? location.pathname.split("/")[5] : null;
+    const country = location ? location.pathname.split("/")[3] : null;
+    const isKorea = country === 'KR'
 
     useLayoutEffect(() => {
         CustomAxiosPost(
             signUpAdminApi,null,
             () => {
-                alert(
-                    "회원가입이 정상적으로 처리되었습니다."
-                );
+                alert(isKorea ? "회원가입이 정상적으로 처리되었습니다." : 'Success to Sign Up');
                 history.push('/');
             },
             null,

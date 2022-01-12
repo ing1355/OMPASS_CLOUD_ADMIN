@@ -133,13 +133,11 @@ const PaymentModal = ({ showSuccessMessage, showErrorMessage, userProfile, isKor
         cancelCallback={closeConfirmModal}
     >
         <div>
-            Edition : {inputEdition}
+            <FormattedMessage id="PLAN"/> : {inputEdition} Plan
             <br />
-            User Nums : {inputUserNum}
+            <FormattedMessage id="USERNUM" /> : {inputUserNum}
             <br />
-            Term : {inputTerm}
-            <br />
-            Cost&nbsp;:&nbsp;
+            <FormattedMessage id="PRICE" />&nbsp;:&nbsp;
             <b style={{ color: "Red" }}>
                 {isKorea()
                     ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
