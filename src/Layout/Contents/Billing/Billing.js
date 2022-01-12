@@ -1,4 +1,3 @@
-import { Spin } from "antd";
 import React, {
   useCallback,
   useEffect,
@@ -8,6 +7,7 @@ import React, {
 } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,16 +17,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
-  getBillingKeyApi,
   getPaymentHistoryApi,
   getBillingInfoApi,
-  startPaypalApi,
-  subscriptionIamportApi,
-  cancelSubscriptionIamportApi,
-  cancelSubscriptionPayPalApi,
+  startPaypalApi
 } from "../../../Constants/Api_Route";
-
-import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import {
   CustomAxiosGetAll,
   CustomAxiosPost,
@@ -43,12 +37,12 @@ import {
   getDateFormatKr,
 } from "../../../Functions/GetFullDate";
 import { planStatusCodes } from "../Dashboard/Dashboard";
+import PaymentModal from "./PaymentModal";
+import SubscriptionCancel from "./SubscriptionCancel";
 
 const Billing = ({
   userProfile,
-  showSuccessMessage,
-  showErrorMessage,
-  locale,
+  showErrorMessage
 }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
@@ -59,9 +53,7 @@ const Billing = ({
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
-  const [confirmModal, setConfirmModal] = useState(false);
-  const [cancelConfirmModal, setCancelConfirmModal] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false); 
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(1);
@@ -75,7 +67,7 @@ const Billing = ({
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-          editions.find((e) => e.name === inputEdition).priceForOneUser
+        editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -102,10 +94,10 @@ const Billing = ({
   const billingsInfo = [
     {
       itemLists: [
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_1"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_2"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_3"/> },
-        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_4"/> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_1" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_2" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_3" /> },
+        { content: <FormattedMessage id="BILLINGPLANDESCRIPTION1_4" /> },
       ],
     },
   ];
@@ -121,13 +113,6 @@ const Billing = ({
     setConfirmModal(false);
   }, []);
 
-  const openCancelConfirmModal = useCallback(() => {
-    setCancelConfirmModal(true);
-  }, []);
-
-  const closeCancelConfirmModal = useCallback(() => {
-    setCancelConfirmModal(false);
-  }, []);
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -142,118 +127,6 @@ const Billing = ({
       setPaypalLoading(true);
       requestPaypal();
     }
-  };
-
-  const requestIamPort = () => {
-    setConfirmLoading(true);
-    CustomAxiosPost(
-      getBillingKeyApi(adminId),
-      {
-        paymentInterval: inputTerm,
-        users: inputUserNum,
-      },
-      (data) => {
-        const {
-          merchant_uid,
-          name,
-          amount,
-          customer_uid,
-          buyer_email,
-          buyer_name,
-          buyer_tel,
-        } = data;
-        setConfirmLoading(false);
-        setConfirmModal(false);
-        window.IMP.init("imp92288614");
-        window.IMP.request_pay(
-          {
-            merchant_uid,
-            name,
-            amount,
-            customer_uid,
-            buyer_email,
-            buyer_name,
-            buyer_tel,
-          },
-          (res) => {
-            const {
-              success,
-              apply_num,
-              bank_name,
-              buyer_addr,
-              buyer_email,
-              buyer_name,
-              buyer_postcode,
-              buyer_tel,
-              card_name,
-              card_number,
-              card_quota,
-              currency,
-              custom_data,
-              customer_uid,
-              imp_uid,
-              merchant_uid,
-              name,
-              paid_amount,
-              paid_at,
-              pay_method,
-              pg_provider,
-              pg_tid,
-              pg_type,
-              receipt_url,
-              status,
-            } = res;
-            console.log(res);
-            if (success) {
-              CustomAxiosPost(
-                subscriptionIamportApi(adminId),
-                {
-                  apply_num,
-                  bank_name,
-                  buyer_addr,
-                  buyer_email,
-                  buyer_name,
-                  buyer_postcode,
-                  buyer_tel,
-                  card_name,
-                  card_number,
-                  card_quota,
-                  currency,
-                  custom_data,
-                  customer_uid,
-                  imp_uid,
-                  merchant_uid,
-                  name,
-                  paid_amount,
-                  paid_at,
-                  pay_method,
-                  pg_provider,
-                  pg_tid,
-                  pg_type,
-                  receipt_url,
-                  status,
-                },
-                (data) => {
-                  console.log(data);
-                  const { paymentSuccess, paymentHistoryResponses, plan } =
-                    data;
-                  if (paymentSuccess) {
-                    setTableData(paymentHistoryResponses);
-                    setCurrentPlan(plan);
-                    showSuccessMessage("PAYMENT_SUCCESS");
-                  } else showErrorMessage("PAYMENT_FAIL");
-                }
-              );
-            } else {
-              showErrorMessage("PAYMENT_FAIL");
-            }
-          }
-        );
-      },
-      () => {
-        setConfirmLoading(false);
-      }
-    );
   };
 
   const requestPaypal = () => {
@@ -290,47 +163,13 @@ const Billing = ({
     );
   };
 
-  const cancelIamPort = () => {
-    setConfirmLoading(true);
-    CustomAxiosPost(
-      !isKorea()
-        ? cancelSubscriptionPayPalApi
-        : cancelSubscriptionIamportApi(adminId),
-      {},
-      (data) => {
-        showSuccessMessage("SUBCRIPTION_CANCEL_SUCCESS");
-        setCurrentPlan(data);
-        setConfirmLoading(false);
-        setCancelConfirmModal(false);
-      },
-      () => {
-        setConfirmLoading(false);
-      }
-    );
-  };
+  
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billing" />
 
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/Billing"}
-            >
-              문서 &#62; 요금 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Billing"}>
-              <b>Go</b> Billing &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/billing" />
 
       <section className="billing-edition-container">
         <div className="billing-edition">
@@ -366,21 +205,13 @@ const Billing = ({
             {currentPlan &&
               (isKorea()
                 ? getDateFormatKr(currentPlan.createDate) +
-                  " ~ " +
-                  getDateFormatKr(currentPlan.expireDate)
+                " ~ " +
+                getDateFormatKr(currentPlan.expireDate)
                 : getDateFormatEn(currentPlan.createDate) +
-                  " ~ " +
-                  getDateFormatEn(currentPlan.expireDate))}
+                " ~ " +
+                getDateFormatEn(currentPlan.expireDate))}
           </h6>
-          <button
-            disabled={
-              (currentPlan && currentPlan.status !== "RUN") ||
-              !editions.find((e) => e.name === currentPlan.name)
-            }
-            onClick={openCancelConfirmModal}
-          >
-            <FormattedMessage id="SUBSCRIPTIONCANCEL" />
-          </button>
+          <SubscriptionCancel isKorea={isKorea} currentPlan={currentPlan} setCurrentPlan={setCurrentPlan} editions={editions}/>
         </div>
         <div className="billing-edition">
           <div className="billing-edition-data">
@@ -401,7 +232,7 @@ const Billing = ({
           </div>
           <div
             className="billing-edition-title"
-            // style={{ color: "#00a9ec", fontWeight: "bold" }}
+          // style={{ color: "#00a9ec", fontWeight: "bold" }}
           >
             <FormattedMessage id="USER" />
           </div>
@@ -510,23 +341,23 @@ const Billing = ({
                 <br />
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
-                    )
+                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                    {
+                      param:
+                        slicePrice(
+                          inputTerm === "MONTHLY" ? cost : cost * 12
+                        ) + (isKorea() ? "원" : "$"),
+                    }
+                  )
                   : formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
-                    )}
+                    { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
+                    {
+                      param:
+                        slicePrice(
+                          inputTerm === "MONTHLY" ? cost : cost * 12
+                        ) + (isKorea() ? "원" : "$"),
+                    }
+                  )}
               </label>
             </div>
           </div>
@@ -555,59 +386,19 @@ const Billing = ({
         />
       </section>
 
-      <div className="pay-CustomConfirm">
-        <CustomConfirm
-          visible={confirmModal}
-          confirmCallback={requestIamPort}
-          footer={isKorea()}
-          closable={!isKorea()}
-          okLoading={confirmLoading}
-          cancelCallback={closeConfirmModal}
-        >
-          <div>
-            Edition : {inputEdition}
-            <br />
-            User Nums : {inputUserNum}
-            <br />
-            Term : {inputTerm}
-            <br />
-            Cost&nbsp;:&nbsp;
-            <b style={{ color: "Red" }}>
-              {isKorea()
-                ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
-                : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
-            </b>
-            <span>
-              &nbsp;/ <FormattedMessage id={inputTerm} />
-            </span>
-          </div>
-          <br />
-          <div>
-            <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
-          </div>
-          <div
-            id="paypal-button-container"
-            style={{ textAlign: "center", marginTop: "2rem" }}
-          >
-            {paypalLoading && (
-              <Spin>
-                <FormattedMessage id="BILLINGLOADING" />
-              </Spin>
-            )}
-          </div>
-        </CustomConfirm>
-        <CustomConfirm
-          visible={cancelConfirmModal}
-          footer={true}
-          confirmCallback={cancelIamPort}
-          okLoading={confirmLoading}
-          cancelCallback={closeCancelConfirmModal}
-        >
-          <div>
-            <FormattedMessage id="CANCELSUBSCRIPTION" />
-          </div>
-        </CustomConfirm>
-      </div>
+      <PaymentModal
+        confirmModal={confirmModal}
+        paypalLoading={paypalLoading}
+        inputTerm={inputTerm}
+        inputUserNum={inputUserNum}
+        inputEdition={inputEdition}
+        cost={cost}
+        isKorea={isKorea}
+        setTableData={setTableData}
+        setConfirmModal={setConfirmModal}
+        setCurrentPlan={setCurrentPlan}
+        closeConfirmModal={closeConfirmModal}
+      />
     </div>
   ) : (
     <Redirect to="/" />

@@ -1,0 +1,1 @@
+export const loginApi = '/v1/login';

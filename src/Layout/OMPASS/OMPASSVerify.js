@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { verifyOMPASSApi } from '../../Constants/Api_Route';
+import { verifyOMPASSApi } from '../../Constants/OmpassApi';
 import { CustomAxiosPost } from '../../Functions/CustomAxios';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
@@ -15,6 +15,7 @@ const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
             verifyOmpassToken: access_token
         }, (data, callback) => {
             const {adminId, email, role, country, ompass} = data;
+            if(callback) callback();
             setUserProfile({
                 adminId,
                 email,
@@ -24,7 +25,6 @@ const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
             })
             setIsLogin(true);
             history.push('/');
-            if(callback) callback();
         })
     }, [])
     return <div />

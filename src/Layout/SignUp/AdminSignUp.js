@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { signUpAdminApi } from "../../Constants/Api_Route";
+import { signUpAdminApi } from "../../Constants/SignUpApi";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SubAdminSignUp.css";
 

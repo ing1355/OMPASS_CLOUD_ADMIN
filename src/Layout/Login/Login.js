@@ -1,13 +1,12 @@
-import { Form } from "antd";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginApi, resetPasswordApi } from "../../Constants/Api_Route";
+import { loginApi } from "../../Constants/LoginApi";
+import { resetPasswordApi } from "../../Constants/ResetPasswordApi";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import { popupCenter } from "./fidoPopUp";
-import "./Login.css";
-import "antd/dist/antd.css";
 import { FormattedMessage, useIntl } from "react-intl";
+import "./Login.css";
 
 const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMessage, showErrorMessage }) => {
   const [login, setLogin] = useState(true);

@@ -1,0 +1,1 @@
+export const verifyPasswordApi = `/v1/verify-password`

@@ -1,0 +1,1 @@
+export const verifyOMPASSApi = `/v1/verify-ompass`

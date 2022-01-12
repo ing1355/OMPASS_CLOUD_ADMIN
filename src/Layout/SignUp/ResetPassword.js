@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
-import { resetPasswordVerifyApi } from "../../Constants/Api_Route";
+import { resetPasswordVerifyApi } from "../../Constants/ResetPasswordApi";
 import { FailToTest, passwordTest } from "../../Constants/InputRules";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";

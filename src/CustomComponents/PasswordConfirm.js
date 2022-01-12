@@ -2,7 +2,7 @@ import React from "react";
 import { CustomAxiosPost } from "../Functions/CustomAxios";
 import CustomConfirm from "./CustomConfirm";
 import "./PasswordConfirm.css";
-import { verifyPasswordApi } from "../Constants/Api_Route";
+import { verifyPasswordApi } from "../Constants/VerifyPassword";
 import { connect } from "react-redux";
 import CustomButton from "./CustomButton";
 import ActionCreators from "../redux/actions";
@@ -32,9 +32,9 @@ const PasswordConfirm = ({
         password: password.value,
       },
       () => {
+        if (callback) callback();
         setLoading(false);
         showSuccessMessage("success");
-        if (callback) callback();
         setVisible(false);
       },
       () => {

@@ -20,12 +20,13 @@ const UserDetail = ({
   deleteCallback
 }) => {
   const { adminId } = userProfile;
-  const { userId, byPass, appId } = data;
+  const { userId, byPass, appId, email } = data;
   const [inputByPass, setInputByPass] = useState(byPass);
   const [loading, setLoading] = useState(false);
-  const [emailCheck, setEmailCheck] = useState(data.email);
+  const [emailCheck, setEmailCheck] = useState(email);
   const [emailLoading, setEmailLoading] = useState(false);
-  const inputEmailRef = useRef(null);
+  const inputEmailRef = useRef(email);
+
   const history = useHistory();
 
   const onFinish = (e) => {
@@ -40,7 +41,7 @@ const UserDetail = ({
       },
       (data) => {
         setLoading(false);
-        updateBypass(userId, inputByPass);
+        updateBypass(userId, inputByPass, inputEmailRef.current.value);
         showSuccessMessage('SUCCESS_USER_UPDATED')
         history.push("/Users");
       },
@@ -134,7 +135,7 @@ const UserDetail = ({
                     (inputByPass ? " active" : " inactive")
                   }
                 >
-                  <FormattedMessage id="INPUTEMAIL"/> :&nbsp;
+                  <FormattedMessage id="INPUTEMAIL"/> :&nbsp;&nbsp;
                   <input
                     style={{ width: "22rem" }}
                     ref={inputEmailRef}
@@ -149,7 +150,7 @@ const UserDetail = ({
                     onClick={emailSetting}
                     loading={emailLoading}
                   >
-                    <FormattedMessage id="SAVE"/>
+                    <FormattedMessage id="REGISTER"/>
                   </CustomButton>
                 </div>
                 <div>

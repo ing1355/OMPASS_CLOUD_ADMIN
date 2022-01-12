@@ -73,6 +73,7 @@ export const LogsColumns = [
     key: "userId",
     width: 250,
     searched: true,
+    maxLength: 48
   },
   {
     name: "Action",
@@ -110,6 +111,7 @@ export const PolicyLogsColumns = [
     key: "userId",
     width: 250,
     searched: true,
+    maxLength: 48
   },
   {
     name: "Action",
@@ -126,6 +128,7 @@ export const allUserColumns = [
     key: "userId",
     width: 250,
     searched: true,
+    maxLength: 48
   },
   {
     name: "Application",
@@ -159,7 +162,13 @@ export const allUserColumns = [
 ];
 
 export const disabledUserColumns = [
-  { name: "User", key: "userId", width: 250, searched: true },
+  {
+    name: "User",
+    key: "userId",
+    width: 250,
+    searched: true,
+    maxLength: 48
+  },
   {
     name: "Application",
     key: "appName",
@@ -189,7 +198,13 @@ export const disabledUserColumns = [
 ];
 
 export const byPassUserColumns = [
-  { name: "User", key: "userId", width: 250, searched: true, maxLength: 24 },
+  {
+    name: "User",
+    key: "userId",
+    width: 250,
+    searched: true,
+    maxLength: 48
+  },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
@@ -212,7 +227,13 @@ export const byPassUserColumns = [
 ];
 
 export const unRegisteredUserColumns = [
-  { name: "User", key: "userId", width: 250, searched: true, maxLength: 24 },
+  {
+    name: "User",
+    key: "userId",
+    width: 250,
+    searched: true,
+    maxLength: 48
+  },
   { name: "Application", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
@@ -238,7 +259,7 @@ const getPolicyInActiveDescription = (key) => ({
   accessControl: 'NORESTRICTION',
   userLocations: 'NONEUSERLOCATIONS',
   browsers: 'NONEBROWSERS',
-  mobilePatch: 'NOMOBILEPATCH'
+  // mobilePatch: 'NOMOBILEPATCH'
 }[key])
 
 export const PolicyColumns = [
@@ -282,7 +303,6 @@ export const PolicyColumns = [
     width: 600,
     render: (getDescription, row) => {
       const {status, key, index} = row;
-      console.log(getDescription(key, index))
       return status === 'disable' ? <FormattedMessage id="DISABLEDPOLICY"/> : (status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />)
     },
   },

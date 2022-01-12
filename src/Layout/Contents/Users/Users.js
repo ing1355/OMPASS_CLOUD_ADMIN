@@ -27,6 +27,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { emailTest } from "../../../Constants/InputRules";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 var excelData;
 
@@ -95,9 +96,9 @@ const Users = ({
   }, [selectView, tableData]);
 
   const updateEvent = useCallback(
-    (userId, byPass) => {
+    (userId, byPass, email) => {
       setTableData(
-        tableData.map((t) => (t.userId === userId ? { ...t, byPass } : t))
+        tableData.map((t) => (t.userId === userId ? { ...t, byPass, email } : t))
       );
     },
     [tableData]
@@ -152,24 +153,7 @@ const Users = ({
     <div className="contents-container">
       <Breadcrumb />
 
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/Users"}
-            >
-              문서 &#62; 사용자 관리 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Users"}>
-              <b>Go</b> Users Management &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/users " />
 
       <ContentsTitle title="USER" />
       <div className="UsersdBox">
@@ -296,8 +280,8 @@ const Users = ({
                             jsonData.forEach((data) => {
                               const _result = {};
                               columns.forEach((c, ind) => {
-                                if(c === 'email') {
-                                  if(!emailTest(data[ind])) _result[c] = ''
+                                if (c === "email") {
+                                  if (!emailTest(data[ind])) _result[c] = "";
                                   else _result[c] = data[ind];
                                 } else _result[c] = data[ind];
                               });

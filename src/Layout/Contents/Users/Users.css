@@ -194,13 +194,13 @@
 }
 
 .user-detatil-button {
-  height: 25px;
+  height: 26px;
+  padding: 2px 12px;
   background: #00a9ec;
   border: 1px solid #00a9ec;
   border: 0;
   outline: 0;
   color: #fff;
-  width: 3rem;
   margin-left: 1rem;
   font-size: 0.8rem;
   cursor: pointer;

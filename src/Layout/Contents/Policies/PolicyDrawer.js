@@ -60,7 +60,7 @@ const Global_Policy = ({
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
-  const [inputMobileCheck, setInputMobileCheck] = useState(null);
+  // const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [userLocationsEnable, setUserLocationsEnable] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
   const locationList = Object.keys(
@@ -83,7 +83,7 @@ const Global_Policy = ({
     setInputUserLocations([]);
     setInputBrowserCheck([]);
     setUserLocationsEnable(false);
-    setInputMobileCheck(null);
+    // setInputMobileCheck(null);
   }, []);
 
   useLayoutEffect(() => {
@@ -106,7 +106,7 @@ const Global_Policy = ({
         userLocations,
         browsers,
         userLocationEnable,
-        mobilePatch,
+        // mobilePatch,
       } = editData;
       if (title) setInputTitle(title);
       if (accessControl) setInputAuthCheck(accessControl);
@@ -114,7 +114,7 @@ const Global_Policy = ({
         setInputUserLocations(userLocations);
       else setInputUserLocations([{ location: "ETC", status: true }]);
       if (browsers) setInputBrowserCheck(browsers);
-      if (mobilePatch) setInputMobileCheck(mobilePatch);
+      // if (mobilePatch) setInputMobileCheck(mobilePatch);
       if (userLocationEnable) setUserLocationsEnable(userLocationEnable)
       setIsExistTitle(true);
     } else {
@@ -137,8 +137,8 @@ const Global_Policy = ({
     else result.userLocations = [];
     if (inputBrowserCheck.length) result.browsers = inputBrowserCheck;
     else result.browsers = [];
-    if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
-    else result.mobilePatch = null;
+    // if (inputMobileCheck) result.mobilePatch = inputMobileCheck;
+    // else result.mobilePatch = null;
     result.userLocationsEnable = userLocationsEnable;
     if (isCustomPolicy && Object.keys(result).length === 1)
       return showErrorMessage("PLEASE_INPUT_POLICY");
@@ -182,7 +182,7 @@ const Global_Policy = ({
     inputAuthCheck,
     inputUserLocations,
     inputBrowserCheck,
-    inputMobileCheck,
+    // inputMobileCheck,
     editData,
     userLocationsEnable,
     isExistTitle,
@@ -233,9 +233,9 @@ const Global_Policy = ({
     [inputBrowserCheck]
   );
 
-  const changeInputMobilecheck = useCallback((e) => {
-    setInputMobileCheck(e.target.value);
-  }, []);
+  // const changeInputMobilecheck = useCallback((e) => {
+  //   setInputMobileCheck(e.target.value);
+  // }, []);
 
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
@@ -261,12 +261,12 @@ const Global_Policy = ({
     const {
       accessControl,
       browsers,
-      mobilePatch,
+      // mobilePatch,
       userLocations,
     } = defaultPolicies;
     setInputAuthCheck(accessControl);
     setInputBrowserCheck(browsers);
-    setInputMobileCheck(mobilePatch);
+    // setInputMobileCheck(mobilePatch);
     setInputUserLocations(userLocations);
   };
 
@@ -409,8 +409,8 @@ const Global_Policy = ({
           {
             isDisabled && <div className="disable-policies-container">
               <img src={policyDisableIcon}/>
-              <h1>해당 정책은 선택할 수 없습니다.</h1>
-              <h3>해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.</h3>
+              <h1><FormattedMessage id="POLICYDISABLEDTITLE"/></h1>
+              <h3><FormattedMessage id="POLICYDISABLEDDESCRIPTION"/></h3>
             </div>
           }
           <section className="policies-box">
@@ -536,7 +536,7 @@ const Global_Policy = ({
           </section>
 
           {/* -------------OMPASS Mobile app ------------- */}
-          <section className="policies-box">
+          {/* <section className="policies-box">
             <h2>
               <FormattedMessage id="OMPASSMOBILEPOLICYTITLE" />
             </h2>
@@ -569,7 +569,7 @@ const Global_Policy = ({
               </label>
             </div>
 
-          </section>
+          </section> */}
         </div>
       </div>
     </Drawer>

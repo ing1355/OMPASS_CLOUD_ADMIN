@@ -19,7 +19,7 @@ import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
-const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
+const Admins = ({ userProfile, history, showSuccessMessage }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
@@ -27,7 +27,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [ompassToggle, setOmpassToggle] = useState(false);
-
+  
   useLayoutEffect(() => {
     CustomAxiosGet(
       getAdminsApi(adminId),
@@ -96,7 +96,7 @@ const Admins = ({ userProfile, history, showSuccessMessage, locale }) => {
   return (
     <div className="contents-container">
       <Breadcrumb />
-      <LinkDocument link="/Document/Admin"/>
+      <LinkDocument link="/document/admin" />
       <ContentsTitle title="Admins" />
       <Switch>
         <Route

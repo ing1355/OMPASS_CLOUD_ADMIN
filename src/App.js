@@ -1,54 +1,43 @@
 import "./App.css";
-import React, { useEffect, lazy } from "react";
-import Contents from "./Layout/Contents/Contents";
-import Header from "./Layout/Header/Header";
-import Sidebar from "./Layout/Sidebar/Sidebar";
+import React, { lazy, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
 } from "react-router-dom";
-import Footer from "./Layout/Footer/Footer";
-import Login from "./Layout/Login/Login";
 import { IntlProvider } from "react-intl";
 import { connect } from "react-redux";
 import AxiosController from "./AxiosController";
 import locale from "./locale";
-import "antd/dist/antd.css";
 import ActionCreators from "./redux/actions";
 import MessageController from "./MessageController";
-import route_info from "./Constants/Route_items";
+import Chat from "./CustomComponents/Chat";
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
 const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
 const ResetPassword = lazy(() => import("./Layout/SignUp/ResetPassword"));
 const OMPASSVerify = lazy(() => import("./Layout/OMPASS/OMPASSVerify"));
+const Contents = lazy(() => import("./Layout/Contents/Contents"))
+const Header = lazy(() => import("./Layout/Header/Header"))
+const Sidebar = lazy(() => import("./Layout/Sidebar/Sidebar"))
+const Login = lazy(() => import("./Layout/Login/Login"))
+const Footer = lazy(() => import("./Layout/Footer/Footer"))
 
 const App = ({
   isLogin,
   lang,
   setUserProfile,
   localeChange,
-  userProfile,
-  menuChange,
+  userProfile
 }) => {
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (!isLogin) {
       setUserProfile({});
+      Chat.shutdown()
       localStorage.removeItem("Authorization");
     } else {
-      const routes = route_info(userProfile.role);
-      const target = [
-        ...routes,
-        ...routes
-          .filter((item) => item.submenu)
-          .map((item) => item.submenu)
-          .flat(),
-      ].find(
-        (item) => "/" + window.location.pathname.split("/")[1] === item.route
-      );
-      if (target) menuChange(target.name);
       if (localStorage.getItem("locale"))
         localeChange(localStorage.getItem("locale"));
       else {
@@ -113,10 +102,7 @@ function mapDispatchToProps(dispatch) {
     },
     localeChange: (toggle) => {
       dispatch(ActionCreators.localeChange(toggle));
-    },
-    menuChange: (toggle) => {
-      dispatch(ActionCreators.menuStateChange(toggle));
-    },
+    }
   };
 }
 

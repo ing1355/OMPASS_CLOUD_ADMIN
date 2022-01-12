@@ -15,8 +15,9 @@ import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getGlobalPolicyApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
-const DefaultPolicy = ({ userProfile, locale }) => {
+const DefaultPolicy = ({ userProfile }) => {
   const { adminId } = userProfile;
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isEditPolicy, setIsEditPolicy] = useState(false);
@@ -38,12 +39,12 @@ const DefaultPolicy = ({ userProfile, locale }) => {
         return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
       case "browsers":
         return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
-      case "mobilePatch":
-        return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
+      // case "mobilePatch":
+      //   return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
       default:
         break;
     }
-  }, locale);
+  });
 
   const PolicyTableDataFeature = [
     {
@@ -64,12 +65,12 @@ const DefaultPolicy = ({ userProfile, locale }) => {
       policy: "BROWSERSPOLICYTITLE",
       description: getDescription,
     },
-    {
-      status: "",
-      key: "mobilePatch",
-      policy: "OMPASSMOBILEPOLICYTITLE",
-      description: getDescription,
-    },
+    // {
+    //   status: "",
+    //   key: "mobilePatch",
+    //   policy: "OMPASSMOBILEPOLICYTITLE",
+    //   description: getDescription,
+    // },
   ];
 
   const convertDataToTableData = useCallback(
@@ -91,11 +92,17 @@ const DefaultPolicy = ({ userProfile, locale }) => {
           status:
             td.key !== "accessControl" && data.accessControl !== "ACTIVE"
               ? "disable"
-              : td.key === "mobilePatch"
-              ? target
               : td.key === "userLocations"
               ? data.userLocationEnable
               : target.length > 0,
+          // status:
+          //   td.key !== "accessControl" && data.accessControl !== "ACTIVE"
+          //     ? "disable"
+          //     : td.key === "mobilePatch"
+          //     ? target
+          //     : td.key === "userLocations"
+          //     ? data.userLocationEnable
+          //     : target.length > 0,
         };
       });
     },
@@ -136,21 +143,7 @@ const DefaultPolicy = ({ userProfile, locale }) => {
       className="contents-container"
       style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Policy"}>
-              문서 &#62; 기본 정책 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Policy"}>
-              <b>Go</b> Default Policy &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/policy" />
 
       <PolicyDrawer
         visible={editDrawerOpen}
@@ -193,7 +186,6 @@ const DefaultPolicy = ({ userProfile, locale }) => {
 };
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     userProfile: state.userProfile,
   };

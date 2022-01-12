@@ -1,0 +1,1 @@
+export const signUpAdminApi = `/v1/admins/signup-token`

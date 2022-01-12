@@ -6,6 +6,7 @@ import { getPolicyLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { PolicyLogsColumns } from "../../../Constants/TableColumns";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 const PolicyLogs = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
@@ -29,21 +30,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
     <div className="contents-container">
       <ContentsTitle title="PolicyLogs" />
 
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/ko/Document/Log"}>
-              문서 &#62; 정책 로그 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a target="_blank" href={"https://ompass.kr:4003/Document/Log"}>
-              <b>Go</b> Policy Logs &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/log" />
 
       <div className="LogBox">
         <CustomTable

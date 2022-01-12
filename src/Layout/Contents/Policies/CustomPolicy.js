@@ -23,12 +23,12 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
+import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 const CustomPolicy = ({
   userProfile,
   showSuccessMessage,
   showErrorMessage,
-  locale,
 }) => {
   const { adminId } = userProfile;
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
@@ -84,8 +84,8 @@ const CustomPolicy = ({
         return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
       case "browsers":
         return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
-      case "mobilePatch":
-        return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
+      // case "mobilePatch":
+      //   return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
       default:
         break;
     }
@@ -116,12 +116,12 @@ const CustomPolicy = ({
     //   policy: "인증 방법 제한",
     //   description: "GLOBALPOLICYDESCRIPTION_4",
     // },
-    {
-      status: "",
-      key: "mobilePatch",
-      policy: "OMPASSMOBILEPOLICYTITLE",
-      description: getDescription,
-    },
+    // {
+    //   status: "",
+    //   key: "mobilePatch",
+    //   policy: "OMPASSMOBILEPOLICYTITLE",
+    //   description: getDescription,
+    // },
   ];
 
   useLayoutEffect(() => {
@@ -159,11 +159,18 @@ const CustomPolicy = ({
               td.key !== "accessControl" &&
               customPoliciesData[ind].accessControl !== "ACTIVE"
                 ? "disable"
-                : td.key === "mobilePatch"
-                ? target
                 : td.key === "userLocations"
                 ? customPoliciesData[ind].userLocationEnable
                 : target && target.length > 0,
+            // status:
+            //   td.key !== "accessControl" &&
+            //   customPoliciesData[ind].accessControl !== "ACTIVE"
+            //     ? "disable"
+            //     : td.key === "mobilePatch"
+            //     ? target
+            //     : td.key === "userLocations"
+            //     ? customPoliciesData[ind].userLocationEnable
+            //     : target && target.length > 0,
           };
         });
       })
@@ -200,27 +207,7 @@ const CustomPolicy = ({
       className="contents-container"
       style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="document-link">
-        {locale === "ko" ? (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/ko/Document/UserPolicy"}
-            >
-              문서 &#62; 사용자 정의 정책 <b>이동하기</b>
-            </a>
-          </>
-        ) : (
-          <>
-            <a
-              target="_blank"
-              href={"https://ompass.kr:4003/Document/UserPolicy"}
-            >
-              <b>Go</b> Custom Policy &#62; Dashboard
-            </a>
-          </>
-        )}
-      </div>
+      <LinkDocument link="/document/user-policy" />
 
       <PolicyDrawer
         visible={editDrawerOpen}

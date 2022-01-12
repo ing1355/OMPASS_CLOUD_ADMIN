@@ -22,7 +22,6 @@ export const deleteUserApi = (adminId, appId, userId) => `/v1/admins/${adminId}/
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
 export const updateAdminApi = (adminId) => `/v1/admins/${adminId}`
 export const deleteAdminApi = (adminId) => `/v1/admins/${adminId}`
-export const signUpAdminApi = `/v1/admins/signup-token`
 export const update2faApi = (adminId) => `/v1/admins/${adminId}/2fa`
 
 export const addSubAdminApi = (adminId) => `/v1/admins/${adminId}/sub-admins`
@@ -50,9 +49,3 @@ export const cancelSubscriptionPayPalApi = (adminId) => `/v1/admins/${adminId}/p
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
 export const getPolicyLogsApi = (adminId) => `/v1/admins/${adminId}/policy-logs`
-
-export const loginApi = '/v1/login';
-export const resetPasswordApi = '/v1/reset-password';
-export const resetPasswordVerifyApi = '/v1/reset-password-token';
-export const verifyOMPASSApi = `/v1/verify-ompass`
-export const verifyPasswordApi = `/v1/verify-password`
