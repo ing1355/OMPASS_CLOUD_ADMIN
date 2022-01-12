@@ -8,7 +8,14 @@ import { popupCenter } from "./fidoPopUp";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 
-const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMessage, showErrorMessage }) => {
+const Login = ({
+  setIsLogin,
+  setUserProfile,
+  locale,
+  localeChange,
+  showSuccessMessage,
+  showErrorMessage,
+}) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
 
@@ -25,7 +32,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
       }
     );
     setLogin(true);
-    alert(formatMessage({id:'RESET_PASSWORD_SEND_MAIL'}));
+    alert(formatMessage({ id: "RESET_PASSWORD_SEND_MAIL" }));
   };
 
   const loginRequest = (e) => {
@@ -54,7 +61,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
             country,
           });
           setIsLogin(true);
-          showSuccessMessage('LOGIN_SUCCESS')
+          showSuccessMessage("LOGIN_SUCCESS");
           if (callback) callback();
         }
       }
@@ -63,11 +70,11 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
 
   const localeChangeEventKo = () => {
     localeChange("ko");
-    localStorage.setItem('locale', 'ko')
+    localStorage.setItem("locale", "ko");
   };
   const localeChangeEventEn = () => {
     localeChange("en");
-    localStorage.setItem('locale', 'en')
+    localStorage.setItem("locale", "en");
   };
 
   return (
@@ -108,18 +115,18 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
                 </div>
                 <div className="join">
                   {locale === "en" ? (
-                    <a target="_blank" href="https://ompass.kr:4003/Login">
+                    <a target="_blank" href="https://ompass.kr:4003/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   ) : (
-                    <a target="_blank" href="https://ompass.kr:4003/ko/Login">
+                    <a target="_blank" href="https://ompass.kr:4003/ko/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   )}
                 </div>
               </ul>
               <ul>
-              <p className="login-welcome-text">
+                <p className="login-welcome-text">
                   <FormattedMessage id="loginText1" />
                 </p>
                 <p className="login-welcome-text">
