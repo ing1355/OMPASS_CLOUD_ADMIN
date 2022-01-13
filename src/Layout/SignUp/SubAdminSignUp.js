@@ -43,14 +43,14 @@ const SubAdminSignUp = ({ location, history, showErrorMessage }) => {
   return (
     <div className="signupBox">
       <form onSubmit={onFinish}>
-        <h1>{isKorea ? 'OMPASS 비밀번호 변경' : 'OMPASS Password change'}</h1>
+        <h1>{isKorea ? 'OMPASS 비밀번호 변경' : 'Set Password for OMPASS'}</h1>
         <input placeholder={isKorea ? "비밀번호를 입력해주세요." : 'Please enter your password.'} name="password" type="password" />
         <input
           placeholder={isKorea ? "비밀번호를 한번 더 입력해주세요." : 'Please enter your password again.'}
           name="passwordConfirm"
           type="password"
         />
-        <button type="submit">{isKorea ? '비밀번호 변경' : 'password change'}</button>
+        <button type="submit">{isKorea ? '비밀번호 변경' : 'Set Password'}</button>
       </form>
     </div>
   );

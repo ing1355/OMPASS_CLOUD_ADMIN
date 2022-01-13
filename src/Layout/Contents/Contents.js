@@ -11,7 +11,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
   const { role } = userProfile;
   useLayoutEffect(() => {
     if(isLogin) {
-      Chat.boot({pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036'})
+      Chat.boot({pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'en'})
       const routes = route_info(userProfile.role);
       const target = [
         ...routes,

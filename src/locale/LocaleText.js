@@ -108,8 +108,8 @@ const locales = {
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
     DAYSLEFT: 'days left',
-    SUBSCRIPTION_CANCEL_TITLE: 'OMPASS 구독 취소',
-    SUBSCRIPTION_CANCEL_DESCRIPTION: '{email}님의 사용 만료일은 {date}입니다.\n재사용을 원할 시 다시 결제처리를 진행해주세요.',
+    SUBSCRIPTION_CANCEL_TITLE: 'Cancel Auto-Renewal',
+    SUBSCRIPTION_CANCEL_DESCRIPTION: 'The expiration date of {email} is {date}.\nIf you wish to apply auto-renewal for OMPASS again later on, please pay again to restart your auto-renewal payment.',
     CANCELSUBSCRIPTION: "Are you sure you want to cancel automatic payments?",
     NORESTRICTION: "No restrictions",
     GLOBALPOLICYDESCRIPTION:
@@ -168,8 +168,8 @@ const locales = {
     BILLINGPLANDESCRIPTION1_3: "Two-Factor Authentication (2FA)",
     BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
     GODOCUMENT: 'Go Document',
-    POLICYDISABLEDTITLE: '해당 정책은 선택할 수 없습니다.',
-    POLICYDISABLEDDESCRIPTION: '해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.'
+    POLICYDISABLEDTITLE: 'Sorry, this policy cannot be selected.',
+    POLICYDISABLEDDESCRIPTION: 'This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.'
   },
   KR: {
     localeChangeText: "KO",

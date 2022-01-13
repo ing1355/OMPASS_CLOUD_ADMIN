@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { loginApi } from "../../Constants/LoginApi";
 import { resetPasswordApi } from "../../Constants/ResetPasswordApi";
@@ -11,6 +11,18 @@ import "./Login.css";
 const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMessage, showErrorMessage }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
+  const popupRef = useRef(null);
+
+  useEffect(() => {
+    const focusCallback = () => {
+      console.log('focus', popupRef.current)
+      if(popupRef.current) popupRef.current.focus();
+    }
+    window.onfocus = focusCallback;
+    return () => {
+      window.onfocus = null;
+    };
+  },[])
 
   const resetPassword = (e) => {
     e.preventDefault();
@@ -40,7 +52,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
         if (ompass) {
-          popupCenter({
+          popupRef.current = popupCenter({
             url: data.ompassUrl,
             title: "FIDO2 AUTHENTICATE",
             w: 800,

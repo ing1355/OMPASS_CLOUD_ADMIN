@@ -12,7 +12,7 @@ const AdminSignUp = ({ history, location }) => {
         CustomAxiosPost(
             signUpAdminApi,null,
             () => {
-                alert(isKorea ? "회원가입이 정상적으로 처리되었습니다." : 'Success to Sign Up');
+                alert(isKorea ? "회원가입이 정상적으로 처리되었습니다." : 'Your registration has been successfully completed.');
                 history.push('/');
             },
             null,
