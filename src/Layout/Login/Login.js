@@ -1,28 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loginApi } from "../../Constants/LoginApi";
 import { resetPasswordApi } from "../../Constants/ResetPasswordApi";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
-import { popupCenter } from "./fidoPopUp";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 
-const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMessage, showErrorMessage }) => {
+const Login = ({
+  setIsLogin,
+  setUserProfile,
+  locale,
+  localeChange,
+  showSuccessMessage
+}) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
-  const popupRef = useRef(null);
 
-  useEffect(() => {
-    const focusCallback = () => {
-      console.log('focus', popupRef.current)
-      if(popupRef.current) popupRef.current.focus();
-    }
-    window.onfocus = focusCallback;
-    return () => {
-      window.onfocus = null;
-    };
-  },[])
+  // useEffect(() => {
+  //   console.log(OMPASS)
+  // },[])
 
   const resetPassword = (e) => {
     e.preventDefault();
@@ -37,7 +34,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
       }
     );
     setLogin(true);
-    alert(formatMessage({id:'RESET_PASSWORD_SEND_MAIL'}));
+    alert(formatMessage({ id: "RESET_PASSWORD_SEND_MAIL" }));
   };
 
   const loginRequest = (e) => {
@@ -52,12 +49,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
         if (ompass) {
-          popupRef.current = popupCenter({
-            url: data.ompassUrl,
-            title: "FIDO2 AUTHENTICATE",
-            w: 800,
-            h: 500,
-          });
+          window.OMPASS(data.ompassUrl)
         } else {
           setUserProfile({
             adminId,
@@ -66,7 +58,7 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
             country,
           });
           setIsLogin(true);
-          showSuccessMessage('LOGIN_SUCCESS')
+          showSuccessMessage("LOGIN_SUCCESS");
           if (callback) callback();
         }
       }
@@ -75,11 +67,11 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
 
   const localeChangeEventKo = () => {
     localeChange("ko");
-    localStorage.setItem('locale', 'ko')
+    localStorage.setItem("locale", "ko");
   };
   const localeChangeEventEn = () => {
     localeChange("en");
-    localStorage.setItem('locale', 'en')
+    localStorage.setItem("locale", "en");
   };
 
   return (
@@ -120,18 +112,18 @@ const Login = ({ setIsLogin, setUserProfile, locale, localeChange, showSuccessMe
                 </div>
                 <div className="join">
                   {locale === "en" ? (
-                    <a target="_blank" href="https://ompass.kr:4003/Login">
+                    <a target="_blank" rel="noreferrer" href="https://ompass.kr:4003/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   ) : (
-                    <a target="_blank" href="https://ompass.kr:4003/ko/Login">
+                    <a target="_blank" rel="noreferrer" href="https://ompass.kr:4003/ko/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   )}
                 </div>
               </ul>
               <ul>
-              <p className="login-welcome-text">
+                <p className="login-welcome-text">
                   <FormattedMessage id="loginText1" />
                 </p>
                 <p className="login-welcome-text">

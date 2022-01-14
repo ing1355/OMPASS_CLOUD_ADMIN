@@ -5,11 +5,11 @@ import "./Menu_Item.css";
 import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmenu }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const isSelected = useMemo(() =>  submenu ? submenu.find((sb) => sb.name === menuState) || name === menuState
       : name === menuState
   , [submenu, menuState, name]);
@@ -35,7 +35,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
       } else {
         if(!submenu.find(sb => sb.name === menuState)) {
           menuChange(submenu[0].name)
-          history.push(submenu[0].route)
+          navigate(submenu[0].route.slice(0,-2))
         }
         setSubMenuOpen(true);
       }
@@ -69,7 +69,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
   </>
 
   return (
-    !submenu ? <Link to={route}>
+    !submenu ? <Link to={route.slice(0,-1)}>
       {children}
     </Link> : children
   );

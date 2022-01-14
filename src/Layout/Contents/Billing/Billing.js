@@ -6,7 +6,6 @@ import React, {
   useState,
 } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,6 +38,7 @@ import {
 import { planStatusCodes } from "../Dashboard/Dashboard";
 import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
+import { Navigate } from "react-router-dom";
 
 const Billing = ({
   userProfile,
@@ -402,7 +402,7 @@ const Billing = ({
       />
     </div>
   ) : (
-    <Redirect to="/" />
+    <Navigate to="/" />
   );
 };
 

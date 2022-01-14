@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import "./Contents.css";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Route_items from "../../Constants/Route_items";
 import { connect } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
@@ -11,16 +11,19 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
   const { role } = userProfile;
   useLayoutEffect(() => {
     if(isLogin) {
-      Chat.boot({pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'en'})
+      // Chat.boot({pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'en'})
       const routes = route_info(userProfile.role);
       const target = [
-        ...routes,
+        ...routes
+        .filter(item => item.route),
         ...routes
           .filter((item) => item.submenu)
           .map((item) => item.submenu)
           .flat(),
       ].find(
-        (item) => "/" + window.location.pathname.split("/")[1] === item.route
+        (item) => {
+          return item.route.startsWith("/" + window.location.pathname.split("/")[1])
+        }
       );
       if (target) menuChange(target.name);
     }
@@ -30,17 +33,16 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
       <div className="contents">
         <div className="contents-inner">
           <React.Suspense fallback={<div>loading...</div>}>
-            <Switch>
+            <Routes>
               {Route_items(role).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
                 <Route
                   key={item.key}
                   path={item.route}
-                  exact={item.name === "Dashboard"}
-                  component={item.component}
+                  element={item.component}
                 />
               ))}
-              <Redirect to="/" />
-            </Switch>
+              <Route path="/*" element={<Navigate to="/" />}/>
+            </Routes>
           </React.Suspense>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import "./AdminsDetail.css";
@@ -112,7 +112,7 @@ const AdminsDetail = ({ data }) => {
       </CustomConfirm>
     </>
   ) : (
-    <Redirect to="/Admins" />
+    <Navigate to="/Admins" />
   );
 };
 

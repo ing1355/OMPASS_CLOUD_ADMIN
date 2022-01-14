@@ -1,8 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
-import { message } from "antd";
 import "../Billing/Billing.css";
 import "./Users.css";
-import { Redirect, useHistory } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { deleteUserApi, updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
 import { CustomAxiosDelete, CustomAxiosPatch } from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
@@ -27,7 +26,7 @@ const UserDetail = ({
   const [emailLoading, setEmailLoading] = useState(false);
   const inputEmailRef = useRef(email);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onFinish = (e) => {
     e.preventDefault();
@@ -43,7 +42,7 @@ const UserDetail = ({
         setLoading(false);
         updateBypass(userId, inputByPass, inputEmailRef.current.value);
         showSuccessMessage('SUCCESS_USER_UPDATED')
-        history.push("/Users");
+        navigate("/Users");
       },
       () => {
         setLoading(false);
@@ -91,7 +90,7 @@ const UserDetail = ({
   return (
     <>
       {Object.keys(data).length < 1 ? (
-        <Redirect to="/Users" />
+        <Navigate to="/Users" />
       ) : (
         <div className="ApplicationsBox">
           <form className="form-box" onSubmit={onFinish}>
@@ -183,7 +182,7 @@ const UserDetail = ({
               onClick={() => {
                 CustomAxiosDelete(deleteUserApi(adminId, appId, userId), () => {
                   if(deleteCallback) deleteCallback(userId);
-                  history.push('/Users')
+                  navigate('/Users')
                 })
               }}
               loading={loading}

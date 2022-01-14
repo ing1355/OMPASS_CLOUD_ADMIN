@@ -1,11 +1,10 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useLocation } from "react-router";
-import "antd/dist/antd.css";
 import { message } from "antd";
 import route_info from "../../Constants/Route_items";
 

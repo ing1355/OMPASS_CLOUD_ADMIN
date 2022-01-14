@@ -21,7 +21,7 @@ import {
   getCustomPoliciesApi,
   getGlobalPolicyApi,
 } from "../../../Constants/Api_Route";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import ApplicationDetail from "./ApplicationDetail";
 import CustomTable from "../../../CustomComponents/CustomTable";
@@ -173,18 +173,13 @@ const Applications = ({
   return (
     <div className="contents-container">
       <Breadcrumb />
-
       <LinkDocument link="/document/application" />
-
       <ContentsTitle title="Applications" />
-
       <div className="ApplicationsBox">
-        <Switch>
+        <Routes>
           <Route
-            path="/Applications"
-            exact
-            render={(routeInfo) => (
-              <div>
+            path="/"
+            element={<div>
                 <CustomTable
                   loading={tableLoading}
                   columns={ApplicationsColumns}
@@ -228,41 +223,24 @@ const Applications = ({
                 >
                   <FormattedMessage id="DELETECONFIRM" />
                 </CustomConfirm>
-              </div>
-            )}
+              </div>}
           />
           <Route
-            path="/Applications/Add"
-            exact
-            render={() => (
-              <ApplicationAdd
+            path="/Add"
+            element={<ApplicationAdd
                 tableDataAdd={tableDataAdd}
                 globalPolicy={globalPolicy}
-                customPolicies={customPolicies}
-              />
-            )}
+                customPolicies={customPolicies}/>}
           />
           <Route
-            path="/Applications/Detail/:appId"
-            render={() => (
-              <ApplicationDetail
+            path="/Detail/:appId"
+            element={<ApplicationDetail
                 tableDataUpdate={tableDataUpdate}
                 globalPolicy={globalPolicy}
-                customPolicies={customPolicies}
-              />
-            )}
+                customPolicies={customPolicies}/>}
           />
-        </Switch>
+        </Routes>
         <br /> <br />
-        {/* <div className="document-link">
-          <a
-            className=""
-            target="_blank"
-            href={"https://ompass.kr:4003/ko/Document/Dashboard"}
-          >
-            문서 &#62; 대시보드 <b>이동하기</b>
-          </a>
-        </div> */}
       </div>
     </div>
   );

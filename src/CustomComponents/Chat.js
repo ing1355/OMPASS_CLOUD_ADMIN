@@ -46,10 +46,6 @@ class ChannelService {
     shutdown() {
         window.ChannelIO('shutdown');
     }
-
-    render() {
-        return (<></>)
-    }
 }
 
 export default new ChannelService();

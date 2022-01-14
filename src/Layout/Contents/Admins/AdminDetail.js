@@ -6,8 +6,7 @@ import "react-phone-input-2/lib/style.css";
 
 import { Button } from "antd";
 import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
-
-import { Redirect, useHistory } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   CustomAxiosDelete,
   CustomAxiosPut,
@@ -44,7 +43,7 @@ const AdminDetail = ({
     index
   } = data;
   
-  const history = useHistory();
+  const navigate = useNavigate;
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
   const [inputCountryCode, setInputCountryCode] = useState(country);
@@ -101,7 +100,7 @@ const AdminDetail = ({
           firstName: firstName.value,
           lastName: lastName.value,
         });
-        history.push("/Admins");
+        navigate("/Admins");
       },
       () => {
         showErrorMessage("UPDATE_FAIL");
@@ -118,7 +117,7 @@ const AdminDetail = ({
         setConfirmLoading(false);
         showSuccessMessage("DELETE_SUCCESS");
         deleteEvent(index);
-        history.push("/Admins");
+        navigate("/Admins");
       },
       () => {
         setConfirmLoading(false);
@@ -240,7 +239,7 @@ const AdminDetail = ({
           </form>
         </div>
       ) : (
-        <Redirect to="/Admins" />
+        <Navigate to="/Admins" />
       )}
     </>
   );

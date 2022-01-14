@@ -41,7 +41,8 @@ const locales = {
     ADMIN_DELETE_SUCCESS: 'Successfully deleted the admin account!',
     RESET_PASSWORD_SEND_MAIL: 'We have e-mailed your password reset link.\nPlease check your email.',
     SUCCESS_USER_UPDATED: 'Successfully changed the user information.',
-    LOGIN_SUCCESS: 'Login success!'
+    LOGIN_SUCCESS: 'Login success!',
+    IS_NOT_CSV: '.csv 파일을 업로드해주세요.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -85,7 +86,8 @@ const locales = {
     ADMIN_DELETE_SUCCESS: '관리자 삭제에 성공하였습니다.',
     RESET_PASSWORD_SEND_MAIL: '메일로 비밀번호 초기화 링크를 전송하였습니다.\n메일함을 확인해주세요.',
     SUCCESS_USER_UPDATED: '사용자 정보를 성공적으로 변경하였습니다.',
-    LOGIN_SUCCESS: '로그인 되었습니다.'
+    LOGIN_SUCCESS: '로그인 되었습니다.',
+    IS_NOT_CSV: '.csv 파일을 업로드해주세요.'
   },
 };
 

@@ -187,8 +187,8 @@ const Dashboard = ({ userProfile, locale }) => {
                             width: "50%",
                             fontWeight: "bold",
                             fontSize: "1rem",
-                            borderRight: "1px solid rgb(180, 180, 180)",
-                            borderTop: "1px solid rgb(180, 180, 180)",
+                            borderRight: "0.5px solid rgb(180, 180, 180)",
+                            borderTop: "0.5px solid rgb(180, 180, 180)",
                           }}
                         >
                           {plan.remainingDate}&nbsp;
@@ -200,8 +200,8 @@ const Dashboard = ({ userProfile, locale }) => {
                             width: "50%",
                             fontWeight: "bold",
                             fontSize: "1rem",
-                            borderRight: "1px solid rgb(180, 180, 180)",
-                            borderTop: "1px solid rgb(180, 180, 180)",
+                            borderRight: "0.5px solid rgb(180, 180, 180)",
+                            borderTop: "0.5px solid rgb(180, 180, 180)",
                           }}
                         >
                           {plan.remainingDate}

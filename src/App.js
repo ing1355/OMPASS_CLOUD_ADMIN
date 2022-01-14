@@ -2,9 +2,9 @@ import "./App.css";
 import React, { lazy, useLayoutEffect } from "react";
 import {
   BrowserRouter as Router,
-  Redirect,
+  Navigate,
   Route,
-  Switch,
+  Routes,
 } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import { connect } from "react-redux";
@@ -33,9 +33,10 @@ const App = ({
 }) => {
 
   useLayoutEffect(() => {
+    Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
     if (!isLogin) {
       setUserProfile({});
-      Chat.shutdown()
+      // Chat.shutdown()
       localStorage.removeItem("Authorization");
     } else {
       if (localStorage.getItem("locale"))
@@ -54,33 +55,30 @@ const App = ({
         <AxiosController />
         <MessageController />
         <React.Suspense fallback={<div>loading...</div>}>
-          <Switch>
-            <Route path="/admin-signup" component={AdminSignUp} />
-            <Route path="/sub-admin-signup" component={SubAdminSignUp} />
-            <Route path="/reset-password" component={ResetPassword} />
-            <Route path="/ompass" component={OMPASSVerify} />
+          <Routes>
+            <Route path="/admin-signup" element={AdminSignUp} />
+            <Route path="/sub-admin-signup" element={SubAdminSignUp} />
+            <Route path="/reset-password" element={ResetPassword} />
+            <Route path="/ompass" element={OMPASSVerify} />
             <Route
               path="/login"
-              render={(routeInfo) =>
-                isLogin ? <Redirect to="/" /> : <Login {...routeInfo} />
-              }
+              element={isLogin ? <Navigate to="/" /> : <Login />}
             />
             <Route
-              path="/"
-              render={(routeInfo) =>
-                !isLogin ? (
-                  <Redirect to="/login" {...routeInfo} />
-                ) : (
-                  <>
-                    <Header {...routeInfo} />
-                    <Sidebar {...routeInfo} />
-                    <Contents {...routeInfo} />
-                    <Footer {...routeInfo} />
-                  </>
-                )
+              path="/*"
+              element={!isLogin ? (
+                <Navigate to="/login" />
+              ) : (
+                <>
+                  <Header />
+                  <Sidebar />
+                  <Contents />
+                  <Footer />
+                </>
+              )
               }
             />
-          </Switch>
+          </Routes>
         </React.Suspense>
       </IntlProvider>
     </Router>

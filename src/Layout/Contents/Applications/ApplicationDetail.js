@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   checkApplicationExistenceApi,
   getApplicationDetailApi,
@@ -36,7 +36,7 @@ const ApplicationDetail = ({
   showSuccessMessage,
   showErrorMessage,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { appId } = useParams();
   const { adminId } = userProfile;
   const nameRef = useRef(null);
@@ -154,7 +154,7 @@ const ApplicationDetail = ({
       (data) => {
         showSuccessMessage("UPDATE_SUCCESS");
         tableDataUpdate(appId, data);
-        history.push("/Applications");
+        navigate("/Applications");
       }
     );
   };

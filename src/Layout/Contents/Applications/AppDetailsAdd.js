@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
 import "./Applications.css";
-
-import "antd/dist/antd.css";
 import {
   CustomAxiosGet,
   CustomAxiosPost,
@@ -11,7 +9,7 @@ import {
   addApplicationApi,
   checkApplicationExistenceApi,
 } from "../../../Constants/Api_Route";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import {
   doaminTest,
   FailToTest,
@@ -31,7 +29,7 @@ const AppDetailsAdd = ({
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
   const inputNameRef = useRef(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
 
   const onFinish = (e) => {
@@ -74,7 +72,7 @@ const AppDetailsAdd = ({
       (data) => {
         showSuccessMessage("APPLICATION_ADD_SUCCESS");
         tableDataAdd(data);
-        history.push("/Applications");
+        navigate("/Applications");
       }
     );
   };

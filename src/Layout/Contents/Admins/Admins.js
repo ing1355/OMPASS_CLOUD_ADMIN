@@ -1,6 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Admins.css";
-// import "../../Login/Login.css";
 import ContentsTitle from "../ContentsTitle";
 import AdminAdd from "./AdminAdd";
 import AdminDetail from "./AdminDetail";
@@ -9,7 +8,7 @@ import {
   CustomAxiosPatch,
 } from "../../../Functions/CustomAxios";
 import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
@@ -19,7 +18,7 @@ import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
-const Admins = ({ userProfile, history, showSuccessMessage }) => {
+const Admins = ({ userProfile, showSuccessMessage }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
@@ -27,7 +26,8 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [ompassToggle, setOmpassToggle] = useState(false);
-  
+  const navigate = useNavigate();
+
   useLayoutEffect(() => {
     CustomAxiosGet(
       getAdminsApi(adminId),
@@ -50,7 +50,7 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
 
   const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
-    history.push("/Admins/Detail");
+    navigate("/Admins/Detail");
   }, []);
 
   const updateAdmin = useCallback(
@@ -98,12 +98,10 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
       <Breadcrumb />
       <LinkDocument link="/document/admin" />
       <ContentsTitle title="Admins" />
-      <Switch>
+      <Routes>
         <Route
-          path="/Admins"
-          exact
-          render={() => (
-            <div className="AdminBox">
+          path="/"
+          element={<div className="AdminBox">
               <div>
                 <div className="adminAdd">
                   <Link to="/Admins/Add">
@@ -130,20 +128,17 @@ const Admins = ({ userProfile, history, showSuccessMessage }) => {
                 callback={OMPASSToggle}
               />
             </div>
-          )}
+          }
         />
-        <Route path="/Admins/Add" component={AdminAdd} />
+        <Route path="/Add" element={<AdminAdd/>} />
         <Route
-          path="/Admins/Detail"
-          render={() => (
-            <AdminDetail
-              data={detailData}
-              updateEvent={updateAdmin}
-              deleteEvent={deleteAdmin}
-            />
-          )}
+          path="/Detail"
+          element={<AdminDetail
+            data={detailData}
+            updateEvent={updateAdmin}
+            deleteEvent={deleteAdmin} />}
         />
-      </Switch>
+      </Routes>
     </div>
   );
 };

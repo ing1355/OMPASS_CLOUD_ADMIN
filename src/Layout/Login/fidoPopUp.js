@@ -51,7 +51,7 @@ export function popupCenter({ url, title, w, h }) {
             `
               scrollbars=yes,
               resizable=no
-              width=${w}, 
+              width=${w},
               height=${h}, 
               top=${top}, 
               left=${left}

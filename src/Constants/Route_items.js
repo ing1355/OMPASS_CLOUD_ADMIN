@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import React, { lazy } from "react";
 import {
   HomeOutlined,
   SolutionOutlined,
@@ -45,8 +45,8 @@ const AdminRoutes = [
   {
     key: "Dashboard",
     name: "Dashboard",
-    route: "/",
-    component: Dashboard,
+    route: "/*",
+    component: <Dashboard/>,
     icon: DashboardIcon,
   },
   {
@@ -57,20 +57,20 @@ const AdminRoutes = [
       {
         key: 'Applications',
         name: 'Applications',
-        route: "/Applications",
-        component: Applications,
+        route: "/Applications/*",
+        component: <Applications/>,
       },
       {
         key: "GlobalPolicy",
         name: "DEFAULTPOLICY",
-        route: "/DefaultPolicy",
-        component: DefaultPolicies,
+        route: "/DefaultPolicy/*",
+        component: <DefaultPolicies/>,
       },
       {
         key: "CustomPolicy",
         name: "CUSTOMPOLICY",
-        route: "/CustomPolicy",
-        component: CustomPolicies,
+        route: "/CustomPolicy/*",
+        component: <CustomPolicies/>,
       }
     ]
   },
@@ -78,22 +78,22 @@ const AdminRoutes = [
   {
     key: "Users",
     name: "Users",
-    route: "/Users",
-    component: Users,
+    route: "/Users/*",
+    component: <Users/>,
     icon: UsersIcon,
   },
   {
     key: "Admins",
     name: "Admins",
-    route: "/Admins",
-    component: Admins,
+    route: "/Admins/*",
+    component: <Admins/>,
     icon: AdminsIcon,
   },
   {
     key: "Billing",
     name: "Billing",
-    route: "/Billing",
-    component: Billing,
+    route: "/Billing/*",
+    component: <Billing/>,
     icon: BillingIcon,
   },
   {
@@ -104,14 +104,14 @@ const AdminRoutes = [
       {
         key: "AuthenticationLogs",
         name: "AuthLogs",
-        route: "/AuthenticationLogs",
-        component: AuthLogs,
+        route: "/AuthenticationLogs/*",
+        component: <AuthLogs/>,
       },
       {
         key: "PolicyLogs",
         name: "PolicyLogs",
-        route: "/PolicyLogs",
-        component: PolicyLogs,
+        route: "/PolicyLogs/*",
+        component: <PolicyLogs/>,
       },
     ],
   },
@@ -123,29 +123,29 @@ const route_info = (role) =>
       {
         key: "Dashboard",
         name: "Dashboard",
-        route: "/",
-        component: OMSDashboard,
+        route: "/*",
+        component: <OMSDashboard/>,
         icon: DashboardIcon,
       },
       {
         key: "Policies",
         name: "Policies",
-        route: "/Policies",
-        component: OMSPolicies,
+        route: "/Policies/*",
+        component: <OMSPolicies/>,
         icon: PoliciesIcon,
       },
       {
         key: "Admins",
         name: "Admins",
-        route: "/Admins",
-        component: OMSAdmins,
+        route: "/Admins/*",
+        component: <OMSAdmins/>,
         icon: AdminsIcon,
       },
       {
         key: "Billing",
         name: "Billing",
-        route: "/Billing",
-        component: OMSBilling,
+        route: "/Billing/*",
+        component: <OMSBilling/>,
         icon: BillingIcon,
       },
     ]

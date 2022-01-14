@@ -1,6 +1,7 @@
 export const ReadCsvData = (file, callback) => {
   const reader = new FileReader();
   reader.readAsText(file, 'UTF-8');
+  if(file.name.slice(-4,) !== '.csv') throw 'is not csv!'
   reader.onloadend = _ => {
     let result = [];
     let newLinebrk = _.target.result.split('\n');

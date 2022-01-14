@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ActionCreators from "../redux/actions";
 import "./Breadcrumb.css";
 
-const Breadcrumb = ({ menuState }) => {
+const Breadcrumb = ({ }) => {
   const location = useLocation();
   const { pathname } = location;
   const temp =
@@ -39,9 +39,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    menuChange: (toggle) => {
-      dispatch(ActionCreators.menuStateChange(toggle));
-    },
   };
 }
 

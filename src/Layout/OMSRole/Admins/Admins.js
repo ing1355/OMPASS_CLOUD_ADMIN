@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CustomTable from '../../../CustomComponents/CustomTable';
-import { Link, Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AdminsDetail from './AdminsDetail';
 import { AdminsColumns } from '../../../Constants/TableColumns';
 
@@ -16,10 +16,10 @@ const Admins = ({history}) => {
         history.push('/Admins/Detail')
     }
     return <div className="contents-container">
-        <Switch>
+        <Routes>
             <Route path="/Admins" exact render={() => <CustomTable columns={AdminsColumns} datas={testData} rowClick={clickForDetail}/>} />
             <Route path="/Admins/Detail" exact render={() => <AdminsDetail data={detailData}/>} />
-        </Switch>
+        </Routes>
     </div>
 }
 
