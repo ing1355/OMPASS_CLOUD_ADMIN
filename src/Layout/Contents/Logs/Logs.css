@@ -2,3 +2,8 @@
   width: 100%;
   margin-top: 1rem;
 }
+.LogBox .custom-table-box {
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem !important;
+}
