@@ -69,7 +69,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
   </>
 
   return (
-    !submenu ? <Link to={route.slice(0,-1)}>
+    !submenu ? <Link to={route.slice(0,-2)}>
       {children}
     </Link> : children
   );

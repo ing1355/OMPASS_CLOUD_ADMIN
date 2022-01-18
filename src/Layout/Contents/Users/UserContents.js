@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
@@ -8,34 +8,65 @@ import { ReadCsvData, SaveCsvData } from "../../../Functions/ControlCsvData";
 import UserAll from "./UserAll";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate } from 'react-router';
-import { emailTest } from "../../../Constants/InputRules";
+import { emailTest, userIdTest } from "../../../Constants/InputRules";
 import { connect } from 'react-redux';
 import CustomConfirm from '../../../CustomComponents/CustomConfirm';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 import { updateCSVApi } from '../../../Constants/Api_Route';
 import ActionCreators from '../../../redux/actions';
 
-var excelData = null;
-
 const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, lang, userProfile, selectedApplication, setSelectedApplication,
     showSuccessMessage, showErrorMessage, applicationsData, setTableData }) => {
     const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
+    const [downloadConfirmVisible, setDownloadConfirmVisible] = useState(false);
     const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
+    const excelData = useRef(null);
     const navigate = useNavigate();
     const { formatMessage } = useIntl();
     const { adminId } = userProfile
 
+    const uploadCSVEvent = useCallback((e) => {
+        try {
+            ReadCsvData(e.target.files[0], (jsonData) => {
+                const columns = ["userId", "email"];
+                const result = [];
+                jsonData.forEach((data) => {
+                    if (!emailTest(data[0]) && !userIdTest(data[0])) return;
+                    const _result = {};
+                    columns.forEach((c, ind) => {
+                        if (c === "email") {
+                            if (!emailTest(data[ind])) _result[c] = "";
+                            else _result[c] = data[ind];
+                        } else _result[c] = data[ind];
+                    });
+                    result.push(_result);
+                });
+                excelData.current = result;
+                e.target.value = null;
+                setUploadConfirmVisible(true);
+            });
+        } catch (e) {
+            showErrorMessage('IS_NOT_CSV')
+        }
+    }, [])
+
+    const downloadCsvEvent = useCallback(() => {
+        setDownloadConfirmVisible(true);
+    },[])
+
     const submitCSV = useCallback(() => {
+        if(selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
         setCsvConfirmLoading(true);
         CustomAxiosPost(
             updateCSVApi(adminId, selectedApplication),
-            excelData.map((d) => ({
+            excelData.current.map((d) => ({
                 email: d.email,
                 userId: d.userId,
             })),
             (data) => {
                 setTableData(data);
                 setCsvConfirmLoading(false);
+                setSelectedApplication(-1)
                 setUploadConfirmVisible(false);
                 showSuccessMessage("SUCCESS_CSV_UPLOAD");
             },
@@ -45,6 +76,32 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             }
         );
     }, [adminId, selectedApplication]);
+
+    const downloadCSV = useCallback(() => {
+        if(selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
+        setCsvConfirmLoading(true);
+        SaveCsvData([
+            {
+                userId: formatMessage({ id: "id" }),
+                email: formatMessage({ id: "Email" }),
+                appName: formatMessage({ id: "APPLICATIONNAME" }),
+                byPass: formatMessage({ id: "ISBYPASS" }),
+            },
+            ...(_tableData.filter(t => t.appId === selectedApplication).map(t => ({
+                userId: t.userId,
+                email: t.email,
+                appName: t.appName,
+                byPass: t.byPass ? "O" : "X",
+            }))),
+        ], () => {
+            setSelectedApplication(-1)
+            setCsvConfirmLoading(false);
+            setDownloadConfirmVisible(false);
+        }, () => {
+            setCsvConfirmLoading(false);
+            showErrorMessage('다운로드에 실패하였습니다!')
+        });
+    },[_tableData, selectedApplication])
 
     const selectedBorder = useMemo(
         () => (
@@ -59,11 +116,17 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
     }, []);
 
     const closeConfirmModal = useCallback(() => {
+        setSelectedApplication(-1)
         setUploadConfirmVisible(false);
-    }, []);
+    }, [applicationsData]);
+
+    const closeDownloadModal = useCallback(() => {
+        setSelectedApplication(-1)
+        setDownloadConfirmVisible(false);
+    }, [applicationsData])
 
     const changeSelectedApplication = useCallback((e) => {
-        setSelectedApplication(e.target.value);
+        setSelectedApplication(e.target.value * 1);
     }, []);
 
     return <>
@@ -174,30 +237,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         type="file"
                         accept=".csv"
                         style={{ display: "none" }}
-                        onInput={(e) => {
-                            try {
-                                ReadCsvData(e.target.files[0], (jsonData) => {
-                                    const columns = ["userId", "email"];
-                                    const result = [];
-                                    jsonData.forEach((data) => {
-                                        if(!emailTest(data[0]) || !emailTest(data[1])) return;
-                                        const _result = {};
-                                        columns.forEach((c, ind) => {
-                                            if (c === "email") {
-                                                if (!emailTest(data[ind])) _result[c] = "";
-                                                else _result[c] = data[ind];
-                                            } else _result[c] = data[ind];
-                                        });
-                                        result.push(_result);
-                                    });
-                                    excelData = result;
-                                    e.target.value = null;
-                                    setUploadConfirmVisible(true);
-                                });
-                            } catch(e) {
-                                showErrorMessage('IS_NOT_CSV')
-                            }
-                        }}
+                        onInput={uploadCSVEvent}
                     />
                 </CustomButton>
             </div>
@@ -209,22 +249,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         float: "right",
                         minWidth: lang === "ko" ? 170 : 200,
                     }}
-                    onClick={() => {
-                        SaveCsvData([
-                            {
-                                userId: formatMessage({ id: "id" }),
-                                email: formatMessage({ id: "Email" }),
-                                appName: formatMessage({ id: "APPLICATIONNAME" }),
-                                byPass: formatMessage({ id: "ISBYPASS" }),
-                            },
-                            ..._tableData.map((t) => ({
-                                userId: t.userId,
-                                email: t.email,
-                                appName: t.appName,
-                                byPass: t.byPass ? "O" : "X",
-                            })),
-                        ]);
-                    }}
+                    onClick={downloadCsvEvent}
                 >
                     <DownloadOutlined />
                     &nbsp;&nbsp;
@@ -241,14 +266,42 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             <h6 className="execel-modal-text">
                 <FormattedMessage id="EXCELIMPORTTEXT" />
             </h6>
-            <div>* 이미 존재하는 사용자는 덮어쓰기 됩니다.</div>
-            <div>* 이메일 형식이 잘못되어 있을 경우 무시됩니다.</div>
-            <div>* .csv 파일만 업로드 가능합니다.</div>
+            <div><FormattedMessage id="CSV_DESCRIPTION_1" /></div>
+            <div><FormattedMessage id="CSV_DESCRIPTION_2" /></div>
+            <div><FormattedMessage id="CSV_DESCRIPTION_3" /></div>
             <select
                 className="excel-select"
                 value={selectedApplication}
                 onChange={changeSelectedApplication}
             >
+                <option value={-1}>
+                    {formatMessage({id:'NULL_OPTION'})}
+                </option>
+                {applicationsData.map((d, ind) => (
+                    <option key={ind} value={d.appId}>
+                        {d.name}
+                    </option>
+                ))}
+            </select>
+        </CustomConfirm>
+        <CustomConfirm
+            visible={downloadConfirmVisible}
+            cancelCallback={closeDownloadModal}
+            confirmCallback={downloadCSV}
+            okLoading={csvConfirmLoading}
+        >
+            <h6 className="execel-modal-text">
+                사용자 정보를 다운로드할 어플리케이션을 선택해주세요.
+            </h6>
+            <div>* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.</div>
+            <select
+                className="excel-select"
+                value={selectedApplication}
+                onChange={changeSelectedApplication}
+            >
+                <option value={-1}>
+                    {formatMessage({id:'NULL_OPTION'})}
+                </option>
                 {applicationsData.map((d, ind) => (
                     <option key={ind} value={d.appId}>
                         {d.name}

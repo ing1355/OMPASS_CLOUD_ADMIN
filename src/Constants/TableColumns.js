@@ -4,6 +4,7 @@ import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
+import CustomButton from '../CustomComponents/CustomButton';
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -105,7 +106,7 @@ export const PolicyLogsColumns = [
     searched: true,
     maxLength: 24,
     width: 250,
-    render: (value,row) => row.policyType === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY"/> : value
+    render: (value,row) => !row.changes.afterPolicy.title ? <FormattedMessage id="DEFAULTPOLICY"/> : value
   },
   {
     name: "User",
@@ -121,7 +122,26 @@ export const PolicyLogsColumns = [
     searchedOptions: ['CREATE','UPDATE','DELETE']
   },
   { name: "Date", key: "createdDate", width: 250 },
+  {
+    name: '',
+    key: 'detail',
+    width: 200,
+    render: (callback, row) => <CustomButton className="button" onClick={callback}><FormattedMessage id="detailColumn"/></CustomButton>
+  },
 ];
+
+export const PolicyLogsChangeColumns = [
+  {
+    name: "POLICYTYPE",
+    key: "type",
+    width: 250
+  },
+  {
+    name: "Status",
+    key: "value",
+    width: 250,
+  },
+]
 
 export const allUserColumns = [
   {

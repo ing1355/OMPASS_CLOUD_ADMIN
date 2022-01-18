@@ -1,13 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { connect } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
 import { signUpSubAdminApi } from "../../Constants/Api_Route";
 import { FailToTest, passwordTest } from "../../Constants/InputRules";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./SubAdminSignUp.css";
 
-const SubAdminSignUp = ({ location, history, showErrorMessage }) => {
+const SubAdminSignUp = ({ showErrorMessage }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const adminId = location ? location.pathname.split("/")[3] : null;
   const token = location ? location.pathname.split("/")[7] : null;
   const country = location ? location.pathname.split("/")[5] : null;
@@ -30,7 +33,7 @@ const SubAdminSignUp = ({ location, history, showErrorMessage }) => {
       },
       () => {
         alert(formatMessage({id:'RESET_PASSWORD_SUCCESS_MESSAGE'}));
-        history.push('/');
+        navigate('/');
       },
       null,
       {

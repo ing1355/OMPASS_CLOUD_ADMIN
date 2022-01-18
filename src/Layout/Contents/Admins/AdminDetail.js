@@ -32,7 +32,6 @@ const AdminDetail = ({
   showErrorMessage,
 }) => {
   const {
-    adminId,
     country,
     email,
     firstName,
@@ -42,8 +41,9 @@ const AdminDetail = ({
     subAdminId,
     index
   } = data;
+  const {adminId} = userProfile;
   
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
   const [inputCountryCode, setInputCountryCode] = useState(country);
@@ -65,7 +65,7 @@ const AdminDetail = ({
   const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
   }, []);
-
+  
   const onFinish = (e) => {
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm, mobile } =
@@ -84,7 +84,7 @@ const AdminDetail = ({
     if(role === 'ADMIN' && data.country !== inputCountryCode) return showErrorMessage('DIFFERENT_COUNTRY_CODE')
     
     CustomAxiosPut(
-      isADMINRole(role) ? updateAdminApi(adminId) : updateSubAdminApi(adminId),
+      isADMINRole(role) ? updateAdminApi(adminId) : updateSubAdminApi(adminId, subAdminId),
       {
         country: inputCountryCode,
         phone: mobile.value,

@@ -3,6 +3,7 @@ const locales = {
     ApplicationsRoute: "App Management",
     localeChangeText: "EN",
     logout: "Logout",
+    detailColumn: "Detail",
     welcomeText: "Hello {param}",
     Dashboard: "Dashboard",
     Policies: "Policies",
@@ -93,12 +94,12 @@ const locales = {
       "I have read and agree to the Terms of Use and Privacy Policy",
     BILLINGPRICEDESCRIPTIONMONTHLY:
       "{param} is going to be automatically paid every 30 days from today.",
-    BILLINGPRICEDESCRIPTIONANNUALY:
+    BILLINGPRICEDESCRIPTIONANNUALLY:
       "{param} is going to be automatically paid every 365 days from today.",
     BILLINGCONFIRMMESSAGE: "Would you like to make a payment as above?",
     BILLINGLOADING: "Loading...",
     MONTHLY: "Month",
-    ANNUALY: "Annual",
+    ANNUALLY: "Annual",
     EVERYMONTH: "Month",
     EVERYYEAR: "Annual",
     AGREE: "Agreement",
@@ -121,18 +122,18 @@ const locales = {
     ACCESSCONTROLTITLE: "OMPASS Access Control",
     ACCESSCONTROLACTIVE: "Enable OMPASS Authentication",
     ACCESSCONTROLACTIVEDESCRIPTION:
-      "Use OMPASS authentication to login to access the application.",
+      "Force users to authenticate by OMPASS to log in",
     ACCESSCONTROLINACTIVE: "Disable OMPASS Authentication",
     ACCESSCONTROLINACTIVEDESCRIPTION:
-      "Do not use OMPASS authentication to login to access the application.",
+      "Do not authenticate or register the user by OMPASS to log in.",
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
-      "Access attempts from internal IPs and unknown countries do not apply.",
+      "Access attempts from unknown countries do not apply.",
     USERLOCATIONPOLICYDESCRIPTION2:
-      "Restrictions you have selected will apply after determining user location based on IP address.",
+      "User location restrictions you have selected will apply after determining user location based on IP address.",
     BROWSERSPOLICYTITLE: "Allowed Browser Type",
     BROWSERSPOLICYDESCRIPTION:
       "Only selected browsers are allowed access.\nSelected browsers: {param}",
@@ -174,12 +175,17 @@ const locales = {
     BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
     GODOCUMENT: 'Go Document',
     POLICYDISABLEDTITLE: 'Sorry, this policy cannot be selected.',
-    POLICYDISABLEDDESCRIPTION: 'This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.'
+    POLICYDISABLEDDESCRIPTION: 'This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.',
+    CSV_DESCRIPTION_1: '* Users who already exist will be overwritten.',
+    CSV_DESCRIPTION_2: '* Email will not be updated if the email address is malformed.',
+    CSV_DESCRIPTION_3: '* Only .csv files are allowed.',
+    NULL_OPTION: '선택 안함',
+    POLICYTYPE: '정책 종류'
   },
   KR: {
     localeChangeText: "KO",
     logout: "로그아웃",
-    detailColumn: "보기",
+    detailColumn: "상세보기",
     welcomeText: "{param}님 안녕하세요.",
     Dashboard: "대시보드",
     Policies: "정책",
@@ -269,12 +275,12 @@ const locales = {
     BILLINGCHECKDESCRIPTION: "이용약관, 가격 및 수수료 규정에 동의합니다.",
     BILLINGPRICEDESCRIPTIONMONTHLY:
       "결제일로 부터 30일 간격으로 {param}(이)가 자동으로 결제됩니다.",
-    BILLINGPRICEDESCRIPTIONANNUALY:
+    BILLINGPRICEDESCRIPTIONANNUALLY:
       "결제일로 부터 365일 간격으로 {param}(이)가 자동으로 결제됩니다.",
     BILLINGCONFIRMMESSAGE: "상기 내용으로 결제를 진행하시겠습니까?",
     BILLINGLOADING: "결제 창 불러오는 중...",
     MONTHLY: "월",
-    ANNUALY: "년",
+    ANNUALLY: "년",
     EVERYMONTH: "매 월",
     EVERYYEAR: "매 년",
     AGREE: "이용 동의",
@@ -303,7 +309,7 @@ const locales = {
     ACCESSCONTROLACTIVEDESCRIPTION:
       "대체 정책이 구성되어 있지 않은 한 OMPASS 인증이 필요합니다. (없을 경우 OMPASS 인증 등록)",
     ACCESSCONTROLINACTIVE: "OMPASS 인증 패스",
-    ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 인증 및 등록을 패스하겠습니다.",
+    ACCESSCONTROLINACTIVEDESCRIPTION: "OMPASS 등록 및 인증을 패스합니다.",
     ACCESSCONTROLDENY: "모두 거부",
     ACCESSCONTROLDENYDESCRIPTION:
       "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
@@ -311,9 +317,9 @@ const locales = {
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
-      "내부 IP 및 알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
+      "알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
     USERLOCATIONPOLICYDESCRIPTION2:
-      "사용자 IP 주소에 의거하여 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
+      "사용자 IP 주소를 기반으로 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
     BROWSERSPOLICYDESCRIPTION:
       "선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}",
@@ -350,7 +356,7 @@ const locales = {
       "OMPASS 인증 없이 이메일 인증을 통해서 로그인이 가능합니다.",
     USERBYPASSDESCRIPTION2: "OMPASS 인증 후 로그인 가능합니다. (기본값)",
     DISABLEDPOLICY:
-      "비활성화 된 정책입니다. 인증 제어를 활성화하면 적용됩니다.",
+      "비활성화 된 정책입니다. OMPASS 인증 제어를 활성화하면 적용됩니다.",
     BILLINGPLANDESCRIPTION1_1: "2FA for VPN and Web Apps",
     BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
     BILLINGPLANDESCRIPTION1_3: "2차 인증",
@@ -359,6 +365,11 @@ const locales = {
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
       "해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.",
+    CSV_DESCRIPTION_1: '* 이미 존재하는 사용자는 덮어쓰기 됩니다.',
+    CSV_DESCRIPTION_2: '* 이메일 형식이 잘못되어 있을 경우 무시됩니다.',
+    CSV_DESCRIPTION_3: '* .csv 파일만 업로드 가능합니다.',
+    NULL_OPTION: '선택 안함',
+    POLICYTYPE: '정책 종류'
   },
 };
 

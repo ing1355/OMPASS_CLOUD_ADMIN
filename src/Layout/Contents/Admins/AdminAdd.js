@@ -28,7 +28,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   const [inputFormat, setInputFormat] = useState(null);
   const [inputDialCode, setInputDialCode] = useState(null);
   const [inputEmail, setInputEmail] = useState(null);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
 
   const changeMobileInput = (value, countryInfo) => {

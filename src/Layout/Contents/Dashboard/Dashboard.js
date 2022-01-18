@@ -45,6 +45,34 @@ export const planStatusCodes = {
   ),
 };
 
+const colors = [
+  "#8b94fe",
+  "#d15a69",
+  "#d37f13",
+  "#4baeb6",
+  "#150c76",
+  "#ef9076",
+  "#11a374",
+  "#a71f57",
+  "#81d123",
+  "#7c694c",
+  "#c90f17",
+  "#036436",
+  "#e997d6",
+  "#5f7cbd",
+  "#c85127",
+  "#304052",
+  "#5e9ffb",
+  "#896179",
+  "#ea991e",
+  "#6e786e",
+  "#063b7f",
+  "#40835f",
+  "#fc8f78"
+]
+
+const randomColor = () => '#' + Math.round(Math.random() * 0xffffff).toString(16)
+
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
@@ -79,8 +107,9 @@ const Dashboard = ({ userProfile, locale }) => {
         },
         (data) => {
           setChartData(
-            data.map((d) => ({
+            data.map((d,ind) => ({
               name: d.name,
+              color: colors[ind],
               data: d.chartData.map((_d) => ({
                 category: _d.date,
                 value: _d.count,
@@ -289,13 +318,13 @@ const Dashboard = ({ userProfile, locale }) => {
               <YAxis dataKey="value" />
               <Tooltip />
               <Legend />
-              {chartData.map((s) => (
+              {chartData.map(({color, data, name}) => (
                 <Line
-                  color="#000000"
+                  stroke={color}
                   dataKey="value"
-                  data={s.data}
-                  name={s.name}
-                  key={s.name}
+                  data={data}
+                  name={name}
+                  key={name}
                 />
               ))}
             </LineChart>

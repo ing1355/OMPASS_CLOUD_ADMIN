@@ -12,7 +12,7 @@ const Breadcrumb = ({ }) => {
     pathname.split("/").length <= 3
       ? pathname.split("/").slice(1)
       : pathname.split("/").slice(1, -1);
-
+  
   return (
     <p className="breadcrumb">
       {temp.map((name, ind, arr) => (

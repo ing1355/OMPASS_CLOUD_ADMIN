@@ -186,6 +186,8 @@ const Applications = ({
                   datas={tableData}
                   multipleSelectable={true}
                   searched
+                  pagination
+                  numPerPage={10}
                   selectedId={"appId"}
                   rowSelectable={true}
                   selectedRows={selectedRows}

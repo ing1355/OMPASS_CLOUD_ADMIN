@@ -7760,10 +7760,10 @@
   "resolved" "https://registry.npmjs.org/obuf/-/obuf-1.1.2.tgz"
   "version" "1.1.2"
 
-"ompass@^0.1.5":
-  "integrity" "sha512-YepRl/bTJNLdKyFPjkI0LCROs4l2PnqsUQ9r0xpM8+OFayGkV4qBfZKFU5T9BFu/dyenZQGdff+7FoAcaMi68A=="
-  "resolved" "https://registry.npmjs.org/ompass/-/ompass-0.1.5.tgz"
-  "version" "0.1.5"
+"ompass@^0.2.6":
+  "integrity" "sha512-H68SDVZA90nPBXSouYQCXuzOg+FhKcuSF0+60K9E4UkxU/4BtXczn06Zssv9NZtaKuyENpTvdIN6HjzavjXyAw=="
+  "resolved" "https://registry.npmjs.org/ompass/-/ompass-0.2.6.tgz"
+  "version" "0.2.6"
 
 "on-finished@~2.3.0":
   "integrity" "sha1-IPEzZIGwg811M3mSoWlxqi2QaUc="

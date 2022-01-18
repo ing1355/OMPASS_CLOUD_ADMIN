@@ -151,6 +151,6 @@ const route_info = (role) =>
     ]
     : role === "ADMIN"
       ? AdminRoutes
-      : AdminRoutes.filter((route) => route.route !== "/Billing");
+      : AdminRoutes.filter((route) => route.name !== "Billing");
 
 export default route_info;

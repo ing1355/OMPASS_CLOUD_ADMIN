@@ -6,6 +6,7 @@ import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
+import OMPASS from 'ompass'
 
 const Login = ({
   setIsLogin,
@@ -16,10 +17,6 @@ const Login = ({
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
-
-  // useEffect(() => {
-  //   console.log(OMPASS)
-  // },[])
 
   const resetPassword = (e) => {
     e.preventDefault();
@@ -49,7 +46,7 @@ const Login = ({
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
         if (ompass) {
-          window.OMPASS(data.ompassUrl)
+          OMPASS(data.ompassUrl)
         } else {
           setUserProfile({
             adminId,

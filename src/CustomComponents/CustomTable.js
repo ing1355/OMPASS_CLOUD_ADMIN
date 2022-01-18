@@ -57,7 +57,7 @@ const CustomTable = ({
   const firstRenderRef = useRef(false);
   const searchInputRef = useRef(null);
   const _numPerPage = numPerPage ? numPerPage : 10;
-  const pageNum = parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1);
+  const pageNum = datas ? (parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1)) : 0;
   const [searchColumn, setSearchColumn] = useState(null);
   const [searchTarget, setSearchTarget] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
@@ -277,7 +277,7 @@ const CustomTable = ({
                 </th>
               ) : (
                 <th key={ind}>
-                  <FormattedMessage id={c.name} />
+                  {c.name && <FormattedMessage id={c.name} />}
                 </th>
               )
             )}

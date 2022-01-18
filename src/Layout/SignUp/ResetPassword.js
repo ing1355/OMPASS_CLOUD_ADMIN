@@ -6,11 +6,14 @@ import { FailToTest, passwordTest } from "../../Constants/InputRules";
 import { CustomAxiosPatch } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import "./SubAdminSignUp.css";
+import { useLocation, useNavigate } from "react-router";
 
-const ResetPassword = ({ location, history, showSuccessMessage, showErrorMessage, localeChange }) => {
-  const token = location ? location.pathname.split("/")[5] : null;
+const ResetPassword = ({ showErrorMessage, localeChange }) => {
   const {formatMessage} = useIntl();
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = location ? location.pathname.split("/")[5] : null;
+  
   useLayoutEffect(() => {
     const lang = location ? location.pathname.split("/")[7] : null;
     localeChange(lang === 'KR' ? 'ko' : 'en');
@@ -32,7 +35,7 @@ const ResetPassword = ({ location, history, showSuccessMessage, showErrorMessage
       },
       () => {
         alert(formatMessage({id:'RESET_PASSWORD_SUCCESS_MESSAGE'}));
-        history.push("/");
+        navigate("/");
       },
       null,
       {
