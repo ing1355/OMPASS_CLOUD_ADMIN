@@ -34,25 +34,25 @@ const CustomTable = ({
   const [tableData, setTableData] = useState([]);
   const tableColumns = multipleSelectable
     ? [
-        {
-          name: "",
-          key: "check",
-          render: (data, row) => (
-            <div>
-              <input
-                className="table-row-select-checkbox"
-                type="checkbox"
-                checked={selectedRows.includes(row[selectedId])}
-                onClick={() => {
-                  rowSelect(row[selectedId]);
-                }}
-                onChange={() => {}}
-              />
-            </div>
-          ),
-        },
-        ...columns,
-      ]
+      {
+        name: "",
+        key: "check",
+        render: (data, row) => (
+          <div>
+            <input
+              className="table-row-select-checkbox"
+              type="checkbox"
+              checked={selectedRows.includes(row[selectedId])}
+              onClick={() => {
+                rowSelect(row[selectedId]);
+              }}
+              onChange={() => { }}
+            />
+          </div>
+        ),
+      },
+      ...columns,
+    ]
     : columns;
   const firstRenderRef = useRef(false);
   const searchInputRef = useRef(null);
@@ -66,9 +66,9 @@ const CustomTable = ({
     () =>
       multipleSelectable
         ? datas.map((d) => ({
-            check: "",
-            ...d,
-          }))
+          check: "",
+          ...d,
+        }))
         : datas,
     [multipleSelectable, datas]);
 
@@ -87,7 +87,7 @@ const CustomTable = ({
 
   useLayoutEffect(() => {
     if (searchColumn) {
-      if(searchInputRef.current) searchInputRef.current.value = '';
+      if (searchInputRef.current) searchInputRef.current.value = '';
       setSearchTarget(columns.find((c) => c.key === searchColumn));
     }
   }, [searchColumn, columns]);
@@ -134,37 +134,47 @@ const CustomTable = ({
   }, [currentPage]);
 
   const dataList = useMemo(
-    () =>
-      {
-        return tableData
-        .slice(
-          currentPage * _numPerPage,
-          currentPage * _numPerPage + _numPerPage
-        )
-        .map((d, ind) => (
-          <tr
-            key={ind}
-            className={rowClick || onChangeSelectedRows ? "pointer" : ""}
-            onClick={(e) => {
-              //  && e.target.tagName === "TD"
-              if (rowSelectable) rowSelect(d[selectedId]);
-              if (rowClick) rowClick(d);
-            }}
-          >
-            {tableColumns.map((c, _ind) => (
-              <td
-                key={_ind}
-                style={
-                  c.key === "check" ? { minWidth: "60px", width: "60px" } : null
-                }
+    () => {
+      try {
+        if (Array.isArray(tableData)) {
+          return (pagination ? tableData
+            .slice(
+              currentPage * _numPerPage,
+              currentPage * _numPerPage + _numPerPage
+            ) : tableData)
+            .map((d, ind) => (
+              <tr
+                key={ind}
+                className={rowClick || onChangeSelectedRows ? "pointer" : ""}
+                onClick={(e) => {
+                  //  && e.target.tagName === "TD"
+                  if (rowSelectable) rowSelect(d[selectedId]);
+                  if (rowClick) rowClick(d);
+                }}
               >
-                {c.render ? c.render(d[c.key], d, ind) : d[c.key]}
-              </td>
-            ))}
-          </tr>
-        ))},
+                {tableColumns.map((c, _ind) => (
+                  <td
+                    key={_ind}
+                    style={
+                      c.key === "check" ? { minWidth: "60px", width: "60px" } : null
+                    }
+                  >
+                    {c.render ? c.render(d[c.key], d, ind) : d[c.key]}
+                  </td>
+                ))}
+              </tr>
+            ))
+        } else {
+          throw 'Table datas is wrong.'
+        }
+      } catch(e) {
+        console.log(e);
+        return []
+      }
+    },
     [
       tableColumns,
+      pagination,
       tableData,
       currentPage,
       numPerPage,
@@ -230,7 +240,7 @@ const CustomTable = ({
             />
           )}
           <button type="submit" className="button searchButton">
-            <img src={searchIcon} width="60%" height="50%"/>
+            <img src={searchIcon} width="60%" height="50%" />
           </button>
         </form>
       )}
@@ -272,7 +282,7 @@ const CustomTable = ({
                         );
                       }
                     }}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                 </th>
               ) : (

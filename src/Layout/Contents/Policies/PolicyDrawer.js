@@ -467,8 +467,8 @@ const Global_Policy = ({
                       changeInputUserLocation(e.target.value, ind, "status");
                     }}
                   >
-                    <option value={true}>Permit</option>
-                    <option value={false}>Deny</option>
+                    <option value={true}><FormattedMessage id="PERMIT"/></option>
+                    <option value={false}><FormattedMessage id="DENY"/></option>
                   </select>
                   <button
                     className="button policy-location-button"
