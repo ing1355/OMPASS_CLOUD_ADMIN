@@ -42,8 +42,8 @@ const ApplicationDetail = ({
   const nameRef = useRef(null);
   const doaminRef = useRef(null);
   const redirectURIRef = useRef(null);
-  const statusRef = useRef(null);
-  const statusRef2 = useRef(null);
+  // const statusRef = useRef(null);
+  // const statusRef2 = useRef(null);
   const secretKeyRef = useRef(null);
   const policyRef = useRef(null);
   const {formatMessage} = useIntl()
@@ -52,26 +52,28 @@ const ApplicationDetail = ({
   const [isExistCheck, setIsExistCheck] = useState(true);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
-      const {
-        name,
-        secretKey,
-        domain,
-        redirectUri,
-        status,
-        policyId,
-        cloud
-      } = data;
-      nameRef.current.value = name;
-      doaminRef.current.value = domain;
-      redirectURIRef.current.value = redirectUri;
-      if (status === "ACTIVE") statusRef.current.checked = true;
-      else statusRef2.current.checked = true;
-      secretKeyRef.current.value = secretKey;
-      policyRef.current.value = policyId;
-      setIsCloud(cloud);
-    });
-  }, []);
+    if(adminId && appId) {
+      CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
+        const {
+          name,
+          secretKey,
+          domain,
+          redirectUri,
+          // status,
+          policyId,
+          cloud
+        } = data;
+        nameRef.current.value = name;
+        doaminRef.current.value = domain;
+        redirectURIRef.current.value = redirectUri;
+        // if (status === "ACTIVE") statusRef.current.checked = true;
+        // else statusRef2.current.checked = true;
+        secretKeyRef.current.value = secretKey;
+        policyRef.current.value = policyId;
+        setIsCloud(cloud);
+      });
+    }
+  }, [adminId, appId]);
 
   const resetSecretKey = () => {
     setResetLoading(true);
@@ -113,7 +115,8 @@ const ApplicationDetail = ({
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { name, domain, redirectUri, status, policy } = e.target.elements;
+    // const { name, domain, redirectUri, status, policy } = e.target.elements;
+    const { name, domain, redirectUri, policy } = e.target.elements;
     if (!name.value.length) {
       return FailToTest(
         name,
@@ -148,7 +151,7 @@ const ApplicationDetail = ({
         name: name.value,
         domain: domain.value,
         redirectUri: redirectUri.value,
-        status: status.value.toUpperCase(),
+        // status: status.value.toUpperCase(),
         policyId: policy.value,
       },
       (data) => {
@@ -172,7 +175,7 @@ const ApplicationDetail = ({
       <div className="ApplicationsBox">
         <form className="ApplicationForm" onSubmit={onFinish}>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="APPLICATION"/></label>
+            <label><FormattedMessage id="APPLICATIONNAME"/></label>
             <input
               name="name"
               ref={nameRef}
@@ -209,15 +212,15 @@ const ApplicationDetail = ({
           </div>
           <div className="Application-label-input-box">
             <label><FormattedMessage id="DOMAIN"/></label>
-            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/> */}
-            <input name="domain" ref={doaminRef} maxLength={48}/>
+            <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/>
+            {/* <input name="domain" ref={doaminRef} maxLength={48}/> */}
           </div>
           <div className="Application-label-input-box">
             <label><FormattedMessage id="REDIRECTURI"/></label>
-            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/> */}
-            <input name="redirectUri" ref={redirectURIRef} maxLength={48}/>
+            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/>
+            {/* <input name="redirectUri" ref={redirectURIRef} maxLength={48}/> */}
           </div>
-          <div className="Application-label-input-box">
+          {/* <div className="Application-label-input-box">
             <label><FormattedMessage id="STATUS"/></label>
             <input
               name="status"
@@ -237,7 +240,7 @@ const ApplicationDetail = ({
               style={{ width: "15px" }}
             />
             <label className="label-radio">Inactive</label>
-          </div>
+          </div> */}
           <div className="Application-label-input-box">
             <label><FormattedMessage id="POLICYSETTING"/></label>
             <select name="policy" ref={policyRef}>

@@ -305,9 +305,9 @@ const locales = {
     POLICIESDESCRIPTION:
       "OMPASS 정책은 기본 정책과 사용자 정의 정책으로 구분됩니다.",
     GLOBALPOLICYDESCRIPTION:
-      "기본 정책은 모든 어플리케이션에 적용되는 정책입니다.",
+      "기본 정책은 모든 어플리케이션에 적용되는 디폴트 정책입니다.",
     CUSTOMPOLICYDESCRIPTION:
-      "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.",
+      "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 맞춤 정책입니다.",
     ACCESSCONTROLTITLE: "OMPASS 인증 제어",
     ACCESSCONTROLACTIVE: "OMPASS 인증 필수",
     ACCESSCONTROLACTIVEDESCRIPTION:
@@ -368,7 +368,7 @@ const locales = {
     GODOCUMENT: "문서로 이동하기",
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
-      "해당 항목은 OMPASS 인증 제어의 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.",
+      "이 항목은 OMPASS 인증 제어 정책이 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.",
     CSV_DESCRIPTION_1: '* 이미 존재하는 사용자는 덮어쓰기 됩니다.',
     CSV_DESCRIPTION_2: '* 이메일 형식이 잘못되어 있을 경우 무시됩니다.',
     CSV_DESCRIPTION_3: '* .csv 파일만 업로드 가능합니다.',

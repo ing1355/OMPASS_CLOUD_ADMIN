@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
   useCallback,
   useRef,
+  useMemo,
 } from "react";
 import "./Policies.css";
 import "../../../App.css";
@@ -71,8 +72,8 @@ const CustomPolicy = ({
     );
   }, [adminId, customPoliciesData, deleteTargetIndex]);
 
-  const getDescription = (key, index) => {
-    const value = customPoliciesDataRef.current[index][key];
+  const getDescription = useCallback((key, index) => {
+    const value = customPoliciesDataRef.current ? customPoliciesDataRef.current[index][key] : '';
     switch (key) {
       case "accessControl":
         return <FormattedMessage id={value === "ACTIVE"
@@ -89,9 +90,9 @@ const CustomPolicy = ({
       default:
         break;
     }
-  };
+  }, []);
 
-  const PolicyTableDataFeature = [
+  const PolicyTableDataFeature = useMemo(() => [
     {
       status: "",
       policy: "ACCESSCONTROLTITLE",
@@ -112,29 +113,25 @@ const CustomPolicy = ({
     },
     // {
     //   status: "",
-    //   key: "authenticationMethods",
-    //   policy: "인증 방법 제한",
-    //   description: "GLOBALPOLICYDESCRIPTION_4",
-    // },
-    // {
-    //   status: "",
     //   key: "mobilePatch",
     //   policy: "OMPASSMOBILEPOLICYTITLE",
     //   description: getDescription,
     // },
-  ];
+  ], [getDescription]);
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getCustomPoliciesApi(adminId),
-      (data) => {
-        setCustomPoliciesData(data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(
+        getCustomPoliciesApi(adminId),
+        (data) => {
+          setCustomPoliciesData(data);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }, [adminId]);
 
   useLayoutEffect(() => {
     customPoliciesDataRef.current = customPoliciesData;
@@ -175,13 +172,13 @@ const CustomPolicy = ({
         });
       })
     );
-  }, [customPoliciesData]);
+  }, [customPoliciesData, PolicyTableDataFeature]);
 
   const saveCallback = useCallback(
     (result) => {
       setCustomPoliciesData([result, ...customPoliciesData]);
     },
-    [customPoliciesData, isEditPolicy]
+    [customPoliciesData]
   );
 
   const editCallback = useCallback(

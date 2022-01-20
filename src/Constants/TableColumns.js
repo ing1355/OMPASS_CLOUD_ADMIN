@@ -16,20 +16,20 @@ export const AdminsColumns = [
 
 export const ApplicationsColumns = [
   {
-    name: "Application",
+    name: "APPLICATIONNAME",
     key: "name",
     width: 250,
     searched: true,
     maxLength: 24
   },
-  {
-    name: "Status",
-    key: "status",
-    searched: true,
-    searchedOptions: ["ACTIVE", "INACTIVE"],
-    getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
-    render: (d) => <FormattedMessage id={d} />,
-  },
+  // {
+  //   name: "Status",
+  //   key: "status",
+  //   searched: true,
+  //   searchedOptions: ["ACTIVE", "INACTIVE"],
+  //   getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
+  //   render: (d) => <FormattedMessage id={d} />,
+  // },
   {
     name: "Domain",
     key: "domain",
@@ -64,7 +64,7 @@ export const BillingColumns = [
 export const DashboardLogColumns = [
   { name: "User", key: "userId" },
   { name: "Action", key: "act" },
-  { name: "Application", key: "appName" },
+  { name: "APPLICATIONNAME", key: "appName" },
   { name: "Status", key: "status" },
   { name: "Date", key: "createdDate" },
 ];
@@ -84,7 +84,7 @@ export const LogsColumns = [
     searchedOptions: ["register", "authenticate"],
   },
   {
-    name: "Application",
+    name: "APPLICATIONNAME",
     key: "appName",
     searched: true,
     maxLength: 24,
@@ -152,7 +152,7 @@ export const allUserColumns = [
     maxLength: 48
   },
   {
-    name: "Application",
+    name: "APPLICATIONNAME",
     key: "appName",
     width: 250,
     searched: true,
@@ -191,7 +191,7 @@ export const disabledUserColumns = [
     maxLength: 48
   },
   {
-    name: "Application",
+    name: "APPLICATIONNAME",
     key: "appName",
     width: 250,
     searched: true,
@@ -226,7 +226,7 @@ export const byPassUserColumns = [
     searched: true,
     maxLength: 48
   },
-  { name: "Application", key: "appName", searched: true, width: 250 },
+  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
     key: "type",
@@ -255,7 +255,7 @@ export const unRegisteredUserColumns = [
     searched: true,
     maxLength: 48
   },
-  { name: "Application", key: "appName", searched: true, width: 250 },
+  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
   {
     name: "AUTHTYPE",
     key: "type",

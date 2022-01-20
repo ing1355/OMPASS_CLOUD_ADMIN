@@ -5,23 +5,25 @@ import { CustomAxiosGetAll } from '../../Functions/CustomAxios';
 import { getOMSDashboardTopApi } from '../../Constants/Api_Route';
 import { connect } from 'react-redux';
 
-const Dashboard = ({userProfile}) => {
-    const {adminId} = userProfile;
+const Dashboard = ({ userProfile }) => {
+    const { adminId } = userProfile;
     const [topData, setTopData] = useState({});
 
     useLayoutEffect(() => {
-        CustomAxiosGetAll(
-            [
-                getOMSDashboardTopApi(adminId),
-            ],
-            [
-                (data) => {
-                    console.log(data);
-                    setTopData(data);
-                },
-            ]
-        );
-    }, [])
+        if (adminId) {
+            CustomAxiosGetAll(
+                [
+                    getOMSDashboardTopApi(adminId),
+                ],
+                [
+                    (data) => {
+                        console.log(data);
+                        setTopData(data);
+                    },
+                ]
+            );
+        }
+    }, [adminId])
 
     return <div className="contents-container" style={{ backgroundColor: 'transparent', width: 1400 }}>
         <section className="flex-card-container dashboard">

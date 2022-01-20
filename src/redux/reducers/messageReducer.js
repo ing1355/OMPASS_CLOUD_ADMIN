@@ -7,7 +7,7 @@ const menuStateReducer = (state = msg, action) => {
     case types.successMessage:
       return {id: action.payload, type: 'success'};
     case types.errorMessage:
-      return {id: action.payload, type: 'error'};
+      return typeof action.payload === 'string' ? {id: action.payload, type: 'error'} : {...action.payload, type: 'error'};
     default:
       return state;
   }
@@ -20,10 +20,13 @@ export function showSuccessMessage(id) {
     };
 }
 
-export function showErrorMessage(id) {
+export function showErrorMessage(id, param) {
   return {
       type: types.errorMessage,
-      payload: id
+      payload: param ? {
+        id,
+        param
+      } : id
   };
 }
 

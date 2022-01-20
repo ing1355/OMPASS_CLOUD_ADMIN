@@ -17,7 +17,7 @@ const ResetPassword = ({ showErrorMessage, localeChange }) => {
   useLayoutEffect(() => {
     const lang = location ? location.pathname.split("/")[7] : null;
     localeChange(lang === 'KR' ? 'ko' : 'en');
-  },[])
+  },[location, localeChange])
 
   const onFinish = (e) => {
     e.preventDefault();

@@ -18,9 +18,7 @@ import LinkDocument from "../../../CustomComponents/LinkDocument";
 import UsersContents from "./UserContents";
 
 const Users = ({
-  userProfile,
-  showSuccessMessage,
-  showErrorMessage
+  userProfile
 }) => {
   const { adminId } = userProfile;
   const [tableData, setTableData] = useState([]);
@@ -32,23 +30,25 @@ const Users = ({
   const [selectedApplication, setSelectedApplication] = useState(-1);
 
   useLayoutEffect(() => {
-    CustomAxiosGetAll(
-      [getUsersApi(adminId), getApplicationApi(adminId)],
-      [
-        (userData) => {
-          setTableData(userData);
-          _setTableData(userData);
+    if(adminId) {
+      CustomAxiosGetAll(
+        [getUsersApi(adminId), getApplicationApi(adminId)],
+        [
+          (userData) => {
+            setTableData(userData);
+            _setTableData(userData);
+            setTableLoading(false);
+          },
+          (applicationData) => {
+            setApplicationsData(applicationData);
+          },
+        ],
+        () => {
           setTableLoading(false);
-        },
-        (applicationData) => {
-          setApplicationsData(applicationData);
-        },
-      ],
-      () => {
-        setTableLoading(false);
-      }
-    );
-  }, []);
+        }
+      );
+    }
+  }, [adminId]);
 
   useLayoutEffect(() => {
     setTableLoading(false);

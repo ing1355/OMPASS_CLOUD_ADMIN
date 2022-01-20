@@ -43,7 +43,9 @@ const locales = {
     SUCCESS_USER_UPDATED: 'Successfully changed the user information.',
     LOGIN_SUCCESS: 'Login success!',
     IS_NOT_CSV: 'Please upload a .csv file.',
-    PLEASE_SELECTE_APPLICATION: 'Please select an application name.'
+    PLEASE_SELECTE_APPLICATION: 'Please select an application name.',
+    INVALID_CSV_USERID_DATA: '업로드 실패! {param}번째 사용자의 아이디를 확인해주세요.',
+    INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -89,7 +91,9 @@ const locales = {
     SUCCESS_USER_UPDATED: '사용자 정보를 성공적으로 변경하였습니다.',
     LOGIN_SUCCESS: '로그인 되었습니다.',
     IS_NOT_CSV: '.csv 파일을 업로드해주세요.',
-    PLEASE_SELECTE_APPLICATION: '어플리케이션을 선택해주세요.'
+    PLEASE_SELECTE_APPLICATION: '어플리케이션을 선택해주세요.',
+    INVALID_CSV_USERID_DATA: '업로드 실패! {param}번째 사용자의 아이디를 확인해주세요.',
+    INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.'
   },
 };
 

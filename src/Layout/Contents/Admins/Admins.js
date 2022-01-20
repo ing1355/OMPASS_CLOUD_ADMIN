@@ -29,24 +29,26 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getAdminsApi(adminId),
-      (data) => {
-        setTableData(
-          data.map((d, index) => ({
-            ...d,
-            name: d.firstName + " " + d.lastName,
-            index,
-          }))
-        );
-        setOmpassToggle(data[0].ompass);
-        setTableLoading(false);
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(
+        getAdminsApi(adminId),
+        (data) => {
+          setTableData(
+            data.map((d, index) => ({
+              ...d,
+              name: d.firstName + " " + d.lastName,
+              index,
+            }))
+          );
+          setOmpassToggle(data[0].ompass);
+          setTableLoading(false);
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }
+  }, [adminId]);
 
   const clickToDetail = useCallback((rowData) => {
     setDetailData(rowData);
@@ -64,7 +66,7 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
       );
       showSuccessMessage("ADMIN_UPDATE_SUCCESS");
     },
-    [tableData]
+    [tableData, showSuccessMessage]
   );
 
   const deleteAdmin = useCallback(
@@ -72,7 +74,7 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
       setTableData(tableData.filter((t) => t.index !== index * 1));
       showSuccessMessage("ADMIN_DELETE_SUCCESS");
     },
-    [tableData]
+    [tableData, showSuccessMessage]
   );
 
   const OMPASSToggle = useCallback(() => {

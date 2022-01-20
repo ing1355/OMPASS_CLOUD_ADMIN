@@ -69,10 +69,12 @@ const Global_Policy = ({
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
-      defaultPolicies = data;
-    });
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
+        defaultPolicies = data;
+      });
+    }
+  }, [adminId]);
 
   const isDisabled = useMemo(() => inputAuthCheck !== 'ACTIVE', [inputAuthCheck])
 
@@ -96,7 +98,7 @@ const Global_Policy = ({
     if (!visible) {
       InputInit();
     }
-  }, [visible]);
+  }, [visible, InputInit]);
 
   useLayoutEffect(() => {
     if (editData) {
@@ -119,7 +121,7 @@ const Global_Policy = ({
     } else {
       InputInit();
     }
-  }, [editData]);
+  }, [editData, InputInit]);
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {
@@ -467,8 +469,8 @@ const Global_Policy = ({
                       changeInputUserLocation(e.target.value, ind, "status");
                     }}
                   >
-                    <option value={true}><FormattedMessage id="PERMIT"/></option>
-                    <option value={false}><FormattedMessage id="DENY"/></option>
+                    <option value={true}>{formatMessage({id:'PERMIT'})}</option>
+                    <option value={false}>{formatMessage({id:'DENY'})}</option>
                   </select>
                   <button
                     className="button policy-location-button"

@@ -2,8 +2,15 @@ import React, { useCallback, useRef, useState } from "react";
 import "../Billing/Billing.css";
 import "./Users.css";
 import { Navigate, useNavigate } from "react-router";
-import { deleteUserApi, updateByPassApi, updateEmailApi } from "../../../Constants/Api_Route";
-import { CustomAxiosDelete, CustomAxiosPatch } from "../../../Functions/CustomAxios";
+import {
+  deleteUserApi,
+  updateByPassApi,
+  updateEmailApi,
+} from "../../../Constants/Api_Route";
+import {
+  CustomAxiosDelete,
+  CustomAxiosPatch,
+} from "../../../Functions/CustomAxios";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import { connect } from "react-redux";
 import ActionCreators from "../../../redux/actions";
@@ -16,7 +23,7 @@ const UserDetail = ({
   updateBypass,
   showSuccessMessage,
   showErrorMessage,
-  deleteCallback
+  deleteCallback,
 }) => {
   const { adminId } = userProfile;
   const { userId, byPass, appId, email, type } = data;
@@ -41,7 +48,7 @@ const UserDetail = ({
       (data) => {
         setLoading(false);
         updateBypass(userId, inputByPass, inputEmailRef.current.value);
-        showSuccessMessage('SUCCESS_USER_UPDATED')
+        showSuccessMessage("SUCCESS_USER_UPDATED");
         navigate("/Users");
       },
       () => {
@@ -72,15 +79,20 @@ const UserDetail = ({
       );
     }
     setEmailLoading(true);
-    CustomAxiosPatch(updateEmailApi(adminId, appId, userId), {
-      email: inputEmailRef.current.value
-    }, (data) => {
-      setEmailLoading(false);
-      showSuccessMessage("EMAIL_REGISTER_SUCCESS");
-      setEmailCheck(true);
-    }, () => {
-      setEmailLoading(false);
-    })
+    CustomAxiosPatch(
+      updateEmailApi(adminId, appId, userId),
+      {
+        email: inputEmailRef.current.value,
+      },
+      (data) => {
+        setEmailLoading(false);
+        showSuccessMessage("EMAIL_REGISTER_SUCCESS");
+        setEmailCheck(true);
+      },
+      () => {
+        setEmailLoading(false);
+      }
+    );
   };
 
   const changeInputEmail = () => {
@@ -99,7 +111,9 @@ const UserDetail = ({
               className="ant-row inputBox ant-form-item"
             >
               <div className="ant-col-4 ant-form-item-label-left">
-                <label><FormattedMessage id="User"/> :</label>
+                <label>
+                  <FormattedMessage id="User" /> :
+                </label>
               </div>
               <div className="ant-col ant-form-item-control">
                 <p className="userdetailP">{userId}</p>
@@ -108,7 +122,9 @@ const UserDetail = ({
 
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
-                <label><FormattedMessage id="Bypass"/> :</label>
+                <label>
+                  <FormattedMessage id="Bypass" /> :
+                </label>
               </div>
               <div
                 className="ant-col ant-form-item-control"
@@ -124,10 +140,18 @@ const UserDetail = ({
                     defaultChecked={byPass}
                     onChange={inputByPassCheck}
                   />
-                  <label className="label"> <FormattedMessage id="ACTIVE"/></label>
+                  <label className="label">
+                    {" "}
+                    <FormattedMessage id="ACTIVE" />
+                  </label>
                 </div>
                 <div className="label-bottom-text">
-                  <FormattedMessage id="USERBYPASSDESCRIPTION"/>
+                  <FormattedMessage id="USERBYPASSDESCRIPTION" />
+                  <br />
+                  <p className="notice-text">
+                    - 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두
+                    거부로 설정되어 있는 경우에만 작동합니다.
+                  </p>
                 </div>
                 <div
                   className={
@@ -135,7 +159,7 @@ const UserDetail = ({
                     (inputByPass ? " active" : " inactive")
                   }
                 >
-                  <FormattedMessage id="INPUTEMAIL"/> :&nbsp;&nbsp;
+                  <FormattedMessage id="INPUTEMAIL" /> :&nbsp;&nbsp;
                   <input
                     style={{ width: "22rem" }}
                     ref={inputEmailRef}
@@ -150,7 +174,7 @@ const UserDetail = ({
                     onClick={emailSetting}
                     loading={emailLoading}
                   >
-                    <FormattedMessage id="REGISTER"/>
+                    <FormattedMessage id="REGISTER" />
                   </CustomButton>
                 </div>
                 <div>
@@ -163,34 +187,40 @@ const UserDetail = ({
                     defaultChecked={!byPass}
                     onChange={inputByPassUnCheck}
                   />
-                  <label className="label"> <FormattedMessage id="INACTIVE"/></label>
+                  <label className="label">
+                    {" "}
+                    <FormattedMessage id="INACTIVE" />
+                  </label>
                 </div>
-                <div className="label-bottom-text">
-                  <FormattedMessage id="USERBYPASSDESCRIPTION2"/>
+                <div className="label-bottom-text ">
+                  <FormattedMessage id="USERBYPASSDESCRIPTION2" />
                 </div>
               </div>
             </div>
-            <div style={{textAlign:'center'}}>
-            <CustomButton
-              className="ApplicationsSave button user-save-button"
-              type="submit"
-              loading={loading}
-            >
-              <FormattedMessage id="SAVE"/>
-            </CustomButton>
-            <CustomButton
-              className="ApplicationsSave button user-save-button"
-              type="button"
-              onClick={() => {
-                CustomAxiosDelete(deleteUserApi(adminId, appId, userId), () => {
-                  if(deleteCallback) deleteCallback(userId);
-                  navigate('/Users')
-                })
-              }}
-              loading={loading}
-            >
-              <FormattedMessage id="DELETE"/>
-            </CustomButton>
+            <div style={{ textAlign: "center" }}>
+              <CustomButton
+                className="ApplicationsSave button user-save-button"
+                type="submit"
+                loading={loading}
+              >
+                <FormattedMessage id="SAVE" />
+              </CustomButton>
+              <CustomButton
+                className="ApplicationsSave button user-save-button"
+                type="button"
+                onClick={() => {
+                  CustomAxiosDelete(
+                    deleteUserApi(adminId, appId, userId),
+                    () => {
+                      if (deleteCallback) deleteCallback(userId);
+                      navigate("/Users");
+                    }
+                  );
+                }}
+                loading={loading}
+              >
+                <FormattedMessage id="DELETE" />
+              </CustomButton>
             </div>
           </form>
         </div>

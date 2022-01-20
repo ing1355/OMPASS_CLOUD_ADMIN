@@ -1,0 +1,16 @@
+.document-link {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    color: rgb(44, 44, 44);
+    position: absolute;
+    top: 2.5rem;
+    right: 3.5rem;
+  }
+  
+  .document-link a {
+    padding: 0.5rem;
+    color: #256e8b;
+    text-decoration: underline;
+  }

@@ -4,7 +4,7 @@ import { signUpAdminApi } from "../../Constants/SignUpApi";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import "./SubAdminSignUp.css";
 
-const AdminSignUp = ({ }) => {
+const AdminSignUp = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const country = location ? location.pathname.split("/")[3] : null;
@@ -25,7 +25,7 @@ const AdminSignUp = ({ }) => {
                 },
             }
         );
-    },[])
+    },[isKorea, navigate, token])
 
     return <></>
 };

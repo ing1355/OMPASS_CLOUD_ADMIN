@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Locale.css";
 import localIcon from "../../assets/localeIcon.png";
 import { connect } from "react-redux";

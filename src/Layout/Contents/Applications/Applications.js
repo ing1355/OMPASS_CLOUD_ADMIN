@@ -2,7 +2,7 @@ import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
-import ApplicationAdd from "./AppDetailsAdd";
+import ApplicationAdd from "./ApplicationAdd";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { Button, Space } from "antd";
@@ -91,46 +91,48 @@ const Applications = ({
   );
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getGlobalPolicyApi(adminId),
-      (globalPolicyData) => {
-        setGlobalPolicy(globalPolicyData);
-        CustomAxiosGet(
-          getCustomPoliciesApi(adminId),
-          (customPoliciesData) => {
-            setCustomPolicies(customPoliciesData);
-            CustomAxiosGet(
-              getApplicationApi(adminId),
-              (applicationData) => {
-                setTableData(
-                  applicationData.map((d) => {
-                    return {
-                      ...d,
-                      policy:
-                        d.policyId === globalPolicyData.policyId
-                          ? "!DEFAULTPOLICY!"
-                          : customPoliciesData.find(
-                              (c) => d.policyId === c.policyId
-                            ).title,
-                    };
-                  })
-                );
-                setTableLoading(false);
-              },
-              () => {
-                setTableLoading(false);
-              }
-            );
-          },
-          () => {
-            setTableLoading(false);
-          }
-        );
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
+    if(adminId) {
+      CustomAxiosGet(
+        getGlobalPolicyApi(adminId),
+        (globalPolicyData) => {
+          setGlobalPolicy(globalPolicyData);
+          CustomAxiosGet(
+            getCustomPoliciesApi(adminId),
+            (customPoliciesData) => {
+              setCustomPolicies(customPoliciesData);
+              CustomAxiosGet(
+                getApplicationApi(adminId),
+                (applicationData) => {
+                  setTableData(
+                    applicationData.map((d) => {
+                      return {
+                        ...d,
+                        policy:
+                          d.policyId === globalPolicyData.policyId
+                            ? "!DEFAULTPOLICY!"
+                            : customPoliciesData.find(
+                                (c) => d.policyId === c.policyId
+                              ).title,
+                      };
+                    })
+                  );
+                  setTableLoading(false);
+                },
+                () => {
+                  setTableLoading(false);
+                }
+              );
+            },
+            () => {
+              setTableLoading(false);
+            }
+          );
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }
   }, []);
 
   const confirmCallback = () => {

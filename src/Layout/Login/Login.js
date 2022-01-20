@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginApi } from "../../Constants/LoginApi";
 import { resetPasswordApi } from "../../Constants/ResetPasswordApi";
@@ -109,11 +109,11 @@ const Login = ({
                 </div>
                 <div className="join">
                   {locale === "en" ? (
-                    <a target="_blank" rel="noreferrer" href="https://ompass.kr:4003/login">
+                    <a target="_blank" rel="noopener noreferrer" href="https://ompass.kr:4003/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   ) : (
-                    <a target="_blank" rel="noreferrer" href="https://ompass.kr:4003/ko/login">
+                    <a target="_blank" rel="noopener noreferrer" href="https://ompass.kr:4003/ko/login">
                       <FormattedMessage id="Registration" />
                     </a>
                   )}

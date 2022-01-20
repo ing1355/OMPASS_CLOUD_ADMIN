@@ -10,14 +10,17 @@ const MessageController = ({msg}) => {
         if(msg) {
             if(msg.id) {
                 if(msg.type === 'success') message.success(formatMessage({id: msg.id}))
-                else if(msg.type === 'error') message.error(formatMessage({id: msg.id}))
+                else if(msg.type === 'error') {
+                    if(msg.param) message.error(formatMessage({id: msg.id}, { param: msg.param }))
+                    else message.error(formatMessage({id: msg.id}))
+                }
             } else {
                 if(msg.type === 'error') {
                     message.error('Fail to Connect!')
                 }
             }
         }
-    }, [msg])
+    }, [msg, formatMessage])
 
     return <></>
 }

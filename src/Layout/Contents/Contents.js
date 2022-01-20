@@ -6,16 +6,17 @@ import { connect } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
 import ActionCreators from "../../redux/actions";
 import route_info from "../../Constants/Route_items";
+import Notice from "../Notice/Notice";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
   const { role } = userProfile;
   useLayoutEffect(() => {
-    if(isLogin) {
+    if (isLogin) {
       // Chat.boot({pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'en'})
       const routes = route_info(userProfile.role);
       const target = [
         ...routes
-        .filter(item => item.route),
+          .filter(item => item.route),
         ...routes
           .filter((item) => item.submenu)
           .map((item) => item.submenu)
@@ -27,7 +28,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
       );
       if (target) menuChange(target.name);
     }
-  },[isLogin])
+  }, [isLogin])
   return (
     <>
       <div className="contents">
@@ -41,11 +42,12 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
                   element={item.component}
                 />
               ))}
-              <Route path="/*" element={<Navigate to="/" />}/>
+              <Route path="/*" element={<Navigate to="/" />} />
             </Routes>
           </React.Suspense>
         </div>
       </div>
+      {/* <Notice /> */}
     </>
   );
 };

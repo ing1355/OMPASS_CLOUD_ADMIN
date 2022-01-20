@@ -226,3 +226,13 @@
 .excel-select option {
   text-align: center;
 }
+.notice-text {
+  width: 100%;
+  background: rgba(228, 166, 158, 0.329);
+  height: auto;
+  margin: 1rem 0rem 0.5rem 0 !important;
+  font-size: 0.9rem !important;
+  padding: 1rem !important;
+  color: rgb(184, 32, 32);
+  font-weight: bold;
+}

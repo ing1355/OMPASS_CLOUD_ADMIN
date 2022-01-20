@@ -74,23 +74,25 @@ const Billing = ({
   }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
-    CustomAxiosGetAll(
-      [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
-      [
-        (data) => {
-          const { numberUsers, plan, pricing } = data;
-          setAllUserNum(numberUsers);
-          setCurrentPlan(plan);
-          setEditions(pricing);
-          setInputEdition(pricing[0].name);
-          setCost(pricing[0].priceForOneUser * 1);
-        },
-        (data) => {
-          setTableData(data);
-        },
-      ]
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGetAll(
+        [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
+        [
+          (data) => {
+            const { numberUsers, plan, pricing } = data;
+            setAllUserNum(numberUsers);
+            setCurrentPlan(plan);
+            setEditions(pricing);
+            setInputEdition(pricing[0].name);
+            setCost(pricing[0].priceForOneUser * 1);
+          },
+          (data) => {
+            setTableData(data);
+          },
+        ]
+      );
+    }
+  }, [adminId]);
 
   const billingsInfo = [
     {

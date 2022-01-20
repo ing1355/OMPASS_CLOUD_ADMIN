@@ -12,7 +12,7 @@ const Brand = () => {
         navigate("/");
       }}
     >
-      <img src={logo} />
+      <img src={logo} alt=""/>
       {/* <p>OMPASS</p> */}
     </div>
   );

@@ -18,7 +18,7 @@ import {
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const AppDetailsAdd = ({
+const ApplicationAdd = ({
   userProfile,
   tableDataAdd,
   showSuccessMessage,
@@ -34,7 +34,8 @@ const AppDetailsAdd = ({
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { domain, redirectUri, name, policy, status } = e.target.elements;
+    // const { domain, redirectUri, name, policy, status } = e.target.elements;
+    const { domain, redirectUri, name, policy } = e.target.elements;
     if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
     if (!name.value.length) {
       return FailToTest(name, showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
@@ -67,7 +68,7 @@ const AppDetailsAdd = ({
         name: name.value,
         policyId: policy.value,
         redirectUri: redirectUri.value,
-        status: status.value,
+        // status: status.value,
       },
       (data) => {
         showSuccessMessage("APPLICATION_ADD_SUCCESS");
@@ -149,7 +150,7 @@ const AppDetailsAdd = ({
                 placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
               />
             </div>
-            <div className="Application-label-input-box">
+            {/* <div className="Application-label-input-box">
               <label>
                 <FormattedMessage id="STATUS" />
               </label>
@@ -168,7 +169,7 @@ const AppDetailsAdd = ({
                 style={{ width: "15px" }}
               />
               <label className="label-radio">Inactive</label>
-            </div>
+            </div> */}
             <div className="Application-label-input-box">
               <label>
                 <FormattedMessage id="POLICYSETTING" />
@@ -212,4 +213,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppDetailsAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationAdd);

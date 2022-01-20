@@ -32,6 +32,8 @@ const App = ({
   userProfile
 }) => {
 
+  const { country } = userProfile;
+
   useLayoutEffect(() => {
     Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
     if (!isLogin) {
@@ -42,7 +44,6 @@ const App = ({
       if (localStorage.getItem("locale"))
         localeChange(localStorage.getItem("locale"));
       else {
-        const { country } = userProfile;
         localStorage.setItem("locale", country === "KR" ? "ko" : "en");
         localeChange(country === "KR" ? "ko" : "en");
       }
@@ -50,8 +51,8 @@ const App = ({
   }, [isLogin]);
 
   useLayoutEffect(() => {
-    if(lang) document.documentElement.lang = lang;
-  },[lang])
+    if (lang) document.documentElement.lang = lang;
+  }, [lang])
 
   return (
     <Router>
@@ -60,10 +61,10 @@ const App = ({
         <MessageController />
         <React.Suspense fallback={<div>loading...</div>}>
           <Routes>
-            <Route path="/admin-signup/*" element={<AdminSignUp/>} />
-            <Route path="/sub-admin-signup/*" element={<SubAdminSignUp/>} />
-            <Route path="/reset-password/*" element={<ResetPassword/>} />
-            <Route path="/ompass/*" element={<OMPASSVerify/>} />
+            <Route path="/admin-signup/*" element={<AdminSignUp />} />
+            <Route path="/sub-admin-signup/*" element={<SubAdminSignUp />} />
+            <Route path="/reset-password/*" element={<ResetPassword />} />
+            <Route path="/ompass/*" element={<OMPASSVerify />} />
             <Route
               path="/login"
               element={isLogin ? <Navigate to="/" /> : <Login />}

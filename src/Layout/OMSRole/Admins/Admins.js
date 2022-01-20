@@ -9,7 +9,7 @@ const testData = [
 ]
 
 
-const Admins = ({}) => {
+const Admins = () => {
     const navigate = useNavigate()
     const [detailData, setDetailData] = useState(null)
     const clickForDetail = row => {

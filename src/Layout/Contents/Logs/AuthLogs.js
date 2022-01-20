@@ -8,22 +8,25 @@ import CustomTable from "../../../CustomComponents/CustomTable";
 import { LogsColumns } from "../../../Constants/TableColumns";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
-const AuthLogs = ({ userProfile, locale }) => {
+const AuthLogs = ({ userProfile }) => {
+  const {adminId} = userProfile
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
 
   useEffect(() => {
-    CustomAxiosGet(
-      getLogsApi(userProfile.adminId),
-      (data) => {
-        setTableData(data);
-        setTableLoading(false);
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(
+        getLogsApi(adminId),
+        (data) => {
+          setTableData(data);
+          setTableLoading(false);
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }
+  }, [adminId]);
 
   return (
     <div className="contents-container">
