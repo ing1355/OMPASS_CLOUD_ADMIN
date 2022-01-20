@@ -222,13 +222,13 @@ const ApplicationDetail = ({
           </div>
           <div className="Application-label-input-box">
             <label><FormattedMessage id="DOMAIN" /></label>
-            <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48} />
-            {/* <input name="domain" ref={doaminRef} maxLength={48}/> */}
+            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48} /> */}
+            <input name="domain" ref={doaminRef} maxLength={48}/>
           </div>
           <div className="Application-label-input-box">
             <label><FormattedMessage id="REDIRECTURI" /></label>
-            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48} />
-            {/* <input name="redirectUri" ref={redirectURIRef} maxLength={48}/> */}
+            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48} /> */}
+            <input name="redirectUri" ref={redirectURIRef} maxLength={48}/>
           </div>
           {/* <div className="Application-label-input-box">
             <label><FormattedMessage id="STATUS"/></label>

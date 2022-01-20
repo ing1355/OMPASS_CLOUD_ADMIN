@@ -57,23 +57,18 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         });
                         result.push(_result);
                     });
-                    if(maxCount < result.length) throw({
-                        msg: 'too many person',
-                        param: result.length - maxCount
-                    })
-                    excelData.current = result;
-                    setUploadConfirmVisible(true);
+                    setUploadConfirmVisible(true)
+                    excelData.current = result
                 } catch ({ msg, param }) {
                     if (msg === 'userId invalid') showErrorMessage('INVALID_CSV_USERID_DATA', param)
                     else if (msg === 'email invalid') showErrorMessage('INVALID_CSV_EMAIL_DATA', param)
-                    else if (msg === 'too many person') showErrorMessage('TOO_MANY_PERSON', param)
                     else if (msg === 'users empty') showErrorMessage('EXCEL_EMPTY')
                 }
-                e.target.value = null;
             });
         } catch (e) {
             if (e === 'is not csv') showErrorMessage('IS_NOT_CSV')
         }
+        e.target.value = null;
     }, [maxCount])
 
     const downloadCsvEvent = useCallback(() => {
@@ -82,6 +77,8 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
 
     const submitCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
+        const count = tableData.length - tableData.filter(td => td.appId === selectedApplication && excelData.current.find(ex => ex.userId === td.userId)).length + excelData.current.length;
+        if(maxCount < count) showErrorMessage('TOO_MANY_PERSON', count - maxCount)
         setCsvConfirmLoading(true);
         CustomAxiosPost(
             updateCSVApi(adminId, selectedApplication),
@@ -101,7 +98,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 showErrorMessage("FAIL_CSV_UPLOAD");
             }
         );
-    }, [adminId, selectedApplication]);
+    }, [adminId, selectedApplication, tableData]);
 
     const downloadCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
@@ -125,9 +122,9 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             setDownloadConfirmVisible(false);
         }, () => {
             setCsvConfirmLoading(false);
-            showErrorMessage('다운로드에 실패하였습니다!')
-        });
-    }, [_tableData, selectedApplication])
+            showErrorMessage('EXCEL_DOWNLOAD_FAIL')
+        }, lang);
+    }, [_tableData, selectedApplication, lang])
 
     const selectedBorder = useMemo(
         () => (

@@ -12,7 +12,7 @@ export const ReadCsvData = (file, callback) => {
   }
 }
 
-export const SaveCsvData = (data, callback, errCallback) => {
+export const SaveCsvData = (data, callback, errCallback, lang) => {
   try {
     var array = typeof data !== 'object' ? JSON.parse(data) : data;
     var str = '';
@@ -28,7 +28,7 @@ export const SaveCsvData = (data, callback, errCallback) => {
     var blob = new Blob(["\ufeff"+str], {type: 'text/csv;charset=utf-8;'});
     var url = URL.createObjectURL(blob);
     downloadLink.href = url;
-    downloadLink.download = "DataDump.csv";  //Name the file here
+    downloadLink.download = lang === 'ko' ? '사용자 리스트.csv' : "Users List.csv";  //Name the file here
     downloadLink.click();
     if (callback) callback();
   } catch(e) {

@@ -184,7 +184,8 @@ const locales = {
     NULL_OPTION: 'Select',
     USERBYPASSNOTICETEXT: '- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.',
     EXCEL_DOWNLOAD_TITLE: 'Please select an application from which to download user information.',
-    EXCEL_DOWNLOAD_DESCRIPTION: '* User information of the selected application below will be saved as a .csv file.'
+    EXCEL_DOWNLOAD_DESCRIPTION: '* User information of the selected application below will be saved as a .csv file.',
+    USED_FREE_PLAN: '무료 플랜 사용중'
   },
   KR: {
     localeChangeText: "KO",
@@ -377,7 +378,8 @@ const locales = {
     NULL_OPTION: '선택',
     USERBYPASSNOTICETEXT: '- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.',
     EXCEL_DOWNLOAD_TITLE: '사용자 정보를 다운로드할 어플리케이션을 선택해주세요.',
-    EXCEL_DOWNLOAD_DESCRIPTION: '* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.'    
+    EXCEL_DOWNLOAD_DESCRIPTION: '* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.',
+    USED_FREE_PLAN: '무료 플랜 사용중'
   },
 };
 

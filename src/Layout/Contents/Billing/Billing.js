@@ -199,7 +199,7 @@ const Billing = ({
               }}
               icon={faCheckSquare}
             />
-            &nbsp;&nbsp;{" "}
+            &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status
               ? planStatusCodes[currentPlan.status]
               : planStatusCodes["STOPPED"]}
@@ -209,15 +209,15 @@ const Billing = ({
               style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
               icon={faCalendarCheck}
             />
-            &nbsp;&nbsp;{" "}
-            {currentPlan &&
+            &nbsp;&nbsp;&nbsp;
+            {currentPlan && currentPlan.status !== 'FREE' ?
               (locale === 'ko'
                 ? getDateFormatKr(currentPlan.createDate) +
                 " ~ " +
                 getDateFormatKr(currentPlan.expireDate)
                 : getDateFormatEn(currentPlan.createDate) +
                 " ~ " +
-                getDateFormatEn(currentPlan.expireDate))}
+                getDateFormatEn(currentPlan.expireDate)) : <FormattedMessage id="USED_FREE_PLAN"/>}
           </h6>
           <SubscriptionCancel isKorea={isKorea} currentPlan={currentPlan} setCurrentPlan={setCurrentPlan} editions={editions}/>
         </div>

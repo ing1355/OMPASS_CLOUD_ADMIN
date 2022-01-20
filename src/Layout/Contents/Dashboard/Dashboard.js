@@ -39,6 +39,7 @@ import { dashboardChartLineColors } from "../../../Constants/ConstantValues";
 export const planStatusCodes = {
   STOPPED: <FormattedMessage id="NONEUSED" />,
   RUN: <FormattedMessage id="Valid" />,
+  FREE: <FormattedMessage id="Valid" />,
   CANCEL: (
     <>
       <FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel" />
@@ -128,13 +129,13 @@ const Dashboard = ({ userProfile, locale }) => {
                     ? planStatusCodes[plan.status]
                     : planStatusCodes["STOPPED"]}
                 </h5>
-                {plan && plan.status !== 'FREE' && <h6>
+                {plan && <h6>
                   <FontAwesomeIcon
                     style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
                     icon={faCalendarCheck}
                   />
                   &nbsp;&nbsp;
-                  {locale === "ko" ? (
+                  {plan.status === 'FREE' ? <FormattedMessage id="USED_FREE_PLAN"/> : (locale === "ko" ? (
                     <>
                       {plan.createDate
                         ? getDateFormatKr(plan.createDate)
@@ -154,7 +155,7 @@ const Dashboard = ({ userProfile, locale }) => {
                         ? getDateFormatEn(plan.expireDate)
                         : null}
                     </>
-                  )}
+                  ))}
                 </h6>}
               </div>
               <div>
