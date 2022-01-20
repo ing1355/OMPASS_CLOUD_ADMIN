@@ -127,7 +127,8 @@ const UserDetail = ({
                   <label className="label"> <FormattedMessage id="ACTIVE"/></label>
                 </div>
                 <div className="label-bottom-text">
-                  <FormattedMessage id="USERBYPASSDESCRIPTION"/>
+                  <FormattedMessage id="USERBYPASSDESCRIPTION"/><br/>
+                  바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 패스로 되어있는 경우 작동하지 않습니다.
                 </div>
                 <div
                   className={

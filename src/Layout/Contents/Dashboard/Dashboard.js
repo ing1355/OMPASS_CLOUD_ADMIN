@@ -280,18 +280,20 @@ const Dashboard = ({ userProfile, locale }) => {
           </h4>
           <div className="chart" id="chart">
             <LineChart width={1200} height={550}>
-              <CartesianGrid strokeDasharray="2 2" />
+              <CartesianGrid />
               <XAxis
                 dataKey="category"
                 type="category"
                 allowDuplicatedCategory={false}
               />
-              <YAxis dataKey="value" />
+              <YAxis dataKey="value" interval="preserveStartEnd" 
+                padding={{ bottom: 35 }}/>
               <Tooltip />
               <Legend />
               {chartData.map(({ color, data, name }) => (
                 <Line
                   stroke={color}
+                  type="monotone"
                   dataKey="value"
                   data={data}
                   name={name}

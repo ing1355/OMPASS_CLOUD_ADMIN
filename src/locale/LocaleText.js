@@ -305,9 +305,9 @@ const locales = {
     POLICIESDESCRIPTION:
       "OMPASS 정책은 기본 정책과 사용자 정의 정책으로 구분됩니다.",
     GLOBALPOLICYDESCRIPTION:
-      "기본 정책은 모든 어플리케이션에 적용되는 정책입니다.",
+      "기본 정책은 모든 어플리케이션에 적용되는 디폴트 정책입니다.",
     CUSTOMPOLICYDESCRIPTION:
-      "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 정책입니다.",
+      "사용자 정의 정책은 특정 어플리케이션에 적용할 수 있는 맞춤 정책입니다.",
     ACCESSCONTROLTITLE: "OMPASS 인증 제어",
     ACCESSCONTROLACTIVE: "OMPASS 인증 필수",
     ACCESSCONTROLACTIVEDESCRIPTION:
