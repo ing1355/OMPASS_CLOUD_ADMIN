@@ -98,7 +98,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 showErrorMessage("FAIL_CSV_UPLOAD");
             }
         );
-    }, [adminId, selectedApplication, tableData]);
+    }, [adminId, selectedApplication, tableData, maxCount]);
 
     const downloadCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
