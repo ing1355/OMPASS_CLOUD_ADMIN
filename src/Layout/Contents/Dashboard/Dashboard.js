@@ -34,6 +34,7 @@ import {
   getDateFormatKr,
 } from "../../../Functions/GetFullDate";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
+import { dashboardChartLineColors } from "../../../Constants/ConstantValues";
 
 export const planStatusCodes = {
   STOPPED: <FormattedMessage id="NONEUSED" />,
@@ -45,34 +46,6 @@ export const planStatusCodes = {
   ),
 };
 
-const colors = [
-  "#8b94fe",
-  "#d15a69",
-  "#d37f13",
-  "#4baeb6",
-  "#150c76",
-  "#ef9076",
-  "#11a374",
-  "#a71f57",
-  "#81d123",
-  "#7c694c",
-  "#c90f17",
-  "#036436",
-  "#e997d6",
-  "#5f7cbd",
-  "#c85127",
-  "#304052",
-  "#5e9ffb",
-  "#896179",
-  "#ea991e",
-  "#6e786e",
-  "#063b7f",
-  "#40835f",
-  "#fc8f78"
-]
-
-const randomColor = () => '#' + Math.round(Math.random() * 0xffffff).toString(16)
-
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
@@ -83,50 +56,48 @@ const Dashboard = ({ userProfile, locale }) => {
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
 
-  const getDashboardData = () => {
-    CustomAxiosGetAll(
-      [
-        getDashboardTopApi(adminId),
-        getDashboardMiddleApi(adminId),
-        getDashboardBottomApi(adminId),
-      ],
-      [
-        (data) => {
-          const {
-            byPassUsersNumber,
-            registerUsersNumber,
-            unRegisterUsersNumber,
-            totalUsersNumber,
-            plan,
-          } = data;
-          setRegisterNum(registerUsersNumber);
-          setUserNum(totalUsersNumber);
-          setByPassNum(byPassUsersNumber);
-          setUnRegisterNum(unRegisterUsersNumber);
-          setPlan(plan);
-        },
-        (data) => {
-          setChartData(
-            data.map((d,ind) => ({
-              name: d.name,
-              color: colors[ind],
-              data: d.chartData.map((_d) => ({
-                category: _d.date,
-                value: _d.count,
-              })),
-            }))
-          );
-        },
-        (data) => {
-          setAuthLogs(data.slice(-5));
-        },
-      ]
-    );
-  };
-
   useLayoutEffect(() => {
-    getDashboardData();
-  }, []);
+    if (adminId) {
+      CustomAxiosGetAll(
+        [
+          getDashboardTopApi(adminId),
+          getDashboardMiddleApi(adminId),
+          getDashboardBottomApi(adminId),
+        ],
+        [
+          (data) => {
+            const {
+              byPassUsersNumber,
+              registerUsersNumber,
+              unRegisterUsersNumber,
+              totalUsersNumber,
+              plan,
+            } = data;
+            setRegisterNum(registerUsersNumber);
+            setUserNum(totalUsersNumber);
+            setByPassNum(byPassUsersNumber);
+            setUnRegisterNum(unRegisterUsersNumber);
+            setPlan(plan);
+          },
+          (data) => {
+            setChartData(
+              data.map((d, ind) => ({
+                name: d.name,
+                color: dashboardChartLineColors[ind],
+                data: d.chartData.map((_d) => ({
+                  category: _d.date,
+                  value: _d.count,
+                })),
+              }))
+            );
+          },
+          (data) => {
+            setAuthLogs(data.slice(-5));
+          },
+        ]
+      );
+    }
+  }, [adminId]);
 
   return (
     <div className="contents-container" style={{ width: 1400 }}>
@@ -318,7 +289,7 @@ const Dashboard = ({ userProfile, locale }) => {
               <YAxis dataKey="value" />
               <Tooltip />
               <Legend />
-              {chartData.map(({color, data, name}) => (
+              {chartData.map(({ color, data, name }) => (
                 <Line
                   stroke={color}
                   dataKey="value"

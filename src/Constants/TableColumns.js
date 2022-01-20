@@ -16,20 +16,20 @@ export const AdminsColumns = [
 
 export const ApplicationsColumns = [
   {
-    name: "Application",
+    name: "APPLICATIONNAME",
     key: "name",
     width: 250,
     searched: true,
     maxLength: 24
   },
-  {
-    name: "Status",
-    key: "status",
-    searched: true,
-    searchedOptions: ["ACTIVE", "INACTIVE"],
-    getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
-    render: (d) => <FormattedMessage id={d} />,
-  },
+  // {
+  //   name: "Status",
+  //   key: "status",
+  //   searched: true,
+  //   searchedOptions: ["ACTIVE", "INACTIVE"],
+  //   getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
+  //   render: (d) => <FormattedMessage id={d} />,
+  // },
   {
     name: "Domain",
     key: "domain",

@@ -4,7 +4,8 @@ import React, {
   useEffect,
   useLayoutEffect,
   useCallback,
-  useRef
+  useRef,
+  useMemo
 } from "react";
 import "./Policies.css";
 import "../../../App.css";
@@ -44,9 +45,9 @@ const DefaultPolicy = ({ userProfile }) => {
       default:
         break;
     }
-  });
+  },[]);
 
-  const PolicyTableDataFeature = [
+  const PolicyTableDataFeature = useMemo(() => [
     {
       status: "",
       policy: "ACCESSCONTROLTITLE",
@@ -71,7 +72,7 @@ const DefaultPolicy = ({ userProfile }) => {
     //   policy: "OMPASSMOBILEPOLICYTITLE",
     //   description: getDescription,
     // },
-  ];
+  ], [getDescription]);
 
   const convertDataToTableData = useCallback(
     (_) => {
@@ -106,33 +107,32 @@ const DefaultPolicy = ({ userProfile }) => {
         };
       });
     },
-    [globalPoliciesData]
+    [globalPoliciesData, PolicyTableDataFeature]
   );
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getGlobalPolicyApi(adminId),
-      (data) => {
-        setGlobalPoliciesData(data);
-        setGlobalPoliciesTableData(convertDataToTableData(data));
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(
+        getGlobalPolicyApi(adminId),
+        (data) => {
+          setGlobalPoliciesData(data);
+          setGlobalPoliciesTableData(convertDataToTableData(data));
+        },
+        (err) => {
+          console.log(err);
+        }
+      );      
+    }
+  }, [adminId]);
 
   useLayoutEffect(() => {
     globalPoliciesDataRef.current = globalPoliciesData;
     setGlobalPoliciesTableData(convertDataToTableData(globalPoliciesData));
   }, [globalPoliciesData]);
 
-  const editCallback = useCallback(
-    (result, policyId) => {
+  const editCallback = useCallback((result, policyId) => {
       setGlobalPoliciesData(result);
-    },
-    [globalPoliciesTableData]
-  );
+    },[]);
 
   useEffect(() => {
     if (!editDrawerOpen) setSelectedRowData(null);

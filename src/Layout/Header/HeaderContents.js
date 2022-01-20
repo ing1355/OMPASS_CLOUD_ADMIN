@@ -25,7 +25,7 @@ const HeaderContents = ({
       (item) => item.route === "/" + window.location.pathname.split("/")[1]
     );
     if (target) menuChange(target.name);
-  }, [location]);
+  }, [location, menuChange, role]);
 
   return (
     <div className="header-contents">

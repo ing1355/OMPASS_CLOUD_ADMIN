@@ -69,10 +69,12 @@ const Global_Policy = ({
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
-      defaultPolicies = data;
-    });
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(getDefaultPolicyApi(adminId), (data) => {
+        defaultPolicies = data;
+      });
+    }
+  }, [adminId]);
 
   const isDisabled = useMemo(() => inputAuthCheck !== 'ACTIVE', [inputAuthCheck])
 
@@ -96,7 +98,7 @@ const Global_Policy = ({
     if (!visible) {
       InputInit();
     }
-  }, [visible]);
+  }, [visible, InputInit]);
 
   useLayoutEffect(() => {
     if (editData) {
@@ -119,7 +121,7 @@ const Global_Policy = ({
     } else {
       InputInit();
     }
-  }, [editData]);
+  }, [editData, InputInit]);
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {

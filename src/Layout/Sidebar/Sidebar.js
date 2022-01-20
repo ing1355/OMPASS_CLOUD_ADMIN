@@ -11,6 +11,7 @@ const Sidebar = ({locale}) => {
       <Menu />
       <a
         className="back-to-homepage"
+        rel="noopener noreferrer"
         href={locale === 'ko' ? "https://ompass.kr:4003/ko" : "https://ompass.kr:4003"}
         target="_blank"
       >

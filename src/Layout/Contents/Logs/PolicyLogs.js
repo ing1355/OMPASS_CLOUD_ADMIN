@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
@@ -20,23 +20,25 @@ const PolicyLogs = ({ userProfile, locale }) => {
   const {formatMessage} = useIntl();
 
   useLayoutEffect(() => {
-    CustomAxiosGet(
-      getPolicyLogsApi(adminId),
-      (data) => {
-        setTableData(data.map(d => ({
-          ...d,
-          policyName: d.changes.afterPolicy.title,
-          detail: () => {
-            setChangeModalVisible(d.policyLogId)
-          }
-        })));
-        setTableLoading(false);
-      },
-      () => {
-        setTableLoading(false);
-      }
-    );
-  }, []);
+    if(adminId) {
+      CustomAxiosGet(
+        getPolicyLogsApi(adminId),
+        (data) => {
+          setTableData(data.map(d => ({
+            ...d,
+            policyName: d.changes.afterPolicy.title,
+            detail: () => {
+              setChangeModalVisible(d.policyLogId)
+            }
+          })));
+          setTableLoading(false);
+        },
+        () => {
+          setTableLoading(false);
+        }
+      );
+    }
+  }, [adminId]);
 
   useLayoutEffect(() => {
     if (changeModalVisible) {
@@ -44,7 +46,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
     } else {
       setSelectedData(null)
     }
-  }, [changeModalVisible])
+  }, [changeModalVisible, tableData])
 
   const closeModal = useCallback(() => {
     setChangeModalVisible(false);

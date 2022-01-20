@@ -30,32 +30,51 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             ReadCsvData(e.target.files[0], (jsonData) => {
                 const columns = ["userId", "email"];
                 const result = [];
-                jsonData.forEach((data) => {
-                    if (!emailTest(data[0]) && !userIdTest(data[0])) return;
-                    const _result = {};
-                    columns.forEach((c, ind) => {
-                        if (c === "email") {
-                            if (!emailTest(data[ind])) _result[c] = "";
-                            else _result[c] = data[ind];
-                        } else _result[c] = data[ind];
+                try {
+                    jsonData.forEach((data, ind) => {
+                        if (!emailTest(data[0])) {
+                            if (!userIdTest(data[0])) throw {
+                                msg: 'userId invalid',
+                                param: ind + 1
+                            };
+                        }
+                        if (data[1]) {
+                            if (!emailTest(data[1])) {
+                                throw {
+                                    msg: 'email invalid',
+                                    param: ind + 1
+                                }
+                            }
+                        }
+                        const _result = {};
+                        columns.forEach((c, ind) => {
+                            if (c === "email") {
+                                if (!emailTest(data[ind])) _result[c] = "";
+                                else _result[c] = data[ind];
+                            } else _result[c] = data[ind];
+                        });
+                        result.push(_result);
                     });
-                    result.push(_result);
-                });
+                } catch ({ msg, param }) {
+                    if (msg === 'userId invalid') showErrorMessage('INVALID_CSV_USERID_DATA', param)
+                    else if (msg === 'email invalid') showErrorMessage('INVALID_CSV_EMAIL_DATA', param)
+                    return;
+                }
                 excelData.current = result;
                 e.target.value = null;
                 setUploadConfirmVisible(true);
             });
         } catch (e) {
-            showErrorMessage('IS_NOT_CSV')
+            if (e === 'is not csv') showErrorMessage('IS_NOT_CSV')
         }
     }, [])
 
     const downloadCsvEvent = useCallback(() => {
         setDownloadConfirmVisible(true);
-    },[])
+    }, [])
 
     const submitCSV = useCallback(() => {
-        if(selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
+        if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
         setCsvConfirmLoading(true);
         CustomAxiosPost(
             updateCSVApi(adminId, selectedApplication),
@@ -78,7 +97,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
     }, [adminId, selectedApplication]);
 
     const downloadCSV = useCallback(() => {
-        if(selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
+        if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
         setCsvConfirmLoading(true);
         SaveCsvData([
             {
@@ -101,7 +120,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             setCsvConfirmLoading(false);
             showErrorMessage('다운로드에 실패하였습니다!')
         });
-    },[_tableData, selectedApplication])
+    }, [_tableData, selectedApplication])
 
     const selectedBorder = useMemo(
         () => (
@@ -275,7 +294,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 onChange={changeSelectedApplication}
             >
                 <option value={-1}>
-                    {formatMessage({id:'NULL_OPTION'})}
+                    {formatMessage({ id: 'NULL_OPTION' })}
                 </option>
                 {applicationsData.map((d, ind) => (
                     <option key={ind} value={d.appId}>
@@ -300,7 +319,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 onChange={changeSelectedApplication}
             >
                 <option value={-1}>
-                    {formatMessage({id:'NULL_OPTION'})}
+                    {formatMessage({ id: 'NULL_OPTION' })}
                 </option>
                 {applicationsData.map((d, ind) => (
                     <option key={ind} value={d.appId}>
@@ -324,8 +343,8 @@ function mapDispatchToProps(dispatch) {
         showSuccessMessage: (id) => {
             dispatch(ActionCreators.showSuccessMessage(id));
         },
-        showErrorMessage: (id) => {
-            dispatch(ActionCreators.showErrorMessage(id));
+        showErrorMessage: (id, param) => {
+            dispatch(ActionCreators.showErrorMessage(id, param));
         },
     };
 }

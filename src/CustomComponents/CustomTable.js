@@ -76,7 +76,7 @@ const CustomTable = ({
     if (datas) {
       setTableData(getAllTableData());
     }
-  }, [datas]);
+  }, [datas, getAllTableData]);
 
   useLayoutEffect(() => {
     if (searched) {
