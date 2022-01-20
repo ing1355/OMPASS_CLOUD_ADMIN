@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import {
@@ -27,6 +27,7 @@ import {
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
 const ApplicationDetail = ({
   userProfile,
@@ -46,13 +47,22 @@ const ApplicationDetail = ({
   // const statusRef2 = useRef(null);
   const secretKeyRef = useRef(null);
   const policyRef = useRef(null);
-  const {formatMessage} = useIntl()
+  const { formatMessage } = useIntl()
   const [isCloud, setIsCloud] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
+  const [resetVisible, setResetVisible] = useState(false);
+
+  const openResetModal = useCallback(() => {
+    setResetVisible(true);
+  }, [])
+
+  const closeResetModal = useCallback(() => {
+    setResetVisible(false);
+  }, [])
 
   useLayoutEffect(() => {
-    if(adminId && appId) {
+    if (adminId && appId) {
       CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
         const {
           name,
@@ -83,6 +93,7 @@ const ApplicationDetail = ({
       (data) => {
         secretKeyRef.current.value = data.secretKey;
         setResetLoading(false);
+        setResetVisible(false);
       },
       () => {
         setResetLoading(false);
@@ -175,7 +186,7 @@ const ApplicationDetail = ({
       <div className="ApplicationsBox">
         <form className="ApplicationForm" onSubmit={onFinish}>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="APPLICATIONNAME"/></label>
+            <label><FormattedMessage id="APPLICATIONNAME" /></label>
             <input
               name="name"
               ref={nameRef}
@@ -188,11 +199,11 @@ const ApplicationDetail = ({
               disabled={isExistCheck}
               onClick={existCheck}
             >
-              <FormattedMessage id="DUPLICATECHECK"/>
+              <FormattedMessage id="DUPLICATECHECK" />
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="SECRETKEY"/></label>
+            <label><FormattedMessage id="SECRETKEY" /></label>
             <div className="secretKey-container">
               <input name="secretKey" readOnly ref={secretKeyRef} />
               <div className="copyButton-container">
@@ -202,22 +213,21 @@ const ApplicationDetail = ({
               </div>
             </div>
             <CustomButton
-              loading={resetLoading}
               type="button"
               className="button"
-              onClick={resetSecretKey}
+              onClick={openResetModal}
             >
-              <FormattedMessage id="SECRETKEYRESET"/>
+              <FormattedMessage id="SECRETKEYRESET" />
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="DOMAIN"/></label>
-            <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/>
+            <label><FormattedMessage id="DOMAIN" /></label>
+            <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48} />
             {/* <input name="domain" ref={doaminRef} maxLength={48}/> */}
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="REDIRECTURI"/></label>
-            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/>
+            <label><FormattedMessage id="REDIRECTURI" /></label>
+            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48} />
             {/* <input name="redirectUri" ref={redirectURIRef} maxLength={48}/> */}
           </div>
           {/* <div className="Application-label-input-box">
@@ -242,22 +252,33 @@ const ApplicationDetail = ({
             <label className="label-radio">Inactive</label>
           </div> */}
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="POLICYSETTING"/></label>
+            <label><FormattedMessage id="POLICYSETTING" /></label>
             <select name="policy" ref={policyRef}>
-              <option value={globalPolicy && globalPolicy.policyId}>{formatMessage({id:'DEFAULTPOLICY'})}</option>
+              <option value={globalPolicy && globalPolicy.policyId}>{formatMessage({ id: 'DEFAULTPOLICY' })}</option>
               {
-                customPolicies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
+                customPolicies.map((p, ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
               }
             </select>
           </div>
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />
-                <FormattedMessage id="SAVE"/>
+              <FormattedMessage id="SAVE" />
             </Button>
           </Space>
         </form>
       </div>
+      <CustomConfirm
+        visible={resetVisible}
+        cancelCallback={closeResetModal}
+        okLoading={resetLoading}
+        confirmCallback={resetSecretKey}
+      >
+        <div className="reset-notice-text-container">
+            <p>* 주의 ! 현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.</p>
+              그래도 진행하시겠습니까?
+        </div>
+      </CustomConfirm>
     </>
   );
 };

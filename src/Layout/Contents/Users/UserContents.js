@@ -16,7 +16,7 @@ import { updateCSVApi } from '../../../Constants/Api_Route';
 import ActionCreators from '../../../redux/actions';
 
 const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, lang, userProfile, selectedApplication, setSelectedApplication,
-    showSuccessMessage, showErrorMessage, applicationsData, setTableData }) => {
+    showSuccessMessage, showErrorMessage, applicationsData, setTableData, maxCount }) => {
     const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
     const [downloadConfirmVisible, setDownloadConfirmVisible] = useState(false);
     const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
@@ -24,13 +24,15 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
     const navigate = useNavigate();
     const { formatMessage } = useIntl();
     const { adminId } = userProfile
-
     const uploadCSVEvent = useCallback((e) => {
         try {
             ReadCsvData(e.target.files[0], (jsonData) => {
                 const columns = ["userId", "email"];
                 const result = [];
                 try {
+                    if(jsonData.length === 0) throw {
+                        msg: 'users empty'
+                    }
                     jsonData.forEach((data, ind) => {
                         if (!emailTest(data[0])) {
                             if (!userIdTest(data[0])) throw {
@@ -55,19 +57,24 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         });
                         result.push(_result);
                     });
+                    if(maxCount < result.length) throw({
+                        msg: 'too many person',
+                        param: result.length - maxCount
+                    })
+                    excelData.current = result;
+                    setUploadConfirmVisible(true);
                 } catch ({ msg, param }) {
                     if (msg === 'userId invalid') showErrorMessage('INVALID_CSV_USERID_DATA', param)
                     else if (msg === 'email invalid') showErrorMessage('INVALID_CSV_EMAIL_DATA', param)
-                    return;
+                    else if (msg === 'too many person') showErrorMessage('TOO_MANY_PERSON', param)
+                    else if (msg === 'users empty') showErrorMessage('EXCEL_EMPTY')
                 }
-                excelData.current = result;
                 e.target.value = null;
-                setUploadConfirmVisible(true);
             });
         } catch (e) {
             if (e === 'is not csv') showErrorMessage('IS_NOT_CSV')
         }
-    }, [])
+    }, [maxCount])
 
     const downloadCsvEvent = useCallback(() => {
         setDownloadConfirmVisible(true);
@@ -310,9 +317,9 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             okLoading={csvConfirmLoading}
         >
             <h6 className="execel-modal-text">
-                사용자 정보를 다운로드할 어플리케이션을 선택해주세요.
+                <FormattedMessage id="EXCEL_DOWNLOAD_TITLE"/>
             </h6>
-            <div>* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.</div>
+            <div><FormattedMessage id="EXCEL_DOWNLOAD_DESCRIPTION"/></div>
             <select
                 className="excel-select"
                 value={selectedApplication}

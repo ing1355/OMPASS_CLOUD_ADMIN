@@ -132,7 +132,7 @@ export const PolicyLogsColumns = [
 
 export const PolicyLogsChangeColumns = [
   {
-    name: "POLICYTYPE",
+    name: "POLICYNAME",
     key: "type",
     width: 250
   },

@@ -20,7 +20,7 @@ const MessageController = ({msg}) => {
                 }
             }
         }
-    }, [msg, formatMessage])
+    }, [msg])
 
     return <></>
 }

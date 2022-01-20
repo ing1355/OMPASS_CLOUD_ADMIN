@@ -1,6 +1,6 @@
 import types from "../types";
-const defaultLocale = localStorage.getItem('locale');
-const locale = defaultLocale ? defaultLocale : "ko";
+
+const locale = localStorage.getItem('locale') || document.documentElement.lang;
 
 const localeReducer = (state = locale, action) => {
   switch (action.type) {

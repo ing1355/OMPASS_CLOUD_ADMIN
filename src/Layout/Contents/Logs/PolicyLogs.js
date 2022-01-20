@@ -81,7 +81,6 @@ const PolicyLogs = ({ userProfile, locale }) => {
         footer={null}
         cancelCallback={closeModal}
       >
-        {console.log(selectedData)}
         {selectedData && (
           <div className="policy-change-container">
             <h5>정책명 : {selectedData.policyName}</h5>

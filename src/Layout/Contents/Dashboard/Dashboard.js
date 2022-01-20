@@ -128,7 +128,7 @@ const Dashboard = ({ userProfile, locale }) => {
                     ? planStatusCodes[plan.status]
                     : planStatusCodes["STOPPED"]}
                 </h5>
-                <h6>
+                {plan && plan.status !== 'FREE' && <h6>
                   <FontAwesomeIcon
                     style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
                     icon={faCalendarCheck}
@@ -155,11 +155,7 @@ const Dashboard = ({ userProfile, locale }) => {
                         : null}
                     </>
                   )}
-                  {/* {plan.createDate
-                    ? getDateFormat(plan.createDate)
-                    : null} ~{" "}
-                  {plan.expireDate ? getDateFormat(plan.expireDate) : null} */}
-                </h6>
+                </h6>}
               </div>
               <div>
                 <table className="dashboard-table">
@@ -191,8 +187,7 @@ const Dashboard = ({ userProfile, locale }) => {
                             borderTop: "0.5px solid rgb(180, 180, 180)",
                           }}
                         >
-                          {plan.remainingDate}&nbsp;
-                          <FormattedMessage id="daysleft" />
+                          <FormattedMessage id="daysLeft" values={{day: plan.remainingDate}}/>
                         </td>
                       ) : (
                         <td
