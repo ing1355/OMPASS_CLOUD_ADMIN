@@ -12,21 +12,26 @@ export const ReadCsvData = (file, callback) => {
   }
 }
 
-export const SaveCsvData = (data) => {
-  var array = typeof data !== 'object' ? JSON.parse(data) : data;
-  var str = '';
-  for (var i = 0; i < array.length; i++) {
-    var line = '';
-    for (var index in array[i]) {
-      if (line !== '') line += ','
-      line += array[i][index];
+export const SaveCsvData = (data, callback, errCallback) => {
+  try {
+    var array = typeof data !== 'object' ? JSON.parse(data) : data;
+    var str = '';
+    for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+        if (line !== '') line += ','
+        line += array[i][index];
+      }
+      str += line + '\n';
     }
-    str += line + '\n';
+    var downloadLink = document.createElement("a");
+    var blob = new Blob(["\ufeff"+str], {type: 'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = "DataDump.csv";  //Name the file here
+    downloadLink.click();
+    if (callback) callback();
+  } catch(e) {
+    if (errCallback) errCallback();
   }
-  var downloadLink = document.createElement("a");
-  var blob = new Blob(["\ufeff"+str], {type: 'text/csv;charset=utf-8;'});
-  var url = URL.createObjectURL(blob);
-  downloadLink.href = url;
-  downloadLink.download = "DataDump.csv";  //Name the file here
-  downloadLink.click();
 }

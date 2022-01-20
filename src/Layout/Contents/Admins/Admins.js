@@ -116,6 +116,8 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
                 <CustomTable
                   columns={AdminsColumns}
                   datas={tableData}
+                  pagination
+                  numPerPage={10}
                   loading={tableLoading}
                   rowClick={clickToDetail}
                 />

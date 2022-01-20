@@ -110,8 +110,7 @@ const Global_Policy = ({
       } = editData;
       if (title) setInputTitle(title);
       if (accessControl) setInputAuthCheck(accessControl);
-      if (userLocations && userLocations.length)
-        setInputUserLocations(userLocations);
+      if (userLocations && userLocations.length) setInputUserLocations(userLocations.sort(u => u.location === 'ETC' ? 1 : -1));
       else setInputUserLocations([{ location: "ETC", status: true }]);
       if (browsers) setInputBrowserCheck(browsers);
       // if (mobilePatch) setInputMobileCheck(mobilePatch);
@@ -129,6 +128,7 @@ const Global_Policy = ({
         return showErrorMessage("PLEASE_CHECK_EXIST");
       }
     }
+    const {title, accessControl, userLocationEnable, userLocations, browsers} = editData;
     const result = {};
     if (inputTitle) result.title = inputTitle;
     if (inputAuthCheck) result.accessControl = inputAuthCheck;
@@ -142,6 +142,10 @@ const Global_Policy = ({
     result.userLocationsEnable = userLocationsEnable;
     if (isCustomPolicy && Object.keys(result).length === 1)
       return showErrorMessage("PLEASE_INPUT_POLICY");
+    if (accessControl === result.accessControl && title === result.title && result.browsers.toString() === browsers.toString() && userLocationEnable === result.userLocationsEnable
+    && userLocations.toString() === result.userLocations.toString()) {
+      return setVisible(false);
+    }
     if (isEditPolicy) {
       let apiRoute = isCustomPolicy
         ? updateCustomPoliciesApi(adminId, editData.policyId)
@@ -463,8 +467,8 @@ const Global_Policy = ({
                       changeInputUserLocation(e.target.value, ind, "status");
                     }}
                   >
-                    <option value={true}>Permit</option>
-                    <option value={false}>Deny</option>
+                    <option value={true}><FormattedMessage id="PERMIT"/></option>
+                    <option value={false}><FormattedMessage id="DENY"/></option>
                   </select>
                   <button
                     className="button policy-location-button"

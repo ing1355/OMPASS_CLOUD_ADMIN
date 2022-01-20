@@ -307,8 +307,8 @@ const Billing = ({
               <option value="MONTHLY">
                 {formatMessage({ id: "MONTHLY" })}
               </option>
-              <option value="ANNUALY">
-                {formatMessage({ id: "ANNUALY" })}
+              <option value="ANNUALLY">
+                {formatMessage({ id: "ANNUALLY" })}
               </option>
             </select>
           </div>
@@ -351,7 +351,7 @@ const Billing = ({
                     }
                   )
                   : formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONANNUALY" },
+                    { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
                     {
                       param:
                         slicePrice(

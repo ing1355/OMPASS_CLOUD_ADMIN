@@ -7,3 +7,10 @@
   overflow: hidden;
   padding: 1rem !important;
 }
+
+.policy-change-container {
+  text-align: initial;
+  width: 100%;
+  padding: 2rem;
+  overflow: hidden;
+}

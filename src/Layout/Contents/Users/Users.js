@@ -29,7 +29,7 @@ const Users = ({
   const [detailData, setDetailData] = useState({});
   const [selectView, setSelectView] = useState(0);
   const [applicationsData, setApplicationsData] = useState([]);
-  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [selectedApplication, setSelectedApplication] = useState(-1);
 
   useLayoutEffect(() => {
     CustomAxiosGetAll(
@@ -42,7 +42,6 @@ const Users = ({
         },
         (applicationData) => {
           setApplicationsData(applicationData);
-          setSelectedApplication(applicationData[0].appId);
         },
       ],
       () => {

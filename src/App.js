@@ -49,6 +49,10 @@ const App = ({
     }
   }, [isLogin]);
 
+  useLayoutEffect(() => {
+    if(lang) document.documentElement.lang = lang;
+  },[lang])
+
   return (
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>
@@ -56,10 +60,10 @@ const App = ({
         <MessageController />
         <React.Suspense fallback={<div>loading...</div>}>
           <Routes>
-            <Route path="/admin-signup" element={AdminSignUp} />
-            <Route path="/sub-admin-signup" element={SubAdminSignUp} />
-            <Route path="/reset-password" element={ResetPassword} />
-            <Route path="/ompass" element={OMPASSVerify} />
+            <Route path="/admin-signup/*" element={<AdminSignUp/>} />
+            <Route path="/sub-admin-signup/*" element={<SubAdminSignUp/>} />
+            <Route path="/reset-password/*" element={<ResetPassword/>} />
+            <Route path="/ompass/*" element={<OMPASSVerify/>} />
             <Route
               path="/login"
               element={isLogin ? <Navigate to="/" /> : <Login />}

@@ -109,6 +109,7 @@ const PaymentModal = ({ showSuccessMessage, showErrorMessage, userProfile, isKor
                                         setTableData(paymentHistoryResponses);
                                         setCurrentPlan(plan);
                                         showSuccessMessage("PAYMENT_SUCCESS");
+                                        window.location.reload();
                                     } else showErrorMessage("PAYMENT_FAIL");
                                 }
                             );

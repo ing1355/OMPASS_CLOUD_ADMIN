@@ -33,7 +33,7 @@ const locales = {
     SUBCRIPTION_CANCEL_SUCCESS: 'Your upcoming recurring payment is successfully cancelled.',
     PLEASE_AGREEMENT_CHECK: 'Please check the terms of use and privacy policy.',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: 'Please change the number of user higher than before.',
-    RESET_PASSWORD_SUCCESS_MESSAGE: 'You can now sign into your account using new password.',
+    RESET_PASSWORD_SUCCESS_MESSAGE: 'You can now sign into your admin account by new password.',
     RESET_PASSWORD_FAIL_MESSAGE: 'Passwords do not match.',
     SUCCESS_CSV_UPLOAD: 'Successfully uploaded the CSV file.',
     FAIL_CSV_UPLOAD: 'Failed to upload the CSV file.',
@@ -42,7 +42,8 @@ const locales = {
     RESET_PASSWORD_SEND_MAIL: 'We have e-mailed your password reset link.\nPlease check your email.',
     SUCCESS_USER_UPDATED: 'Successfully changed the user information.',
     LOGIN_SUCCESS: 'Login success!',
-    IS_NOT_CSV: '.csv 파일을 업로드해주세요.'
+    IS_NOT_CSV: 'Please upload a .csv file.',
+    PLEASE_SELECTE_APPLICATION: 'Please select an application name.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -78,7 +79,7 @@ const locales = {
     SUBCRIPTION_CANCEL_SUCCESS: '구독 취소에 성공하였습니다.',
     PLEASE_AGREEMENT_CHECK: '이용 동의에 체크해주세요.',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '변경할 사용자 수가 너무 적습니다.',
-    RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 해당 Admin 계정으로 로그인하실 수 있습니다.',
+    RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 로그인하실 수 있습니다.',
     RESET_PASSWORD_FAIL_MESSAGE: '비밀번호가 일치하지 않습니다.',
     SUCCESS_CSV_UPLOAD: 'CSV 업로드에 성공하였습니다.',
     FAIL_CSV_UPLOAD: 'CSV 업로드에 실패하였습니다.',
@@ -87,7 +88,8 @@ const locales = {
     RESET_PASSWORD_SEND_MAIL: '메일로 비밀번호 초기화 링크를 전송하였습니다.\n메일함을 확인해주세요.',
     SUCCESS_USER_UPDATED: '사용자 정보를 성공적으로 변경하였습니다.',
     LOGIN_SUCCESS: '로그인 되었습니다.',
-    IS_NOT_CSV: '.csv 파일을 업로드해주세요.'
+    IS_NOT_CSV: '.csv 파일을 업로드해주세요.',
+    PLEASE_SELECTE_APPLICATION: '어플리케이션을 선택해주세요.'
   },
 };
 

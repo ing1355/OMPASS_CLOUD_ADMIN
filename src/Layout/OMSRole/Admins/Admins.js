@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CustomTable from '../../../CustomComponents/CustomTable';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import AdminsDetail from './AdminsDetail';
 import { AdminsColumns } from '../../../Constants/TableColumns';
 
@@ -9,11 +9,12 @@ const testData = [
 ]
 
 
-const Admins = ({history}) => {
+const Admins = ({}) => {
+    const navigate = useNavigate()
     const [detailData, setDetailData] = useState(null)
     const clickForDetail = row => {
         setDetailData(row);
-        history.push('/Admins/Detail')
+        navigate('/Admins/Detail')
     }
     return <div className="contents-container">
         <Routes>

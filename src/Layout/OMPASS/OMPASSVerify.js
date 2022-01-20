@@ -4,8 +4,11 @@ import { CustomAxiosPost } from '../../Functions/CustomAxios';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import ActionCreators from '../../redux/actions';
+import { useLocation, useNavigate } from 'react-router';
 
-const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
+const OMPASSVerify = ({ setIsLogin, setUserProfile }) => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const query = queryString.parse(location.search);
     const { username, access_token } = query;
     
@@ -24,7 +27,7 @@ const OMPASSVerify = ({ history, location, setIsLogin, setUserProfile }) => {
                 ompass
             })
             setIsLogin(true);
-            history.push('/');
+            navigate('/');
         })
     }, [])
     return <div />

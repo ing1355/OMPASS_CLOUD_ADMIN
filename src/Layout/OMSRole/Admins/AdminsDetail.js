@@ -26,7 +26,6 @@ const testData = [
 const testData2 = [{ name: "test", status: "test2" }];
 
 const AdminsDetail = ({ data }) => {
-  console.log(data);
   const [confirmVisible, setConfirmVisible] = useState(false);
 
   const openConfirm = () => {
