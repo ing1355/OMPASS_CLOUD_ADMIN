@@ -10,7 +10,7 @@ import {
 import {
   CustomAxiosGet,
   CustomAxiosPatch,
-  CustomAxiosPut
+  CustomAxiosPut,
 } from "../../../Functions/CustomAxios";
 
 import { CopyOutlined } from "@ant-design/icons";
@@ -46,13 +46,13 @@ const ApplicationDetail = ({
   // const statusRef2 = useRef(null);
   const secretKeyRef = useRef(null);
   const policyRef = useRef(null);
-  const {formatMessage} = useIntl()
+  const { formatMessage } = useIntl();
   const [isCloud, setIsCloud] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
 
   useLayoutEffect(() => {
-    if(adminId && appId) {
+    if (adminId && appId) {
       CustomAxiosGet(getApplicationDetailApi(adminId, appId), (data) => {
         const {
           name,
@@ -61,7 +61,7 @@ const ApplicationDetail = ({
           redirectUri,
           // status,
           policyId,
-          cloud
+          cloud,
         } = data;
         nameRef.current.value = name;
         doaminRef.current.value = domain;
@@ -95,9 +95,13 @@ const ApplicationDetail = ({
   };
 
   const existCheck = () => {
-    if (!nameRef.current.value) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
+    if (!nameRef.current.value)
+      return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME");
     if (!nameTest(nameRef.current.value)) {
-      return FailToTest(nameRef.current, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
+      return FailToTest(
+        nameRef.current,
+        showErrorMessage("APPLICATION_NAME_RULE_ERROR")
+      );
     }
     CustomAxiosGet(
       checkApplicationExistenceApi(adminId, nameRef.current.value),
@@ -175,7 +179,9 @@ const ApplicationDetail = ({
       <div className="ApplicationsBox">
         <form className="ApplicationForm" onSubmit={onFinish}>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="APPLICATIONNAME"/></label>
+            <label>
+              <FormattedMessage id="APPLICATIONNAME" />
+            </label>
             <input
               name="name"
               ref={nameRef}
@@ -188,11 +194,13 @@ const ApplicationDetail = ({
               disabled={isExistCheck}
               onClick={existCheck}
             >
-              <FormattedMessage id="DUPLICATECHECK"/>
+              <FormattedMessage id="DUPLICATECHECK" />
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="SECRETKEY"/></label>
+            <label>
+              <FormattedMessage id="SECRETKEY" />
+            </label>
             <div className="secretKey-container">
               <input name="secretKey" readOnly ref={secretKeyRef} />
               <div className="copyButton-container">
@@ -207,18 +215,22 @@ const ApplicationDetail = ({
               className="button"
               onClick={resetSecretKey}
             >
-              <FormattedMessage id="SECRETKEYRESET"/>
+              <FormattedMessage id="SECRETKEYRESET" />
             </CustomButton>
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="DOMAIN"/></label>
-            <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/>
-            {/* <input name="domain" ref={doaminRef} maxLength={48}/> */}
+            <label>
+              <FormattedMessage id="DOMAIN" />
+            </label>
+            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/> */}
+            <input name="domain" ref={doaminRef} maxLength={48} />
           </div>
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="REDIRECTURI"/></label>
-            <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/>
-            {/* <input name="redirectUri" ref={redirectURIRef} maxLength={48}/> */}
+            <label>
+              <FormattedMessage id="REDIRECTURI" />
+            </label>
+            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/> */}
+            <input name="redirectUri" ref={redirectURIRef} maxLength={48} />
           </div>
           {/* <div className="Application-label-input-box">
             <label><FormattedMessage id="STATUS"/></label>
@@ -242,18 +254,24 @@ const ApplicationDetail = ({
             <label className="label-radio">Inactive</label>
           </div> */}
           <div className="Application-label-input-box">
-            <label><FormattedMessage id="POLICYSETTING"/></label>
+            <label>
+              <FormattedMessage id="POLICYSETTING" />
+            </label>
             <select name="policy" ref={policyRef}>
-              <option value={globalPolicy && globalPolicy.policyId}>{formatMessage({id:'DEFAULTPOLICY'})}</option>
-              {
-                customPolicies.map((p,ind) => <option key={ind} value={p.policyId}>{p.title}</option>)
-              }
+              <option value={globalPolicy && globalPolicy.policyId}>
+                {formatMessage({ id: "DEFAULTPOLICY" })}
+              </option>
+              {customPolicies.map((p, ind) => (
+                <option key={ind} value={p.policyId}>
+                  {p.title}
+                </option>
+              ))}
             </select>
           </div>
           <Space className="cud">
             <Button htmlType="submit">
               <UserSwitchOutlined />
-                <FormattedMessage id="SAVE"/>
+              <FormattedMessage id="SAVE" />
             </Button>
           </Space>
         </form>

@@ -6,14 +6,14 @@ import { CustomAxiosPost } from "../../Functions/CustomAxios";
 import ActionCreators from "../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
-import OMPASS from 'ompass'
+import OMPASS from "ompass";
 
 const Login = ({
   setIsLogin,
   setUserProfile,
   locale,
   localeChange,
-  showSuccessMessage
+  showSuccessMessage,
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
@@ -46,7 +46,7 @@ const Login = ({
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
         if (ompass) {
-          OMPASS(data.ompassUrl)
+          OMPASS(data.ompassUrl);
         } else {
           setUserProfile({
             adminId,
@@ -109,11 +109,19 @@ const Login = ({
                 </div>
                 <div className="join">
                   {locale === "en" ? (
-                    <a target="_blank" rel="noopener noreferrer" href="https://ompass.kr:4003/login">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://ompass.kr:4003/login"
+                    >
                       <FormattedMessage id="Registration" />
                     </a>
                   ) : (
-                    <a target="_blank" rel="noopener noreferrer" href="https://ompass.kr:4003/ko/login">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://ompass.kr:4003/ko/login"
+                    >
                       <FormattedMessage id="Registration" />
                     </a>
                   )}

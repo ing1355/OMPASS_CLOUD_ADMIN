@@ -97,7 +97,9 @@ const PolicyLogs = ({ userProfile, locale }) => {
                       value: selectedData.changes.beforePolicy[d],
                     }))
                 )}
+                <p className="policy-change-arrow">변경전</p>
                 <CustomTable
+                  className="policy-modal-log"
                   columns={PolicyLogsChangeColumns}
                   datas={Object.keys(selectedData.changes.beforePolicy)
                     .filter((d) => d !== "title" && d !== "active")
@@ -129,7 +131,9 @@ const PolicyLogs = ({ userProfile, locale }) => {
                 <div></div>
               </>
             )}
-            <div>
+            <p className="policy-change-arrow2">↓</p>
+            <p className="policy-change-arrow3">변경후</p>
+            <div className="policy-modal-log">
               <CustomTable
                 columns={PolicyLogsChangeColumns}
                 datas={Object.keys(selectedData.changes.afterPolicy)

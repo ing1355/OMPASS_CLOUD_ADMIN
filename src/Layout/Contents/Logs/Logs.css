@@ -5,12 +5,52 @@
 .LogBox .custom-table-box {
   width: 100%;
   overflow: hidden;
-  padding: 1rem !important;
 }
 
 .policy-change-container {
   text-align: initial;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   overflow: hidden;
+}
+.custom-table-box colgroup {
+  display: none !important;
+}
+.custom-table-box tr {
+  width: 100%;
+}
+.policy-modal-log tr {
+  font-size: 0.8rem;
+}
+/* .policy-modal-log tr th:nth-child(1) {
+  text-align: right;
+}
+.policy-modal-log tr th:nth-child(2) {
+  text-align: left;
+}
+.policy-modal-log tr td:nth-child(2) {
+  text-align: left;
+} */
+.policy-change-container h5 {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.policy-change-container h5:nth-child(3) {
+  margin-bottom: 1.5rem;
+}
+.policy-change-arrow {
+  font-weight: bold;
+  color: #00a9ec;
+  text-align: center;
+}
+.policy-change-arrow2 {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+.policy-change-arrow3 {
+  font-weight: bold;
+  color: #e20000;
+  text-align: center;
 }
