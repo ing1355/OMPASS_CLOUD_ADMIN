@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import {
@@ -27,6 +27,7 @@ import {
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
+import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
 const ApplicationDetail = ({
   userProfile,
@@ -50,6 +51,15 @@ const ApplicationDetail = ({
   const [isCloud, setIsCloud] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
+  const [resetVisible, setResetVisible] = useState(false);
+
+  const openResetModal = useCallback(() => {
+    setResetVisible(true);
+  }, []);
+
+  const closeResetModal = useCallback(() => {
+    setResetVisible(false);
+  }, []);
 
   useLayoutEffect(() => {
     if (adminId && appId) {
@@ -83,6 +93,7 @@ const ApplicationDetail = ({
       (data) => {
         secretKeyRef.current.value = data.secretKey;
         setResetLoading(false);
+        setResetVisible(false);
       },
       () => {
         setResetLoading(false);
@@ -210,10 +221,9 @@ const ApplicationDetail = ({
               </div>
             </div>
             <CustomButton
-              loading={resetLoading}
               type="button"
               className="button"
-              onClick={resetSecretKey}
+              onClick={openResetModal}
             >
               <FormattedMessage id="SECRETKEYRESET" />
             </CustomButton>
@@ -222,14 +232,14 @@ const ApplicationDetail = ({
             <label>
               <FormattedMessage id="DOMAIN" />
             </label>
-            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48}/> */}
+            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48} /> */}
             <input name="domain" ref={doaminRef} maxLength={48} />
           </div>
           <div className="Application-label-input-box">
             <label>
               <FormattedMessage id="REDIRECTURI" />
             </label>
-            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48}/> */}
+            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48} /> */}
             <input name="redirectUri" ref={redirectURIRef} maxLength={48} />
           </div>
           {/* <div className="Application-label-input-box">
@@ -276,6 +286,17 @@ const ApplicationDetail = ({
           </Space>
         </form>
       </div>
+      <CustomConfirm
+        visible={resetVisible}
+        cancelCallback={closeResetModal}
+        okLoading={resetLoading}
+        confirmCallback={resetSecretKey}
+      >
+        <div className="reset-notice-text-container">
+          <p>* 주의 ! 현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.</p>
+          그래도 진행하시겠습니까?
+        </div>
+      </CustomConfirm>
     </>
   );
 };

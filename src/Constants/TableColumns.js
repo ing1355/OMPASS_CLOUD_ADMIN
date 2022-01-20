@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-import CustomButton from '../CustomComponents/CustomButton';
+import CustomButton from "../CustomComponents/CustomButton";
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -20,7 +20,7 @@ export const ApplicationsColumns = [
     key: "name",
     width: 250,
     searched: true,
-    maxLength: 24
+    maxLength: 24,
   },
   // {
   //   name: "Status",
@@ -35,22 +35,33 @@ export const ApplicationsColumns = [
     key: "domain",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
-  { name: "REDIRECTURI", key: "redirectUri", width: 250, searched: true, maxLength: 48 },
-  { name: "Policies", key: "policy", render: d => d === '!DEFAULTPOLICY!' ? <FormattedMessage id={'DEFAULTPOLICY'}/> : d },
+  {
+    name: "REDIRECTURI",
+    key: "redirectUri",
+    width: 250,
+    searched: true,
+    maxLength: 48,
+  },
+  {
+    name: "Policies",
+    key: "policy",
+    render: (d) =>
+      d === "!DEFAULTPOLICY!" ? <FormattedMessage id={"DEFAULTPOLICY"} /> : d,
+  },
   // { name: "상세정보", key: "detail", render: makeDetail },
 ];
 
 export const BillingColumns = [
   {
-    name: 'PLAN',
-    key: 'paymentHistory'
+    name: "PLAN",
+    key: "paymentHistory",
   },
   {
-    name: 'BILLINGCYCLE',
-    key: 'paymentInterval',
-    render: data => <FormattedMessage id={data}/>
+    name: "BILLINGCYCLE",
+    key: "paymentInterval",
+    render: (data) => <FormattedMessage id={data} />,
   },
   {
     name: "PRICECOLUMN",
@@ -75,7 +86,7 @@ export const LogsColumns = [
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   {
     name: "Action",
@@ -101,47 +112,55 @@ export const LogsColumns = [
 
 export const PolicyLogsColumns = [
   {
-    name: "POLICYNAME",
+    name: "POLICYTITLE",
     key: "policyName",
     searched: true,
     maxLength: 24,
     width: 250,
-    render: (value,row) => !row.changes.afterPolicy.title ? <FormattedMessage id="DEFAULTPOLICY"/> : value
+    render: (value, row) =>
+      !row.changes.afterPolicy.title ? (
+        <FormattedMessage id="DEFAULTPOLICY" />
+      ) : (
+        value
+      ),
   },
   {
     name: "User",
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   {
     name: "Action",
     key: "act",
     searched: true,
-    searchedOptions: ['CREATE','UPDATE','DELETE']
+    searchedOptions: ["CREATE", "UPDATE", "DELETE"],
   },
   { name: "Date", key: "createdDate", width: 250 },
   {
-    name: '',
-    key: 'detail',
+    name: "",
+    key: "detail",
     width: 200,
-    render: (callback, row) => <CustomButton className="button" onClick={callback}><FormattedMessage id="detailColumn"/></CustomButton>
+    render: (callback, row) => (
+      <CustomButton className="button" onClick={callback}>
+        <FormattedMessage id="detailColumn" />
+      </CustomButton>
+    ),
   },
 ];
 
 export const PolicyLogsChangeColumns = [
   {
-    name: "POLICYTYPE",
+    name: "POLICYNAME",
     key: "type",
-    width: 250
+    width: 150,
   },
   {
     name: "Status",
     key: "value",
-    width: 250,
   },
-]
+];
 
 export const allUserColumns = [
   {
@@ -149,14 +168,14 @@ export const allUserColumns = [
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   {
     name: "APPLICATIONNAME",
     key: "appName",
     width: 250,
     searched: true,
-    maxLength: 24
+    maxLength: 24,
   },
   {
     name: "AUTHTYPE",
@@ -188,14 +207,14 @@ export const disabledUserColumns = [
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   {
     name: "APPLICATIONNAME",
     key: "appName",
     width: 250,
     searched: true,
-    maxLength: 24
+    maxLength: 24,
   },
   {
     name: "AUTHTYPE",
@@ -224,7 +243,7 @@ export const byPassUserColumns = [
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
   {
@@ -253,7 +272,7 @@ export const unRegisteredUserColumns = [
     key: "userId",
     width: 250,
     searched: true,
-    maxLength: 48
+    maxLength: 48,
   },
   { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
   {
@@ -276,12 +295,13 @@ export const unRegisteredUserColumns = [
   },
 ];
 
-const getPolicyInActiveDescription = (key) => ({
-  accessControl: 'NORESTRICTION',
-  userLocations: 'NONEUSERLOCATIONS',
-  browsers: 'NONEBROWSERS',
-  // mobilePatch: 'NOMOBILEPATCH'
-}[key])
+const getPolicyInActiveDescription = (key) =>
+  ({
+    accessControl: "NORESTRICTION",
+    userLocations: "NONEUSERLOCATIONS",
+    browsers: "NONEBROWSERS",
+    // mobilePatch: 'NOMOBILEPATCH'
+  }[key]);
 
 export const PolicyColumns = [
   {
@@ -323,8 +343,14 @@ export const PolicyColumns = [
     key: "description",
     width: 600,
     render: (getDescription, row) => {
-      const {status, key, index} = row;
-      return status === 'disable' ? <FormattedMessage id="DISABLEDPOLICY"/> : (status ? getDescription(key, index) : <FormattedMessage id={getPolicyInActiveDescription(key)} />)
+      const { status, key, index } = row;
+      return status === "disable" ? (
+        <FormattedMessage id="DISABLEDPOLICY" />
+      ) : status ? (
+        getDescription(key, index)
+      ) : (
+        <FormattedMessage id={getPolicyInActiveDescription(key)} />
+      );
     },
   },
 ];

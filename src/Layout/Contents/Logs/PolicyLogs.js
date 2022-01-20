@@ -79,14 +79,14 @@ const PolicyLogs = ({ userProfile, locale }) => {
         visible={changeModalVisible}
         maskClosable={true}
         footer={null}
+        className="policy-change-container"
         cancelCallback={closeModal}
       >
-        {console.log(selectedData)}
         {selectedData && (
-          <div className="policy-change-container">
-            <h5>정책명 : {selectedData.policyName}</h5>
+          <div>
+            {/* <h5>정책명 : {selectedData.policyName}</h5>
             <h5>활동 : {selectedData.act}</h5>
-            <h5>시각 : {selectedData.createdDate}</h5>
+            <h5>시각 : {selectedData.createdDate}</h5> */}
             {selectedData.changes.beforePolicy && (
               <>
                 {console.log(
@@ -97,7 +97,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
                       value: selectedData.changes.beforePolicy[d],
                     }))
                 )}
-                <p className="policy-change-arrow">변경전</p>
+                <p className="policy-change-arrow">변경 전</p>
                 <CustomTable
                   className="policy-modal-log"
                   columns={PolicyLogsChangeColumns}
@@ -132,7 +132,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
               </>
             )}
             <p className="policy-change-arrow2">↓</p>
-            <p className="policy-change-arrow3">변경후</p>
+            <p className="policy-change-arrow3">변경 후</p>
             <div className="policy-modal-log">
               <CustomTable
                 columns={PolicyLogsChangeColumns}

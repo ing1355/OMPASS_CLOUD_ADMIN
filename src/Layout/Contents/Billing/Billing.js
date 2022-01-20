@@ -57,7 +57,7 @@ const Billing = ({
   const [confirmModal, setConfirmModal] = useState(false); 
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
-  const [inputUserNum, setInputUserNum] = useState(1);
+  const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const { formatMessage } = useIntl();
@@ -84,7 +84,7 @@ const Billing = ({
             setCurrentPlan(plan);
             setEditions(pricing);
             setInputEdition(pricing[0].name);
-            setCost(pricing[0].priceForOneUser * 1);
+            setCost(pricing[0].priceForOneUser * 11);
           },
           (data) => {
             setTableData(data);
@@ -120,8 +120,13 @@ const Billing = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
-    if (allUserNum >= userNum.value)
-      return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
+    if(currentPlan.status === 'RUN') {
+      if (allUserNum >= userNum.value)
+        return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
+    } else {
+      if (allUserNum > userNum.value)
+        return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
+    }
     if (!check.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
@@ -181,7 +186,7 @@ const Billing = ({
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
-            {currentPlan ? currentPlan.remainingDate : 0} <FormattedMessage id="DAYSLEFT"/>
+            {currentPlan && (currentPlan.status === 'FREE' ? '' : <FormattedMessage id="DAYSLEFT" values={{day: currentPlan.remainingDate}}/>)}
           </div>
         </div>
         <div className="billing-edition billing-info">
@@ -194,7 +199,7 @@ const Billing = ({
               }}
               icon={faCheckSquare}
             />
-            &nbsp;&nbsp;{" "}
+            &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status
               ? planStatusCodes[currentPlan.status]
               : planStatusCodes["STOPPED"]}
@@ -204,15 +209,15 @@ const Billing = ({
               style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
               icon={faCalendarCheck}
             />
-            &nbsp;&nbsp;{" "}
-            {currentPlan &&
+            &nbsp;&nbsp;&nbsp;
+            {currentPlan && currentPlan.status !== 'FREE' ?
               (locale === 'ko'
                 ? getDateFormatKr(currentPlan.createDate) +
                 " ~ " +
                 getDateFormatKr(currentPlan.expireDate)
                 : getDateFormatEn(currentPlan.createDate) +
                 " ~ " +
-                getDateFormatEn(currentPlan.expireDate))}
+                getDateFormatEn(currentPlan.expireDate)) : <FormattedMessage id="USED_FREE_PLAN"/>}
           </h6>
           <SubscriptionCancel isKorea={isKorea} currentPlan={currentPlan} setCurrentPlan={setCurrentPlan} editions={editions}/>
         </div>
@@ -283,13 +288,14 @@ const Billing = ({
               <select
                 className="billing-change-form-select"
                 name="userNum"
+                value={inputUserNum}
                 onChange={(e) => {
                   setInputUserNum(e.target.value);
                 }}
               >
-                {new Array(1000).fill(1).map((item, ind) => (
-                  <option key={ind} value={ind + 1}>
-                    {ind + 1}
+                {new Array(990).fill(1).map((item, ind) => (
+                  <option key={ind + 11} value={ind + 11}>
+                    {ind + 11}
                   </option>
                 ))}
               </select>

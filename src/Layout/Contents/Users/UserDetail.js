@@ -149,8 +149,7 @@ const UserDetail = ({
                   <FormattedMessage id="USERBYPASSDESCRIPTION" />
                   <br />
                   <p className="notice-text">
-                    - 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두
-                    거부로 설정되어 있는 경우에만 작동합니다.
+                    <FormattedMessage id="USERBYPASSNOTICETEXT"/>
                   </p>
                 </div>
                 <div

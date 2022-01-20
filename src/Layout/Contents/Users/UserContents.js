@@ -16,7 +16,7 @@ import { updateCSVApi } from '../../../Constants/Api_Route';
 import ActionCreators from '../../../redux/actions';
 
 const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, lang, userProfile, selectedApplication, setSelectedApplication,
-    showSuccessMessage, showErrorMessage, applicationsData, setTableData }) => {
+    showSuccessMessage, showErrorMessage, applicationsData, setTableData, maxCount }) => {
     const [uploadConfirmVisible, setUploadConfirmVisible] = useState(false);
     const [downloadConfirmVisible, setDownloadConfirmVisible] = useState(false);
     const [csvConfirmLoading, setCsvConfirmLoading] = useState(false);
@@ -24,13 +24,15 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
     const navigate = useNavigate();
     const { formatMessage } = useIntl();
     const { adminId } = userProfile
-
     const uploadCSVEvent = useCallback((e) => {
         try {
             ReadCsvData(e.target.files[0], (jsonData) => {
                 const columns = ["userId", "email"];
                 const result = [];
                 try {
+                    if(jsonData.length === 0) throw {
+                        msg: 'users empty'
+                    }
                     jsonData.forEach((data, ind) => {
                         if (!emailTest(data[0])) {
                             if (!userIdTest(data[0])) throw {
@@ -55,19 +57,19 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         });
                         result.push(_result);
                     });
+                    setUploadConfirmVisible(true)
+                    excelData.current = result
                 } catch ({ msg, param }) {
                     if (msg === 'userId invalid') showErrorMessage('INVALID_CSV_USERID_DATA', param)
                     else if (msg === 'email invalid') showErrorMessage('INVALID_CSV_EMAIL_DATA', param)
-                    return;
+                    else if (msg === 'users empty') showErrorMessage('EXCEL_EMPTY')
                 }
-                excelData.current = result;
-                e.target.value = null;
-                setUploadConfirmVisible(true);
             });
         } catch (e) {
             if (e === 'is not csv') showErrorMessage('IS_NOT_CSV')
         }
-    }, [])
+        e.target.value = null;
+    }, [maxCount])
 
     const downloadCsvEvent = useCallback(() => {
         setDownloadConfirmVisible(true);
@@ -75,6 +77,8 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
 
     const submitCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
+        const count = tableData.length - tableData.filter(td => td.appId === selectedApplication && excelData.current.find(ex => ex.userId === td.userId)).length + excelData.current.length;
+        if(maxCount < count) showErrorMessage('TOO_MANY_PERSON', count - maxCount)
         setCsvConfirmLoading(true);
         CustomAxiosPost(
             updateCSVApi(adminId, selectedApplication),
@@ -94,7 +98,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 showErrorMessage("FAIL_CSV_UPLOAD");
             }
         );
-    }, [adminId, selectedApplication]);
+    }, [adminId, selectedApplication, tableData, maxCount]);
 
     const downloadCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
@@ -118,9 +122,9 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             setDownloadConfirmVisible(false);
         }, () => {
             setCsvConfirmLoading(false);
-            showErrorMessage('다운로드에 실패하였습니다!')
-        });
-    }, [_tableData, selectedApplication])
+            showErrorMessage('EXCEL_DOWNLOAD_FAIL')
+        }, lang);
+    }, [_tableData, selectedApplication, lang])
 
     const selectedBorder = useMemo(
         () => (
@@ -310,9 +314,9 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
             okLoading={csvConfirmLoading}
         >
             <h6 className="execel-modal-text">
-                사용자 정보를 다운로드할 어플리케이션을 선택해주세요.
+                <FormattedMessage id="EXCEL_DOWNLOAD_TITLE"/>
             </h6>
-            <div>* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.</div>
+            <div><FormattedMessage id="EXCEL_DOWNLOAD_DESCRIPTION"/></div>
             <select
                 className="excel-select"
                 value={selectedApplication}

@@ -43,9 +43,12 @@ const locales = {
     SUCCESS_USER_UPDATED: 'Successfully changed the user information.',
     LOGIN_SUCCESS: 'Login success!',
     IS_NOT_CSV: 'Please upload a .csv file.',
-    PLEASE_SELECTE_APPLICATION: 'Please select an application name.',
-    INVALID_CSV_USERID_DATA: '업로드 실패! {param}번째 사용자의 아이디를 확인해주세요.',
-    INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.'
+    PLEASE_SELECTE_APPLICATION: 'Please select an application.',
+    INVALID_CSV_USERID_DATA: 'Upload failed! Please check the user ID of the user on the line {param}.',
+    INVALID_CSV_EMAIL_DATA: 'Upload failed! Please check the email of the user on the line {param}.',
+    TOO_MANY_PERSON: '사용 가능한 사용자 수를 초과하였습니다. 초과된 사용자 수 : {param}',
+    EXCEL_EMPTY: '사용자 정보가 존재하지 않습니다.',
+    EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다!'
   },
   KR: {
     success: "성공하였습니다!",
@@ -80,7 +83,7 @@ const locales = {
     PAYMENT_FAIL: '결제 실패하였습니다.',
     SUBCRIPTION_CANCEL_SUCCESS: '구독 취소에 성공하였습니다.',
     PLEASE_AGREEMENT_CHECK: '이용 동의에 체크해주세요.',
-    PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '변경할 사용자 수가 너무 적습니다.',
+    PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '현재 사용자 수 보다 적은 사용자 수를 선택하셨습니다.',
     RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 로그인하실 수 있습니다.',
     RESET_PASSWORD_FAIL_MESSAGE: '비밀번호가 일치하지 않습니다.',
     SUCCESS_CSV_UPLOAD: 'CSV 업로드에 성공하였습니다.',
@@ -93,7 +96,10 @@ const locales = {
     IS_NOT_CSV: '.csv 파일을 업로드해주세요.',
     PLEASE_SELECTE_APPLICATION: '어플리케이션을 선택해주세요.',
     INVALID_CSV_USERID_DATA: '업로드 실패! {param}번째 사용자의 아이디를 확인해주세요.',
-    INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.'
+    INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.',
+    TOO_MANY_PERSON: '사용 가능한 사용자 수를 초과하였습니다. 초과된 사용자 수 : {param}',
+    EXCEL_EMPTY: '사용자 정보가 존재하지 않습니다.',
+    EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다!'
   },
 };
 

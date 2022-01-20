@@ -29,7 +29,6 @@ const locales = {
     Authentications: "Authentications",
     AuthenticationLog: "Authentication Log",
     ValidDate: "Remaining days",
-    daysleft: "",
     User: "User ID",
     Action: "Action",
     PLAN: "Plan",
@@ -112,7 +111,8 @@ const locales = {
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
-    DAYSLEFT: 'days left',
+    DAYSLEFT: '{day} days left',
+    daysLeft: "{day}",
     SUBSCRIPTION_CANCEL_TITLE: 'Cancel Auto-Renewal',
     SUBSCRIPTION_CANCEL_DESCRIPTION: 'The expiration date of {email} is {date}.\nIf you wish to apply auto-renewal for OMPASS again later on, please pay again to restart your auto-renewal payment.',
     CANCELSUBSCRIPTION: "Are you sure you want to cancel automatic payments?",
@@ -181,8 +181,11 @@ const locales = {
     CSV_DESCRIPTION_1: '* Users who already exist will be overwritten.',
     CSV_DESCRIPTION_2: '* Email will not be updated if the email address is malformed.',
     CSV_DESCRIPTION_3: '* Only .csv files are allowed.',
-    NULL_OPTION: '선택 안함',
-    POLICYTYPE: '정책 종류'
+    NULL_OPTION: 'Select',
+    USERBYPASSNOTICETEXT: '- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.',
+    EXCEL_DOWNLOAD_TITLE: 'Please select an application from which to download user information.',
+    EXCEL_DOWNLOAD_DESCRIPTION: '* User information of the selected application below will be saved as a .csv file.',
+    USED_FREE_PLAN: '무료 플랜 사용중'
   },
   KR: {
     localeChangeText: "KO",
@@ -213,7 +216,6 @@ const locales = {
     Authentications: "인증 횟수 차트",
     AuthenticationLog: "최근 인증 로그",
     ValidDate: "남은 일 수",
-    daysleft: "일",
     Administrators: "관리자 수",
     User: "사용자 아이디",
     Action: "활동",
@@ -292,11 +294,12 @@ const locales = {
     PRICECOLUMN: "금액",
     PAYMENTDATE: "결제 날짜",
     PAYMENTTYPE: "결제 종류",
-    POLICYNAME: "정책명",
+    POLICYNAME: "항목",
     DESCRIPTION: "설명",
     SETTINGTODEFAULT: "기본값으로 변경",
     POLICYTITLE: "정책명",
-    DAYSLEFT: "일 남음",
+    DAYSLEFT: "{day}일 남음",
+    daysLeft: "{day}일",
     SUBSCRIPTION_CANCEL_TITLE: "OMPASS 구독 취소",
     SUBSCRIPTION_CANCEL_DESCRIPTION:
       "{email}님의 사용 만료일은 {date}입니다.\n재사용을 원할 시 다시 결제처리를 진행해주세요.",
@@ -372,8 +375,11 @@ const locales = {
     CSV_DESCRIPTION_1: '* 이미 존재하는 사용자는 덮어쓰기 됩니다.',
     CSV_DESCRIPTION_2: '* 이메일 형식이 잘못되어 있을 경우 무시됩니다.',
     CSV_DESCRIPTION_3: '* .csv 파일만 업로드 가능합니다.',
-    NULL_OPTION: '선택 안함',
-    POLICYTYPE: '정책 종류'
+    NULL_OPTION: '선택',
+    USERBYPASSNOTICETEXT: '- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.',
+    EXCEL_DOWNLOAD_TITLE: '사용자 정보를 다운로드할 어플리케이션을 선택해주세요.',
+    EXCEL_DOWNLOAD_DESCRIPTION: '* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.',
+    USED_FREE_PLAN: '무료 플랜 사용중'
   },
 };
 

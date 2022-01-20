@@ -4,24 +4,21 @@
 }
 .LogBox .custom-table-box {
   width: 100%;
-  overflow: hidden;
 }
 
 .policy-change-container {
   text-align: initial;
-  width: 100%;
+  width: 1000px;
   padding: 1rem;
-  overflow: hidden;
 }
-.custom-table-box colgroup {
-  display: none !important;
-}
+
 .custom-table-box tr {
   width: 100%;
 }
 .policy-modal-log tr {
   font-size: 0.8rem;
 }
+
 /* .policy-modal-log tr th:nth-child(1) {
   text-align: right;
 }
@@ -31,6 +28,7 @@
 .policy-modal-log tr td:nth-child(2) {
   text-align: left;
 } */
+
 .policy-change-container h5 {
   font-size: 0.9rem;
   font-weight: bold;
@@ -42,6 +40,8 @@
   font-weight: bold;
   color: #00a9ec;
   text-align: center;
+  background-color: rgb(236, 236, 236);
+  padding: 0.4rem 0;
 }
 .policy-change-arrow2 {
   margin-top: 1rem;
@@ -53,4 +53,6 @@
   font-weight: bold;
   color: #e20000;
   text-align: center;
+  background-color: rgb(236, 236, 236);
+  padding: 0.4rem 0;
 }

@@ -28,15 +28,17 @@ const Users = ({
   const [selectView, setSelectView] = useState(0);
   const [applicationsData, setApplicationsData] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(-1);
+  const [maxUserCount, setMaxUserCount] = useState(1);
 
   useLayoutEffect(() => {
     if(adminId) {
       CustomAxiosGetAll(
         [getUsersApi(adminId), getApplicationApi(adminId)],
         [
-          (userData) => {
-            setTableData(userData);
-            _setTableData(userData);
+          ({allowedUsersCount, users}) => {
+            setMaxUserCount(allowedUsersCount)
+            setTableData(users);
+            _setTableData(users);
             setTableLoading(false);
           },
           (applicationData) => {
@@ -106,6 +108,7 @@ const Users = ({
               selectedApplication={selectedApplication}
               setSelectedApplication={setSelectedApplication}
               setTableData={setTableData}
+              maxCount={maxUserCount}
               applicationsData={applicationsData}
             />}
           />
