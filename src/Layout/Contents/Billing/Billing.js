@@ -235,7 +235,7 @@ const Billing = ({
                 fontWeight: "bold",
               }}
             >
-              {allUserNum}
+              {allUserNum} / {currentPlan && currentPlan.numberUsers}
             </b>
           </div>
           <div
