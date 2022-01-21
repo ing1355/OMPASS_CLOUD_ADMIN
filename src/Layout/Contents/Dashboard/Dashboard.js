@@ -107,14 +107,20 @@ const Dashboard = ({ userProfile, locale }) => {
       <div className="flag kr" />
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
-          <FontAwesomeIcon icon={faCaretRight} />{" "}
+          <FontAwesomeIcon icon={faCaretRight} />
           <FormattedMessage id="Overview" />
         </h4>
         <div className="DashboardFirst">
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{(!plan || plan.status === 'FREE') ? <FormattedMessage id="FREE_TRIAL"/> : plan.name}</h2>
+                <h2>
+                  {!plan || plan.status === "FREE" ? (
+                    <FormattedMessage id="FREE_TRIAL" />
+                  ) : (
+                    plan.name
+                  )}
+                </h2>
                 <h5>
                   <FontAwesomeIcon
                     style={{
@@ -129,34 +135,38 @@ const Dashboard = ({ userProfile, locale }) => {
                     ? planStatusCodes[plan.status]
                     : planStatusCodes["STOPPED"]}
                 </h5>
-                {plan && <h6>
-                  <FontAwesomeIcon
-                    style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
-                    icon={faCalendarCheck}
-                  />
-                  &nbsp;&nbsp;
-                  {plan.status === 'FREE' ? <FormattedMessage id="USED_FREE_PLAN"/> : (locale === "ko" ? (
-                    <>
-                      {plan.createDate
-                        ? getDateFormatKr(plan.createDate)
-                        : null}
-                      ~
-                      {plan.expireDate
-                        ? getDateFormatKr(plan.expireDate)
-                        : null}
-                    </>
-                  ) : (
-                    <>
-                      {plan.createDate
-                        ? getDateFormatEn(plan.createDate)
-                        : null}
-                      &nbsp;~&nbsp;
-                      {plan.expireDate
-                        ? getDateFormatEn(plan.expireDate)
-                        : null}
-                    </>
-                  ))}
-                </h6>}
+                {plan && (
+                  <h6>
+                    <FontAwesomeIcon
+                      style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
+                      icon={faCalendarCheck}
+                    />
+                    &nbsp;&nbsp;
+                    {plan.status === "FREE" ? (
+                      <FormattedMessage id="USED_FREE_PLAN" />
+                    ) : locale === "ko" ? (
+                      <>
+                        {plan.createDate
+                          ? getDateFormatKr(plan.createDate)
+                          : null}
+                        ~
+                        {plan.expireDate
+                          ? getDateFormatKr(plan.expireDate)
+                          : null}
+                      </>
+                    ) : (
+                      <>
+                        {plan.createDate
+                          ? getDateFormatEn(plan.createDate)
+                          : null}
+                        &nbsp;~&nbsp;
+                        {plan.expireDate
+                          ? getDateFormatEn(plan.expireDate)
+                          : null}
+                      </>
+                    )}
+                  </h6>
+                )}
               </div>
               <div>
                 <table className="dashboard-table">
@@ -188,7 +198,10 @@ const Dashboard = ({ userProfile, locale }) => {
                             borderTop: "0.5px solid rgb(180, 180, 180)",
                           }}
                         >
-                          <FormattedMessage id="daysLeft" values={{day: plan.remainingDate}}/>
+                          <FormattedMessage
+                            id="daysLeft"
+                            values={{ day: plan.remainingDate }}
+                          />
                         </td>
                       ) : (
                         <td
@@ -282,8 +295,11 @@ const Dashboard = ({ userProfile, locale }) => {
                 type="category"
                 allowDuplicatedCategory={false}
               />
-              <YAxis dataKey="value" interval="preserveStartEnd" 
-                padding={{ bottom: 35 }}/>
+              <YAxis
+                dataKey="value"
+                interval="preserveStartEnd"
+                padding={{ bottom: 35 }}
+              />
               <Tooltip />
               <Legend />
               {chartData.map(({ color, data, name }) => (

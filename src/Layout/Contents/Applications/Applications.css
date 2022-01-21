@@ -173,5 +173,16 @@
 }
 
 .reset-notice-text-container {
-  
+}
+.reset-notice-text-container p:first-child {
+  background-color: rgb(228, 1, 1);
+  color: #fff;
+  font-weight: bold;
+  padding: 0.3rem;
+  width: 5rem;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  /* border-radius: 20px; */
 }

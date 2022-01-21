@@ -29,6 +29,9 @@ import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+
 const ApplicationDetail = ({
   userProfile,
   tableDataUpdate,
@@ -293,8 +296,14 @@ const ApplicationDetail = ({
         confirmCallback={resetSecretKey}
       >
         <div className="reset-notice-text-container">
-          <p>* 주의 ! 현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.</p>
-          그래도 진행하시겠습니까?
+          <p>
+            <FontAwesomeIcon icon={faExclamationCircle} /> 주의
+          </p>
+          <p>
+            현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.
+            <br />
+            그래도 진행하시겠습니까?
+          </p>
         </div>
       </CustomConfirm>
     </>
