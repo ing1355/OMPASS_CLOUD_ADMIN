@@ -18,7 +18,7 @@ import {
 import {
   getPaymentHistoryApi,
   getBillingInfoApi,
-  startPaypalApi
+  startPaypalApi,
 } from "../../../Constants/Api_Route";
 import {
   CustomAxiosGetAll,
@@ -40,11 +40,7 @@ import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
 
-const Billing = ({
-  userProfile,
-  locale,
-  showErrorMessage
-}) => {
+const Billing = ({ userProfile, locale, showErrorMessage }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -54,7 +50,7 @@ const Billing = ({
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
-  const [confirmModal, setConfirmModal] = useState(false); 
+  const [confirmModal, setConfirmModal] = useState(false);
   const [paypalLoading, setPaypalLoading] = useState(false);
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(11);
@@ -68,13 +64,13 @@ const Billing = ({
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-        editions.find((e) => e.name === inputEdition).priceForOneUser
+          editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
 
   useLayoutEffect(() => {
-    if(adminId) {
+    if (adminId) {
       CustomAxiosGetAll(
         [getBillingInfoApi(adminId), getPaymentHistoryApi(adminId)],
         [
@@ -116,11 +112,10 @@ const Billing = ({
     setConfirmModal(false);
   }, []);
 
-
   const onFinish = (e) => {
     e.preventDefault();
     const { check, term, userNum } = e.target.elements;
-    if(currentPlan.status === 'RUN') {
+    if (currentPlan.status === "RUN") {
       if (allUserNum >= userNum.value)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     } else {
@@ -171,8 +166,6 @@ const Billing = ({
     );
   };
 
-  
-
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billing" />
@@ -182,11 +175,23 @@ const Billing = ({
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
-            {(!currentPlan || currentPlan.status === 'FREE') ? <FormattedMessage id="FREE_TRIAL"/> : currentPlan.name}
+            {!currentPlan || currentPlan.status === "FREE" ? (
+              <FormattedMessage id="FREE_TRIAL" />
+            ) : (
+              currentPlan.name
+            )}
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
-            {currentPlan && (currentPlan.status === 'FREE' ? '' : <FormattedMessage id="DAYSLEFT" values={{day: currentPlan.remainingDate}}/>)}
+            {currentPlan &&
+              (currentPlan.status === "FREE" ? (
+                ""
+              ) : (
+                <FormattedMessage
+                  id="DAYSLEFT"
+                  values={{ day: currentPlan.remainingDate }}
+                />
+              ))}
           </div>
         </div>
         <div className="billing-edition billing-info">
@@ -210,19 +215,29 @@ const Billing = ({
               icon={faCalendarCheck}
             />
             &nbsp;&nbsp;&nbsp;
-            {currentPlan && currentPlan.status !== 'FREE' ?
-              (locale === 'ko'
-                ? getDateFormatKr(currentPlan.createDate) +
+            {currentPlan && currentPlan.status !== "FREE" ? (
+              locale === "ko" ? (
+                getDateFormatKr(currentPlan.createDate) +
                 " ~ " +
                 getDateFormatKr(currentPlan.expireDate)
-                : getDateFormatEn(currentPlan.createDate) +
+              ) : (
+                getDateFormatEn(currentPlan.createDate) +
                 " ~ " +
-                getDateFormatEn(currentPlan.expireDate)) : <FormattedMessage id="USED_FREE_PLAN"/>}
+                getDateFormatEn(currentPlan.expireDate)
+              )
+            ) : (
+              <FormattedMessage id="USED_FREE_PLAN" />
+            )}
           </h6>
-          <SubscriptionCancel isKorea={isKorea} currentPlan={currentPlan} setCurrentPlan={setCurrentPlan} editions={editions}/>
+          <SubscriptionCancel
+            isKorea={isKorea}
+            currentPlan={currentPlan}
+            setCurrentPlan={setCurrentPlan}
+            editions={editions}
+          />
         </div>
-        <div className="billing-edition">
-          <div className="billing-edition-data">
+        <div className="billing-edition billing-edition-user-count">
+          {/* <div className="billing-edition-data">
             <FontAwesomeIcon
               style={{ fontSize: "30px", color: "#00a9ec", marginLeft: "7px" }}
               icon={faUser}
@@ -237,12 +252,30 @@ const Billing = ({
             >
               {allUserNum} / {currentPlan && currentPlan.numberUsers}
             </b>
-          </div>
-          <div
-            className="billing-edition-title"
-          // style={{ color: "#00a9ec", fontWeight: "bold" }}
-          >
+          </div> */}
+          {/* <div className="billing-edition-title">
             <FormattedMessage id="USER" />
+          </div> */}
+          <div className="billing-edition-top-box billing-edition-users">
+            <b style={{ color: "#00a9ec" }}>{allUserNum}명</b>&nbsp;/&nbsp;
+            {currentPlan && currentPlan.numberUsers}명
+          </div>
+          <div className="billing-edition-top-box">
+            <label>
+              <FontAwesomeIcon
+                style={{
+                  fontSize: "15px",
+                  color: "#00a9ec",
+                  marginRight: "5px",
+                }}
+                icon={faUser}
+              />
+              <FormattedMessage id="USER" />
+            </label>
+            <div className="progress-bar">
+              <div className="progress-bar-front"></div>
+              <div className="progress-bar-back"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -251,7 +284,11 @@ const Billing = ({
           billingsInfo.map((item, ind) => (
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
-                title={<>{editions[ind].name} <FormattedMessage id="PLAN"/></>}
+                title={
+                  <>
+                    {editions[ind].name} <FormattedMessage id="PLAN" />
+                  </>
+                }
                 subTitle={`${isKorea() ? "" : "$ "}${formatMessage(
                   { id: "PRICEUNIT" },
                   { param: slicePrice(editions[ind].priceForOneUser) }
@@ -350,23 +387,23 @@ const Billing = ({
                 <br />
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                    {
-                      param:
-                        slicePrice(
-                          inputTerm === "MONTHLY" ? cost : cost * 12
-                        ) + (isKorea() ? "원" : "$"),
-                    }
-                  )
+                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )
                   : formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                    {
-                      param:
-                        slicePrice(
-                          inputTerm === "MONTHLY" ? cost : cost * 12
-                        ) + (isKorea() ? "원" : "$"),
-                    }
-                  )}
+                      { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )}
               </label>
             </div>
           </div>
@@ -417,7 +454,7 @@ const Billing = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
-    locale: state.locale
+    locale: state.locale,
   };
 }
 

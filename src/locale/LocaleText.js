@@ -84,8 +84,8 @@ const locales = {
     SECRETKEY: "Secret Key",
     SECRETKEYRESET: "Get New",
     ADMINREGISTER: "Add Admin User",
-    PERMIT: 'Permit',
-    DENY: 'Deny',
+    PERMIT: "Permit",
+    DENY: "Deny",
     USER: "User",
     PERUSER: "User",
     PRICEUNIT: "{param}",
@@ -111,10 +111,11 @@ const locales = {
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
-    DAYSLEFT: '{day} days left',
+    DAYSLEFT: "{day} days left",
     daysLeft: "{day}",
-    SUBSCRIPTION_CANCEL_TITLE: 'Cancel Auto-Renewal',
-    SUBSCRIPTION_CANCEL_DESCRIPTION: 'The expiration date of {email} is {date}.\nIf you wish to apply auto-renewal for OMPASS again later on, please pay again to restart your auto-renewal payment.',
+    SUBSCRIPTION_CANCEL_TITLE: "Cancel Auto-Renewal",
+    SUBSCRIPTION_CANCEL_DESCRIPTION:
+      "The expiration date of {email} is {date}.\nIf you wish to apply auto-renewal for OMPASS again later on, please pay again to restart your auto-renewal payment.",
     CANCELSUBSCRIPTION: "Are you sure you want to cancel automatic payments?",
     NORESTRICTION: "No restrictions",
     GLOBALPOLICYDESCRIPTION:
@@ -131,7 +132,7 @@ const locales = {
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
-    USERLOCATIONENABLEPOLICYTITLE: '사용자 위치 제한 사용 여부',
+    USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
       "Access attempts from unknown countries do not apply.",
@@ -176,18 +177,23 @@ const locales = {
     BILLINGPLANDESCRIPTION1_2: "Authenticate without password",
     BILLINGPLANDESCRIPTION1_3: "Two-Factor Authentication (2FA)",
     BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
-    GODOCUMENT: 'Go Document',
-    POLICYDISABLEDTITLE: 'Sorry, this policy cannot be selected.',
-    POLICYDISABLEDDESCRIPTION: 'This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.',
-    CSV_DESCRIPTION_1: '* Users who already exist will be overwritten.',
-    CSV_DESCRIPTION_2: '* Email will not be updated if the email address is malformed.',
-    CSV_DESCRIPTION_3: '* Only .csv files are allowed.',
-    NULL_OPTION: 'Select',
-    USERBYPASSNOTICETEXT: '- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.',
-    EXCEL_DOWNLOAD_TITLE: 'Please select an application from which to download user information.',
-    EXCEL_DOWNLOAD_DESCRIPTION: '* User information of the selected application below will be saved as a .csv file.',
-    USED_FREE_PLAN: 'Free',
-    FREE_TRIAL: 'Free Trial'
+    GODOCUMENT: "Go Document",
+    POLICYDISABLEDTITLE: "Sorry, this policy cannot be selected.",
+    POLICYDISABLEDDESCRIPTION:
+      "This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.",
+    CSV_DESCRIPTION_1: "* Users who already exist will be overwritten.",
+    CSV_DESCRIPTION_2:
+      "* Email will not be updated if the email address is malformed.",
+    CSV_DESCRIPTION_3: "* Only .csv files are allowed.",
+    NULL_OPTION: "Select",
+    USERBYPASSNOTICETEXT:
+      "- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.",
+    EXCEL_DOWNLOAD_TITLE:
+      "Please select an application from which to download user information.",
+    EXCEL_DOWNLOAD_DESCRIPTION:
+      "* User information of the selected application below will be saved as a .csv file.",
+    USED_FREE_PLAN: "Free",
+    FREE_TRIAL: "Free Trial",
   },
   KR: {
     localeChangeText: "KO",
@@ -249,7 +255,7 @@ const locales = {
     CLOSE: "닫기",
     DUPLICATECHECK: "중복 확인",
     BILLINGCYCLE: "결제 주기",
-    USERNUM: "사용자 수",
+    USERNUM: "최대 사용자 수",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -273,8 +279,8 @@ const locales = {
     SECRETKEY: "비밀 키",
     SECRETKEYRESET: "비밀 키 재발급",
     ADMINREGISTER: "관리자 등록",
-    PERMIT: '허용',
-    DENY: '거부',
+    PERMIT: "허용",
+    DENY: "거부",
     USER: "사용자",
     PERUSER: "1인",
     PRICEUNIT: "{param}",
@@ -324,7 +330,7 @@ const locales = {
       "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
-    USERLOCATIONENABLEPOLICYTITLE: '사용자 위치 제한 사용 여부',
+    USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
       "알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
@@ -375,15 +381,18 @@ const locales = {
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
       "이 항목은 OMPASS 인증 제어 정책이 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.",
-    CSV_DESCRIPTION_1: '* 이미 존재하는 사용자는 덮어쓰기 됩니다.',
-    CSV_DESCRIPTION_2: '* 이메일 형식이 잘못되어 있을 경우 무시됩니다.',
-    CSV_DESCRIPTION_3: '* .csv 파일만 업로드 가능합니다.',
-    NULL_OPTION: '선택',
-    USERBYPASSNOTICETEXT: '- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.',
-    EXCEL_DOWNLOAD_TITLE: '사용자 정보를 다운로드할 어플리케이션을 선택해주세요.',
-    EXCEL_DOWNLOAD_DESCRIPTION: '* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.',
-    USED_FREE_PLAN: '무료 플랜 사용중',
-    FREE_TRIAL: '무료 플랜'
+    CSV_DESCRIPTION_1: "* 이미 존재하는 사용자는 덮어쓰기 됩니다.",
+    CSV_DESCRIPTION_2: "* 이메일 형식이 잘못되어 있을 경우 무시됩니다.",
+    CSV_DESCRIPTION_3: "* .csv 파일만 업로드 가능합니다.",
+    NULL_OPTION: "선택",
+    USERBYPASSNOTICETEXT:
+      "- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.",
+    EXCEL_DOWNLOAD_TITLE:
+      "사용자 정보를 다운로드할 어플리케이션을 선택해주세요.",
+    EXCEL_DOWNLOAD_DESCRIPTION:
+      "* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.",
+    USED_FREE_PLAN: "무료 플랜 사용중",
+    FREE_TRIAL: "무료 플랜",
   },
 };
 
