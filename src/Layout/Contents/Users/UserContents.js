@@ -30,7 +30,6 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 const columns = ["userId", "email"];
                 const result = [];
                 try {
-                    console.log(jsonData);
                     if(jsonData.length === 0) throw {
                         msg: 'users empty'
                     }
@@ -78,7 +77,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
 
     const submitCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
-        const userCount = Math.abs(tableData.length - excelData.current.filter(ex => !tableData.find(td => td.appId === selectedApplication && td.userId === ex.userId)).length);
+        const userCount = tableData.length + excelData.current.filter(ex => !tableData.find(td => td.appId === selectedApplication && td.userId === ex.userId)).length;
         if(maxCount < userCount) return showErrorMessage('TOO_MANY_PERSON', userCount - maxCount)
         setCsvConfirmLoading(true);
         CustomAxiosPost(
@@ -248,6 +247,21 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
         <div className="excel-button-box">
             <div>
                 <CustomButton
+                    id="download"
+                    className="excel-button"
+                    style={{
+                        float: "right",
+                        minWidth: lang === "ko" ? 170 : 200,
+                    }}
+                    onClick={downloadCsvEvent}
+                >
+                    <DownloadOutlined />
+                    &nbsp;&nbsp;
+                    <FormattedMessage id="EXCELDOWNLOAD" />
+                </CustomButton>
+            </div>
+            <div style={{ marginLeft: "1rem" }}>
+                <CustomButton
                     className="excel-button"
                     style={{ minWidth: lang === "ko" ? 170 : 200 }}>
                     <label
@@ -263,21 +277,6 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         style={{ display: "none" }}
                         onInput={uploadCSVEvent}
                     />
-                </CustomButton>
-            </div>
-            <div style={{ marginLeft: "1rem" }}>
-                <CustomButton
-                    id="download"
-                    className="excel-button"
-                    style={{
-                        float: "right",
-                        minWidth: lang === "ko" ? 170 : 200,
-                    }}
-                    onClick={downloadCsvEvent}
-                >
-                    <DownloadOutlined />
-                    &nbsp;&nbsp;
-                    <FormattedMessage id="EXCELDOWNLOAD" />
                 </CustomButton>
             </div>
         </div>

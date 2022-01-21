@@ -211,7 +211,7 @@ const UserDetail = ({
                   CustomAxiosDelete(
                     deleteUserApi(adminId, appId, userId),
                     () => {
-                      if (deleteCallback) deleteCallback(userId);
+                      if (deleteCallback) deleteCallback(userId, appId);
                       navigate("/Users");
                     }
                   );

@@ -85,8 +85,8 @@ const Users = ({
     [tableData]
   );
 
-  const deleteCallback = (userId) => {
-    setTableData(tableData.filter((t) => t.userId !== userId));
+  const deleteCallback = (userId, appId) => {
+    setTableData(tableData.filter((t) => !(userId === t.userId && t.appId === appId)));
   };
 
   return (

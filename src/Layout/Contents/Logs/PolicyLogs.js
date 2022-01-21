@@ -100,31 +100,28 @@ const PolicyLogs = ({ userProfile, locale }) => {
                       value: d === 'userLocationEnable' ? (selectedData.changes.beforePolicy[d] ? 'ACTIVE' : 'INACTIVE') :
                         (d === "userLocations"
                           ? selectedData.changes.beforePolicy[d].map(
-                              (_d, _ind, _arr) =>
-                                `${
-                                  _d.location === "ETC"
-                                    ? _arr.length > 1
-                                      ? formatMessage({ id: "ETCUSERLOCATION" })
-                                      : formatMessage({ id: "ALLUSERLOCATION" })
-                                    : locale === "ko"
-                                    ? countryCodes_KR[_d.location]
-                                    : countryCodes_US[_d.location]
-                                } : ${
-                                  _d.status
-                                    ? formatMessage({ id: "PERMIT" })
-                                    : formatMessage({ id: "DENY" })
-                                } `
-                            ).join(', ')
+                            (_d, _ind, _arr) =>
+                              `${_d.location === "ETC"
+                                ? _arr.length > 1
+                                  ? formatMessage({ id: "ETCUSERLOCATION" })
+                                  : formatMessage({ id: "ALLUSERLOCATION" })
+                                : locale === "ko"
+                                  ? countryCodes_KR[_d.location]
+                                  : countryCodes_US[_d.location]
+                              } : ${_d.status
+                                ? formatMessage({ id: "PERMIT" })
+                                : formatMessage({ id: "DENY" })
+                              } `
+                          ).join(', ')
                           : (Array.isArray(selectedData.changes.beforePolicy[d])
-                          ? selectedData.changes.beforePolicy[d].join(', ')
-                          : selectedData.changes.beforePolicy[d])),
+                            ? selectedData.changes.beforePolicy[d].join(', ')
+                            : selectedData.changes.beforePolicy[d])),
                     }))}
                 />
-                <div></div>
+                <p className="policy-change-arrow2">↓</p>
+                <p className="policy-change-arrow3">변경 후</p>
               </>
             )}
-            <p className="policy-change-arrow2">↓</p>
-            <p className="policy-change-arrow3">변경 후</p>
             <div className="policy-modal-log">
               <CustomTable
                 columns={PolicyLogsChangeColumns}
@@ -132,27 +129,25 @@ const PolicyLogs = ({ userProfile, locale }) => {
                   .filter((d) => d !== "title" && d !== "active")
                   .map((d) => ({
                     type: d,
-                    value: d === 'userLocationEnable' ? (selectedData.changes.beforePolicy[d] ? 'ACTIVE' : 'INACTIVE') :
-                      (d === "userLocations" 
+                    value: d === 'userLocationEnable' ? (selectedData.changes.afterPolicy[d] ? 'ACTIVE' : 'INACTIVE') :
+                      (d === "userLocations"
                         ? selectedData.changes.afterPolicy[d].map(
-                            (_d, _ind, _arr) =>
-                              `${
-                                _d.location === "ETC"
-                                  ? _arr.length > 1
-                                    ? formatMessage({ id: "ETCUSERLOCATION" })
-                                    : formatMessage({ id: "ALLUSERLOCATION" })
-                                  : locale === "ko"
-                                  ? countryCodes_KR[_d.location]
-                                  : countryCodes_US[_d.location]
-                              } : ${
-                                _d.status
-                                  ? formatMessage({ id: "PERMIT" })
-                                  : formatMessage({ id: "DENY" })
-                              } `
-                          )
+                          (_d, _ind, _arr) =>
+                            `${_d.location === "ETC"
+                              ? _arr.length > 1
+                                ? formatMessage({ id: "ETCUSERLOCATION" })
+                                : formatMessage({ id: "ALLUSERLOCATION" })
+                              : locale === "ko"
+                                ? countryCodes_KR[_d.location]
+                                : countryCodes_US[_d.location]
+                            } : ${_d.status
+                              ? formatMessage({ id: "PERMIT" })
+                              : formatMessage({ id: "DENY" })
+                            } `
+                        )
                         : (Array.isArray(selectedData.changes.afterPolicy[d])
-                        ? selectedData.changes.afterPolicy[d].toString()
-                        : selectedData.changes.afterPolicy[d])),
+                          ? selectedData.changes.afterPolicy[d].toString()
+                          : selectedData.changes.afterPolicy[d])),
                   }))}
               />
             </div>

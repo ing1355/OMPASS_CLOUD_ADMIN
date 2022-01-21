@@ -171,7 +171,7 @@ export const PolicyLogsChangeColumns = [
   },
   {
     name: "Status",
-    key: "value",
+    key: "value"
   },
 ];
 

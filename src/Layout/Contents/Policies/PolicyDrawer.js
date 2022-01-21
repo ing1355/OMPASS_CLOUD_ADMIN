@@ -60,7 +60,6 @@ const Global_Policy = ({
   const [inputAuthCheck, setInputAuthCheck] = useState(null);
   const [inputUserLocations, setInputUserLocations] = useState([]);
   const [inputBrowserCheck, setInputBrowserCheck] = useState([]);
-  // const [inputMobileCheck, setInputMobileCheck] = useState(null);
   const [userLocationsEnable, setUserLocationsEnable] = useState(false);
   const isKorea = useCallback(() => (lang === "ko" ? true : false), [lang]);
   const locationList = Object.keys(
@@ -85,7 +84,6 @@ const Global_Policy = ({
     setInputUserLocations([]);
     setInputBrowserCheck([]);
     setUserLocationsEnable(false);
-    // setInputMobileCheck(null);
   }, []);
 
   useLayoutEffect(() => {
@@ -98,7 +96,13 @@ const Global_Policy = ({
     if (!visible) {
       InputInit();
     }
-  }, [visible, InputInit]);
+  }, [visible]);
+  
+  useLayoutEffect(() => {
+    if(visible && !isEditPolicy) {
+      defaultPolicySetting()
+    }
+  },[visible, isEditPolicy])
 
   useLayoutEffect(() => {
     if (editData) {
@@ -108,20 +112,18 @@ const Global_Policy = ({
         userLocations,
         browsers,
         userLocationEnable,
-        // mobilePatch,
       } = editData;
       if (title) setInputTitle(title);
       if (accessControl) setInputAuthCheck(accessControl);
       if (userLocations && userLocations.length) setInputUserLocations(userLocations.sort(u => u.location === 'ETC' ? 1 : -1));
       else setInputUserLocations([{ location: "ETC", status: true }]);
       if (browsers) setInputBrowserCheck(browsers);
-      // if (mobilePatch) setInputMobileCheck(mobilePatch);
       if (userLocationEnable) setUserLocationsEnable(userLocationEnable)
       setIsExistTitle(true);
     } else {
-      InputInit();
+      InputInit()
     }
-  }, [editData, InputInit]);
+  }, [editData]);
 
   const _saveCallback = useCallback(() => {
     if (isCustomPolicy) {
@@ -130,7 +132,7 @@ const Global_Policy = ({
         return showErrorMessage("PLEASE_CHECK_EXIST");
       }
     }
-    const {title, accessControl, userLocationEnable, userLocations, browsers} = editData;
+    const {title, accessControl, userLocationEnable, userLocations, browsers} = editData || {};
     const result = {};
     if (inputTitle) result.title = inputTitle;
     if (inputAuthCheck) result.accessControl = inputAuthCheck;
@@ -239,10 +241,6 @@ const Global_Policy = ({
     [inputBrowserCheck]
   );
 
-  // const changeInputMobilecheck = useCallback((e) => {
-  //   setInputMobileCheck(e.target.value);
-  // }, []);
-
   const checkExistTitle = useCallback(() => {
     if (!inputTitle) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
     if (!policyTitleTest(inputTitle)) return showErrorMessage('POLICY_NAME_RULE_ERROR')
@@ -263,18 +261,16 @@ const Global_Policy = ({
     setVisible(false);
   }, []);
 
-  const defaultPolicySetting = () => {
+  const defaultPolicySetting = useCallback(() => {
     const {
       accessControl,
       browsers,
-      // mobilePatch,
       userLocations,
-    } = defaultPolicies;
+    } = defaultPolicies || {};
     setInputAuthCheck(accessControl);
     setInputBrowserCheck(browsers);
-    // setInputMobileCheck(mobilePatch);
     setInputUserLocations(userLocations);
-  };
+  }, [defaultPolicies]);
 
   return (
     <Drawer
@@ -540,42 +536,6 @@ const Global_Policy = ({
               </div>
             ))}
           </section>
-
-          {/* -------------OMPASS Mobile app ------------- */}
-          {/* <section className="policies-box">
-            <h2>
-              <FormattedMessage id="OMPASSMOBILEPOLICYTITLE" />
-            </h2>
-            <div className="policies-sub-box">
-              <input
-                name="mobile"
-                value={true}
-                type="radio"
-                disabled={isDisabled}
-                checked={inputMobileCheck === true || inputMobileCheck === 'true'}
-                style={{ width: "15px" }}
-                onChange={changeInputMobilecheck}
-              />
-              <label className="label-radio">
-                <FormattedMessage id="OMPASSMOBILEPOLICYACTIVE" />
-              </label>
-            </div>
-            <div className="policies-sub-box">
-              <input
-                name="mobile"
-                value={false}
-                type="radio"
-                disabled={isDisabled}
-                checked={inputMobileCheck === false || inputMobileCheck === 'false'}
-                style={{ width: "15px" }}
-                onChange={changeInputMobilecheck}
-              />
-              <label className="label-radio">
-                <FormattedMessage id="OMPASSMOBILEPOLICYINACTIVE" />
-              </label>
-            </div>
-
-          </section> */}
         </div>
       </div>
     </Drawer>
