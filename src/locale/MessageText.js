@@ -32,7 +32,7 @@ const locales = {
     PAYMENT_FAIL: 'Sorry, payment failed!',
     SUBCRIPTION_CANCEL_SUCCESS: 'Your upcoming recurring payment is successfully cancelled.',
     PLEASE_AGREEMENT_CHECK: 'Please check the terms of use and privacy policy.',
-    PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: 'Please change the number of user higher than before.',
+    PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: 'You have selected fewer number of users than the current number of registered users.',
     RESET_PASSWORD_SUCCESS_MESSAGE: 'You can now sign into your admin account by new password.',
     RESET_PASSWORD_FAIL_MESSAGE: 'Passwords do not match.',
     SUCCESS_CSV_UPLOAD: 'Successfully uploaded the CSV file.',
@@ -46,9 +46,9 @@ const locales = {
     PLEASE_SELECTE_APPLICATION: 'Please select an application.',
     INVALID_CSV_USERID_DATA: 'Upload failed! Please check the user ID of the user on the line {param}.',
     INVALID_CSV_EMAIL_DATA: 'Upload failed! Please check the email of the user on the line {param}.',
-    TOO_MANY_PERSON: '사용 가능한 사용자 수를 초과하였습니다. 초과된 사용자 수 : {param}',
-    EXCEL_EMPTY: '사용자 정보가 존재하지 않습니다.',
-    EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다!'
+    TOO_MANY_PERSON: 'The number of prepaid OMPASS users are exceeded. Exceeded number of users are {param}.',
+    EXCEL_EMPTY: 'There is no user information from the file.',
+    EXCEL_DOWNLOAD_FAIL: 'Failed to download! Please contact to OMPASS customer service by clicking the icon at the bottom right.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -97,9 +97,9 @@ const locales = {
     PLEASE_SELECTE_APPLICATION: '어플리케이션을 선택해주세요.',
     INVALID_CSV_USERID_DATA: '업로드 실패! {param}번째 사용자의 아이디를 확인해주세요.',
     INVALID_CSV_EMAIL_DATA: '업로드 실패! {param}번째 사용자의 이메일을 확인해주세요.',
-    TOO_MANY_PERSON: '사용 가능한 사용자 수를 초과하였습니다. 초과된 사용자 수 : {param}',
+    TOO_MANY_PERSON: '결제하신 OMPASS 사용자 수를 초과하였습니다. 초과된 사용자 수는 {param}명입니다.',
     EXCEL_EMPTY: '사용자 정보가 존재하지 않습니다.',
-    EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다!'
+    EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다! OMPASS 고객센터에 문의해 주세요.'
   },
 };
 

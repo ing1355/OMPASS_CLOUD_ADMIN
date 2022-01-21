@@ -114,7 +114,7 @@ const Dashboard = ({ userProfile, locale }) => {
           <ul className="plan-info-box">
             <li>
               <div>
-                <h2>{plan.name}</h2>
+                <h2>{(!plan || plan.status === 'FREE') ? <FormattedMessage id="FREE_TRIAL"/> : plan.name}</h2>
                 <h5>
                   <FontAwesomeIcon
                     style={{

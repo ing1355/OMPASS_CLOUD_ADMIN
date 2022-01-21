@@ -6,10 +6,12 @@
   width: 100%;
 }
 
-.policy-change-container {
-  text-align: initial;
-  width: 1000px;
-  padding: 1rem;
+.policy-change-container > .ant-modal {
+  width: 800px !important;
+}
+
+.policy-change-container .custom-modal-content-container {
+  display: block;
 }
 
 .custom-table-box tr {
@@ -18,16 +20,6 @@
 .policy-modal-log tr {
   font-size: 0.8rem;
 }
-
-/* .policy-modal-log tr th:nth-child(1) {
-  text-align: right;
-}
-.policy-modal-log tr th:nth-child(2) {
-  text-align: left;
-}
-.policy-modal-log tr td:nth-child(2) {
-  text-align: left;
-} */
 
 .policy-change-container h5 {
   font-size: 0.9rem;

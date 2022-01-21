@@ -182,7 +182,7 @@ const Billing = ({
       <section className="billing-edition-container">
         <div className="billing-edition">
           <div className="billing-edition-data">
-            {currentPlan ? currentPlan.name : null}
+            {(!currentPlan || currentPlan.status === 'FREE') ? <FormattedMessage id="FREE_TRIAL"/> : currentPlan.name}
           </div>
           {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
@@ -251,7 +251,7 @@ const Billing = ({
           billingsInfo.map((item, ind) => (
             <div key={ind} className="billing-info-contents">
               <BillingInfoCard
-                title={editions[ind].name + " " + formatMessage({ id: "PLAN" })}
+                title={<>{editions[ind].name} <FormattedMessage id="PLAN"/></>}
                 subTitle={`${isKorea() ? "" : "$ "}${formatMessage(
                   { id: "PRICEUNIT" },
                   { param: slicePrice(editions[ind].priceForOneUser) }
@@ -277,7 +277,7 @@ const Billing = ({
 
       <section className="billing-change-container">
         <h2>
-          OMPASS Plan <FormattedMessage id="PAYMENT" />
+          OMPASS <FormattedMessage id="PAYMENT" />
         </h2>
         <form onSubmit={onFinish}>
           <div className="billing-change-item">

@@ -134,7 +134,7 @@ const PaymentModal = ({ showSuccessMessage, showErrorMessage, userProfile, isKor
         cancelCallback={closeConfirmModal}
     >
         <div>
-            <FormattedMessage id="PLAN"/> : {inputEdition} Plan
+            <FormattedMessage id="PLAN"/> : {inputEdition}
             <br />
             <FormattedMessage id="USERNUM" /> : {inputUserNum}
             <br />

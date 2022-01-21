@@ -131,6 +131,7 @@ const locales = {
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
+    USERLOCATIONENABLEPOLICYTITLE: '사용자 위치 제한 사용 여부',
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
       "Access attempts from unknown countries do not apply.",
@@ -185,7 +186,8 @@ const locales = {
     USERBYPASSNOTICETEXT: '- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.',
     EXCEL_DOWNLOAD_TITLE: 'Please select an application from which to download user information.',
     EXCEL_DOWNLOAD_DESCRIPTION: '* User information of the selected application below will be saved as a .csv file.',
-    USED_FREE_PLAN: '무료 플랜 사용중'
+    USED_FREE_PLAN: 'Free',
+    FREE_TRIAL: 'Free Trial'
   },
   KR: {
     localeChangeText: "KO",
@@ -322,6 +324,7 @@ const locales = {
       "모든 사용자에 대한 OMPASS 인증을 거부합니다.",
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
+    USERLOCATIONENABLEPOLICYTITLE: '사용자 위치 제한 사용 여부',
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
       "알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
@@ -379,7 +382,8 @@ const locales = {
     USERBYPASSNOTICETEXT: '- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.',
     EXCEL_DOWNLOAD_TITLE: '사용자 정보를 다운로드할 어플리케이션을 선택해주세요.',
     EXCEL_DOWNLOAD_DESCRIPTION: '* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.',
-    USED_FREE_PLAN: '무료 플랜 사용중'
+    USED_FREE_PLAN: '무료 플랜 사용중',
+    FREE_TRIAL: '무료 플랜'
   },
 };
 

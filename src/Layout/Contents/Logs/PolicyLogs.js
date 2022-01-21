@@ -79,7 +79,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
         visible={changeModalVisible}
         maskClosable={true}
         footer={null}
-        className="policy-change-container"
+        wrapClassName="policy-change-container"
         cancelCallback={closeModal}
       >
         {selectedData && (
@@ -89,14 +89,6 @@ const PolicyLogs = ({ userProfile, locale }) => {
             <h5>시각 : {selectedData.createdDate}</h5> */}
             {selectedData.changes.beforePolicy && (
               <>
-                {console.log(
-                  Object.keys(selectedData.changes.beforePolicy)
-                    .filter((d) => d !== "title" && d !== "active")
-                    .map((d) => ({
-                      type: d,
-                      value: selectedData.changes.beforePolicy[d],
-                    }))
-                )}
                 <p className="policy-change-arrow">변경 전</p>
                 <CustomTable
                   className="policy-modal-log"
@@ -105,8 +97,8 @@ const PolicyLogs = ({ userProfile, locale }) => {
                     .filter((d) => d !== "title" && d !== "active")
                     .map((d) => ({
                       type: d,
-                      value:
-                        d === "userLocations"
+                      value: d === 'userLocationEnable' ? (selectedData.changes.beforePolicy[d] ? 'ACTIVE' : 'INACTIVE') :
+                        (d === "userLocations"
                           ? selectedData.changes.beforePolicy[d].map(
                               (_d, _ind, _arr) =>
                                 `${
@@ -122,10 +114,10 @@ const PolicyLogs = ({ userProfile, locale }) => {
                                     ? formatMessage({ id: "PERMIT" })
                                     : formatMessage({ id: "DENY" })
                                 } `
-                            )
-                          : Array.isArray(selectedData.changes.beforePolicy[d])
-                          ? selectedData.changes.beforePolicy[d].toString()
-                          : selectedData.changes.beforePolicy[d],
+                            ).join(', ')
+                          : (Array.isArray(selectedData.changes.beforePolicy[d])
+                          ? selectedData.changes.beforePolicy[d].join(', ')
+                          : selectedData.changes.beforePolicy[d])),
                     }))}
                 />
                 <div></div>
@@ -140,8 +132,8 @@ const PolicyLogs = ({ userProfile, locale }) => {
                   .filter((d) => d !== "title" && d !== "active")
                   .map((d) => ({
                     type: d,
-                    value:
-                      d === "userLocations"
+                    value: d === 'userLocationEnable' ? (selectedData.changes.beforePolicy[d] ? 'ACTIVE' : 'INACTIVE') :
+                      (d === "userLocations" 
                         ? selectedData.changes.afterPolicy[d].map(
                             (_d, _ind, _arr) =>
                               `${
@@ -158,9 +150,9 @@ const PolicyLogs = ({ userProfile, locale }) => {
                                   : formatMessage({ id: "DENY" })
                               } `
                           )
-                        : Array.isArray(selectedData.changes.afterPolicy[d])
+                        : (Array.isArray(selectedData.changes.afterPolicy[d])
                         ? selectedData.changes.afterPolicy[d].toString()
-                        : selectedData.changes.afterPolicy[d],
+                        : selectedData.changes.afterPolicy[d])),
                   }))}
               />
             </div>

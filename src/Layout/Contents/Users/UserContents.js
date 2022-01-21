@@ -30,6 +30,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                 const columns = ["userId", "email"];
                 const result = [];
                 try {
+                    console.log(jsonData);
                     if(jsonData.length === 0) throw {
                         msg: 'users empty'
                     }
@@ -77,8 +78,8 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
 
     const submitCSV = useCallback(() => {
         if (selectedApplication === -1) return showErrorMessage('PLEASE_SELECTE_APPLICATION')
-        const count = tableData.length - tableData.filter(td => td.appId === selectedApplication && excelData.current.find(ex => ex.userId === td.userId)).length + excelData.current.length;
-        if(maxCount < count) showErrorMessage('TOO_MANY_PERSON', count - maxCount)
+        const userCount = Math.abs(tableData.length - excelData.current.filter(ex => !tableData.find(td => td.appId === selectedApplication && td.userId === ex.userId)).length);
+        if(maxCount < userCount) return showErrorMessage('TOO_MANY_PERSON', userCount - maxCount)
         setCsvConfirmLoading(true);
         CustomAxiosPost(
             updateCSVApi(adminId, selectedApplication),

@@ -15,6 +15,7 @@ const CustomConfirm = ({
   closable,
   style,
   className,
+  wrapClassName
 }) => {
   return (
     <Modal
@@ -28,9 +29,9 @@ const CustomConfirm = ({
       footer={null}
       maskClosable={maskClosable || false}
       destroyOnClose
-      className={className}
+      wrapClassName={wrapClassName}
     >
-      <div className={"custom-modal-content-container"} style={{ ...style }}>
+      <div className={"custom-modal-content-container" + (className ? ' ' + className : '')} style={{ ...style }}>
         {children}
       </div>
       {footer !== null && footer !== false && (

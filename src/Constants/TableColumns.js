@@ -154,7 +154,20 @@ export const PolicyLogsChangeColumns = [
   {
     name: "POLICYNAME",
     key: "type",
-    width: 150,
+    width: 200,
+    render: (d) => {
+      switch (d) {
+        case 'accessControl':
+          return <FormattedMessage id={'ACCESSCONTROLTITLE'} />
+        case 'userLocationEnable':
+          return <FormattedMessage id={'USERLOCATIONENABLEPOLICYTITLE'} />
+        case 'userLocations':
+          return <FormattedMessage id={'USERLOCATIONPOLICYTITLE'} />
+        case 'browsers':
+          return <FormattedMessage id={'BROWSERSPOLICYTITLE'} />
+        default: return
+      }
+    },
   },
   {
     name: "Status",
@@ -296,12 +309,12 @@ export const unRegisteredUserColumns = [
 ];
 
 const getPolicyInActiveDescription = (key) =>
-  ({
-    accessControl: "NORESTRICTION",
-    userLocations: "NONEUSERLOCATIONS",
-    browsers: "NONEBROWSERS",
-    // mobilePatch: 'NOMOBILEPATCH'
-  }[key]);
+({
+  accessControl: "NORESTRICTION",
+  userLocations: "NONEUSERLOCATIONS",
+  browsers: "NONEBROWSERS",
+  // mobilePatch: 'NOMOBILEPATCH'
+}[key]);
 
 export const PolicyColumns = [
   {
