@@ -85,8 +85,6 @@ const CustomPolicy = ({
         return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
       case "browsers":
         return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
-      // case "mobilePatch":
-      //   return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
       default:
         break;
     }
@@ -111,12 +109,6 @@ const CustomPolicy = ({
       policy: "BROWSERSPOLICYTITLE",
       description: getDescription,
     },
-    // {
-    //   status: "",
-    //   key: "mobilePatch",
-    //   policy: "OMPASSMOBILEPOLICYTITLE",
-    //   description: getDescription,
-    // },
   ], [getDescription]);
 
   useLayoutEffect(() => {
@@ -159,15 +151,6 @@ const CustomPolicy = ({
                 : td.key === "userLocations"
                 ? customPoliciesData[ind].userLocationEnable
                 : target && target.length > 0,
-            // status:
-            //   td.key !== "accessControl" &&
-            //   customPoliciesData[ind].accessControl !== "ACTIVE"
-            //     ? "disable"
-            //     : td.key === "mobilePatch"
-            //     ? target
-            //     : td.key === "userLocations"
-            //     ? customPoliciesData[ind].userLocationEnable
-            //     : target && target.length > 0,
           };
         });
       })

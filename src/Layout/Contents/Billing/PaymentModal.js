@@ -31,10 +31,11 @@ const PaymentModal = ({ showSuccessMessage, showErrorMessage, userProfile, isKor
                     buyer_email,
                     buyer_name,
                     buyer_tel,
+                    iamportCode
                 } = data;
                 setConfirmLoading(false);
                 setConfirmModal(false);
-                window.IMP.init("imp92288614");
+                window.IMP.init(iamportCode);
                 window.IMP.request_pay(
                     {
                         merchant_uid,

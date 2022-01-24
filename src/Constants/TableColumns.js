@@ -2,9 +2,11 @@ import React from "react";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
+import searchIcon from "../assets/searchIcon2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "../CustomComponents/CustomButton";
+import { EllipsisOutlined } from "@ant-design/icons";
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -112,21 +114,22 @@ export const LogsColumns = [
 
 export const PolicyLogsColumns = [
   {
-    name: "POLICYTITLE",
+    name: "COLUMNPOLICYTITLE",
     key: "policyName",
     searched: true,
+    searchedOptions: ["Default Policy"],
+    getSearchedLabel: (value, lang) =>
+      value === "Default Policy"
+        ? lang === "ko"
+          ? "기본 정책"
+          : "Default Policy"
+        : value,
     maxLength: 24,
     width: 250,
-    render: (value, row) =>
-      !row.changes.afterPolicy.title ? (
-        <FormattedMessage id="DEFAULTPOLICY" />
-      ) : (
-        value
-      ),
   },
   {
     name: "User",
-    key: "userId",
+    key: "changedAdmin",
     width: 250,
     searched: true,
     maxLength: 48,
@@ -139,12 +142,16 @@ export const PolicyLogsColumns = [
   },
   { name: "Date", key: "createdDate", width: 250 },
   {
-    name: "",
+    name: "detailColumn",
     key: "detail",
-    width: 200,
+    width: 170,
     render: (callback, row) => (
-      <CustomButton className="button" onClick={callback}>
-        <FormattedMessage id="detailColumn" />
+      <CustomButton
+        className="poclicy-button-detail-button"
+        // style={{ padding: 8 }}
+        onClick={callback}
+      >
+        <EllipsisOutlined />
       </CustomButton>
     ),
   },
@@ -152,26 +159,28 @@ export const PolicyLogsColumns = [
 
 export const PolicyLogsChangeColumns = [
   {
-    name: "POLICYNAME",
+    name: "COLUMNPOLICYTITLE",
     key: "type",
     width: 200,
     render: (d) => {
       switch (d) {
-        case 'accessControl':
-          return <FormattedMessage id={'ACCESSCONTROLTITLE'} />
-        case 'userLocationEnable':
-          return <FormattedMessage id={'USERLOCATIONENABLEPOLICYTITLE'} />
-        case 'userLocations':
-          return <FormattedMessage id={'USERLOCATIONPOLICYTITLE'} />
-        case 'browsers':
-          return <FormattedMessage id={'BROWSERSPOLICYTITLE'} />
-        default: return
+        case "accessControl":
+          return <FormattedMessage id={"ACCESSCONTROLTITLE"} />;
+        case "userLocationEnable":
+          return <FormattedMessage id={"USERLOCATIONENABLEPOLICYTITLE"} />;
+        case "userLocations":
+          return <FormattedMessage id={"USERLOCATIONPOLICYTITLE"} />;
+        case "browsers":
+          return <FormattedMessage id={"BROWSERSPOLICYTITLE"} />;
+        default:
+          return;
       }
     },
   },
   {
     name: "Status",
-    key: "value"
+    key: "value",
+    render: (value) => value || "No data",
   },
 ];
 
@@ -309,12 +318,12 @@ export const unRegisteredUserColumns = [
 ];
 
 const getPolicyInActiveDescription = (key) =>
-({
-  accessControl: "NORESTRICTION",
-  userLocations: "NONEUSERLOCATIONS",
-  browsers: "NONEBROWSERS",
-  // mobilePatch: 'NOMOBILEPATCH'
-}[key]);
+  ({
+    accessControl: "NORESTRICTION",
+    userLocations: "NONEUSERLOCATIONS",
+    browsers: "NONEBROWSERS",
+    // mobilePatch: 'NOMOBILEPATCH'
+  }[key]);
 
 export const PolicyColumns = [
   {

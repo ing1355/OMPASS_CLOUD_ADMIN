@@ -233,7 +233,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
-                    {locale === "ko" ? <b>{userNum}명</b> : <b>{userNum}</b>}
+                    <b>{userNum}<FormattedMessage id="PERNUM" /></b>
                   </p>
                 </div>
                 <div>
@@ -243,11 +243,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
-                    {locale === "ko" ? (
-                      <b>{registerNum}명</b>
-                    ) : (
-                      <b>{registerNum}</b>
-                    )}
+                      <b>{registerNum}<FormattedMessage id="PERNUM" /></b>
                   </p>
                 </div>
                 <div>
@@ -257,11 +253,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
-                    {locale === "ko" ? (
-                      <b>{unRegisterNum}명</b>
-                    ) : (
-                      <b>{unRegisterNum}</b>
-                    )}
+                      <b>{unRegisterNum}<FormattedMessage id="PERNUM" /></b>
                   </p>
                 </div>
                 <div>
@@ -271,11 +263,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
-                    {locale === "ko" ? (
-                      <b>{byPassNum}명</b>
-                    ) : (
-                      <b>{byPassNum}</b>
-                    )}
+                      <b>{byPassNum}<FormattedMessage id="PERNUM" /></b>
                   </p>
                 </div>
               </div>

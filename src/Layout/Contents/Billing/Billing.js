@@ -60,11 +60,26 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
+  const getColorByUserNum = useCallback((num, maxNum) => {
+    const rate = getRateByUserNum(num, maxNum)
+    if (rate < 33) {
+      return '#00a9ec'
+    } else if (rate < 66) {
+      return '#00ec90'
+    } else {
+      return '#ecbf00'
+    }
+  }, [])
+
+  const getRateByUserNum = useCallback((num, maxNum) => {
+    return (num / maxNum) * 100;
+  }, [])
+
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-          editions.find((e) => e.name === inputEdition).priceForOneUser
+        editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -181,7 +196,6 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               currentPlan.name
             )}
           </div>
-          {/* <div className="billing-edition-title">Edition</div> */}
           <div className="billing-edition-subtitle">
             {currentPlan &&
               (currentPlan.status === "FREE" ? (
@@ -237,28 +251,9 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
           />
         </div>
         <div className="billing-edition billing-edition-user-count">
-          {/* <div className="billing-edition-data">
-            <FontAwesomeIcon
-              style={{ fontSize: "30px", color: "#00a9ec", marginLeft: "7px" }}
-              icon={faUser}
-            />
-            &nbsp; &nbsp;
-            <b
-              style={{
-                marginLeft: "1.5rem",
-                color: "#00a9ec",
-                fontWeight: "bold",
-              }}
-            >
-              {allUserNum} / {currentPlan && currentPlan.numberUsers}
-            </b>
-          </div> */}
-          {/* <div className="billing-edition-title">
-            <FormattedMessage id="USER" />
-          </div> */}
           <div className="billing-edition-top-box billing-edition-users">
-            <b style={{ color: "#00a9ec" }}>{allUserNum}명</b>&nbsp;/&nbsp;
-            {currentPlan && currentPlan.numberUsers}명
+            <b style={{ color: "#00a9ec" }}>{allUserNum}<FormattedMessage id="PERNUM" /></b>&nbsp;/&nbsp;
+            {currentPlan && currentPlan.numberUsers}<FormattedMessage id="PERNUM" />
           </div>
           <div className="billing-edition-top-box">
             <label>
@@ -273,7 +268,11 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               <FormattedMessage id="USER" />
             </label>
             <div className="progress-bar">
-              <div className="progress-bar-front"></div>
+              <div className="progress-bar-front"
+                style={{
+                  backgroundColor: getColorByUserNum(allUserNum, currentPlan && currentPlan.numberUsers),
+                  width: getRateByUserNum(allUserNum, currentPlan && currentPlan.numberUsers) + '%'
+                }}></div>
               <div className="progress-bar-back"></div>
             </div>
           </div>
@@ -387,23 +386,23 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
                 <br />
                 {inputTerm === "MONTHLY"
                   ? formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
-                    )
+                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                    {
+                      param:
+                        slicePrice(
+                          inputTerm === "MONTHLY" ? cost : cost * 12
+                        ) + (isKorea() ? "원" : "$"),
+                    }
+                  )
                   : formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
-                    )}
+                    { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                    {
+                      param:
+                        slicePrice(
+                          inputTerm === "MONTHLY" ? cost : cost * 12
+                        ) + (isKorea() ? "원" : "$"),
+                    }
+                  )}
               </label>
             </div>
           </div>
