@@ -108,6 +108,7 @@ const Dashboard = ({ userProfile, locale }) => {
       <div className="DashboardBox">
         <h4 className="DashboardTitle">
           <FontAwesomeIcon icon={faCaretRight} />
+          &nbsp;
           <FormattedMessage id="Overview" />
         </h4>
         <div className="DashboardFirst">

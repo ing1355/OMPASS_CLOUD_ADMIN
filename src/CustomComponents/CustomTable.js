@@ -12,7 +12,7 @@ import DoubleRightArrow from "../customAssets/DoubleRightArrow";
 import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
-import searchIcon from '../assets/searchIcon.png'
+import searchIcon from "../assets/searchIcon.png";
 
 const CustomTable = ({
   columns,
@@ -34,30 +34,33 @@ const CustomTable = ({
   const [tableData, setTableData] = useState([]);
   const tableColumns = multipleSelectable
     ? [
-      {
-        name: "",
-        key: "check",
-        render: (data, row) => (
-          <div>
-            <input
-              className="table-row-select-checkbox"
-              type="checkbox"
-              checked={selectedRows.includes(row[selectedId])}
-              onClick={() => {
-                rowSelect(row[selectedId]);
-              }}
-              onChange={() => { }}
-            />
-          </div>
-        ),
-      },
-      ...columns,
-    ]
+        {
+          name: "",
+          key: "check",
+          render: (data, row) => (
+            <div>
+              <input
+                className="table-row-select-checkbox"
+                type="checkbox"
+                checked={selectedRows.includes(row[selectedId])}
+                onClick={() => {
+                  rowSelect(row[selectedId]);
+                }}
+                onChange={() => {}}
+              />
+            </div>
+          ),
+        },
+        ...columns,
+      ]
     : columns;
   const firstRenderRef = useRef(false);
   const searchInputRef = useRef(null);
   const _numPerPage = numPerPage ? numPerPage : 10;
-  const pageNum = datas ? (parseInt(datas.length / _numPerPage) + (datas.length % _numPerPage === 0 ? 0 : 1)) : 0;
+  const pageNum = datas
+    ? parseInt(datas.length / _numPerPage) +
+      (datas.length % _numPerPage === 0 ? 0 : 1)
+    : 0;
   const [searchColumn, setSearchColumn] = useState(null);
   const [searchTarget, setSearchTarget] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
@@ -66,11 +69,12 @@ const CustomTable = ({
     () =>
       multipleSelectable
         ? datas.map((d) => ({
-          check: "",
-          ...d,
-        }))
+            check: "",
+            ...d,
+          }))
         : datas,
-    [multipleSelectable, datas]);
+    [multipleSelectable, datas]
+  );
 
   useLayoutEffect(() => {
     if (datas) {
@@ -87,7 +91,7 @@ const CustomTable = ({
 
   useLayoutEffect(() => {
     if (searchColumn) {
-      if (searchInputRef.current) searchInputRef.current.value = '';
+      if (searchInputRef.current) searchInputRef.current.value = "";
       setSearchTarget(columns.find((c) => c.key === searchColumn));
     }
   }, [searchColumn, columns]);
@@ -133,56 +137,55 @@ const CustomTable = ({
     setCurrentPage(currentPage + 1);
   }, [currentPage]);
 
-  const dataList = useMemo(
-    () => {
-      try {
-        if (Array.isArray(tableData)) {
-          return (pagination ? tableData
-            .slice(
-              currentPage * _numPerPage,
-              currentPage * _numPerPage + _numPerPage
-            ) : tableData)
-            .map((d, ind) => (
-              <tr
-                key={ind}
-                className={rowClick || onChangeSelectedRows ? "pointer" : ""}
-                onClick={(e) => {
-                  //  && e.target.tagName === "TD"
-                  if (rowSelectable) rowSelect(d[selectedId]);
-                  if (rowClick) rowClick(d);
-                }}
+  const dataList = useMemo(() => {
+    try {
+      if (Array.isArray(tableData)) {
+        return (
+          pagination
+            ? tableData.slice(
+                currentPage * _numPerPage,
+                currentPage * _numPerPage + _numPerPage
+              )
+            : tableData
+        ).map((d, ind) => (
+          <tr
+            key={ind}
+            className={rowClick || onChangeSelectedRows ? "pointer" : ""}
+            onClick={(e) => {
+              //  && e.target.tagName === "TD"
+              if (rowSelectable) rowSelect(d[selectedId]);
+              if (rowClick) rowClick(d);
+            }}
+          >
+            {tableColumns.map((c, _ind) => (
+              <td
+                key={_ind}
+                style={
+                  c.key === "check" ? { minWidth: "60px", width: "60px" } : null
+                }
               >
-                {tableColumns.map((c, _ind) => (
-                  <td
-                    key={_ind}
-                    style={
-                      c.key === "check" ? { minWidth: "60px", width: "60px" } : null
-                    }
-                  >
-                    {c.render ? c.render(d[c.key], d, ind) : d[c.key]}
-                  </td>
-                ))}
-              </tr>
-            ))
-        } else {
-          throw 'Table datas is wrong.'
-        }
-      } catch(e) {
-        console.log(e);
-        return []
+                {c.render ? c.render(d[c.key], d, ind) : d[c.key]}
+              </td>
+            ))}
+          </tr>
+        ));
+      } else {
+        throw "Table datas is wrong.";
       }
-    },
-    [
-      tableColumns,
-      pagination,
-      tableData,
-      currentPage,
-      numPerPage,
-      rowSelectable,
-      rowClick,
-      selectedRows,
-    ]
-  );
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  }, [
+    tableColumns,
+    pagination,
+    tableData,
+    currentPage,
+    numPerPage,
+    rowSelectable,
+    rowClick,
+    selectedRows,
+  ]);
 
   return (
     <div>
@@ -236,7 +239,11 @@ const CustomTable = ({
               className="table-search-column-input"
               name="content"
               ref={searchInputRef}
-              maxLength={searchColumn ? columns.find(c => c.key === searchColumn).maxLength || 16 : 0}
+              maxLength={
+                searchColumn
+                  ? columns.find((c) => c.key === searchColumn).maxLength || 16
+                  : 0
+              }
             />
           )}
           <button type="submit" className="button searchButton">
@@ -282,13 +289,11 @@ const CustomTable = ({
                         );
                       }
                     }}
-                    onChange={() => { }}
+                    onChange={() => {}}
                   />
                 </th>
               ) : (
-                <th key={ind}>
-                  {c.name && <FormattedMessage id={c.name} />}
-                </th>
+                <th key={ind}>{c.name && <FormattedMessage id={c.name} />}</th>
               )
             )}
           </tr>

@@ -255,7 +255,7 @@ const locales = {
     CLOSE: "닫기",
     DUPLICATECHECK: "중복 확인",
     BILLINGCYCLE: "결제 주기",
-    USERNUM: "최대 사용자 수",
+    USERNUM: "결제 인원",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
