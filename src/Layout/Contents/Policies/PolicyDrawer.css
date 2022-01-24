@@ -43,6 +43,8 @@
 .user-location-select {
   width: 30%;
   height: 50px;
+  text-align: center;
+  text-align-last: center;
 }
 
 .user-location-select:first-child {

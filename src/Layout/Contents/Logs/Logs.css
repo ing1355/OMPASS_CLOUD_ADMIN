@@ -48,3 +48,8 @@
   background-color: rgb(236, 236, 236);
   padding: 0.4rem 0;
 }
+
+.policy-change-user-container {
+  text-align: end;
+  margin-top: 24px;
+}

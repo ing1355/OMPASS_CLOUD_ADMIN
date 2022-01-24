@@ -1,8 +1,8 @@
 import React, { useCallback, useLayoutEffect, useState } from "react";
 import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
-import { CustomAxiosGet } from "../../../Functions/CustomAxios";
-import { getPolicyLogsApi } from "../../../Constants/Api_Route";
+import { CustomAxiosGet, CustomAxiosGetAll } from "../../../Functions/CustomAxios";
+import { getCustomPoliciesApi, getGlobalPolicyApi, getPolicyLogsApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../../../Constants/TableColumns";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { countryCodes_KR, countryCodes_US } from "../Policies/Country_Code";
 
 const PolicyLogs = ({ userProfile, locale }) => {
@@ -19,29 +19,36 @@ const PolicyLogs = ({ userProfile, locale }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [selectedData, setSelectedData] = useState(null);
+  const [defaultPolicyData, setDefaultPolicyData] = useState(null);
+  const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [changeModalVisible, setChangeModalVisible] = useState(false);
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
     if (adminId) {
-      CustomAxiosGet(
-        getPolicyLogsApi(adminId),
-        (data) => {
-          setTableData(
-            data.map((d) => ({
-              ...d,
-              policyName: d.changes.afterPolicy.title,
-              detail: () => {
-                setChangeModalVisible(d.policyLogId);
-              },
-            }))
-          );
-          setTableLoading(false);
-        },
-        () => {
-          setTableLoading(false);
-        }
-      );
+      CustomAxiosGetAll([getGlobalPolicyApi(adminId), getCustomPoliciesApi(adminId)], [(defaultPolicy) => {
+        setDefaultPolicyData(defaultPolicy)
+      }, (customPolicies) => {
+        setCustomPoliciesData(customPolicies)
+        CustomAxiosGet(
+          getPolicyLogsApi(adminId),
+          (data) => {
+            setTableData(
+              data.map((d) => ({
+                ...d,
+                policyName: d.type === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY"/> : d.changes.afterPolicy.title,
+                detail: () => {
+                  setChangeModalVisible(d.policyLogId);
+                },
+              }))
+            );
+            setTableLoading(false);
+          },
+          () => {
+            setTableLoading(false);
+          }
+        );
+      }])
     }
   }, [adminId]);
 
@@ -59,6 +66,14 @@ const PolicyLogs = ({ userProfile, locale }) => {
     setChangeModalVisible(false);
   }, []);
 
+  const searchTitleFunction = useCallback((rowValue, searchValue) => {
+    if (searchValue === 'Default Policy') {
+      return rowValue.policyId === defaultPolicyData.policyId
+    } else {
+      return rowValue.policyId === customPoliciesData.find(p => p.title === searchValue).policyId
+    }
+  }, [defaultPolicyData, customPoliciesData])
+
   return (
     <div className="contents-container">
       <ContentsTitle title="PolicyLogs" />
@@ -70,8 +85,10 @@ const PolicyLogs = ({ userProfile, locale }) => {
           columns={PolicyLogsColumns}
           loading={tableLoading}
           datas={tableData}
+          optionalSearchDatas={customPoliciesData.map(({ title }) => title)}
           pagination
           searched
+          searchFunction={searchTitleFunction}
           numPerPage={10}
         />
       </div>
@@ -84,12 +101,11 @@ const PolicyLogs = ({ userProfile, locale }) => {
       >
         {selectedData && (
           <div>
-            {/* <h5>정책명 : {selectedData.policyName}</h5>
-            <h5>활동 : {selectedData.act}</h5>
-            <h5>시각 : {selectedData.createdDate}</h5> */}
             {selectedData.changes.beforePolicy && (
               <>
-                <p className="policy-change-arrow">변경 전</p>
+                <p className="policy-change-arrow">
+                  <FormattedMessage id="UPDATE_BEFORE" />({selectedData.type === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY" /> : selectedData.changes.afterPolicy.title})
+                </p>
                 <CustomTable
                   className="policy-modal-log"
                   columns={PolicyLogsChangeColumns}
@@ -119,7 +135,9 @@ const PolicyLogs = ({ userProfile, locale }) => {
                     }))}
                 />
                 <p className="policy-change-arrow2">↓</p>
-                <p className="policy-change-arrow3">변경 후</p>
+                <p className="policy-change-arrow3">
+                  <FormattedMessage id="UPDATE_AFTER" />({selectedData.type === 'GLOBAL' ? <FormattedMessage id="DEFAULTPOLICY" /> : selectedData.changes.afterPolicy.title})
+                  </p>
               </>
             )}
             <div className="policy-modal-log">
@@ -144,13 +162,16 @@ const PolicyLogs = ({ userProfile, locale }) => {
                               ? formatMessage({ id: "PERMIT" })
                               : formatMessage({ id: "DENY" })
                             } `
-                        )
+                        ).join(', ')
                         : (Array.isArray(selectedData.changes.afterPolicy[d])
-                          ? selectedData.changes.afterPolicy[d].toString()
+                          ? selectedData.changes.afterPolicy[d].join(', ')
                           : selectedData.changes.afterPolicy[d])),
                   }))}
               />
             </div>
+            {selectedData.changedAdmin && <div className="policy-change-user-container">
+              <FormattedMessage id="CHANGEDADMIN" /> : {selectedData.changedAdmin}
+            </div>}
           </div>
         )}
       </CustomConfirm>

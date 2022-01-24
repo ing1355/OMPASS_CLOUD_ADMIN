@@ -24,7 +24,7 @@ const locales = {
     ERR_114: 'There is no default policy.',
     ERR_115: 'The recurring payment order does not exist.',
     ERR_116: 'Invalid API request.',
-    ERR_117: '등록 가능한 사용자 수를 초과하였습니다.'
+    ERR_117: 'The number of registered users has been exceeded.'
   },
   KR: {
     ERR_001: '토큰이 만료되었습니다.',

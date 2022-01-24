@@ -13,6 +13,7 @@ import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
 import searchIcon from '../assets/searchIcon.png'
+import { connect } from "react-redux";
 
 const CustomTable = ({
   columns,
@@ -29,6 +30,9 @@ const CustomTable = ({
   columnsHide,
   searched,
   selectedRows,
+  searchFunction,
+  locale,
+  optionalSearchDatas
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -84,7 +88,7 @@ const CustomTable = ({
       if (initialColumn) setSearchColumn(initialColumn.key);
     }
   }, [searched, columns]);
-
+  
   useLayoutEffect(() => {
     if (searchColumn) {
       if (searchInputRef.current) searchInputRef.current.value = '';
@@ -167,7 +171,7 @@ const CustomTable = ({
         } else {
           throw 'Table datas is wrong.'
         }
-      } catch(e) {
+      } catch (e) {
         console.log(e);
         return []
       }
@@ -200,9 +204,11 @@ const CustomTable = ({
             } else {
               if (!content.value) setTableData(_data);
               else
-                setTableData(
-                  _data.filter((tD) => tD[column.value].includes(content.value))
-                );
+              if(searchFunction) {
+                setTableData(_data.filter(tD => searchFunction(tD, content.value)));
+              } else {
+                setTableData(_data.filter(tD => tD[column.value].includes(content.value)));
+              }
             }
           }}
         >
@@ -223,10 +229,10 @@ const CustomTable = ({
           </select>
           {searchColumn && searchTarget.searchedOptions ? (
             <select className="table-search-column-select" name="content">
-              {searchTarget.searchedOptions.map((opt) => (
+              {((optionalSearchDatas && optionalSearchDatas.length) ? searchTarget.searchedOptions.concat(optionalSearchDatas) : searchTarget.searchedOptions).map((opt) => (
                 <option key={opt} value={opt}>
                   {searchTarget.getSearchedLabel
-                    ? searchTarget.getSearchedLabel(opt)
+                    ? searchTarget.getSearchedLabel(opt, locale)
                     : opt}
                 </option>
               ))}
@@ -240,7 +246,7 @@ const CustomTable = ({
             />
           )}
           <button type="submit" className="button searchButton">
-            <img src={searchIcon} width="60%" height="50%" />
+            <img src={searchIcon} width="55%" height="45%" className="table-search-icon" />
           </button>
         </form>
       )}
@@ -383,4 +389,15 @@ const CustomTable = ({
   );
 };
 
-export default CustomTable;
+function mapStateToProps(state) {
+  return {
+    locale: state.locale,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTable);

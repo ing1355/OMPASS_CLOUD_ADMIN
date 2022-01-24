@@ -2,6 +2,7 @@ import React from "react";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
+import searchIcon from '../assets/searchIcon.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "../CustomComponents/CustomButton";
@@ -112,21 +113,17 @@ export const LogsColumns = [
 
 export const PolicyLogsColumns = [
   {
-    name: "POLICYTITLE",
+    name: "COLUMNPOLICYTITLE",
     key: "policyName",
     searched: true,
+    searchedOptions: ["Default Policy"],
+    getSearchedLabel: (value, lang) => value === 'Default Policy' ? (lang === 'ko' ? '기본 정책' : 'Default Policy') : value,
     maxLength: 24,
-    width: 250,
-    render: (value, row) =>
-      !row.changes.afterPolicy.title ? (
-        <FormattedMessage id="DEFAULTPOLICY" />
-      ) : (
-        value
-      ),
+    width: 250
   },
   {
     name: "User",
-    key: "userId",
+    key: "changedAdmin",
     width: 250,
     searched: true,
     maxLength: 48,
@@ -139,12 +136,12 @@ export const PolicyLogsColumns = [
   },
   { name: "Date", key: "createdDate", width: 250 },
   {
-    name: "",
+    name: "detailColumn",
     key: "detail",
-    width: 200,
+    width: 125,
     render: (callback, row) => (
-      <CustomButton className="button" onClick={callback}>
-        <FormattedMessage id="detailColumn" />
+      <CustomButton className="button" style={{padding: 8}} onClick={callback}>
+        <img src={searchIcon} width="20px" height="15px"/>
       </CustomButton>
     ),
   },
@@ -152,7 +149,7 @@ export const PolicyLogsColumns = [
 
 export const PolicyLogsChangeColumns = [
   {
-    name: "POLICYNAME",
+    name: "COLUMNPOLICYTITLE",
     key: "type",
     width: 200,
     render: (d) => {
@@ -165,13 +162,14 @@ export const PolicyLogsChangeColumns = [
           return <FormattedMessage id={'USERLOCATIONPOLICYTITLE'} />
         case 'browsers':
           return <FormattedMessage id={'BROWSERSPOLICYTITLE'} />
-        default: return
+        default: return;
       }
     },
   },
   {
     name: "Status",
-    key: "value"
+    key: "value",
+    render: (value) => value || 'No data'
   },
 ];
 

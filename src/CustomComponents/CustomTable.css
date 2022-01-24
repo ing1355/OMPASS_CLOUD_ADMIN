@@ -146,6 +146,7 @@ td.no-data {
 
 .table-search-form-container {
   float: right;
+  display: flex;
   margin-bottom: 12px;
 }
 
@@ -159,6 +160,7 @@ td.no-data {
 
 .table-search-column-select,
 .table-search-column-input {
+  display: inline-flex;
   height: 40px;
   text-align: center;
   margin-right: 0.5rem;
@@ -173,6 +175,5 @@ tfoot tr {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 5.8px 4px;
-  height: 40px;
+  padding: 0;
 }
