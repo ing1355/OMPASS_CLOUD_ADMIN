@@ -199,7 +199,12 @@ const locales = {
     UPDATE_BEFORE: 'Previous',
     UPDATE_AFTER: 'Current',
     CHANGEDADMIN: 'Auditor',
-    ALLAGREE: '전체 동의'
+    ALLAGREE: '전체 동의',
+    SEE_POLICY: '약관보기',
+    TERMSOFUSE: '결제대행서비스 이용약관에 동의',
+    TERMSOFPURCHASE: '구매조건 및 환불 규정에 동의',
+    WARNING: '주의',
+    WARNINGDESCRIPTION: '현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?'
   },
   KR: {
     PERNUM: '명',
@@ -404,7 +409,12 @@ const locales = {
     UPDATE_BEFORE: '변경 전',
     UPDATE_AFTER: '변경 후',
     CHANGEDADMIN: '담당자',
-    ALLAGREE: '전체 동의'
+    ALLAGREE: '전체 동의',
+    SEE_POLICY: '약관보기',
+    TERMSOFUSE: '결제대행서비스 이용약관에 동의',
+    TERMSOFPURCHASE: '구매조건 및 환불 규정에 동의',
+    WARNING: '주의',
+    WARNINGDESCRIPTION: '현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?'
   },
 };
 

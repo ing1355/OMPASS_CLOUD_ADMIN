@@ -431,7 +431,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
                 <input type="checkbox" name="check1" checked={subCheck1} onChange={changeCheck1}/>
                 <label>
                   &nbsp;
-                  결제대행서비스 이용약관에 동의 <b className="see-policy" onClick={openTermsOfUse}>약관보기</b>
+                  <FormattedMessage id="TERMSOFUSE"/> <b className="see-policy" onClick={openTermsOfUse}><FormattedMessage id="SEE_POLICY"/></b>
                 </label>
               </div>
               <div className="sub-checkbox">
@@ -439,7 +439,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
                 <input type="checkbox" name="check1" checked={subCheck2} onChange={changeCheck2}/>
                 <label>
                   &nbsp;
-                  구매조건 및 환불 규정에 동의 <b className="see-policy" onClick={openTermsOfPurchase}>약관보기</b>
+                  <FormattedMessage id="TERMSOFPURCHASE"/> <b className="see-policy" onClick={openTermsOfPurchase}>약관보기</b>
                 </label>
               </div>
             </div>
