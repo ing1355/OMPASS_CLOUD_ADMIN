@@ -1,6 +1,5 @@
 const locales = {
   US: {
-    PERNUM: ' ',
     ApplicationsRoute: "App Management",
     localeChangeText: "EN",
     logout: "Logout",
@@ -112,7 +111,6 @@ const locales = {
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
-    COLUMNPOLICYTITLE: 'Policy Name',
     DAYSLEFT: "{day} days left",
     daysLeft: "{day}",
     SUBSCRIPTION_CANCEL_TITLE: "Cancel Auto-Renewal",
@@ -134,7 +132,7 @@ const locales = {
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
-    USERLOCATIONENABLEPOLICYTITLE: 'User Location Restrictions',
+    USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
       "Access attempts from unknown countries do not apply.",
@@ -196,12 +194,8 @@ const locales = {
       "* User information of the selected application below will be saved as a .csv file.",
     USED_FREE_PLAN: "Free",
     FREE_TRIAL: "Free Trial",
-    UPDATE_BEFORE: 'Previous',
-    UPDATE_AFTER: 'Current',
-    CHANGEDADMIN: 'Auditor'
   },
   KR: {
-    PERNUM: '명',
     localeChangeText: "KO",
     logout: "로그아웃",
     detailColumn: "상세보기",
@@ -312,7 +306,6 @@ const locales = {
     DESCRIPTION: "설명",
     SETTINGTODEFAULT: "기본값으로 변경",
     POLICYTITLE: "정책명",
-    COLUMNPOLICYTITLE: '정책명',
     DAYSLEFT: "{day}일 남음",
     daysLeft: "{day}일",
     SUBSCRIPTION_CANCEL_TITLE: "OMPASS 구독 취소",
@@ -400,9 +393,6 @@ const locales = {
       "* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.",
     USED_FREE_PLAN: "무료 플랜 사용중",
     FREE_TRIAL: "무료 플랜",
-    UPDATE_BEFORE: '변경 전',
-    UPDATE_AFTER: '변경 후',
-    CHANGEDADMIN: '담당자'
   },
 };
 

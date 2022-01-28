@@ -39,10 +39,10 @@ const AdminDetail = ({
     phone,
     role,
     subAdminId,
-    index
+    index,
   } = data;
-  const {adminId} = userProfile;
-  
+  const { adminId } = userProfile;
+
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
@@ -53,11 +53,11 @@ const AdminDetail = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   useLayoutEffect(() => {
-    if(phone) {
-      setInputDialCode(phone.split(' ')[0].slice(1,));
-      setInputFormat(phone)
+    if (phone) {
+      setInputDialCode(phone.split(" ")[0].slice(1));
+      setInputFormat(phone);
     }
-  },[phone])
+  }, [phone]);
 
   const openConfirmModal = useCallback(() => {
     setConfirmModal(true);
@@ -65,26 +65,32 @@ const AdminDetail = ({
   const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
   }, []);
-  
+
   const onFinish = (e) => {
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
-      if(!passwordTest(password.value)) return FailToTest(password, showErrorMessage('INCORRECT_PASSWORD'))
+      if (!passwordTest(password.value))
+        return FailToTest(password, showErrorMessage("INCORRECT_PASSWORD"));
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
-    if(!mobile.value.startsWith('+' + inputDialCode)) {
-      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
-      if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if (!mobile.value.startsWith("+" + inputDialCode)) {
+      if (mobile.value.length < inputDialCode.length + 1)
+        return showErrorMessage("NO_DIAL_CODE");
+      if (mobile.value.length !== inputFormat.length)
+        return showErrorMessage("PLEASE_COMPLETE_ADMIN_MOBILE");
     }
 
-    if(role === 'ADMIN' && data.country !== inputCountryCode) return showErrorMessage('DIFFERENT_COUNTRY_CODE')
-    
+    if (role === "ADMIN" && data.country !== inputCountryCode)
+      return showErrorMessage("DIFFERENT_COUNTRY_CODE");
+
     CustomAxiosPut(
-      isADMINRole(role) ? updateAdminApi(adminId) : updateSubAdminApi(adminId, subAdminId),
+      isADMINRole(role)
+        ? updateAdminApi(adminId)
+        : updateSubAdminApi(adminId, subAdminId),
       {
         country: inputCountryCode,
         phone: mobile.value,
@@ -131,32 +137,32 @@ const AdminDetail = ({
       {Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
-              <>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="FIRSTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({
-                      id: "PLEASE_INPUT_FIRST_NAME",
-                    })}
-                    maxLength={16}
-                    name="firstName"
-                    defaultValue={firstName}
-                  />
-                </div>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="LASTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
-                    maxLength={16}
-                    name="lastName"
-                    defaultValue={lastName}
-                  />
-                </div>
-              </>
+            <>
+              <div className="inputBox">
+                <span>
+                  <FormattedMessage id="FIRSTNAME" />
+                </span>
+                <input
+                  placeholder={formatMessage({
+                    id: "PLEASE_INPUT_FIRST_NAME",
+                  })}
+                  maxLength={16}
+                  name="firstName"
+                  defaultValue={firstName}
+                />
+              </div>
+              <div className="inputBox">
+                <span>
+                  <FormattedMessage id="LASTNAME" />
+                </span>
+                <input
+                  placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                  maxLength={16}
+                  name="lastName"
+                  defaultValue={lastName}
+                />
+              </div>
+            </>
 
             <div className="inputBox">
               <span>
@@ -201,13 +207,21 @@ const AdminDetail = ({
                   value={phone}
                   jumpCursorToEnd
                   inputProps={{
-                    name: "mobile"
+                    name: "mobile",
                   }}
                   onChange={(value, countryInfo) => {
-                    if(inputFormat !== countryInfo.format) setInputFormat(countryInfo.format)
-                    if(inputDialCode !== countryInfo.dialCode) setInputDialCode(countryInfo.dialCode)
-                    if(inputCountryCode.length && Object.keys(countryInfo).length > 0) {
-                      if (inputCountryCode !== countryInfo.countryCode.toUpperCase())
+                    if (inputFormat !== countryInfo.format)
+                      setInputFormat(countryInfo.format);
+                    if (inputDialCode !== countryInfo.dialCode)
+                      setInputDialCode(countryInfo.dialCode);
+                    if (
+                      inputCountryCode.length &&
+                      Object.keys(countryInfo).length > 0
+                    ) {
+                      if (
+                        inputCountryCode !==
+                        countryInfo.countryCode.toUpperCase()
+                      )
                         setInputCountryCode(
                           countryInfo.countryCode.toUpperCase()
                         );
@@ -220,13 +234,15 @@ const AdminDetail = ({
             <Button className="adminUpdateButton" htmlType="submit">
               <UserSwitchOutlined /> <FormattedMessage id="UPDATE" />
             </Button>
-            {role !== 'ADMIN' && !isSelf && <Button
-              className="adminUpdateButton"
-              htmlType="button"
-              onClick={openConfirmModal}
-            >
-              <UserDeleteOutlined /> <FormattedMessage id="DELETE"/>
-            </Button>}
+            {role !== "ADMIN" && !isSelf && (
+              <Button
+                className="adminUpdateButton"
+                htmlType="button"
+                onClick={openConfirmModal}
+              >
+                <UserDeleteOutlined /> <FormattedMessage id="DELETE" />
+              </Button>
+            )}
 
             <CustomConfirm
               visible={confirmModal}
@@ -247,7 +263,7 @@ const AdminDetail = ({
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
