@@ -1,9 +1,11 @@
 const locales = {
   US: {
+    PERNUM: " ",
     ApplicationsRoute: "App Management",
     localeChangeText: "EN",
     logout: "Logout",
     detailColumn: "Detail",
+
     welcomeText: "Hello {param}",
     Dashboard: "Dashboard",
     Policies: "Policies",
@@ -194,8 +196,19 @@ const locales = {
       "* User information of the selected application below will be saved as a .csv file.",
     USED_FREE_PLAN: "Free",
     FREE_TRIAL: "Free Trial",
+    UPDATE_BEFORE: "Previous",
+    UPDATE_AFTER: "Current",
+    CHANGEDADMIN: "Auditor",
+    ALLAGREE: "전체 동의",
+    SEE_POLICY: "약관보기",
+    TERMSOFUSE: "결제대행서비스 이용약관에 동의",
+    TERMSOFPURCHASE: "구매조건 및 환불 규정에 동의",
+    WARNING: "주의",
+    WARNINGDESCRIPTION:
+      "현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?",
   },
   KR: {
+    PERNUM: "명",
     localeChangeText: "KO",
     logout: "로그아웃",
     detailColumn: "상세보기",
@@ -255,7 +268,7 @@ const locales = {
     CLOSE: "닫기",
     DUPLICATECHECK: "중복 확인",
     BILLINGCYCLE: "결제 주기",
-    USERNUM: "결제 인원",
+    USERNUM: "최대 사용자 수",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -393,6 +406,16 @@ const locales = {
       "* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.",
     USED_FREE_PLAN: "무료 플랜 사용중",
     FREE_TRIAL: "무료 플랜",
+    UPDATE_BEFORE: "변경 전",
+    UPDATE_AFTER: "변경 후",
+    CHANGEDADMIN: "담당자",
+    ALLAGREE: "전체 동의",
+    SEE_POLICY: "약관보기",
+    TERMSOFUSE: "결제대행서비스 이용약관에 동의",
+    TERMSOFPURCHASE: "구매조건 및 환불 규정에 동의",
+    WARNING: "주의",
+    WARNINGDESCRIPTION:
+      "현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?",
   },
 };
 

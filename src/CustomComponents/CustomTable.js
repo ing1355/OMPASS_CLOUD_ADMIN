@@ -13,6 +13,7 @@ import LeftArrow from "../customAssets/LeftArrow";
 import RightArrow from "../customAssets/RightArrow";
 import "./CustomTable.css";
 import searchIcon from "../assets/searchIcon.png";
+import { connect } from "react-redux";
 
 const CustomTable = ({
   columns,
@@ -29,6 +30,9 @@ const CustomTable = ({
   columnsHide,
   searched,
   selectedRows,
+  optionalSearchDatas,
+  locale,
+  searchFunction
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -202,10 +206,13 @@ const CustomTable = ({
               else setTableData(_data.filter((tD) => !tD[column.value]));
             } else {
               if (!content.value) setTableData(_data);
-              else
-                setTableData(
-                  _data.filter((tD) => tD[column.value].includes(content.value))
-                );
+              else {
+                if(searchFunction) {
+                  setTableData(_data.filter(tD => searchFunction(tD, content.value)));
+                } else {
+                  setTableData(_data.filter(tD => tD[column.value].includes(content.value)));
+                }
+              }
             }
           }}
         >
@@ -226,14 +233,14 @@ const CustomTable = ({
           </select>
           {searchColumn && searchTarget.searchedOptions ? (
             <select className="table-search-column-select" name="content">
-              {searchTarget.searchedOptions.map((opt) => (
-                <option key={opt} value={opt}>
-                  {searchTarget.getSearchedLabel
-                    ? searchTarget.getSearchedLabel(opt)
-                    : opt}
-                </option>
-              ))}
-            </select>
+            {((optionalSearchDatas && optionalSearchDatas[searchColumn]) ? searchTarget.searchedOptions.concat(optionalSearchDatas[searchColumn]) : searchTarget.searchedOptions).map((opt) => (
+              <option key={opt} value={opt}>
+                {searchTarget.getSearchedLabel
+                  ? searchTarget.getSearchedLabel(opt, locale)
+                  : opt}
+              </option>
+            ))}
+          </select>
           ) : (
             <input
               className="table-search-column-input"
@@ -388,4 +395,14 @@ const CustomTable = ({
   );
 };
 
-export default CustomTable;
+function mapStateToProps(state) {
+  return {
+    locale: state.locale,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTable);

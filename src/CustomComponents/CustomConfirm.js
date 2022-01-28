@@ -14,8 +14,9 @@ const CustomConfirm = ({
   centered,
   closable,
   style,
+  width,
   className,
-  wrapClassName
+  wrapClassName,
 }) => {
   return (
     <Modal
@@ -24,6 +25,7 @@ const CustomConfirm = ({
       onOk={confirmCallback}
       confirmLoading={okLoading}
       onCancel={cancelCallback}
+      width={width}
       okButtonProps={{ id: "" }}
       centered={centered}
       footer={null}
@@ -31,7 +33,12 @@ const CustomConfirm = ({
       destroyOnClose
       wrapClassName={wrapClassName}
     >
-      <div className={"custom-modal-content-container" + (className ? ' ' + className : '')} style={{ ...style }}>
+      <div
+        className={
+          "custom-modal-content-container" + (className ? " " + className : "")
+        }
+        style={{ ...style }}
+      >
         {children}
       </div>
       {footer !== null && footer !== false && (

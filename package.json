@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://www.ompass.kr:8800",
+  "proxy": "https://192.168.182.22:3001",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -30,9 +30,10 @@
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build&&npm run deploy",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build&&npm run deploy&& npm run testDeploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "testDeploy": "scp -r ./build/* oms@192.168.182.22:/home/oms/front",
     "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/"
   },
   "eslintConfig": {

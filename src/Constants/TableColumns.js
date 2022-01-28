@@ -118,12 +118,7 @@ export const PolicyLogsColumns = [
     key: "policyName",
     searched: true,
     searchedOptions: ["Default Policy"],
-    getSearchedLabel: (value, lang) =>
-      value === "Default Policy"
-        ? lang === "ko"
-          ? "기본 정책"
-          : "Default Policy"
-        : value,
+    getSearchedLabel: (value, lang) => value === 'Default Policy' ? (lang === 'ko' ? '기본 정책' : 'Default Policy') : value,
     maxLength: 24,
     width: 250,
   },

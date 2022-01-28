@@ -297,12 +297,10 @@ const ApplicationDetail = ({
       >
         <div className="reset-notice-text-container">
           <p>
-            <FontAwesomeIcon icon={faExclamationCircle} /> 주의
+            <FontAwesomeIcon icon={faExclamationCircle} /> <FormattedMessage id="WARNING"/>
           </p>
           <p>
-            현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.
-            <br />
-            그래도 진행하시겠습니까?
+            <FormattedMessage id="WARNINGDESCRIPTION"/>
           </p>
         </div>
       </CustomConfirm>

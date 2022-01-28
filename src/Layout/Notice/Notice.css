@@ -2,13 +2,14 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    background-color: rgba(0,0,0,.5);
     left: 0;
     top: 0;
     z-index: 20;
 }
 
 .notice-container {
-    
+    height: 100%;
 }
 
 .notice-contents-container {
@@ -17,18 +18,16 @@
     overflow-x: hidden;
     overflow-y: auto;
     left: 50%;
-    top: calc(50% - 180px);
+    top: 50%;
     transform: translate(-50%, -50%);
-    background-color: red;
-    min-width: 400px;
-    max-width: 800px;
-    min-height: 400px;
-    max-height: 800px;
+    width: 800px;
+    max-height: 1200px;
 }
 
 .notice-title-container {
     overflow-x: hidden;
     width: 100%;
+    background-color: white;
     text-align: center;
     position: relative;
     animation: noticeOpenX .5s ease-out;
@@ -44,14 +43,23 @@
     right: 0;
     width: 40px;
     height: 40px;
-    background-color: blue;
     user-select: none;
 }
 
 .notice-content {
+    max-height: 0;
+    height: auto;
+    overflow: auto;
+    transition: max-height 0.5s ease-out;
+    -webkit-transition: max-height 0.5s ease-out;
+    -moz-transition: max-height 0.5s ease-out;
+    background-color: white;
     white-space: pre-wrap;
     text-align: center;
-    animation: noticeOpenY .5s .5s ease-out;
+}
+
+.notice-content::-webkit-scrollbar {
+    display: none;
 }
 
 @keyframes noticeOpenX {

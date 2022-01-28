@@ -8,6 +8,11 @@ import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
 
+const convertLanguageCode = {
+  'ko' : 'KR',
+  'en' : 'EN'
+}
+
 const Login = ({
   setIsLogin,
   setUserProfile,
@@ -42,6 +47,7 @@ const Login = ({
       {
         email: userId.value,
         password: password.value,
+        lang: convertLanguageCode[locale],        
       },
       (data, callback) => {
         const { ompass, adminId, email, role, country } = data;
