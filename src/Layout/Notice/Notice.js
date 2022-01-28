@@ -27,75 +27,77 @@ const Notice = () => {
                             X
                         </div>
                     </div>
-                    <div className="notice-content" style={{maxHeight: contentsLoad ? 1000 : 0}}>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
-                        testtesttesttesttesttesttesttes<br/>
+                    <div className="notice-content-container" style={{ maxHeight: contentsLoad ? 1000 : 0 }}>
+                        <div className="notice-content">
+                            testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        testtesttesttesttesttesttesttes<br />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const TermsOfPurchase = ({ visible, setVisible }) => {
         if (visible) {
             setTimeout(() => {
                 console.log(document.getElementById('purchaseTarget'))
-                document.getElementById('purchaseTarget').scrollIntoView();
+                document.getElementById('purchaseTarget').scrollIntoView({behavior:'smooth'});
             }, 10);
         }
     }, [visible])

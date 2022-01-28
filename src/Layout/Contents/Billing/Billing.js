@@ -139,14 +139,18 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
     e.preventDefault();
     const { term, userNum, checkAll } = e.target.elements;
     if (currentPlan.status === "RUN") {
-      if (allUserNum >= userNum.value)
+      if (currentPlan.numberUsers === userNum.value * 1) return showErrorMessage('PLEASE_CHANGE_USER_NUM_DIFFERNT')
+      if (allUserNum >= userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     } else {
-      if (allUserNum > userNum.value)
+      if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
     if (!checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    inputTermRef.current = term.value;
+    if(currentPlan && currentPlan.status === 'RUN') {
+      if(new Date(currentPlan.createDate).getFullYear() === new Date(currentPlan.expireDate).getFullYear()) inputTermRef.current = 'MONTHLY'
+      else inputTermRef.current = 'ANNUALLY'
+    } else inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
     if (!isKorea()) {
@@ -358,7 +362,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
             <label className="billing-change-form-label">
-              <FormattedMessage id="USERNUM" />
+            {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="USERNUM" /> : <FormattedMessage id="CHANGEUSERNUM"/>}
             </label>
             <div>
               <select
@@ -377,7 +381,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               </select>
             </div>
           </div>
-          <div className="billing-change-item">
+          {(!currentPlan || currentPlan.status !== 'RUN') && <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="BILLINGCYCLE" />
             </label>
@@ -395,7 +399,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
                 {formatMessage({ id: "ANNUALLY" })}
               </option>
             </select>
-          </div>
+          </div>}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="PRICE" />

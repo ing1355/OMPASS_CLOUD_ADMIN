@@ -31,6 +31,10 @@
     text-align: center;
     position: relative;
     animation: noticeOpenX .5s ease-out;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,.3);
 }
 
 .notice-close-icon-container {
@@ -42,11 +46,11 @@
     top: 0;
     right: 0;
     width: 40px;
-    height: 40px;
+    height: 100%;
     user-select: none;
 }
 
-.notice-content {
+.notice-content-container {
     max-height: 0;
     height: auto;
     overflow: auto;
@@ -56,6 +60,10 @@
     background-color: white;
     white-space: pre-wrap;
     text-align: center;
+}
+
+.notice-content {
+    padding: 8px;
 }
 
 .notice-content::-webkit-scrollbar {
