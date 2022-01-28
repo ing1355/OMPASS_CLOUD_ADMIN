@@ -5,7 +5,7 @@
   background-color: white;
   width: calc(100% - 280px);
   padding: 0 36px;
-  height: 80px;
+  height: 100%;
 }
 
 .header-contents-route-title {
@@ -26,13 +26,45 @@
   padding: 0;
   color: #fff;
 }
-.header-contents-button-box p {
+.header-contents-button-box > div {
   height: 50px;
   margin: 0;
   line-height: 50px;
   margin-right: 1rem;
 }
-.header-contents-button-box p b {
+.header-contents-button-box > div b {
   text-decoration: underline;
   color: #00a9ec;
+}
+
+.profile-container {
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-sub-container {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  margin-top: 12px;
+  box-shadow: 0 2px 2px 0 #ccc;
+  border: 1px solid black;
+}
+
+.profile-sub-container.visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.profile-sub-container > div {
+  text-align: center;
+}
+
+.profile-sub-container > div:nth-child(1) {
+  border-bottom: 1px solid gray;
 }

@@ -4,6 +4,7 @@ const types = {
     setIsLogin: 'SETISLOGIN',
     setProfile: 'SETPROFILE',
     successMessage: 'SUCCESSMESSAGE',
-    errorMessage: 'ERRORMESSAGE'
+    errorMessage: 'ERRORMESSAGE',
+    termsOfPurchaseVisibleChange: 'TERMSOFPURCHASEVISIBLECHANGE'
 }
 export default types;

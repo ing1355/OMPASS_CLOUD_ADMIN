@@ -167,6 +167,7 @@
 .pay-CustomConfirm .custom-modal-content-container {
   display: flex;
   flex-direction: column !important;
+  overflow-x: hidden;
 }
 
 .custom-modal-content-container {
@@ -260,7 +261,7 @@
   width: 30%;
   z-index: 2;
   height: 15px;
-  transition: width .5s ease-out;
+  transition: width 0.5s ease-out;
   border-radius: 30px;
 }
 .progress-bar-back {
@@ -272,6 +273,7 @@
 .see-policy {
   text-decoration: underline;
   cursor: pointer;
+  padding-left: 5px;
 }
 
 .sub-checkbox {

@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -39,10 +40,9 @@ import { planStatusCodes } from "../Dashboard/Dashboard";
 import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
-import TermsOfPurchase from "./TermsOfPurchase";
 import TermsOfUse from "./TermsOfUse";
 
-const Billing = ({ userProfile, locale, showErrorMessage }) => {
+const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase }) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -62,26 +62,26 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const [termsOfUseVisible, setTermsOfUseVisible] = useState(false);
-  const [termsOfPurchaseVisible, setTermsOfPurchaseVisible] = useState(false);
+  const userNumList = useMemo(() => new Array(990).fill(1),[])
 
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
   const getColorByUserNum = useCallback((num, maxNum) => {
-    const rate = getRateByUserNum(num, maxNum)
+    const rate = getRateByUserNum(num, maxNum);
     if (rate < 33) {
-      return '#00a9ec'
+      return "#00a9ec";
     } else if (rate < 66) {
-      return '#00ec90'
+      return "#00ec90";
     } else {
-      return '#ecbf00'
+      return "#ecbf00";
     }
-  }, [])
+  }, []);
 
   const getRateByUserNum = useCallback((num, maxNum) => {
     return (num / maxNum) * 100;
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
@@ -147,8 +147,8 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
     if (!checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    if(currentPlan && currentPlan.status === 'RUN') {
-      if(new Date(currentPlan.createDate).getFullYear() === new Date(currentPlan.expireDate).getFullYear()) inputTermRef.current = 'MONTHLY'
+    if (currentPlan && currentPlan.status === 'RUN') {
+      if (new Date(currentPlan.createDate).getFullYear() === new Date(currentPlan.expireDate).getFullYear()) inputTermRef.current = 'MONTHLY'
       else inputTermRef.current = 'ANNUALLY'
     } else inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
@@ -194,37 +194,33 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
   };
 
   const changeAllCheck = useCallback((e) => {
-    setAllCheck(e.target.checked)
-    if(e.target.checked) {
+    setAllCheck(e.target.checked);
+    if (e.target.checked) {
       setSubCheck1(true);
       setSubCheck2(true);
     } else {
       setSubCheck1(false);
       setSubCheck2(false);
     }
-  }, [])
+  }, []);
 
   const changeCheck1 = useCallback((e) => {
-    setSubCheck1(e.target.checked)
-  },[])
+    setSubCheck1(e.target.checked);
+  }, []);
 
   const changeCheck2 = useCallback((e) => {
-    setSubCheck2(e.target.checked)
-  },[])
+    setSubCheck2(e.target.checked);
+  }, []);
 
   useLayoutEffect(() => {
-    if(subCheck1 && subCheck2) setAllCheck(true);
+    if (subCheck1 && subCheck2) setAllCheck(true);
     else setAllCheck(false);
-  },[subCheck1,subCheck2])
+  }, [subCheck1, subCheck2]);
 
   const openTermsOfUse = useCallback(() => {
     setTermsOfUseVisible(true);
-  },[])
+  }, []);
 
-  const openTermsOfPurchase = useCallback(() => {
-    setTermsOfPurchaseVisible(true);
-  },[])
-  
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billing" />
@@ -296,8 +292,13 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         </div>
         <div className="billing-edition billing-edition-user-count">
           <div className="billing-edition-top-box billing-edition-users">
-            <b style={{ color: "#00a9ec" }}>{allUserNum}<FormattedMessage id="PERNUM" /></b>&nbsp;/&nbsp;
-            {currentPlan && currentPlan.numberUsers}<FormattedMessage id="PERNUM" />
+            <b style={{ color: "#00a9ec" }}>
+              {allUserNum}
+              <FormattedMessage id="PERNUM" />
+            </b>
+            &nbsp;/&nbsp;
+            {currentPlan && currentPlan.numberUsers}
+            <FormattedMessage id="PERNUM" />
           </div>
           <div className="billing-edition-top-box">
             <label>
@@ -312,11 +313,20 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               <FormattedMessage id="USER" />
             </label>
             <div className="progress-bar">
-              <div className="progress-bar-front"
+              <div
+                className="progress-bar-front"
                 style={{
-                  backgroundColor: getColorByUserNum(allUserNum, currentPlan && currentPlan.numberUsers),
-                  width: getRateByUserNum(allUserNum, currentPlan && currentPlan.numberUsers) + '%'
-                }}></div>
+                  backgroundColor: getColorByUserNum(
+                    allUserNum,
+                    currentPlan && currentPlan.numberUsers
+                  ),
+                  width:
+                    getRateByUserNum(
+                      allUserNum,
+                      currentPlan && currentPlan.numberUsers
+                    ) + "%",
+                }}
+              ></div>
               <div className="progress-bar-back"></div>
             </div>
           </div>
@@ -362,7 +372,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
             <label className="billing-change-form-label">
-            {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="USERNUM" /> : <FormattedMessage id="CHANGEUSERNUM"/>}
+              {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="USERNUM" /> : <FormattedMessage id="CHANGEUSERNUM" />}
             </label>
             <div>
               <select
@@ -373,7 +383,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
                   setInputUserNum(e.target.value);
                 }}
               >
-                {new Array(990).fill(1).map((item, ind) => (
+                {userNumList.map((item, ind) => (
                   <option key={ind + 11} value={ind + 11}>
                     {ind + 11}
                   </option>
@@ -418,37 +428,81 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          <div className="billing-change-item" style={{alignItems:'baseline'}}>
+          <div
+            className="billing-change-item"
+            style={{ alignItems: "baseline" }}
+          >
             <label className="billing-change-form-label">
               <FormattedMessage id="AGREE" />
             </label>
             <div>
-              <input type="checkbox" name="checkAll" checked={allCheck} onChange={changeAllCheck}/>
+              <input
+                type="checkbox"
+                name="checkAll"
+                checked={allCheck}
+                onChange={changeAllCheck}
+              />
               <label>
                 &nbsp;
-                <FormattedMessage id="ALLAGREE"/>
+                <FormattedMessage id="ALLAGREE" />
                 {/* <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> */}
                 <br />
               </label>
               <div className="sub-checkbox">
-                <div className="inner-check-line"/>
-                <input type="checkbox" name="check1" checked={subCheck1} onChange={changeCheck1}/>
+                <div className="inner-check-line" />
+                <input
+                  type="checkbox"
+                  name="check1"
+                  checked={subCheck1}
+                  onChange={changeCheck1}
+                />
                 <label>
                   &nbsp;
-                  <FormattedMessage id="TERMSOFUSE"/> <b className="see-policy" onClick={openTermsOfUse}><FormattedMessage id="SEE_POLICY"/></b>
+                  {locale === 'ko' ? <><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfUse}>
+                    <FormattedMessage id="TERMSOFUSE" /></a><FormattedMessage id="TERMS_SUB" /></>
+                    : <><FormattedMessage id="TERMS_SUB" /><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfUse}><FormattedMessage id="TERMSOFUSE" /></a></>}
                 </label>
               </div>
               <div className="sub-checkbox">
-                <div className="inner-check-line"/>
-                <input type="checkbox" name="check1" checked={subCheck2} onChange={changeCheck2}/>
+                <div className="inner-check-line" />
+                <input
+                  type="checkbox"
+                  name="check1"
+                  checked={subCheck2}
+                  onChange={changeCheck2}
+                />
                 <label>
                   &nbsp;
-                  <FormattedMessage id="TERMSOFPURCHASE"/> <b className="see-policy" onClick={openTermsOfPurchase}>약관보기</b>
+                  {locale === 'ko' ? <><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfPurchase}><FormattedMessage id="TERMSOFPURCHASE" /></a><FormattedMessage id="TERMS_SUB" /></>
+                    : <><FormattedMessage id="TERMS_SUB" /><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfPurchase}><FormattedMessage id="TERMSOFPURCHASE" /></a></>}
+                </label>
+              </div>
+              <div style={{marginTop:'8px'}}>
+                <label>
+                  {inputTerm === "MONTHLY"
+                    ? formatMessage(
+                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )
+                    : formatMessage(
+                      { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                      {
+                        param:
+                          slicePrice(
+                            inputTerm === "MONTHLY" ? cost : cost * 12
+                          ) + (isKorea() ? "원" : "$"),
+                      }
+                    )}
                 </label>
               </div>
             </div>
           </div>
-          <div className="billing-change-item">
+          <div className="billing-change-item" style={{ paddingBottom: "0" }}>
             <button
               name="payType"
               className="button"
@@ -486,9 +540,10 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         setCurrentPlan={setCurrentPlan}
         closeConfirmModal={closeConfirmModal}
       />
-
-      <TermsOfPurchase visible={termsOfPurchaseVisible} setVisible={setTermsOfPurchaseVisible}/>
-      <TermsOfUse visible={termsOfUseVisible} setVisible={setTermsOfUseVisible}/>
+      <TermsOfUse
+        visible={termsOfUseVisible}
+        setVisible={setTermsOfUseVisible}
+      />
     </div>
   ) : (
     <Navigate to="/" />
@@ -510,6 +565,9 @@ function mapDispatchToProps(dispatch) {
     showErrorMessage: (id) => {
       dispatch(ActionCreators.showErrorMessage(id));
     },
+    openTermsOfPurchase: () => {
+      dispatch(ActionCreators.termsOfPurchaseVisibleChange(true))
+    }
   };
 }
 

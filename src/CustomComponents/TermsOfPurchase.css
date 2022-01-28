@@ -1,0 +1,25 @@
+.custom-modal-content-container.terms-modal {
+    align-items: flex-start;
+  }
+  
+  .terms-modal p {
+    text-align: left;
+  }
+  
+  .terms-modal > div {
+    text-align: left;
+    margin-bottom: 1em;
+  }
+  
+  .padding-div-container {
+    display: flex;
+  }
+  
+  .padding-div-container.sub-container {
+    margin-left: 12px;
+  }
+  
+  .terms-content {
+    display: table;
+    padding-left: 8px;
+  }

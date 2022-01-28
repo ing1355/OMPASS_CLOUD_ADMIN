@@ -16,7 +16,7 @@ const CustomConfirm = ({
   style,
   width,
   className,
-  wrapClassName
+  wrapClassName,
 }) => {
   return (
     <Modal
@@ -33,7 +33,12 @@ const CustomConfirm = ({
       destroyOnClose
       wrapClassName={wrapClassName}
     >
-      <div className={"custom-modal-content-container" + (className ? ' ' + className : '')} style={{ ...style }}>
+      <div
+        className={
+          "custom-modal-content-container" + (className ? " " + className : "")
+        }
+        style={{ ...style }}
+      >
         {children}
       </div>
       {footer !== null && footer !== false && (

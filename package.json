@@ -30,9 +30,10 @@
   },
   "scripts": {
     "start": "export HTTPS=true&&react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build&&npm run deploy&& npm run testDeploy",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deployAll": "npm run testDeploy&&npm run deploy",
     "testDeploy": "scp -r ./build/* oms@192.168.182.22:/home/oms/front",
     "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/"
   },

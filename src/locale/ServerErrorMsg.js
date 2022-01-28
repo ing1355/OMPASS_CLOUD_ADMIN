@@ -25,7 +25,7 @@ const locales = {
     ERR_115: 'The recurring payment order does not exist.',
     ERR_116: 'Invalid API request.',
     ERR_117: 'The number of registered users has been exceeded.',
-    ERR_118: '계정이 잠겼습니다.'
+    ERR_118: 'Your account has been locked. Please reset your password from [Password assistance].'
   },
   KR: {
     ERR_001: '토큰이 만료되었습니다.',
@@ -53,7 +53,7 @@ const locales = {
     ERR_115: '구독중인 주문이 존재하지 않습니다.',
     ERR_116: '잘못된 API 요청입니다.',
     ERR_117: '등록 가능한 사용자 수를 초과하였습니다.',
-    ERR_118: '계정이 잠겼습니다.'
+    ERR_118: '계정이 잠겼습니다. 해제하시려면 비밀번호 초기화를 진행해주세요.'
   },
 };
 

@@ -15,6 +15,7 @@ import {
   updateAdminApi,
   updateSubAdminApi,
   deleteSubAdminApi,
+  deleteAdminApi,
 } from "../../../Constants/Api_Route";
 import { isADMINRole } from "../../../Constants/GetRole";
 import { connect } from "react-redux";
@@ -22,6 +23,8 @@ import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import { FailToTest, passwordTest } from "../../../Constants/InputRules";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AdminDetail = ({
   data,
@@ -30,6 +33,7 @@ const AdminDetail = ({
   userProfile,
   showSuccessMessage,
   showErrorMessage,
+  setIsLogin
 }) => {
   const {
     country,
@@ -39,10 +43,10 @@ const AdminDetail = ({
     phone,
     role,
     subAdminId,
-    index
+    index,
   } = data;
-  const {adminId} = userProfile;
-  
+  const { adminId } = userProfile;
+
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
@@ -53,11 +57,11 @@ const AdminDetail = ({
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   useLayoutEffect(() => {
-    if(phone) {
-      setInputDialCode(phone.split(' ')[0].slice(1,));
-      setInputFormat(phone)
+    if (phone) {
+      setInputDialCode(phone.split(" ")[0].slice(1));
+      setInputFormat(phone);
     }
-  },[phone])
+  }, [phone]);
 
   const openConfirmModal = useCallback(() => {
     setConfirmModal(true);
@@ -65,26 +69,32 @@ const AdminDetail = ({
   const closeConfirmModal = useCallback(() => {
     setConfirmModal(false);
   }, []);
-  
+
   const onFinish = (e) => {
     e.preventDefault();
     const { firstName, lastName, password, passwordConfirm, mobile } =
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
-      if(!passwordTest(password.value)) return FailToTest(password, showErrorMessage('INCORRECT_PASSWORD'))
+      if (!passwordTest(password.value))
+        return FailToTest(password, showErrorMessage("INCORRECT_PASSWORD"));
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
-    if(!mobile.value.startsWith('+' + inputDialCode)) {
-      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
-      if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if (!mobile.value.startsWith("+" + inputDialCode)) {
+      if (mobile.value.length < inputDialCode.length + 1)
+        return showErrorMessage("NO_DIAL_CODE");
+      if (mobile.value.length !== inputFormat.length)
+        return showErrorMessage("PLEASE_COMPLETE_ADMIN_MOBILE");
     }
 
-    if(role === 'ADMIN' && data.country !== inputCountryCode) return showErrorMessage('DIFFERENT_COUNTRY_CODE')
-    
+    if (role === "ADMIN" && data.country !== inputCountryCode)
+      return showErrorMessage("DIFFERENT_COUNTRY_CODE");
+
     CustomAxiosPut(
-      isADMINRole(role) ? updateAdminApi(adminId) : updateSubAdminApi(adminId, subAdminId),
+      isADMINRole(role)
+        ? updateAdminApi(adminId)
+        : updateSubAdminApi(adminId, subAdminId),
       {
         country: inputCountryCode,
         phone: mobile.value,
@@ -109,15 +119,19 @@ const AdminDetail = ({
   };
 
   const onDelete = () => {
-    if (role === "ADMIN") return showErrorMessage("ADMIN_CANT_DELETE");
     setConfirmLoading(true);
     CustomAxiosDelete(
-      deleteSubAdminApi(adminId, subAdminId),
+      role === 'ADMIN' ? deleteAdminApi(adminId) : deleteSubAdminApi(adminId, subAdminId),
       () => {
-        setConfirmLoading(false);
-        showSuccessMessage("DELETE_SUCCESS");
-        deleteEvent(index);
-        navigate("/Admins");
+        if(role === 'ADMIN') {
+          setIsLogin(false)
+          showSuccessMessage('ADMINDELETESUCCESS')
+        } else {
+          setConfirmLoading(false);
+          showSuccessMessage("DELETE_SUCCESS");
+          deleteEvent(index);
+          navigate("/Admins");
+        }
       },
       () => {
         setConfirmLoading(false);
@@ -131,32 +145,32 @@ const AdminDetail = ({
       {Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
-              <>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="FIRSTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({
-                      id: "PLEASE_INPUT_FIRST_NAME",
-                    })}
-                    maxLength={16}
-                    name="firstName"
-                    defaultValue={firstName}
-                  />
-                </div>
-                <div className="inputBox">
-                  <span>
-                    <FormattedMessage id="LASTNAME" />
-                  </span>
-                  <input
-                    placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
-                    maxLength={16}
-                    name="lastName"
-                    defaultValue={lastName}
-                  />
-                </div>
-              </>
+            <>
+              <div className="inputBox">
+                <span>
+                  <FormattedMessage id="FIRSTNAME" />
+                </span>
+                <input
+                  placeholder={formatMessage({
+                    id: "PLEASE_INPUT_FIRST_NAME",
+                  })}
+                  maxLength={16}
+                  name="firstName"
+                  defaultValue={firstName}
+                />
+              </div>
+              <div className="inputBox">
+                <span>
+                  <FormattedMessage id="LASTNAME" />
+                </span>
+                <input
+                  placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                  maxLength={16}
+                  name="lastName"
+                  defaultValue={lastName}
+                />
+              </div>
+            </>
 
             <div className="inputBox">
               <span>
@@ -201,13 +215,21 @@ const AdminDetail = ({
                   value={phone}
                   jumpCursorToEnd
                   inputProps={{
-                    name: "mobile"
+                    name: "mobile",
                   }}
                   onChange={(value, countryInfo) => {
-                    if(inputFormat !== countryInfo.format) setInputFormat(countryInfo.format)
-                    if(inputDialCode !== countryInfo.dialCode) setInputDialCode(countryInfo.dialCode)
-                    if(inputCountryCode.length && Object.keys(countryInfo).length > 0) {
-                      if (inputCountryCode !== countryInfo.countryCode.toUpperCase())
+                    if (inputFormat !== countryInfo.format)
+                      setInputFormat(countryInfo.format);
+                    if (inputDialCode !== countryInfo.dialCode)
+                      setInputDialCode(countryInfo.dialCode);
+                    if (
+                      inputCountryCode.length &&
+                      Object.keys(countryInfo).length > 0
+                    ) {
+                      if (
+                        inputCountryCode !==
+                        countryInfo.countryCode.toUpperCase()
+                      )
                         setInputCountryCode(
                           countryInfo.countryCode.toUpperCase()
                         );
@@ -217,24 +239,34 @@ const AdminDetail = ({
                 />
               </div>
             </div>
-            <Button className="adminUpdateButton" htmlType="submit">
+            {(userProfile.role === "ADMIN" || isSelf) && <Button className="adminUpdateButton" htmlType="submit">
               <UserSwitchOutlined /> <FormattedMessage id="UPDATE" />
-            </Button>
-            {role !== 'ADMIN' && !isSelf && <Button
-              className="adminUpdateButton"
-              htmlType="button"
-              onClick={openConfirmModal}
-            >
-              <UserDeleteOutlined /> <FormattedMessage id="DELETE"/>
             </Button>}
+            {(userProfile.role === "ADMIN" || isSelf) && (
+              <Button
+                className="adminUpdateButton"
+                htmlType="button"
+                onClick={openConfirmModal}
+              >
+                <UserDeleteOutlined /> <FormattedMessage id="DELETE" />
+              </Button>
+            )}
 
             <CustomConfirm
               visible={confirmModal}
               okLoading={confirmLoading}
               confirmCallback={onDelete}
               cancelCallback={closeConfirmModal}
+              className="admin-delete-confirm-container"
             >
-              <FormattedMessage id="DELETECONFIRM" />
+              {role === 'ADMIN' ? <div className="warning-delete">
+                <p>
+                  <FontAwesomeIcon icon={faExclamationCircle} /> <FormattedMessage id="WARNING" />
+                </p>
+                <p>
+                  <FormattedMessage id="ADMINDELETEWARNING" />
+                </p>
+              </div> : <FormattedMessage id="DELETECONFIRM" />}
             </CustomConfirm>
           </form>
         </div>
@@ -247,7 +279,7 @@ const AdminDetail = ({
 
 function mapStateToProps(state) {
   return {
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
   };
 }
 
@@ -259,6 +291,9 @@ function mapDispatchToProps(dispatch) {
     showErrorMessage: (id) => {
       dispatch(ActionCreators.showErrorMessage(id));
     },
+    setIsLogin: (toggle) => {
+      dispatch(ActionCreators.setIsLogin(toggle));
+    }
   };
 }
 

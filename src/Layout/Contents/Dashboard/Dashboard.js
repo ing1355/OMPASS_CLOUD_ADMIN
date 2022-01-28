@@ -233,7 +233,10 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon className="countBox-icon" icon={faUser} />
                     &nbsp;
-                    <b>{userNum}<FormattedMessage id="PERNUM" /></b>
+                    <b>
+                      {userNum}
+                      <FormattedMessage id="PERNUM" />
+                    </b>
                   </p>
                 </div>
                 <div>
@@ -243,7 +246,10 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserPlus} />
                     &nbsp;
-                      <b>{registerNum}<FormattedMessage id="PERNUM" /></b>
+                    <b>
+                      {registerNum}
+                      <FormattedMessage id="PERNUM" />
+                    </b>
                   </p>
                 </div>
                 <div>
@@ -253,7 +259,10 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
-                      <b>{unRegisterNum}<FormattedMessage id="PERNUM" /></b>
+                    <b>
+                      {unRegisterNum}
+                      <FormattedMessage id="PERNUM" />
+                    </b>
                   </p>
                 </div>
                 <div>
@@ -263,7 +272,10 @@ const Dashboard = ({ userProfile, locale }) => {
                   <p>
                     <FontAwesomeIcon icon={faHandSparkles} />
                     &nbsp;
-                      <b>{byPassNum}<FormattedMessage id="PERNUM" /></b>
+                    <b>
+                      {byPassNum}
+                      <FormattedMessage id="PERNUM" />
+                    </b>
                   </p>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
@@ -15,10 +15,12 @@ const HeaderContents = ({
   setIsLogin,
   menuChange,
   userProfile,
-  locale
+  locale,
+  showErrorMessage
 }) => {
   const location = useLocation();
-  const { role, email } = userProfile;
+  const { role, firstName, lastName } = userProfile;
+  const [profileOpen, setProfileOpen] = useState(false);
 
   useLayoutEffect(() => {
     const target = route_info(role).find(
@@ -27,37 +29,48 @@ const HeaderContents = ({
     if (target) menuChange(target.name);
   }, [location, menuChange, role]);
 
+  const menuOpen = useCallback(() => {
+    setProfileOpen(!profileOpen);
+  }, [profileOpen])
+
+  const eventCallback = useCallback(e => {
+    setProfileOpen(false);
+  },[])
+
+  useEffect(() => {
+    if(profileOpen) {
+      document.addEventListener('click', eventCallback)
+    } else {
+      document.removeEventListener('click', eventCallback);
+    }
+    return () => {
+      document.removeEventListener('click', eventCallback);
+    }
+  },[profileOpen])
+
+  const logout = () => {
+    setIsLogin(false);
+    showErrorMessage('LOGOUTSUCCESS')
+  }
+
   return (
     <div className="header-contents">
-      <div className="header-contents-route-title">{menuState && <FormattedMessage id={menuState}/>}</div>
+      <div className="header-contents-route-title">{menuState && <FormattedMessage id={menuState} />}</div>
 
       <div className="header-contents-button-box">
-        {locale === 'ko' ? <p>
+        <div className="profile-container" onClick={menuOpen}>
           <b>
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
-            {email}
-          </b>님 환영합니다.
-          </p> : <p>Welcome&nbsp;
-            <b>
-            <AliwangwangOutlined
-              style={{ fontSize: "1.1rem", marginRight: "4px" }}
-            />
-            {email}
+            {firstName + ' ' + lastName}
           </b>
-        </p>}
-        <button
-          className="loginButton button"
-          onClick={() => {
-            setIsLogin(false);
-            message.success({
-              content: "로그아웃 되었습니다.",
-            });
-          }}
-        >
-          <FormattedMessage id="logout" />
-        </button>
+          <div className={"profile-sub-container" + (profileOpen ? ' visible' : '')}>
+            <div onClick={logout}>
+              <FormattedMessage id="logout" />
+            </div>
+          </div>
+        </div>
         <Locale />
       </div>
     </div>
@@ -80,6 +93,9 @@ function mapDispatchToProps(dispatch) {
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
     },
+    showErrorMessage: (msg) => {
+      dispatch(ActionCreators.showErrorMessage(msg))
+    }
   };
 }
 
