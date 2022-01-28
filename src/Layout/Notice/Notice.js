@@ -1,12 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import './Notice.css'
 
 const Notice = () => {
     const [visible, setVisible] = useState(true);
+    const [contentsLoad, setContentsLoad] = useState(false);
 
     const closeNotice = useCallback(() => {
         setVisible(false);
     }, [])
+
+    useLayoutEffect(() => {
+        if (visible) {
+            setTimeout(() => {
+                setContentsLoad(true);
+            }, 500);
+        }
+    }, [visible])
+
     return (
         visible && <div className="notice-mask-container">
             <div className="notice-contents-container">
@@ -17,8 +27,75 @@ const Notice = () => {
                             X
                         </div>
                     </div>
-                    <div className="notice-content">
-                        testtesttesttesttesttesttesttes
+                    <div className="notice-content" style={{maxHeight: contentsLoad ? 1000 : 0}}>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
+                        testtesttesttesttesttesttesttes<br/>
                     </div>
                 </div>
             </div>

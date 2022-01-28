@@ -39,6 +39,8 @@ import { planStatusCodes } from "../Dashboard/Dashboard";
 import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
+import TermsOfPurchase from "./TermsOfPurchase";
+import TermsOfUse from "./TermsOfUse";
 
 const Billing = ({ userProfile, locale, showErrorMessage }) => {
   const { adminId, country } = userProfile;
@@ -46,6 +48,9 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
     () => (country === "KR" ? true : false),
     [country]
   );
+  const [allCheck, setAllCheck] = useState(false);
+  const [subCheck1, setSubCheck1] = useState(false);
+  const [subCheck2, setSubCheck2] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
@@ -56,6 +61,9 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
   const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
+  const [termsOfUseVisible, setTermsOfUseVisible] = useState(false);
+  const [termsOfPurchaseVisible, setTermsOfPurchaseVisible] = useState(false);
+
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
@@ -129,7 +137,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { check, term, userNum } = e.target.elements;
+    const { term, userNum, checkAll } = e.target.elements;
     if (currentPlan.status === "RUN") {
       if (allUserNum >= userNum.value)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
@@ -137,7 +145,7 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
       if (allUserNum > userNum.value)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (!check.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
+    if (!checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
@@ -181,6 +189,38 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
     );
   };
 
+  const changeAllCheck = useCallback((e) => {
+    setAllCheck(e.target.checked)
+    if(e.target.checked) {
+      setSubCheck1(true);
+      setSubCheck2(true);
+    } else {
+      setSubCheck1(false);
+      setSubCheck2(false);
+    }
+  }, [])
+
+  const changeCheck1 = useCallback((e) => {
+    setSubCheck1(e.target.checked)
+  },[])
+
+  const changeCheck2 = useCallback((e) => {
+    setSubCheck2(e.target.checked)
+  },[])
+
+  useLayoutEffect(() => {
+    if(subCheck1 && subCheck2) setAllCheck(true);
+    else setAllCheck(false);
+  },[subCheck1,subCheck2])
+
+  const openTermsOfUse = useCallback(() => {
+    setTermsOfUseVisible(true);
+  },[])
+
+  const openTermsOfPurchase = useCallback(() => {
+    setTermsOfPurchaseVisible(true);
+  },[])
+  
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
       <ContentsTitle title="Billing" />
@@ -374,36 +414,34 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          <div className="billing-change-item">
+          <div className="billing-change-item" style={{alignItems:'baseline'}}>
             <label className="billing-change-form-label">
               <FormattedMessage id="AGREE" />
             </label>
             <div>
-              <input type="checkbox" name="check" />
+              <input type="checkbox" name="checkAll" checked={allCheck} onChange={changeAllCheck}/>
               <label>
                 &nbsp;
-                <FormattedMessage id="BILLINGCHECKDESCRIPTION" />
+                <FormattedMessage id="ALLAGREE"/>
+                {/* <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> */}
                 <br />
-                {inputTerm === "MONTHLY"
-                  ? formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                    {
-                      param:
-                        slicePrice(
-                          inputTerm === "MONTHLY" ? cost : cost * 12
-                        ) + (isKorea() ? "원" : "$"),
-                    }
-                  )
-                  : formatMessage(
-                    { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                    {
-                      param:
-                        slicePrice(
-                          inputTerm === "MONTHLY" ? cost : cost * 12
-                        ) + (isKorea() ? "원" : "$"),
-                    }
-                  )}
               </label>
+              <div className="sub-checkbox">
+                <div className="inner-check-line"/>
+                <input type="checkbox" name="check1" checked={subCheck1} onChange={changeCheck1}/>
+                <label>
+                  &nbsp;
+                  결제대행서비스 이용약관에 동의 <b className="see-policy" onClick={openTermsOfUse}>약관보기</b>
+                </label>
+              </div>
+              <div className="sub-checkbox">
+                <div className="inner-check-line"/>
+                <input type="checkbox" name="check1" checked={subCheck2} onChange={changeCheck2}/>
+                <label>
+                  &nbsp;
+                  구매조건 및 환불 규정에 동의 <b className="see-policy" onClick={openTermsOfPurchase}>약관보기</b>
+                </label>
+              </div>
             </div>
           </div>
           <div className="billing-change-item">
@@ -444,6 +482,9 @@ const Billing = ({ userProfile, locale, showErrorMessage }) => {
         setCurrentPlan={setCurrentPlan}
         closeConfirmModal={closeConfirmModal}
       />
+
+      <TermsOfPurchase visible={termsOfPurchaseVisible} setVisible={setTermsOfPurchaseVisible}/>
+      <TermsOfUse visible={termsOfUseVisible} setVisible={setTermsOfUseVisible}/>
     </div>
   ) : (
     <Navigate to="/" />

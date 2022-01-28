@@ -14,6 +14,7 @@ const CustomConfirm = ({
   centered,
   closable,
   style,
+  width,
   className,
   wrapClassName
 }) => {
@@ -24,6 +25,7 @@ const CustomConfirm = ({
       onOk={confirmCallback}
       confirmLoading={okLoading}
       onCancel={cancelCallback}
+      width={width}
       okButtonProps={{ id: "" }}
       centered={centered}
       footer={null}

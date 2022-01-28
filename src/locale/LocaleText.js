@@ -198,7 +198,8 @@ const locales = {
     FREE_TRIAL: "Free Trial",
     UPDATE_BEFORE: 'Previous',
     UPDATE_AFTER: 'Current',
-    CHANGEDADMIN: 'Auditor'
+    CHANGEDADMIN: 'Auditor',
+    ALLAGREE: '전체 동의'
   },
   KR: {
     PERNUM: '명',
@@ -261,7 +262,7 @@ const locales = {
     CLOSE: "닫기",
     DUPLICATECHECK: "중복 확인",
     BILLINGCYCLE: "결제 주기",
-    USERNUM: "결제 인원",
+    USERNUM: "최대 사용자 수",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -402,7 +403,8 @@ const locales = {
     FREE_TRIAL: "무료 플랜",
     UPDATE_BEFORE: '변경 전',
     UPDATE_AFTER: '변경 후',
-    CHANGEDADMIN: '담당자'
+    CHANGEDADMIN: '담당자',
+    ALLAGREE: '전체 동의'
   },
 };
 

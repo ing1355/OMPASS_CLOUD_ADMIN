@@ -82,7 +82,7 @@ const locales = {
     PAYMENT_SUCCESS: '결제 성공하였습니다.',
     PAYMENT_FAIL: '결제 실패하였습니다.',
     SUBCRIPTION_CANCEL_SUCCESS: '구독 취소에 성공하였습니다.',
-    PLEASE_AGREEMENT_CHECK: '이용 동의에 체크해주세요.',
+    PLEASE_AGREEMENT_CHECK: '이용 동의에 모두 체크해주세요.',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: '현재 사용자 수 보다 적은 사용자 수를 선택하셨습니다.',
     RESET_PASSWORD_SUCCESS_MESSAGE: '변경하신 비밀번호를 이용하여 로그인하실 수 있습니다.',
     RESET_PASSWORD_FAIL_MESSAGE: '비밀번호가 일치하지 않습니다.',

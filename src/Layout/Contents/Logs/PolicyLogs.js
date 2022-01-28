@@ -48,12 +48,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
                 setTableData(
                   data.map((d) => ({
                     ...d,
-                    policyName:
-                      d.type === "GLOBAL" ? (
-                        <FormattedMessage id="DEFAULTPOLICY" />
-                      ) : (
-                        d.changes.afterPolicy.title
-                      ),
+                    policyName: d.type === "GLOBAL" ? <FormattedMessage id="DEFAULTPOLICY" /> : d.changes.afterPolicy.title,
                     detail: () => {
                       setChangeModalVisible(d.policyLogId);
                     },
@@ -110,7 +105,9 @@ const PolicyLogs = ({ userProfile, locale }) => {
           columns={PolicyLogsColumns}
           loading={tableLoading}
           datas={tableData}
-          optionalSearchDatas={customPoliciesData.map(({ title }) => title)}
+          optionalSearchDatas={{
+            policyName: customPoliciesData.map(({ title }) => title)
+          }}
           pagination
           searched
           searchFunction={searchTitleFunction}
@@ -151,31 +148,29 @@ const PolicyLogs = ({ userProfile, locale }) => {
                             ? "ACTIVE"
                             : "INACTIVE"
                           : d === "userLocations"
-                          ? selectedData.changes.beforePolicy[d]
+                            ? selectedData.changes.beforePolicy[d]
                               .map(
                                 (_d, _ind, _arr) =>
-                                  `${
-                                    _d.location === "ETC"
-                                      ? _arr.length > 1
-                                        ? formatMessage({
-                                            id: "ETCUSERLOCATION",
-                                          })
-                                        : formatMessage({
-                                            id: "ALLUSERLOCATION",
-                                          })
-                                      : locale === "ko"
+                                  `${_d.location === "ETC"
+                                    ? _arr.length > 1
+                                      ? formatMessage({
+                                        id: "ETCUSERLOCATION",
+                                      })
+                                      : formatMessage({
+                                        id: "ALLUSERLOCATION",
+                                      })
+                                    : locale === "ko"
                                       ? countryCodes_KR[_d.location]
                                       : countryCodes_US[_d.location]
-                                  } : ${
-                                    _d.status
-                                      ? formatMessage({ id: "PERMIT" })
-                                      : formatMessage({ id: "DENY" })
+                                  } : ${_d.status
+                                    ? formatMessage({ id: "PERMIT" })
+                                    : formatMessage({ id: "DENY" })
                                   } `
                               )
                               .join(", ")
-                          : Array.isArray(selectedData.changes.beforePolicy[d])
-                          ? selectedData.changes.beforePolicy[d].join(", ")
-                          : selectedData.changes.beforePolicy[d],
+                            : Array.isArray(selectedData.changes.beforePolicy[d])
+                              ? selectedData.changes.beforePolicy[d].join(", ")
+                              : selectedData.changes.beforePolicy[d],
                     }))}
                 />
                 <p className="policy-change-arrow2">↓</p>
@@ -204,27 +199,25 @@ const PolicyLogs = ({ userProfile, locale }) => {
                           ? "ACTIVE"
                           : "INACTIVE"
                         : d === "userLocations"
-                        ? selectedData.changes.afterPolicy[d]
+                          ? selectedData.changes.afterPolicy[d]
                             .map(
                               (_d, _ind, _arr) =>
-                                `${
-                                  _d.location === "ETC"
-                                    ? _arr.length > 1
-                                      ? formatMessage({ id: "ETCUSERLOCATION" })
-                                      : formatMessage({ id: "ALLUSERLOCATION" })
-                                    : locale === "ko"
+                                `${_d.location === "ETC"
+                                  ? _arr.length > 1
+                                    ? formatMessage({ id: "ETCUSERLOCATION" })
+                                    : formatMessage({ id: "ALLUSERLOCATION" })
+                                  : locale === "ko"
                                     ? countryCodes_KR[_d.location]
                                     : countryCodes_US[_d.location]
-                                } : ${
-                                  _d.status
-                                    ? formatMessage({ id: "PERMIT" })
-                                    : formatMessage({ id: "DENY" })
+                                } : ${_d.status
+                                  ? formatMessage({ id: "PERMIT" })
+                                  : formatMessage({ id: "DENY" })
                                 } `
                             )
                             .join(", ")
-                        : Array.isArray(selectedData.changes.afterPolicy[d])
-                        ? selectedData.changes.afterPolicy[d].join(", ")
-                        : selectedData.changes.afterPolicy[d],
+                          : Array.isArray(selectedData.changes.afterPolicy[d])
+                            ? selectedData.changes.afterPolicy[d].join(", ")
+                            : selectedData.changes.afterPolicy[d],
                   }))}
               />
             </div>
