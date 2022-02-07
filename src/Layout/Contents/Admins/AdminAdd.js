@@ -43,7 +43,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   };
 
   const existCheckFunc = () => {
-    if (!inputEmail) return showErrorMessage("PLEASE_INPUT_EAMIL");
+    if (!inputEmail) return showErrorMessage("PLEASE_INPUT_EMAIL");
     if (!emailTest(inputEmail)) return showErrorMessage("EMAIL_RULE_ERROR");
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), (data) => {
       if (data.duplicate) {

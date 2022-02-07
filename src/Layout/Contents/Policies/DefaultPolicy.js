@@ -15,11 +15,13 @@ import { PolicyColumns } from "../../../Constants/TableColumns";
 import { CustomAxiosGet } from "../../../Functions/CustomAxios";
 import { getGlobalPolicyApi } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
+import { countryCodes_KR, countryCodes_US } from "./Country_Code";
 
-const DefaultPolicy = ({ userProfile }) => {
+const DefaultPolicy = ({ userProfile, locale }) => {
   const { adminId } = userProfile;
+  const { formatMessage } = useIntl()
   const [editDrawerOpen, setEditDrawerOpen] = useState(false);
   const [isEditPolicy, setIsEditPolicy] = useState(false);
   const [globalPoliciesData, setGlobalPoliciesData] = useState({});
@@ -32,20 +34,26 @@ const DefaultPolicy = ({ userProfile }) => {
     switch (key) {
       case "accessControl":
         return <FormattedMessage id={value === "ACTIVE"
-        ? "ACCESSCONTROLACTIVEDESCRIPTION"
-        : value === "INACTIVE"
-        ? "ACCESSCONTROLINACTIVEDESCRIPTION"
-        : "ACCESSCONTROLDENYDESCRIPTION"}/>;
+          ? "ACCESSCONTROLACTIVEDESCRIPTION"
+          : value === "INACTIVE"
+            ? "ACCESSCONTROLINACTIVEDESCRIPTION"
+            : "ACCESSCONTROLDENYDESCRIPTION"} />;
       case "userLocations":
-        return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
+        const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
+        const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
+        return <><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2" /><br />
+          <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
+            values={{
+              permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
+              deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
+            }}
+          /></>;
       case "browsers":
-        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
-      // case "mobilePatch":
-      //   return <FormattedMessage id={value ? "OMPASSMOBILEPOLICYACTIVE" : "OMPASSMOBILEPOLICYINACTIVE"} />;
+        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{ param: value.map(v => formatMessage({id: v})).join(', ') }} />;
       default:
         break;
     }
-  },[]);
+  }, [locale]);
 
   const PolicyTableDataFeature = useMemo(() => [
     {
@@ -94,16 +102,8 @@ const DefaultPolicy = ({ userProfile }) => {
             td.key !== "accessControl" && data.accessControl !== "ACTIVE"
               ? "disable"
               : td.key === "userLocations"
-              ? data.userLocationEnable
-              : target.length > 0,
-          // status:
-          //   td.key !== "accessControl" && data.accessControl !== "ACTIVE"
-          //     ? "disable"
-          //     : td.key === "mobilePatch"
-          //     ? target
-          //     : td.key === "userLocations"
-          //     ? data.userLocationEnable
-          //     : target.length > 0,
+                ? data.userLocationEnable
+                : target.length > 0
         };
       });
     },
@@ -111,7 +111,7 @@ const DefaultPolicy = ({ userProfile }) => {
   );
 
   useLayoutEffect(() => {
-    if(adminId) {
+    if (adminId) {
       CustomAxiosGet(
         getGlobalPolicyApi(adminId),
         (data) => {
@@ -121,18 +121,18 @@ const DefaultPolicy = ({ userProfile }) => {
         (err) => {
           console.log(err);
         }
-      );      
+      );
     }
   }, [adminId]);
 
   useLayoutEffect(() => {
     globalPoliciesDataRef.current = globalPoliciesData;
     setGlobalPoliciesTableData(convertDataToTableData(globalPoliciesData));
-  }, [globalPoliciesData]);
+  }, [globalPoliciesData, locale]);
 
   const editCallback = useCallback((result, policyId) => {
-      setGlobalPoliciesData(result);
-    },[]);
+    setGlobalPoliciesData(result);
+  }, []);
 
   useEffect(() => {
     if (!editDrawerOpen) setSelectedRowData(null);
@@ -188,6 +188,7 @@ const DefaultPolicy = ({ userProfile }) => {
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale
   };
 }
 

@@ -131,7 +131,7 @@ const PolicyLogs = ({ userProfile, locale }) => {
                   {selectedData.type === "GLOBAL" ? (
                     <FormattedMessage id="DEFAULTPOLICY" />
                   ) : (
-                    selectedData.changes.afterPolicy.title
+                    selectedData.changes.beforePolicy.title
                   )}
                   )
                 </p>
@@ -148,29 +148,19 @@ const PolicyLogs = ({ userProfile, locale }) => {
                             ? "ACTIVE"
                             : "INACTIVE"
                           : d === "userLocations"
-                            ? selectedData.changes.beforePolicy[d]
-                              .map(
-                                (_d, _ind, _arr) =>
-                                  `${_d.location === "ETC"
-                                    ? _arr.length > 1
-                                      ? formatMessage({
-                                        id: "ETCUSERLOCATION",
-                                      })
-                                      : formatMessage({
-                                        id: "ALLUSERLOCATION",
-                                      })
-                                    : locale === "ko"
-                                      ? countryCodes_KR[_d.location]
-                                      : countryCodes_US[_d.location]
-                                  } : ${_d.status
-                                    ? formatMessage({ id: "PERMIT" })
-                                    : formatMessage({ id: "DENY" })
-                                  } `
-                              )
-                              .join(", ")
-                            : Array.isArray(selectedData.changes.beforePolicy[d])
-                              ? selectedData.changes.beforePolicy[d].join(", ")
-                              : selectedData.changes.beforePolicy[d],
+                            ? () => {
+                              const value = selectedData.changes.beforePolicy[d];
+                              const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
+                              const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
+                              return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
+                                values={{
+                                  permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
+                                  deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
+                                }}
+                              />
+                            }
+                            : d === 'browsers' ? selectedData.changes.beforePolicy[d].map(v => formatMessage({id:v})).join(', ')
+                            : selectedData.changes.beforePolicy[d],
                     }))}
                 />
                 <p className="policy-change-arrow2">↓</p>
@@ -199,25 +189,19 @@ const PolicyLogs = ({ userProfile, locale }) => {
                           ? "ACTIVE"
                           : "INACTIVE"
                         : d === "userLocations"
-                          ? selectedData.changes.afterPolicy[d]
-                            .map(
-                              (_d, _ind, _arr) =>
-                                `${_d.location === "ETC"
-                                  ? _arr.length > 1
-                                    ? formatMessage({ id: "ETCUSERLOCATION" })
-                                    : formatMessage({ id: "ALLUSERLOCATION" })
-                                  : locale === "ko"
-                                    ? countryCodes_KR[_d.location]
-                                    : countryCodes_US[_d.location]
-                                } : ${_d.status
-                                  ? formatMessage({ id: "PERMIT" })
-                                  : formatMessage({ id: "DENY" })
-                                } `
-                            )
-                            .join(", ")
-                          : Array.isArray(selectedData.changes.afterPolicy[d])
-                            ? selectedData.changes.afterPolicy[d].join(", ")
-                            : selectedData.changes.afterPolicy[d],
+                          ? () => {
+                            const value = selectedData.changes.afterPolicy[d];
+                            const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
+                            const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
+                            return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
+                              values={{
+                                permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
+                                deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
+                              }}
+                            />
+                          }
+                          : d === 'browsers' ? selectedData.changes.afterPolicy[d].map(v => formatMessage({id:v})).join(', ')
+                          : selectedData.changes.afterPolicy[d],
                   }))}
               />
             </div>

@@ -136,12 +136,14 @@ const locales = {
     ACCESSCONTROLDENY: "Deny All",
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
-    USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
+    USERLOCATIONENABLEPOLICYTITLE: "User Location Restrictions",
+    USERLOCATIONCHANGEPOLICYTITLE: 'User Location Restrictions List',
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
       "Access attempts from unknown countries do not apply.",
     USERLOCATIONPOLICYDESCRIPTION2:
       "User location restrictions you have selected will apply after determining user location based on IP address.",
+    USERLOCATIONPOLICYDESCRIPTION3: "Permit : {permit}\nDeny : {deny}",
     BROWSERSPOLICYTITLE: "Allowed Browser Type",
     BROWSERSPOLICYDESCRIPTION:
       "Only selected browsers are allowed access.\nSelected browsers: {param}",
@@ -350,11 +352,13 @@ const locales = {
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
+    USERLOCATIONCHANGEPOLICYTITLE: '사용자 위치 제한 목록',
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
       "알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
     USERLOCATIONPOLICYDESCRIPTION2:
       "사용자 IP 주소를 기반으로 위치를 확인 후 해당 국가에 대한 조치를 적용할 수 있습니다.",
+    USERLOCATIONPOLICYDESCRIPTION3: "허용됨 : {permit}\n거부됨 : {deny}",
     BROWSERSPOLICYTITLE: "브라우저 접근 허용",
     BROWSERSPOLICYDESCRIPTION:
       "선택한 브라우저만 접근이 허용됩니다.\n현재 선택한 브라우저 : {param}",

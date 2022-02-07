@@ -50,7 +50,7 @@ const Login = ({
         lang: convertLanguageCode[locale],        
       },
       (data, callback) => {
-        const { ompass, adminId, email, role, country } = data;
+        const { ompass, adminId, email, role, country, firstName, lastName } = data;
         if (ompass) {
           OMPASS(data.ompassUrl);
         } else {
@@ -59,6 +59,8 @@ const Login = ({
             email,
             role,
             country,
+            firstName,
+            lastName
           });
           setIsLogin(true);
           showSuccessMessage("LOGIN_SUCCESS");

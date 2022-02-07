@@ -164,7 +164,7 @@ export const PolicyLogsChangeColumns = [
         case "userLocationEnable":
           return <FormattedMessage id={"USERLOCATIONENABLEPOLICYTITLE"} />;
         case "userLocations":
-          return <FormattedMessage id={"USERLOCATIONPOLICYTITLE"} />;
+          return <FormattedMessage id={"USERLOCATIONCHANGEPOLICYTITLE"} />;
         case "browsers":
           return <FormattedMessage id={"BROWSERSPOLICYTITLE"} />;
         default:
@@ -175,7 +175,7 @@ export const PolicyLogsChangeColumns = [
   {
     name: "Status",
     key: "value",
-    render: (value) => value || "No data",
+    render: (value) => value ? (value instanceof Function ? value() : value) : "No data",
   },
 ];
 

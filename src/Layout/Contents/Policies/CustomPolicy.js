@@ -21,17 +21,20 @@ import {
   getCustomPoliciesApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
+import { countryCodes_KR, countryCodes_US } from "./Country_Code";
 
 const CustomPolicy = ({
   userProfile,
   showSuccessMessage,
   showErrorMessage,
+  locale
 }) => {
   const { adminId } = userProfile;
+  const { formatMessage } = useIntl()
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const [deleteConfirmLoading, setDeleteConfirmLoading] = useState(false);
   const [deleteTargetIndex, setDeleteTargetIndex] = useState(null);
@@ -77,18 +80,26 @@ const CustomPolicy = ({
     switch (key) {
       case "accessControl":
         return <FormattedMessage id={value === "ACTIVE"
-        ? "ACCESSCONTROLACTIVEDESCRIPTION"
-        : value === "INACTIVE"
-        ? "ACCESSCONTROLINACTIVEDESCRIPTION"
-        : "ACCESSCONTROLDENYDESCRIPTION"}/>;
+          ? "ACCESSCONTROLACTIVEDESCRIPTION"
+          : value === "INACTIVE"
+            ? "ACCESSCONTROLINACTIVEDESCRIPTION"
+            : "ACCESSCONTROLDENYDESCRIPTION"} />;
       case "userLocations":
-        return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/>;
+        const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
+        const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
+        return <><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/><br/>
+        <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
+          values={{
+            permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
+            deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
+          }}
+        /></>;
       case "browsers":
-        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{param: value.toString()}}/>;
+        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{ param: value.map(v => formatMessage({id: v})).join(', ') }} />;
       default:
         break;
     }
-  }, []);
+  }, [locale]);
 
   const PolicyTableDataFeature = useMemo(() => [
     {
@@ -109,10 +120,10 @@ const CustomPolicy = ({
       policy: "BROWSERSPOLICYTITLE",
       description: getDescription,
     },
-  ], [getDescription]);
+  ], [getDescription, locale]);
 
   useLayoutEffect(() => {
-    if(adminId) {
+    if (adminId) {
       CustomAxiosGet(
         getCustomPoliciesApi(adminId),
         (data) => {
@@ -146,11 +157,11 @@ const CustomPolicy = ({
             index: ind,
             status:
               td.key !== "accessControl" &&
-              customPoliciesData[ind].accessControl !== "ACTIVE"
+                customPoliciesData[ind].accessControl !== "ACTIVE"
                 ? "disable"
                 : td.key === "userLocations"
-                ? customPoliciesData[ind].userLocationEnable
-                : target && target.length > 0,
+                  ? customPoliciesData[ind].userLocationEnable
+                  : target && target.length > 0,
           };
         });
       })
@@ -278,6 +289,7 @@ const CustomPolicy = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale
   };
 }
 

@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://192.168.182.22:3001",
+  "proxy": "https://ompass.kr:4002",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",

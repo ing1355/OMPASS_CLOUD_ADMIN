@@ -1,15 +1,17 @@
 .custom-modal-content-container.terms-modal {
     align-items: flex-start;
-  }
-  
-  .terms-modal p {
+    display: flex;
+    flex-direction: column;
+}
+
+.terms-modal p {
     text-align: left;
-  }
+}
   
-  .terms-modal > div {
+.terms-modal > div {
     text-align: left;
     margin-bottom: 1em;
-  }
+}
   
   .padding-div-container {
     display: flex;

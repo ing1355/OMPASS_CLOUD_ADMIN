@@ -17,14 +17,16 @@ const OMPASSVerify = ({ setIsLogin, setUserProfile }) => {
             email: username,
             verifyOmpassToken: access_token
         }, (data, callback) => {
-            const {adminId, email, role, country, ompass} = data;
+            const {adminId, email, role, country, ompass, firstName, lastName} = data;
             if(callback) callback();
             setUserProfile({
                 adminId,
                 email,
                 role,
                 country,
-                ompass
+                ompass,
+                firstName,
+                lastName
             })
             setIsLogin(true);
             navigate('/');

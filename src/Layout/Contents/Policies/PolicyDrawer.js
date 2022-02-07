@@ -145,9 +145,9 @@ const Global_Policy = ({
     // else result.mobilePatch = null;
     result.userLocationsEnable = userLocationsEnable;
     if (isCustomPolicy && Object.keys(result).length === 1)
-      return showErrorMessage("PLEASE_INPUT_POLICY");
+    return showErrorMessage("PLEASE_INPUT_POLICY");
     if (accessControl === result.accessControl && title === result.title && result.browsers.toString() === browsers.toString() && userLocationEnable === result.userLocationsEnable
-    && userLocations.toString() === result.userLocations.toString()) {
+    && JSON.stringify(userLocations) === JSON.stringify(result.userLocations)) {
       return setVisible(false);
     }
     if (isEditPolicy) {
@@ -269,7 +269,8 @@ const Global_Policy = ({
     } = defaultPolicies || {};
     setInputAuthCheck(accessControl);
     setInputBrowserCheck(browsers);
-    setInputUserLocations(userLocations);
+    setUserLocationsEnable(false);
+    setInputUserLocations(userLocations.length > 0 ? userLocations : [{status : true, location: 'ETC'}]);
   }, [defaultPolicies]);
 
   return (
@@ -513,9 +514,6 @@ const Global_Policy = ({
             <h2>
               <FormattedMessage id="BROWSERSPOLICYTITLE" />
             </h2>
-            {/* <div className="policies-sub-box" style={{ fontWeight: "bold" }}>
-            Always block
-          </div> */}
 
             {BrowsersList.map((bl, ind) => (
               <div className="policies-sub-box" key={ind}>

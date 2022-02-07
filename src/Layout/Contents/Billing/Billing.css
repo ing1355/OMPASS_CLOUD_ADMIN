@@ -160,18 +160,10 @@
   color: #fff !important;
 }
 
-.pay-CustomConfirm {
+.billing-modal {
   display: flex;
   flex-direction: column;
-}
-.pay-CustomConfirm .custom-modal-content-container {
-  display: flex;
-  flex-direction: column !important;
-  overflow-x: hidden;
-}
-
-.custom-modal-content-container {
-  flex-direction: column;
+  overflow: hidden;
   width: 100%;
   text-align: center;
 }
