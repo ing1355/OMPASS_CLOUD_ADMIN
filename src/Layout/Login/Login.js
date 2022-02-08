@@ -50,9 +50,10 @@ const Login = ({
         lang: convertLanguageCode[locale],        
       },
       (data, callback) => {
-        const { ompass, adminId, email, role, country, firstName, lastName } = data;
+        const { ompass, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
+        console.log(ompassUrl)
         if (ompass) {
-          OMPASS(data.ompassUrl);
+          OMPASS(ompassUrl);
         } else {
           setUserProfile({
             adminId,

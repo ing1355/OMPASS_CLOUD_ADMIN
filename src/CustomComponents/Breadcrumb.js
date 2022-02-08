@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import "./Breadcrumb.css";
 
-const Breadcrumb = ({ }) => {
+const Breadcrumb = () => {
   const location = useLocation();
   const { pathname } = location;
   const temp =

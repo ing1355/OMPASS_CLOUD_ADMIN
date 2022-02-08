@@ -1,8 +1,7 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState, lazy } from "react";
 import "./Applications.css";
 import ContentsTitle from "../ContentsTitle";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
-import ApplicationAdd from "./ApplicationAdd";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 
 import { Button, Space } from "antd";
@@ -23,12 +22,14 @@ import {
 } from "../../../Constants/Api_Route";
 import { Link, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import ApplicationDetail from "./ApplicationDetail";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { ApplicationsColumns } from "../../../Constants/TableColumns";
 import { FormattedMessage, useIntl } from "react-intl";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
+
+const ApplicationAdd = lazy(() => import('./ApplicationAdd'))
+const ApplicationDetail = lazy(() => import('./ApplicationDetail'))
 
 const Applications = ({
   userProfile,

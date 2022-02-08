@@ -120,7 +120,7 @@ const CustomPolicy = ({
       policy: "BROWSERSPOLICYTITLE",
       description: getDescription,
     },
-  ], [getDescription, locale]);
+  ], [getDescription]);
 
   useLayoutEffect(() => {
     if (adminId) {
@@ -186,7 +186,7 @@ const CustomPolicy = ({
         })
       );
     },
-    [customPoliciesData, customPoliciesTableData]
+    [customPoliciesData]
   );
 
   useEffect(() => {

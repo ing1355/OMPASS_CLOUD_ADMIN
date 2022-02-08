@@ -51,7 +51,6 @@ const ApplicationDetail = ({
   const secretKeyRef = useRef(null);
   const policyRef = useRef(null);
   const { formatMessage } = useIntl();
-  const [isCloud, setIsCloud] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
   const [resetVisible, setResetVisible] = useState(false);
@@ -74,16 +73,12 @@ const ApplicationDetail = ({
           redirectUri,
           // status,
           policyId,
-          cloud,
         } = data;
         nameRef.current.value = name;
         doaminRef.current.value = domain;
         redirectURIRef.current.value = redirectUri;
-        // if (status === "ACTIVE") statusRef.current.checked = true;
-        // else statusRef2.current.checked = true;
         secretKeyRef.current.value = secretKey;
         policyRef.current.value = policyId;
-        setIsCloud(cloud);
       });
     }
   }, [adminId, appId]);
