@@ -33,7 +33,7 @@ const AdminDetail = ({
   userProfile,
   showSuccessMessage,
   showErrorMessage,
-  setIsLogin
+  setIsLogin,
 }) => {
   const {
     country,
@@ -121,11 +121,13 @@ const AdminDetail = ({
   const onDelete = () => {
     setConfirmLoading(true);
     CustomAxiosDelete(
-      role === 'ADMIN' ? deleteAdminApi(adminId) : deleteSubAdminApi(adminId, subAdminId),
+      role === "ADMIN"
+        ? deleteAdminApi(adminId)
+        : deleteSubAdminApi(adminId, subAdminId),
       () => {
-        if(role === 'ADMIN') {
-          setIsLogin(false)
-          showSuccessMessage('ADMINDELETESUCCESS')
+        if (role === "ADMIN") {
+          setIsLogin(false);
+          showSuccessMessage("ADMINDELETESUCCESS");
         } else {
           setConfirmLoading(false);
           showSuccessMessage("DELETE_SUCCESS");
@@ -239,9 +241,11 @@ const AdminDetail = ({
                 />
               </div>
             </div>
-            {(userProfile.role === "ADMIN" || isSelf) && <Button className="adminUpdateButton" htmlType="submit">
-              <UserSwitchOutlined /> <FormattedMessage id="UPDATE" />
-            </Button>}
+            {(userProfile.role === "ADMIN" || isSelf) && (
+              <Button className="adminUpdateButton" htmlType="submit">
+                <UserSwitchOutlined /> <FormattedMessage id="SAVE" />
+              </Button>
+            )}
             {(userProfile.role === "ADMIN" || isSelf) && (
               <Button
                 className="adminUpdateButton"
@@ -259,14 +263,19 @@ const AdminDetail = ({
               cancelCallback={closeConfirmModal}
               className="admin-delete-confirm-container"
             >
-              {role === 'ADMIN' ? <div className="warning-delete">
-                <p>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> <FormattedMessage id="WARNING" />
-                </p>
-                <p>
-                  <FormattedMessage id="ADMINDELETEWARNING" />
-                </p>
-              </div> : <FormattedMessage id="DELETECONFIRM" />}
+              {role === "ADMIN" ? (
+                <div className="warning-delete">
+                  <p>
+                    <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+                    <FormattedMessage id="WARNING" />
+                  </p>
+                  <p>
+                    <FormattedMessage id="ADMINDELETEWARNING" />
+                  </p>
+                </div>
+              ) : (
+                <FormattedMessage id="DELETECONFIRM" />
+              )}
             </CustomConfirm>
           </form>
         </div>
@@ -293,7 +302,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
-    }
+    },
   };
 }
 

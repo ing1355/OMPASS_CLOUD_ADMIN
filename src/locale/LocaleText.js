@@ -16,7 +16,7 @@ const locales = {
     ACTIVE: "Active",
     INACTIVE: "Inactive",
     login: "Login",
-    WELCOME_TEXT: 'Welcome ',
+    WELCOME_TEXT: "Welcome ",
     loginText1: "Welcome,",
     loginText2: "Only administrator can access this page.",
     id: "ID",
@@ -62,11 +62,11 @@ const locales = {
     DUPLICATECHECK: "Check availability",
     BILLINGCYCLE: "Billing Cycle",
     USERNUM: "Number of Users",
-    CHANGEUSERNUM: '변경할 사용자 수',
+    CHANGEUSERNUM: "변경할 사용자 수",
     ALLUSERNUM: "Total Users",
     REGISTEREDUSERNUM: "Registered Users",
     UNREGISTEREDUSERNUM: "	Unregistered Users",
-    BYPASSUSERNUM: "OMPASS AuthN Bypass",
+    BYPASSUSERNUM: "Bypass Users",
     EXCELUPLOAD: "Import User from CSV",
     EXCELDOWNLOAD: "Export User from CSV",
     REGISTER: "Register",
@@ -114,7 +114,7 @@ const locales = {
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
-    COLUMNPOLICYTITLE: 'Policy Name',
+    COLUMNPOLICYTITLE: "Policy Name",
     DAYSLEFT: "{day} days left",
     daysLeft: "{day}",
     SUBSCRIPTION_CANCEL_TITLE: "Cancel Auto-Renewal",
@@ -137,7 +137,7 @@ const locales = {
     ACCESSCONTROLDENYDESCRIPTION: "Deny OMPASS authentication for all users.",
     ACCESSCONTROLDESCRIPTION: "Checking the box above will apply to all users.",
     USERLOCATIONENABLEPOLICYTITLE: "User Location Restrictions",
-    USERLOCATIONCHANGEPOLICYTITLE: 'User Location Restrictions List',
+    USERLOCATIONCHANGEPOLICYTITLE: "User Location Restrictions List",
     USERLOCATIONPOLICYTITLE: "User Location Restrictions",
     USERLOCATIONPOLICYDESCRIPTION1:
       "Access attempts from unknown countries do not apply.",
@@ -183,7 +183,7 @@ const locales = {
     BILLINGPLANDESCRIPTION1_2: "Authenticate without password",
     BILLINGPLANDESCRIPTION1_3: "Two-Factor Authentication (2FA)",
     BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
-    GODOCUMENT: "Go Document",
+    GODOCUMENT: "Go to Document",
     POLICYDISABLEDTITLE: "Sorry, this policy cannot be selected.",
     POLICYDISABLEDDESCRIPTION:
       "This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.",
@@ -203,14 +203,18 @@ const locales = {
     UPDATE_BEFORE: "Previous",
     UPDATE_AFTER: "Current",
     CHANGEDADMIN: "Auditor",
-    ALLAGREE: "I have read and agree to all terms of service and conditions below.",
-    TERMS_SUB: 'I have read and agree to',
+    ALLAGREE:
+      "I have read and agree to all terms of service and conditions below.",
+    TERMS_SUB: "I have read and agree to",
     TERMSOFUSE: "Payment Gateway Terms of Service.",
-    TERMSOFPURCHASE: "payment of fees and indemnification from Terms of Service.",
+    TERMSOFPURCHASE:
+      "payment of fees and indemnification from Terms of Service.",
     WARNING: "Warning",
-    WARNINGDESCRIPTION:"If the current secret key is reissued, the old key will be destroyed.\nDo you still want to proceed it anyway?",
-    TERMSOFSERVICE: 'Terms of service',
-    ADMINDELETEWARNING: 'If you delete the administrator account, all data will be deleted.\nAre you sure you want to delete it anyway?'
+    WARNINGDESCRIPTION:
+      "If the current secret key is reissued, the old key will be destroyed.\nDo you still want to proceed it anyway?",
+    TERMSOFSERVICE: "Terms of service",
+    ADMINDELETEWARNING:
+      "If you delete the administrator account, all data will be deleted.\nAre you sure you want to delete it anyway?",
   },
   KR: {
     PERNUM: "명",
@@ -229,7 +233,7 @@ const locales = {
     ACTIVE: "활성화",
     INACTIVE: "비활성화",
     login: "로그인",
-    WELCOME_TEXT: '님 환영합니다.',
+    WELCOME_TEXT: "님 환영합니다.",
     loginText1: "환영합니다.",
     loginText2: "본 페이지는 관리자만을 위한\n로그인 페이지입니다.",
     id: "아이디",
@@ -275,7 +279,7 @@ const locales = {
     DUPLICATECHECK: "중복 확인",
     BILLINGCYCLE: "결제 주기",
     USERNUM: "최대 사용자 수",
-    CHANGEUSERNUM: '변경할 사용자 수',
+    CHANGEUSERNUM: "변경할 사용자 수",
     ALLUSERNUM: "전체 사용자 수",
     REGISTEREDUSERNUM: "등록된 사용자 수",
     UNREGISTEREDUSERNUM: "등록되지 않은 사용자 수",
@@ -326,7 +330,7 @@ const locales = {
     DESCRIPTION: "설명",
     SETTINGTODEFAULT: "기본값으로 변경",
     POLICYTITLE: "정책명",
-    COLUMNPOLICYTITLE: '정책명',
+    COLUMNPOLICYTITLE: "정책명",
     DAYSLEFT: "{day}일 남음",
     daysLeft: "{day}일",
     SUBSCRIPTION_CANCEL_TITLE: "OMPASS 구독 취소",
@@ -352,7 +356,7 @@ const locales = {
     ACCESSCONTROLDESCRIPTION:
       "이 옵션을 활성화하면 모든 사용자에게 적용됩니다.",
     USERLOCATIONENABLEPOLICYTITLE: "사용자 위치 제한 사용 여부",
-    USERLOCATIONCHANGEPOLICYTITLE: '사용자 위치 제한 목록',
+    USERLOCATIONCHANGEPOLICYTITLE: "사용자 위치 제한 목록",
     USERLOCATIONPOLICYTITLE: "사용자 위치 제한",
     USERLOCATIONPOLICYDESCRIPTION1:
       "알 수 없는 국가의 액세스 시도는 적용되지 않습니다.",
@@ -420,13 +424,15 @@ const locales = {
     UPDATE_AFTER: "변경 후",
     CHANGEDADMIN: "담당자",
     ALLAGREE: "전체 동의",
-    TERMS_SUB: '에 동의',
+    TERMS_SUB: "에 동의",
     TERMSOFUSE: "결제대행서비스 이용약관",
     TERMSOFPURCHASE: "구매조건 및 환불 규정",
     WARNING: "주의",
-    WARNINGDESCRIPTION: "현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?",
-    TERMSOFSERVICE: '이용 약관',
-    ADMINDELETEWARNING: '관리자 계정을 삭제할 시 모든 데이터가 삭제됩니다.\n그래도 진행하시겠습니까?'
+    WARNINGDESCRIPTION:
+      "현재 비밀키를 재발급받을 경우 이전 키는 폐기됩니다.\n그래도 진행하시겠습니까?",
+    TERMSOFSERVICE: "이용 약관",
+    ADMINDELETEWARNING:
+      "관리자 계정을 삭제할 시 모든 데이터가 삭제됩니다.\n그래도 진행하시겠습니까?",
   },
 };
 
