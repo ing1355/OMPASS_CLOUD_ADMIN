@@ -5,19 +5,24 @@ import { ImportOutlined } from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 
-const Sidebar = ({locale}) => {
+const Sidebar = ({ locale }) => {
   return (
     <div className="sidebar">
       <Menu />
       <a
         className="back-to-homepage"
         rel="noopener noreferrer"
-        href={locale === 'ko' ? "https://ompass.kr:4003/ko" : "https://ompass.kr:4003"}
+        href={
+          locale === "ko"
+            ? "https://ompass.kr:4003/ko"
+            : "https://ompass.kr:4003"
+        }
         target="_blank"
       >
-        <ImportOutlined style={{marginRight:'6px'}}/>
-          <FormattedMessage id="BACKHOMEPAGE"/>
+        <ImportOutlined style={{ marginRight: "6px" }} />
+        <FormattedMessage id="BACKHOMEPAGE" />
       </a>
+      <a className="user-Withdrawal">회원 탈퇴</a>
     </div>
   );
 };

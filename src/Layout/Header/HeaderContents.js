@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
@@ -14,7 +19,7 @@ const HeaderContents = ({
   setIsLogin,
   menuChange,
   userProfile,
-  showErrorMessage
+  showErrorMessage,
 }) => {
   const location = useLocation();
   const { role, firstName, lastName } = userProfile;
@@ -29,31 +34,33 @@ const HeaderContents = ({
 
   const menuOpen = useCallback(() => {
     setProfileOpen(!profileOpen);
-  }, [profileOpen])
+  }, [profileOpen]);
 
-  const eventCallback = useCallback(e => {
+  const eventCallback = useCallback((e) => {
     setProfileOpen(false);
-  },[])
+  }, []);
 
   useEffect(() => {
-    if(profileOpen) {
-      document.addEventListener('click', eventCallback)
+    if (profileOpen) {
+      document.addEventListener("click", eventCallback);
     } else {
-      document.removeEventListener('click', eventCallback);
+      document.removeEventListener("click", eventCallback);
     }
     return () => {
-      document.removeEventListener('click', eventCallback);
-    }
-  },[profileOpen])
+      document.removeEventListener("click", eventCallback);
+    };
+  }, [profileOpen]);
 
   const logout = () => {
     setIsLogin(false);
-    showErrorMessage('LOGOUTSUCCESS')
-  }
+    showErrorMessage("LOGOUTSUCCESS");
+  };
 
   return (
     <div className="header-contents">
-      <div className="header-contents-route-title">{menuState && <FormattedMessage id={menuState} />}</div>
+      <div className="header-contents-route-title">
+        {menuState && <FormattedMessage id={menuState} />}
+      </div>
 
       <div className="header-contents-button-box">
         <div className="profile-container" onClick={menuOpen}>
@@ -61,9 +68,13 @@ const HeaderContents = ({
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
-            {firstName + ' ' + lastName}
+            {firstName + " " + lastName}
           </b>
-          <div className={"profile-sub-container" + (profileOpen ? ' visible' : '')}>
+          <div
+            className={
+              "profile-sub-container" + (profileOpen ? " visible" : "")
+            }
+          >
             <div onClick={logout}>
               <FormattedMessage id="logout" />
             </div>
@@ -92,8 +103,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(ActionCreators.setIsLogin(toggle));
     },
     showErrorMessage: (msg) => {
-      dispatch(ActionCreators.showErrorMessage(msg))
-    }
+      dispatch(ActionCreators.showErrorMessage(msg));
+    },
   };
 }
 
