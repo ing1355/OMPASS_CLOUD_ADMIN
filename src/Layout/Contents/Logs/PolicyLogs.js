@@ -82,16 +82,18 @@ const PolicyLogs = ({ userProfile, locale }) => {
 
   const searchTitleFunction = useCallback(
     (rowValue, searchValue) => {
-      if (searchValue === "Default Policy") {
-        return rowValue.policyId === defaultPolicyData.policyId;
+      const title = rowValue.changes.afterPolicy.title;
+      if(title === 'Default Policy') {
+        if(locale === 'ko') {
+          return '기본 정책'.includes(searchValue)
+        } else {
+          return title.includes(searchValue)  
+        }
       } else {
-        return (
-          rowValue.policyId ===
-          customPoliciesData.find((p) => p.title === searchValue).policyId
-        );
+        return title.includes(searchValue)
       }
     },
-    [defaultPolicyData, customPoliciesData]
+    [locale]
   );
 
   return (
@@ -105,9 +107,6 @@ const PolicyLogs = ({ userProfile, locale }) => {
           columns={PolicyLogsColumns}
           loading={tableLoading}
           datas={tableData}
-          optionalSearchDatas={{
-            policyName: customPoliciesData.map(({ title }) => title)
-          }}
           pagination
           searched
           searchFunction={searchTitleFunction}

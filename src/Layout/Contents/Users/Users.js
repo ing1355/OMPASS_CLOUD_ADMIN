@@ -1,7 +1,6 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState, lazy } from "react";
 import "./Users.css";
 import ContentsTitle from "../ContentsTitle";
-import "../../../App.css";
 import {
   getUsersApi,
   getApplicationApi
@@ -11,11 +10,12 @@ import {
 } from "../../../Functions/CustomAxios";
 import { connect } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import UserDetail from "./UserDetail";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import ActionCreators from "../../../redux/actions";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 import UsersContents from "./UserContents";
+
+const UserDetail = lazy(() => import('./UserDetail'))
 
 const Users = ({
   userProfile

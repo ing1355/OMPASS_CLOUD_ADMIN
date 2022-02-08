@@ -30,7 +30,6 @@ const CustomTable = ({
   columnsHide,
   searched,
   selectedRows,
-  optionalSearchDatas,
   locale,
   searchFunction
 }) => {
@@ -60,7 +59,7 @@ const CustomTable = ({
     : columns;
   const firstRenderRef = useRef(false);
   const searchInputRef = useRef(null);
-  const _numPerPage = numPerPage ? numPerPage : 10;
+  const _numPerPage = useMemo(() => numPerPage ? numPerPage : 10,[numPerPage]);
   const pageNum = datas
     ? parseInt(datas.length / _numPerPage) +
       (datas.length % _numPerPage === 0 ? 0 : 1)
@@ -185,7 +184,7 @@ const CustomTable = ({
     pagination,
     tableData,
     currentPage,
-    numPerPage,
+    _numPerPage,
     rowSelectable,
     rowClick,
     selectedRows,
@@ -207,7 +206,7 @@ const CustomTable = ({
             } else {
               if (!content.value) setTableData(_data);
               else {
-                if(searchFunction) {
+                if(columns.find(c => c.key === column.value).searchFunction) {
                   setTableData(_data.filter(tD => searchFunction(tD, content.value)));
                 } else {
                   setTableData(_data.filter(tD => tD[column.value].includes(content.value)));
@@ -233,7 +232,7 @@ const CustomTable = ({
           </select>
           {searchColumn && searchTarget.searchedOptions ? (
             <select className="table-search-column-select" name="content">
-            {((optionalSearchDatas && optionalSearchDatas[searchColumn]) ? searchTarget.searchedOptions.concat(optionalSearchDatas[searchColumn]) : searchTarget.searchedOptions).map((opt) => (
+            {searchTarget.searchedOptions.map((opt) => (
               <option key={opt} value={opt}>
                 {searchTarget.getSearchedLabel
                   ? searchTarget.getSearchedLabel(opt, locale)
@@ -254,7 +253,7 @@ const CustomTable = ({
             />
           )}
           <button type="submit" className="button searchButton">
-            <img src={searchIcon} width="60%" height="50%" />
+            <img src={searchIcon} width="60%" height="50%" alt=""/>
           </button>
         </form>
       )}
@@ -370,6 +369,7 @@ const CustomTable = ({
                             if (ind < currentPage + 3 && ind > currentPage - 3)
                               return temp;
                           } else if (pageNum < 5) return temp;
+                          return null;
                         })}
                       </div>
                       <RightArrow

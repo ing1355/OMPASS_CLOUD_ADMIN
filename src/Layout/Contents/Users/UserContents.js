@@ -282,6 +282,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
         </div>
         <CustomConfirm
             visible={uploadConfirmVisible}
+            className="user-excel-modal-container"
             cancelCallback={closeConfirmModal}
             confirmCallback={submitCSV}
             okLoading={csvConfirmLoading}
@@ -309,6 +310,7 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
         </CustomConfirm>
         <CustomConfirm
             visible={downloadConfirmVisible}
+            className="user-excel-modal-container"
             cancelCallback={closeDownloadModal}
             confirmCallback={downloadCSV}
             okLoading={csvConfirmLoading}

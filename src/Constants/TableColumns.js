@@ -2,7 +2,6 @@ import React from "react";
 import CustomSwitch from "../CustomComponents/CustomSwitch";
 import { slicePrice } from "../Functions/SlicePrice";
 import { FormattedMessage } from "react-intl";
-import searchIcon from "../assets/searchIcon2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "../CustomComponents/CustomButton";
@@ -117,8 +116,7 @@ export const PolicyLogsColumns = [
     name: "COLUMNPOLICYTITLE",
     key: "policyName",
     searched: true,
-    searchedOptions: ["Default Policy"],
-    getSearchedLabel: (value, lang) => value === 'Default Policy' ? (lang === 'ko' ? '기본 정책' : 'Default Policy') : value,
+    searchFunction: true,
     maxLength: 24,
     width: 250,
   },

@@ -48,6 +48,7 @@
   top: 2.7rem;
   left: 0;
   width: 100%;
+  min-width: 100px;
   background-color: white;
   margin-top: 12px;
   box-shadow: 0 2px 2px 0 #ccc;

@@ -146,9 +146,9 @@ const PaymentModal = ({
 
   return (
     <CustomConfirm
-  
       visible={confirmModal}
       confirmCallback={requestIamPort}
+      className="billing-modal"
       footer={isKorea()}
       closable={!isKorea()}
       okLoading={confirmLoading}

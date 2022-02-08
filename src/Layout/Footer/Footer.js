@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import TermsOfPurchase from '../../CustomComponents/TermsOfPurchase';
 import ActionCreators from '../../redux/actions';

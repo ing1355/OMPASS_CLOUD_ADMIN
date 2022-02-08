@@ -236,3 +236,8 @@
   color: rgb(184, 32, 32);
   font-weight: bold;
 }
+
+.user-excel-modal-container {
+  display: flex;
+  flex-direction: column;
+}

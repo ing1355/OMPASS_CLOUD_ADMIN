@@ -5,7 +5,6 @@ import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
 import { useLocation } from "react-router";
-import { message } from "antd";
 import route_info from "../../Constants/Route_items";
 
 import { AliwangwangOutlined } from "@ant-design/icons";
@@ -15,7 +14,6 @@ const HeaderContents = ({
   setIsLogin,
   menuChange,
   userProfile,
-  locale,
   showErrorMessage
 }) => {
   const location = useLocation();

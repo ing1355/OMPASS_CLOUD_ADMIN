@@ -1,8 +1,6 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState, lazy } from "react";
 import "./Admins.css";
 import ContentsTitle from "../ContentsTitle";
-import AdminAdd from "./AdminAdd";
-import AdminDetail from "./AdminDetail";
 import {
   CustomAxiosGet,
   CustomAxiosPatch,
@@ -17,6 +15,9 @@ import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
+
+const AdminAdd = lazy(() => import('./AdminAdd'))
+const AdminDetail = lazy(() => import('./AdminDetail'))
 
 const Admins = ({ userProfile, showSuccessMessage }) => {
   const { adminId } = userProfile;

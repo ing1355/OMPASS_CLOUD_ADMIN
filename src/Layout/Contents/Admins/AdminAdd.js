@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -28,6 +28,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   const [inputFormat, setInputFormat] = useState(null);
   const [inputDialCode, setInputDialCode] = useState(null);
   const [inputEmail, setInputEmail] = useState(null);
+  const emailRef = useRef(null);
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
 
@@ -43,8 +44,14 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
   };
 
   const existCheckFunc = () => {
-    if (!inputEmail) return showErrorMessage("PLEASE_INPUT_EMAIL");
-    if (!emailTest(inputEmail)) return showErrorMessage("EMAIL_RULE_ERROR");
+    if (!inputEmail) {
+      emailRef.current.focus();
+      return showErrorMessage("PLEASE_INPUT_EMAIL");
+    }
+    if (!emailTest(inputEmail)) {
+      emailRef.current.focus();
+      return showErrorMessage("EMAIL_RULE_ERROR");
+    }
     CustomAxiosGet(checkSubAdminExistenceApi(adminId, inputEmail), (data) => {
       if (data.duplicate) {
         setExistCheck(false);
@@ -91,7 +98,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       phone: mobile.value,
       role: "ADMIN",
     });
-    showSuccessMessage('EMAIL_SEND_SUCCESS')
+    alert(formatMessage({id:'EMAIL_SEND_SUCCESS'}))
     navigate("/Admins");
   };
 
@@ -112,6 +119,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
             <input
               name="email"
               maxLength={48}
+              ref={emailRef}
               placeholder={formatMessage({ id: 'PLEASE_INPUT_EMAIL' })}
               onChange={changeEmailInput}
             />
