@@ -42,7 +42,12 @@ import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
 import TermsOfUse from "./TermsOfUse";
 
-const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase }) => {
+const Billing = ({
+  userProfile,
+  locale,
+  showErrorMessage,
+  openTermsOfPurchase,
+}) => {
   const { adminId, country } = userProfile;
   const isKorea = useCallback(
     () => (country === "KR" ? true : false),
@@ -62,7 +67,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const [termsOfUseVisible, setTermsOfUseVisible] = useState(false);
-  const userNumList = useMemo(() => new Array(990).fill(1),[])
+  const userNumList = useMemo(() => new Array(990).fill(1), []);
 
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
@@ -87,7 +92,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-        editions.find((e) => e.name === inputEdition).priceForOneUser
+          editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -139,17 +144,23 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
     e.preventDefault();
     const { term, userNum, checkAll } = e.target.elements;
     if (currentPlan.status === "RUN") {
-      if (currentPlan.numberUsers === userNum.value * 1) return showErrorMessage('PLEASE_CHANGE_USER_NUM_DIFFERNT')
+      if (currentPlan.numberUsers === userNum.value * 1)
+        return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
       if (allUserNum >= userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     } else {
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (currentPlan.status !== 'RUN' && !checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    if (currentPlan && currentPlan.status === 'RUN') {
-      if (new Date(currentPlan.createDate).getFullYear() === new Date(currentPlan.expireDate).getFullYear()) inputTermRef.current = 'MONTHLY'
-      else inputTermRef.current = 'ANNUALLY'
+    if (currentPlan.status !== "RUN" && !checkAll.checked)
+      return showErrorMessage("PLEASE_AGREEMENT_CHECK");
+    if (currentPlan && currentPlan.status === "RUN") {
+      if (
+        new Date(currentPlan.createDate).getFullYear() ===
+        new Date(currentPlan.expireDate).getFullYear()
+      )
+        inputTermRef.current = "MONTHLY";
+      else inputTermRef.current = "ANNUALLY";
     } else inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
@@ -372,7 +383,11 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
             <label className="billing-change-form-label">
-              {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="USERNUM" /> : <FormattedMessage id="CHANGEUSERNUM" />}
+              {!currentPlan || currentPlan.status !== "RUN" ? (
+                <FormattedMessage id="USERNUM" />
+              ) : (
+                <FormattedMessage id="CHANGEUSERNUM" />
+              )}
             </label>
             <div>
               <select
@@ -391,25 +406,27 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
               </select>
             </div>
           </div>
-          {(!currentPlan || currentPlan.status !== 'RUN') && <div className="billing-change-item">
-            <label className="billing-change-form-label">
-              <FormattedMessage id="BILLINGCYCLE" />
-            </label>
-            <select
-              className="billing-change-form-select"
-              name="term"
-              onChange={(e) => {
-                setInputTerm(e.target.value);
-              }}
-            >
-              <option value="MONTHLY">
-                {formatMessage({ id: "MONTHLY" })}
-              </option>
-              <option value="ANNUALLY">
+          {(!currentPlan || currentPlan.status !== "RUN") && (
+            <div className="billing-change-item">
+              <label className="billing-change-form-label">
+                <FormattedMessage id="BILLINGCYCLE" />
+              </label>
+              <select
+                className="billing-change-form-select"
+                name="term"
+                onChange={(e) => {
+                  setInputTerm(e.target.value);
+                }}
+              >
+                <option value="MONTHLY">
+                  {formatMessage({ id: "MONTHLY" })}
+                </option>
+                {/* <option value="ANNUALLY">
                 {formatMessage({ id: "ANNUALLY" })}
-              </option>
-            </select>
-          </div>}
+              </option> */}
+              </select>
+            </div>
+          )}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="PRICECOLUMN" />
@@ -428,80 +445,123 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          {(!currentPlan || currentPlan.status !== 'RUN') && <div
-            className="billing-change-item"
-            style={{ alignItems: "baseline" }}
-          >
-            <label className="billing-change-form-label">
-              <FormattedMessage id="AGREE" />
-            </label>
-            <div>
-              <input
-                type="checkbox"
-                name="checkAll"
-                checked={allCheck}
-                onChange={changeAllCheck}
-              />
-              <label>
-                &nbsp;
-                <FormattedMessage id="ALLAGREE" />
-                {/* <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> */}
-                <br />
+          {(!currentPlan || currentPlan.status !== "RUN") && (
+            <div
+              className="billing-change-item"
+              style={{ alignItems: "baseline" }}
+            >
+              <label className="billing-change-form-label">
+                <FormattedMessage id="AGREE" />
               </label>
-              <div className="sub-checkbox">
-                <div className="inner-check-line" />
+              <div>
                 <input
                   type="checkbox"
-                  name="check1"
-                  checked={subCheck1}
-                  onChange={changeCheck1}
+                  name="checkAll"
+                  checked={allCheck}
+                  onChange={changeAllCheck}
                 />
                 <label>
                   &nbsp;
-                  {locale === 'ko' ? <><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfUse}>
-                    <FormattedMessage id="TERMSOFUSE" /></a><FormattedMessage id="TERMS_SUB" /></>
-                    : <><FormattedMessage id="TERMS_SUB" /><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfUse}><FormattedMessage id="TERMSOFUSE" /></a></>}
+                  <FormattedMessage id="ALLAGREE" />
+                  {/* <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> */}
+                  <br />
                 </label>
-              </div>
-              <div className="sub-checkbox">
-                <div className="inner-check-line" />
-                <input
-                  type="checkbox"
-                  name="check1"
-                  checked={subCheck2}
-                  onChange={changeCheck2}
-                />
-                <label>
-                  &nbsp;
-                  {locale === 'ko' ? <><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfPurchase}><FormattedMessage id="TERMSOFPURCHASE" /></a><FormattedMessage id="TERMS_SUB" /></>
-                    : <><FormattedMessage id="TERMS_SUB" /><a href="#purchaseTarget" className="see-policy" onClick={openTermsOfPurchase}><FormattedMessage id="TERMSOFPURCHASE" /></a></>}
-                </label>
-              </div>
-              <div style={{marginTop:'8px'}}>
-                <label>
-                  {inputTerm === "MONTHLY"
-                    ? formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
-                    )
-                    : formatMessage(
-                      { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                      {
-                        param:
-                          slicePrice(
-                            inputTerm === "MONTHLY" ? cost : cost * 12
-                          ) + (isKorea() ? "원" : "$"),
-                      }
+                <div className="sub-checkbox">
+                  <div className="inner-check-line" />
+                  <input
+                    type="checkbox"
+                    name="check1"
+                    checked={subCheck1}
+                    onChange={changeCheck1}
+                  />
+                  <label>
+                    &nbsp;
+                    {locale === "ko" ? (
+                      <>
+                        <a
+                          href="#purchaseTarget"
+                          className="see-policy"
+                          onClick={openTermsOfUse}
+                        >
+                          <FormattedMessage id="TERMSOFUSE" />
+                        </a>
+                        <FormattedMessage id="TERMS_SUB" />
+                      </>
+                    ) : (
+                      <>
+                        <FormattedMessage id="TERMS_SUB" />
+                        <a
+                          href="#purchaseTarget"
+                          className="see-policy"
+                          onClick={openTermsOfUse}
+                        >
+                          <FormattedMessage id="TERMSOFUSE" />
+                        </a>
+                      </>
                     )}
-                </label>
+                  </label>
+                </div>
+                <div className="sub-checkbox">
+                  <div className="inner-check-line" />
+                  <input
+                    type="checkbox"
+                    name="check1"
+                    checked={subCheck2}
+                    onChange={changeCheck2}
+                  />
+                  <label>
+                    &nbsp;
+                    {locale === "ko" ? (
+                      <>
+                        <a
+                          href="#purchaseTarget"
+                          className="see-policy"
+                          onClick={openTermsOfPurchase}
+                        >
+                          <FormattedMessage id="TERMSOFPURCHASE" />
+                        </a>
+                        <FormattedMessage id="TERMS_SUB" />
+                      </>
+                    ) : (
+                      <>
+                        <FormattedMessage id="TERMS_SUB" />
+                        <a
+                          href="#purchaseTarget"
+                          className="see-policy"
+                          onClick={openTermsOfPurchase}
+                        >
+                          <FormattedMessage id="TERMSOFPURCHASE" />
+                        </a>
+                      </>
+                    )}
+                  </label>
+                </div>
+                <div style={{ marginTop: "8px" }}>
+                  <label>
+                    {inputTerm === "MONTHLY"
+                      ? formatMessage(
+                          { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                          {
+                            param:
+                              slicePrice(
+                                inputTerm === "MONTHLY" ? cost : cost * 12
+                              ) + (isKorea() ? "원" : "$"),
+                          }
+                        )
+                      : formatMessage(
+                          { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                          {
+                            param:
+                              slicePrice(
+                                inputTerm === "MONTHLY" ? cost : cost * 12
+                              ) + (isKorea() ? "원" : "$"),
+                          }
+                        )}
+                  </label>
+                </div>
               </div>
             </div>
-          </div>}
+          )}
           <div className="billing-change-item" style={{ paddingBottom: "0" }}>
             <button
               name="payType"
@@ -509,7 +569,11 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
               value="iamPort"
               type="submit"
             >
-              {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="SUBSCRIPTION" /> : <FormattedMessage id="CHANGESUBSCRIPTION"/>}
+              {!currentPlan || currentPlan.status !== "RUN" ? (
+                <FormattedMessage id="SUBSCRIPTION" />
+              ) : (
+                <FormattedMessage id="CHANGESUBSCRIPTION" />
+              )}
             </button>
           </div>
         </form>
@@ -566,8 +630,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(ActionCreators.showErrorMessage(id));
     },
     openTermsOfPurchase: () => {
-      dispatch(ActionCreators.termsOfPurchaseVisibleChange(true))
-    }
+      dispatch(ActionCreators.termsOfPurchaseVisibleChange(true));
+    },
   };
 }
 
