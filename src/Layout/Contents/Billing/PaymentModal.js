@@ -34,7 +34,7 @@ const PaymentModal = ({
   const [costPerUser, setCostPerUser] = useState(0);
 
   useLayoutEffect(() => {
-    if(currentPlan && editions.length > 0) {
+    if(currentPlan && editions.length > 0 && editions.find((e) => e.name === currentPlan.name)) {
       setCostPerUser(editions.find((e) => e.name === currentPlan.name).priceForOneUser)
     }
   },[editions, currentPlan])
