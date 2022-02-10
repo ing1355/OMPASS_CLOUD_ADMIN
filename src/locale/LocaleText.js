@@ -217,12 +217,13 @@ const locales = {
     "If you cancel membership here, all data will be deleted\nsuch as users, admins, applications, and settings.\nAll users will not be able to use OMPASS service anymore.\n\nTo continue, please enter your password and click the OK button.",
     WITHDRAWAL:'Cancel Membership',
     CHANGESUBSCRIPTION: 'Change',
-    CHANGEBILLINGDESCRIPTION1: 'Users change from : {param}',
-    CHANGEBILLINGDESCRIPTION2: 'Users change to : {param}',
+    CHANGEBILLINGDESCRIPTION1: 'The number of users on last payment : {param}',
+    CHANGEBILLINGDESCRIPTION2: 'The number of users on next payment : {param}',
     CHANGEBILLINGDESCRIPTION3: 'Payment changes from : {param}',
     CHANGEBILLINGDESCRIPTION4: 'Payment changes to : {param}',
     CHANGEBILLINGDESCRIPTION5: 'The changed payment amount will be charged from\nthe next payment date.',
     CHANGEBILLINGDESCRIPTION6: 'Are you sure you want to proceed?',
+    PRICE_CHANGE_DESCRIPTION: '※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.'
   },
   KR: {
     PERNUM: "명",
@@ -443,12 +444,13 @@ const locales = {
       "회원 탈퇴 시 지금까지의 모든 데이터가 삭제되며\n더 이상 OMPASS를 이용할 수 없게 됩니다.\n\n계속 진행하시려면 비밀번호를 입력한 뒤 OK 버튼을 눌러주세요.",
     WITHDRAWAL:'회원탈퇴',
     CHANGESUBSCRIPTION: '변경하기',
-    CHANGEBILLINGDESCRIPTION1: '이전 사용자 수 : {param} 명',
-    CHANGEBILLINGDESCRIPTION2: '변경할 사용자 수 : {param} 명',
+    CHANGEBILLINGDESCRIPTION1: '이전 결제 사용자 수 : {param} 명',
+    CHANGEBILLINGDESCRIPTION2: '변경할 결제 사용자 수 : {param} 명',
     CHANGEBILLINGDESCRIPTION3: '이전 결제 금액 : {param}',
     CHANGEBILLINGDESCRIPTION4: '변경될 결제 금액 : {param}',
     CHANGEBILLINGDESCRIPTION5: '다음 결제일부터 변경된 결제 금액이 결제됩니다.',
-    CHANGEBILLINGDESCRIPTION6: '계속 진행하시겠습니까?'
+    CHANGEBILLINGDESCRIPTION6: '계속 진행하시겠습니까?',
+    PRICE_CHANGE_DESCRIPTION: '※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.'
   },
 };
 

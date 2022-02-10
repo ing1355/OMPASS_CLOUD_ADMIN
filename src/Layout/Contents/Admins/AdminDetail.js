@@ -123,7 +123,7 @@ const AdminDetail = ({
   };
 
   const onDelete = () => {
-    if (!verifyPasswordRef.current.value.length) {
+    if (isSelf && !verifyPasswordRef.current.value.length) {
       verifyPasswordRef.current.focus();
       return showErrorMessage('PLEASE_INPUT_PASSWORD')
     }
@@ -140,7 +140,6 @@ const AdminDetail = ({
             showSuccessMessage("ADMINDELETESUCCESS");
           } else {
             setConfirmLoading(false);
-            showSuccessMessage("DELETE_SUCCESS");
             deleteEvent(index);
             navigate("/Admins");
           }

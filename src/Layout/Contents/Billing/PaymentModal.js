@@ -27,12 +27,13 @@ const PaymentModal = ({
   cost,
   setConfirmModal,
   currentPlan,
-  editions
+  editions,
+  lastHistory
 }) => {
   const { adminId } = userProfile;
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [costPerUser, setCostPerUser] = useState(0);
-
+  console.log(lastHistory)
   useLayoutEffect(() => {
     if(currentPlan && editions.length > 0 && editions.find((e) => e.name === currentPlan.name)) {
       setCostPerUser(editions.find((e) => e.name === currentPlan.name).priceForOneUser)
@@ -199,12 +200,12 @@ const PaymentModal = ({
             </Spin>
           )}
         </div></> : <div>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION1" values={{param:currentPlan.numberUsers}}/><br/>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION1" values={{param:lastHistory.numberUsers}}/><br/>
           <FormattedMessage id="CHANGEBILLINGDESCRIPTION2" values={{param:<span>{inputUserNum}</span>}}/><br/>
           <FormattedMessage id="CHANGEBILLINGDESCRIPTION3" values={{param:<><b style={{ color: "Red" }}>
           {isKorea()
-            ? slicePrice(inputTerm === "MONTHLY" ? (currentPlan.numberUsers * costPerUser) : (currentPlan.numberUsers * costPerUser) * 12) + " 원"
-            : "$" + slicePrice(inputTerm === "MONTHLY" ? (currentPlan.numberUsers * costPerUser) : (currentPlan.numberUsers * costPerUser) * 12)}
+            ? slicePrice(inputTerm === "MONTHLY" ? (lastHistory.numberUsers * costPerUser) : (lastHistory.numberUsers * costPerUser) * 12) + " 원"
+            : "$" + slicePrice(inputTerm === "MONTHLY" ? (lastHistory.numberUsers * costPerUser) : (lastHistory.numberUsers * costPerUser) * 12)}
         </b>
         <span>
           &nbsp;/ <FormattedMessage id={inputTerm} />

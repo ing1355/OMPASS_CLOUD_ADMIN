@@ -42,7 +42,7 @@ export const passwordTest = (value) => {
 }
 
 export const doaminTest = (value) => {
-    const _ = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/
+    const _ = /(https:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/
     return _.test(value);
 }
 
