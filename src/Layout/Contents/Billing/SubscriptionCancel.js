@@ -66,6 +66,7 @@ const SubscriptionCancel = ({
 
       <CustomConfirm
         visible={cancelConfirmModal}
+        className="billing-modal"
         footer={true}
         confirmCallback={cancelIamPort}
         okLoading={confirmLoading}

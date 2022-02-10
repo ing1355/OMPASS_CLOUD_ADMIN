@@ -64,8 +64,9 @@
 
 .profile-sub-container > div {
   text-align: center;
+  border-bottom: 1px solid black;
 }
 
-/* .profile-sub-container > div:nth-child(1) {
-  border-bottom: 1px solid gray;
-} */
+.profile-sub-container > div:last-child {
+  border-bottom: none;
+}

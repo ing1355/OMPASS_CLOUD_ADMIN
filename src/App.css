@@ -40,13 +40,6 @@ a {
   }
 }
 
-.contents-container {
-  animation: fadeIn 0.5s;
-  margin: 0 auto;
-  width: 80rem;
-  padding: 3rem 4rem;
-}
-
 table {
   width: 100%;
   height: auto;
@@ -105,10 +98,6 @@ table tbody tr:hover {
 /* .svg-inline--fa {
   vertical-align: -0.3rem !important;
 } */
-
-.contents-container {
-  position: relative;
-}
 
 @media (max-width: 1600px) {
   .contents-container {

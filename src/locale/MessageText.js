@@ -32,7 +32,7 @@ const locales = {
     PAYMENT_SUCCESS: 'Payment successful',
     PAYMENT_FAIL: 'Sorry, payment failed!',
     SUBCRIPTION_CANCEL_SUCCESS: 'Your upcoming recurring payment is successfully cancelled.',
-    PLEASE_AGREEMENT_CHECK: 'Please check the terms of use and privacy policy.',
+    PLEASE_AGREEMENT_CHECK: 'Please check all boxes on agreement to proceed',
     PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE: 'You have selected fewer number of users than the current number of registered users.',
     PLEASE_CHANGE_USER_NUM_DIFFERNT: 'Please change the number of users because you selected it same as before.',
     RESET_PASSWORD_SUCCESS_MESSAGE: 'You can now sign into your admin account by new password.',
@@ -51,7 +51,7 @@ const locales = {
     TOO_MANY_PERSON: 'The number of prepaid OMPASS users are exceeded. Exceeded number of users are {param}.',
     EXCEL_EMPTY: 'There is no user information from the file.',
     EXCEL_DOWNLOAD_FAIL: 'Failed to download! Please contact to OMPASS customer service by clicking the icon at the bottom right.',
-    ADMINDELETESUCCESS: '회원탈퇴를 성공적으로 마쳤습니다.'
+    ADMINDELETESUCCESS: 'You have successfully canceled your membership.'
   },
   KR: {
     success: "성공하였습니다!",

@@ -26,7 +26,6 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
   const [detailData, setDetailData] = useState({});
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [ompassToggle, setOmpassToggle] = useState(false);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -41,7 +40,6 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
               index,
             }))
           );
-          setOmpassToggle(data[0].ompass);
           setTableLoading(false);
         },
         () => {
@@ -78,24 +76,6 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
     [tableData, showSuccessMessage]
   );
 
-  const OMPASSToggle = useCallback(() => {
-    setConfirmLoading(true);
-    CustomAxiosPatch(
-      update2faApi(adminId),
-      {
-        flag: !ompassToggle,
-      },
-      (data) => {
-        setOmpassToggle(!ompassToggle);
-        setConfirmVisible(false);
-        setConfirmLoading(false);
-      },
-      () => {
-        setConfirmLoading(false);
-      }
-    );
-  }, [ompassToggle]);
-
   return (
     <div className="contents-container">
       <Breadcrumb />
@@ -125,13 +105,6 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
                   rowClick={clickToDetail}
                 />
               </div>
-              <PasswordConfirm
-                visible={confirmVisible}
-                setVisible={setConfirmVisible}
-                loading={confirmLoading}
-                setLoading={setConfirmLoading}
-                callback={OMPASSToggle}
-              />
             </div>
           }
         />

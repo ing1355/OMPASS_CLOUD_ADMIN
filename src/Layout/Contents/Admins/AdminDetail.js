@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -9,6 +9,7 @@ import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
   CustomAxiosDelete,
+  CustomAxiosPost,
   CustomAxiosPut,
 } from "../../../Functions/CustomAxios";
 import {
@@ -25,6 +26,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { FailToTest, passwordTest } from "../../../Constants/InputRules";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { verifyPasswordApi } from "../../../Constants/VerifyPassword";
 
 const AdminDetail = ({
   data,
@@ -50,6 +52,7 @@ const AdminDetail = ({
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
+  const verifyPasswordRef = useRef(null);
   const [inputCountryCode, setInputCountryCode] = useState(country);
   const [inputFormat, setInputFormat] = useState(null);
   const [inputDialCode, setInputDialCode] = useState(null);
@@ -67,6 +70,7 @@ const AdminDetail = ({
     setConfirmModal(true);
   }, []);
   const closeConfirmModal = useCallback(() => {
+    setConfirmLoading(false);
     setConfirmModal(false);
   }, []);
 
@@ -119,27 +123,46 @@ const AdminDetail = ({
   };
 
   const onDelete = () => {
+    if (!verifyPasswordRef.current.value.length) {
+      verifyPasswordRef.current.focus();
+      return showErrorMessage('PLEASE_INPUT_PASSWORD')
+    }
     setConfirmLoading(true);
-    CustomAxiosDelete(
-      role === "ADMIN"
-        ? deleteAdminApi(adminId)
-        : deleteSubAdminApi(adminId, subAdminId),
-      () => {
-        if (role === "ADMIN") {
-          setIsLogin(false);
-          showSuccessMessage("ADMINDELETESUCCESS");
-        } else {
+    const callback = () => {
+      setConfirmLoading(true);
+      CustomAxiosDelete(
+        role === "ADMIN"
+          ? deleteAdminApi(adminId)
+          : deleteSubAdminApi(adminId, subAdminId),
+        () => {
+          if (isSelf) {
+            setIsLogin(false);
+            showSuccessMessage("ADMINDELETESUCCESS");
+          } else {
+            setConfirmLoading(false);
+            showSuccessMessage("DELETE_SUCCESS");
+            deleteEvent(index);
+            navigate("/Admins");
+          }
+        },
+        () => {
           setConfirmLoading(false);
-          showSuccessMessage("DELETE_SUCCESS");
-          deleteEvent(index);
-          navigate("/Admins");
+          showErrorMessage("DELETE_FAIL");
         }
-      },
-      () => {
+      );
+    }
+    if (isSelf) {
+      CustomAxiosPost(verifyPasswordApi, {
+        email,
+        password: verifyPasswordRef.current.value
+      }, (data) => {
+        callback();
+      }, () => {
         setConfirmLoading(false);
-        showErrorMessage("DELETE_FAIL");
-      }
-    );
+      })
+    } else {
+      callback();
+    }
   };
 
   return (
@@ -246,15 +269,15 @@ const AdminDetail = ({
                 <UserSwitchOutlined /> <FormattedMessage id="SAVE" />
               </Button>
             )}
-            {(userProfile.role === "ADMIN" || isSelf) && (
+            {userProfile.role === "ADMIN" &&
               <Button
                 className="adminUpdateButton"
                 htmlType="button"
                 onClick={openConfirmModal}
               >
-                <UserDeleteOutlined /> <FormattedMessage id="DELETE" />
-              </Button>
-            )}
+                {isSelf ? <><UserDeleteOutlined /> <FormattedMessage id="WITHDRAWAL" /></>
+                  : <><UserDeleteOutlined /> <FormattedMessage id="DELETE" /></>}
+              </Button>}
 
             <CustomConfirm
               visible={confirmModal}
@@ -269,9 +292,14 @@ const AdminDetail = ({
                     <FontAwesomeIcon icon={faExclamationCircle} />{" "}
                     <FormattedMessage id="WARNING" />
                   </p>
-                  <p>
+                  <p style={{marginBottom:'24px'}}>
                     <FormattedMessage id="ADMINDELETEWARNING" />
                   </p>
+                  <input style={{ marginBottom: '24px', textAlign: 'center' }} autoFocus placeholder={formatMessage({ id: 'PLEASE_INPUT_PASSWORD' })} onKeyPress={e => {
+                    if (e.key === 'Enter' && !confirmLoading) {
+                      onDelete();
+                    }
+                  }} ref={verifyPasswordRef} type="password" maxLength={16}/>
                 </div>
               ) : (
                 <FormattedMessage id="DELETECONFIRM" />

@@ -103,7 +103,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
             setCurrentPlan(plan);
             setEditions(pricing);
             setInputEdition(pricing[0].name);
-            setCost(pricing[0].priceForOneUser * 11);
+            setCost(pricing[0].priceForOneUser * inputUserNum);
           },
           (data) => {
             setTableData(data);
@@ -146,7 +146,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (!checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
+    if (currentPlan.status !== 'RUN' && !checkAll.checked) return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     if (currentPlan && currentPlan.status === 'RUN') {
       if (new Date(currentPlan.createDate).getFullYear() === new Date(currentPlan.expireDate).getFullYear()) inputTermRef.current = 'MONTHLY'
       else inputTermRef.current = 'ANNUALLY'
@@ -412,7 +412,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
           </div>}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
-              <FormattedMessage id="PRICE" />
+              <FormattedMessage id="PRICECOLUMN" />
             </label>
             <b>
               {isKorea() ? "" : "$ "}
@@ -428,7 +428,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          <div
+          {(!currentPlan || currentPlan.status !== 'RUN') && <div
             className="billing-change-item"
             style={{ alignItems: "baseline" }}
           >
@@ -501,7 +501,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
                 </label>
               </div>
             </div>
-          </div>
+          </div>}
           <div className="billing-change-item" style={{ paddingBottom: "0" }}>
             <button
               name="payType"
@@ -509,7 +509,7 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
               value="iamPort"
               type="submit"
             >
-              <FormattedMessage id="SUBSCRIPTION" />
+              {(!currentPlan || currentPlan.status !== 'RUN') ? <FormattedMessage id="SUBSCRIPTION" /> : <FormattedMessage id="CHANGESUBSCRIPTION"/>}
             </button>
           </div>
         </form>
@@ -534,10 +534,10 @@ const Billing = ({ userProfile, locale, showErrorMessage, openTermsOfPurchase })
         inputUserNum={inputUserNum}
         inputEdition={inputEdition}
         cost={cost}
+        editions={editions}
+        currentPlan={currentPlan}
         isKorea={isKorea}
-        setTableData={setTableData}
         setConfirmModal={setConfirmModal}
-        setCurrentPlan={setCurrentPlan}
         closeConfirmModal={closeConfirmModal}
       />
       <TermsOfUse

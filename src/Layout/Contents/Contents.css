@@ -12,11 +12,19 @@
   padding: 16px;
 }
 
-.contents-container {
-  background-color: white;
-}
-
 .contents-container-title {
   margin-top: 0;
   margin-bottom: 2rem;
+}
+
+.contents-container {
+  background-color: white;
+  animation: fadeIn 0.5s;
+  margin: 0 auto;
+  width: 80rem;
+  padding: 3rem 4rem;
+}
+
+.contents-container {
+  position: relative;
 }

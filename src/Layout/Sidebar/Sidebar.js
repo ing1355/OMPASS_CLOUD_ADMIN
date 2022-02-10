@@ -22,7 +22,7 @@ const Sidebar = ({ locale }) => {
         <ImportOutlined style={{ marginRight: "6px" }} />
         <FormattedMessage id="BACKHOMEPAGE" />
       </a>
-      <a className="user-Withdrawal">회원 탈퇴</a>
+      {/* <a className="user-Withdrawal">회원 탈퇴</a> */}
     </div>
   );
 };

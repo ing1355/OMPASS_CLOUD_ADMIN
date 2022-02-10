@@ -51,7 +51,6 @@ const Login = ({
       },
       (data, callback) => {
         const { ompass, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
-        console.log(ompassUrl)
         if (ompass) {
           OMPASS(ompassUrl);
         } else {

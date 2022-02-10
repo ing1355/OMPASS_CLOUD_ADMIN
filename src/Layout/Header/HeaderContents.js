@@ -9,7 +9,7 @@ import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import route_info from "../../Constants/Route_items";
 
 import { AliwangwangOutlined } from "@ant-design/icons";
@@ -19,9 +19,10 @@ const HeaderContents = ({
   setIsLogin,
   menuChange,
   userProfile,
-  showErrorMessage,
+  showSuccessMessage,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { role, firstName, lastName } = userProfile;
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -53,7 +54,7 @@ const HeaderContents = ({
 
   const logout = () => {
     setIsLogin(false);
-    showErrorMessage("LOGOUTSUCCESS");
+    showSuccessMessage("LOGOUTSUCCESS");
   };
 
   return (
@@ -102,8 +103,8 @@ function mapDispatchToProps(dispatch) {
     setIsLogin: (toggle) => {
       dispatch(ActionCreators.setIsLogin(toggle));
     },
-    showErrorMessage: (msg) => {
-      dispatch(ActionCreators.showErrorMessage(msg));
+    showSuccessMessage: (msg) => {
+      dispatch(ActionCreators.showSuccessMessage(msg));
     },
   };
 }

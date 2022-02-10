@@ -10,7 +10,7 @@ const locales = {
 
     ERR_101: 'This administrator ID does not exist.',
     ERR_102: 'This email address does not exist.',
-    ERR_103: 'Please check your ID and password.',
+    ERR_103: 'Please check your ID or password.',
     ERR_104: 'This user does not exist.',
     ERR_105: 'This application does not exist.',
     ERR_106: 'This application is already exists.',
@@ -25,7 +25,8 @@ const locales = {
     ERR_115: 'The recurring payment order does not exist.',
     ERR_116: 'Invalid API request.',
     ERR_117: 'The number of registered users has been exceeded.',
-    ERR_118: 'Your account has been locked. Please reset your password from [Password assistance].'
+    ERR_118: 'Your account has been locked. Please reset your password from [Password assistance].',
+    ERR_119: 'Password Verification Failed.'
   },
   KR: {
     ERR_001: '토큰이 만료되었습니다.',
@@ -38,7 +39,7 @@ const locales = {
 
     ERR_101: '존재하지 않는 관리자 아이디 입니다.',
     ERR_102: '존재하지 않는 이메일 입니다.',
-    ERR_103: '아이디와 패스워드를 확인해주세요.',
+    ERR_103: '아이디 혹은 패스워드를 확인해주세요.',
     ERR_104: '존재하지 않는 사용자 입니다.',
     ERR_105: '존재하지 않는 어플리케이션 입니다.',
     ERR_106: '이미 존재하는 어플리케이션 입니다.',
@@ -53,7 +54,8 @@ const locales = {
     ERR_115: '구독중인 주문이 존재하지 않습니다.',
     ERR_116: '잘못된 API 요청입니다.',
     ERR_117: '등록 가능한 사용자 수를 초과하였습니다.',
-    ERR_118: '계정이 잠겼습니다. 해제하시려면 비밀번호 초기화를 진행해주세요.'
+    ERR_118: '계정이 잠겼습니다. 해제하시려면 비밀번호 초기화를 진행해주세요.',
+    ERR_119: '패스워드 검증에 실패하였습니다.'
   },
 };
 

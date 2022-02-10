@@ -1,14 +1,15 @@
 import { Spin } from "antd";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import {
   getBillingKeyApi,
   subscriptionIamportApi,
+  updateSubscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
-import { CustomAxiosPost } from "../../../Functions/CustomAxios";
+import { CustomAxiosPost, CustomAxiosPut } from "../../../Functions/CustomAxios";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import ActionCreators from "../../../redux/actions";
 
@@ -25,36 +26,37 @@ const PaymentModal = ({
   inputEdition,
   cost,
   setConfirmModal,
-  setTableData,
-  setCurrentPlan,
+  currentPlan,
+  editions
 }) => {
   const { adminId } = userProfile;
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [costPerUser, setCostPerUser] = useState(0);
 
+  useLayoutEffect(() => {
+    if(currentPlan && editions.length > 0) {
+      setCostPerUser(editions.find((e) => e.name === currentPlan.name).priceForOneUser)
+    }
+  },[editions, currentPlan])
+  
   const requestIamPort = () => {
     setConfirmLoading(true);
-    CustomAxiosPost(
-      getBillingKeyApi(adminId),
-      {
-        paymentInterval: inputTerm,
-        users: inputUserNum,
-      },
-      (data) => {
-        const {
-          merchant_uid,
-          name,
-          amount,
-          customer_uid,
-          buyer_email,
-          buyer_name,
-          buyer_tel,
-          iamportCode,
-        } = data;
+    if(currentPlan.status === 'RUN') {
+      CustomAxiosPut(updateSubscriptionIamportApi(adminId), {
+        userCount: inputUserNum
+      }, (data) => {
         setConfirmLoading(false);
-        setConfirmModal(false);
-        window.IMP.init(iamportCode);
-        window.IMP.request_pay(
-          {
+        window.location.reload();
+      })
+    } else {
+      CustomAxiosPost(
+        getBillingKeyApi(adminId),
+        {
+          paymentInterval: inputTerm,
+          users: inputUserNum,
+        },
+        (data) => {
+          const {
             merchant_uid,
             name,
             amount,
@@ -62,86 +64,99 @@ const PaymentModal = ({
             buyer_email,
             buyer_name,
             buyer_tel,
-          },
-          (res) => {
-            const {
-              success,
-              apply_num,
-              bank_name,
-              buyer_addr,
-              buyer_email,
-              buyer_name,
-              buyer_postcode,
-              buyer_tel,
-              card_name,
-              card_number,
-              card_quota,
-              currency,
-              custom_data,
-              customer_uid,
-              imp_uid,
+            iamportCode,
+          } = data;
+          setConfirmLoading(false);
+          setConfirmModal(false);
+          window.IMP.init(iamportCode);
+          window.IMP.request_pay(
+            {
               merchant_uid,
               name,
-              paid_amount,
-              paid_at,
-              pay_method,
-              pg_provider,
-              pg_tid,
-              pg_type,
-              receipt_url,
-              status,
-            } = res;
-            console.log(res);
-            if (success) {
-              CustomAxiosPost(
-                subscriptionIamportApi(adminId),
-                {
-                  apply_num,
-                  bank_name,
-                  buyer_addr,
-                  buyer_email,
-                  buyer_name,
-                  buyer_postcode,
-                  buyer_tel,
-                  card_name,
-                  card_number,
-                  card_quota,
-                  currency,
-                  custom_data,
-                  customer_uid,
-                  imp_uid,
-                  merchant_uid,
-                  name,
-                  paid_amount,
-                  paid_at,
-                  pay_method,
-                  pg_provider,
-                  pg_tid,
-                  pg_type,
-                  receipt_url,
-                  status,
-                },
-                (data) => {
-                  const { paymentSuccess, paymentHistoryResponses, plan } =
-                    data;
-                  if (paymentSuccess) {
-                    setTableData(paymentHistoryResponses);
-                    setCurrentPlan(plan);
-                    showSuccessMessage("PAYMENT_SUCCESS");
-                    window.location.reload();
-                  } else showErrorMessage("PAYMENT_FAIL");
-                }
-              );
-            } else {
-              showErrorMessage("PAYMENT_FAIL");
+              amount,
+              customer_uid,
+              buyer_email,
+              buyer_name,
+              buyer_tel,
+            },
+            (res) => {
+              const {
+                success,
+                apply_num,
+                bank_name,
+                buyer_addr,
+                buyer_email,
+                buyer_name,
+                buyer_postcode,
+                buyer_tel,
+                card_name,
+                card_number,
+                card_quota,
+                currency,
+                custom_data,
+                customer_uid,
+                imp_uid,
+                merchant_uid,
+                name,
+                paid_amount,
+                paid_at,
+                pay_method,
+                pg_provider,
+                pg_tid,
+                pg_type,
+                receipt_url,
+                status,
+              } = res;
+              console.log(res);
+              if (success) {
+                CustomAxiosPost(
+                  subscriptionIamportApi(adminId),
+                  {
+                    apply_num,
+                    bank_name,
+                    buyer_addr,
+                    buyer_email,
+                    buyer_name,
+                    buyer_postcode,
+                    buyer_tel,
+                    card_name,
+                    card_number,
+                    card_quota,
+                    currency,
+                    custom_data,
+                    customer_uid,
+                    imp_uid,
+                    merchant_uid,
+                    name,
+                    paid_amount,
+                    paid_at,
+                    pay_method,
+                    pg_provider,
+                    pg_tid,
+                    pg_type,
+                    receipt_url,
+                    status,
+                  },
+                  (data) => {
+                    const { paymentSuccess, paymentHistoryResponses, plan } =
+                      data;
+                    if (paymentSuccess) {
+                      showSuccessMessage("PAYMENT_SUCCESS");
+                      window.location.reload();
+                    } else showErrorMessage("PAYMENT_FAIL");
+                  }
+                );
+              } else {
+                showErrorMessage("PAYMENT_FAIL");
+              }
             }
-          }
-        );
-      },
-      () => {
-        setConfirmLoading(false);
-      }
-    );
+          );
+        },
+        () => {
+          setConfirmLoading(false);
+        }
+      );
+    }
   };
 
   return (
@@ -154,7 +169,7 @@ const PaymentModal = ({
       okLoading={confirmLoading}
       cancelCallback={closeConfirmModal}
     >
-      <div>
+      {(!currentPlan || currentPlan.status !== 'RUN') ? <><div>
         <FormattedMessage id="PLAN" /> : {inputEdition}
         <br />
         <FormattedMessage id="USERNUM" /> : {inputUserNum}
@@ -170,20 +185,41 @@ const PaymentModal = ({
           &nbsp;/ <FormattedMessage id={inputTerm} />
         </span>
       </div>
-      <br />
-      <div>
-        <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
-      </div>
-      <div
-        id="paypal-button-container"
-        style={{ textAlign: "center", marginTop: "2rem" }}
-      >
-        {paypalLoading && (
-          <Spin>
-            <FormattedMessage id="BILLINGLOADING" />
-          </Spin>
-        )}
-      </div>
+        <br />
+        <div>
+          <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
+        </div>
+        <div
+          id="paypal-button-container"
+          style={{ textAlign: "center", marginTop: "2rem" }}
+        >
+          {paypalLoading && (
+            <Spin>
+              <FormattedMessage id="BILLINGLOADING" />
+            </Spin>
+          )}
+        </div></> : <div>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION1" values={{param:currentPlan.numberUsers}}/><br/>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION2" values={{param:<span>{inputUserNum}</span>}}/><br/>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION3" values={{param:<><b style={{ color: "Red" }}>
+          {isKorea()
+            ? slicePrice(inputTerm === "MONTHLY" ? (currentPlan.numberUsers * costPerUser) : (currentPlan.numberUsers * costPerUser) * 12) + " 원"
+            : "$" + slicePrice(inputTerm === "MONTHLY" ? (currentPlan.numberUsers * costPerUser) : (currentPlan.numberUsers * costPerUser) * 12)}
+        </b>
+        <span>
+          &nbsp;/ <FormattedMessage id={inputTerm} />
+        </span></>}}/><br/>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION4" values={{param:<><b style={{ color: "Red" }}>
+          {isKorea()
+            ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
+            : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
+        </b>
+        <span>
+          &nbsp;/ <FormattedMessage id={inputTerm} />
+        </span></>}}/><br/><br/>
+          <b><FormattedMessage id="CHANGEBILLINGDESCRIPTION5"/></b><br/><br/>
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION6"/><br/><br/>
+        </div>}
     </CustomConfirm>
   );
 };
