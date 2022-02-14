@@ -81,89 +81,98 @@ const PaymentModal = ({
           } = data;
           setConfirmLoading(false);
           setConfirmModal(false);
-          window.IMP.init(iamportCode);
-          window.IMP.request_pay(
-            {
-              merchant_uid,
-              name,
-              amount,
-              customer_uid,
-              buyer_email,
-              buyer_name,
-              buyer_tel,
-            },
-            (res) => {
-              const {
-                success,
-                apply_num,
-                bank_name,
-                buyer_addr,
-                buyer_email,
-                buyer_name,
-                buyer_postcode,
-                buyer_tel,
-                card_name,
-                card_number,
-                card_quota,
-                currency,
-                custom_data,
-                customer_uid,
-                imp_uid,
+          const callback = () => {
+            window.IMP.init(iamportCode);
+            window.IMP.request_pay(
+              {
                 merchant_uid,
                 name,
-                paid_amount,
-                paid_at,
-                pay_method,
-                pg_provider,
-                pg_tid,
-                pg_type,
-                receipt_url,
-                status,
-              } = res;
-              console.log(res);
-              if (success) {
-                CustomAxiosPost(
-                  subscriptionIamportApi(adminId),
-                  {
-                    apply_num,
-                    bank_name,
-                    buyer_addr,
-                    buyer_email,
-                    buyer_name,
-                    buyer_postcode,
-                    buyer_tel,
-                    card_name,
-                    card_number,
-                    card_quota,
-                    currency,
-                    custom_data,
-                    customer_uid,
-                    imp_uid,
-                    merchant_uid,
-                    name,
-                    paid_amount,
-                    paid_at,
-                    pay_method,
-                    pg_provider,
-                    pg_tid,
-                    pg_type,
-                    receipt_url,
-                    status,
-                  },
-                  (data) => {
-                    const { paymentSuccess, paymentHistoryResponses, plan } =
-                      data;
-                    if (paymentSuccess) {
-                      showSuccessMessage("PAYMENT_SUCCESS");
-                      window.location.reload();
-                    } else showErrorMessage("PAYMENT_FAIL");
-                  }
-                );
-              } else {
-                showErrorMessage("PAYMENT_FAIL");
+                amount,
+                customer_uid,
+                buyer_email,
+                buyer_name,
+                buyer_tel,
+              },
+              (res) => {
+                const {
+                  success,
+                  apply_num,
+                  bank_name,
+                  buyer_addr,
+                  buyer_email,
+                  buyer_name,
+                  buyer_postcode,
+                  buyer_tel,
+                  card_name,
+                  card_number,
+                  card_quota,
+                  currency,
+                  custom_data,
+                  customer_uid,
+                  imp_uid,
+                  merchant_uid,
+                  name,
+                  paid_amount,
+                  paid_at,
+                  pay_method,
+                  pg_provider,
+                  pg_tid,
+                  pg_type,
+                  receipt_url,
+                  status,
+                } = res;
+                console.log(res);
+                if (success) {
+                  CustomAxiosPost(
+                    subscriptionIamportApi(adminId),
+                    {
+                      apply_num,
+                      bank_name,
+                      buyer_addr,
+                      buyer_email,
+                      buyer_name,
+                      buyer_postcode,
+                      buyer_tel,
+                      card_name,
+                      card_number,
+                      card_quota,
+                      currency,
+                      custom_data,
+                      customer_uid,
+                      imp_uid,
+                      merchant_uid,
+                      name,
+                      paid_amount,
+                      paid_at,
+                      pay_method,
+                      pg_provider,
+                      pg_tid,
+                      pg_type,
+                      receipt_url,
+                      status,
+                    },
+                    (data) => {
+                      const { paymentSuccess, paymentHistoryResponses, plan } =
+                        data;
+                      if (paymentSuccess) {
+                        showSuccessMessage("PAYMENT_SUCCESS");
+                        window.location.reload();
+                      } else showErrorMessage("PAYMENT_FAIL");
+                    }
+                  );
+                } else {
+                  showErrorMessage("PAYMENT_FAIL");
+                }
               }
-            }
-          );
+            );
+          };
+          if (window.IMP) callback();
+          else {
+            var script = document.createElement("script");
+            script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+            script.onload = callback;
+            document.head.appendChild(script);
+          }
         },
         () => {
           setConfirmLoading(false);

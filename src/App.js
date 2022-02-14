@@ -12,7 +12,6 @@ import AxiosController from "./AxiosController";
 import locale from "./locale";
 import ActionCreators from "./redux/actions";
 import MessageController from "./MessageController";
-import Chat from "./CustomComponents/Chat";
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
 const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
@@ -35,10 +34,8 @@ const App = ({
   const { country } = userProfile;
 
   useLayoutEffect(() => {
-    Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
     if (!isLogin) {
       setUserProfile({});
-      // Chat.shutdown()
       localStorage.removeItem("Authorization");
     } else {
       if (localStorage.getItem("locale"))

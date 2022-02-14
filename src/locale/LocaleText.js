@@ -226,6 +226,7 @@ const locales = {
     CHANGEBILLINGDESCRIPTION6: "Are you sure you want to proceed?",
     PRICE_CHANGE_DESCRIPTION:
       "※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.",
+    TERMS_OF_SERVICE: "Terms of service",
   },
   KR: {
     PERNUM: "명",
@@ -454,6 +455,7 @@ const locales = {
     CHANGEBILLINGDESCRIPTION6: "계속 진행하시겠습니까?",
     PRICE_CHANGE_DESCRIPTION:
       "※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.",
+    TERMS_OF_SERVICE: "이용약관",
   },
 };
 

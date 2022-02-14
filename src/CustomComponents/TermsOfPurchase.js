@@ -86,10 +86,25 @@ const purchaseDatas10 = [
     { title: '④', content: '운영자는 회원의 귀책 사유로 인하여 서비스 이용의 장애가 발생한 경우에는 책임지지 아니합니다.' },
     { title: '⑤', content: '운영자는 회원 상호 간 또는 회원과 제3자 상호 간, 기타 회원의 본 서비스 내외를 불문한 일체의 활동(데이터 전송, 기타 커뮤니티 활동 포함)에 대하여 책임을 지지 않습니다.' },
     { title: '⑥', content: '운영자는 회원이 게시 또는 전송한 자료 및 본 사이트로 회원이 제공받을 수 있는 모든 자료들의 진위, 신뢰도, 정확성 등 그 내용에 대해서는 책임지지 아니합니다.' },
-    { title: '⑦', cotnent: '운영자는 회원 상호 간 또는 회원과 제3자 상호 간에 서비스를 매개로 하여 물품거래 등을 한 경우에 그로부터 발생하는 일체의 손해에 대하여 책임지지 아니합니다.' },
+    { title: '⑦', content: '운영자는 회원 상호 간 또는 회원과 제3자 상호 간에 서비스를 매개로 하여 물품거래 등을 한 경우에 그로부터 발생하는 일체의 손해에 대하여 책임지지 아니합니다.' },
     { title: '⑧', content: '운영자는 운영자의 귀책 사유 없이 회원간 또는 회원과 제3자간에 발생한 일체의 분쟁에 대하여 책임지지 아니합니다.' },
     { title: '⑨', content: '운영자는 서버 등 설비의 관리, 점검, 보수, 교체 과정 또는 소프트웨어의 운용 과정에서 고의 또는 고의에 준하는 중대한 과실 없이 발생할 수 있는 시스템의 장애, 제3자의 공격으로 인한 시스템의 장애, 국내외의 저명한 연구기관이나 보안 관련 업체에 의해 대응 방법이 개발되지 아니한 컴퓨터 바이러스 등의 유포나 기타 운영자가 통제할 수 없는 불가항력적 사유로 인한 회원의 손해에 대하여 책임지지 않습니다.' }
 ]
+
+const makeContent = (data, isSub) => {
+    return <div className="terms-content"> {data.map((d, ind) => d.subContent ? <React.Fragment key={ind}>
+        <div className="padding-div-container">
+            <div className="padding-div" style={{ minWidth: d.titleWidth || 20 }}>{d.title}</div>
+            <div className="padded-content">{d.content}</div>
+        </div>
+        {makeContent(d.subContent, true)}
+    </React.Fragment>
+        : <div key={ind} className={"padding-div-container" + (isSub ? ' sub-container' : '')}>
+            <div className="padding-div" style={{ minWidth: d.titleWidth || (isSub ? 10 : 20) }}>{d.title}</div>
+            <div className="padded-content">{d.content}</div>
+        </div>)}
+    </div>
+}
 
 const TermsOfPurchase = ({ visible, setVisible }) => {
     const navigate = useNavigate();
@@ -102,21 +117,6 @@ const TermsOfPurchase = ({ visible, setVisible }) => {
     const closeModal = useCallback(() => {
         setVisible(false);
     }, []);
-
-    const makeContent = (data, isSub) => {
-        return <div className="terms-content"> {data.map((d, ind) => d.subContent ? <React.Fragment key={ind}>
-            <div className="padding-div-container">
-                <div className="padding-div" style={{ minWidth: d.titleWidth || 20 }}>{d.title}</div>
-                <div className="padded-content">{d.content}</div>
-            </div>
-            {makeContent(d.subContent, true)}
-        </React.Fragment>
-            : <div key={ind} className={"padding-div-container" + (isSub ? ' sub-container' : '')}>
-                <div className="padding-div" style={{ minWidth: d.titleWidth || (isSub ? 10 : 20) }}>{d.title}</div>
-                <div className="padded-content">{d.content}</div>
-            </div>)}
-        </div>
-    }
 
     return (
         <CustomConfirm

@@ -154,14 +154,14 @@ const Billing = ({
     }
     if (currentPlan.status !== "RUN" && !checkAll.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    if (currentPlan && currentPlan.status === "RUN") {
-      if (
-        new Date(currentPlan.createDate).getFullYear() ===
-        new Date(currentPlan.expireDate).getFullYear()
-      )
-        inputTermRef.current = "MONTHLY";
-      else inputTermRef.current = "ANNUALLY";
-    } else inputTermRef.current = term.value;
+    // if (currentPlan && currentPlan.status === "RUN") {
+    //   if (
+    //     new Date(currentPlan.createDate).getFullYear() ===
+    //     new Date(currentPlan.expireDate).getFullYear()
+    //   )
+    //     inputTermRef.current = "MONTHLY";
+    //   else inputTermRef.current = "ANNUALLY";
+    // } else inputTermRef.current = term.value;
     inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
     if (!isKorea()) {
@@ -179,27 +179,37 @@ const Billing = ({
       },
       ({ planId }) => {
         setPaypalLoading(false);
-        window.paypal
-          .Buttons({
-            createSubscription: function (data, actions) {
-              return actions.subscription.create({
-                plan_id: planId,
-                admin_id: "adminId",
-              });
-            },
-            onCancel: function (data) {
-              console.log(data);
-              setConfirmModal(false);
-            },
-            onApprove: function (data, actions) {
-              console.log(data, actions);
-              window.location.reload();
-            },
-            onError: function (err) {
-              console.log(err);
-            },
-          })
-          .render("#paypal-button-container");
+        const callback = () => {
+          window.paypal
+            .Buttons({
+              createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                  plan_id: planId,
+                  admin_id: "adminId",
+                });
+              },
+              onCancel: function (data) {
+                console.log(data);
+                setConfirmModal(false);
+              },
+              onApprove: function (data, actions) {
+                console.log(data, actions);
+                window.location.reload();
+              },
+              onError: function (err) {
+                console.log(err);
+              },
+            })
+            .render("#paypal-button-container");
+        };
+        if (window.paypal) callback();
+        else {
+          var script = document.createElement("script");
+          script.src =
+            "https://www.paypal.com/sdk/js?client-id=AQVVRFHUuvzwlXTe5w054LaT3JvZxAQPw-zxcgQHDzm1skXH2e2M8cfKP_O8oO3xnRbV86uUyF0dfriY&vault=true&intent=subscription";
+          script.onload = callback;
+          document.head.appendChild(script);
+        }
       }
     );
   };
@@ -379,6 +389,27 @@ const Billing = ({
       <section className="billing-change-container">
         <h2>
           OMPASS <FormattedMessage id="PAYMENT" />
+          {currentPlan &&
+            currentPlan.status === "RUN" &&
+            tableData.length > 0 &&
+            currentPlan.numberUsers !== tableData[0].numberUsers && (
+              <span
+                style={{ fontSize: "12px", color: "red", marginLeft: "12px" }}
+              >
+                <FormattedMessage
+                  id="PRICE_CHANGE_DESCRIPTION"
+                  values={{
+                    param: isKorea()
+                      ? slicePrice(
+                          editions[0].priceForOneUser * currentPlan.numberUsers
+                        ) + "원 "
+                      : slicePrice(
+                          editions[0].priceForOneUser * currentPlan.numberUsers
+                        ) + "$",
+                  }}
+                />
+              </span>
+            )}
         </h2>
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
@@ -406,27 +437,6 @@ const Billing = ({
               </select>
             </div>
           </div>
-          {(!currentPlan || currentPlan.status !== "RUN") && (
-            <div className="billing-change-item">
-              <label className="billing-change-form-label">
-                <FormattedMessage id="BILLINGCYCLE" />
-              </label>
-              <select
-                className="billing-change-form-select"
-                name="term"
-                onChange={(e) => {
-                  setInputTerm(e.target.value);
-                }}
-              >
-                <option value="MONTHLY">
-                  {formatMessage({ id: "MONTHLY" })}
-                </option>
-                <option value="ANNUALLY">
-                  {formatMessage({ id: "ANNUALLY" })}
-                </option>
-              </select>
-            </div>
-          )}
           <div className="billing-change-item">
             <label className="billing-change-form-label">
               <FormattedMessage id="PRICECOLUMN" />
