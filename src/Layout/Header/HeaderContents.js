@@ -22,7 +22,6 @@ const HeaderContents = ({
   showSuccessMessage,
 }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { role, firstName, lastName } = userProfile;
   const [profileOpen, setProfileOpen] = useState(false);
 

@@ -3,14 +3,12 @@ import "./Admins.css";
 import ContentsTitle from "../ContentsTitle";
 import {
   CustomAxiosGet,
-  CustomAxiosPatch,
 } from "../../../Functions/CustomAxios";
-import { getAdminsApi, update2faApi } from "../../../Constants/Api_Route";
+import { getAdminsApi } from "../../../Constants/Api_Route";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import ActionCreators from "../../../redux/actions";
-import PasswordConfirm from "../../../CustomComponents/PasswordConfirm";
 import { AdminsColumns } from "../../../Constants/TableColumns";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import { FormattedMessage } from "react-intl";
@@ -24,8 +22,6 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
-  const [confirmVisible, setConfirmVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import TermsOfPurchase from '../../CustomComponents/TermsOfPurchase';
 import ActionCreators from '../../redux/actions';
@@ -10,7 +11,7 @@ const Footer = ({setVisible}) => {
     },[])
     return <>
         <div className="footer">
-            © OneMoreSecurity Inc. All Rights Reserved. <a href="#" onClick={openTermsOfService}>Terms of service</a>
+            © OneMoreSecurity Inc. All Rights Reserved. <a href="#" style={{textDecoration:'underline', color:'#1890ff'}} onClick={openTermsOfService}><FormattedMessage id="TERMS_OF_SERVICE"/></a>
         </div>
         <TermsOfPurchase/>
     </>

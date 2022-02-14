@@ -99,7 +99,7 @@ const Dashboard = ({ userProfile, locale }) => {
       );
     }
   }, [adminId]);
-
+  
   return (
     <div className="contents-container" style={{ width: 1400 }}>
       <LinkDocument link="/document/dashboard" />
@@ -189,7 +189,6 @@ const Dashboard = ({ userProfile, locale }) => {
                         <FormattedMessage id="ValidDate" />
                       </td>
 
-                      {locale === "ko" ? (
                         <td
                           style={{
                             width: "50%",
@@ -199,24 +198,11 @@ const Dashboard = ({ userProfile, locale }) => {
                             borderTop: "0.5px solid rgb(180, 180, 180)",
                           }}
                         >
-                          <FormattedMessage
+                          {(plan && plan.status === 'FREE') ? "∞" : <FormattedMessage
                             id="daysLeft"
                             values={{ day: plan.remainingDate }}
-                          />
+                          />}
                         </td>
-                      ) : (
-                        <td
-                          style={{
-                            width: "50%",
-                            fontWeight: "bold",
-                            fontSize: "1rem",
-                            borderRight: "0.5px solid rgb(180, 180, 180)",
-                            borderTop: "0.5px solid rgb(180, 180, 180)",
-                          }}
-                        >
-                          {plan.remainingDate}
-                        </td>
-                      )}
                     </tr>
                   </tbody>
                 </table>

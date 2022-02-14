@@ -223,7 +223,8 @@ const locales = {
     CHANGEBILLINGDESCRIPTION4: 'Payment changes to : {param}',
     CHANGEBILLINGDESCRIPTION5: 'The changed payment amount will be charged from\nthe next payment date.',
     CHANGEBILLINGDESCRIPTION6: 'Are you sure you want to proceed?',
-    PRICE_CHANGE_DESCRIPTION: '※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.'
+    PRICE_CHANGE_DESCRIPTION: '※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.',
+    TERMS_OF_SERVICE:'Terms of service'
   },
   KR: {
     PERNUM: "명",
@@ -450,7 +451,8 @@ const locales = {
     CHANGEBILLINGDESCRIPTION4: '변경될 결제 금액 : {param}',
     CHANGEBILLINGDESCRIPTION5: '다음 결제일부터 변경된 결제 금액이 결제됩니다.',
     CHANGEBILLINGDESCRIPTION6: '계속 진행하시겠습니까?',
-    PRICE_CHANGE_DESCRIPTION: '※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.'
+    PRICE_CHANGE_DESCRIPTION: '※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.',
+    TERMS_OF_SERVICE:'이용약관'
   },
 };
 

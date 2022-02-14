@@ -1,0 +1,71 @@
+.custom-modal-content-container.payment-terms-modal-container {
+    height: 800px;
+    display: block;
+    text-align: left;
+    overflow: hidden;
+}
+
+.custom-modal-content-container.payment-terms-modal-container > div > div {
+    height: 380px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 15px;
+    color: #444;
+    line-height: 18px;
+}
+
+.custom-modal-content-container.payment-terms-modal-container p {
+    margin: 0;
+    padding: 0;
+}
+
+.custom-modal-content-container.payment-terms-modal-container > div > div:first-child {
+    margin-bottom: 20px;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .txt_box {
+    display: block;
+    margin: 0 auto 8px;
+    text-align: left;
+    border-top: 2px solid #333;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .txt_box > table {
+    width: 100%;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .txt_box th {
+    background: #edf5f7;
+    color: #333;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 24px;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .txt_box td {
+    padding-top: 6px;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    line-height: 24px;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .txt_box .line_01 td, .custom-modal-content-container.payment-terms-modal-container .txt_box .line_01 th {
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .tt_l {
+    text-align: left !important;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .mrr20 {
+    margin-right: 20px;
+}
+
+.custom-modal-content-container.payment-terms-modal-container .mrl23 {
+    margin-left: 23px;
+}
