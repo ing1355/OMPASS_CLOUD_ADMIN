@@ -92,7 +92,7 @@ const Billing = ({
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-        editions.find((e) => e.name === inputEdition).priceForOneUser
+          editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
@@ -146,7 +146,7 @@ const Billing = ({
     if (currentPlan.status === "RUN") {
       if (currentPlan.numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
-      if (allUserNum > userNum.value * 1)
+      if (allUserNum >= userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     } else {
       if (allUserNum > userNum.value * 1)
@@ -379,10 +379,6 @@ const Billing = ({
       <section className="billing-change-container">
         <h2>
           OMPASS <FormattedMessage id="PAYMENT" />
-          {currentPlan && tableData.length > 0 && (currentPlan.numberUsers !== tableData[0].numberUsers) &&
-            <span style={{ fontSize: '12px', color: 'red', marginLeft: '12px' }}>
-              <FormattedMessage id="PRICE_CHANGE_DESCRIPTION" 
-              values={{param: isKorea() ? slicePrice(editions[0].priceForOneUser * currentPlan.numberUsers) + '원 ' : slicePrice(editions[0].priceForOneUser * currentPlan.numberUsers) + '$'}}/></span>}
         </h2>
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
@@ -425,9 +421,9 @@ const Billing = ({
                 <option value="MONTHLY">
                   {formatMessage({ id: "MONTHLY" })}
                 </option>
-                {/* <option value="ANNUALLY">
-                {formatMessage({ id: "ANNUALLY" })}
-              </option> */}
+                <option value="ANNUALLY">
+                  {formatMessage({ id: "ANNUALLY" })}
+                </option>
               </select>
             </div>
           )}
@@ -544,23 +540,23 @@ const Billing = ({
                   <label>
                     {inputTerm === "MONTHLY"
                       ? formatMessage(
-                        { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                        {
-                          param:
-                            slicePrice(
-                              inputTerm === "MONTHLY" ? cost : cost * 12
-                            ) + (isKorea() ? "원" : "$"),
-                        }
-                      )
+                          { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                          {
+                            param:
+                              slicePrice(
+                                inputTerm === "MONTHLY" ? cost : cost * 12
+                              ) + (isKorea() ? "원" : "$"),
+                          }
+                        )
                       : formatMessage(
-                        { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                        {
-                          param:
-                            slicePrice(
-                              inputTerm === "MONTHLY" ? cost : cost * 12
-                            ) + (isKorea() ? "원" : "$"),
-                        }
-                      )}
+                          { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                          {
+                            param:
+                              slicePrice(
+                                inputTerm === "MONTHLY" ? cost : cost * 12
+                              ) + (isKorea() ? "원" : "$"),
+                          }
+                        )}
                   </label>
                 </div>
               </div>
@@ -604,7 +600,6 @@ const Billing = ({
         cost={cost}
         editions={editions}
         currentPlan={currentPlan}
-        lastHistory={tableData[0] || {}}
         isKorea={isKorea}
         setConfirmModal={setConfirmModal}
         closeConfirmModal={closeConfirmModal}

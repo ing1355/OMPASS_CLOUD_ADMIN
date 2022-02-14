@@ -9,7 +9,10 @@ import {
   updateSubscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
-import { CustomAxiosPost, CustomAxiosPut } from "../../../Functions/CustomAxios";
+import {
+  CustomAxiosPost,
+  CustomAxiosPut,
+} from "../../../Functions/CustomAxios";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import ActionCreators from "../../../redux/actions";
 
@@ -28,27 +31,36 @@ const PaymentModal = ({
   setConfirmModal,
   currentPlan,
   editions,
-  lastHistory
 }) => {
   const { adminId } = userProfile;
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [costPerUser, setCostPerUser] = useState(0);
-  console.log(lastHistory)
+
   useLayoutEffect(() => {
-    if(currentPlan && editions.length > 0 && editions.find((e) => e.name === currentPlan.name)) {
-      setCostPerUser(editions.find((e) => e.name === currentPlan.name).priceForOneUser)
+    if (
+      currentPlan &&
+      editions.length > 0 &&
+      editions.find((e) => e.name === currentPlan.name)
+    ) {
+      setCostPerUser(
+        editions.find((e) => e.name === currentPlan.name).priceForOneUser
+      );
     }
-  },[editions, currentPlan])
-  
+  }, [editions, currentPlan]);
+
   const requestIamPort = () => {
     setConfirmLoading(true);
-    if(currentPlan.status === 'RUN') {
-      CustomAxiosPut(updateSubscriptionIamportApi(adminId), {
-        userCount: inputUserNum
-      }, (data) => {
-        setConfirmLoading(false);
-        window.location.reload();
-      })
+    if (currentPlan.status === "RUN") {
+      CustomAxiosPut(
+        updateSubscriptionIamportApi(adminId),
+        {
+          userCount: inputUserNum,
+        },
+        (data) => {
+          setConfirmLoading(false);
+          window.location.reload();
+        }
+      );
     } else {
       CustomAxiosPost(
         getBillingKeyApi(adminId),
@@ -170,57 +182,109 @@ const PaymentModal = ({
       okLoading={confirmLoading}
       cancelCallback={closeConfirmModal}
     >
-      {(!currentPlan || currentPlan.status !== 'RUN') ? <><div>
-        <FormattedMessage id="PLAN" /> : {inputEdition}
-        <br />
-        <FormattedMessage id="USERNUM" /> : {inputUserNum}
-        <br />
-        <FormattedMessage id="PRICE" />
-        &nbsp;:&nbsp;
-        <b style={{ color: "Red" }}>
-          {isKorea()
-            ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
-            : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
-        </b>
-        <span>
-          &nbsp;/ <FormattedMessage id={inputTerm} />
-        </span>
-      </div>
-        <br />
+      {!currentPlan || currentPlan.status !== "RUN" ? (
+        <>
+          <div>
+            <FormattedMessage id="PLAN" /> : {inputEdition}
+            <br />
+            <FormattedMessage id="USERNUM" /> : {inputUserNum}
+            <br />
+            <FormattedMessage id="PRICE" />
+            &nbsp;:&nbsp;
+            <b style={{ color: "Red" }}>
+              {isKorea()
+                ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
+                : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
+            </b>
+            <span>
+              &nbsp;/ <FormattedMessage id={inputTerm} />
+            </span>
+          </div>
+          <br />
+          <div>
+            <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
+          </div>
+          <div
+            id="paypal-button-container"
+            style={{ textAlign: "center", marginTop: "2rem" }}
+          >
+            {paypalLoading && (
+              <Spin>
+                <FormattedMessage id="BILLINGLOADING" />
+              </Spin>
+            )}
+          </div>
+        </>
+      ) : (
         <div>
-          <FormattedMessage id="BILLINGCONFIRMMESSAGE" />
+          <FormattedMessage
+            id="CHANGEBILLINGDESCRIPTION1"
+            values={{ param: currentPlan.numberUsers }}
+          />
+          <br />
+          <FormattedMessage
+            id="CHANGEBILLINGDESCRIPTION2"
+            values={{ param: <span>{inputUserNum}</span> }}
+          />
+          <br />
+          <FormattedMessage
+            id="CHANGEBILLINGDESCRIPTION3"
+            values={{
+              param: (
+                <>
+                  <b style={{ color: "Red" }}>
+                    {isKorea()
+                      ? slicePrice(
+                          inputTerm === "MONTHLY"
+                            ? currentPlan.numberUsers * costPerUser
+                            : currentPlan.numberUsers * costPerUser * 12
+                        ) + " 원"
+                      : "$" +
+                        slicePrice(
+                          inputTerm === "MONTHLY"
+                            ? currentPlan.numberUsers * costPerUser
+                            : currentPlan.numberUsers * costPerUser * 12
+                        )}
+                  </b>
+                  <span>
+                    &nbsp;/ <FormattedMessage id={inputTerm} />
+                  </span>
+                </>
+              ),
+            }}
+          />
+          <br />
+          <FormattedMessage
+            id="CHANGEBILLINGDESCRIPTION4"
+            values={{
+              param: (
+                <>
+                  <b style={{ color: "Red" }}>
+                    {isKorea()
+                      ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) +
+                        " 원"
+                      : "$" +
+                        slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
+                  </b>
+                  <span>
+                    &nbsp;/ <FormattedMessage id={inputTerm} />
+                  </span>
+                </>
+              ),
+            }}
+          />
+          <br />
+          <br />
+          <b>
+            <FormattedMessage id="CHANGEBILLINGDESCRIPTION5" />
+          </b>
+          <br />
+          <br />
+          <FormattedMessage id="CHANGEBILLINGDESCRIPTION6" />
+          <br />
+          <br />
         </div>
-        <div
-          id="paypal-button-container"
-          style={{ textAlign: "center", marginTop: "2rem" }}
-        >
-          {paypalLoading && (
-            <Spin>
-              <FormattedMessage id="BILLINGLOADING" />
-            </Spin>
-          )}
-        </div></> : <div>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION1" values={{param:lastHistory.numberUsers}}/><br/>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION2" values={{param:<span>{inputUserNum}</span>}}/><br/>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION3" values={{param:<><b style={{ color: "Red" }}>
-          {isKorea()
-            ? slicePrice(inputTerm === "MONTHLY" ? (lastHistory.numberUsers * costPerUser) : (lastHistory.numberUsers * costPerUser) * 12) + " 원"
-            : "$" + slicePrice(inputTerm === "MONTHLY" ? (lastHistory.numberUsers * costPerUser) : (lastHistory.numberUsers * costPerUser) * 12)}
-        </b>
-        <span>
-          &nbsp;/ <FormattedMessage id={inputTerm} />
-        </span></>}}/><br/>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION4" values={{param:<><b style={{ color: "Red" }}>
-          {isKorea()
-            ? slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12) + " 원"
-            : "$" + slicePrice(inputTerm === "MONTHLY" ? cost : cost * 12)}
-        </b>
-        <span>
-          &nbsp;/ <FormattedMessage id={inputTerm} />
-        </span></>}}/><br/><br/>
-          <b><FormattedMessage id="CHANGEBILLINGDESCRIPTION5"/></b><br/><br/>
-          <FormattedMessage id="CHANGEBILLINGDESCRIPTION6"/><br/><br/>
-        </div>}
+      )}
     </CustomConfirm>
   );
 };
