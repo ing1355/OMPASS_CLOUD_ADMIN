@@ -177,7 +177,7 @@ const locales = {
       "Login via email verification without OMPASS authentication.",
     USERBYPASSDESCRIPTION2: "Login after OMPASS authentication.",
     DISABLEDPOLICY:
-      "Enable OMPASS authentication from edit to see the description.",
+      "Disabled policy. Enabling OMPASS authentication control takes effect.",
     BILLINGPLANDESCRIPTION1_1:
       "Two-Factor Authentication (2FA) for VPN and Web Apps",
     BILLINGPLANDESCRIPTION1_2: "Authenticate without password",
