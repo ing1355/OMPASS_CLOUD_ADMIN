@@ -152,7 +152,7 @@ export const PolicyLogsColumns = [
 
 export const PolicyLogsChangeColumns = [
   {
-    name: "COLUMNPOLICYTITLE",
+    name: "POLICYNAME",
     key: "type",
     width: 200,
     render: (d) => {
@@ -173,7 +173,8 @@ export const PolicyLogsChangeColumns = [
   {
     name: "Status",
     key: "value",
-    render: (value) => value ? (value instanceof Function ? value() : value) : "No data",
+    render: (value) =>
+      value ? (value instanceof Function ? value() : value) : "No data",
   },
 ];
 

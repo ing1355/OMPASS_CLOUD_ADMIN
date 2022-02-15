@@ -360,7 +360,10 @@ const Billing = ({
               <BillingInfoCard
                 title={
                   <>
-                    {editions[ind].name} <FormattedMessage id="PLAN" />
+                    <FormattedMessage
+                      id="OMPASSSERVICE"
+                      values={{ name: editions[ind].name }}
+                    />
                   </>
                 }
                 subTitle={`${isKorea() ? "" : "$ "}${formatMessage(

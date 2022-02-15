@@ -7,7 +7,7 @@ const locales = {
     detailColumn: "Detail",
     welcomeText: "Hello {param}",
     Dashboard: "Dashboard",
-    Policies: "Policies",
+    Policies: "Policy",
     Users: "Users Management",
     Admins: "Admins Management",
     Applications: "Applications",
@@ -18,7 +18,7 @@ const locales = {
     login: "Login",
     WELCOME_TEXT: "Welcome ",
     loginText1: "Welcome,",
-    loginText2: "Only administrator can access this page.",
+    loginText2: "Only administrators can access this page.",
     id: "ID",
     password: "Password",
     PasswordAssistance: "Password assistance",
@@ -34,6 +34,7 @@ const locales = {
     User: "User ID",
     Action: "Action",
     PLAN: "Plan",
+    OMPASSSERVICE: "Provision of {name} Service",
     Application: "Application",
     Status: "Status",
     Date: "Date",
@@ -110,7 +111,7 @@ const locales = {
     PRICE: "Price",
     PRICECOLUMN: "Price",
     PAYMENTDATE: "Payment Date",
-    POLICYNAME: "Policy",
+    POLICYNAME: "Option",
     DESCRIPTION: "Description",
     SETTINGTODEFAULT: "Make Default",
     POLICYTITLE: "Custom Policy Name",
@@ -125,7 +126,7 @@ const locales = {
     GLOBALPOLICYDESCRIPTION:
       "The default policy is basically provided to apply for all applications.",
     CUSTOMPOLICYDESCRIPTION:
-      "Make your own custom policy to apply applications differ from each others.",
+      "You can make your own custom policy to apply applications differ from each others.",
     ACCESSCONTROLTITLE: "OMPASS Access Control",
     ACCESSCONTROLACTIVE: "Enable OMPASS Authentication",
     ACCESSCONTROLACTIVEDESCRIPTION:
@@ -179,14 +180,15 @@ const locales = {
     DISABLEDPOLICY:
       "Disabled policy. Enabling OMPASS authentication control takes effect.",
     BILLINGPLANDESCRIPTION1_1:
-      "Two-Factor Authentication (2FA) for VPN and Web Apps",
-    BILLINGPLANDESCRIPTION1_2: "Authenticate without password",
-    BILLINGPLANDESCRIPTION1_3: "Two-Factor Authentication (2FA)",
-    BILLINGPLANDESCRIPTION1_4: "Supports Web Authentication (WebAuthn)",
-    GODOCUMENT: "Go to Document",
-    POLICYDISABLEDTITLE: "Sorry, this policy cannot be selected.",
+      "Universal 2nd Factor (U2F) : Two-Factor Authentication (2FA)",
+    BILLINGPLANDESCRIPTION1_2:
+      "Universal Authentication Framework (UAF) : Passwordless Login",
+    BILLINGPLANDESCRIPTION1_3: "Bypass OMPASS by Email Authentication",
+    BILLINGPLANDESCRIPTION1_4: "Web Authentication(WebAuthN)",
+    GODOCUMENT: "Go Document",
+    POLICYDISABLEDTITLE: "Sorry, this option cannot be selected.",
     POLICYDISABLEDDESCRIPTION:
-      "This area will be displayed only if OMPASS authentication is enable in the selection of OMPASS access control.",
+      "This area will be displayed only if OMPASS authentication is enabled in the selection of OMPASS access control.",
     CSV_DESCRIPTION_1: "* Users who already exist will be overwritten.",
     CSV_DESCRIPTION_2:
       "* Email will not be updated if the email address is malformed.",
@@ -268,6 +270,7 @@ const locales = {
     User: "사용자 아이디",
     Action: "활동",
     PLAN: "플랜",
+    OMPASSSERVICE: "{name} 서비스 제공",
     Application: "어플리케이션",
     Status: "상태",
     Date: "시간",
@@ -417,10 +420,10 @@ const locales = {
     USERBYPASSDESCRIPTION2: "OMPASS 인증 후 로그인 가능합니다. (기본값)",
     DISABLEDPOLICY:
       "비활성화 된 정책입니다. OMPASS 인증 제어를 활성화하면 적용됩니다.",
-    BILLINGPLANDESCRIPTION1_1: "2FA for VPN and Web Apps",
-    BILLINGPLANDESCRIPTION1_2: "패스워드 없이 인증",
-    BILLINGPLANDESCRIPTION1_3: "2차 인증",
-    BILLINGPLANDESCRIPTION1_4: "WebAuthn 지원",
+    BILLINGPLANDESCRIPTION1_1: "2차 인증 (U2F)",
+    BILLINGPLANDESCRIPTION1_2: "패스워드 없이 로그인 (UAF)",
+    BILLINGPLANDESCRIPTION1_3: "이메일 인증으로 OMPASS 바이패스 (대체 인증)",
+    BILLINGPLANDESCRIPTION1_4: "WebAuthN (웹 인증)",
     GODOCUMENT: "문서로 이동하기",
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
