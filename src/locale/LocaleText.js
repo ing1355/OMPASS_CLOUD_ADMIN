@@ -60,7 +60,7 @@ const locales = {
     SAVE: "Save",
     DELETE: "Delete",
     CLOSE: "Close",
-    DUPLICATECHECK: "Check availability",
+    DUPLICATECHECK: "Check Availability",
     BILLINGCYCLE: "Billing Cycle",
     USERNUM: "Number of Users",
     CHANGEUSERNUM: "Number of Users Change to",
