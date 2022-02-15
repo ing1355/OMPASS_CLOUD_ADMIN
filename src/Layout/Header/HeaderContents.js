@@ -9,7 +9,7 @@ import ActionCreators from "../../redux/actions";
 import "./HeaderContents.css";
 import Locale from "./Locale";
 import { FormattedMessage } from "react-intl";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import route_info from "../../Constants/Route_items";
 
 import { AliwangwangOutlined } from "@ant-design/icons";
