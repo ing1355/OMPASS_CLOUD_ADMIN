@@ -152,7 +152,7 @@ const PaymentModal = ({
                       status,
                     },
                     (data) => {
-                      const { paymentSuccess, paymentHistoryResponses, plan } =
+                      const { paymentSuccess } =
                         data;
                       if (paymentSuccess) {
                         showSuccessMessage("PAYMENT_SUCCESS");

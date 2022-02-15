@@ -38,10 +38,10 @@ const Footer = ({ setVisible }) => {
               >
                 <FormattedMessage id="TERMS_OF_SERVICE" />
               </a>
-
-              <p className="copyRight">
+              <br/>
+              <span className="copyRight">
                 © OneMoreSecurity Inc. All Rights Reserved.
-              </p>
+              </span>
             </p>
           </div>
         </div>
