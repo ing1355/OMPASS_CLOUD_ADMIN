@@ -203,8 +203,7 @@ const locales = {
     UPDATE_BEFORE: "Previous",
     UPDATE_AFTER: "Current",
     CHANGEDADMIN: "Auditor",
-    ALLAGREE:
-      "I have read and agree to all terms of service and conditions below.",
+    ALLAGREE: "I have read and agree to all Terms and Conditions below.",
     TERMS_SUB: "I have read and agree to",
     TERMSOFUSE: "Payment Gateway Terms of Service.",
     TERMSOFPURCHASE:
