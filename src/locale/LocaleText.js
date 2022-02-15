@@ -227,6 +227,12 @@ const locales = {
     PRICE_CHANGE_DESCRIPTION:
       "※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.",
     TERMS_OF_SERVICE: "Terms of service",
+    FOOTER_1: "OneMoreSecurity Inc. | CEO：Min-Sik Kim",
+    FOOTER_2:
+      "Business number：735-88-01175 | E-Commerce Registration Number：000000000",
+    FOOTER_3: "TEL：+82 70 4298 3070 | Email：service@omsecurity.kr",
+    FOOTER_4:
+      "Unit 605 Smart Hub 1, 2150, Hannuri-daero, Sejong-si, Republic of Korea",
   },
   KR: {
     PERNUM: "명",
@@ -456,6 +462,10 @@ const locales = {
     PRICE_CHANGE_DESCRIPTION:
       "※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.",
     TERMS_OF_SERVICE: "이용약관",
+    FOOTER_1: "상호명：(주)원모어시큐리티 | 대표자：김민식",
+    FOOTER_2: "사업자 번호：735-88-01175 | 통신판매신고번호：000000000",
+    FOOTER_3: "TEL：+82 70 4298 3070 | E-Mail：service@omsecurity.kr",
+    FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
   },
 };
 
