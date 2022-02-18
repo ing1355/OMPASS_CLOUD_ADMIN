@@ -43,7 +43,6 @@ const DefaultPolicy = ({ userProfile, locale }) => {
         const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
         const isTrue = value.filter(v => v.status)
         const isFalse = value.filter(v => !v.status)
-        console.log(value)
         return <><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2" /><br />
           <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
             values={{

@@ -83,11 +83,11 @@ const PolicyLogs = ({ userProfile, locale }) => {
   const searchTitleFunction = useCallback(
     (rowValue, searchValue) => {
       const title = rowValue.changes.afterPolicy.title;
-      if(title === 'Default Policy') {
-        if(locale === 'ko') {
+      if (title === 'Default Policy') {
+        if (locale === 'ko') {
           return '기본 정책'.includes(searchValue)
         } else {
-          return title.includes(searchValue)  
+          return title.includes(searchValue)
         }
       } else {
         return title.includes(searchValue)
@@ -151,15 +151,17 @@ const PolicyLogs = ({ userProfile, locale }) => {
                               const value = selectedData.changes.beforePolicy[d];
                               const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
                               const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
+                              const isTrue = value.filter(v => v.status)
+                              const isFalse = value.filter(v => !v.status)
                               return <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
                                 values={{
-                                  permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
-                                  deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
+                                  permit: isTrue.length > 0 ? isTrue.map(v => countryInfo[v.location] || isOtherCountries).join(', ') : (locale === 'ko' ? '없음' : 'None'),
+                                  deny: isFalse.length > 0 ? isFalse.map(v => countryInfo[v.location] || isOtherCountries).join(', ') : (locale === 'ko' ? '없음' : 'None')
                                 }}
                               />
                             }
-                            : d === 'browsers' ? selectedData.changes.beforePolicy[d].map(v => formatMessage({id:v})).join(', ')
-                            : selectedData.changes.beforePolicy[d],
+                            : d === 'browsers' ? selectedData.changes.beforePolicy[d].map(v => formatMessage({ id: v })).join(', ')
+                              : selectedData.changes.beforePolicy[d],
                     }))}
                 />
                 <p className="policy-change-arrow2">↓</p>
@@ -199,8 +201,8 @@ const PolicyLogs = ({ userProfile, locale }) => {
                               }}
                             />
                           }
-                          : d === 'browsers' ? selectedData.changes.afterPolicy[d].map(v => formatMessage({id:v})).join(', ')
-                          : selectedData.changes.afterPolicy[d],
+                          : d === 'browsers' ? selectedData.changes.afterPolicy[d].map(v => formatMessage({ id: v })).join(', ')
+                            : selectedData.changes.afterPolicy[d],
                   }))}
               />
             </div>

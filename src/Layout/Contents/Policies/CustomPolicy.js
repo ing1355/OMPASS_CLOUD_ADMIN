@@ -87,15 +87,17 @@ const CustomPolicy = ({
       case "userLocations":
         const countryInfo = locale === 'ko' ? countryCodes_KR : countryCodes_US
         const isOtherCountries = value.length > 1 ? formatMessage({ id: 'ETCUSERLOCATION' }) : formatMessage({ id: 'ALLUSERLOCATION' })
-        return <><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2"/><br/>
-        <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
-          values={{
-            permit: value.filter(v => v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', '),
-            deny: value.filter(v => !v.status).map(v => countryInfo[v.location] || isOtherCountries).join(', ')
-          }}
-        /></>;
+        const isTrue = value.filter(v => v.status)
+        const isFalse = value.filter(v => !v.status)
+        return <><FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION2" /><br />
+          <FormattedMessage id="USERLOCATIONPOLICYDESCRIPTION3"
+            values={{
+              permit: isTrue.length > 0 ? isTrue.map(v => countryInfo[v.location] || isOtherCountries).join(', ') : (locale === 'ko' ? '없음' : 'None'),
+              deny: isFalse.length > 0 ? isFalse.map(v => countryInfo[v.location] || isOtherCountries).join(', ') : (locale === 'ko' ? '없음' : 'None')
+            }}
+          /></>;
       case "browsers":
-        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{ param: value.map(v => formatMessage({id: v})).join(', ') }} />;
+        return <FormattedMessage id="BROWSERSPOLICYDESCRIPTION" values={{ param: value.map(v => formatMessage({ id: v })).join(', ') }} />;
       default:
         break;
     }
