@@ -42,8 +42,10 @@ const Footer = ({ setVisible }) => {
               >
                 <FormattedMessage id="TERMS_OF_SERVICE" />
               </a>
-              <br />
-              {/* <a
+
+              {/* 
+                 <br />
+                 <a
                 href="#"
                 style={{ textDecoration: "underline", color: "#1890ff" }}
                 onClick={openTermsOfService}
