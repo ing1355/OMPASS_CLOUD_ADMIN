@@ -230,10 +230,12 @@ const locales = {
     TERMS_OF_SERVICE: "Terms of service",
     FOOTER_1: "OneMoreSecurity Inc. | CEO：Min-Sik Kim",
     FOOTER_2:
-      "Business number：735-88-01175 | E-Commerce Registration Number：000000000",
+      "Business Number：735-88-01175 | E-Commerce Registration Number：000000000",
     FOOTER_3: "TEL：+82 70 4298 3070 | Email：service@omsecurity.kr",
     FOOTER_4:
       "Unit 605 Smart Hub 1, 2150, Hannuri-daero, Sejong-si, Republic of Korea",
+    OMPASS_title: "OMPASS",
+    Privacy_Policy: "Privacy Policy",
   },
   KR: {
     PERNUM: "명",
@@ -468,6 +470,8 @@ const locales = {
     FOOTER_2: "사업자 번호：735-88-01175 | 통신판매신고번호：000000000",
     FOOTER_3: "TEL：+82 70 4298 3070 | E-Mail：service@omsecurity.kr",
     FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
+    OMPASS_title: "원모어패스",
+    Privacy_Policy: "개인정보 처리 방침",
   },
 };
 

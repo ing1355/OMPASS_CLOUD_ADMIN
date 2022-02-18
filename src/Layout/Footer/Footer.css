@@ -34,3 +34,9 @@
 .footerTextBox2 {
   text-align: right;
 }
+.footerTextBox .title {
+  font-size: 1.3rem;
+}
+.footerTextBox:nth-child(2) {
+  flex: 2;
+}

@@ -14,6 +14,11 @@ const Footer = ({ setVisible }) => {
       <div className="footer">
         <div className="footerSubBox">
           <div className="footerTextBox">
+            <p className="title">
+              <FormattedMessage id="OMPASS_title" />
+            </p>
+          </div>
+          <div className="footerTextBox">
             <p>
               <FormattedMessage id="FOOTER_1" />
             </p>
@@ -28,7 +33,6 @@ const Footer = ({ setVisible }) => {
             </p>
           </div>
 
-          <div></div>
           <div className="footerTextBox2">
             <p className="agree">
               <a
@@ -38,24 +42,21 @@ const Footer = ({ setVisible }) => {
               >
                 <FormattedMessage id="TERMS_OF_SERVICE" />
               </a>
-              <br/>
+              <br />
+              {/* <a
+                href="#"
+                style={{ textDecoration: "underline", color: "#1890ff" }}
+                onClick={openTermsOfService}
+              >
+                <FormattedMessage id="Privacy_Policy" />
+              </a> */}
+              <br />
               <span className="copyRight">
                 © OneMoreSecurity Inc. All Rights Reserved.
               </span>
             </p>
           </div>
         </div>
-
-        {/*
-           © OneMoreSecurity Inc. All Rights Reserved.{" "}
-        
-           <a
-          href="#"
-          style={{ textDecoration: "underline", color: "#1890ff" }}
-          onClick={openTermsOfService}
-        >
-          <FormattedMessage id="TERMS_OF_SERVICE" />
-        </a> */}
       </div>
       <TermsOfPurchase />
     </>
