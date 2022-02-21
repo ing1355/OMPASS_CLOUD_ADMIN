@@ -1,0 +1,27 @@
+.custom-modal-content-container.privacy-modal {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.privacy-modal p {
+    text-align: left;
+}
+  
+.privacy-modal > div {
+    text-align: left;
+    margin-bottom: 1em;
+}
+  
+  .padding-div-container {
+    display: flex;
+  }
+  
+  .padding-div-container.sub-container {
+    margin-left: 12px;
+  }
+  
+  .privacy-content {
+    display: table;
+    padding-left: 8px;
+  }

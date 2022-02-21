@@ -1,14 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
+import PrivacyPolicy from "../../CustomComponents/PrivacyPolicy";
 import TermsOfPurchase from "../../CustomComponents/TermsOfPurchase";
 import ActionCreators from "../../redux/actions";
 import "./Footer.css";
 
 const Footer = ({ setVisible }) => {
+  const [visiblePrivacy, setVisiblePrivacy] = useState(false);
   const openTermsOfService = useCallback(() => {
     setVisible(true);
   }, []);
+  const openPrivacyPolicy = useCallback(() => {
+    setVisiblePrivacy(true);
+  },[])
   return (
     <>
       <div className="footer">
@@ -42,16 +47,14 @@ const Footer = ({ setVisible }) => {
               >
                 <FormattedMessage id="TERMS_OF_SERVICE" />
               </a>
-
-              {/* 
-                 <br />
-                 <a
+              <br />
+              <a
                 href="#"
                 style={{ textDecoration: "underline", color: "#1890ff" }}
-                onClick={openTermsOfService}
+                onClick={openPrivacyPolicy}
               >
                 <FormattedMessage id="Privacy_Policy" />
-              </a> */}
+              </a>
               <br />
               <span className="copyRight">
                 © OneMoreSecurity Inc. All Rights Reserved.
@@ -60,6 +63,7 @@ const Footer = ({ setVisible }) => {
           </div>
         </div>
       </div>
+      <PrivacyPolicy visible={visiblePrivacy} setVisible={setVisiblePrivacy}/>
       <TermsOfPurchase />
     </>
   );
