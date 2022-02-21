@@ -8,12 +8,13 @@ import "./Footer.css";
 
 const Footer = ({ setVisible }) => {
   const [visiblePrivacy, setVisiblePrivacy] = useState(false);
+
   const openTermsOfService = useCallback(() => {
     setVisible(true);
   }, []);
   const openPrivacyPolicy = useCallback(() => {
     setVisiblePrivacy(true);
-  },[])
+  }, []);
   return (
     <>
       <div className="footer">
@@ -42,7 +43,7 @@ const Footer = ({ setVisible }) => {
             <p className="agree">
               <a
                 href="#"
-                style={{ textDecoration: "underline", color: "#1890ff" }}
+                style={{ textDecoration: "underline" }}
                 onClick={openTermsOfService}
               >
                 <FormattedMessage id="TERMS_OF_SERVICE" />
@@ -50,7 +51,7 @@ const Footer = ({ setVisible }) => {
               <br />
               <a
                 href="#"
-                style={{ textDecoration: "underline", color: "#1890ff" }}
+                style={{ textDecoration: "underline" }}
                 onClick={openPrivacyPolicy}
               >
                 <FormattedMessage id="Privacy_Policy" />
@@ -63,7 +64,7 @@ const Footer = ({ setVisible }) => {
           </div>
         </div>
       </div>
-      <PrivacyPolicy visible={visiblePrivacy} setVisible={setVisiblePrivacy}/>
+      <PrivacyPolicy visible={visiblePrivacy} setVisible={setVisiblePrivacy} />
       <TermsOfPurchase />
     </>
   );

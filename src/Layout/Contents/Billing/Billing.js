@@ -467,7 +467,7 @@ const Billing = ({
                 <FormattedMessage id="AGREE" />
               </label>
               <div>
-                <input
+                {/* <input
                   type="checkbox"
                   name="checkAll"
                   checked={allCheck}
@@ -476,10 +476,10 @@ const Billing = ({
                 <label>
                   &nbsp;
                   <FormattedMessage id="ALLAGREE" />
-                  {/* <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> */}
+                  <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> 
                   <br />
-                </label>
-                <div className="sub-checkbox">
+                </label> */}
+                {/* <div className="sub-checkbox">
                   <div className="inner-check-line" />
                   <input
                     type="checkbox"
@@ -513,9 +513,8 @@ const Billing = ({
                       </>
                     )}
                   </label>
-                </div>
-                <div className="sub-checkbox">
-                  <div className="inner-check-line" />
+                </div> */}
+                <div>
                   <input
                     type="checkbox"
                     name="check1"

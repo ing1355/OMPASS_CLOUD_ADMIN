@@ -40,3 +40,10 @@
 .footerTextBox:nth-child(2) {
   flex: 2;
 }
+.footerTextBox2 .agree a {
+  color: #fff;
+}
+
+.footerTextBox2 .agree a:hover {
+  color: #1890ff;
+}
