@@ -17,6 +17,10 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
     setVisible(false);
   }, []);
 
+  const scrollToElement = (id) => {
+    document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
   return (
     <CustomConfirm
       className="privacy-modal"
@@ -50,62 +54,62 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
         <div className="en-title">
           <div>
             <label>1.</label>
-            <p>
+            <p onClick={() => scrollToElement('1st')}>
               <FormattedMessage id="Privacy_Policy_title_1" />
             </p>
           </div>
 
           <div>
             <label>2.</label>
-            <p>
+            <p onClick={() => scrollToElement('2nd')}>
               <FormattedMessage id="Privacy_Policy_title_2" />
             </p>
           </div>
           <div>
             <label>3.</label>
-            <p>
+            <p onClick={() => scrollToElement('3rd')}>
               <FormattedMessage id="Privacy_Policy_title_3" />
             </p>
           </div>
           <div>
             <label>4.</label>
-            <p>
+            <p onClick={() => scrollToElement('4th')}>
               <FormattedMessage id="Privacy_Policy_title_4" />
             </p>
           </div>
           <div>
             <label>5.</label>
-            <p>
+            <p onClick={() => scrollToElement('5th')}>
               <FormattedMessage id="Privacy_Policy_title_5" />
             </p>
           </div>
           <div>
             <label>6.</label>
-            <p>
+            <p onClick={() => scrollToElement('6th')}>
               <FormattedMessage id="Privacy_Policy_title_6" />
             </p>
           </div>
           <div>
             <label>7.</label>
-            <p>
+            <p onClick={() => scrollToElement('7th')}>
               <FormattedMessage id="Privacy_Policy_title_7" />
             </p>
           </div>
           <div>
             <label>8.</label>
-            <p>
+            <p onClick={() => scrollToElement('8th')}>
               <FormattedMessage id="Privacy_Policy_title_8" />
             </p>
           </div>
           <div>
             <label>9.</label>
-            <p>
+            <p onClick={() => scrollToElement('9th')}>
               <FormattedMessage id="Privacy_Policy_title_9" />
             </p>
           </div>
           <div>
             <label>10.</label>
-            <p>
+            <p onClick={() => scrollToElement('10th')}>
               <FormattedMessage id="Privacy_Policy_title_10" />
             </p>
           </div>
@@ -120,18 +124,18 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             <FormattedMessage id="Privacy_Policy_text2" />
           </h5>
         </div>
-        <p className="1st">
+        <p id="1st">
           <h5>
             <FormattedMessage id="Privacy_Policy_title1" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title1_1" />
         </p>
 
-        <p className="2st">
+        <p id="2nd">
           <h5>
             <FormattedMessage id="Privacy_Policy_title2" />
           </h5>
-          <ul className="enter2" style={{ marginTop: "1.5rem" }}>
+          <ul style={{ marginTop: "1.5rem" }}>
             <li>
               <FormattedMessage id="TermsOfPurchase_number_2_1" />
             </li>
@@ -146,7 +150,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </ul>
           )}
 
-          <ul className="enter2">
+          <ul>
             <li>
               <FormattedMessage id="TermsOfPurchase_number_2_2" />
             </li>
@@ -161,7 +165,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </ul>
           )}
 
-          <ul className="enter2">
+          <ul>
             <li>
               <FormattedMessage id="TermsOfPurchase_number_2_3" />
             </li>
@@ -213,19 +217,19 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           )}
         </p>
 
-        <p className="3st">
+        <p id="3rd">
           <h5>
             <FormattedMessage id="Privacy_Policy_title3" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title3_1" />
         </p>
-        <p className="4st">
+        <p id="4th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title4" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title4_1" />
         </p>
-        <p className="5st">
+        <p id="5th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title5" />
           </h5>
@@ -291,13 +295,13 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </li>
           </ul>
         </p>
-        <p className="6st">
+        <p id="6th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title6" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title6_1" />
           <br />
-          <ul className="enter" style={{ marginTop: "1.5rem" }}>
+          <ul id="enter" style={{ marginTop: "1.5rem" }}>
             <li>
               <FormattedMessage id="TermsOfPurchase_number_6_1" />
             </li>
@@ -334,13 +338,13 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </li>
           </ul>
         </p>
-        <p className="7st">
+        <p id="7th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title7" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title7_1" />
         </p>
-        <p className="8st">
+        <p id="8th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title8" />
           </h5>
@@ -373,13 +377,13 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </li>
           </ul>
         </p>
-        <p className="9st">
+        <p id="9th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title9" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title9_1" />
         </p>
-        <p className="10st">
+        <p id="10th">
           <h5>
             <FormattedMessage id="Privacy_Policy_title10" />
           </h5>
