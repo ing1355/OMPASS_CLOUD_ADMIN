@@ -34,23 +34,82 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
       footer={null}
       cancelCallback={closeModal}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <p>
-          <b>
-            <FormattedMessage id="Privacy_Policy" />
-          </b>
-        </p>
-        <p>
-          <b>
-            <FormattedMessage id="Effective_date" />
-          </b>
-        </p>
+      <div className="agree-title">
+        <div className="agree-title-top">
+          <p>
+            <b>
+              <FormattedMessage id="Privacy_Policy" />
+            </b>
+          </p>
+          <p>
+            <b>
+              <FormattedMessage id="Effective_date" />
+            </b>
+          </p>
+        </div>
+        <div className="en-title">
+          <div>
+            <label>1.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_1" />
+            </p>
+          </div>
+
+          <div>
+            <label>2.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_2" />
+            </p>
+          </div>
+          <div>
+            <label>3.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_3" />
+            </p>
+          </div>
+          <div>
+            <label>4.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_4" />
+            </p>
+          </div>
+          <div>
+            <label>5.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_5" />
+            </p>
+          </div>
+          <div>
+            <label>6.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_6" />
+            </p>
+          </div>
+          <div>
+            <label>7.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_7" />
+            </p>
+          </div>
+          <div>
+            <label>8.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_8" />
+            </p>
+          </div>
+          <div>
+            <label>9.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_9" />
+            </p>
+          </div>
+          <div>
+            <label>10.</label>
+            <p>
+              <FormattedMessage id="Privacy_Policy_title_10" />
+            </p>
+          </div>
+        </div>
       </div>
       <div className="agree-text-box2">
         <h4>
@@ -80,10 +139,12 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="Privacy_Policy_title2_1" />
             </li>
           </ul>
-          {locale === "ko" && <ul className="agree-text-ko enter hyphen-div">
+          {locale === "ko" && (
+            <ul className="agree-text-ko enter hyphen-div">
               <li>&nbsp;&nbsp;-</li>
               <li>성, 이름, 이메일, 국가코드, 전화번호, 회사/조직명</li>
-            </ul>}
+            </ul>
+          )}
 
           <ul className="enter2">
             <li>
@@ -93,10 +154,12 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="Privacy_Policy_title2_2" />
             </li>
           </ul>
-          {locale === "ko" && <ul className="agree-text-ko enter hyphen-div">
+          {locale === "ko" && (
+            <ul className="agree-text-ko enter hyphen-div">
               <li>&nbsp;&nbsp;-</li>
               <li>성, 이름, 이메일, 국가번호, 전화번호</li>
-            </ul>}
+            </ul>
+          )}
 
           <ul className="enter2">
             <li>
@@ -106,10 +169,12 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="Privacy_Policy_title2_3" />
             </li>
           </ul>
-          {locale === "ko" && <ul className="agree-text-ko enter hyphen-div">
+          {locale === "ko" && (
+            <ul className="agree-text-ko enter hyphen-div">
               <li>&nbsp;&nbsp;-</li>
               <li>OMPASS 로그, 정책 로그, 쿠키, 접속 IP정보, 방문 시간</li>
-            </ul>}
+            </ul>
+          )}
 
           <ul>
             <li>
@@ -120,15 +185,18 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             </li>
           </ul>
 
-          {locale === "ko" && <ul className="agree-text-ko enter hyphen-div">
+          {locale === "ko" && (
+            <ul className="agree-text-ko enter hyphen-div">
               <li>&nbsp;&nbsp;-</li>
               <li>
                 사용자 아이디, 어플리케이션명, 인증 유형, 쿠키, 접속 IP정보,
                 로그인 시간
               </li>
-            </ul>}
+            </ul>
+          )}
 
-          {locale === "ko" && <>
+          {locale === "ko" && (
+            <>
               <ul>
                 <li className="agree-text-ko">❺</li>
                 <li>신원확인과정에서 수집되는 사용자 정보</li>
@@ -141,7 +209,8 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
                 <li>&nbsp;&nbsp;-</li>
                 <li>비고:진위 확인 후 고유식별정보 등은 저장되지 않음</li>
               </ul>
-            </>}
+            </>
+          )}
         </p>
 
         <p className="3st">

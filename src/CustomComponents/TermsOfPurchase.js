@@ -35,23 +35,77 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
       footer={null}
       cancelCallback={closeModal}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <p>
-          <b>
-            <FormattedMessage id="TermsOfPurchase" />
-          </b>
-        </p>
-        <p>
-          <b>
-            <FormattedMessage id="Effective_date" />
-          </b>
-        </p>
+      <div className="agree-title">
+        <div className="agree-title-top">
+          <p>
+            <b>
+              <FormattedMessage id="TermsOfPurchase" />
+            </b>
+          </p>
+          <p>
+            <b>
+              <FormattedMessage id="Effective_date" />
+            </b>
+          </p>
+        </div>
+        {locale === "en" && (
+          <div className="en-title">
+            <div>
+              <label>1.</label>
+              <p>ACCEPTANCE OF AGREEMENT</p>
+            </div>
+
+            <div>
+              <label>2.</label>
+              <p>DEFINITIONS</p>
+            </div>
+            <div>
+              <label>3.</label>
+              <p>ADDITIONAL TERMS</p>
+            </div>
+            <div>
+              <label>4.</label>
+              <p>AGREEMENT OF USE AND PAYMENT OF FEES</p>
+            </div>
+            <div>
+              <label>5.</label>
+              <p>INDEMNIFICATION</p>
+            </div>
+            <div>
+              <label>6.</label>
+              <p>SERVICE REGISTRATION</p>
+            </div>
+            <div>
+              <label>7.</label>
+              <p>PRIVACY POLICY</p>
+            </div>
+            <div>
+              <label>8.</label>
+              <p>OBLIGATION OF THE COMPANY</p>
+            </div>
+            <div>
+              <label>9.</label>
+              <p>OBLIGATION OF THE CUSOTMERS</p>
+            </div>
+            <div>
+              <label>10.</label>
+              <p>SERVICE HOURS</p>
+            </div>
+
+            <div>
+              <label>11.</label>
+              <p>LIMITATION OF OMPASS USE</p>
+            </div>
+            <div>
+              <label>12.</label>
+              <p>INDEMNIFICATION FOR DAMAGE</p>
+            </div>
+            <div>
+              <label>13.</label>
+              <p>DISCLAIMER AND LIMITS</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="agree-text-box2">
@@ -71,8 +125,9 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
           <h5>
             <FormattedMessage id="TermsOfPurchase_title_2" />
           </h5>
-          
-          {locale === "ko" && '본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다.'}
+
+          {locale === "ko" &&
+            "본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다."}
 
           <ul className="enter2" style={{ marginTop: "1.5rem" }}>
             <li>

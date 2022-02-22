@@ -334,6 +334,22 @@ const locales = {
     Privacy_Policy_title10_5_4:
       "Personal Information Dispute Mediation Committee (operated by KISA) https://www.kopico.go.kr/ Call +82-1833-6972",
 
+    Privacy_Policy_title_1:
+      "Purpose of collecting and using personal information",
+    Privacy_Policy_title_2: "Types of personal information collected",
+    Privacy_Policy_title_3: "Method of collecting personal information",
+    Privacy_Policy_title_4: "Providing personal information to third parties",
+    Privacy_Policy_title_5: "Retention and use period of personal information",
+    Privacy_Policy_title_6:
+      "Procedure and method for destroying personal information",
+    Privacy_Policy_title_7:
+      "Rights of the users and their legal representatives and exercise of rights",
+    Privacy_Policy_title_8: "Measures to secure personal information",
+    Privacy_Policy_title_9:
+      "Installation and operation of programs that automatically collect personal information and rejection of such programs",
+    Privacy_Policy_title_10:
+      "Personal information manager and grievance department",
+
     // 이용약관
 
     TermsOfPurchase: "Terms of Service",
@@ -798,6 +814,18 @@ const locales = {
     FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
     OMPASS_title: "원모어패스",
     Privacy_Policy: "개인정보 처리 방침",
+
+    Privacy_Policy_title_1: "개인정보의 수집 · 이용 목적",
+    Privacy_Policy_title_2: "수집하는 개인정보의 항목",
+    Privacy_Policy_title_3: "개인정보의 수집방법",
+    Privacy_Policy_title_4: "개인정보를 제3자에게 제공하는 경우",
+    Privacy_Policy_title_5: "개인정보의 보유 및 이용 기간",
+    Privacy_Policy_title_6: "개인정보의 파기절차 및 파기방법",
+    Privacy_Policy_title_7: "이용자 및 법정대리인의 권리와 그 행사방법",
+    Privacy_Policy_title_8: "개인정보의 안정성 확보조치에 관한 사항",
+    Privacy_Policy_title_9:
+      "인터넷 접속정보파일 등 개인정보를 자동으로 수집하는 장치의 설치 · 운영 및 그 거부에 관한 사항",
+    Privacy_Policy_title_10: "개인정보보호 책임자 및 고충처리 부서",
 
     // 개인정보처리방침
     Effective_date: "시행일 | 2022 / 03 / 01",
