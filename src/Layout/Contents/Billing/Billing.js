@@ -40,7 +40,6 @@ import { planStatusCodes } from "../Dashboard/Dashboard";
 import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
-import TermsOfUse from "./TermsOfUse";
 
 const Billing = ({
   userProfile,
@@ -66,7 +65,6 @@ const Billing = ({
   const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
-  const [termsOfUseVisible, setTermsOfUseVisible] = useState(false);
   const userNumList = useMemo(() => new Array(990).fill(1), []);
 
   const { formatMessage } = useIntl();
@@ -237,10 +235,6 @@ const Billing = ({
     if (subCheck1 && subCheck2) setAllCheck(true);
     else setAllCheck(false);
   }, [subCheck1, subCheck2]);
-
-  const openTermsOfUse = useCallback(() => {
-    setTermsOfUseVisible(true);
-  }, []);
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
@@ -467,53 +461,6 @@ const Billing = ({
                 <FormattedMessage id="AGREE" />
               </label>
               <div>
-                {/* <input
-                  type="checkbox"
-                  name="checkAll"
-                  checked={allCheck}
-                  onChange={changeAllCheck}
-                />
-                <label>
-                  &nbsp;
-                  <FormattedMessage id="ALLAGREE" />
-                  <FormattedMessage id="BILLINGCHECKDESCRIPTION" /> 
-                  <br />
-                </label> */}
-                {/* <div className="sub-checkbox">
-                  <div className="inner-check-line" />
-                  <input
-                    type="checkbox"
-                    name="check1"
-                    checked={subCheck1}
-                    onChange={changeCheck1}
-                  />
-                  <label>
-                    &nbsp;
-                    {locale === "ko" ? (
-                      <>
-                        <a
-                          href="#purchaseTarget"
-                          className="see-policy"
-                          onClick={openTermsOfUse}
-                        >
-                          <FormattedMessage id="TERMSOFUSE" />
-                        </a>
-                        <FormattedMessage id="TERMS_SUB" />
-                      </>
-                    ) : (
-                      <>
-                        <FormattedMessage id="TERMS_SUB" />
-                        <a
-                          href="#purchaseTarget"
-                          className="see-policy"
-                          onClick={openTermsOfUse}
-                        >
-                          <FormattedMessage id="TERMSOFUSE" />
-                        </a>
-                      </>
-                    )}
-                  </label>
-                </div> */}
                 <div>
                   <input
                     type="checkbox"
@@ -615,10 +562,6 @@ const Billing = ({
         isKorea={isKorea}
         setConfirmModal={setConfirmModal}
         closeConfirmModal={closeConfirmModal}
-      />
-      <TermsOfUse
-        visible={termsOfUseVisible}
-        setVisible={setTermsOfUseVisible}
       />
     </div>
   ) : (

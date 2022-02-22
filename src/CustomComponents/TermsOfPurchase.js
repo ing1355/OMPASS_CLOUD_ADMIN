@@ -71,9 +71,8 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
           <h5>
             <FormattedMessage id="TermsOfPurchase_title_2" />
           </h5>
-          {locale === "ko" ? (
-            <>본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다.</>
-          ) : null}
+          
+          {locale === "ko" && '본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다.'}
 
           <ul className="enter2" style={{ marginTop: "1.5rem" }}>
             <li>
@@ -159,7 +158,7 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
           <FormattedMessage id="TermsOfPurchase_title_3_text" />
         </p>
 
-        <p>
+        <p id="purchaseTarget">
           <h5>
             <FormattedMessage id="TermsOfPurchase_title_4" />
           </h5>
@@ -648,7 +647,7 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
         </p>
 
         <p>
-          {locale === "ko" ? <h5>부칙</h5> : null}
+          {locale === "ko" && <h5>부칙</h5>}
 
           <FormattedMessage id="TermsOfPurchase_title_14_1" />
         </p>
