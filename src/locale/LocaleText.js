@@ -213,7 +213,7 @@ const locales = {
     WARNING: "Warning",
     WARNINGDESCRIPTION:
       "If the current secret key is reissued, the old key will be destroyed.\nDo you still want to proceed it anyway?",
-    TERMSOFSERVICE: "Terms of service",
+    TERMSOFSERVICE: "Terms of Service",
     ADMINDELETEWARNING:
       "If you cancel membership here, all data will be deleted\nsuch as users, admins, applications, and settings.\nAll users will not be able to use OMPASS service anymore.\n\nTo continue, please enter your password and click the OK button.",
     WITHDRAWAL: "Cancel Membership",
@@ -227,7 +227,7 @@ const locales = {
     CHANGEBILLINGDESCRIPTION6: "Are you sure you want to proceed?",
     PRICE_CHANGE_DESCRIPTION:
       "※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.",
-    TERMS_OF_SERVICE: "Terms of service",
+    TERMS_OF_SERVICE: "Terms of Service",
     FOOTER_1: "OneMoreSecurity Inc. | CEO：Min-Sik Kim",
     FOOTER_2:
       "Business Number：735-88-01175 | E-Commerce Registration Number：000000000",
