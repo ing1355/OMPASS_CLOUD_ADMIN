@@ -184,7 +184,8 @@ const locales = {
     BILLINGPLANDESCRIPTION1_2:
       "Universal Authentication Framework (UAF) : Passwordless Login",
     BILLINGPLANDESCRIPTION1_3: "Bypass OMPASS by Email Authentication",
-    BILLINGPLANDESCRIPTION1_4: "Web Authentication(WebAuthN)",
+    BILLINGPLANDESCRIPTION1_4:
+      "Web Authentication (WebAuthn) for PC and Mobile",
     GODOCUMENT: "Go Document",
     POLICYDISABLEDTITLE: "Sorry, this option cannot be selected.",
     POLICYDISABLEDDESCRIPTION:
@@ -339,7 +340,7 @@ const locales = {
     Privacy_Policy_title_10:
       "Personal information manager and grievance department",
 
-      // 이용약관
+    // 이용약관
     TermsOfPurchase: "Terms of Service",
     TermsOfPurchase_text:
       "Welcome to OMPASS. We maintain this website as a service to our customers. By using our site, you are agreeing to comply with and be bound by the following Terms of Service. Please review the following terms carefully. If you do not agree to these terms, you should not use this site.",
@@ -544,11 +545,13 @@ const locales = {
     TermsOfPurchase_number_13_7: "13.7",
     TermsOfPurchase_number_13_8: "13.8",
     TermsOfPurchase_number_13_9: "13.9",
-    USED_APPLICATION_DESCRIPITON_1: 'This custom policy is currently being used by a specific application.',
-    USED_APPLICATION_DESCRIPITON_2: 'If you delete it, its policy for the application that has been applied will be automatically changed to the default policy.',
-    PAYMENT_FAILED: 'Payment Failed',
-    PAYMENT_SUCCESSED: 'Payment Succeeded',
-    PAYMENTSTATUS: 'Payment Status'
+    USED_APPLICATION_DESCRIPITON_1:
+      "This custom policy is currently being used by a specific application.",
+    USED_APPLICATION_DESCRIPITON_2:
+      "If you delete it, its policy for the application that has been applied will be automatically changed to the default policy.",
+    PAYMENT_FAILED: "Payment Failed",
+    PAYMENT_SUCCESSED: "Payment Succeeded",
+    PAYMENTSTATUS: "Payment Status",
   },
 
   KR: {
@@ -739,7 +742,7 @@ const locales = {
     BILLINGPLANDESCRIPTION1_1: "2차 인증 (U2F)",
     BILLINGPLANDESCRIPTION1_2: "패스워드 없이 로그인 (UAF)",
     BILLINGPLANDESCRIPTION1_3: "이메일 인증으로 OMPASS 바이패스 (대체 인증)",
-    BILLINGPLANDESCRIPTION1_4: "WebAuthN (웹 인증)",
+    BILLINGPLANDESCRIPTION1_4: "웹인증 (PC/모바일)",
     GODOCUMENT: "문서로 이동하기",
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
@@ -1081,11 +1084,13 @@ const locales = {
     TermsOfPurchase_number_13_7: "❼",
     TermsOfPurchase_number_13_8: "❽",
     TermsOfPurchase_number_13_9: "❾",
-    USED_APPLICATION_DESCRIPITON_1: '현재 정책은 특정 어플리케이션에서 사용 중입니다.',
-    USED_APPLICATION_DESCRIPITON_2: '삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.',
-    PAYMENT_FAILED: '결제 실패',
-    PAYMENT_SUCCESSED: '결제 성공',
-    PAYMENTSTATUS: '상태'
+    USED_APPLICATION_DESCRIPITON_1:
+      "현재 정책은 특정 어플리케이션에서 사용 중입니다.",
+    USED_APPLICATION_DESCRIPITON_2:
+      "삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.",
+    PAYMENT_FAILED: "결제 실패",
+    PAYMENT_SUCCESSED: "결제 성공",
+    PAYMENTSTATUS: "상태",
   },
 };
 
