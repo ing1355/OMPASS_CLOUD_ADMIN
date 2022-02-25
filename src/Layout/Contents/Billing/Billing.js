@@ -52,8 +52,6 @@ const Billing = ({
     () => (country === "KR" ? true : false),
     [country]
   );
-  const [allCheck, setAllCheck] = useState(false);
-  const [subCheck1, setSubCheck1] = useState(false);
   const [subCheck2, setSubCheck2] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [allUserNum, setAllUserNum] = useState(0);
@@ -141,7 +139,7 @@ const Billing = ({
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { userNum, check1 } = e.target.elements;
+    const { userNum, check } = e.target.elements;
     if (currentPlan.status === "RUN") {
       if (currentPlan.numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
@@ -151,7 +149,7 @@ const Billing = ({
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (currentPlan.status !== "RUN" && !check1.checked)
+    if (currentPlan.status !== "RUN" && !check.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     // if (currentPlan.status !== "RUN" && !checkAll.checked)
     //   return showErrorMessage("PLEASE_AGREEMENT_CHECK");
@@ -215,29 +213,9 @@ const Billing = ({
     );
   };
 
-  const changeAllCheck = useCallback((e) => {
-    setAllCheck(e.target.checked);
-    if (e.target.checked) {
-      setSubCheck1(true);
-      setSubCheck2(true);
-    } else {
-      setSubCheck1(false);
-      setSubCheck2(false);
-    }
-  }, []);
-
-  const changeCheck1 = useCallback((e) => {
-    setSubCheck1(e.target.checked);
-  }, []);
-
   const changeCheck2 = useCallback((e) => {
     setSubCheck2(e.target.checked);
   }, []);
-
-  useLayoutEffect(() => {
-    if (subCheck1 && subCheck2) setAllCheck(true);
-    else setAllCheck(false);
-  }, [subCheck1, subCheck2]);
 
   return userProfile.role !== "SUB_ADMIN" ? (
     <div className="contents-container">
@@ -467,7 +445,7 @@ const Billing = ({
                 <div>
                   <input
                     type="checkbox"
-                    name="check1"
+                    name="check"
                     checked={subCheck2}
                     onChange={changeCheck2}
                   />

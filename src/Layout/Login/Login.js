@@ -13,7 +13,8 @@ const convertLanguageCode = {
   'en': 'EN'
 }
 
-const homepageUrl = (locale) => `https://www.ompasscloud.com/${locale}/login`
+const homepageUrl = (locale) => `https://ompass.kr:4003${locale}/login`
+// const homepageUrl = (locale) => `https://www.ompasscloud.com/${locale}/login`
 
 const Login = ({
   setIsLogin,
@@ -121,7 +122,8 @@ const Login = ({
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={locale === 'ko' ? homepageUrl('ko') : homepageUrl('en')}
+                    // href={locale === 'ko' ? homepageUrl('/ko') : homepageUrl('/')}
+                    href='https://www.ompasscloud.com/login'
                   >
                     <FormattedMessage id="Registration" />
                   </a>
