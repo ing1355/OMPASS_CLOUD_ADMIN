@@ -35,17 +35,7 @@ import {
 } from "../../../Functions/GetFullDate";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 import { dashboardChartLineColors } from "../../../Constants/ConstantValues";
-
-export const planStatusCodes = {
-  STOPPED: <FormattedMessage id="NONEUSED" />,
-  RUN: <FormattedMessage id="Valid" />,
-  FREE: <FormattedMessage id="Valid" />,
-  CANCEL: (
-    <>
-      <FormattedMessage id="Valid" /> <FormattedMessage id="ValidCancel" />
-    </>
-  ),
-};
+import { planStatusCodes } from "../../../Constants/PlanStatusCodes";
 
 const Dashboard = ({ userProfile, locale }) => {
   const { adminId } = userProfile;

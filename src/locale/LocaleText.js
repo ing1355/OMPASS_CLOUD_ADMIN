@@ -39,7 +39,7 @@ const locales = {
     Status: "Status",
     Date: "Date",
     Valid: "Valid",
-    ValidCancel: "(Recurring payment is disabled)",
+    ValidCancel: "Recurring payment is disabled",
     Name: "Name",
     Email: "Email",
     phoneNumber: "Phone Number",
@@ -236,18 +236,16 @@ const locales = {
       "Unit 605 Smart Hub 1, 2150, Hannuri-daero, Sejong-si, Republic of Korea",
     OMPASS_title: "OMPASS",
     Privacy_Policy: "Privacy Policy",
+
     // 개인정보처리방침
     Effective_date: "Effective date | March 01, 2022",
     Privacy_Policy_text:
       "'OneMoreSecurity Inc.' (hereinafter referred to as “Company”), which provides the 'OMPASS' service, strives to protect users’ personal information and complies with the relevant laws such as Act on promotion of Information and Communications Network Utilization and Information Protection, Etc. and the Personal Information Protection Act. The Company discloses this Privacy Policy pursuant to the relevant laws so that users can easily check how the Company handles their personal information.",
-
     Privacy_Policy_text2: "The contents of this privacy policy are as follows:",
-
     Privacy_Policy_title1:
       "1. Purpose of collecting and using personal information",
     Privacy_Policy_title1_1:
       "The Company collects and uses personal information to provide services for OMPASS admin website and OMPASS app, to identify and authenticate persons for membership-based services, to prevent the illegal use of services, to secure contact for customer support, to process complaints, to analyze members’ use of services statistically, to provide advertising information, and to provide services specific to statistical characteristics.",
-
     Privacy_Policy_title2: "2. Types of personal information collected",
     Privacy_Policy_title2_1:
       "Information collected for membership sign up under agreement by administrators includes last name, first name, email, phone number, country code, and company (organization) name.",
@@ -257,14 +255,11 @@ const locales = {
       "Information collected automatically for activities of administrators and sub-administrators includes OMPASS log, policy log, login time, cookie, and access IP information.",
     Privacy_Policy_title2_4:
       "Information collected automatically for activities of users includes User ID, application name, authentication, login time, cookie, and access IP information.",
-
     Privacy_Policy_title3: "3. Methods of collecting personal information",
     Privacy_Policy_title3_1:
       "Personal information is collected during the membership service sign-up process, service use, phone consultation, email consultation, service inquiry, and quotation inquiry.",
-
     Privacy_Policy_title4: "4. Providing personal information to a third party",
     Privacy_Policy_title4_1: "None",
-
     Privacy_Policy_title5:
       "5. Retention and use period of personal information",
     Privacy_Policy_title5_1:
@@ -281,7 +276,6 @@ const locales = {
       "Records concerning payment and supply of goods, etc. : 5 years",
     Privacy_Policy_title5_2_3:
       "Records concerning consumer complaints or dispute settlement : 3 years",
-
     Privacy_Policy_title6:
       "6. Procedure and method for destroying personal information",
     Privacy_Policy_title6_1:
@@ -296,12 +290,10 @@ const locales = {
       "Personal information printed on a paper is destroyed with a shredder.",
     Privacy_Policy_title6_2_2_2:
       "Personal information saved in electronic file format is destroyed using a technical method that does not allow regeneration.",
-
     Privacy_Policy_title7:
       "7. Rights of the users and their legal representatives and exercise of rights",
     Privacy_Policy_title7_1:
       "The user can withdraw his/her consent to the use of the provided personal information by requesting cancellation of the service. The Company performs the necessary action immediately when there is a request for withdrawal of consent, access, or modification and refrains from using the information until the information is corrected when there is a request for information modification in particular. Any complaints related to privacy protection arose while using the OMPASS service can be sent to the contact provided in this Privacy Policy document.",
-
     Privacy_Policy_title8: "8. Measures to secure personal information",
     Privacy_Policy_title8_1:
       "The Company takes following administrative, technical, and physical measures to ensure safety when processing personal information.",
@@ -311,12 +303,10 @@ const locales = {
       "Technical measures : Management of access permission to personal information processing system, installation of encrypt and security programs, etc.",
     Privacy_Policy_title8_1_3:
       "Physical countermeasures : Access control to the storage for personal information such as server room and data storage room, etc.",
-
     Privacy_Policy_title9:
       "9. Installation and operation of programs that automatically collect personal information and rejection of such programs",
     Privacy_Policy_title9_1:
       "The Company uses cookies to provide personalized services to users. As the data file sent by the HTTP server to the user’s browser and stored in the user’s device, a cookie may contain information on the websites used by the user and personal information of the user. Users can choose to accept all cookies, receive a notification when a cookie is installed, or reject all cookies by adjusting the options of the Internet web browser.",
-
     Privacy_Policy_title10: "10. Personal information manager",
     Privacy_Policy_title10_1: "Chief Privacy Manager : Nury Kang",
     Privacy_Policy_title10_2:
@@ -333,7 +323,6 @@ const locales = {
       "Privacy Infringement Report Center (operated by KISA) https://privacy.kisa.or.kr/ Call +82-118",
     Privacy_Policy_title10_5_4:
       "Personal Information Dispute Mediation Committee (operated by KISA) https://www.kopico.go.kr/ Call +82-1833-6972",
-
     Privacy_Policy_title_1:
       "Purpose of collecting and using personal information",
     Privacy_Policy_title_2: "Types of personal information collected",
@@ -350,8 +339,7 @@ const locales = {
     Privacy_Policy_title_10:
       "Personal information manager and grievance department",
 
-    // 이용약관
-
+      // 이용약관
     TermsOfPurchase: "Terms of Service",
     TermsOfPurchase_text:
       "Welcome to OMPASS. We maintain this website as a service to our customers. By using our site, you are agreeing to comply with and be bound by the following Terms of Service. Please review the following terms carefully. If you do not agree to these terms, you should not use this site.",
@@ -359,7 +347,6 @@ const locales = {
     TermsOfPurchase_title_1_1:
       "These Terms of Service (“Agreement”) constitute a contract between 'OneMoreSecurity Inc.' (“Company”) who provides 'OMPASS mobile application and administrator site' (“Service”), and you. The Company wishes to provide and you wish to have the right to access pursuant to the terms of this Agreement, a subscription (“Auto-Renewal”) service. This Agreement includes and incorporates the webpage Order Form with which you purchased the Services and any subsequent Order Forms (submitted in written or electronic form). By accessing or using the Services, you agree to be bound by this Agreement. If you are entering into this Agreement on behalf of a company, organization or other entity, you represent that you have such authority to bind such entity and are agreeing to this Agreement on behalf of such entity. If you do not have such authority to enter into this Agreement or do not agree with these terms and conditions, you may not use the Services.",
     TermsOfPurchase_title_2: "2. DEFINITIONS",
-
     TermsOfPurchase_title_3_1:
       "“Customer” (“Administrator”) means the user who has agreed to this Agreement and signed up for the Services, manages sub-administrators and users, and uses the Service.",
     TermsOfPurchase_title_3_2:
@@ -378,11 +365,9 @@ const locales = {
       "“Cancel Auto-Renewal” means canceling the recurring payment (subscription), and after canceling it, the Service can be used until the expiration date.",
     TermsOfPurchase_title_3_9:
       "“Documentation” means guides and instructions provided to Customer by the Company in connection with the Services which the Company may amend from time to time.",
-
     TermsOfPurchase_title_3: "3. ADDITIONAL TERMS",
     TermsOfPurchase_title_3_text:
       "If necessary, the Company may notify the “Operation Policy” to Customers separately, and if these Terms of Service overlap with the Operation Policy, the Operation Policy takes precedence.",
-
     TermsOfPurchase_title_4: "4. AGREEMENT OF USE AND PAYMENT OF FEES",
     TermsOfPurchase_title_4_1:
       "The Agreement of Use is concluded with the consent of the administrator who intends to use the site by registering as a member to agree to the contents of these terms and conditions and the consent of the company for the application for membership.",
@@ -428,13 +413,11 @@ const locales = {
       "However, the company is not responsible for any information exposed due to reasons attributable to the Customer.",
     TermsOfPurchase_title_7_5:
       "If the Customer registers and distributes illegal applications, such as violate public morals or national security, the company may check the Customer's data and submit it to the relevanct institution upon request.",
-
     TermsOfPurchase_title_8: "8. OBLIGATION OF THE COMPANY",
     TermsOfPurchase_title_8_1:
       "If the company recognizes that the opinions or complaints raised by Customers are justified, it must be dealt with as soon as possible. However, if it is difficult to process quickly due to personal circumstances, the Company will do the best to give a notice or contact to the Customer via email or phone.",
     TermsOfPurchase_title_8_2:
       "In order to provide a continuous and stable Service, the company may request the site to repair or restore it without delay when the system is damaged or lost. However, in the event of a natural disaster or an unavoidable reason for the Service or Company, the Service may be temporarily suspended.",
-
     TermsOfPurchase_title_9: "9. OBLIGATION OF THE CUSOTMERS",
     TermsOfPurchase_title_9_1:
       "The Customer must complies with the matters stipulated in these Terms of Service and should not against the matters set forth by the company, such as the Agreements, operating policies, and related laws and regulations.",
@@ -444,7 +427,6 @@ const locales = {
       "The Customer requires considerable awareness and commitment to managing ID and password, and cannot provide the IDs to a third party without the consent of the Company to use them.",
     TermsOfPurchase_title_9_4:
       "The customer must not infringe the intellectual property rights of the Company, Service, and third parties.",
-
     TermsOfPurchase_title_10: "10. SERVICE HOURS",
     TermsOfPurchase_title_10_1:
       "In principle, Service Hours are 24 hours a day, 7 days a week, unless there is a special problem in business or technology. However, the Company may temporarily suspend the Service on the day or time set by the Company for regular system inspection, extension, and replacement, and please refer to the website or email in advance regarding Service suspension due to scheduled work.",
@@ -460,7 +442,6 @@ const locales = {
       "If the use of normal Service is disrupted due to heavy traffic, etc.",
     TermsOfPurchase_title_10_3:
       "In the case of Service interruption above, the Company notifies the Customer in advance through a notice or email.",
-
     TermsOfPurchase_title_11: "11. LIMITATION OF OMPASS USE",
     TermsOfPurchase_title_11_text:
       "The Customer shall not engage in any of the following acts, and if any of those actions are found, the Comapny may restrict the Customer's use of the service and take legal measures, and may terminate the Service contract or set a period to suspend the Service.",
@@ -478,13 +459,11 @@ const locales = {
     TermsOfPurchase_title_11_7:
       "All actions that can be objectively judged to be related to a crime",
     TermsOfPurchase_title_11_8: "Violate other relevant laws",
-
     TermsOfPurchase_title_12: "12. INDEMNIFICATION FOR DAMAGE",
     TermsOfPurchase_title_12_1:
       "All civil and criminal responsibilities arising from the Service are the primary responsibility of the Customer themselves.",
     TermsOfPurchase_title_12_2:
       "The Company does not compensate for damages received by Customers from the service due to force majeure, such as natural disasters, or intentional or negligence on the part of the Customer.",
-
     TermsOfPurchase_title_13: "13. DISCLAIMER AND LIMITS",
     TermsOfPurchase_title_13_1:
       "The Company is not responsible for any damage caused by the Customer's failure to obtain the expected results from the provision of Service or the selection or use of service materials.",
@@ -504,9 +483,7 @@ const locales = {
       "The Company is not responsible for any dispute from Customers with each other or between Customers and third parties without the reason made by Company.",
     TermsOfPurchase_title_13_9:
       "The Company is not responsible to Customers for any damage due to the system failure that may occur intentionally or without serious negligence equivalent to intention in the process of managing, inspecting, repairing, and replacing the equipment such as servers, or any attack by third parties, or any dissemination such as computer viruses that countermeasures have not been developed by security-related companies, or any reason on force majeure circumstances beyond the control of the administrator.",
-
     TermsOfPurchase_title_14_1: "Last Updated : March 1, 2022",
-
     TermsOfPurchase_number_2_1: "2.1",
     TermsOfPurchase_number_2_2: "2.2",
     TermsOfPurchase_number_2_3: "2.3",
@@ -516,7 +493,6 @@ const locales = {
     TermsOfPurchase_number_2_7: "2.7",
     TermsOfPurchase_number_2_8: "2.8",
     TermsOfPurchase_number_2_9: "2.9",
-
     TermsOfPurchase_number_4_1: "4.1",
     TermsOfPurchase_number_4_2: "4.2",
     TermsOfPurchase_number_4_3: "4.3",
@@ -526,28 +502,22 @@ const locales = {
     TermsOfPurchase_number_4_7: "4.7",
     TermsOfPurchase_number_4_8: "4.8",
     TermsOfPurchase_number_4_9: "4.9",
-
     TermsOfPurchase_number_5_1: "5.1",
     TermsOfPurchase_number_5_2: "5.2",
     TermsOfPurchase_number_5_3: "5.3",
-
     TermsOfPurchase_number_6_1: "6.1",
     TermsOfPurchase_number_6_2: "6.2",
-
     TermsOfPurchase_number_7_1: "7.1",
     TermsOfPurchase_number_7_2: "7.2",
     TermsOfPurchase_number_7_3: "7.3",
     TermsOfPurchase_number_7_4: "7.4",
     TermsOfPurchase_number_7_5: "7.5",
-
     TermsOfPurchase_number_8_1: "8.1",
     TermsOfPurchase_number_8_2: "8.2",
-
     TermsOfPurchase_number_9_1: "9.1",
     TermsOfPurchase_number_9_2: "9.2",
     TermsOfPurchase_number_9_3: "9.3",
     TermsOfPurchase_number_9_4: "9.4",
-
     TermsOfPurchase_number_10_1: "10.1",
     TermsOfPurchase_number_10_2: "10.2",
     TermsOfPurchase_number_10_2_1: "(i)",
@@ -555,7 +525,6 @@ const locales = {
     TermsOfPurchase_number_10_2_3: "(iii)",
     TermsOfPurchase_number_10_2_4: "(iv)",
     TermsOfPurchase_number_10_3: "10.3",
-
     TermsOfPurchase_number_11_1: "11.1",
     TermsOfPurchase_number_11_2: "11.2",
     TermsOfPurchase_number_11_3: "11.3",
@@ -564,10 +533,8 @@ const locales = {
     TermsOfPurchase_number_11_6: "11.6",
     TermsOfPurchase_number_11_7: "11.7",
     TermsOfPurchase_number_11_8: "11.8",
-
     TermsOfPurchase_number_12_1: "12.1",
     TermsOfPurchase_number_12_2: "12.2",
-
     TermsOfPurchase_number_13_1: "13.1",
     TermsOfPurchase_number_13_2: "13.2",
     TermsOfPurchase_number_13_3: "13.3",
@@ -577,6 +544,11 @@ const locales = {
     TermsOfPurchase_number_13_7: "13.7",
     TermsOfPurchase_number_13_8: "13.8",
     TermsOfPurchase_number_13_9: "13.9",
+    USED_APPLICATION_DESCRIPITON_1: 'This custom policy is currently being used by a specific application.',
+    USED_APPLICATION_DESCRIPITON_2: 'If you delete it, its policy for the application that has been applied will be automatically changed to the default policy.',
+    PAYMENT_FAILED: 'Payment Failed',
+    PAYMENT_SUCCESSED: 'Payment Succeeded',
+    PAYMENTSTATUS: 'Payment Status'
   },
 
   KR: {
@@ -619,7 +591,7 @@ const locales = {
     Status: "상태",
     Date: "시간",
     Valid: "현재 사용중",
-    ValidCancel: "(구독 취소)",
+    ValidCancel: "구독 취소",
     Name: "이름",
     Email: "이메일",
     phoneNumber: "전화번호",
@@ -641,7 +613,7 @@ const locales = {
     DELETE: "삭제",
     CLOSE: "닫기",
     DUPLICATECHECK: "중복 확인",
-    BILLINGCYCLE: "결제 주기",
+    BILLINGCYCLE: "주기",
     USERNUM: "최대 사용자 수",
     CHANGEUSERNUM: "변경할 사용자 수",
     ALLUSERNUM: "전체 사용자 수",
@@ -688,7 +660,7 @@ const locales = {
     AGREE: "이용 동의",
     PRICE: "가격",
     PRICECOLUMN: "금액",
-    PAYMENTDATE: "결제 날짜",
+    PAYMENTDATE: "날짜",
     PAYMENTTYPE: "결제 종류",
     POLICYNAME: "항목",
     DESCRIPTION: "설명",
@@ -814,7 +786,6 @@ const locales = {
     FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
     OMPASS_title: "원모어패스",
     Privacy_Policy: "개인정보 처리 방침",
-
     Privacy_Policy_title_1: "개인정보의 수집 · 이용 목적",
     Privacy_Policy_title_2: "수집하는 개인정보의 항목",
     Privacy_Policy_title_3: "개인정보의 수집방법",
@@ -832,11 +803,9 @@ const locales = {
     Privacy_Policy_text:
       "'원모어패스'(이하 “OMPASS”) 서비스를 제공하는 ‘원모어시큐리티’(이하 “회사”)는 이용자의 개인정보를 보호하기 위하여 노력하며, ‘정보통신망 이용촉진 및 정보보호’에 관한 법률 및 ‘개인정보보호법’ 등 관련 법률을 준수하고 있습니다. 회사는 회사가 이용자의 개인정보를 어떻게 처리하는지 쉽게 확인할 수 있도록 관련법에 따라 본 개인정보 처리방침을 공개합니다.",
     Privacy_Policy_text2: "이 개인정보취급방침의 내용은 다음과 같습니다.",
-
     Privacy_Policy_title1: "1. 개인정보의 수집 · 이용 목적",
     Privacy_Policy_title1_1:
       "OMPASS 관리자 사이트 및 앱 서비스 공급, 회원제 서비스 제공에 따른 본인 식별•인증, 서비스 부정이용 방지, 고객지원을 위한 연락처 확보, 불만처리 등 민원처리, 회원의 서비스이용에 대한 통계, 광고성 정보 제공, 통계적 특성에 따른 맞춤 서비스 제공",
-
     Privacy_Policy_title2: "2. 수집하는 개인정보의 항목",
     Privacy_Policy_title2_1:
       "사이트 이용 과정에서 동의 하에 수집되는 관리자 정보",
@@ -846,14 +815,11 @@ const locales = {
       "서비스 및 사이트 이용 처리 과정에서 자동생성되어 수집되는 관리자 및 서브 관리자 정보",
     Privacy_Policy_title2_4:
       "서비스 이용 처리 과정에서 자동생성되어 수집되는 사용자 정보",
-
     Privacy_Policy_title3: "3. 개인정보의 수집방법",
     Privacy_Policy_title3_1:
       "회원제 서비스 가입, 서비스이용, 전화상담, 이메일상담, 서비스문의, 견적문의",
-
     Privacy_Policy_title4: "4. 개인정보를 제3자에게 제공하는 경우",
     Privacy_Policy_title4_1: "없음",
-
     Privacy_Policy_title5: "5. 개인정보의 보유 및 이용 기간",
     Privacy_Policy_title5_1: "회사 정책 따른 정보 보유",
     Privacy_Policy_title5_1_1:
@@ -865,7 +831,6 @@ const locales = {
     Privacy_Policy_title5_2_1: "계약 또는 청약철회 등에 관한 기록 : 5년",
     Privacy_Policy_title5_2_2: "대금결제 및 재화 등의 공급에 관한 기록 : 5년",
     Privacy_Policy_title5_2_3: "소비자의 불만 또는 분쟁처리에 관한 기록 : 3년",
-
     Privacy_Policy_title6: "6. 개인정보의 파기절차 및 파기방법",
     Privacy_Policy_title6_1:
       "개인정보 수집 및 이용목적을 달성하거나 그 보유기간이 경과된 후에는 해당 정보를 지체 없이 파기합니다. 파기절차 및 방법은 다음과 같습니다.",
@@ -879,11 +844,9 @@ const locales = {
       "종이에 출력된 개인정보는 분쇄기로 분쇄하여 파기합니다.",
     Privacy_Policy_title6_2_2_2:
       "전자적 파일 형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다.",
-
     Privacy_Policy_title7: "7. 이용자 및 법정대리인의 권리와 그 행사방법",
     Privacy_Policy_title7_1:
       "이용자는 서비스 해지신청을 통해 제공한 개인정보이용에 관한 동의를 철회할 수 있습니다. ‘회사’는 동의철회, 열람, 수정 요청이 있는 경우 즉시 필요한 조치를 취하고, 특히 정보수정 요청에 대해서는 해당 정보가 정정될 때까지 동 정보를 이용하지 않습니다. OMPASS 서비스를 이용하며 발생하는 모든 개인정보보호 관련 민원은 본 개인정보처리방침에 안내된 연락처를 통해 요청하실 수 있습니다.",
-
     Privacy_Policy_title8: "8. 개인정보의 안전성 확보조치에 관한 사항",
     Privacy_Policy_title8_1:
       "회사는 개인정보를 처리함에 있어 다음과 같이 안전성 확보에 필요한 관리적, 기술적, 물리적 조치를 취하고 있습니다.",
@@ -893,12 +856,10 @@ const locales = {
       "기술적 대책 : 개인정보처리시스템에 대한 접근권한 관리, 암호화 및 보안프로그램 설치 등",
     Privacy_Policy_title8_1_3:
       "물리적 대책 : 서버실, 자료보관실 등의 개인정보 보관장소에 대한 접근통제",
-
     Privacy_Policy_title9:
       "9. 인터넷 접속정보파일 등 개인정보를 자동으로 수집하는 장치의 설치 · 운영 및 그 거부에 관한 사항",
     Privacy_Policy_title9_1:
       "‘회사’는 이용자에게 개인화된 서비스를 제공하기 위하여 '쿠키(cookie)'를 사용합니다. '쿠키(cookie)'는 HTTP 서버에서 이용자의 브라우저에게 보내는 데이터파일로써 이용자의 기기에 저장됩니다. 쿠키(cookie)에는 사용한 웹사이트의 정보 및 이용자의 개인정보가 담길 수 있습니다. 이용자는 웹브라우저의 옵션을 조정하여 모든 쿠키를 다 받아들이거나, 쿠키가 설치될 때 통지를 보내도록 하거나, 아니면 모든 쿠키를 거부할 수 있습니다.",
-
     Privacy_Policy_title10: "10. 개인정보보호 책임자",
     Privacy_Policy_title10_1: "개인정보보호책임자 : 강누리 과장",
     Privacy_Policy_title10_2:
@@ -917,19 +878,15 @@ const locales = {
       "개인정보분쟁조정위원회 (한국인터넷진흥원 운영) https://www.kopico.go.kr/ / 1833-6972",
 
     // 이용약관
-
     TermsOfPurchase: "이용약관",
     TermsOfPurchase_text:
       "OMPASS에 오신 것을 환영합니다. 저희는 OMPASS 웹사이트를 고객에 대한 서비스로 유지합니다. 당사 사이트를 이용함으로써 귀하는 다음 서비스 약관을 준수하고 이에 구속되는 데 동의하는 것입니다. 다음 약관을 주의 깊게 검토하시고, 조건에 동의하여 사이트를 이용해주시기 바랍니다.",
-
     TermsOfPurchase_title_1: "제1조 목적",
     TermsOfPurchase_title_1_1:
       "본 이용약관은 ㈜원모어시큐리티(이하 “회사”)가 운영하는 원모어패스(OMPASS) 어플리케이션(이하 “서비스”), 원모어패스 클라우드 관리자(관리자 페이지)(이하 “사이트”)의 이용조건과 운영에 관한 제반 사항 규정을 목적으로 합니다.",
-
     TermsOfPurchase_title_2: "제2조 용어의 정의",
     TermsOfPurchase_title_2_1:
       "본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다.",
-
     TermsOfPurchase_title_3_1:
       "관리자(이하 “회원”)：이 약관의 내용에 동의하고 가입한 고객으로서 이용계약을 체결하고 서브관리자와 사용자를 관리하고 서비스를 이용하는 이용자를 말합니다.",
     TermsOfPurchase_title_3_2:
@@ -948,11 +905,9 @@ const locales = {
       "구독 취소：정기결제를 취소하는 것을 말하며 구독 취소 후에는 사용 만료일까지 사용이 가능합니다.",
     TermsOfPurchase_title_3_9:
       "Document：회사가 서비스와 관련하여 회사가 고객에게 제공하는 안내서 및 지침을 의미하며 내용은 개정될 수 있습니다.",
-
     TermsOfPurchase_title_3: "제3조 약관 외 준칙",
     TermsOfPurchase_title_3_text:
       "회사는 필요한 경우 별도로 운영정책을 공지 안내할 수 있으며, 본 약관과 운영정책이 중첩될 경우 운영정책이 우선 적용됩니다.",
-
     TermsOfPurchase_title_4: "제4조 이용계약 체결 및 구매조건",
     TermsOfPurchase_title_4_1:
       "이용계약은 회원으로 등록하여 서비스 및 사이트를 이용하려는 관리자의 본 약관 내용에 대한 동의와 가입신청에 대하여 회사의 이용승낙으로 이용계약 체결을 성립합니다.",
@@ -972,7 +927,6 @@ const locales = {
       "구독 취소를 통해 정기결제를 취소하는 경우 남은 기간 동안 서비스 및 사이트 이용이 가능하며 재결제 시 재결제일로부터 정기결제가 다시 활성화 됩니다.",
     TermsOfPurchase_title_4_9:
       "결제일에 정기결제(자동결제)가 실패된 경우 월 (30일) 기간 동안 기존 서비스가 유지되며 하루 1회 결제시도가 진행됩니다.",
-
     TermsOfPurchase_title_5: "제5조 청약 철회(환불 규정)",
     TermsOfPurchase_title_5_1:
       "회원이 서비스 및 사이트와의 이용계약을 해지하고자 하는 경우에는 회원 본인이 관리자 관리 페이지의 회원탈퇴를 통하여 청약 철회신청을 하여야 합니다.",
@@ -980,13 +934,11 @@ const locales = {
       "구독 취소는 청약 철회가 아닌 정기결제를 취소하는 것을 말하며 구독 취소 후에는 사용 만료일까지 사용이 가능합니다.",
     TermsOfPurchase_title_5_3:
       "해당 결제일(결제 날짜)로부터 7일 이내에 청약 철회를 신청하면 신청일로 부터 익월 말일까지 결제금액의 100% 가 환불됩니다.",
-
     TermsOfPurchase_title_6: "제6조 서비스 이용 신청",
     TermsOfPurchase_title_6_1:
       "회원으로 등록하여 서비스 및 사이트를 이용하려는 관리자는 사이트에서 요청하는 제반정보(성, 이름, 이메일주소, 국가코드, 전화번호, 회사이름)를 제공해야 합니다.",
     TermsOfPurchase_title_6_2:
       "타인의 정보를 도용하거나 허위의 정보를 등록하는 등 본인의 진정한 정보를 등록하지 않은 회원은 사이트 이용과 관련하여 아무런 권리를 주장할 수 없으며, 관계 법령에 따라 처벌받을 수 있습니다.",
-
     TermsOfPurchase_title_7: "제7조 개인정보처리방침",
     TermsOfPurchase_title_7_1:
       "서비스, 사이트 및 회사는 회원가입 시 제공한 개인정보 중 비밀번호를 가지고 있지 않으며 이와 관련된 부분은 사이트의 개인정보처리방침을 따릅니다.",
@@ -998,13 +950,11 @@ const locales = {
       "단, 회원의 귀책 사유로 인해 노출된 정보에 대해 회사는 일체의 책임을 지지 않습니다.",
     TermsOfPurchase_title_7_5:
       "회사는 회원이 미풍양속에 저해되거나 국가안보에 위배되는 어플리케이션 등 위법한 어플리케이션을 등록 · 배포할 경우 관련 기관의 요청이 있을 시 회원의 자료를 열람 및 해당 자료를 관련 기관에 제출할 수 있습니다.",
-
     TermsOfPurchase_title_8: "제8조 회사의 의무",
     TermsOfPurchase_title_8_1:
       "회사는 회원으로부터 제기되는 의견이나 불만이 정당하다고 인정할 경우에는 가급적 빨리 처리하여야 합니다. 다만, 개인적인 사정으로신속한 처리가 곤란한 경우에는 사후에 공지 또는 회원에게 이메일, 전화 등을 통한 연락 등 최선을 다합니다.",
     TermsOfPurchase_title_8_2:
       "회사는 계속적이고 안정적인 서비스 제공을 위하여 설비에 장애가 생기거나 유실된 때에는 이를 지체 없이 수리 또는 복구할 수 있도록 사이트에 요구할 수 있습니다. 다만, 천재지변 또는 사이트나 회사에 부득이한 사유가 있는 경우, 사이트 운영을 일시 정지할 수 있습니다.",
-
     TermsOfPurchase_title_9: "제9조 회원의 의무",
     TermsOfPurchase_title_9_1:
       "회원은 본 약관에서 규정하는 사항과 회사가 정한 제반 규정, 공지사항 및 운영정책 등 사이트가 공지하는 사항 및 관계 법령을 준수하여야 하며, 기타 사이트의 업무에 방해가 되는 행위, 사이트의 명예를 손상하는 행위를 해서는 안 됩니다.",
@@ -1014,7 +964,6 @@ const locales = {
       "이용고객은 아이디 및 비밀번호 관리에 상당한 주의와 책임이 필요하며, 회사나 사이트의 동의 없이 제3자에게 아이디를 제공하여 이용하게 할 수 없습니다.",
     TermsOfPurchase_title_9_4:
       "회원은 회사와 서비스, 사이트 및 제3자의 지적 재산권을 침해해서는 안 됩니다.",
-
     TermsOfPurchase_title_10: "제10조 서비스 이용 시간",
     TermsOfPurchase_title_10_1:
       "서비스 이용 시간은 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴 1일 24시간을 원칙으로 합니다. 단, 사이트는 시스템 정기점검, 증설 및 교체를 위해 사이트가 정한 날이나 시간에 서비스를 일시중단 할 수 있으며 예정된 작업으로 인한 서비스 일시 중단은 사이트의 홈페이지에 사전에 공지하오니 수시로 참고하시길 바랍니다.",
@@ -1030,7 +979,6 @@ const locales = {
       "서비스 이용의 폭주 등으로 정상적인 서비스 이용에 지장이 있는 경우",
     TermsOfPurchase_title_10_3:
       "전항에 의한 서비스 중단의 경우 사이트는 사전에 공지사항 등을 통하여 회원에게 통지합니다. 단, 사이트가 통제할 수 없는 사유로 발생한 서비스의 중단에 대하여 사전공지가 불가능한 경우에는 사후공지로 대신합니다.",
-
     TermsOfPurchase_title_11: "제11조 서비스 이용 제한",
     TermsOfPurchase_title_11_text:
       "회원은 다음 각호에 해당하는 행위를 하여서는 아니 되며 해당 행위를 한 경우에 사이트는 회원의 서비스 이용 제한 및 적법한 조치를 할 수 있으며 이용계약을 해지하거나 기간을 정하여 서비스를 중지할 수 있습니다.",
@@ -1047,13 +995,11 @@ const locales = {
       "다른 회원에 대한 개인정보를 그 동의 없이 수집, 저장, 공개하는 행위",
     TermsOfPurchase_title_11_7: "범죄와 결부된다고 객관적으로 판단되는 행위",
     TermsOfPurchase_title_11_8: "기타 관련 법령에 위배되는 행위",
-
     TermsOfPurchase_title_12: "제12조 손해배상",
     TermsOfPurchase_title_12_1:
       "본 서비스 및 사이트의 발생한 모든 민, 형법상 책임은 회원 본인에게 1차적으로 있습니다.",
     TermsOfPurchase_title_12_2:
       "본 서비스 및 사이트로부터 회원이 받은 손해가 천재지변 등 불가항력적이거나 회원의 고의 또는 과실로 인하여 발생한 때에는 손해배상을 하지 않습니다.",
-
     TermsOfPurchase_title_13: "제13조 면책",
     TermsOfPurchase_title_13_1:
       "회사는 회원이 사이트의 서비스 제공으로부터 기대되는 이익을 얻지 못하였거나 서비스 자료에 대한 취사선택 또는 이용으로 발생하는 손해 등에 대해서는 책임이 면제됩니다.",
@@ -1073,10 +1019,8 @@ const locales = {
       "회사는 회사의 귀책 사유 없이 회원간 또는 회원과 제3자간에 발생한 일체의 분쟁에 대하여 책임지지 아니합니다.",
     TermsOfPurchase_title_13_9:
       "회사는 서버 등 설비의 관리, 점검, 보수, 교체 과정 또는 소프트웨어의 운용 과정에서 고의 또는 고의에 준하는 중대한 과실 없이 발생할 수 있는 시스템의 장애, 제3자의 공격으로 인한 시스템의 장애, 국내외의 저명한 연구기관이나 보안 관련 업체에 의해 대응 방법이 개발되지 아니한 컴퓨터 바이러스 등의 유포나 관리자가 통제할 수 없는 불가항력적 사유로 인한 회원의 손해에 대하여 책임지지 않습니다.",
-
     TermsOfPurchase_title_14: "부칙",
     TermsOfPurchase_title_14_1: "이 약관은 2022년 3월 1일 부터 시행합니다.",
-
     TermsOfPurchase_number_2_1: "❶",
     TermsOfPurchase_number_2_2: "❷",
     TermsOfPurchase_number_2_3: "❸",
@@ -1086,7 +1030,6 @@ const locales = {
     TermsOfPurchase_number_2_7: "❼",
     TermsOfPurchase_number_2_8: "❽",
     TermsOfPurchase_number_2_9: "❾",
-
     TermsOfPurchase_number_4_1: "❶",
     TermsOfPurchase_number_4_2: "❷",
     TermsOfPurchase_number_4_3: "❸",
@@ -1096,28 +1039,22 @@ const locales = {
     TermsOfPurchase_number_4_7: "❼",
     TermsOfPurchase_number_4_8: "❽",
     TermsOfPurchase_number_4_9: "❾",
-
     TermsOfPurchase_number_5_1: "❶",
     TermsOfPurchase_number_5_2: "❷",
     TermsOfPurchase_number_5_3: "❸",
-
     TermsOfPurchase_number_6_1: "❶",
     TermsOfPurchase_number_6_2: "❷",
-
     TermsOfPurchase_number_7_1: "❶",
     TermsOfPurchase_number_7_2: "❷",
     TermsOfPurchase_number_7_3: "❸",
     TermsOfPurchase_number_7_4: "❹",
     TermsOfPurchase_number_7_5: "❺",
-
     TermsOfPurchase_number_8_1: "❶",
     TermsOfPurchase_number_8_2: "❷",
-
     TermsOfPurchase_number_9_1: "❶",
     TermsOfPurchase_number_9_2: "❷",
     TermsOfPurchase_number_9_3: "❸",
     TermsOfPurchase_number_9_4: "❹",
-
     TermsOfPurchase_number_10_1: "❶",
     TermsOfPurchase_number_10_2: "❷",
     TermsOfPurchase_number_10_2_1: "-",
@@ -1125,7 +1062,6 @@ const locales = {
     TermsOfPurchase_number_10_2_3: "-",
     TermsOfPurchase_number_10_2_4: "-",
     TermsOfPurchase_number_10_3: "❸",
-
     TermsOfPurchase_number_11_1: "❶",
     TermsOfPurchase_number_11_2: "❷",
     TermsOfPurchase_number_11_3: "❸",
@@ -1134,10 +1070,8 @@ const locales = {
     TermsOfPurchase_number_11_6: "❻",
     TermsOfPurchase_number_11_7: "❼",
     TermsOfPurchase_number_11_8: "❽",
-
     TermsOfPurchase_number_12_1: "❶",
     TermsOfPurchase_number_12_2: "❷",
-
     TermsOfPurchase_number_13_1: "❶",
     TermsOfPurchase_number_13_2: "❷",
     TermsOfPurchase_number_13_3: "❸",
@@ -1147,6 +1081,11 @@ const locales = {
     TermsOfPurchase_number_13_7: "❼",
     TermsOfPurchase_number_13_8: "❽",
     TermsOfPurchase_number_13_9: "❾",
+    USED_APPLICATION_DESCRIPITON_1: '현재 정책은 특정 어플리케이션에서 사용 중입니다.',
+    USED_APPLICATION_DESCRIPITON_2: '삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.',
+    PAYMENT_FAILED: '결제 실패',
+    PAYMENT_SUCCESSED: '결제 성공',
+    PAYMENTSTATUS: '상태'
   },
 };
 

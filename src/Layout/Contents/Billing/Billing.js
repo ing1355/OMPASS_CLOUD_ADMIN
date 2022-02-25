@@ -36,10 +36,10 @@ import {
   getDateFormatEn,
   getDateFormatKr,
 } from "../../../Functions/GetFullDate";
-import { planStatusCodes } from "../Dashboard/Dashboard";
 import PaymentModal from "./PaymentModal";
 import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
+import { planStatusCodes } from "../../../Constants/PlanStatusCodes";
 
 const Billing = ({
   userProfile,
@@ -109,6 +109,7 @@ const Billing = ({
             setCost(pricing[0].priceForOneUser * inputUserNum);
           },
           (data) => {
+            console.log(data);
             setTableData(data);
           },
         ]
@@ -140,7 +141,7 @@ const Billing = ({
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { term, userNum, checkAll } = e.target.elements;
+    const { userNum, check1 } = e.target.elements;
     if (currentPlan.status === "RUN") {
       if (currentPlan.numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
@@ -150,8 +151,10 @@ const Billing = ({
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (currentPlan.status !== "RUN" && !checkAll.checked)
+    if (currentPlan.status !== "RUN" && !check1.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
+    // if (currentPlan.status !== "RUN" && !checkAll.checked)
+    //   return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     // if (currentPlan && currentPlan.status === "RUN") {
     //   if (
     //     new Date(currentPlan.createDate).getFullYear() ===

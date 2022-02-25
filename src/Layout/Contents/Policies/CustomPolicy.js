@@ -278,9 +278,9 @@ const CustomPolicy = ({
         </h3>
         {deleteConfirmVisible && customPoliciesData[deleteTargetIndex].active && (
           <h5 style={{ color: "red" }}>
-            현재 정책은 특정 어플리케이션에서 사용 중입니다.
+            <FormattedMessage id="USED_APPLICATION_DESCRIPITON_1"/>
             <br />
-            삭제할 시 해당 어플리케이션은 기본 정책으로 자동 변경됩니다.
+            <FormattedMessage id="USED_APPLICATION_DESCRIPITON_2"/>
           </h5>
         )}
       </CustomConfirm>

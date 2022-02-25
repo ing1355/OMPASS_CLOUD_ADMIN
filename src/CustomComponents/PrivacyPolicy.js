@@ -392,6 +392,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           <FormattedMessage id="Privacy_Policy_title10_2" />
           <br />
           <FormattedMessage id="Privacy_Policy_title10_3" />
+          
           <br />
           <FormattedMessage id="Privacy_Policy_title10_4" />
           <br />

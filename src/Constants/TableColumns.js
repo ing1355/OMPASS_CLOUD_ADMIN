@@ -71,6 +71,31 @@ export const BillingColumns = [
   },
   { name: "USERNUM", key: "numberUsers" },
   { name: "PAYMENTDATE", key: "paymentDate" },
+  {
+    name: "PAYMENTSTATUS",
+    key: 'paymentSuccess',
+    render: (status) => <div style={{ textAlign: "center" }}>
+      {status === true ? (
+        <FontAwesomeIcon
+          style={{
+            color: "rgb(0, 209, 52)",
+            width: "100%",
+            height: "20px",
+          }}
+          icon={faCheckSquare}
+        />
+      ) : (
+        <FontAwesomeIcon
+          style={{
+            color: "rgb(162 162 162)",
+            width: "100%",
+            height: "20px",
+          }}
+          icon={faTimes}
+        />
+      )}
+    </div>
+  }
 ];
 
 export const DashboardLogColumns = [
@@ -312,12 +337,12 @@ export const unRegisteredUserColumns = [
 ];
 
 const getPolicyInActiveDescription = (key) =>
-  ({
-    accessControl: "NORESTRICTION",
-    userLocations: "NONEUSERLOCATIONS",
-    browsers: "NONEBROWSERS",
-    // mobilePatch: 'NOMOBILEPATCH'
-  }[key]);
+({
+  accessControl: "NORESTRICTION",
+  userLocations: "NONEUSERLOCATIONS",
+  browsers: "NONEBROWSERS",
+  // mobilePatch: 'NOMOBILEPATCH'
+}[key]);
 
 export const PolicyColumns = [
   {
