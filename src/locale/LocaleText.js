@@ -729,7 +729,7 @@ const locales = {
     NOMOBILEPATCH: "모바일 앱 패치를 강제하지 않습니다.",
     EXCELIMPORTTEXT: "사용자를 추가할 어플리케이션을 선택해주세요.",
     ISBYPASS: "바이패스 유무",
-    NONEUSED: "사용하지 않음",
+    NONEUSED: "서비스 중지",
     INPUTEMAIL: "이메일 입력",
     USERBYPASSDESCRIPTION:
       "OMPASS 인증 없이 이메일 인증을 통해서 로그인이 가능합니다.",

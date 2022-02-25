@@ -9,9 +9,11 @@ import "./Login.css";
 import OMPASS from "ompass";
 
 const convertLanguageCode = {
-  'ko' : 'KR',
-  'en' : 'EN'
+  'ko': 'KR',
+  'en': 'EN'
 }
+
+const homepageUrl = (locale) => `https://www.ompasscloud.com/${locale}/login`
 
 const Login = ({
   setIsLogin,
@@ -47,7 +49,7 @@ const Login = ({
       {
         email: userId.value,
         password: password.value,
-        lang: convertLanguageCode[locale],        
+        lang: convertLanguageCode[locale],
       },
       (data, callback) => {
         const { ompass, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
@@ -116,23 +118,13 @@ const Login = ({
                   </span>
                 </div>
                 <div className="join">
-                  {locale === "en" ? (
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://ompass.kr:4003/login"
-                    >
-                      <FormattedMessage id="Registration" />
-                    </a>
-                  ) : (
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://ompass.kr:4003/ko/login"
-                    >
-                      <FormattedMessage id="Registration" />
-                    </a>
-                  )}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={locale === 'ko' ? homepageUrl('ko') : homepageUrl('en')}
+                  >
+                    <FormattedMessage id="Registration" />
+                  </a>
                 </div>
               </ul>
               <ul>
