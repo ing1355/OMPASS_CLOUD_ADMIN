@@ -9,6 +9,7 @@ import {
   faCalendarCheck,
   faUserPlus,
   faUserTimes,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomAxiosGetAll } from "../../../Functions/CustomAxios";
 import {
@@ -89,7 +90,7 @@ const Dashboard = ({ userProfile, locale }) => {
       );
     }
   }, [adminId]);
-  
+
   return (
     <div className="contents-container" style={{ width: 1400 }}>
       <LinkDocument link="/document/dashboard" />
@@ -112,14 +113,14 @@ const Dashboard = ({ userProfile, locale }) => {
                     plan.name
                   )}
                 </h2>
-                <h5>
+                <h5 style={{ color: "#d60002", fontWeight: "bold" }}>
                   <FontAwesomeIcon
                     style={{
-                      color: "rgb(0, 209, 52)",
-                      fontSize: "1.1rem",
-                      marginBottom: "0.12rem",
+                      color: "#d60002",
+                      fontSize: "1rem",
+                      marginBottom: "0rem",
                     }}
-                    icon={faCheckSquare}
+                    icon={faBan}
                   />
                   &nbsp;&nbsp;
                   {plan.status
@@ -129,7 +130,7 @@ const Dashboard = ({ userProfile, locale }) => {
                 {plan && (
                   <h6>
                     <FontAwesomeIcon
-                      style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
+                      style={{ fontSize: "1.1rem", marginBottom: "0rem" }}
                       icon={faCalendarCheck}
                     />
                     &nbsp;&nbsp;
@@ -179,20 +180,24 @@ const Dashboard = ({ userProfile, locale }) => {
                         <FormattedMessage id="ValidDate" />
                       </td>
 
-                        <td
-                          style={{
-                            width: "50%",
-                            fontWeight: "bold",
-                            fontSize: "1rem",
-                            borderRight: "0.5px solid rgb(180, 180, 180)",
-                            borderTop: "0.5px solid rgb(180, 180, 180)",
-                          }}
-                        >
-                          {(plan && plan.status === 'FREE') ? "∞" : <FormattedMessage
+                      <td
+                        style={{
+                          width: "50%",
+                          fontWeight: "bold",
+                          fontSize: "1rem",
+                          borderRight: "0.5px solid rgb(180, 180, 180)",
+                          borderTop: "0.5px solid rgb(180, 180, 180)",
+                        }}
+                      >
+                        {plan && plan.status === "FREE" ? (
+                          "∞"
+                        ) : (
+                          <FormattedMessage
                             id="daysLeft"
                             values={{ day: plan.remainingDate }}
-                          />}
-                        </td>
+                          />
+                        )}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
