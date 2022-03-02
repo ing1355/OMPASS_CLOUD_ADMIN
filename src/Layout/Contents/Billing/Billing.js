@@ -257,7 +257,7 @@ const Billing = ({
             &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status
               ? planStatusCodes[currentPlan.status]
-              : planStatusCodes["STOPPED"]}
+              : planStatusCodes["EXPIRED"]}
           </h5>
           <h6>
             <FontAwesomeIcon

@@ -35,8 +35,8 @@ export const BrowsersList = [
   "Microsoft Edge",
   "Firefox",
   "Safari",
-  "Safari Mobile",
-  // "All other browsers",
+  "Mobile Safari",
+  "All other browsers",
 ];
 
 var defaultPolicies;
@@ -470,7 +470,7 @@ const Global_Policy = ({
                     <option value={false}>{formatMessage({id:'DENY'})}</option>
                   </select>
                   <button
-                    className="button policy-location-button"
+                    className="button policy-location-delete-button"
                     style={{
                       marginLeft: "1rem",
                       height: 50,
@@ -490,7 +490,7 @@ const Global_Policy = ({
               ))}
               <button
                 type="button"
-                className="button"
+                className="button policy-location-add-button"
                 onClick={() => {
                   setInputUserLocations([
                     {

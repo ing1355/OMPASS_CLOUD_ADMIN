@@ -132,7 +132,7 @@ const Policies = () => {
             type="radio"
             style={{ width: "15px" }}
           />
-          <label className="label-radio">Mobile Safari</label>
+          <label className="label-radio">Safari Mobile</label>
         </div>
         <div className="policies-sub-box">
           <input

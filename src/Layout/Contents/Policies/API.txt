@@ -44,7 +44,7 @@
         'Chrome Mobile',    
         'Edge',    
         'Firefox',    
-        'Mobile Safari',    
+        'Safari Mobile',    
         'Safari',    
         'All other browsers'    
         ],

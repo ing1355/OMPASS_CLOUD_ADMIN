@@ -13,8 +13,7 @@ const convertLanguageCode = {
   'en': 'EN'
 }
 
-const homepageUrl = (locale) => `https://ompass.kr:4003${locale}/login`
-// const homepageUrl = (locale) => `https://www.ompasscloud.com/${locale}/login`
+const homepageUrl = (locale) => process.env.NODE_ENV === 'aws' ? `https://www.ompasscloud.com/login` : process.env.NODE_ENV === 'production' ? `https://ompass.kr:4003${locale}/login` : `https://ompass.kr:4003${locale}/login`
 
 const Login = ({
   setIsLogin,
@@ -53,8 +52,8 @@ const Login = ({
         lang: convertLanguageCode[locale],
       },
       (data, callback) => {
-        const { ompass, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
-        if (ompass) {
+        const { planStatus, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
+        if (planStatus !== 'EXPIRED') {
           OMPASS(ompassUrl);
         } else {
           setUserProfile({
@@ -122,8 +121,7 @@ const Login = ({
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    // href={locale === 'ko' ? homepageUrl('/ko') : homepageUrl('/')}
-                    href='https://www.ompasscloud.com/login'
+                    href={locale === 'ko' ? homepageUrl('/ko') : homepageUrl('/')}
                   >
                     <FormattedMessage id="Registration" />
                   </a>

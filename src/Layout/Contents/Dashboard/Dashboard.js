@@ -124,7 +124,7 @@ const Dashboard = ({ userProfile, locale }) => {
                   &nbsp;&nbsp;
                   {plan.status
                     ? planStatusCodes[plan.status]
-                    : planStatusCodes["STOPPED"]}
+                    : planStatusCodes["EXPIRED"]}
                 </h5>
                 {plan && (
                   <h6>

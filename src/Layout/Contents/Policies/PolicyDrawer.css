@@ -126,3 +126,12 @@
   letter-spacing: -1px;
   word-spacing: 2px;
 }
+
+.policy-location-add-button {
+  margin: 0;
+}
+
+.policy-location-delete-button {
+  background: #f56464;
+  border: 1px solid #f56464;
+}

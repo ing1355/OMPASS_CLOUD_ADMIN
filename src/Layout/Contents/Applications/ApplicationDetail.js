@@ -230,15 +230,16 @@ const ApplicationDetail = ({
             <label>
               <FormattedMessage id="DOMAIN" />
             </label>
-            {/* <input name="domain" ref={doaminRef} readOnly={isCloud} maxLength={48} /> */}
-            <input name="domain" ref={doaminRef} maxLength={48} />
+            <input name="domain" ref={doaminRef} readOnly maxLength={48} />
           </div>
           <div className="Application-label-input-box">
             <label>
               <FormattedMessage id="REDIRECTURI" />
             </label>
-            {/* <input name="redirectUri" ref={redirectURIRef} readOnly={isCloud} maxLength={48} /> */}
-            <input name="redirectUri" ref={redirectURIRef} maxLength={48} />
+            <span style={{display:'flex', flexDirection:'row', width:'65%', alignItems:'center'}}>
+            {doaminRef.current ? doaminRef.current.value + '/' : ''}
+            <input name="redirectUri" ref={redirectURIRef} maxLength={48} style={{width:'100%'}}/>
+            </span>
           </div>
           {/* <div className="Application-label-input-box">
             <label><FormattedMessage id="STATUS"/></label>

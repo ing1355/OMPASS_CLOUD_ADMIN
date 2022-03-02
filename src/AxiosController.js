@@ -6,14 +6,16 @@ import ActionCreators from './redux/actions';
 const AxiosController = ({ setIsLogin, showErrorMessage }) => {
     useLayoutEffect(() => {
         axios.interceptors.request.use(req => {
-            req.url = (process.env.NODE_ENV === 'production' ? 'https://admin-api.ompasscloud.com' : '') + req.url;
-            if (process.env.NODE_ENV !== 'production') console.log(req);
+            if(process.env.NODE_ENV === 'aws') {
+                req.url = 'https://admin-api.ompasscloud.com' + req.url;
+            }
+            if (process.env.NODE_ENV === 'development') console.log(req);
             return req;
         }, err => {
             return Promise.reject(err);
         })
         axios.interceptors.response.use(res => {
-            if (process.env.NODE_ENV !== 'production') console.log(res);
+            if (process.env.NODE_ENV === 'development') console.log(res);
             return res;
         }, (err) => {
             const url = err.response.config.url.split('/');
