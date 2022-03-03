@@ -389,7 +389,6 @@ const locales = {
       "Eventhough the Customer cancels the subscription by the [Cancel Auto-Renewal] button, the Service is still provided for the remaining period, and the recurring payment (subscription) will be reactivated by the new payment from that date.",
     TermsOfPurchase_title_4_9:
       "Eventhough the recurring payment (subscription) fails on the payment date, the existing service will be still provicded for a month (30 days) and the payment attempt will be made once a day until then. However, in the case of PayPal, payment attempts are made up to 2 times every 5 days from the date of payment failure.",
-
     TermsOfPurchase_title_5: "5. CANCELLATION",
     TermsOfPurchase_title_5_1:
       "If the Customer wants to cancel (withdraw) the Service contract, the Customers should click the [Cancel Membership] button from the Admins Management page.",
@@ -397,13 +396,11 @@ const locales = {
       "If the Customer wants to get refund, It is required to contact the Company by phone or email within 7 days from the date of payment (payment date) and 100% of the payment amount will be refunded before the end of the next month.",
     TermsOfPurchase_title_5_3:
       "Cancel Auto-Renewal refers to canceling the current recurring payment (subscription) which is not withdrawing the membership.",
-
     TermsOfPurchase_title_6: "6. SERVICE REGISTRATION",
     TermsOfPurchase_title_6_1:
       "The Customer who wants to use the Service is required to be registered as a member by providing the last name, first name, email address, country code, phone number and company (organization) name.",
     TermsOfPurchase_title_6_2:
       "The Customer who does not register the true information, such as identity theft or registering the false information, cannot claim any rights to the Company in relation to the use of the Service and may be punished according to relevant laws and regulations.",
-
     TermsOfPurchase_title_7: "7. PRIVACY POLICY",
     TermsOfPurchase_title_7_1:
       "The Company do not have a password among the personal information provided at the time of membership registration, and all relevant matters follow the Privacy Policy.",

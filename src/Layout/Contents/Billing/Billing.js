@@ -65,6 +65,7 @@ const Billing = ({
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const userNumList = useMemo(() => new Array(990).fill(1), []);
+  const statusColor = (currentPlan && currentPlan.status === 'EXPIRED') ? "#d60002" : "#00d134"
 
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
@@ -246,14 +247,14 @@ const Billing = ({
           </div>
         </div>
         <div className="billing-edition billing-info">
-          <h5 style={{ color: "#d60002", fontWeight: "bold" }}>
+          <h5 style={{ color: statusColor, fontWeight: "bold" }}>
             <FontAwesomeIcon
               style={{
-                color: "#d60002",
+                color: statusColor,
                 fontSize: "1rem",
                 marginBottom: "0rem",
               }}
-              icon={faBan}
+              icon={(currentPlan && currentPlan.status === 'EXPIRED') ? faBan : faCheckSquare}
             />
             &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status

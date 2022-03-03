@@ -47,6 +47,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const statusColor = plan.status === 'EXPIRED' ? "#d60002" : "#00d134"
 
   useLayoutEffect(() => {
     if (adminId) {
@@ -113,14 +114,14 @@ const Dashboard = ({ userProfile, locale }) => {
                     plan.name
                   )}
                 </h2>
-                <h5 style={{ color: "#d60002", fontWeight: "bold" }}>
+                <h5 style={{ color: statusColor, fontWeight: "bold" }}>
                   <FontAwesomeIcon
                     style={{
-                      color: "#d60002",
+                      color: statusColor,
                       fontSize: "1rem",
                       marginBottom: "0rem",
                     }}
-                    icon={faBan}
+                    icon={plan.status === 'EXPIRED' ? faBan : faCheckSquare}
                   />
                   &nbsp;&nbsp;
                   {plan.status
