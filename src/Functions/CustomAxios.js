@@ -21,7 +21,7 @@ export function CustomAxiosGetAll(urls, successCallback, errorCallback, config) 
         }
     }
     if(config) _config = {...config}
-    return axios.all(urls.map(url => axios.get(url)), _config).then(axios.spread((...responses) => {
+    return axios.all(urls.map(url => axios.get(url, _config))).then(axios.spread((...responses) => {
         responses.forEach(({ data }, ind) => {
             if (successCallback) {
                 if (successCallback[ind]) successCallback[ind](data.data);
