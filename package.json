@@ -31,8 +31,7 @@
   },
   "scripts": {
     "start": "export HTTPS=true&&react-scripts start",
-    "build:prod": "GENERATE_SOURCEMAP=false NODE_ENV=production react-scripts build",
-    "build:aws": "GENERATE_SOURCEMAP=false NODE_ENV=aws react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js' --gzip",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
