@@ -18,7 +18,8 @@ import { emailTest, FailToTest } from "../../../Constants/InputRules";
 import { FormattedMessage } from "react-intl";
 import ompassphone from "../../../assets/ompassphone.png";
 import ompassphone2 from "../../../assets/ompassphone2.png";
-import ompassphone3 from "../../../assets/ompassphone3.png";
+import ios from "../../../assets/ios.png";
+import android from "../../../assets/android.png";
 const UserDetail = ({
   data,
   userProfile,
@@ -152,7 +153,8 @@ const UserDetail = ({
                 </li>
                 <li>
                   <div className="img-div">
-                    <img src={ompassphone3} />
+                    {/* <img src={ios} /> */}
+                    <img src={android} />
                   </div>
                   <p>
                     <b>iOS</b>

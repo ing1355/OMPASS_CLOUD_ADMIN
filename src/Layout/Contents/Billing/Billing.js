@@ -65,7 +65,8 @@ const Billing = ({
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const userNumList = useMemo(() => new Array(990).fill(1), []);
-  const statusColor = (currentPlan && currentPlan.status === 'EXPIRED') ? "#d60002" : "#00d134"
+  const statusColor =
+    currentPlan && currentPlan.status === "EXPIRED" ? "#d60002" : "#00d134";
 
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
@@ -254,7 +255,11 @@ const Billing = ({
                 fontSize: "1rem",
                 marginBottom: "0rem",
               }}
-              icon={(currentPlan && currentPlan.status === 'EXPIRED') ? faBan : faCheckSquare}
+              icon={
+                currentPlan && currentPlan.status === "EXPIRED"
+                  ? faBan
+                  : faCheckSquare
+              }
             />
             &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status
@@ -287,6 +292,8 @@ const Billing = ({
             setCurrentPlan={setCurrentPlan}
             editions={editions}
           />
+
+          <button className="refund">청약 철회</button>
         </div>
         <div className="billing-edition billing-edition-user-count">
           <div className="billing-edition-top-box billing-edition-users">

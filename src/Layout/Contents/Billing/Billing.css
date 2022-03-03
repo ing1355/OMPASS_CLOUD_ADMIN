@@ -281,3 +281,8 @@
   border-left: 1px solid gray;
   border-bottom: 1px solid gray;
 }
+
+/* -------청약철회 버튼---- */
+.refund {
+  margin-left: 10px;
+}
