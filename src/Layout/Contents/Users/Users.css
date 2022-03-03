@@ -99,9 +99,7 @@
 .ant-form-item-control .label-bottom-text {
   margin-left: 0.5rem;
 }
-.ant-form-item-control p {
-  margin-left: 1.5rem;
-}
+
 .user-save-button {
   /* display: flex; */
   margin: 2.5rem 12px auto;
@@ -240,4 +238,49 @@
 .user-excel-modal-container {
   display: flex;
   flex-direction: column;
+}
+
+.form-ul {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0;
+  justify-content: space-between;
+  flex: 1;
+}
+.form-ul li {
+  display: flex;
+  flex: 1;
+  height: 80px;
+  flex-direction: row;
+  align-items: center;
+}
+.form-ul li:last-child {
+  border-right: 0;
+}
+.form-ul li .img-div {
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  border: 3px solid rgb(219, 219, 219);
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.form-ul li .img-div img {
+  width: 50%;
+}
+.form-ul li:first-child .img-div img {
+  width: 60%;
+}
+.form-ul li:last-child .img-div img {
+  width: 80%;
+}
+.form-ul li p {
+  margin-bottom: 0;
+  margin-left: 0.9rem;
+  color: rgb(122, 122, 122);
+  line-height: 1.6rem;
+}
+.form-ul li p b {
+  color: #000;
 }

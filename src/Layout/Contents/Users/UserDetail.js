@@ -16,7 +16,9 @@ import { connect } from "react-redux";
 import ActionCreators from "../../../redux/actions";
 import { emailTest, FailToTest } from "../../../Constants/InputRules";
 import { FormattedMessage } from "react-intl";
-
+import ompassphone from "../../../assets/ompassphone.png";
+import ompassphone2 from "../../../assets/ompassphone2.png";
+import ompassphone3 from "../../../assets/ompassphone3.png";
 const UserDetail = ({
   data,
   userProfile,
@@ -119,13 +121,54 @@ const UserDetail = ({
                 <p className="userdetailP">{userId}</p>
               </div>
             </div>
+            <div
+              style={{ marginBottom: "0" }}
+              className="ant-row inputBox ant-form-item"
+            >
+              <div className="ant-col-4 ant-form-item-label-left">
+                <label>Device Info : </label>
+              </div>
+              <div className="form-ul">
+                <li>
+                  <div className="img-div">
+                    <img src={ompassphone} />
+                  </div>
 
+                  <p>
+                    <b>Not using OMPASS Moblie</b>
+                    <br />
+                    Unknown
+                  </p>
+                </li>
+                <li>
+                  <div className="img-div">
+                    <img src={ompassphone2} />
+                  </div>
+                  <p>
+                    <b>Model</b>
+                    <br />
+                    Unknown
+                  </p>
+                </li>
+                <li>
+                  <div className="img-div">
+                    <img src={ompassphone3} />
+                  </div>
+                  <p>
+                    <b>iOS</b>
+                    <br />
+                    Unknown
+                  </p>
+                </li>
+              </div>
+            </div>
             <div className="ant-row inputBox ant-form-item">
               <div className="ant-col-4 ant-form-item-label-left">
                 <label>
                   <FormattedMessage id="Bypass" /> :
                 </label>
               </div>
+
               <div
                 className="ant-col ant-form-item-control"
                 style={{ justifyContent: "space-around" }}
@@ -149,7 +192,7 @@ const UserDetail = ({
                   <FormattedMessage id="USERBYPASSDESCRIPTION" />
                   <br />
                   <p className="notice-text">
-                    <FormattedMessage id="USERBYPASSNOTICETEXT"/>
+                    <FormattedMessage id="USERBYPASSNOTICETEXT" />
                   </p>
                 </div>
                 <div
@@ -176,6 +219,7 @@ const UserDetail = ({
                     <FormattedMessage id="REGISTER" />
                   </CustomButton>
                 </div>
+
                 <div>
                   <input
                     className="userDetailInput"
