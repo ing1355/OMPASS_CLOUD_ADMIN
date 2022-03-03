@@ -13,8 +13,7 @@ const convertLanguageCode = {
   'en': 'EN'
 }
 
-const homepageUrl = (locale) => `https://www.ompasscloud.com/${locale}/login`
-// const homepageUrl = (locale) => process.env.NODE_ENV === 'production' ? `https://ompass.kr:4003${locale}/login` : `https://ompass.kr:4003${locale}/login`
+const homepageUrl = (locale) => process.env.REACT_APP_SERVICE_TARGET === 'aws' ? `https://www.ompasscloud.com/${locale}/login` : (process.env.NODE_ENV === 'production' ? `https://ompass.kr:4003${locale}/login` : `https://ompass.kr:4003${locale}/login`)
 
 const Login = ({
   setIsLogin,
