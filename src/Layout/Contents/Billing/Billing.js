@@ -14,6 +14,7 @@ import {
   faUser,
   faCheckSquare,
   faCalendarCheck,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -245,14 +246,14 @@ const Billing = ({
           </div>
         </div>
         <div className="billing-edition billing-info">
-          <h5>
+          <h5 style={{ color: "#d60002", fontWeight: "bold" }}>
             <FontAwesomeIcon
               style={{
-                color: "rgb(0, 209, 52)",
-                fontSize: "1.1rem",
-                marginBottom: "0.12rem",
+                color: "#d60002",
+                fontSize: "1rem",
+                marginBottom: "0rem",
               }}
-              icon={faCheckSquare}
+              icon={faBan}
             />
             &nbsp;&nbsp;&nbsp;
             {currentPlan && currentPlan.status
@@ -261,7 +262,7 @@ const Billing = ({
           </h5>
           <h6>
             <FontAwesomeIcon
-              style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}
+              style={{ fontSize: "1.1rem", marginBottom: "0rem" }}
               icon={faCalendarCheck}
             />
             &nbsp;&nbsp;&nbsp;
