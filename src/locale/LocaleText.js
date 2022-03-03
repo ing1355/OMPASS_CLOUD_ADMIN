@@ -388,8 +388,7 @@ const locales = {
     TermsOfPurchase_title_4_8:
       "Eventhough the Customer cancels the subscription by the [Cancel Auto-Renewal] button, the Service is still provided for the remaining period, and the recurring payment (subscription) will be reactivated by the new payment from that date.",
     TermsOfPurchase_title_4_9:
-      "Eventhough the recurring payment (subscription) fails on the payment date, the existing service will be still provicded for a month (30 days) and the payment attempt will be made once a day until then.",
-
+      "Eventhough the recurring payment (subscription) fails on the payment date, the existing service will be still provicded for a month (30 days) and the payment attempt will be made once a day until then. However, in the case of PayPal, payment attempts are made up to 2 times every 5 days from the date of payment failure.",
     TermsOfPurchase_title_5: "5. CANCELLATION",
     TermsOfPurchase_title_5_1:
       "If the Customer wants to cancel (withdraw) the Service contract, the Customers should click the [Cancel Membership] button from the Admins Management page.",
@@ -397,13 +396,11 @@ const locales = {
       "If the Customer wants to get refund, It is required to contact the Company by phone or email within 7 days from the date of payment (payment date) and 100% of the payment amount will be refunded before the end of the next month.",
     TermsOfPurchase_title_5_3:
       "Cancel Auto-Renewal refers to canceling the current recurring payment (subscription) which is not withdrawing the membership.",
-
     TermsOfPurchase_title_6: "6. SERVICE REGISTRATION",
     TermsOfPurchase_title_6_1:
       "The Customer who wants to use the Service is required to be registered as a member by providing the last name, first name, email address, country code, phone number and company (organization) name.",
     TermsOfPurchase_title_6_2:
       "The Customer who does not register the true information, such as identity theft or registering the false information, cannot claim any rights to the Company in relation to the use of the Service and may be punished according to relevant laws and regulations.",
-
     TermsOfPurchase_title_7: "7. PRIVACY POLICY",
     TermsOfPurchase_title_7_1:
       "The Company do not have a password among the personal information provided at the time of membership registration, and all relevant matters follow the Privacy Policy.",
@@ -931,7 +928,7 @@ const locales = {
     TermsOfPurchase_title_4_8:
       "구독 취소를 통해 정기결제를 취소하는 경우 남은 기간 동안 서비스 및 사이트 이용이 가능하며 재결제 시 재결제일로부터 정기결제가 다시 활성화 됩니다.",
     TermsOfPurchase_title_4_9:
-      "결제일에 정기결제(자동결제)가 실패된 경우 월 (30일) 기간 동안 기존 서비스가 유지되며 하루 1회 결제시도가 진행됩니다.",
+      "결제일에 정기결제(자동결제)가 실패된 경우 월 (30일) 기간 동안 기존 서비스가 유지되며 하루 1회 결제시도가 진행됩니다. 단, 페이팔의 경우는 결제 실패 일로부터 5일마다 최대 2번 결제시도가 진행됩니다.",
     TermsOfPurchase_title_5: "제5조 청약 철회(환불 규정)",
     TermsOfPurchase_title_5_1:
       "회원이 서비스 및 사이트와의 이용계약을 해지하고자 하는 경우에는 회원 본인이 관리자 관리 페이지의 회원탈퇴를 통하여 청약 철회신청을 하여야 합니다.",
