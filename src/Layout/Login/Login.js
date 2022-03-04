@@ -53,7 +53,7 @@ const Login = ({
       },
       (data, callback) => {
         const { planStatus, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
-        if (planStatus !== 'EXPIRED') {
+        if (planStatus !== 'EXPIRED' && role !== 'OMS') {
           OMPASS(ompassUrl);
         } else {
           setUserProfile({
@@ -121,7 +121,7 @@ const Login = ({
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={locale === 'ko' ? homepageUrl('/ko') : homepageUrl('/')}
+                    href={locale === 'ko' ? homepageUrl('ko') : homepageUrl('en')}
                   >
                     <FormattedMessage id="Registration" />
                   </a>

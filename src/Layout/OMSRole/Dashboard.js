@@ -1,13 +1,17 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import CustomCard from '../../CustomComponents/CustomCard';
+import {Radio} from 'antd';
 import './Dashboard.css'
 import { CustomAxiosGetAll } from '../../Functions/CustomAxios';
 import { getOMSDashboardTopApi } from '../../Constants/Api_Route';
 import { connect } from 'react-redux';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const Dashboard = ({ userProfile }) => {
     const { adminId } = userProfile;
+    const [chartType, setChartType] = useState('OS');
     const [topData, setTopData] = useState({});
+    const {formatMessage} = useIntl()
 
     useLayoutEffect(() => {
         if (adminId) {
@@ -25,6 +29,10 @@ const Dashboard = ({ userProfile }) => {
         }
     }, [adminId])
 
+    const onTypeChange = useCallback((e) => {
+        setChartType(e.target.value)
+    },[])
+
     return <div className="contents-container" style={{ backgroundColor: 'transparent', width: 1400 }}>
         <section className="flex-card-container dashboard">
             <CustomCard title="총 Admin 수">
@@ -41,28 +49,19 @@ const Dashboard = ({ userProfile }) => {
             </CustomCard>
         </section>
         <section className="dashboard">
-            <div className="chart-container first">
-                <div className="chart-container-1">
+            <div className="chart-container">
+                <div>
                     <div className="chart-title">
-                        국가 별 사용자 비율
-                    </div>
-                </div>
-            </div>
-            <div className="chart-container second">
-                <div className="chart-container-2">
-                    <div className="chart-title">
-                        OS 별 사용자 비율
-                    </div>
-                    <div className="chart-content">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section className="dashboard">
-            <div className="chart-container third">
-                <div className="chart-container-3">
-                    <div className="chart-title">
-                        브라우저 별 사용자 비율
+                        <div>
+                            <FormattedMessage id="DASHBOARD_CHART_TITLE" values={{value: formatMessage({id:chartType})}}/>
+                        </div>
+                        <div>
+                            <Radio.Group onChange={onTypeChange} value={chartType}>
+                                <Radio value="OS"><FormattedMessage id="OS"/></Radio>
+                                <Radio value="Country"><FormattedMessage id="Country"/></Radio>
+                                <Radio value="Browser"><FormattedMessage id="Browser"/></Radio>
+                            </Radio.Group>
+                        </div>
                     </div>
                     <div className="chart-content">
                     </div>

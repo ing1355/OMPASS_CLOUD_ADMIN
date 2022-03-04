@@ -550,6 +550,9 @@ const locales = {
     PAYMENT_FAILED: "Payment Failed",
     PAYMENT_SUCCESSED: "Payment Succeeded",
     PAYMENTSTATUS: "Payment Status",
+    Browser: '브라우저',
+    OS: 'OS',
+    DASHBOARD_CHART_TITLE: '{value} 별 사용자 비율'
   },
 
   KR: {
@@ -1090,6 +1093,9 @@ const locales = {
     PAYMENT_FAILED: "결제 실패",
     PAYMENT_SUCCESSED: "결제 성공",
     PAYMENTSTATUS: "상태",
+    Browser: '브라우저',
+    OS: 'OS',
+    DASHBOARD_CHART_TITLE: '{value} 별 사용자 비율'
   },
 };
 
