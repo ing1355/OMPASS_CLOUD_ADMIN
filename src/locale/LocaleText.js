@@ -232,7 +232,7 @@ const locales = {
     TERMS_OF_SERVICE: "Terms of Service",
     FOOTER_1: "OneMoreSecurity Inc. | CEO：Min-Sik Kim",
     FOOTER_2:
-      "Business Number：735-88-01175 | E-Commerce Registration Number：000000000",
+      "Business Number：735-88-01175 | E-Commerce Registration Number：2022-Sejong-0150",
     FOOTER_3: "TEL：+82 70 4298 3070 | Email：service@omsecurity.kr",
     FOOTER_4:
       "Unit 605 Smart Hub 1, 2150, Hannuri-daero, Sejong-si, Republic of Korea",
@@ -550,9 +550,9 @@ const locales = {
     PAYMENT_FAILED: "Payment Failed",
     PAYMENT_SUCCESSED: "Payment Succeeded",
     PAYMENTSTATUS: "Payment Status",
-    Browser: '브라우저',
-    OS: 'OS',
-    DASHBOARD_CHART_TITLE: '{value} 별 사용자 비율'
+    Browser: "브라우저",
+    OS: "OS",
+    DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
   },
 
   KR: {
@@ -786,7 +786,7 @@ const locales = {
       "※ 사용자 수 변경으로 인해 다음 결제일에 결제될 예정 금액은 {param}입니다.",
     TERMS_OF_SERVICE: "이용약관",
     FOOTER_1: "상호명：(주)원모어시큐리티 | 대표자：김민식",
-    FOOTER_2: "사업자 번호：735-88-01175 | 통신판매신고번호：000000000",
+    FOOTER_2: "사업자 번호：735-88-01175 | 통신판매신고번호：2022-세종-0150",
     FOOTER_3: "TEL：+82 70 4298 3070 | E-Mail：service@omsecurity.kr",
     FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
     OMPASS_title: "원모어패스",
@@ -1093,9 +1093,9 @@ const locales = {
     PAYMENT_FAILED: "결제 실패",
     PAYMENT_SUCCESSED: "결제 성공",
     PAYMENTSTATUS: "상태",
-    Browser: '브라우저',
-    OS: 'OS',
-    DASHBOARD_CHART_TITLE: '{value} 별 사용자 비율'
+    Browser: "브라우저",
+    OS: "OS",
+    DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
   },
 };
 
