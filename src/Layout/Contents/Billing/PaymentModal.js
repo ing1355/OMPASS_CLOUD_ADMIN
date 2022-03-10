@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 import React, { useLayoutEffect } from "react";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
@@ -78,6 +78,7 @@ const PaymentModal = ({
             buyer_name,
             buyer_tel,
             iamportCode,
+            pg
           } = data;
           setConfirmLoading(false);
           setConfirmModal(false);
@@ -92,6 +93,7 @@ const PaymentModal = ({
                 buyer_email,
                 buyer_name,
                 buyer_tel,
+                pg
               },
               (res) => {
                 const {
@@ -120,6 +122,7 @@ const PaymentModal = ({
                   pg_type,
                   receipt_url,
                   status,
+                  error_msg
                 } = res;
                 console.log(res);
                 if (success) {
@@ -161,7 +164,7 @@ const PaymentModal = ({
                     }
                   );
                 } else {
-                  showErrorMessage("PAYMENT_FAIL");
+                  message.error(error_msg)
                 }
               }
             );

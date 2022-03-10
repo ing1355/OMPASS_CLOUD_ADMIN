@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://ompass.kr:4002",
+  "proxy": "https://admin-api.ompasscloud.com",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -38,6 +38,7 @@
     "deployAll": "npm run testDeploy&&npm run deploy",
     "testDeploy": "scp -r ./build/* oms@192.168.182.22:/home/oms/front",
     "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
+    "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
     "awsDeploy": "aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
   },
   "eslintConfig": {

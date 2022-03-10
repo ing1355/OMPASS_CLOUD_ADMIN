@@ -34,6 +34,16 @@ const App = ({
   const { country } = userProfile;
 
   useLayoutEffect(() => {
+    const code = window.location.pathname.slice(-2,);
+    Object.keys(locale).forEach(countryCode => {
+      if(countryCode === code) {
+        localStorage.setItem("locale",code)
+        localeChange(code);
+      }
+    })
+  }, [])
+
+  useLayoutEffect(() => {
     if (!isLogin) {
       setUserProfile({});
       localStorage.removeItem("Authorization");

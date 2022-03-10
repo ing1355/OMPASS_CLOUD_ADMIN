@@ -6,17 +6,14 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 
 const Sidebar = ({ locale }) => {
+  const domain = process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003')
   return (
     <div className="sidebar">
       <Menu />
       <a
         className="back-to-homepage"
         rel="noopener noreferrer"
-        href={
-          locale === "ko"
-            ? "https://ompass.kr:4003/ko"
-            : "https://ompass.kr:4003"
-        }
+        href={domain}
         target="_blank"
       >
         <ImportOutlined style={{ marginRight: "6px" }} />

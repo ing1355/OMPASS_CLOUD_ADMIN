@@ -3,9 +3,9 @@ import axios from "axios";
 export function CustomAxiosGet(url, successCallback, errorCallback, config) {
     let _config = {
         headers: {
-            authorization: localStorage.getItem('Authorization')
         }
     }
+    if(localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if(config) _config = {...config}
     return axios.get(url, _config).then(res => {
         if (successCallback) successCallback(res.data.data);
@@ -35,9 +35,9 @@ export function CustomAxiosGetAll(urls, successCallback, errorCallback, config) 
 export function CustomAxiosPost(url, params, successCallback, errorCallback, config) {
     let _config = {
         headers: {
-            authorization: localStorage.getItem('Authorization')
         }
     }
+    if(localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if(config) _config = {...config}
     return axios.post(url, params, _config).then(res => {
         if (successCallback) successCallback(res.data.data, () => {
@@ -53,9 +53,9 @@ export function CustomAxiosPost(url, params, successCallback, errorCallback, con
 export function CustomAxiosPut(url, params, successCallback, errorCallback, config) {
     let _config = {
         headers: {
-            authorization: localStorage.getItem('Authorization')
         }
     }
+    if(localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if(config) _config = {...config}
     return axios.put(url, params, _config).then(res => {
         if (successCallback) successCallback(res.data.data);
@@ -67,9 +67,9 @@ export function CustomAxiosPut(url, params, successCallback, errorCallback, conf
 export function CustomAxiosPatch(url, data, successCallback, errorCallback, config) {
     let _config = {
         headers: {
-            authorization: localStorage.getItem('Authorization')
         }
     }
+    if(localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if(config) _config = {...config}
     return axios.patch(url, data, _config).then(res => {
         if (successCallback) successCallback(res.data.data);
@@ -81,9 +81,9 @@ export function CustomAxiosPatch(url, data, successCallback, errorCallback, conf
 export function CustomAxiosDelete(url, successCallback, errorCallback, config) {
     let _config = {
         headers: {
-            authorization: localStorage.getItem('Authorization')
         }
     }
+    if(localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if(config) _config = {...config}
     return axios.delete(url, _config).then(res => {
         if (successCallback) successCallback(res.data.data);

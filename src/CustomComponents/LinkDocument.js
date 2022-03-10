@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import './LinkDocument.css'
 
 const LinkDocument = ({ locale, link }) => {
+    const domain = process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003')
     return <div className="document-link">
         <>
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={locale === 'ko' ? ("https://ompass.kr:4003/ko" + link) : ("https://ompass.kr:4003" + link)}
+                href={domain + link}
             >
                 <b><FormattedMessage id="GODOCUMENT" /></b>
             </a>
