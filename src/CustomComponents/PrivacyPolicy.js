@@ -18,8 +18,10 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
   }, []);
 
   const scrollToElement = (id) => {
-    document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
-  }
+    document
+      .getElementById(id)
+      .scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <CustomConfirm
@@ -39,7 +41,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
       cancelCallback={closeModal}
     >
       <div className="agree-title">
-        <div className="agree-title-top">
+        <ul className="agree-title-top">
           <p>
             <b>
               <FormattedMessage id="Privacy_Policy" />
@@ -50,80 +52,88 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="Effective_date" />
             </b>
           </p>
-        </div>
-        <div className="en-title">
+        </ul>
+        <ul className="en-title">
+          <h4>
+            <FormattedMessage id="Privacy_Policy_text" />
+            <br />
+            <FormattedMessage id="Privacy_Policy_text2" />
+          </h4>
+          <br />
           <div>
             <label>1.</label>
-            <p onClick={() => scrollToElement('1st')}>
+            <p onClick={() => scrollToElement("1st")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_1" />
             </p>
           </div>
 
           <div>
             <label>2.</label>
-            <p onClick={() => scrollToElement('2nd')}>
+            <p onClick={() => scrollToElement("2nd")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_2" />
             </p>
           </div>
           <div>
             <label>3.</label>
-            <p onClick={() => scrollToElement('3rd')}>
+            <p onClick={() => scrollToElement("3rd")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_3" />
             </p>
           </div>
           <div>
             <label>4.</label>
-            <p onClick={() => scrollToElement('4th')}>
+            <p onClick={() => scrollToElement("4th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_4" />
             </p>
           </div>
           <div>
             <label>5.</label>
-            <p onClick={() => scrollToElement('5th')}>
+            <p onClick={() => scrollToElement("5th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_5" />
             </p>
           </div>
           <div>
             <label>6.</label>
-            <p onClick={() => scrollToElement('6th')}>
+            <p onClick={() => scrollToElement("6th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_6" />
             </p>
           </div>
           <div>
             <label>7.</label>
-            <p onClick={() => scrollToElement('7th')}>
+            <p onClick={() => scrollToElement("7th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_7" />
             </p>
           </div>
           <div>
             <label>8.</label>
-            <p onClick={() => scrollToElement('8th')}>
+            <p onClick={() => scrollToElement("8th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_8" />
             </p>
           </div>
           <div>
             <label>9.</label>
-            <p onClick={() => scrollToElement('9th')}>
+            <p onClick={() => scrollToElement("9th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_9" />
             </p>
           </div>
           <div>
             <label>10.</label>
-            <p onClick={() => scrollToElement('10th')}>
+            <p onClick={() => scrollToElement("10th")}>
+              {" "}
               <FormattedMessage id="Privacy_Policy_title_10" />
             </p>
           </div>
-        </div>
+        </ul>
       </div>
       <div className="agree-text-box2">
-        <h4>
-          <FormattedMessage id="Privacy_Policy_text" />
-        </h4>
-        <div className="agree-title">
-          <h5>
-            <FormattedMessage id="Privacy_Policy_text2" />
-          </h5>
-        </div>
         <p id="1st">
           <h5>
             <FormattedMessage id="Privacy_Policy_title1" />
@@ -135,55 +145,47 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           <h5>
             <FormattedMessage id="Privacy_Policy_title2" />
           </h5>
-          <ul style={{ marginTop: "1.5rem" }}>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_2_1" />
-            </li>
+          <ul>
+            <li>❶</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title2_1" />
             </li>
           </ul>
           {locale === "ko" && (
-            <ul className="agree-text-ko enter hyphen-div">
-              <li>&nbsp;&nbsp;-</li>
+            <ul className="enter hyphen-div">
+              <li>-</li>
               <li>성, 이름, 이메일, 국가코드, 전화번호, 회사/조직명</li>
             </ul>
           )}
 
           <ul>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_2_2" />
-            </li>
+            <li>❷</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title2_2" />
             </li>
           </ul>
           {locale === "ko" && (
             <ul className="agree-text-ko enter hyphen-div">
-              <li>&nbsp;&nbsp;-</li>
+              <li>-</li>
               <li>성, 이름, 이메일, 국가번호, 전화번호</li>
             </ul>
           )}
 
           <ul>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_2_3" />
-            </li>
+            <li>❸</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title2_3" />
             </li>
           </ul>
           {locale === "ko" && (
             <ul className="agree-text-ko enter hyphen-div">
-              <li>&nbsp;&nbsp;-</li>
+              <li>-</li>
               <li>OMPASS 로그, 정책 로그, 쿠키, 접속 IP정보, 방문 시간</li>
             </ul>
           )}
 
           <ul>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_2_4" />
-            </li>
+            <li>❹</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title2_4" />
             </li>
@@ -191,7 +193,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
 
           {locale === "ko" && (
             <ul className="agree-text-ko enter hyphen-div">
-              <li>&nbsp;&nbsp;-</li>
+              <li>-</li>
               <li>
                 사용자 아이디, 어플리케이션명, 인증 유형, 쿠키, 접속 IP정보,
                 로그인 시간
@@ -206,12 +208,12 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
                 <li>신원확인과정에서 수집되는 사용자 정보</li>
               </ul>
               <ul className="hyphen-div agree-text-ko">
-                <li>&nbsp;&nbsp;-</li>
-                <li>내용:서비스 처음 사용 시 휴대폰 본인 인증을 진행</li>
+                <li>-</li>
+                <li>내용 : 서비스 처음 사용 시 휴대폰 본인 인증을 진행</li>
               </ul>
               <ul className="agree-text-ko hyphen-div">
-                <li>&nbsp;&nbsp;-</li>
-                <li>비고:진위 확인 후 고유식별정보 등은 저장되지 않음</li>
+                <li>-</li>
+                <li>비고 : 진위 확인 후 고유식별정보 등은 저장되지 않음</li>
               </ul>
             </>
           )}
@@ -233,63 +235,44 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           <h5>
             <FormattedMessage id="Privacy_Policy_title5" />
           </h5>
-          <ul style={{ marginTop: "1.5rem" }}>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_5_1" />
-            </li>
+          <ul>
+            <li>❶</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_1" />
             </li>
           </ul>
-          <ul>
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_1" />
-            </li>
+          <ul className="hyphen-div">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_1_1" />
             </li>
           </ul>
-          <ul className="enter">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_2" />
-            </li>
+          <ul className="hyphen-div">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_1_2" />
             </li>
           </ul>
           <ul>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_5_2" />
-            </li>
+            <li>❷</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_2" />
             </li>
           </ul>
           <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_1" />
-            </li>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_2_1" />
             </li>
           </ul>
           <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_2" />
-            </li>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_2_2" />
             </li>
           </ul>
           <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_3" />
-            </li>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title5_2_3" />
             </li>
@@ -301,38 +284,28 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           </h5>
           <FormattedMessage id="Privacy_Policy_title6_1" />
           <br />
-          <ul id="enter" style={{ marginTop: "1.5rem" }}>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_6_1" />
-            </li>
+          <ul id="enter">
+            <li>❶</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title6_1_1" /> <br />
               <FormattedMessage id="Privacy_Policy_title6_1_2" />
             </li>
           </ul>
           <ul>
-            <li>
-              <FormattedMessage id="TermsOfPurchase_number_6_2" />
-            </li>
+            <li>❷</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title6_2_1" /> <br />
               <FormattedMessage id="Privacy_Policy_title6_2_2" />
             </li>
           </ul>
           <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_1" />
-            </li>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title6_2_2_1" />
             </li>
           </ul>
           <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_2" />
-            </li>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title6_2_2_2" />
             </li>
@@ -349,29 +322,20 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
             <FormattedMessage id="Privacy_Policy_title8" />
           </h5>
           <FormattedMessage id="Privacy_Policy_title8_1" />
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_1" />
-            </li>
+          <ul>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title8_1_1" />
             </li>
           </ul>
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_2" />
-            </li>
+          <ul>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title8_1_2" />
             </li>
           </ul>
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_3" />
-            </li>
+          <ul>
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title8_1_3" />
             </li>
@@ -392,42 +356,30 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
           <FormattedMessage id="Privacy_Policy_title10_2" />
           <br />
           <FormattedMessage id="Privacy_Policy_title10_3" />
-          
+
           <br />
           <FormattedMessage id="Privacy_Policy_title10_4" />
-          <br />
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_1" />
-            </li>
+
+          <ul className="hyphen2">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title10_5_1" />
             </li>
           </ul>
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_2" />
-            </li>
+          <ul className="hyphen2">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title10_5_2" />
             </li>
           </ul>
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_3" />
-            </li>
+          <ul className="hyphen2">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title10_5_3" />
             </li>
           </ul>
-          <ul className="hyphen-div">
-            <li>
-              &nbsp;&nbsp;
-              <FormattedMessage id="TermsOfPurchase_number_10_2_4" />
-            </li>
+          <ul className="hyphen2">
+            <li>-</li>
             <li>
               <FormattedMessage id="Privacy_Policy_title10_5_4" />
             </li>

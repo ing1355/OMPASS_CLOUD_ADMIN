@@ -21,29 +21,24 @@ const Locale = ({ locale, localeChange }) => {
   };
 
   return (
-    <button
-      className="header-contents-locale-container pointer locale-button"
-      onClick={() => {
-        setLangbox(!langbox);
-      }}
-      onBlur={() => {
-        setLangbox(false);
-      }}
-    >
+    <button className="header-contents-locale-container pointer locale-button">
       <img
         className="header-contents-locale-icon"
         src={localIcon}
         alt="다국어 icon"
       />
+
       <div className="header-contents-locale-text">
-        <FormattedMessage id="localeChangeText" />
+        {locale === "en" ? (
+          <p style={{ marginBottom: "0" }} onClick={localeChangeEventKo}>
+            KO
+          </p>
+        ) : (
+          <p style={{ marginBottom: "0" }} onClick={localeChangeEventEn}>
+            EN
+          </p>
+        )}
       </div>
-      {langbox === true ? (
-        <div className="lang-div">
-          <p onClick={localeChangeEventEn}> GLOBAL / ENGLISH</p>
-          <p onClick={localeChangeEventKo}> KOREA / 한국어</p>
-        </div>
-      ) : null}
     </button>
   );
 };

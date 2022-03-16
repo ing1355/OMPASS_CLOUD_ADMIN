@@ -54,6 +54,7 @@ const ApplicationDetail = ({
   const [resetLoading, setResetLoading] = useState(false);
   const [isExistCheck, setIsExistCheck] = useState(true);
   const [resetVisible, setResetVisible] = useState(false);
+  const [uiUpdate, setUiUpdate] = useState(false);
 
   const openResetModal = useCallback(() => {
     setResetVisible(true);
@@ -62,6 +63,10 @@ const ApplicationDetail = ({
   const closeResetModal = useCallback(() => {
     setResetVisible(false);
   }, []);
+
+  useLayoutEffect(() => {
+    if (uiUpdate) setUiUpdate(false);
+  }, [uiUpdate]);
 
   useLayoutEffect(() => {
     if (adminId && appId) {
@@ -76,9 +81,10 @@ const ApplicationDetail = ({
         } = data;
         nameRef.current.value = name;
         doaminRef.current.value = domain;
-        redirectURIRef.current.value = redirectUri;
+        redirectURIRef.current.value = redirectUri.replace(domain, "");
         secretKeyRef.current.value = secretKey;
         policyRef.current.value = policyId;
+        setUiUpdate(true);
       });
     }
   }, [adminId, appId]);
@@ -146,13 +152,13 @@ const ApplicationDetail = ({
     if (!doaminTest(domain.value)) {
       return FailToTest(domain, showErrorMessage("DOMAIN_RULE_ERROR"));
     }
-    if (!redirectUri.value.length) {
+    if (!(domain.value + redirectUri.value).length) {
       return FailToTest(
         redirectUri,
         showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
       );
     }
-    if (!doaminTest(redirectUri.value)) {
+    if (!doaminTest(domain.value + redirectUri.value)) {
       return FailToTest(
         redirectUri,
         showErrorMessage("REDIRECT_URI_RULE_ERROR")
@@ -163,7 +169,7 @@ const ApplicationDetail = ({
       {
         name: name.value,
         domain: domain.value,
-        redirectUri: redirectUri.value,
+        redirectUri: domain.value + redirectUri.value,
         // status: status.value.toUpperCase(),
         policyId: policy.value,
       },
@@ -236,9 +242,21 @@ const ApplicationDetail = ({
             <label>
               <FormattedMessage id="REDIRECTURI" />
             </label>
-            <span style={{display:'flex', flexDirection:'row', width:'65%', alignItems:'center'}}>
-            {doaminRef.current ? doaminRef.current.value + '/' : ''}
-            <input name="redirectUri" ref={redirectURIRef} maxLength={48} style={{width:'100%'}}/>
+            <span
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "65%",
+                alignItems: "center",
+              }}
+            >
+              {doaminRef.current ? doaminRef.current.value : ""}
+              <input
+                name="redirectUri"
+                ref={redirectURIRef}
+                maxLength={48}
+                style={{ width: "100%" }}
+              />
             </span>
           </div>
           {/* <div className="Application-label-input-box">
@@ -293,10 +311,11 @@ const ApplicationDetail = ({
       >
         <div className="reset-notice-text-container">
           <p>
-            <FontAwesomeIcon icon={faExclamationCircle} /> <FormattedMessage id="WARNING"/>
+            <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+            <FormattedMessage id="WARNING" />
           </p>
           <p>
-            <FormattedMessage id="WARNINGDESCRIPTION"/>
+            <FormattedMessage id="WARNINGDESCRIPTION" />
           </p>
         </div>
       </CustomConfirm>

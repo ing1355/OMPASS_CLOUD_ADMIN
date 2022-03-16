@@ -342,6 +342,20 @@ const locales = {
       "Personal information manager and grievance department",
 
     // 이용약관
+    TermsOfPurchase_title_111: "ACCEPTANCE OF AGREEMENT",
+    TermsOfPurchase_title_22: "DEFINITIONS",
+    TermsOfPurchase_title_33: "ADDITIONAL TERMS",
+    TermsOfPurchase_title_44: "AGREEMENT OF USE AND PAYMENT OF FEES",
+    TermsOfPurchase_title_55: "CANCELLATION",
+    TermsOfPurchase_title_66: "SERVICE REGISTRATION",
+    TermsOfPurchase_title_77: "PRIVACY POLICY",
+    TermsOfPurchase_title_88: "OBLIGATION OF THE COMPANY",
+    TermsOfPurchase_title_99: "OBLIGATION OF THE CUSOTMERS",
+    TermsOfPurchase_title_1010: "SERVICE HOURS",
+    TermsOfPurchase_title_1111: "LIMITATION OF OMPASS USE",
+    TermsOfPurchase_title_1212: "INDEMNIFICATION FOR DAMAGE",
+    TermsOfPurchase_title_1313: "DISCLAIMER AND LIMITS",
+
     TermsOfPurchase: "Terms of Service",
     TermsOfPurchase_text:
       "Welcome to OMPASS. We maintain this website as a service to our customers. By using our site, you are agreeing to comply with and be bound by the following Terms of Service. Please review the following terms carefully. If you do not agree to these terms, you should not use this site.",
@@ -553,10 +567,10 @@ const locales = {
     Browser: "브라우저",
     OS: "OS",
     DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
-    AppManagement: 'App Management',
-    AppVersion: 'Version',
-    AppHash: 'Hash Value',
-    UploadDate: 'Upload Date'
+    AppManagement: "App Management",
+    AppVersion: "Version",
+    AppHash: "Hash Value",
+    UploadDate: "Upload Date",
   },
 
   KR: {
@@ -843,10 +857,10 @@ const locales = {
     Privacy_Policy_title6: "6. 개인정보의 파기절차 및 파기방법",
     Privacy_Policy_title6_1:
       "개인정보 수집 및 이용목적을 달성하거나 그 보유기간이 경과된 후에는 해당 정보를 지체 없이 파기합니다. 파기절차 및 방법은 다음과 같습니다.",
-    Privacy_Policy_title6_1_1: "〈개인정보 파기 절차〉",
+    Privacy_Policy_title6_1_1: "<개인정보 파기 절차>",
     Privacy_Policy_title6_1_2:
       "수집된 개인정보는 수집목적 달성 또는 보유기간 종료 후 즉시 파기되며 관련법령에 의해 일정기간 보관하는 경우 별도의 DB로 옮겨 저장하고 보관기간 종료 시 파기됩니다.",
-    Privacy_Policy_title6_2_1: "〈개인정보 파기 방법〉",
+    Privacy_Policy_title6_2_1: "<개인정보 파기 방법>",
     Privacy_Policy_title6_2_2:
       "수집된 개인정보는 수집목적 달성 또는 보유기간 종료 후 즉시 파기되며 관련법령에 의해 일정기간 보관하는 경우 별도의 DB로 옮겨 저장하고 보관기간 종료 시 파기됩니다.",
     Privacy_Policy_title6_2_2_1:
@@ -887,6 +901,20 @@ const locales = {
       "개인정보분쟁조정위원회 (한국인터넷진흥원 운영) https://www.kopico.go.kr/ / 1833-6972",
 
     // 이용약관
+    TermsOfPurchase_title_111: "1조 목적",
+    TermsOfPurchase_title_22: "제2조 용어의 정의",
+    TermsOfPurchase_title_33: "제3조 약관 외 준칙",
+    TermsOfPurchase_title_44: "제4조 이용계약 체결 및 구매조건",
+    TermsOfPurchase_title_55: "제5조 청약 철회(환불 규정)",
+    TermsOfPurchase_title_66: "제6조 서비스 이용 신청",
+    TermsOfPurchase_title_77: "제7조 개인정보처리방침",
+    TermsOfPurchase_title_88: "제8조 회사의 의무",
+    TermsOfPurchase_title_99: "제9조 회원의 의무",
+    TermsOfPurchase_title_1010: "제10조 서비스 이용 시간",
+    TermsOfPurchase_title_1111: "제11조 서비스 이용 제한",
+    TermsOfPurchase_title_1212: "제12조 손해배상",
+    TermsOfPurchase_title_1313: "제13조 면책",
+
     TermsOfPurchase: "이용약관",
     TermsOfPurchase_text:
       "OMPASS에 오신 것을 환영합니다. 저희는 OMPASS 웹사이트를 고객에 대한 서비스로 유지합니다. 당사 사이트를 이용함으로써 귀하는 다음 서비스 약관을 준수하고 이에 구속되는 데 동의하는 것입니다. 다음 약관을 주의 깊게 검토하시고, 조건에 동의하여 사이트를 이용해주시기 바랍니다.",
@@ -1100,10 +1128,10 @@ const locales = {
     Browser: "브라우저",
     OS: "OS",
     DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
-    AppManagement: '앱 관리',
-    AppVersion: '버전',
-    AppHash: '해시값',
-    UploadDate: '업로드 날짜'
+    AppManagement: "앱 관리",
+    AppVersion: "버전",
+    AppHash: "해시값",
+    UploadDate: "업로드 날짜",
   },
 };
 
