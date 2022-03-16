@@ -13,6 +13,7 @@ const OMSDashboard = lazy(() => import("../Layout/OMSRole/Dashboard"));
 const OMSPolicies = lazy(() => import("../Layout/OMSRole/Policies"));
 const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins/Admins"));
 const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
+const OMSAppManagement = lazy(() => import("../Layout/OMSRole/AppManagement"));
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));
 const DefaultPolicies = lazy(() =>
@@ -146,6 +147,13 @@ const route_info = (role) =>
         name: "Billing",
         route: "/Billing/*",
         component: <OMSBilling/>,
+        icon: BillingIcon,
+      },
+      {
+        key: "AppManagement",
+        name: "AppManagement",
+        route: "/AppManagement/*",
+        component: <OMSAppManagement/>,
         icon: BillingIcon,
       },
     ]

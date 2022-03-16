@@ -262,7 +262,7 @@ const CustomTable = ({
           className ? "custom-table-box " + className : "custom-table-box"
         }
       >
-        <colgroup>
+        {tableColumns && !loading && <colgroup>
           {tableColumns.map((c, ind) => (
             <col
               key={ind}
@@ -273,9 +273,9 @@ const CustomTable = ({
               }
             />
           ))}
-        </colgroup>
+        </colgroup>}
         <thead style={{ display: columnsHide ? "none" : "" }}>
-          <tr>
+          {tableColumns && <tr>
             {tableColumns.map((c, ind) =>
               c.key === "check" ? (
                 <th key={ind} style={{ minWidth: "60px", width: "60px" }}>
@@ -302,22 +302,22 @@ const CustomTable = ({
                 <th key={ind}>{c.name && <FormattedMessage id={c.name} />}</th>
               )
             )}
-          </tr>
+          </tr>}
         </thead>
-        <tbody>
+        <tbody className={loading ? "no-data-container" : ""}>
           {!loading && tableData && tableData.length > 0 ? (
             dataList
           ) : (
             <tr className="no-data">
               {loading ? (
-                <td className="loading-td" colSpan={tableColumns.length}>
+                <td className="loading-td" colSpan={tableColumns ? tableColumns.length : 1}>
                   <div className="box">
                     <div className="loader6"></div>
                     <p>data loading</p>
                   </div>
                 </td>
               ) : (
-                <td className="no-data" colSpan={tableColumns.length}>
+                <td className="no-data" colSpan={tableColumns ? tableColumns.length : 1}>
                   No Data
                 </td>
               )}

@@ -2,6 +2,7 @@ table:not(.txt_box table) {
   width: 100%;
   height: auto;
   text-align: center;
+  table-layout: fixed;
 }
 table:not(.txt_box table) tr {
   width: 100%;
@@ -12,6 +13,8 @@ table:not(.txt_box table) tr {
 
 table:not(.txt_box table) td,
 table:not(.txt_box table) th {
+  text-overflow: ellipsis;
+  overflow: hidden;
   padding: 8px;
   text-align: center;
 }
@@ -69,8 +72,13 @@ table:not(.txt_box table) tbody tr:hover {
   border: none;
 }
 
+tbody.no-data-container {
+  height: 150px;
+}
+
 tr.no-data {
-  height: 200px;
+  height: 150px;
+  position: relative;
 }
 
 td.no-data {
@@ -95,6 +103,11 @@ td.no-data {
 }
 
 .loading-td {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 1);
 }

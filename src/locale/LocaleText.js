@@ -553,6 +553,10 @@ const locales = {
     Browser: "브라우저",
     OS: "OS",
     DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
+    AppManagement: 'App Management',
+    AppVersion: 'Version',
+    AppHash: 'Hash Value',
+    UploadDate: 'Upload Date'
   },
 
   KR: {
@@ -1096,6 +1100,10 @@ const locales = {
     Browser: "브라우저",
     OS: "OS",
     DASHBOARD_CHART_TITLE: "{value} 별 사용자 비율",
+    AppManagement: '앱 관리',
+    AppVersion: '버전',
+    AppHash: '해시값',
+    UploadDate: '업로드 날짜'
   },
 };
 

@@ -395,3 +395,34 @@ export const PolicyColumns = [
     },
   },
 ];
+
+export const AppManagementAndroidColumns = [
+  {
+    name: "AppVersion",
+    key: "version",
+    width: 100,
+  },
+  {
+    name: "AppHash",
+    key: "hash",
+    width: 300
+  },
+  {
+    name: "UploadDate",
+    key: "createdDate",
+    width: 150
+  },
+];
+
+export const AppManagementIOSColumns = [
+  {
+    name: "AppVersion",
+    key: "version",
+    width: 100,
+  },
+  {
+    name: "UploadDate",
+    key: "createdDate",
+    width: 150
+  },
+];
