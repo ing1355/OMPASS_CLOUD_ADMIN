@@ -1,0 +1,10 @@
+.admin-info-section {
+  width: 100%;
+}
+.admin-info-section div {
+  line-height: 40px;
+  /* border-bottom: 1px solid grey; */
+  background-color: rgba(240, 240, 240, 0.473);
+  margin-top: 5px;
+  padding-left: 10px;
+}
