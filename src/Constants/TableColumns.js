@@ -457,33 +457,20 @@ export const PolicyColumns = [
   },
 ];
 
-export const AppManagementAndroidColumns = [
+export const AppManagementColumns = [
   {
     name: "AppVersion",
     key: "version",
     width: 100,
   },
   {
-    name: "AppHash",
-    key: "hash",
+    name: "UploadDate",
+    key: "createdDate",
+    width: 150
+  },
+  {
+    name: "NOTE",
+    key: "description",
     width: 300
-  },
-  {
-    name: "UploadDate",
-    key: "createdDate",
-    width: 150
-  },
-];
-
-export const AppManagementIOSColumns = [
-  {
-    name: "AppVersion",
-    key: "version",
-    width: 100,
-  },
-  {
-    name: "UploadDate",
-    key: "createdDate",
-    width: 150
-  },
+  }
 ];

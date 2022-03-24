@@ -6,7 +6,7 @@ import {
   registerAppManagementApi,
   updateAppManagementApi,
 } from "../../../Constants/Api_Route";
-import { AppManagementAndroidColumns } from "../../../Constants/TableColumns";
+import { AppManagementColumns } from "../../../Constants/TableColumns";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import {
   CustomAxiosGet,
@@ -116,7 +116,7 @@ const Android = ({showErrorMessage}) => {
         </div>
       </div>
       <CustomTable
-        columns={AppManagementAndroidColumns}
+        columns={AppManagementColumns}
         datas={tableData}
         pagination
         rowClick={({ version }) => {

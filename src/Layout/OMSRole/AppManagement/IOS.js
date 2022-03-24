@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAppManagementApi, registerAppManagementApi } from "../../../Constants/Api_Route";
-import { AppManagementIOSColumns } from "../../../Constants/TableColumns";
+import { AppManagementColumns } from "../../../Constants/TableColumns";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import {
   CustomAxiosGet,
@@ -78,7 +78,7 @@ const IOS = ({showErrorMessage}) => {
       </div>
 
       <CustomTable
-        columns={AppManagementIOSColumns}
+        columns={AppManagementColumns}
         datas={tableData}
         pagination
         rowClick={({ version }) => {
