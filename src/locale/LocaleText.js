@@ -571,8 +571,17 @@ const locales = {
     AppVersion: "Version",
     AppHash: "Hash Value",
     UploadDate: "Upload Date",
+    Refund: '청약 철회',
+    Unknown: '알 수 없음',
+    EventName: '이벤트 ID',
+    METHOD: 'Method',
+    ISSUCCESS: '성공 여부',
+    SUBSCRIPTION_REFUND_TITLE: 'OMPASS 청약 철회',
+    REFUNDSUBSCRIPTION_1: '청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)',
+    REFUNDSUBSCRIPTION_2: '청약 철회를 계속 진행하시겠습니까?',
+    ANDROID: 'Android',
+    IOS: 'iOS'
   },
-
   KR: {
     PERNUM: "명",
     localeChangeText: "KO",
@@ -1132,6 +1141,16 @@ const locales = {
     AppVersion: "버전",
     AppHash: "해시값",
     UploadDate: "업로드 날짜",
+    Refund: '청약 철회',
+    Unknown: '알 수 없음',
+    EventName: '이벤트 ID',
+    METHOD: 'Method',
+    ISSUCCESS: '성공 여부',
+    SUBSCRIPTION_REFUND_TITLE: 'OMPASS 청약 철회',
+    REFUNDSUBSCRIPTION_1: '청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)',
+    REFUNDSUBSCRIPTION_2: '청약 철회를 계속 진행하시겠습니까?',
+    ANDROID: '안드로이드',
+    IOS: 'iOS'
   },
 };
 

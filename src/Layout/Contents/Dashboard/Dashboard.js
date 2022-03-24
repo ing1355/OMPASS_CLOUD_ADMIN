@@ -47,7 +47,8 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const statusColor = plan.status === 'EXPIRED' ? "#d60002" : "#00d134"
+  const { expirationDate, startDate, remainingDate, name, status } = plan;
+  const statusColor = status === 'EXPIRED' ? "#d60002" : "#00d134"
 
   useLayoutEffect(() => {
     if (adminId) {
@@ -108,10 +109,10 @@ const Dashboard = ({ userProfile, locale }) => {
             <li>
               <div>
                 <h2>
-                  {!plan || plan.status === "FREE" ? (
+                  {!plan || status === "FREE" ? (
                     <FormattedMessage id="FREE_TRIAL" />
                   ) : (
-                    plan.name
+                    name
                   )}
                 </h2>
                 <h5 style={{ color: statusColor, fontWeight: "bold" }}>
@@ -121,11 +122,11 @@ const Dashboard = ({ userProfile, locale }) => {
                       fontSize: "1rem",
                       marginBottom: "0rem",
                     }}
-                    icon={plan.status === 'EXPIRED' ? faBan : faCheckSquare}
+                    icon={status === 'EXPIRED' ? faBan : faCheckSquare}
                   />
                   &nbsp;&nbsp;
-                  {plan.status
-                    ? planStatusCodes[plan.status]
+                  {status
+                    ? planStatusCodes[status]
                     : planStatusCodes["EXPIRED"]}
                 </h5>
                 {plan && (
@@ -135,27 +136,19 @@ const Dashboard = ({ userProfile, locale }) => {
                       icon={faCalendarCheck}
                     />
                     &nbsp;&nbsp;
-                    {plan.status === "FREE" ? (
+                    {status === "FREE" ? (
                       <FormattedMessage id="USED_FREE_PLAN" />
                     ) : locale === "ko" ? (
                       <>
-                        {plan.createDate
-                          ? getDateFormatKr(plan.createDate)
-                          : null}
+                      {getDateFormatKr(startDate)}
                         ~
-                        {plan.expireDate
-                          ? getDateFormatKr(plan.expireDate)
-                          : null}
+                          {getDateFormatKr(expirationDate)}
                       </>
                     ) : (
                       <>
-                        {plan.createDate
-                          ? getDateFormatEn(plan.createDate)
-                          : null}
+                        {getDateFormatEn(startDate)}
                         &nbsp;~&nbsp;
-                        {plan.expireDate
-                          ? getDateFormatEn(plan.expireDate)
-                          : null}
+                        {getDateFormatEn(expirationDate)}
                       </>
                     )}
                   </h6>
@@ -190,12 +183,12 @@ const Dashboard = ({ userProfile, locale }) => {
                           borderTop: "0.5px solid rgb(180, 180, 180)",
                         }}
                       >
-                        {plan && plan.status === "FREE" ? (
+                        {status === "FREE" ? (
                           "∞"
                         ) : (
                           <FormattedMessage
                             id="daysLeft"
-                            values={{ day: plan.remainingDate }}
+                            values={{ day: remainingDate > 0 ? remainingDate : 0 }}
                           />
                         )}
                       </td>

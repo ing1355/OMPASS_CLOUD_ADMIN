@@ -8,15 +8,6 @@ import React, {
 } from "react";
 import { connect } from "react-redux";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faCheckSquare,
-  faCalendarCheck,
-  faBan,
-} from "@fortawesome/free-solid-svg-icons";
-
 import {
   getPaymentHistoryApi,
   getBillingInfoApi,
@@ -33,14 +24,9 @@ import { BillingColumns } from "../../../Constants/TableColumns";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
-import {
-  getDateFormatEn,
-  getDateFormatKr,
-} from "../../../Functions/GetFullDate";
 import PaymentModal from "./PaymentModal";
-import SubscriptionCancel from "./SubscriptionCancel";
 import { Navigate } from "react-router-dom";
-import { planStatusCodes } from "../../../Constants/PlanStatusCodes";
+import BillingEdtion from "./BillingEdition";
 
 const Billing = ({
   userProfile,
@@ -54,7 +40,7 @@ const Billing = ({
     [country]
   );
   const [subCheck2, setSubCheck2] = useState(false);
-  const [currentPlan, setCurrentPlan] = useState(null);
+  const [currentPlan, setCurrentPlan] = useState({});
   const [allUserNum, setAllUserNum] = useState(0);
   const [editions, setEditions] = useState([]);
   const [inputEdition, setInputEdition] = useState(null);
@@ -64,28 +50,13 @@ const Billing = ({
   const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
+  const { status, numberUsers } = currentPlan
+  const statusIsRUN = status === 'RUN' || status === 'RUN_REFUNDABLE'
   const userNumList = useMemo(() => new Array(990).fill(1), []);
-  const statusColor =
-    currentPlan && currentPlan.status === "EXPIRED" ? "#d60002" : "#00d134";
 
   const { formatMessage } = useIntl();
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
-
-  const getColorByUserNum = useCallback((num, maxNum) => {
-    const rate = getRateByUserNum(num, maxNum);
-    if (rate < 33) {
-      return "#00a9ec";
-    } else if (rate < 66) {
-      return "#00ec90";
-    } else {
-      return "#ecbf00";
-    }
-  }, []);
-
-  const getRateByUserNum = useCallback((num, maxNum) => {
-    return (num / maxNum) * 100;
-  }, []);
 
   useEffect(() => {
     if (inputUserNum && editions && inputEdition) {
@@ -108,9 +79,9 @@ const Billing = ({
             setEditions(pricing);
             setInputEdition(pricing[0].name);
             setCost(pricing[0].priceForOneUser * inputUserNum);
+            console.log(data)
           },
           (data) => {
-            console.log(data);
             setTableData(data);
           },
         ]
@@ -143,8 +114,8 @@ const Billing = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { userNum, check } = e.target.elements;
-    if (currentPlan.status === "RUN") {
-      if (currentPlan.numberUsers === userNum.value * 1)
+    if (status === "RUN") {
+      if (numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
       if (allUserNum >= userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
@@ -152,14 +123,14 @@ const Billing = ({
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (currentPlan.status !== "RUN" && !check.checked)
+    if (status !== "RUN" && !check.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    // if (currentPlan.status !== "RUN" && !checkAll.checked)
+    // if (status !== "RUN" && !checkAll.checked)
     //   return showErrorMessage("PLEASE_AGREEMENT_CHECK");
-    // if (currentPlan && currentPlan.status === "RUN") {
+    // if (currentPlan && status === "RUN") {
     //   if (
-    //     new Date(currentPlan.createDate).getFullYear() ===
-    //     new Date(currentPlan.expireDate).getFullYear()
+    //     new Date(createDate).getFullYear() ===
+    //     new Date(expireDate).getFullYear()
     //   )
     //     inputTermRef.current = "MONTHLY";
     //   else inputTermRef.current = "ANNUALLY";
@@ -226,117 +197,8 @@ const Billing = ({
 
       <LinkDocument link="/document/billing" />
 
-      <section className="billing-edition-container">
-        <div className="billing-edition">
-          <div className="billing-edition-data">
-            {!currentPlan || currentPlan.status === "FREE" ? (
-              <FormattedMessage id="FREE_TRIAL" />
-            ) : (
-              currentPlan.name
-            )}
-          </div>
-          <div className="billing-edition-subtitle">
-            {currentPlan &&
-              (currentPlan.status === "FREE" ? (
-                ""
-              ) : (
-                <FormattedMessage
-                  id="DAYSLEFT"
-                  values={{ day: currentPlan.remainingDate }}
-                />
-              ))}
-          </div>
-        </div>
-        <div className="billing-edition billing-info">
-          <h5 style={{ color: statusColor, fontWeight: "bold" }}>
-            <FontAwesomeIcon
-              style={{
-                color: statusColor,
-                fontSize: "1rem",
-                marginBottom: "0rem",
-              }}
-              icon={
-                currentPlan && currentPlan.status === "EXPIRED"
-                  ? faBan
-                  : faCheckSquare
-              }
-            />
-            &nbsp;&nbsp;&nbsp;
-            {currentPlan && currentPlan.status
-              ? planStatusCodes[currentPlan.status]
-              : planStatusCodes["EXPIRED"]}
-          </h5>
-          <h6>
-            <FontAwesomeIcon
-              style={{ fontSize: "1.1rem", marginBottom: "0rem" }}
-              icon={faCalendarCheck}
-            />
-            &nbsp;&nbsp;&nbsp;
-            {currentPlan && currentPlan.status !== "FREE" ? (
-              locale === "ko" ? (
-                getDateFormatKr(currentPlan.createDate) +
-                " ~ " +
-                getDateFormatKr(currentPlan.expireDate)
-              ) : (
-                getDateFormatEn(currentPlan.createDate) +
-                " ~ " +
-                getDateFormatEn(currentPlan.expireDate)
-              )
-            ) : (
-              <FormattedMessage id="USED_FREE_PLAN" />
-            )}
-          </h6>
-          <SubscriptionCancel
-            isKorea={isKorea}
-            currentPlan={currentPlan}
-            setCurrentPlan={setCurrentPlan}
-            editions={editions}
-          />
+      <BillingEdtion plan={currentPlan} allUserNum={allUserNum} setCurrentPlan={setCurrentPlan} editions={editions}/>
 
-          <button className="refund">청약 철회</button>
-        </div>
-        <div className="billing-edition billing-edition-user-count">
-          <div className="billing-edition-top-box billing-edition-users">
-            <b style={{ color: "#00a9ec" }}>
-              {allUserNum}
-              <FormattedMessage id="PERNUM" />
-            </b>
-            &nbsp;/&nbsp;
-            {currentPlan && currentPlan.numberUsers}
-            <FormattedMessage id="PERNUM" />
-          </div>
-          <div className="billing-edition-top-box">
-            <label>
-              <FontAwesomeIcon
-                style={{
-                  fontSize: "15px",
-                  color: "#00a9ec",
-                  marginRight: "5px",
-                }}
-                icon={faUser}
-              />
-              <FormattedMessage id="USER" />
-            </label>
-            <div className="progress-bar">
-              <div
-                className="progress-bar-front"
-                style={{
-                  backgroundColor: getColorByUserNum(
-                    allUserNum,
-                    currentPlan && currentPlan.numberUsers
-                  ),
-                  width:
-                    getRateByUserNum(
-                      allUserNum,
-                      currentPlan && currentPlan.numberUsers
-                    ) + "%",
-                }}
-              ></div>
-              <div className="progress-bar-back"></div>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="billing-info-container">
         {editions.length > 0 &&
           billingsInfo.map((item, ind) => (
@@ -377,9 +239,9 @@ const Billing = ({
         <h2>
           OMPASS <FormattedMessage id="PAYMENT" />
           {currentPlan &&
-            currentPlan.status === "RUN" &&
+            statusIsRUN &&
             tableData.length > 0 &&
-            currentPlan.numberUsers !== tableData[0].numberUsers && (
+            numberUsers !== tableData[0].numberUsers && (
               <span
                 style={{ fontSize: "12px", color: "red", marginLeft: "12px" }}
               >
@@ -388,10 +250,10 @@ const Billing = ({
                   values={{
                     param: isKorea()
                       ? slicePrice(
-                          editions[0].priceForOneUser * currentPlan.numberUsers
+                          editions[0].priceForOneUser * numberUsers
                         ) + "원 "
                       : slicePrice(
-                          editions[0].priceForOneUser * currentPlan.numberUsers
+                          editions[0].priceForOneUser * numberUsers
                         ) + "$",
                   }}
                 />
@@ -401,7 +263,7 @@ const Billing = ({
         <form onSubmit={onFinish}>
           <div className="billing-change-item">
             <label className="billing-change-form-label">
-              {!currentPlan || currentPlan.status !== "RUN" ? (
+              {!statusIsRUN ? (
                 <FormattedMessage id="USERNUM" />
               ) : (
                 <FormattedMessage id="CHANGEUSERNUM" />
@@ -442,7 +304,7 @@ const Billing = ({
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          {(!currentPlan || currentPlan.status !== "RUN") && (
+          {!statusIsRUN && (
             <div
               className="billing-change-item"
               style={{ alignItems: "baseline" }}
@@ -518,7 +380,7 @@ const Billing = ({
               value="iamPort"
               type="submit"
             >
-              {!currentPlan || currentPlan.status !== "RUN" ? (
+              {!statusIsRUN ? (
                 <FormattedMessage id="SUBSCRIPTION" />
               ) : (
                 <FormattedMessage id="CHANGESUBSCRIPTION" />

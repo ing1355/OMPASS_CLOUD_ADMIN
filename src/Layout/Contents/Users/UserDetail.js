@@ -20,6 +20,7 @@ import ompassphone from "../../../assets/ompassphone.png";
 import ompassphone2 from "../../../assets/ompassphone2.png";
 import ios from "../../../assets/ios.png";
 import android from "../../../assets/android.png";
+
 const UserDetail = ({
   data,
   userProfile,
@@ -29,13 +30,13 @@ const UserDetail = ({
   deleteCallback,
 }) => {
   const { adminId } = userProfile;
-  const { userId, byPass, appId, email, type } = data;
+  const { userId, byPass, appId, email, type, mobileInfo } = data;
+  const { appVersion, model, os, osVersion } = mobileInfo || {};
   const [inputByPass, setInputByPass] = useState(byPass);
   const [loading, setLoading] = useState(false);
   const [emailCheck, setEmailCheck] = useState(email);
   const [emailLoading, setEmailLoading] = useState(false);
   const inputEmailRef = useRef(email);
-
   const navigate = useNavigate();
 
   const onFinish = (e) => {
@@ -136,9 +137,10 @@ const UserDetail = ({
                   </div>
 
                   <p>
-                    <b>Not using OMPASS Moblie</b>
+                    {mobileInfo ? <b>OMPASS Moblie</b>
+                    : <b>Not using OMPASS Moblie</b>}
                     <br />
-                    Unknown
+                    {mobileInfo ? appVersion : <FormattedMessage id="Unknown"/>}
                   </p>
                 </li>
                 <li>
@@ -148,18 +150,17 @@ const UserDetail = ({
                   <p>
                     <b>Model</b>
                     <br />
-                    Unknown
+                    {mobileInfo ? model : <FormattedMessage id="Unknown"/>}
                   </p>
                 </li>
                 <li>
                   <div className="img-div">
-                    {/* <img src={ios} /> */}
-                    <img src={android} />
+                    <img src={mobileInfo && (os === 'ios') ? ios : android} />
                   </div>
                   <p>
-                    <b>iOS</b>
+                    <b>OS</b>
                     <br />
-                    Unknown
+                    {mobileInfo ? os + " " + osVersion : <FormattedMessage id="Unknown"/>}
                   </p>
                 </li>
               </div>

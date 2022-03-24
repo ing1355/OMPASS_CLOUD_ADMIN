@@ -6,16 +6,13 @@ export const GetFullDate = (date) => {
 }
 
 export const getDateFormatKr = (date) =>
-    date
-        .split(" ")[0]
-        .split("-")
-        .reduce((pre, cur) => {
+    date ? date.split(" ")[0].split("-").reduce((pre, cur) => {
             return pre.includes("월")
                 ? pre + " " + cur + "일"
                 : pre.includes("년")
                     ? pre + " " + cur + "월"
                     : pre + "년 " + cur + "월";
-        });
+        }) : ''
 
 export const getDateFormatEn = (date) => {
     const options = {
@@ -23,5 +20,5 @@ export const getDateFormatEn = (date) => {
         year: "numeric",
         month: "long",
     };
-    return new Date(date).toLocaleDateString("en-US", options);
+    return date ? new Date(date).toLocaleDateString("en-US", options) : '';
 };

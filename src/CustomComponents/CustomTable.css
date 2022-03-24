@@ -4,7 +4,7 @@ table:not(.txt_box table) {
   text-align: center;
   table-layout: fixed;
 }
-table:not(.txt_box table) tr {
+table:not(.txt_box table) tbody tr, table:not(.txt_box table) thead tr {
   width: 100%;
   max-width: 100%;
   height: 55px;

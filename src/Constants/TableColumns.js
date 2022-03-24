@@ -6,6 +6,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "../CustomComponents/CustomButton";
 import { EllipsisOutlined } from "@ant-design/icons";
+import { Popover } from "antd";
+
+const paymentIsSuccessComponent = (status) => <div style={{ textAlign: "center" }}>
+  {status === true ? (
+    <FontAwesomeIcon
+      style={{
+        color: "rgb(0, 209, 52)",
+        width: "100%",
+        height: "20px",
+      }}
+      icon={faCheckSquare}
+    />
+  ) : (
+    <FontAwesomeIcon
+      style={{
+        color: "rgb(162 162 162)",
+        width: "100%",
+        height: "20px",
+      }}
+      icon={faTimes}
+    />
+  )}
+</div>
 
 export const AdminsColumns = [
   { name: "Name", key: "name", width: 220 },
@@ -13,6 +36,13 @@ export const AdminsColumns = [
   { name: "Authority", key: "role" },
   { name: "phoneNumber", key: "phone", width: 250 },
   { name: "Country", key: "country" },
+];
+
+export const OMSAdminsColumns = [
+  { name: "Name", key: "name", width: 300 },
+  { name: "Email", key: "email" },
+  { name: "phoneNumber", key: "phone", width: 300 },
+  { name: "Country", key: "country", width: 150 },
 ];
 
 export const ApplicationsColumns = [
@@ -23,14 +53,6 @@ export const ApplicationsColumns = [
     searched: true,
     maxLength: 24,
   },
-  // {
-  //   name: "Status",
-  //   key: "status",
-  //   searched: true,
-  //   searchedOptions: ["ACTIVE", "INACTIVE"],
-  //   getSearchedLabel: (value) => (value === "ACTIVE" ? "Active" : "Inactive"),
-  //   render: (d) => <FormattedMessage id={d} />,
-  // },
   {
     name: "Domain",
     key: "domain",
@@ -51,8 +73,60 @@ export const ApplicationsColumns = [
     render: (d) =>
       d === "!DEFAULTPOLICY!" ? <FormattedMessage id={"DEFAULTPOLICY"} /> : d,
   },
-  // { name: "상세정보", key: "detail", render: makeDetail },
 ];
+
+export const OMSApplicationsColumns = [
+  {
+    name: "APPLICATIONNAME",
+    key: "name",
+    width: 300,
+    searched: true,
+    maxLength: 24,
+  },
+  {
+    name: "Domain",
+    key: "domain",
+    width: 300,
+    searched: true,
+    maxLength: 48,
+  },
+  {
+    name: "REDIRECTURI",
+    key: "redirectUri",
+    width: 300,
+    searched: true,
+    maxLength: 48,
+  },
+  {
+    name: "SECRETKEY",
+    key: "integrationKey",
+  },
+];
+
+export const OMSPaymentEventsColumns = [
+  {
+    name: 'EventName',
+    key: 'tx'
+  },
+  {
+    name: 'METHOD',
+    key: 'method'
+  },
+  {
+    name: 'DESCRIPTION',
+    key: 'description',
+    render: (data) => <Popover trigger="click" placement="bottom" content={data}><button className="button">상세보기</button></Popover>
+  },
+  {
+    name: 'PAYMENTDATE',
+    key: 'createdDate'
+  },
+  {
+    name: 'ISSUCCESS',
+    key: 'success',
+    render: (status) => paymentIsSuccessComponent(status)
+  },
+]
 
 export const BillingColumns = [
   {
@@ -62,39 +136,19 @@ export const BillingColumns = [
   {
     name: "BILLINGCYCLE",
     key: "paymentInterval",
-    render: (data) => <FormattedMessage id={data} />,
+    render: (data) => data && <FormattedMessage id={data} />,
   },
   {
     name: "PRICECOLUMN",
     key: "amount",
-    render: (amount) => slicePrice(amount),
+    render: (amount) => amount && slicePrice(amount),
   },
   { name: "USERNUM", key: "numberUsers" },
   { name: "PAYMENTDATE", key: "paymentDate" },
   {
     name: "PAYMENTSTATUS",
     key: 'paymentSuccess',
-    render: (status) => <div style={{ textAlign: "center" }}>
-      {status === true ? (
-        <FontAwesomeIcon
-          style={{
-            color: "rgb(0, 209, 52)",
-            width: "100%",
-            height: "20px",
-          }}
-          icon={faCheckSquare}
-        />
-      ) : (
-        <FontAwesomeIcon
-          style={{
-            color: "rgb(162 162 162)",
-            width: "100%",
-            height: "20px",
-          }}
-          icon={faTimes}
-        />
-      )}
-    </div>
+    render: (status) => paymentIsSuccessComponent(status)
   }
 ];
 

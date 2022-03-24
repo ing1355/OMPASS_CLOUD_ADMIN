@@ -328,7 +328,7 @@ const CustomTable = ({
           <tfoot>
             <tr className="custom-table-footer">
               {pagination && pageNum > 0 && (
-                <td colSpan={5}>
+                <td colSpan={columns.length}>
                   <div className="custom-pagination-container">
                     <div
                       className="custom-pagination-items"

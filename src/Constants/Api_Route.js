@@ -47,6 +47,14 @@ export const updateSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/
 export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel-subscription`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
 export const cancelSubscriptionPayPalApi = (adminId) => `/v1/admins/${adminId}/paypal/cancel-subscription`
+export const submitRefundApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/refund`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
 export const getPolicyLogsApi = (adminId) => `/v1/admins/${adminId}/policy-logs`
+
+export const getAllAdminsApi = '/v1/admins'
+export const getAdminDetailApi = (adminId) => `/v1/admins/${adminId}/detail`
+
+export const getAppManagementApi = '/oms/app/management'
+export const updateAppManagementApi = '/oms/app/management'
+export const registerAppManagementApi = '/oms/app/management'

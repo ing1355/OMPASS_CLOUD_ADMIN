@@ -2,7 +2,6 @@ import React, { lazy } from "react";
 import {
   HomeOutlined,
   SolutionOutlined,
-  SettingOutlined,
   UserOutlined,
   AppstoreOutlined,
   DollarCircleOutlined,
@@ -10,10 +9,10 @@ import {
 } from "@ant-design/icons";
 
 const OMSDashboard = lazy(() => import("../Layout/OMSRole/Dashboard"));
-const OMSPolicies = lazy(() => import("../Layout/OMSRole/Policies"));
 const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins/Admins"));
-const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
-const OMSAppManagement = lazy(() => import("../Layout/OMSRole/AppManagement"));
+// const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
+const OMSAppAndroid = lazy(() => import("../Layout/OMSRole/AppManagement/Android"));
+const OMSAppIOS = lazy(() => import("../Layout/OMSRole/AppManagement/IOS"));
 
 const Dashboard = lazy(() => import("../Layout/Contents/Dashboard/Dashboard"));
 const DefaultPolicies = lazy(() =>
@@ -35,7 +34,6 @@ const AuthLogs = lazy(() => import("../Layout/Contents/Logs/AuthLogs"));
 const PolicyLogs = lazy(() => import("../Layout/Contents/Logs/PolicyLogs"));
 
 const DashboardIcon = <HomeOutlined />;
-const PoliciesIcon = <SettingOutlined />;
 const UsersIcon = <UserOutlined />;
 const AdminsIcon = <SolutionOutlined />;
 const ApplicationsIcon = <AppstoreOutlined />;
@@ -75,7 +73,6 @@ const AdminRoutes = [
       }
     ]
   },
-
   {
     key: "Users",
     name: "Users",
@@ -118,8 +115,7 @@ const AdminRoutes = [
   },
 ];
 
-const route_info = (role) =>
-  role === "OMS"
+const route_info = (role) => role === "OMS"
     ? [
       {
         key: "Dashboard",
@@ -129,13 +125,6 @@ const route_info = (role) =>
         icon: DashboardIcon,
       },
       {
-        key: "Policies",
-        name: "Policies",
-        route: "/Policies/*",
-        component: <OMSPolicies/>,
-        icon: PoliciesIcon,
-      },
-      {
         key: "Admins",
         name: "Admins",
         route: "/Admins/*",
@@ -143,18 +132,24 @@ const route_info = (role) =>
         icon: AdminsIcon,
       },
       {
-        key: "Billing",
-        name: "Billing",
-        route: "/Billing/*",
-        component: <OMSBilling/>,
-        icon: BillingIcon,
-      },
-      {
         key: "AppManagement",
         name: "AppManagement",
         route: "/AppManagement/*",
-        component: <OMSAppManagement/>,
         icon: BillingIcon,
+        submenu: [
+          {
+            key: "Android",
+            name: "ANDROID",
+            route: "/AppManagement/android/*",
+            component: <OMSAppAndroid/>,
+          },
+          {
+            key: "ios",
+            name: "IOS",
+            route: "/AppManagement/ios/*",
+            component: <OMSAppIOS/>,
+          },
+        ],
       },
     ]
     : role === "ADMIN"

@@ -101,7 +101,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     alert(formatMessage({id:'EMAIL_SEND_SUCCESS'}))
     navigate("/Admins");
   };
-
+  
   return (
     <>
       <div className="AdminBox">

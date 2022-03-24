@@ -56,7 +56,7 @@ const SubscriptionCancel = ({
     <>
       <button
         disabled={
-          (currentPlan && currentPlan.status !== "RUN") ||
+          (currentPlan && (currentPlan.status === "CANCEL" || currentPlan.status === 'EXPIRED' || currentPlan.status === 'FREE')) ||
           !editions.find((e) => e.name === currentPlan.name)
         }
         onClick={openCancelConfirmModal}
@@ -82,14 +82,11 @@ const SubscriptionCancel = ({
               email,
               date: currentPlan
                 ? isKorea()
-                  ? getDateFormatKr(currentPlan.expireDate)
-                  : getDateFormatEn(currentPlan.expireDate)
+                  ? getDateFormatKr(currentPlan.expirationDate)
+                  : getDateFormatEn(currentPlan.expirationDate)
                 : null,
             }}
           />
-          {/* oms@omsecurity.kr님의 사용 만료일은 2022년 02월 10일입니다.
-          <br />
-          재사용을 원할 시 다시 결제처리를 진행해주세요. */}
         </div>
         <div className="subscription-cancel-confirm">
           <FormattedMessage id="CANCELSUBSCRIPTION" />

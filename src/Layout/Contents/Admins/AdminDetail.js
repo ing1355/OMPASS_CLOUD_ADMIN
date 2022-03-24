@@ -46,9 +46,8 @@ const AdminDetail = ({
     role,
     subAdminId,
     index,
-  } = data;
+  } = data || {};
   const { adminId } = userProfile;
-
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const isSelf = userProfile.email === email;
@@ -163,10 +162,10 @@ const AdminDetail = ({
       callback();
     }
   };
-
+  
   return (
     <>
-      {Object.keys(data).length > 0 ? (
+      {data && Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
             <>

@@ -38,7 +38,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
       Chat.shutdown()
     }
   },[])
-
+  
   return (
     <>
       <div className="contents">
