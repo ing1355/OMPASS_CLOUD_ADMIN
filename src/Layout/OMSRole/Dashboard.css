@@ -1,49 +1,76 @@
 section.dashboard {
-    border-bottom: none;
-    padding: 0;
-    display: flex;
+  border-bottom: none;
+  padding: 0;
+  display: flex;
 }
 
 .flex-card-container {
-    height: 250px;
+  height: 250px;
 }
 
 .flex-card-container > div {
-    width: 25%;
+  width: 25%;
 }
 
 .flex-card-container > div:first-child {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .flex-card-container > div:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .chart-container {
-    background-color: white;
-    padding: 12px;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    height: 500px;
+  background-color: white;
+  padding: 12px;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  height: 500px;
 }
 
 .chart-container > div {
-    padding: 12px 24px;
-    height: 100%;
+  padding: 12px 24px;
+  height: 100%;
 }
 
 .chart-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 700;
-    height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 700;
+  height: 10%;
 }
 
 .chart-content {
-    width: 100%;
-    height: 90%;
+  width: 100%;
+  height: 90%;
+}
+
+.app-management-div {
+  width: 100%;
+  height: auto;
+  padding: 1rem 2rem;
+  background-color: rgb(245, 245, 245);
+  margin-bottom: 1rem;
+}
+
+.app-management-div input {
+  border: 1px solid grey;
+  background-color: #fff;
+  height: 30px;
+}
+.app-management-div button {
+  width: 5rem;
+  background-color: #000;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  height: 30px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.app-management-div button:hover {
+  background-color: #256e8b;
 }
