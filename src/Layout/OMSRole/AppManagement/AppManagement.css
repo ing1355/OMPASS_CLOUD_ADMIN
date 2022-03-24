@@ -1,0 +1,26 @@
+.app-management-div {
+    width: 100%;
+    height: auto;
+    padding: 1rem 2rem;
+    background-color: rgb(245, 245, 245);
+    margin-bottom: 1rem;
+  }
+  
+  .app-management-div input {
+    border: 1px solid grey;
+    background-color: #fff;
+    height: 30px;
+  }
+  .app-management-div button {
+    width: 5rem;
+    background-color: #000;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    height: 30px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .app-management-div button:hover {
+    background-color: #256e8b;
+  }

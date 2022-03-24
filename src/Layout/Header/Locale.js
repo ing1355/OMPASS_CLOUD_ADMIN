@@ -7,21 +7,18 @@ import { FormattedMessage } from "react-intl";
 
 const Locale = ({ locale, localeChange }) => {
   const [langbox, setLangbox] = useState(false);
-  const localeChangeEventKo = () => {
+  const localeChangeEvent = () => {
     if (locale === "en") {
       localeChange("ko");
       localStorage.setItem("locale", "ko");
-    }
-  };
-  const localeChangeEventEn = () => {
-    if (locale === "ko") {
+    } else {
       localeChange("en");
       localStorage.setItem("locale", "en");
     }
   };
 
   return (
-    <button className="header-contents-locale-container pointer locale-button">
+    <button className="header-contents-locale-container pointer locale-button" onClick={localeChangeEvent}>
       <img
         className="header-contents-locale-icon"
         src={localIcon}
@@ -29,15 +26,7 @@ const Locale = ({ locale, localeChange }) => {
       />
 
       <div className="header-contents-locale-text">
-        {locale === "en" ? (
-          <p style={{ marginBottom: "0" }} onClick={localeChangeEventKo}>
-            KO
-          </p>
-        ) : (
-          <p style={{ marginBottom: "0" }} onClick={localeChangeEventEn}>
-            EN
-          </p>
-        )}
+        {locale === "en" ? <p>KO</p> : <p>EN</p>}
       </div>
     </button>
   );

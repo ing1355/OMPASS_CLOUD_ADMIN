@@ -29,6 +29,11 @@
   align-self: center;
   margin-left: 7px;
 }
+
+.header-contents-locale-text > p {
+  margin-bottom: 0;
+}
+
 .lang-div {
   width: 12rem;
   height: auto;

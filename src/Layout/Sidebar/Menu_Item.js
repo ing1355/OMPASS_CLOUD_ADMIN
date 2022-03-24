@@ -14,7 +14,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
       : name === menuState
   , [submenu, menuState, name]);
   const [subMenuOpen, setSubMenuOpen] = useState(false);
-
+  
   useLayoutEffect(() => {
     if (isSelected && !subMenuOpen) setSubMenuOpen(true);
   }, [isSelected, subMenuOpen])

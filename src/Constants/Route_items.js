@@ -134,7 +134,6 @@ const route_info = (role) => role === "OMS"
       {
         key: "AppManagement",
         name: "AppManagement",
-        route: "/AppManagement/*",
         icon: BillingIcon,
         submenu: [
           {

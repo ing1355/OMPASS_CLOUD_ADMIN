@@ -8,6 +8,7 @@ import AdminsDetail from './AdminsDetail';
 const Admins = (props) => {
     const [usersData, setUsersData] = useState([]);
     const [detailData, setDetailData] = useState(null)
+    const [userData, setUserData] = useState(null);
 
     useLayoutEffect(() => {
         CustomAxiosGet(getAllAdminsApi, data => {
@@ -17,7 +18,7 @@ const Admins = (props) => {
 
     return <Routes>
         <Route path="/*" element={<AdminHome data={usersData} setDetailData={setDetailData} />} />
-        <Route path="/Detail" element={<AdminsDetail data={detailData} />} />
+        <Route path="/Detail" element={<AdminsDetail data={detailData} setUserData={setUserData}/>} />
     </Routes>
 }
 

@@ -14,9 +14,10 @@ import {
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import BillingEdtion from "../../Contents/Billing/BillingEdition";
+import AdminInfo from "./AdminInfo";
 
 const AdminsDetail = ({ data, locale }) => {
-  const { applications, billing, paymentHistories, policies, subAdmins, eventLogs } = data || {};
+  const { applications, billing, paymentHistories, policies, subAdmins, eventLogs, adminData } = data || {};
   const subAdminTableData = subAdmins && subAdmins.map(d => ({...d, name: d.firstName + d.lastName}))
   const [confirmVisible, setConfirmVisible] = useState(false);
 
@@ -37,6 +38,8 @@ const AdminsDetail = ({ data, locale }) => {
       {/* <section className="delete-data-button">
         <CustomButton onClick={openConfirm}>데이터 삭제</CustomButton>
       </section> */}
+
+      <AdminInfo data={adminData}/>      
 
       <BillingEdtion plan={billing && billing.plan} allUserNum={billing && billing.numberUsers} isOMS/>
 

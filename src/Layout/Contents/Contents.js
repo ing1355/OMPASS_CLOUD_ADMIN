@@ -17,18 +17,15 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
       script.src = 'https://code.jquery.com/jquery-1.12.4.min.js'
       document.head.appendChild(script)
       const routes = route_info(userProfile.role);
-      const target = [
+      const route_list = [
         ...routes
           .filter(item => item.route),
         ...routes
           .filter((item) => item.submenu)
           .map((item) => item.submenu)
           .flat(),
-      ].find(
-        (item) => {
-          return item.route.startsWith("/" + window.location.pathname.split("/")[1])
-        }
-      );
+      ]
+      const target = route_list.find((item) => window.location.pathname === '/' ? item.route === window.location.pathname + '*' : item.route === window.location.pathname + '/*');
       if (target) menuChange(target.name);
     }
   }, [isLogin])

@@ -137,18 +137,25 @@ export const BillingColumns = [
     name: "BILLINGCYCLE",
     key: "paymentInterval",
     render: (data) => data && <FormattedMessage id={data} />,
+    width: 150
   },
   {
     name: "PRICECOLUMN",
     key: "amount",
     render: (amount) => amount && slicePrice(amount),
   },
-  { name: "USERNUM", key: "numberUsers" },
-  { name: "PAYMENTDATE", key: "paymentDate" },
+  { name: "USERNUM", key: "numberUsers", width: 200 },
+  { name: "PAYMENTDATE", key: "paymentDate", width: 200 },
   {
     name: "PAYMENTSTATUS",
     key: 'paymentSuccess',
+    width: 120,
     render: (status) => paymentIsSuccessComponent(status)
+  },
+  {
+    name: 'NOTE',
+    key: 'paymentType',
+    render: (type) => type
   }
 ];
 

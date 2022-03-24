@@ -14,12 +14,12 @@ const AdminHome = ({ data, setDetailData }) => {
     const navigate = useNavigate()
     const clickForDetail = row => {
         CustomAxiosGet(getAdminDetailApi(row.adminId), detailData => {
-            setDetailData(detailData);
+            setDetailData({adminData: row, ...detailData});
             navigate('/Admins/Detail')
         })
     }
     return <div className="contents-container">
-        <CustomTable columns={OMSAdminsColumns} datas={tableData} rowClick={clickForDetail} />
+        <CustomTable columns={OMSAdminsColumns} datas={tableData} rowClick={clickForDetail} pagination numPerPage={10}/>
     </div>
 }
 

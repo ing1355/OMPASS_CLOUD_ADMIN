@@ -580,7 +580,9 @@ const locales = {
     REFUNDSUBSCRIPTION_1: '청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)',
     REFUNDSUBSCRIPTION_2: '청약 철회를 계속 진행하시겠습니까?',
     ANDROID: 'Android',
-    IOS: 'iOS'
+    IOS: 'iOS',
+    NOTE: '비고',
+    UPLOAD: '업로드'
   },
   KR: {
     PERNUM: "명",
@@ -1150,7 +1152,9 @@ const locales = {
     REFUNDSUBSCRIPTION_1: '청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)',
     REFUNDSUBSCRIPTION_2: '청약 철회를 계속 진행하시겠습니까?',
     ANDROID: '안드로이드',
-    IOS: 'iOS'
+    IOS: 'iOS',
+    NOTE: '비고',
+    UPLOAD: '업로드'
   },
 };
 

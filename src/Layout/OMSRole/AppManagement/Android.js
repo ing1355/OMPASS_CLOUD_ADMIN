@@ -1,4 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
 import {
   getAppManagementApi,
   registerAppManagementApi,
@@ -11,8 +13,10 @@ import {
   CustomAxiosPost,
   CustomAxiosPut,
 } from "../../../Functions/CustomAxios";
+import ActionCreators from "../../../redux/actions";
+import './AppManagement.css'
 
-const Android = () => {
+const Android = ({showErrorMessage}) => {
   const [appVersion, setAppVersion] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
@@ -30,7 +34,9 @@ const Android = () => {
         setTableLoading(false);
       },
       {
-        osType: "android",
+        params: {
+            os : "android"
+        }
       }
     );
   }, []);
@@ -40,6 +46,12 @@ const Android = () => {
   };
 
   const uploadApk = (e) => {
+    if(!appVersion) {
+      return showErrorMessage('NO_APP_VERSION')
+    }
+    if(!fileRef.current.files.length) {
+      return showErrorMessage('NO_APK_FILE')
+    }
     const formData = new FormData();
     formData.append("file", fileRef.current.files[0]);
     formData.append("version", appVersion);
@@ -87,7 +99,7 @@ const Android = () => {
     <div className="contents-container">
       <div className="app-management-div">
         <div style={{ marginBottom: "1rem" }}>
-          앱 버전 :{" "}
+          <FormattedMessage id="AppVersion"/> :{" "}
           <input value={appVersion || ""} onChange={onChangeAppVersion} />
         </div>
 
@@ -100,7 +112,7 @@ const Android = () => {
             id="file"
             accept=".apk"
           />
-          <button onClick={uploadApk}>업로드</button>
+          <button onClick={uploadApk}><FormattedMessage id="UPLOAD"/></button>
         </div>
       </div>
       <CustomTable
@@ -117,4 +129,18 @@ const Android = () => {
   );
 };
 
-export default Android;
+function mapStateToProps(state) {
+  return {
+      
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      showErrorMessage: (id) => {
+          dispatch(ActionCreators.showErrorMessage(id));
+      },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Android);

@@ -51,7 +51,10 @@ const locales = {
     TOO_MANY_PERSON: 'The number of prepaid OMPASS users are exceeded. Exceeded number of users are {param}.',
     EXCEL_EMPTY: 'There is no user information from the file.',
     EXCEL_DOWNLOAD_FAIL: 'Failed to download! Please contact to OMPASS customer service by clicking the icon at the bottom right.',
-    ADMINDELETESUCCESS: 'You have successfully canceled your membership.'
+    ADMINDELETESUCCESS: 'You have successfully canceled your membership.',
+    NO_APP_VERSION: '앱 버전을 입력해주세요.',
+    NO_APK_FILE: 'apk 파일을 등록해주세요.',
+    ALREADY_HAVE_VERSION: '이미 존재하는 버전입니다.'
   },
   KR: {
     success: "성공하였습니다!",
@@ -105,7 +108,10 @@ const locales = {
     TOO_MANY_PERSON: '결제하신 OMPASS 사용자 수를 초과하였습니다. 초과된 사용자 수는 {param}명입니다.',
     EXCEL_EMPTY: '사용자 정보가 존재하지 않습니다.',
     EXCEL_DOWNLOAD_FAIL: '다운로드에 실패하였습니다! OMPASS 고객센터에 문의해 주세요.',
-    ADMINDELETESUCCESS: '회원탈퇴를 성공적으로 마쳤습니다.'
+    ADMINDELETESUCCESS: '회원탈퇴를 성공적으로 마쳤습니다.',
+    NO_APP_VERSION: '앱 버전을 입력해주세요.',
+    NO_APK_FILE: 'apk 파일을 등록해주세요.',
+    ALREADY_HAVE_VERSION: '이미 존재하는 버전입니다.'
   },
 };
 
