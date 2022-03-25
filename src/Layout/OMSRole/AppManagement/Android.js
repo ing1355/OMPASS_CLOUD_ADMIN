@@ -17,7 +17,8 @@ import ActionCreators from "../../../redux/actions";
 import './AppManagement.css'
 
 const Android = ({showErrorMessage}) => {
-  const [appVersion, setAppVersion] = useState(null);
+  const [appVersion, setAppVersion] = useState("");
+  const [description, setDescription] = useState("");
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const fileRef = useRef(null);
@@ -45,8 +46,12 @@ const Android = ({showErrorMessage}) => {
     setAppVersion(e.target.value);
   };
 
+  const onChangeDescription = (e) => {
+    setDescription(e.target.value);
+  };
+
   const uploadApk = (e) => {
-    if(!appVersion) {
+    if(!appVersion.length) {
       return showErrorMessage('NO_APP_VERSION')
     }
     if(!fileRef.current.files.length) {
@@ -55,14 +60,15 @@ const Android = ({showErrorMessage}) => {
     const formData = new FormData();
     formData.append("file", fileRef.current.files[0]);
     formData.append("version", appVersion);
+    formData.append("description", description);
     formData.append("os", "android");
     setTableLoading(true);
     if (tableData.find((t) => t.version === appVersion)) {
       CustomAxiosPut(
         updateAppManagementApi,
         formData,
-        (res) => {
-          console.log(res);
+        (data) => {
+          setTableData(tableData.map(td => td.version === appVersion ? data : td))
           setTableLoading(false);
         },
         (err) => {
@@ -79,8 +85,8 @@ const Android = ({showErrorMessage}) => {
       CustomAxiosPost(
         registerAppManagementApi,
         formData,
-        (res) => {
-          console.log(res);
+        (data) => {
+          setTableData([data, ...tableData])
           setTableLoading(false);
         },
         (err) => {
@@ -100,7 +106,12 @@ const Android = ({showErrorMessage}) => {
       <div className="app-management-div">
         <div style={{ marginBottom: "1rem" }}>
           <FormattedMessage id="AppVersion"/> :{" "}
-          <input value={appVersion || ""} onChange={onChangeAppVersion} />
+          <input value={appVersion} onChange={onChangeAppVersion} />
+        </div>
+
+        <div style={{ marginBottom: "1rem", width: '600px' }}>
+          <FormattedMessage id="DESCRIPTION"/> :{" "}
+          <input value={description} onChange={onChangeDescription} style={{width:'80%'}}/>
         </div>
 
         <div>

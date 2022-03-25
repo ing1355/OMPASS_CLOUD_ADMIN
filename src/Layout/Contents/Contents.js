@@ -25,17 +25,17 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
           .map((item) => item.submenu)
           .flat(),
       ]
-      const target = route_list.find((item) => window.location.pathname === '/' ? item.route === window.location.pathname + '*' : item.route === window.location.pathname + '/*');
-      if (target) menuChange(target.name);
+      const target = route_list.filter((item) => item.route === '/*' ? item.route === window.location.pathname + '*' : window.location.pathname.startsWith(item.route.slice(0, -2)))
+      if (target.length) menuChange(target[target.length - 1].name);
     }
   }, [isLogin])
-  
+
   useEffect(() => {
     return () => {
       Chat.shutdown()
     }
-  },[])
-  
+  }, [])
+
   return (
     <>
       <div className="contents">

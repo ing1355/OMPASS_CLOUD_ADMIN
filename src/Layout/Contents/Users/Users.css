@@ -267,12 +267,6 @@
   justify-content: center;
 }
 .form-ul li .img-div img {
-  width: 50%;
-}
-.form-ul li:first-child .img-div img {
-  width: 60%;
-}
-.form-ul li:last-child .img-div img {
   width: 70%;
 }
 .form-ul li p {

@@ -1,7 +1,6 @@
 import React from "react";
 import "./Brand.css";
 import logo from "../../assets/logo.png";
-import ompassphone from "../..";
 import { useNavigate } from "react-router";
 const Brand = () => {
   const navigate = useNavigate();

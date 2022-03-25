@@ -155,7 +155,7 @@ export const BillingColumns = [
   {
     name: 'NOTE',
     key: 'paymentType',
-    render: (type) => type
+    render: (type) => type ? <FormattedMessage id={type}/> : ''
   }
 ];
 

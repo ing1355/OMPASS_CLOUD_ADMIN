@@ -39,8 +39,9 @@ const AdminsDetail = ({ data, locale }) => {
         <CustomButton onClick={openConfirm}>데이터 삭제</CustomButton>
       </section> */}
 
-      <AdminInfo data={adminData}/>      
+      <AdminInfo data={adminData}/>
 
+      <h2>Billing Info</h2>
       <BillingEdtion plan={billing && billing.plan} allUserNum={billing && billing.numberUsers} isOMS/>
 
       <section className="no-border">

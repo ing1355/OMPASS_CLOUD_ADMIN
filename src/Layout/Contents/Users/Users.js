@@ -15,7 +15,7 @@ import ActionCreators from "../../../redux/actions";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
 import UsersContents from "./UserContents";
 
-const UserDetail = lazy(() => import('./UserDetail'))
+const UserDetail = lazy(() => import('./UserDetail/UserDetail'))
 
 const Users = ({
   userProfile

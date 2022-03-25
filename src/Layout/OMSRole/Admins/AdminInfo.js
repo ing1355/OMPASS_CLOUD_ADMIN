@@ -5,7 +5,7 @@ const AdminInfo = ({ data }) => {
   const { email, country, company, name, phone } = data || {};
   return (
     <section className="admin-info-section" style={{ border: "0" }}>
-      <h2>User Info</h2>
+      <h2>Admin Info</h2>
       <div>
         Email : <b>{email}</b>
       </div>

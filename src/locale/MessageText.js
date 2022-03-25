@@ -52,9 +52,9 @@ const locales = {
     EXCEL_EMPTY: 'There is no user information from the file.',
     EXCEL_DOWNLOAD_FAIL: 'Failed to download! Please contact to OMPASS customer service by clicking the icon at the bottom right.',
     ADMINDELETESUCCESS: 'You have successfully canceled your membership.',
-    NO_APP_VERSION: '앱 버전을 입력해주세요.',
-    NO_APK_FILE: 'apk 파일을 등록해주세요.',
-    ALREADY_HAVE_VERSION: '이미 존재하는 버전입니다.'
+    NO_APP_VERSION: 'Please enter the app version.',
+    NO_APK_FILE: 'Please register apk file.',
+    ALREADY_HAVE_VERSION: 'This version already exists.'
   },
   KR: {
     success: "성공하였습니다!",
