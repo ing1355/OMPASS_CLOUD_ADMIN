@@ -103,7 +103,7 @@ const locales = {
       "{param} is going to be automatically paid every 365 days from today.",
     BILLINGCONFIRMMESSAGE: "Would you like to make a payment as above?",
     BILLINGLOADING: "Loading...",
-    MONTHLY: "Month",
+    MONTHLY: "Month(30 days)",
     ANNUALLY: "Annual",
     EVERYMONTH: "Month",
     EVERYYEAR: "Annual",
@@ -587,7 +587,7 @@ const locales = {
     REGULAR_PAYMENT: 'Regular Payment',
     REFUND: 'Refund',
     TYPE: 'Type',
-    DEVICE_INFO: 'Device Info'
+    DEVICE_INFO: 'Authenticator'
   },
   KR: {
     PERNUM: "명",
@@ -691,7 +691,7 @@ const locales = {
       "결제일로 부터 365일 간격으로 {param}(이)가 자동으로 결제됩니다.",
     BILLINGCONFIRMMESSAGE: "상기 내용으로 결제를 진행하시겠습니까?",
     BILLINGLOADING: "결제 창 불러오는 중...",
-    MONTHLY: "월",
+    MONTHLY: "월(30일)",
     ANNUALLY: "년",
     EVERYMONTH: "매 월",
     EVERYYEAR: "매 년",
@@ -1164,7 +1164,7 @@ const locales = {
     REGULAR_PAYMENT: '정기 결제',
     REFUND: '청약 철회',
     TYPE: '종류',
-    DEVICE_INFO: '장치 정보'
+    DEVICE_INFO: '인증 장치'
   },
 };
 

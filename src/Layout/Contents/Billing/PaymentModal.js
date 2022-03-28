@@ -31,6 +31,7 @@ const PaymentModal = ({
   setConfirmModal,
   currentPlan,
   editions,
+  statusIsRUN
 }) => {
   const { adminId } = userProfile;
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -194,7 +195,7 @@ const PaymentModal = ({
       okLoading={confirmLoading}
       cancelCallback={closeConfirmModal}
     >
-      {!currentPlan || currentPlan.status !== "RUN" ? (
+      {!currentPlan || !statusIsRUN ? (
         <>
           <div>
             <FormattedMessage id="PLAN" /> : {inputEdition}

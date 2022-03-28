@@ -17,7 +17,7 @@ const WebAuthnInfo = ({data}) => {
             if(os.includes('Mac')) return iosIcon
             if(os.includes('Android') || os.includes('android')) return androidIcon
             if(os.includes('Chrome')) return chromeIcon
-            if(os.includes('iOS')) return iosIcon
+            if(os.includes('iOS') || os.includes('ios')) return iosIcon
         }
         return unknownIcon
     },[os])
@@ -37,7 +37,8 @@ const WebAuthnInfo = ({data}) => {
             </div>
 
             <p>
-                <b><FormattedMessage id="TYPE"/></b>
+                {/* <b><FormattedMessage id="TYPE"/></b> */}
+                <b>Type</b>
                 <br />
                 {data ? "WebAuthn" : <FormattedMessage id="Unknown"/>}
             </p>
@@ -52,7 +53,7 @@ const WebAuthnInfo = ({data}) => {
                 {data ? getMobileOSByOS + ' ' + osVersion : <FormattedMessage id="Unknown" />}
             </p>
         </li>
-        <li>
+        {/* <li>
             <div className="img-div">
                 <img src={data ? authenticatorIcon : unknownIcon} />
             </div>
@@ -61,7 +62,7 @@ const WebAuthnInfo = ({data}) => {
                 <br />
                 {data ? model : <FormattedMessage id="Unknown" />}
             </p>
-        </li>
+        </li> */}
     </>
 }
 

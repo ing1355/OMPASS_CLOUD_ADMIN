@@ -6,17 +6,17 @@ import androidIcon from "../../../../assets/androidIcon.png";
 import unknownIcon from '../../../../assets/unknownIcon.png'
 import { FormattedMessage } from 'react-intl';
 
-const MobileInfo = ({data}) => {
+const MobileInfo = ({ data }) => {
     const { appVersion, model, os, osVersion } = data || {};
 
     const getMobileOSByOS = useMemo(() => {
-        if(os) {
-            if(os === 'android') return 'Android'
-            if(os === 'ios') return 'iOS'
+        if (os) {
+            if (os === 'android') return 'Android'
+            if (os === 'ios') return 'iOS'
             return os
         }
-    },[os])
-    
+    }, [os])
+
     return <>
         <li>
             <div className="img-div">
@@ -24,8 +24,9 @@ const MobileInfo = ({data}) => {
             </div>
 
             <p>
+                {/* <b><FormattedMessage id="TYPE" /></b> */}
                 <b>Type</b>
-                <br/>
+                <br />
                 {data ? "OMPASS Moblie " + appVersion : <FormattedMessage id="Unknown" />}
             </p>
         </li>

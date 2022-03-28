@@ -114,6 +114,7 @@ const Billing = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { userNum, check } = e.target.elements;
+    console.log(check)
     if (status === "RUN") {
       if (numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
@@ -123,7 +124,7 @@ const Billing = ({
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (status !== "RUN" && !check.checked)
+    if (!statusIsRUN && !check.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     // if (status !== "RUN" && !checkAll.checked)
     //   return showErrorMessage("PLEASE_AGREEMENT_CHECK");
@@ -409,6 +410,7 @@ const Billing = ({
         inputUserNum={inputUserNum}
         inputEdition={inputEdition}
         cost={cost}
+        statusIsRUN={statusIsRUN}
         editions={editions}
         currentPlan={currentPlan}
         isKorea={isKorea}
