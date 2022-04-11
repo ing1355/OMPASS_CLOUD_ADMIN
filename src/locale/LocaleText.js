@@ -570,7 +570,6 @@ const locales = {
     AppVersion: "Version",
     AppHash: "Hash Value",
     UploadDate: "Upload Date",
-<<<<<<< HEAD
     Refund: 'Refund',
     Unknown: 'Unknown',
     EventName: 'Event ID',
@@ -591,26 +590,6 @@ const locales = {
     CANT_WITHDRAWAL_BECAUSE_PAYMENT: 'Cannot proceed with membership withdrawal now. Please proceed with the outstanding payment first.',
     USER_EXCEL_TITLE: 'User List',
     USER_EXCEL_TITLE_PARAMS: 'User List{param}'
-=======
-    Refund: "Refund",
-    Unknown: "Unknown",
-    EventName: "Event ID",
-    METHOD: "Method",
-    ISSUCCESS: "Success or Failure",
-    SUBSCRIPTION_REFUND_TITLE: "OMPASS Refund",
-    REFUNDSUBSCRIPTION_1:
-      "You cannot use OMPASS when you refund.\n(Less than 10 people will be converted to a free account.)",
-    REFUNDSUBSCRIPTION_2: "Do you still want to proceed with refund?",
-    ANDROID: "Android",
-    IOS: "iOS",
-    NOTE: "Note",
-    UPLOAD: "Upload",
-    FIRST_PAYMENT: "First Payment",
-    REGULAR_PAYMENT: "Regular Payment",
-    REFUND: "Refund",
-    TYPE: "Type",
-    DEVICE_INFO: "Authenticator",
->>>>>>> 352044041bb0ec9fa8a793fd4da7c91fdf71a1d3
   },
   KR: {
     PERNUM: "명",
@@ -1170,7 +1149,6 @@ const locales = {
     AppVersion: "버전",
     AppHash: "해시값",
     UploadDate: "업로드 날짜",
-<<<<<<< HEAD
     Refund: '청약 철회',
     Unknown: '알 수 없음',
     EventName: '이벤트 ID',
@@ -1191,26 +1169,6 @@ const locales = {
     CANT_WITHDRAWAL_BECAUSE_PAYMENT: '현재 회원탈퇴를 진행할 수 없습니다. 미처리 된 결제를 먼저 진행해주세요.',
     USER_EXCEL_TITLE: '사용자 리스트',
     USER_EXCEL_TITLE_PARAMS: '사용자 리스트{param}'
-=======
-    Refund: "청약 철회",
-    Unknown: "알 수 없음",
-    EventName: "이벤트 ID",
-    METHOD: "Method",
-    ISSUCCESS: "성공 여부",
-    SUBSCRIPTION_REFUND_TITLE: "OMPASS 청약 철회",
-    REFUNDSUBSCRIPTION_1:
-      "청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)",
-    REFUNDSUBSCRIPTION_2: "청약 철회를 계속 진행하시겠습니까?",
-    ANDROID: "안드로이드",
-    IOS: "iOS",
-    NOTE: "비고",
-    UPLOAD: "업로드",
-    FIRST_PAYMENT: "첫 결제",
-    REGULAR_PAYMENT: "정기 결제",
-    REFUND: "청약 철회",
-    TYPE: "종류",
-    DEVICE_INFO: "인증 장치",
->>>>>>> 352044041bb0ec9fa8a793fd4da7c91fdf71a1d3
   },
 };
 
