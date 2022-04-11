@@ -404,11 +404,11 @@ const locales = {
       "Eventhough the recurring payment (subscription) fails on the payment date, the existing service will be still provicded for a month (30 days) and the payment attempt will be made once a day until then. However, in the case of PayPal, payment attempts are made up to 2 times every 5 days from the date of payment failure.",
     TermsOfPurchase_title_5: "5. CANCELLATION",
     TermsOfPurchase_title_5_1:
-      "If the Customer wants to cancel (withdraw) the Service contract, the Customers should click the [Cancel Membership] button from the Admins Management page.",
+      "If the Customer wants to cancel (withdraw) the Service contract, the Customer should click the [Cancel Membership] button from the “Admins Management” page.",
     TermsOfPurchase_title_5_2:
-      "If the Customer wants to get refund, It is required to contact the Company by phone or email within 7 days from the date of payment (payment date) and 100% of the payment amount will be refunded before the end of the next month.",
+      "“Cancel Auto-Renewal” refers to canceling the current recurring payment (subscription) which is not withdrawing the membership.",
     TermsOfPurchase_title_5_3:
-      "Cancel Auto-Renewal refers to canceling the current recurring payment (subscription) which is not withdrawing the membership.",
+      "If the Customer wants to get a refund, It is required to click the [Refund] button from the “Billing” page within 7 days from the date of payment and 100% of the recent payment for a month will be refunded.",
     TermsOfPurchase_title_6: "6. SERVICE REGISTRATION",
     TermsOfPurchase_title_6_1:
       "The Customer who wants to use the Service is required to be registered as a member by providing the last name, first name, email address, country code, phone number and company (organization) name.",
@@ -570,6 +570,7 @@ const locales = {
     AppVersion: "Version",
     AppHash: "Hash Value",
     UploadDate: "Upload Date",
+<<<<<<< HEAD
     Refund: 'Refund',
     Unknown: 'Unknown',
     EventName: 'Event ID',
@@ -590,6 +591,26 @@ const locales = {
     CANT_WITHDRAWAL_BECAUSE_PAYMENT: 'Cannot proceed with membership withdrawal now. Please proceed with the outstanding payment first.',
     USER_EXCEL_TITLE: 'User List',
     USER_EXCEL_TITLE_PARAMS: 'User List{param}'
+=======
+    Refund: "Refund",
+    Unknown: "Unknown",
+    EventName: "Event ID",
+    METHOD: "Method",
+    ISSUCCESS: "Success or Failure",
+    SUBSCRIPTION_REFUND_TITLE: "OMPASS Refund",
+    REFUNDSUBSCRIPTION_1:
+      "You cannot use OMPASS when you refund.\n(Less than 10 people will be converted to a free account.)",
+    REFUNDSUBSCRIPTION_2: "Do you still want to proceed with refund?",
+    ANDROID: "Android",
+    IOS: "iOS",
+    NOTE: "Note",
+    UPLOAD: "Upload",
+    FIRST_PAYMENT: "First Payment",
+    REGULAR_PAYMENT: "Regular Payment",
+    REFUND: "Refund",
+    TYPE: "Type",
+    DEVICE_INFO: "Authenticator",
+>>>>>>> 352044041bb0ec9fa8a793fd4da7c91fdf71a1d3
   },
   KR: {
     PERNUM: "명",
@@ -983,11 +1004,11 @@ const locales = {
       "결제일에 정기결제(자동결제)가 실패된 경우 월 (30일) 기간 동안 기존 서비스가 유지되며 하루 1회 결제시도가 진행됩니다. 단, 페이팔의 경우는 결제 실패 일로부터 5일마다 최대 2번 결제시도가 진행됩니다.",
     TermsOfPurchase_title_5: "제5조 청약 철회(환불 규정)",
     TermsOfPurchase_title_5_1:
-      "회원이 서비스 및 사이트와의 이용계약을 해지하고자 하는 경우에는 회원 본인이 관리자 관리 페이지의 회원탈퇴를 통하여 청약 철회신청을 하여야 합니다.",
+      "회원이 서비스 및 사이트와의 이용계약을 해지하고자 하는 경우에는 회원 본인이 관리자 관리 페이지의 회원탈퇴를 통하여 해지해야 합니다.",
     TermsOfPurchase_title_5_2:
       "구독 취소는 청약 철회가 아닌 정기결제를 취소하는 것을 말하며 구독 취소 후에는 사용 만료일까지 사용이 가능합니다.",
     TermsOfPurchase_title_5_3:
-      "해당 결제일(결제 날짜)로부터 7일 이내에 청약 철회를 신청하면 신청일로 부터 익월 말일까지 결제금액의 100% 가 환불됩니다.",
+      "회원이 환불을 원할 경우 결제일로부터 7일 이내에 '결제' 페이지의 [환불] 버튼을 클릭하여야 하며, 최근 1개월분의 결제금액 100%가 환불됩니다.",
     TermsOfPurchase_title_6: "제6조 서비스 이용 신청",
     TermsOfPurchase_title_6_1:
       "회원으로 등록하여 서비스 및 사이트를 이용하려는 관리자는 사이트에서 요청하는 제반정보(성, 이름, 이메일주소, 국가코드, 전화번호, 회사이름)를 제공해야 합니다.",
@@ -1149,6 +1170,7 @@ const locales = {
     AppVersion: "버전",
     AppHash: "해시값",
     UploadDate: "업로드 날짜",
+<<<<<<< HEAD
     Refund: '청약 철회',
     Unknown: '알 수 없음',
     EventName: '이벤트 ID',
@@ -1169,6 +1191,26 @@ const locales = {
     CANT_WITHDRAWAL_BECAUSE_PAYMENT: '현재 회원탈퇴를 진행할 수 없습니다. 미처리 된 결제를 먼저 진행해주세요.',
     USER_EXCEL_TITLE: '사용자 리스트',
     USER_EXCEL_TITLE_PARAMS: '사용자 리스트{param}'
+=======
+    Refund: "청약 철회",
+    Unknown: "알 수 없음",
+    EventName: "이벤트 ID",
+    METHOD: "Method",
+    ISSUCCESS: "성공 여부",
+    SUBSCRIPTION_REFUND_TITLE: "OMPASS 청약 철회",
+    REFUNDSUBSCRIPTION_1:
+      "청약 철회 시 OMPASS 사용이 불가능합니다.\n(10인 이하는 무료계정으로 전환됩니다.)",
+    REFUNDSUBSCRIPTION_2: "청약 철회를 계속 진행하시겠습니까?",
+    ANDROID: "안드로이드",
+    IOS: "iOS",
+    NOTE: "비고",
+    UPLOAD: "업로드",
+    FIRST_PAYMENT: "첫 결제",
+    REGULAR_PAYMENT: "정기 결제",
+    REFUND: "청약 철회",
+    TYPE: "종류",
+    DEVICE_INFO: "인증 장치",
+>>>>>>> 352044041bb0ec9fa8a793fd4da7c91fdf71a1d3
   },
 };
 
