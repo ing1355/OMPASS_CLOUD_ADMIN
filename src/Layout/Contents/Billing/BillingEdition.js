@@ -85,7 +85,7 @@ const BillingEdtion = ({ plan, allUserNum, userProfile, locale, setCurrentPlan, 
                 setCurrentPlan={setCurrentPlan}
                 editions={editions}
             />
-            {status === 'RUN_REFUNDABLE' && <BillingRefund/>}</>}
+            {status === 'REFUNDABLE_RUN' && <BillingRefund isKorea={isKorea}/>}</>}
         </div>
         <div className="billing-edition billing-edition-user-count">
             <div className="billing-edition-top-box billing-edition-users">

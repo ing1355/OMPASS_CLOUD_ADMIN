@@ -119,18 +119,6 @@
   justify-content: right;
   margin-bottom: 1rem;
 }
-.excel-button-box div button {
-  height: 35px;
-  border: 0;
-  outline: 0;
-  background: none;
-  cursor: pointer;
-  border: 1px solid rgb(189, 189, 189);
-}
-.excel-button-box div button:hover {
-  border: 1px solid #0f96cc;
-  color: #0f96cc;
-}
 
 .user-policies-container {
   border-top: 1px solid rgb(189, 189, 189);
@@ -204,10 +192,6 @@
 }
 .user-detatil-button:hover {
   background: #256e8b;
-}
-
-.excel-button {
-  padding: 4px 12px;
 }
 
 .execel-modal-text {

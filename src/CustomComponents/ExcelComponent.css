@@ -1,0 +1,13 @@
+.excel-button {
+    height: 35px;
+    border: 0;
+    outline: 0;
+    background: none;
+    cursor: pointer;
+    border: 1px solid rgb(189, 189, 189);
+  }
+
+  .excel-button:hover {
+    border: 1px solid #0f96cc;
+    color: #0f96cc;
+  }

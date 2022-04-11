@@ -11,7 +11,10 @@ const MessageController = ({msg}) => {
             if(msg.id) {
                 if(msg.type === 'success') message.success(formatMessage({id: msg.id}))
                 else if(msg.type === 'error') {
-                    if(msg.param) message.error(formatMessage({id: msg.id}, { param: msg.param }))
+                    if(msg.param) {
+                        if(typeof msg.param === 'object') message.error(formatMessage({id: msg.id}, { ...msg.param }))
+                        else message.error(formatMessage({id: msg.id}, { param: msg.param }))
+                    }
                     else message.error(formatMessage({id: msg.id}))
                 }
             } else {

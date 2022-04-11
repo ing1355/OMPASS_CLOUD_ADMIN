@@ -24,7 +24,10 @@ const locales = {
     NO_DIAL_CODE: 'Country code does not exist.',
     PLEASE_COMPLETE_ADMIN_MOBILE: 'Please complete your phone number.',
     INCORRECT_PASSWORD: "Password must be 3 combinations of 8 or more characters or 2 combinations of 10 or more characters using capital letters, lowercase letters, numbers and special characters.",
-    DIFFERENT_COUNTRY_CODE: 'A country of the admin user cannot be changed.'
+    DIFFERENT_COUNTRY_CODE: 'A country of the admin user cannot be changed.',
+    EXCEL_DATA_INVALID_USERID: 'Invalid data for user id in line {param}.',
+    EXCEL_DATA_INVALID_APPLICATION_NAME: 'Invalid data for application name in line {param}.',
+    EXCEL_DATA_DUPLICATED: 'line {param} and {param2} are duplicate data.'
   },
   KR: {
     POLICY_NAME_RULE_ERROR: "정책명은 20자 이하의 영문 대소문자 및 완성된 한글과 숫자만 사용 가능합니다.",
@@ -51,7 +54,10 @@ const locales = {
     NO_DIAL_CODE: '국가번호가 존재하지 않습니다.',
     PLEASE_COMPLETE_ADMIN_MOBILE: '전화번호를 완성해주세요.',
     INCORRECT_PASSWORD: '비밀번호는 8자 이상 3가지 조합 혹은 10자 이상 2가지 조합이어야 합니다.',
-    DIFFERENT_COUNTRY_CODE: '관리자의 국가는 변경될 수 없습니다.'
+    DIFFERENT_COUNTRY_CODE: '관리자의 국가는 변경될 수 없습니다.',
+    EXCEL_DATA_INVALID_USERID: '{param}행에 잘못된 사용자 아이디 데이터가 존재합니다.',
+    EXCEL_DATA_INVALID_APPLICATION_NAME: '{param}행에 잘못된 어플리케이션명 데이터가 존재합니다.',
+    EXCEL_DATA_DUPLICATED: '{param}행과 {param2}행이 중복된 데이터입니다.'
   },
 };
 

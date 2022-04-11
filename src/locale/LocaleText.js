@@ -68,8 +68,8 @@ const locales = {
     REGISTEREDUSERNUM: "Registered Users",
     UNREGISTEREDUSERNUM: "	Unregistered Users",
     BYPASSUSERNUM: "Bypass Users",
-    EXCELUPLOAD: "Import User from CSV",
-    EXCELDOWNLOAD: "Export User from CSV",
+    EXCELUPLOAD: "Import User from Excel",
+    EXCELDOWNLOAD: "Export User from Excel",
     REGISTER: "Register",
     DELETECONFIRM: "Are you sure you want to delete?",
     APPLICATION: "Application",
@@ -127,7 +127,7 @@ const locales = {
       "The default policy is basically provided to apply for all applications.",
     CUSTOMPOLICYDESCRIPTION:
       "You can make your own custom policy to apply applications differ from each others.",
-    ACCESSCONTROLTITLE: "OMPASS Access Control",
+    ACCESSCONTROLTITLE: "OMPASS Authentication Control",
     ACCESSCONTROLACTIVE: "Enable OMPASS Authentication",
     ACCESSCONTROLACTIVEDESCRIPTION:
       "Force users to authenticate by OMPASS to log in",
@@ -190,18 +190,17 @@ const locales = {
     GODOCUMENT: "Go Document",
     POLICYDISABLEDTITLE: "Sorry, this option cannot be selected.",
     POLICYDISABLEDDESCRIPTION:
-      "This area will be displayed only if OMPASS authentication is enabled in the selection of OMPASS access control.",
-    CSV_DESCRIPTION_1: "* Users who already exist will be overwritten.",
-    CSV_DESCRIPTION_2:
+      "This area will be displayed only if OMPASS authentication is enabled in the selection of OMPASS Authentication Control.",
+    EXCEL_DESCRIPTION_1: "* Users who already exist will be overwritten.",
+    EXCEL_DESCRIPTION_2:
       "* Email will not be updated if the email address is malformed.",
-    CSV_DESCRIPTION_3: "* Only .csv files are allowed.",
     NULL_OPTION: "Select",
     USERBYPASSNOTICETEXT:
-      "- Bypass works only if the policy of OMPASS access control is set to enable OMPASS authentication or deny all.",
+      "- Bypass works only if the policy of OMPASS Authentication Control is set to enable OMPASS authentication or deny all.",
     EXCEL_DOWNLOAD_TITLE:
       "Please select an application from which to download user information.",
     EXCEL_DOWNLOAD_DESCRIPTION:
-      "* User information of the selected application below will be saved as a .csv file.",
+      "* User information of the selected application below will be saved as a .xlsx file.",
     USED_FREE_PLAN: "Free",
     FREE_TRIAL: "Free Trial",
     UPDATE_BEFORE: "Previous",
@@ -587,7 +586,10 @@ const locales = {
     REGULAR_PAYMENT: 'Regular Payment',
     REFUND: 'Refund',
     TYPE: 'Type',
-    DEVICE_INFO: 'Authenticator'
+    DEVICE_INFO: 'Authenticator',
+    CANT_WITHDRAWAL_BECAUSE_PAYMENT: 'Cannot proceed with membership withdrawal now. Please proceed with the outstanding payment first.',
+    USER_EXCEL_TITLE: 'User List',
+    USER_EXCEL_TITLE_PARAMS: 'User List{param}'
   },
   KR: {
     PERNUM: "명",
@@ -783,16 +785,15 @@ const locales = {
     POLICYDISABLEDTITLE: "해당 정책은 선택할 수 없습니다.",
     POLICYDISABLEDDESCRIPTION:
       "이 항목은 OMPASS 인증 제어 정책이 OMPASS 인증 필수로 선택되어야 선택할 수 있는 항목입니다.",
-    CSV_DESCRIPTION_1: "* 이미 존재하는 사용자는 덮어쓰기 됩니다.",
-    CSV_DESCRIPTION_2: "* 이메일 형식이 잘못되어 있을 경우 무시됩니다.",
-    CSV_DESCRIPTION_3: "* .csv 파일만 업로드 가능합니다.",
+    EXCEL_DESCRIPTION_1: "* 이미 존재하는 사용자는 덮어쓰기 됩니다.",
+    EXCEL_DESCRIPTION_2: "* 이메일 형식이 잘못되어 있을 경우 무시됩니다.",
     NULL_OPTION: "선택",
     USERBYPASSNOTICETEXT:
       "- 바이패스는 OMPASS 인증제어 정책이 OMPASS 인증 필수, 모두 거부로 설정되어 있는 경우에만 작동합니다.",
     EXCEL_DOWNLOAD_TITLE:
       "사용자 정보를 다운로드할 어플리케이션을 선택해주세요.",
     EXCEL_DOWNLOAD_DESCRIPTION:
-      "* 현재 선택한 어플리케이션의 사용자 정보가 .csv 파일로 저장됩니다.",
+      "* 현재 선택한 어플리케이션의 사용자 정보가 .xlsx 파일로 저장됩니다.",
     USED_FREE_PLAN: "무료 플랜 사용중",
     FREE_TRIAL: "무료 플랜",
     UPDATE_BEFORE: "변경 전",
@@ -1164,7 +1165,10 @@ const locales = {
     REGULAR_PAYMENT: '정기 결제',
     REFUND: '청약 철회',
     TYPE: '종류',
-    DEVICE_INFO: '인증 장치'
+    DEVICE_INFO: '인증 장치',
+    CANT_WITHDRAWAL_BECAUSE_PAYMENT: '현재 회원탈퇴를 진행할 수 없습니다. 미처리 된 결제를 먼저 진행해주세요.',
+    USER_EXCEL_TITLE: '사용자 리스트',
+    USER_EXCEL_TITLE_PARAMS: '사용자 리스트{param}'
   },
 };
 

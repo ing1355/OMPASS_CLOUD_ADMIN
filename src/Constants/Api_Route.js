@@ -16,7 +16,7 @@ export const isExistencePolicyApi = (adminId, title) => `/v1/admins/${adminId}/c
 export const getUsersApi = (adminId) => `/v1/admins/${adminId}/users`
 export const updateByPassApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/by-pass`
 export const updateEmailApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}/email`
-export const updateCSVApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/csv`
+export const updateExcelApi = (adminId, appId) => `/v1/admins/${adminId}/applications/${appId}/csv`
 export const deleteUserApi = (adminId, appId, userId) => `/v1/admins/${adminId}/applications/${appId}/users/${userId}`
 
 export const getAdminsApi = (adminId) => `/v1/admins/${adminId}`
@@ -44,10 +44,13 @@ export const getPaymentHistoryApi = (adminId) => `/v1/admins/${adminId}/payment-
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
 export const updateSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
-export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel-subscription`
+export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
-export const cancelSubscriptionPayPalApi = (adminId) => `/v1/admins/${adminId}/paypal/cancel-subscription`
-export const submitRefundApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/refund`
+export const updatePaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`
+export const successPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal/completion`
+export const cancelSubscriptionPayPalApi = (adminId) => `/v1/admins/${adminId}/paypal/cancel`
+export const submitRefundIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/refund`
+export const submitRefundPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal/refund`
 
 export const getLogsApi = (adminId) => `/v1/admins/${adminId}/logs`
 export const getPolicyLogsApi = (adminId) => `/v1/admins/${adminId}/policy-logs`

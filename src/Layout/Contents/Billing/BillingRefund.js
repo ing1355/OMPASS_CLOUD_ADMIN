@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react'
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { submitRefundApi } from '../../../Constants/Api_Route';
+import { submitRefundIamportApi, submitRefundPaypalApi } from '../../../Constants/Api_Route';
 import CustomConfirm from '../../../CustomComponents/CustomConfirm';
 import { CustomAxiosPost } from '../../../Functions/CustomAxios';
 
-const BillingRefund = ({userProfile}) => {
+const BillingRefund = ({userProfile, isKorea}) => {
     const {adminId} = userProfile
     const [refundOpen, setRefundOpen] = useState(false);
     const [refundLoading, setRefundLoading] = useState(false);
@@ -20,7 +20,7 @@ const BillingRefund = ({userProfile}) => {
 
     const submitRefund = () => {
         setRefundLoading(true);
-        CustomAxiosPost(submitRefundApi(adminId), null,
+        CustomAxiosPost(isKorea() ? submitRefundIamportApi(adminId) : submitRefundPaypalApi(adminId), null,
         (data) => {
             setRefundLoading(false);
             window.location.reload();

@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 export const planStatusCodes = {
     EXPIRED: <FormattedMessage id="NONEUSED" />,
     RUN: <FormattedMessage id="Valid" />,
-    RUN_REFUNDABLE: <FormattedMessage id="Valid" />,
+    REFUNDABLE_RUN: <FormattedMessage id="Valid" />,
     FREE: <FormattedMessage id="Valid" />,
     CANCEL: (
       <>

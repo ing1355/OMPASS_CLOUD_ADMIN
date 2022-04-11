@@ -86,7 +86,8 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
       return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
     }
     if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
-    if(inputFormat && mobile.value.length !== inputFormat.length && mobile.value.length !== inputDialCode.length + 1) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if(!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
+    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
       if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
     }
@@ -140,7 +141,6 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
                 jumpCursorToEnd
                 inputProps={{
                   name: "mobile",
-                  
                 }}
                 onChange={changeMobileInput}
                 preferredCountries={["kr", "us"]}

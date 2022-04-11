@@ -34,11 +34,11 @@ const SubscriptionCancel = ({
     setCancelConfirmModal(false);
   }, []);
 
-  const cancelIamPort = () => {
+  const cancelSubscription = () => {
     setConfirmLoading(true);
     CustomAxiosPost(
       !isKorea()
-        ? cancelSubscriptionPayPalApi
+        ? cancelSubscriptionPayPalApi(adminId)
         : cancelSubscriptionIamportApi(adminId),
       {},
       (data) => {
@@ -68,7 +68,7 @@ const SubscriptionCancel = ({
         visible={cancelConfirmModal}
         className="billing-modal"
         footer={true}
-        confirmCallback={cancelIamPort}
+        confirmCallback={cancelSubscription}
         okLoading={confirmLoading}
         cancelCallback={closeCancelConfirmModal}
       >

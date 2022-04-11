@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import {
   getBillingKeyApi,
   subscriptionIamportApi,
+  updatePaypalApi,
   updateSubscriptionIamportApi,
 } from "../../../Constants/Api_Route";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
@@ -49,17 +50,21 @@ const PaymentModal = ({
     }
   }, [editions, currentPlan]);
 
+
+
   const requestIamPort = () => {
     setConfirmLoading(true);
-    if (currentPlan.status === "RUN") {
+    if (statusIsRUN) {
       CustomAxiosPut(
-        updateSubscriptionIamportApi(adminId),
+        isKorea() ? updateSubscriptionIamportApi(adminId) : updatePaypalApi(adminId),
         {
           userCount: inputUserNum,
         },
         (data) => {
           setConfirmLoading(false);
           window.location.reload();
+        }, err => {
+          setConfirmLoading(false);
         }
       );
     } else {
@@ -190,8 +195,8 @@ const PaymentModal = ({
       visible={confirmModal}
       confirmCallback={requestIamPort}
       className="billing-modal"
-      footer={isKorea()}
-      closable={!isKorea()}
+      footer={isKorea() || statusIsRUN}
+      closable={!isKorea() && !statusIsRUN}
       okLoading={confirmLoading}
       cancelCallback={closeConfirmModal}
     >

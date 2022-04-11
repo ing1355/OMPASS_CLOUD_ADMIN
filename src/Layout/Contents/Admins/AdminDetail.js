@@ -46,6 +46,7 @@ const AdminDetail = ({
     role,
     subAdminId,
     index,
+    planStatus
   } = data || {};
   const { adminId } = userProfile;
   const navigate = useNavigate();
@@ -66,8 +67,9 @@ const AdminDetail = ({
   }, [phone]);
 
   const openConfirmModal = useCallback(() => {
+    if(planStatus === "FAILED_REGULAR_PAYMENT") return showErrorMessage('CANT_WITHDRAWAL_BECAUSE_PAYMENT')
     setConfirmModal(true);
-  }, []);
+  }, [data]);
   const closeConfirmModal = useCallback(() => {
     setConfirmLoading(false);
     setConfirmModal(false);
@@ -84,11 +86,10 @@ const AdminDetail = ({
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
-    if (!mobile.value.startsWith("+" + inputDialCode)) {
-      if (mobile.value.length < inputDialCode.length + 1)
-        return showErrorMessage("NO_DIAL_CODE");
-      if (mobile.value.length !== inputFormat.length)
-        return showErrorMessage("PLEASE_COMPLETE_ADMIN_MOBILE");
+    if(!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
+    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
+      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
     }
 
     if (role === "ADMIN" && data.country !== inputCountryCode)

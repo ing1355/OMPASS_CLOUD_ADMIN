@@ -13,7 +13,7 @@ import { Routes, Route } from "react-router-dom";
 import Breadcrumb from "../../../CustomComponents/Breadcrumb";
 import ActionCreators from "../../../redux/actions";
 import LinkDocument from "../../../CustomComponents/LinkDocument";
-import UsersContents from "./UserContents";
+import UserContents from "./UserContents";
 
 const UserDetail = lazy(() => import('./UserDetail/UserDetail'))
 
@@ -27,7 +27,6 @@ const Users = ({
   const [detailData, setDetailData] = useState({});
   const [selectView, setSelectView] = useState(0);
   const [applicationsData, setApplicationsData] = useState([]);
-  const [selectedApplication, setSelectedApplication] = useState(-1);
   const [maxUserCount, setMaxUserCount] = useState(1);
 
   useLayoutEffect(() => {
@@ -98,15 +97,13 @@ const Users = ({
         <Routes>
           <Route
             path="/"
-            element={<UsersContents
+            element={<UserContents
               setDetailData={setDetailData}
               tableData={tableData}
               _tableData={_tableData}
               tableLoading={tableLoading}
               selectView={selectView}
               setSelectView={setSelectView}
-              selectedApplication={selectedApplication}
-              setSelectedApplication={setSelectedApplication}
               setTableData={setTableData}
               maxCount={maxUserCount}
               applicationsData={applicationsData}

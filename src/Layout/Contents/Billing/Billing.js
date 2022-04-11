@@ -12,6 +12,7 @@ import {
   getPaymentHistoryApi,
   getBillingInfoApi,
   startPaypalApi,
+  successPaypalApi,
 } from "../../../Constants/Api_Route";
 import {
   CustomAxiosGetAll,
@@ -51,7 +52,7 @@ const Billing = ({
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const { status, numberUsers } = currentPlan
-  const statusIsRUN = status === 'RUN' || status === 'RUN_REFUNDABLE'
+  const statusIsRUN = status === 'RUN' || status === 'REFUNDABLE_RUN'
   const userNumList = useMemo(() => new Array(990).fill(1), []);
 
   const { formatMessage } = useIntl();
@@ -166,9 +167,12 @@ const Billing = ({
                 console.log(data);
                 setConfirmModal(false);
               },
-              onApprove: function (data, actions) {
-                console.log(data, actions);
-                window.location.reload();
+              onApprove: function ({subscriptionID}, actions) {
+                CustomAxiosPost(successPaypalApi(adminId), {
+                  subscriptionID
+                }, () => {
+                  window.location.reload();
+                })
               },
               onError: function (err) {
                 console.log(err);
@@ -180,7 +184,7 @@ const Billing = ({
         else {
           var script = document.createElement("script");
           script.src =
-            "https://www.paypal.com/sdk/js?client-id=AQVVRFHUuvzwlXTe5w054LaT3JvZxAQPw-zxcgQHDzm1skXH2e2M8cfKP_O8oO3xnRbV86uUyF0dfriY&vault=true&intent=subscription";
+            "https://www.paypal.com/sdk/js?client-id=" + (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? "AXI4UuS0o9whZmj9UDfzWLEhf3vl11W_j-kj_c5leAhsicOhZk-HEruD62M9Nq1SFJRVMJQ9qeme9Yyl" : "AWw5IOnvdd3vmni_i077RknEFRFAS2l443P72P0ZOjQqaAWUS4LU83mgHCQdRdcTe31feT0Sn7oTBluo") + "&vault=true&intent=subscription&locale=" + (isKorea() === 'ko' ? 'ko_KR' : 'en_US') ;
           script.onload = callback;
           document.head.appendChild(script);
         }

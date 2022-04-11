@@ -16,12 +16,11 @@ import {
 import ActionCreators from "../../../redux/actions";
 import './AppManagement.css'
 
-const Android = ({showErrorMessage}) => {
+const Android = ({ showErrorMessage }) => {
   const [appVersion, setAppVersion] = useState("");
   const [description, setDescription] = useState("");
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
-  const fileRef = useRef(null);
 
   useLayoutEffect(() => {
     CustomAxiosGet(
@@ -36,7 +35,7 @@ const Android = ({showErrorMessage}) => {
       },
       {
         params: {
-            os : "android"
+          os: "android"
         }
       }
     );
@@ -51,22 +50,18 @@ const Android = ({showErrorMessage}) => {
   };
 
   const uploadApk = (e) => {
-    if(!appVersion.length) {
+    if (!appVersion.length) {
       return showErrorMessage('NO_APP_VERSION')
     }
-    if(!fileRef.current.files.length) {
-      return showErrorMessage('NO_APK_FILE')
-    }
-    const formData = new FormData();
-    formData.append("file", fileRef.current.files[0]);
-    formData.append("version", appVersion);
-    formData.append("description", description);
-    formData.append("os", "android");
     setTableLoading(true);
     if (tableData.find((t) => t.version === appVersion)) {
       CustomAxiosPut(
         updateAppManagementApi,
-        formData,
+        {
+          version: appVersion,
+          description,
+          os:'android'
+        },
         (data) => {
           setTableData(tableData.map(td => td.version === appVersion ? data : td))
           setTableLoading(false);
@@ -74,17 +69,16 @@ const Android = ({showErrorMessage}) => {
         (err) => {
           console.log(err);
           setTableLoading(false);
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
         }
       );
     } else {
       CustomAxiosPost(
         registerAppManagementApi,
-        formData,
+        {
+          version: appVersion,
+          description,
+          os:'android'
+        },
         (data) => {
           setTableData([data, ...tableData])
           setTableLoading(false);
@@ -92,46 +86,32 @@ const Android = ({showErrorMessage}) => {
         (err) => {
           console.log(err);
           setTableLoading(false);
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
         }
       );
     }
   };
+
   return (
     <div className="contents-container">
       <div className="app-management-div">
         <div style={{ marginBottom: "1rem" }}>
-          <FormattedMessage id="AppVersion"/> :{" "}
+          <FormattedMessage id="AppVersion" /> :{" "}
           <input value={appVersion} onChange={onChangeAppVersion} />
         </div>
 
-        <div style={{ marginBottom: "1rem", width: '600px' }}>
-          <FormattedMessage id="DESCRIPTION"/> :{" "}
-          <input value={description} onChange={onChangeDescription} style={{width:'80%'}}/>
-        </div>
-
-        <div>
-          앱 무결성 체크 :{" "}
-          <input
-            type="file"
-            name="file"
-            ref={fileRef}
-            id="file"
-            accept=".apk"
-          />
-          <button onClick={uploadApk}><FormattedMessage id="UPLOAD"/></button>
+        <div style={{ marginBottom: "1rem" }}>
+          <FormattedMessage id="DESCRIPTION" /> :{" "}
+          <input value={description} onChange={onChangeDescription} style={{ width: '45%' }} />
+          <button onClick={uploadApk}><FormattedMessage id="REGISTER" /></button>
         </div>
       </div>
       <CustomTable
         columns={AppManagementColumns}
         datas={tableData}
         pagination
-        rowClick={({ version }) => {
+        rowClick={({ version, description }) => {
           setAppVersion(version);
+          setDescription(description)
         }}
         numPerPage={10}
         loading={tableLoading}
@@ -142,15 +122,15 @@ const Android = ({showErrorMessage}) => {
 
 function mapStateToProps(state) {
   return {
-      
+
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-      showErrorMessage: (id) => {
-          dispatch(ActionCreators.showErrorMessage(id));
-      },
+    showErrorMessage: (id) => {
+      dispatch(ActionCreators.showErrorMessage(id));
+    },
   };
 }
 

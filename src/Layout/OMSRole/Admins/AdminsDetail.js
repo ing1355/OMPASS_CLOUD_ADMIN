@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import "./AdminsDetail.css";
 import '../../Contents/Billing/Billing.css'
-import CustomButton from "../../../CustomComponents/CustomButton";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import {
   AdminsColumns,
@@ -16,14 +15,14 @@ import { connect } from "react-redux";
 import BillingEdtion from "../../Contents/Billing/BillingEdition";
 import AdminInfo from "./AdminInfo";
 
-const AdminsDetail = ({ data, locale }) => {
-  const { applications, billing, paymentHistories, policies, subAdmins, eventLogs, adminData } = data || {};
+const AdminsDetail = ({ data }) => {
+  const { applications, billing, paymentHistories, subAdmins, eventLogs, adminData } = data || {};
   const subAdminTableData = subAdmins && subAdmins.map(d => ({...d, name: d.firstName + d.lastName}))
   const [confirmVisible, setConfirmVisible] = useState(false);
 
-  const openConfirm = () => {
-    setConfirmVisible(true);
-  };
+  // const openConfirm = () => {
+  //   setConfirmVisible(true);
+  // };
 
   const closeConfirm = () => {
     setConfirmVisible(false);
