@@ -255,7 +255,7 @@ const ApplicationDetail = ({
                 name="redirectUri"
                 ref={redirectURIRef}
                 maxLength={48}
-                style={{ width: "100%", marginLeft: '12px' }}
+                style={{ width: "100%", marginLeft: "12px" }}
               />
             </span>
           </div>

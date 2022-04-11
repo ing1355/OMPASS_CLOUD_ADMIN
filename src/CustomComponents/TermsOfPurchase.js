@@ -5,6 +5,7 @@ import CustomConfirm from "./CustomConfirm";
 import ActionCreators from "../redux/actions";
 import "./TermsOfPurchase.css";
 import { FormattedMessage, useIntl } from "react-intl";
+import refunded from "../assets/refunded.png";
 
 const TermsOfPurchase = ({ visible, setVisible, locale }) => {
   const navigate = useNavigate();
@@ -321,6 +322,30 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="TermsOfPurchase_title_5_3" />
             </li>
           </ul>
+
+          {locale === "en" ? (
+            <>
+              <ul>
+                <li>❹</li>
+                <li>
+                  <FormattedMessage id="TermsOfPurchase_title_5_4" />
+                </li>
+              </ul>
+              <ul>
+                <img
+                  src={refunded}
+                  alt="원모어패스 이용약관"
+                  style={{
+                    width: "100%",
+                    marginLeft: "10px",
+                    marginTop: "5px",
+                    border: "2px solid #e5e5e5",
+                    padding: "10px",
+                  }}
+                />
+              </ul>
+            </>
+          ) : null}
         </p>
 
         <p id="6th">

@@ -13,7 +13,7 @@ const Brand = () => {
       style={{ fontWeight: "bold", fontSize: "1.5rem", cursor: "pointer" }}
       onClick={() => {
         navigate("/");
-        dispatch(menuStateChange('Dashboard'))
+        dispatch(menuStateChange("Dashboard"));
       }}
     >
       <img src={logo} alt="" />
