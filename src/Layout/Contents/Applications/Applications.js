@@ -150,6 +150,7 @@ const Applications = ({
       deleteApplicationApi(adminId, selectedRows.join(",")),
       (data) => {
         showSuccessMessage("DELETE_SUCCESS");
+        setSelectedRows([])
         tableDatasDelete(selectedRows);
         setConfirmLoading(false);
         setConfirmVisible(false);

@@ -9,7 +9,8 @@ import route_info from "../../Constants/Route_items";
 // import Notice from "../Notice/Notice";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
-  const { role } = userProfile;
+  const { role, standalone } = userProfile;
+  
   useLayoutEffect(() => {
     if (isLogin) {
       Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
@@ -42,7 +43,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
         <div className="contents-inner">
           <React.Suspense fallback={<div>loading...</div>}>
             <Routes>
-              {Route_items(role).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
+              {Route_items(role, standalone).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
                 <Route
                   key={item.key}
                   path={item.route}

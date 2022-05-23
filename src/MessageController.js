@@ -19,7 +19,7 @@ const MessageController = ({msg}) => {
                 }
             } else {
                 if(msg.type === 'error') {
-                    message.error('Fail to Connect!')
+                    message.error(formatMessage({id: 'Fail to Connect!'}))
                 }
             }
         }

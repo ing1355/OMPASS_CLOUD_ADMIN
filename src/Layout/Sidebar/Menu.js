@@ -5,10 +5,10 @@ import './Menu.css'
 import MenuItem from './Menu_Item';
 
 const Menu = ({userProfile}) => {
-    const {role} = userProfile;
+    const {role, standalone} = userProfile;
     return (
         <div className="menu">
-            {route_info(role).map(item =>
+            {route_info(role, standalone).map(item =>
                 <MenuItem {...item} />
             )}
         </div>

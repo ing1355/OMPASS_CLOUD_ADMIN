@@ -115,7 +115,7 @@ const AdminRoutes = [
   },
 ];
 
-const route_info = (role) => role === "OMS"
+const route_info = (role, isStandalone) => role === "OMS"
     ? [
       {
         key: "Dashboard",
@@ -151,8 +151,8 @@ const route_info = (role) => role === "OMS"
         ],
       },
     ]
-    : role === "ADMIN"
+    : ((role === "ADMIN" && !isStandalone)
       ? AdminRoutes
-      : AdminRoutes.filter((route) => route.name !== "Billing");
+      : AdminRoutes.filter((route) => route.name !== "Billing"));
 
 export default route_info;

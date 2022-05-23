@@ -17,17 +17,8 @@ const OMPASSVerify = ({ setIsLogin, setUserProfile }) => {
             email: username,
             verifyOmpassToken: access_token
         }, (data, callback) => {
-            const {adminId, email, role, country, ompass, firstName, lastName} = data;
             if(callback) callback();
-            setUserProfile({
-                adminId,
-                email,
-                role,
-                country,
-                ompass,
-                firstName,
-                lastName
-            })
+            setUserProfile(data)
             setIsLogin(true);
             navigate('/');
         })

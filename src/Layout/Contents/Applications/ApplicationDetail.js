@@ -17,7 +17,7 @@ import { CopyOutlined } from "@ant-design/icons";
 
 import "./Applications.css";
 
-import { Button, Space } from "antd";
+import { Button, Space, Row, Col } from "antd";
 import { UserSwitchOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import {
@@ -242,7 +242,7 @@ const ApplicationDetail = ({
             <label>
               <FormattedMessage id="REDIRECTURI" />
             </label>
-            <span
+            <Row
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -250,14 +250,20 @@ const ApplicationDetail = ({
                 alignItems: "center",
               }}
             >
-              {doaminRef.current ? doaminRef.current.value : ""}
-              <input
-                name="redirectUri"
-                ref={redirectURIRef}
-                maxLength={48}
-                style={{ width: "100%", marginLeft: "12px" }}
-              />
-            </span>
+              <Col>
+                <span>
+                  {doaminRef.current ? doaminRef.current.value : ""}
+                </span>
+              </Col>
+              <Col flex="auto">
+                <input
+                  name="redirectUri"
+                  ref={redirectURIRef}
+                  maxLength={64}
+                  style={{ width: "100%" }}
+                />
+              </Col>
+            </Row>
           </div>
           {/* <div className="Application-label-input-box">
             <label><FormattedMessage id="STATUS"/></label>

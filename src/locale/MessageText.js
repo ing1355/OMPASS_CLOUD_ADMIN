@@ -54,6 +54,7 @@ const locales = {
     NO_APK_FILE: 'Please register apk file.',
     ALREADY_HAVE_VERSION: 'This version already exists.',
     EXCEL_DATA_NO_LENGTH: 'User list does not exist.',
+    FAILED_TO_CONNECT: "Fail to Connect!"
   },
   KR: {
     success: "성공하였습니다!",
@@ -109,7 +110,8 @@ const locales = {
     NO_APP_VERSION: '앱 버전을 입력해주세요.',
     NO_APK_FILE: 'apk 파일을 등록해주세요.',
     ALREADY_HAVE_VERSION: '이미 존재하는 버전입니다.',
-    EXCEL_DATA_NO_LENGTH: '사용자 목록이 존재하지 않습니다.'
+    EXCEL_DATA_NO_LENGTH: '사용자 목록이 존재하지 않습니다.',
+    FAILED_TO_CONNECT: "서버 연결에 실패하였습니다!"
   },
 };
 

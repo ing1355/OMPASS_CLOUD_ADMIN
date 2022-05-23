@@ -13,7 +13,7 @@ const convertLanguageCode = {
   'en': 'EN'
 }
 
-const homepageUrl = (locale) => process.env.REACT_APP_SERVICE_TARGET === 'aws' ? `https://www.ompasscloud.com/${locale}/registration` : (process.env.NODE_ENV === 'production' ? `https://ompass.kr:4003/${locale}/login` : `https://ompass.kr:4003/${locale}/login`)
+const homepageUrl = (locale) => (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? `https://www.ompasscloud.com/${locale}` : `https://ompass.kr:4003/${locale}`) + '/registration'
 
 const Login = ({
   setIsLogin,
@@ -52,18 +52,11 @@ const Login = ({
         lang: convertLanguageCode[locale],
       },
       (data, callback) => {
-        const { planStatus, adminId, email, role, country, firstName, lastName, ompassUrl } = data;
+        const { planStatus, role, ompassUrl } = data;
         if (planStatus !== 'EXPIRED' && role !== 'OMS') {
           OMPASS(ompassUrl);
         } else {
-          setUserProfile({
-            adminId,
-            email,
-            role,
-            country,
-            firstName,
-            lastName
-          });
+          setUserProfile(data);
           setIsLogin(true);
           showSuccessMessage("LOGIN_SUCCESS");
           if (callback) callback();

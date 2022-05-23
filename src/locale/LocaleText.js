@@ -594,6 +594,7 @@ const locales = {
       "Cannot proceed with membership withdrawal now. Please proceed with the outstanding payment first.",
     USER_EXCEL_TITLE: "User List",
     USER_EXCEL_TITLE_PARAMS: "User List{param}",
+    STANDALONE: 'Standalone'
   },
   KR: {
     PERNUM: "명",
@@ -1175,6 +1176,7 @@ const locales = {
       "현재 회원탈퇴를 진행할 수 없습니다. 미처리 된 결제를 먼저 진행해주세요.",
     USER_EXCEL_TITLE: "사용자 리스트",
     USER_EXCEL_TITLE_PARAMS: "사용자 리스트{param}",
+    STANDALONE: '구축형'
   },
 };
 

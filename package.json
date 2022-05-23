@@ -16,7 +16,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.18.3",
     "axios": "^0.24.0",
-    "cheerio": "^1.0.0-rc.10",
     "jwt-decode": "^3.1.2",
     "ompass": "^0.2.6",
     "query-string": "^7.1.0",

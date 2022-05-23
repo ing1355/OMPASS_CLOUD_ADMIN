@@ -5,7 +5,7 @@ import "./Menu_Item.css";
 import downArrow from "../../assets/downArrow.png";
 import upArrow from "../../assets/upArrow.png";
 import SubMenu from "./SubMenu";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmenu }) => {

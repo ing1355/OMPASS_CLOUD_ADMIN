@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import CustomConfirm from "./CustomConfirm";
 import ActionCreators from "../redux/actions";
 import "./TermsOfPurchase.css";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import refunded from "../assets/refunded.png";
 
 const TermsOfPurchase = ({ visible, setVisible, locale }) => {

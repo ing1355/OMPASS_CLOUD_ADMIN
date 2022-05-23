@@ -71,6 +71,7 @@ const ApplicationAdd = ({
         // status: status.value,
       },
       (data) => {
+        console.log(data)
         showSuccessMessage("APPLICATION_ADD_SUCCESS");
         tableDataAdd(data);
         navigate("/Applications");
@@ -146,7 +147,7 @@ const ApplicationAdd = ({
               </label>
               <input
                 name="redirectUri"
-                maxLength={48}
+                maxLength={64}
                 placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
               />
             </div>

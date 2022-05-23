@@ -39,7 +39,7 @@ import { dashboardChartLineColors } from "../../../Constants/ConstantValues";
 import { planStatusCodes } from "../../../Constants/PlanStatusCodes";
 
 const Dashboard = ({ userProfile, locale }) => {
-  const { adminId } = userProfile;
+  const { adminId, standalone } = userProfile;
   const [userNum, setUserNum] = useState(0);
   const [registerNum, setRegisterNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
@@ -48,7 +48,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
   const { expirationDate, startDate, remainingDate, name, status } = plan;
-  const statusColor = status === 'EXPIRED' ? "#d60002" : "#00d134"
+  const statusColor = (!standalone && status === 'EXPIRED') ? "#d60002" : "#00d134"
 
   useLayoutEffect(() => {
     if (adminId) {
@@ -109,11 +109,11 @@ const Dashboard = ({ userProfile, locale }) => {
             <li>
               <div>
                 <h2>
-                  {!plan || status === "FREE" ? (
+                  { standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
                     <FormattedMessage id="FREE_TRIAL" />
                   ) : (
                     name
-                  )}
+                  ))}
                 </h2>
                 <h5 style={{ color: statusColor, fontWeight: "bold" }}>
                   <FontAwesomeIcon
@@ -122,12 +122,12 @@ const Dashboard = ({ userProfile, locale }) => {
                       fontSize: "1rem",
                       marginBottom: "0rem",
                     }}
-                    icon={status === 'EXPIRED' ? faBan : faCheckSquare}
+                    icon={(!standalone && status === 'EXPIRED') ? faBan : faCheckSquare}
                   />
                   &nbsp;&nbsp;
-                  {status
+                  { standalone ? <FormattedMessage id="Valid" /> : (status
                     ? planStatusCodes[status]
-                    : planStatusCodes["EXPIRED"]}
+                    : planStatusCodes["EXPIRED"])}
                 </h5>
                 {plan && (
                   <h6>
@@ -136,7 +136,7 @@ const Dashboard = ({ userProfile, locale }) => {
                       icon={faCalendarCheck}
                     />
                     &nbsp;&nbsp;
-                    {status === "FREE" ? (
+                    {standalone ? "∞" : (status === "FREE" ? (
                       <FormattedMessage id="USED_FREE_PLAN" />
                     ) : locale === "ko" ? (
                       <>
@@ -150,7 +150,7 @@ const Dashboard = ({ userProfile, locale }) => {
                         &nbsp;~&nbsp;
                         {getDateFormatEn(expirationDate)}
                       </>
-                    )}
+                    ))}
                   </h6>
                 )}
               </div>
@@ -183,7 +183,7 @@ const Dashboard = ({ userProfile, locale }) => {
                           borderTop: "0.5px solid rgb(180, 180, 180)",
                         }}
                       >
-                        {status === "FREE" ? (
+                        {status === "FREE" || standalone ? (
                           "∞"
                         ) : (
                           <FormattedMessage
