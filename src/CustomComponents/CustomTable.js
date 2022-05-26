@@ -31,7 +31,7 @@ const CustomTable = ({
   searched,
   selectedRows,
   locale,
-  searchFunction
+  searchFunction,
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
@@ -59,7 +59,10 @@ const CustomTable = ({
     : columns;
   const firstRenderRef = useRef(false);
   const searchInputRef = useRef(null);
-  const _numPerPage = useMemo(() => numPerPage ? numPerPage : 10,[numPerPage]);
+  const _numPerPage = useMemo(
+    () => (numPerPage ? numPerPage : 10),
+    [numPerPage]
+  );
   const pageNum = datas
     ? parseInt(datas.length / _numPerPage) +
       (datas.length % _numPerPage === 0 ? 0 : 1)
@@ -206,10 +209,18 @@ const CustomTable = ({
             } else {
               if (!content.value) setTableData(_data);
               else {
-                if(columns.find(c => c.key === column.value).searchFunction) {
-                  setTableData(_data.filter(tD => searchFunction(tD, content.value)));
+                if (
+                  columns.find((c) => c.key === column.value).searchFunction
+                ) {
+                  setTableData(
+                    _data.filter((tD) => searchFunction(tD, content.value))
+                  );
                 } else {
-                  setTableData(_data.filter(tD => tD[column.value].includes(content.value)));
+                  setTableData(
+                    _data.filter((tD) =>
+                      tD[column.value].includes(content.value)
+                    )
+                  );
                 }
               }
             }
@@ -232,14 +243,14 @@ const CustomTable = ({
           </select>
           {searchColumn && searchTarget.searchedOptions ? (
             <select className="table-search-column-select" name="content">
-            {searchTarget.searchedOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {searchTarget.getSearchedLabel
-                  ? searchTarget.getSearchedLabel(opt, locale)
-                  : opt}
-              </option>
-            ))}
-          </select>
+              {searchTarget.searchedOptions.map((opt) => (
+                <option key={opt} value={opt}>
+                  {searchTarget.getSearchedLabel
+                    ? searchTarget.getSearchedLabel(opt, locale)
+                    : opt}
+                </option>
+              ))}
+            </select>
           ) : (
             <input
               className="table-search-column-input"
@@ -253,7 +264,7 @@ const CustomTable = ({
             />
           )}
           <button type="submit" className="button searchButton">
-            <img src={searchIcon} width="60%" height="50%" alt=""/>
+            <img src={searchIcon} width="60%" height="50%" alt="" />
           </button>
         </form>
       )}
@@ -262,47 +273,53 @@ const CustomTable = ({
           className ? "custom-table-box " + className : "custom-table-box"
         }
       >
-        {tableColumns && !loading && <colgroup>
-          {tableColumns.map((c, ind) => (
-            <col
-              key={ind}
-              style={
-                c.key === "check"
-                  ? { minWidth: "60px", width: "60px" }
-                  : { minWidth: c.width, width: c.width }
-              }
-            />
-          ))}
-        </colgroup>}
+        {tableColumns && !loading && (
+          <colgroup>
+            {tableColumns.map((c, ind) => (
+              <col
+                key={ind}
+                style={
+                  c.key === "check"
+                    ? { minWidth: "60px", width: "60px" }
+                    : { minWidth: c.width, width: c.width }
+                }
+              />
+            ))}
+          </colgroup>
+        )}
         <thead style={{ display: columnsHide ? "none" : "" }}>
-          {tableColumns && <tr>
-            {tableColumns.map((c, ind) =>
-              c.key === "check" ? (
-                <th key={ind} style={{ minWidth: "60px", width: "60px" }}>
-                  <input
-                    className="table-all-row-select-checkbox"
-                    checked={
-                      tableData.length > 0 &&
-                      selectedRows.length === tableData.length
-                    }
-                    type="checkbox"
-                    onClick={() => {
-                      if (selectedRows.length === tableData.length) {
-                        onChangeSelectedRows([]);
-                      } else {
-                        onChangeSelectedRows(
-                          tableData.map((d) => d[selectedId])
-                        );
+          {tableColumns && (
+            <tr>
+              {tableColumns.map((c, ind) =>
+                c.key === "check" ? (
+                  <th key={ind} style={{ minWidth: "60px", width: "60px" }}>
+                    <input
+                      className="table-all-row-select-checkbox"
+                      checked={
+                        tableData.length > 0 &&
+                        selectedRows.length === tableData.length
                       }
-                    }}
-                    onChange={() => {}}
-                  />
-                </th>
-              ) : (
-                <th key={ind}>{c.name && <FormattedMessage id={c.name} />}</th>
-              )
-            )}
-          </tr>}
+                      type="checkbox"
+                      onClick={() => {
+                        if (selectedRows.length === tableData.length) {
+                          onChangeSelectedRows([]);
+                        } else {
+                          onChangeSelectedRows(
+                            tableData.map((d) => d[selectedId])
+                          );
+                        }
+                      }}
+                      onChange={() => {}}
+                    />
+                  </th>
+                ) : (
+                  <th key={ind}>
+                    {c.name && <FormattedMessage id={c.name} />}
+                  </th>
+                )
+              )}
+            </tr>
+          )}
         </thead>
         <tbody className={loading ? "no-data-container" : ""}>
           {!loading && tableData && tableData.length > 0 ? (
@@ -310,14 +327,20 @@ const CustomTable = ({
           ) : (
             <tr className="no-data">
               {loading ? (
-                <td className="loading-td" colSpan={tableColumns ? tableColumns.length : 1}>
+                <td
+                  className="loading-td"
+                  colSpan={tableColumns ? tableColumns.length : 1}
+                >
                   <div className="box">
                     <div className="loader6"></div>
                     <p>data loading</p>
                   </div>
                 </td>
               ) : (
-                <td className="no-data" colSpan={tableColumns ? tableColumns.length : 1}>
+                <td
+                  className="no-data"
+                  colSpan={tableColumns ? tableColumns.length : 1}
+                >
                   No Data
                 </td>
               )}
