@@ -1,5 +1,6 @@
 import "./App.css";
-import React, { lazy, useLayoutEffect } from "react";
+import React, { lazy, useLayoutEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -12,6 +13,10 @@ import AxiosController from "./AxiosController";
 import locale from "./locale";
 import ActionCreators from "./redux/actions";
 import MessageController from "./MessageController";
+import { CustomAxiosGet } from "./Functions/CustomAxios";
+import { getNoticeApi } from "./Constants/Api_Route";
+import Notice from "./Layout/Notice/Notice";
+import { useCookies } from 'react-cookie'
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
 const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
@@ -30,7 +35,8 @@ const App = ({
   localeChange,
   userProfile
 }) => {
-
+  const [noticeComonent, setNoticeComponent] = useState(null)
+  const [cookies, setCookie, removeCookie] = useCookies()
   const { country } = userProfile;
 
   useLayoutEffect(() => {
@@ -54,6 +60,10 @@ const App = ({
         localStorage.setItem("locale", country === "KR" ? "ko" : "en");
         localeChange(country === "KR" ? "ko" : "en");
       }
+      CustomAxiosGet(getNoticeApi, data => {
+        const {content, noticeId} = data
+        if(cookies.noticeId * 1 !== noticeId) setNoticeComponent(React.createElement(Notice, {content, noticeId, noReplyFunc: () => setCookie('noticeId', noticeId)}))
+      })
     }
   }, [isLogin]);
 
@@ -86,6 +96,7 @@ const App = ({
                   <Sidebar />
                   <Contents />
                   <Footer />
+                  {noticeComonent}
                 </>
               )
               }

@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://ompass.kr:4002",
+  "proxy": "https://192.168.182.150:8800",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -20,6 +20,7 @@
     "ompass": "^0.2.6",
     "query-string": "^7.1.0",
     "react": "^17.0.2",
+    "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-intl": "^5.24.2",
     "react-phone-input-2": "^2.14.0",
@@ -38,7 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deployAll": "npm run testDeploy&&npm run deploy",
-    "testDeploy": "scp -r ./build/* oms@192.168.182.22:/home/oms/front",
+    "testDeploy": "cross-env REACT_APP_SERVICE_TARGET=prod npm run build&&scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
     "deploy": "cross-env REACT_APP_SERVICE_TARGET=prod npm run build&&scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
     "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
     "awsDeploy": "cross-env REACT_APP_SERVICE_TARGET=aws npm run build&&aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"

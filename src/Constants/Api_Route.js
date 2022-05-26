@@ -61,3 +61,5 @@ export const getAdminDetailApi = (adminId) => `/v1/admins/${adminId}/detail`
 export const getAppManagementApi = '/oms/app/management'
 export const updateAppManagementApi = '/oms/app/management'
 export const registerAppManagementApi = '/oms/app/management'
+
+export const getNoticeApi = '/v1/recently-notice'

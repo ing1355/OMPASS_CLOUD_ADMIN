@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
 import ActionCreators from "../../redux/actions";
 import route_info from "../../Constants/Route_items";
-// import Notice from "../Notice/Notice";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
   const { role, standalone } = userProfile;
@@ -55,7 +54,6 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
           </React.Suspense>
         </div>
       </div>
-      {/* <Notice /> */}
     </>
   );
 };
