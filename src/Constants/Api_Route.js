@@ -62,4 +62,11 @@ export const getAppManagementApi = '/oms/app/management'
 export const updateAppManagementApi = '/oms/app/management'
 export const registerAppManagementApi = '/oms/app/management'
 
+export const getOMSNoticeApi = '/oms/notice'
+export const updateOMSNoticeApi = '/oms/notice'
+export const addOMSNoticeApi = '/oms/notice'
+export const deleteOMSNoticeApi = (noticeId) => `/oms/notice/${noticeId}`
 export const getNoticeApi = '/v1/recently-notice'
+export const uploadNoticeImageApi = '/oms/imageUpload'
+
+export const checkIsStandaloneApi = '/v1/server-type'

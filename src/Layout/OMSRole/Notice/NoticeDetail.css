@@ -1,0 +1,21 @@
+.notice-manage-container {
+    display:flex;
+    align-items: center;
+    height: 4rem;
+    margin: 1rem 0;
+}
+
+.notice-manage-container > label {
+    height: 3rem;
+    line-height: 3rem;
+    flex: 0 0 60px;
+    padding-right: 1rem;
+    font-size: 14pt;
+    font-weight: 500;
+}
+
+.notice-manage-container > input {
+    height: 3rem;
+    flex: auto;
+    padding: 0 1rem;
+}

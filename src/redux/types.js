@@ -5,6 +5,7 @@ const types = {
     setProfile: 'SETPROFILE',
     successMessage: 'SUCCESSMESSAGE',
     errorMessage: 'ERRORMESSAGE',
-    termsOfPurchaseVisibleChange: 'TERMSOFPURCHASEVISIBLECHANGE'
+    termsOfPurchaseVisibleChange: 'TERMSOFPURCHASEVISIBLECHANGE',
+    standaloneChange: 'STANDALONECHANGE'
 }
 export default types;

@@ -10,6 +10,7 @@ import {
 
 const OMSDashboard = lazy(() => import("../Layout/OMSRole/Dashboard"));
 const OMSAdmins = lazy(() => import("../Layout/OMSRole/Admins/Admins"));
+const OMSNotices = lazy(() => import("../Layout/OMSRole/Notice/Notice"));
 // const OMSBilling = lazy(() => import("../Layout/OMSRole/Billing"));
 const OMSAppAndroid = lazy(() => import("../Layout/OMSRole/AppManagement/Android"));
 const OMSAppIOS = lazy(() => import("../Layout/OMSRole/AppManagement/IOS"));
@@ -149,6 +150,13 @@ const route_info = (role, isStandalone) => role === "OMS"
             component: <OMSAppIOS/>,
           },
         ],
+      },
+      {
+        key: "Notices",
+        name: "Notices",
+        route: "/Notice/*",
+        component: <OMSNotices/>,
+        icon: AdminsIcon,
       },
     ]
     : ((role === "ADMIN" && !isStandalone)

@@ -2,20 +2,19 @@ import React, { useEffect, useLayoutEffect } from "react";
 import "./Contents.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Route_items from "../../Constants/Route_items";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
 import ActionCreators from "../../redux/actions";
 import route_info from "../../Constants/Route_items";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
-  const { role, standalone } = userProfile;
-  
+  const { role } = userProfile;
+  const { standalone } = useSelector(state => ({
+    standalone: state.standalone
+  }))
+
   useLayoutEffect(() => {
     if (isLogin) {
-      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
-      var script = document.createElement('script');
-      script.src = 'https://code.jquery.com/jquery-1.12.4.min.js'
-      document.head.appendChild(script)
       const routes = route_info(userProfile.role);
       const route_list = [
         ...routes
@@ -29,6 +28,15 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
       if (target.length) menuChange(target[target.length - 1].name);
     }
   }, [isLogin])
+
+  useLayoutEffect(() => {
+    if (standalone.loaded && !standalone.standalone) {
+      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
+      var script = document.createElement('script');
+      script.src = 'https://code.jquery.com/jquery-1.12.4.min.js'
+      document.head.appendChild(script)
+    }
+  }, [standalone])
 
   useEffect(() => {
     return () => {

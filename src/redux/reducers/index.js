@@ -5,6 +5,7 @@ import menuStateReducer from './menuStateReducer';
 import profileReducer from './profileReducer';
 import messageReducer from './messageReducer';
 import termsOfPurchaseReducer from './TermsOfPurchaseReducer';
+import standaloneReducer from './standaloneReducer';
 
 export default combineReducers({
     menuState : menuStateReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     isLogin : loginReducer,
     userProfile : profileReducer,
     msg: messageReducer,
-    termsOfPurchaseVisible: termsOfPurchaseReducer
+    termsOfPurchaseVisible: termsOfPurchaseReducer,
+    standalone: standaloneReducer
 })

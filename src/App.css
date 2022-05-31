@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+#root, #root-sub-container {
+  height: 100%;
+}
+
 .pointer {
   cursor: pointer;
 }

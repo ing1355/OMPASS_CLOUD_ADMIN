@@ -8,13 +8,19 @@
   display: flex;
   flex-direction: row;
 }
+.footer.standalone {
+  height: 50px;
+}
+.footer.standalone > .footerSubBox > .footerTextBox2 {
+  text-align: center;
+}
 .footer p {
   font-size: 0.8rem;
   color: #fff;
 }
 .footerSubBox {
   width: 80rem;
-  height: 90px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: row;

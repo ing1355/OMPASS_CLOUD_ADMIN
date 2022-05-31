@@ -45,6 +45,12 @@ export const OMSAdminsColumns = [
   { name: "Country", key: "country", width: 150 },
 ];
 
+export const OMSNoticeColumns = [
+  { name: "TITLE", key: "title" },
+  { name: "CREATED_AT", key: "createdAt", width: 300 },
+  { name: "MODIFIEDDATE", key: "modifiedDate", width: 300 },
+]
+
 export const ApplicationsColumns = [
   {
     name: "APPLICATIONNAME",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loginApi } from "../../Constants/LoginApi";
 import { resetPasswordApi } from "../../Constants/ResetPasswordApi";
 import { CustomAxiosPost } from "../../Functions/CustomAxios";
@@ -24,6 +24,9 @@ const Login = ({
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
+  const { standalone } = useSelector(state => ({
+    standalone: state.standalone
+  }))
 
   const resetPassword = (e) => {
     e.preventDefault();
@@ -110,7 +113,7 @@ const Login = ({
                     <FormattedMessage id="PasswordAssistance" />
                   </span>
                 </div>
-                <div className="join">
+                {!standalone &&<div className="join">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -118,7 +121,7 @@ const Login = ({
                   >
                     <FormattedMessage id="Registration" />
                   </a>
-                </div>
+                </div>}
               </ul>
               <ul>
                 <p className="login-welcome-text">

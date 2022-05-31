@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { lazy, useLayoutEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -8,15 +7,18 @@ import {
   Routes,
 } from "react-router-dom";
 import { IntlProvider } from "react-intl";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import AxiosController from "./AxiosController";
 import locale from "./locale";
 import ActionCreators from "./redux/actions";
 import MessageController from "./MessageController";
-import { CustomAxiosGet } from "./Functions/CustomAxios";
-import { getNoticeApi } from "./Constants/Api_Route";
 import Notice from "./Layout/Notice/Notice";
+import { isOMSRole } from "./Constants/GetRole";
+import { CustomAxiosGet } from "./Functions/CustomAxios";
+import { checkIsStandaloneApi, getNoticeApi } from "./Constants/Api_Route";
 import { useCookies } from 'react-cookie'
+import { standaloneChange } from "./redux/reducers/standaloneReducer";
+
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
 const AdminSignUp = lazy(() => import("./Layout/SignUp/AdminSignUp"));
@@ -35,19 +37,38 @@ const App = ({
   localeChange,
   userProfile
 }) => {
-  const [noticeComonent, setNoticeComponent] = useState(null)
+  const { country, role } = userProfile;
   const [cookies, setCookie, removeCookie] = useCookies()
-  const { country } = userProfile;
+  const [noticeDisplay, setNoticeDisplay] = useState(null)
+  const {standalone} = useSelector(state => ({
+    standalone: state.standalone
+  }))
+  const dispatch = useDispatch()
 
   useLayoutEffect(() => {
     const code = window.location.pathname.slice(-2,);
     Object.keys(locale).forEach(countryCode => {
-      if(countryCode === code) {
-        localStorage.setItem("locale",code)
+      if (countryCode === code) {
+        localStorage.setItem("locale", code)
         localeChange(code);
       }
     })
+    CustomAxiosGet(checkIsStandaloneApi, ({standalone}) => {
+      dispatch(standaloneChange({
+        standalone,
+        loaded: true
+      }))
+    })
   }, [])
+
+  useLayoutEffect(() => {
+    if(standalone.loaded && !standalone.standalone && isLogin && !isOMSRole(role)) {
+      CustomAxiosGet(getNoticeApi, data => {
+        const { content, noticeId } = data
+        if (cookies.noticeId * 1 !== noticeId) setNoticeDisplay({content, noticeId})
+      })
+    }
+  },[isLogin, standalone])
 
   useLayoutEffect(() => {
     if (!isLogin) {
@@ -60,10 +81,6 @@ const App = ({
         localStorage.setItem("locale", country === "KR" ? "ko" : "en");
         localeChange(country === "KR" ? "ko" : "en");
       }
-      CustomAxiosGet(getNoticeApi, data => {
-        const {content, noticeId} = data
-        if(cookies.noticeId * 1 !== noticeId) setNoticeComponent(React.createElement(Notice, {content, noticeId, noReplyFunc: () => setCookie('noticeId', noticeId)}))
-      })
     }
   }, [isLogin]);
 
@@ -96,10 +113,9 @@ const App = ({
                   <Sidebar />
                   <Contents />
                   <Footer />
-                  {noticeComonent}
+                  {noticeDisplay && <Notice content={noticeDisplay.content} noticeId={noticeDisplay.noticeId} setDisplay={setNoticeDisplay}/>}
                 </>
-              )
-              }
+              )}
             />
           </Routes>
         </React.Suspense>

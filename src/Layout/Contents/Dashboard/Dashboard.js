@@ -17,7 +17,7 @@ import {
   getDashboardBottomApi,
   getDashboardMiddleApi,
 } from "../../../Constants/Api_Route";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import CustomTable from "../../../CustomComponents/CustomTable";
 import { DashboardLogColumns } from "../../../Constants/TableColumns";
 import { FormattedMessage } from "react-intl";
@@ -39,7 +39,7 @@ import { dashboardChartLineColors } from "../../../Constants/ConstantValues";
 import { planStatusCodes } from "../../../Constants/PlanStatusCodes";
 
 const Dashboard = ({ userProfile, locale }) => {
-  const { adminId, standalone } = userProfile;
+  const { adminId } = userProfile;
   const [userNum, setUserNum] = useState(0);
   const [registerNum, setRegisterNum] = useState(0);
   const [byPassNum, setByPassNum] = useState(0);
@@ -48,7 +48,10 @@ const Dashboard = ({ userProfile, locale }) => {
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
   const { expirationDate, startDate, remainingDate, name, status } = plan;
-  const statusColor = (!standalone && status === 'EXPIRED') ? "#d60002" : "#00d134"
+  const {standalone} = useSelector(state => ({
+    standalone: state.standalone
+  }))
+  const statusColor = (!standalone.standalone && status === 'EXPIRED') ? "#d60002" : "#00d134"
 
   useLayoutEffect(() => {
     if (adminId) {
@@ -109,7 +112,7 @@ const Dashboard = ({ userProfile, locale }) => {
             <li>
               <div>
                 <h2>
-                  { standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
+                  { standalone.standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
                     <FormattedMessage id="FREE_TRIAL" />
                   ) : (
                     name
@@ -122,10 +125,10 @@ const Dashboard = ({ userProfile, locale }) => {
                       fontSize: "1rem",
                       marginBottom: "0rem",
                     }}
-                    icon={(!standalone && status === 'EXPIRED') ? faBan : faCheckSquare}
+                    icon={(!standalone.standalone && status === 'EXPIRED') ? faBan : faCheckSquare}
                   />
                   &nbsp;&nbsp;
-                  { standalone ? <FormattedMessage id="Valid" /> : (status
+                  { standalone.standalone ? <FormattedMessage id="Valid" /> : (status
                     ? planStatusCodes[status]
                     : planStatusCodes["EXPIRED"])}
                 </h5>
@@ -136,7 +139,7 @@ const Dashboard = ({ userProfile, locale }) => {
                       icon={faCalendarCheck}
                     />
                     &nbsp;&nbsp;
-                    {standalone ? "∞" : (status === "FREE" ? (
+                    {standalone.standalone ? "∞" : (status === "FREE" ? (
                       <FormattedMessage id="USED_FREE_PLAN" />
                     ) : locale === "ko" ? (
                       <>
@@ -183,7 +186,7 @@ const Dashboard = ({ userProfile, locale }) => {
                           borderTop: "0.5px solid rgb(180, 180, 180)",
                         }}
                       >
-                        {status === "FREE" || standalone ? (
+                        {status === "FREE" || standalone.standalone ? (
                           "∞"
                         ) : (
                           <FormattedMessage

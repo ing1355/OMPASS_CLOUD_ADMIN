@@ -10,7 +10,9 @@
   position: fixed;
   z-index: 5;
 }
-
+.sidebar.standalone {
+  padding-bottom: 50px;
+}
 .back-to-homepage {
   cursor: pointer;
   background-color: #62bbff;

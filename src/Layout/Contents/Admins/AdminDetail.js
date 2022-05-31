@@ -19,7 +19,7 @@ import {
   deleteAdminApi,
 } from "../../../Constants/Api_Route";
 import { isADMINRole } from "../../../Constants/GetRole";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -58,6 +58,9 @@ const AdminDetail = ({
   const [inputDialCode, setInputDialCode] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const {standalone} = useSelector(state => ({
+    standalone: state.standalone
+  }))
 
   useLayoutEffect(() => {
     if (phone) {
@@ -268,7 +271,7 @@ const AdminDetail = ({
                 <UserSwitchOutlined /> <FormattedMessage id="SAVE" />
               </Button>
             )}
-            {userProfile.role === "ADMIN" &&
+            {userProfile.role === "ADMIN" && !standalone.standalone &&
               <Button
                 className="adminUpdateButton"
                 htmlType="button"
