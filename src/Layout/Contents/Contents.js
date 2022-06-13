@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import "./Contents.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Route_items from "../../Constants/Route_items";
 import { connect, useSelector } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
@@ -9,6 +9,7 @@ import route_info from "../../Constants/Route_items";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
   const { role } = userProfile;
+  const navigate = useNavigate()
   const { standalone } = useSelector(state => ({
     standalone: state.standalone
   }))
@@ -24,8 +25,13 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
           .map((item) => item.submenu)
           .flat(),
       ]
-      const target = route_list.filter((item) => item.route === '/*' ? item.route === window.location.pathname + '*' : window.location.pathname.startsWith(item.route.slice(0, -2)))
-      if (target.length) menuChange(target[target.length - 1].name);
+      const target = route_list.find(({route}) => route.endsWith('*') ? (route.slice(0,-2) === window.location.pathname) : window.location.pathname.startsWith(route))
+      if(!target) {
+        navigate('/Dashboard')
+        menuChange('Dashboard')
+      } else {
+        menuChange(target.name);
+      }
     }
   }, [isLogin])
 
@@ -50,14 +56,18 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
         <div className="contents-inner">
           <React.Suspense fallback={<div>loading...</div>}>
             <Routes>
-              {Route_items(role, standalone).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
-                <Route
+              {Route_items(role, standalone.standalone).map(item => item.submenu ? item.submenu : item).flat().map((item) => (
+                item.route.endsWith('*') ? <Route
                   key={item.key}
                   path={item.route}
                   element={item.component}
+                /> : <Route
+                  key={item.key}
+                  path={item.route.split('/').slice(0,-1).join('/') + '/:country/*'}
+                  element={item.component}
                 />
               ))}
-              <Route path="/*" element={<Navigate to="/" />} />
+              <Route path="/*" element={<Navigate to="/Dashboard" />} />
             </Routes>
           </React.Suspense>
         </div>

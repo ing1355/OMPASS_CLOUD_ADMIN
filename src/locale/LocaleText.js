@@ -598,7 +598,10 @@ const locales = {
     Notices: 'Notice',
     TITLE: 'Title',
     CREATED_AT: 'Created Date',
-    MODIFIEDDATE: 'Last Modified Date'
+    MODIFIEDDATE: 'Last Modified Date',
+    NoticesKR: 'KR',
+    NoticesEN: 'EN',
+    "Notice-No-Reply": '다시 보지않겠습니다.'
   },
   KR: {
     PERNUM: "명",
@@ -1184,7 +1187,10 @@ const locales = {
     Notices: '공지사항',
     TITLE: '제목',
     CREATED_AT: '생성일',
-    MODIFIEDDATE: '마지막 수정일'
+    MODIFIEDDATE: '마지막 수정일',
+    NoticesKR: '한국어',
+    NoticesEN: '영어',
+    "Notice-No-Reply": '다시 보지않겠습니다.'
   },
 };
 

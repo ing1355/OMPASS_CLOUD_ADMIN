@@ -27,7 +27,7 @@ const Login = ({
   const { standalone } = useSelector(state => ({
     standalone: state.standalone
   }))
-
+  
   const resetPassword = (e) => {
     e.preventDefault();
     const { email } = e.target.elements;
@@ -59,10 +59,10 @@ const Login = ({
         if (planStatus !== 'EXPIRED' && role !== 'OMS') {
           OMPASS(ompassUrl);
         } else {
+          if (callback) callback();
           setUserProfile(data);
           setIsLogin(true);
           showSuccessMessage("LOGIN_SUCCESS");
-          if (callback) callback();
         }
       }
     );
@@ -113,7 +113,7 @@ const Login = ({
                     <FormattedMessage id="PasswordAssistance" />
                   </span>
                 </div>
-                {!standalone &&<div className="join">
+                {!standalone.standalone &&<div className="join">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"

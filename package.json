@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://192.168.182.150:8800",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@ckeditor/ckeditor5-react": "^5.0.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -17,11 +18,15 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.18.3",
     "axios": "^0.24.0",
+    "bootstrap": "^5.1.3",
     "ckeditor5-custom-build": "./ckeditor5",
+    "jquery": "^3.6.0",
     "jwt-decode": "^3.1.2",
     "ompass": "^0.2.6",
     "query-string": "^7.1.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.4.0",
+    "react-code-blocks": "^0.0.9-0",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-intl": "^5.24.2",
@@ -36,15 +41,16 @@
   },
   "scripts": {
     "start": "cross-env HTTPS=true react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:prod": "cross-env REACT_APP_SERVICE_TARGET=prod GENERATE_SOURCEMAP=false react-scripts build",
+    "build:aws": "cross-env REACT_APP_SERVICE_TARGET=aws GENERATE_SOURCEMAP=false react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js' --gzip",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deployAll": "npm run testDeploy&&npm run deploy",
-    "testDeploy": "cross-env REACT_APP_SERVICE_TARGET=prod npm run build&&scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
-    "deploy": "cross-env REACT_APP_SERVICE_TARGET=prod npm run build&&scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
+    "testDeploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
+    "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
     "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
-    "awsDeploy": "cross-env REACT_APP_SERVICE_TARGET=aws npm run build&&aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
+    "awsDeploy": "cross-env npm run build:aws&&aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
   },
   "eslintConfig": {
     "extends": [

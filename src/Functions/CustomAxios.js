@@ -3,8 +3,7 @@ import jwt_decode from 'jwt-decode'
 
 export function CustomAxiosGet(url, successCallback, errorCallback, config) {
     let _config = {
-        headers: {
-        }
+        headers: {}
     }
     if (localStorage.getItem('Authorization')) _config.headers.authorization = localStorage.getItem('Authorization')
     if (config) _config = { ...config }

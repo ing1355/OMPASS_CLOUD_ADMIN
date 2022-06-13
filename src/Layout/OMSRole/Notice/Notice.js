@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import React, { useLayoutEffect, useState } from 'react'
-import { Route, Routes, useNavigate } from 'react-router'
+import { Route, Routes, useNavigate, useParams } from 'react-router'
 import { getOMSNoticeApi } from '../../../Constants/Api_Route'
 import { OMSNoticeColumns } from '../../../Constants/TableColumns'
 import CustomTable from '../../../CustomComponents/CustomTable'
@@ -13,12 +13,15 @@ const Notice = () => {
     const [detailData, setDetailData] = useState(null)
     const [detailType, setDetailType] = useState(null)
     const navigate = useNavigate()
+    const { country } = useParams()
 
     useLayoutEffect(() => {
-        CustomAxiosGet(getOMSNoticeApi, data => {
-            setTableData(data)
-        })
-    }, [])
+        if(country) {
+            CustomAxiosGet(getOMSNoticeApi, data => {
+                setTableData(data.filter(d => d.country === country))
+            })
+        }
+    }, [country])
 
     const addCallback = (newData) => {
         setTableData([newData, ...tableData])
@@ -35,12 +38,12 @@ const Notice = () => {
     const clickForDetail = (row) => {
         setDetailData(row)
         setDetailType('update')
-        navigate("/Notice/Detail");
+        navigate(`/Notice/${country}/Detail`);
     }
 
     const clickForNewNotice = () => {
         setDetailType('add')
-        navigate('/Notice/Detail')
+        navigate(`/Notice/${country}/Detail`)
     }
 
     return <div className="contents-container">
@@ -55,7 +58,7 @@ const Notice = () => {
                 </>}
             />
             <Route
-                path="/Detail"
+                path="Detail"
                 element={<NoticeDetail
                     data={detailData}
                     type={detailType}

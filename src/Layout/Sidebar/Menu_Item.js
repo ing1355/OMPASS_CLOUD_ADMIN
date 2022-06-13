@@ -10,11 +10,11 @@ import { FormattedMessage } from "react-intl";
 
 const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmenu }) => {
   const navigate = useNavigate();
-  const isSelected = useMemo(() =>  submenu ? submenu.find((sb) => sb.name === menuState) || name === menuState
-      : name === menuState
-  , [submenu, menuState, name]);
+  const isSelected = useMemo(() => submenu ? submenu.find((sb) => sb.name === menuState) || name === menuState
+    : name === menuState
+    , [submenu, menuState, name]);
   const [subMenuOpen, setSubMenuOpen] = useState(false);
-  
+
   useLayoutEffect(() => {
     if (isSelected && !subMenuOpen) setSubMenuOpen(true);
   }, [isSelected, subMenuOpen])
@@ -33,9 +33,9 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
       if (subMenuOpen) {
         setSubMenuOpen(false);
       } else {
-        if(!submenu.find(sb => sb.name === menuState)) {
+        if (!submenu.find(sb => sb.name === menuState)) {
           menuChange(submenu[0].name)
-          navigate(submenu[0].route.slice(0,-2))
+          navigate(submenu[0].route.endsWith('*') ? submenu[0].route.slice(0, -2) : submenu[0].route)
         }
         setSubMenuOpen(true);
       }
@@ -69,7 +69,7 @@ const Menu_Item = ({ name, menuState, submenu, menuChange, route, icon, isSubmen
   </>
 
   return (
-    !submenu ? <Link to={route.slice(0,-2)}>
+    !submenu ? <Link to={route.endsWith('*') ? route.slice(0, -2) : route}>
       {children}
     </Link> : children
   );

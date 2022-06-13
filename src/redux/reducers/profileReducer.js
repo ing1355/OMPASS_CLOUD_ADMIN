@@ -1,8 +1,7 @@
 import types from '../types';
 import jwt_decode from 'jwt-decode';
 
-// console.log(jwt_decode(localStorage.getItem('Authorization').split(' ')[1]))
-const userProfile = localStorage.getItem('Authorization') ? jwt_decode(localStorage.getItem('Authorization').split(' ')[1]).access_token : {
+let userProfile = {
     adminId: null,
     email: null,
     role: null,
@@ -12,6 +11,16 @@ const userProfile = localStorage.getItem('Authorization') ? jwt_decode(localStor
     lastName: null,
     standalone: false
 };
+
+try {
+    if(localStorage.getItem('Authorization')) {
+        userProfile = jwt_decode(localStorage.getItem('Authorization').split(' ')[1]).access_token
+    }
+} catch(e) {
+    console.log(e)
+    localStorage.clear()
+    window.location.reload()
+}
 
 const profileReducer = (state = userProfile, action) => {
     switch (action.type) {

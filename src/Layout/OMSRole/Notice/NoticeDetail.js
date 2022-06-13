@@ -3,7 +3,7 @@ import './NoticeDetail.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from 'ckeditor5-custom-build'
 import { Button, message } from 'antd'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams, Navigate } from 'react-router'
 import CustomButton from '../../../CustomComponents/CustomButton'
 import { CustomAxiosDelete, CustomAxiosPost, CustomAxiosPut } from '../../../Functions/CustomAxios'
 import UploadAdapter from '../../../Functions/UploadAdapter'
@@ -14,19 +14,20 @@ const NoticeDetail = ({ data, type, addCallback, updateCallback, deleteCallback 
     const navigate = useNavigate()
     const [inputTitle, setInputTitle] = useState(title || '')
     const editorRef = useRef(null)
+    const { country } = useParams()
+    const backToRootRoute = () => navigate(`/Notice/${country}`)
     
     useLayoutEffect(() => {
         function MyCustomUploadAdapterPlugin(editor) {
             editor.plugins.get('FileRepository').createUploadAdapter = loader => {
                 return new UploadAdapter(loader)
             }
-        }
-        
+        }        
         ClassicEditor.builtinPlugins.push(MyCustomUploadAdapterPlugin)
     },[])
 
     useEffect(() => {
-        if (!type || (!data && type === 'update')) navigate('/Notice')
+        if (!type || (!data && type === 'update')) backToRootRoute()
         else if (type === 'update') {
             setInputTitle(title)
         } else {
@@ -38,9 +39,10 @@ const NoticeDetail = ({ data, type, addCallback, updateCallback, deleteCallback 
         CustomAxiosPost(addOMSNoticeApi, {
             title: inputTitle,
             content: editorRef.current.getData(),
+            country
         }, (newData) => {
             addCallback(newData)
-            navigate('/Notice')
+            backToRootRoute()
             message.success('추가 성공!')
         })
     }
@@ -59,7 +61,7 @@ const NoticeDetail = ({ data, type, addCallback, updateCallback, deleteCallback 
     const deleteNotice = () => {
         CustomAxiosDelete(deleteOMSNoticeApi(noticeId), () => {
             deleteCallback(noticeId)
-            navigate('/Notice')
+            backToRootRoute()
             message.success('삭제 성공!')
         })
     }
@@ -67,14 +69,14 @@ const NoticeDetail = ({ data, type, addCallback, updateCallback, deleteCallback 
     return <>
         <div>
             <CustomButton className="button" onClick={() => {
-                navigate('/Notice')
+                backToRootRoute()
             }}>
                 뒤로가기
             </CustomButton>
         </div>
         <div className="notice-manage-container">
-            <label>제목 : </label>
-            <input value={inputTitle} onChange={e => {
+            <label htmlFor="notice-title-input">제목 : </label>
+            <input id="notice-title-input" value={inputTitle} onChange={e => {
                 setInputTitle(e.target.value)
             }} />
         </div>

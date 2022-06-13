@@ -13,15 +13,15 @@ const Sidebar = ({ locale }) => {
   return (
     <div className={"sidebar" + (standalone.standalone ? ' standalone' : '')}>
       <Menu />
-      {!standalone.standalone && <a
+      <a
         className="back-to-homepage"
         rel="noopener noreferrer"
-        href={domain}
+        href={standalone.standalone ? '/docs' : domain}
         target="_blank"
       >
         <ImportOutlined style={{ marginRight: "6px" }} />
-        <FormattedMessage id="BACKHOMEPAGE" />
-      </a>}
+        <FormattedMessage id={standalone.standalone ? "GODOCUMENT" : "BACKHOMEPAGE"} />
+      </a>
     </div>
   );
 };

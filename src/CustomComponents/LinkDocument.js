@@ -1,11 +1,14 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl';
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import './LinkDocument.css'
 
 const LinkDocument = ({ locale, link }) => {
     const domain = process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003')
-    return <div className="document-link">
+    const {standalone} = useSelector(state => ({
+        standalone: state.standalone
+    }))
+    return !standalone.standalone && <div className="document-link">
         <>
             <a
                 target="_blank"

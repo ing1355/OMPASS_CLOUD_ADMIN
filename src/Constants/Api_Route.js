@@ -66,7 +66,9 @@ export const getOMSNoticeApi = '/oms/notice'
 export const updateOMSNoticeApi = '/oms/notice'
 export const addOMSNoticeApi = '/oms/notice'
 export const deleteOMSNoticeApi = (noticeId) => `/oms/notice/${noticeId}`
-export const getNoticeApi = '/v1/recently-notice'
+export const getNoticeApi = (country) => `/v1/country/${country}/recently-notice`
 export const uploadNoticeImageApi = '/oms/imageUpload'
 
 export const checkIsStandaloneApi = '/v1/server-type'
+
+export const adminAccessControlChangeByOMSApi = '/oms/ompass-admin-applications/policies/access-control'

@@ -45,7 +45,7 @@ const AdminRoutes = [
   {
     key: "Dashboard",
     name: "Dashboard",
-    route: "/*",
+    route: "/Dashboard",
     component: <Dashboard/>,
     icon: DashboardIcon,
   },
@@ -121,7 +121,7 @@ const route_info = (role, isStandalone) => role === "OMS"
       {
         key: "Dashboard",
         name: "Dashboard",
-        route: "/*",
+        route: "/Dashboard/*",
         component: <OMSDashboard/>,
         icon: DashboardIcon,
       },
@@ -154,9 +154,21 @@ const route_info = (role, isStandalone) => role === "OMS"
       {
         key: "Notices",
         name: "Notices",
-        route: "/Notice/*",
-        component: <OMSNotices/>,
         icon: AdminsIcon,
+        submenu: [
+          {
+            key: 'NoticesKR',
+            name: 'NoticesKR',
+            route: '/Notice/KR',
+            component: <OMSNotices/>
+          },
+          {
+            key: 'NoticesEN',
+            name: 'NoticesEN',
+            route: '/Notice/EN',
+            component: <OMSNotices/>
+          }
+        ]
       },
     ]
     : ((role === "ADMIN" && !isStandalone)

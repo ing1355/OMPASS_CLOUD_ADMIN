@@ -14,10 +14,15 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import BillingEdtion from "../../Contents/Billing/BillingEdition";
 import AdminInfo from "./AdminInfo";
+import CustomButton from "../../../CustomComponents/CustomButton";
+import { CustomAxiosPut } from '../../../Functions/CustomAxios';
+import { adminAccessControlChangeByOMSApi } from "../../../Constants/Api_Route";
 
 const AdminsDetail = ({ data }) => {
-  const { applications, billing, paymentHistories, subAdmins, eventLogs, adminData } = data || {};
+  const { applications, billing, paymentHistories, subAdmins, eventLogs, adminData, ompassAdminApplication } = data || {};
+  const {accessControl, policyId} = ompassAdminApplication || {}
   const subAdminTableData = subAdmins && subAdmins.map(d => ({...d, name: d.firstName + d.lastName}))
+  const [ompassStatus, setOmpassStatus] = useState(accessControl)
   const [confirmVisible, setConfirmVisible] = useState(false);
 
   // const openConfirm = () => {
@@ -31,6 +36,16 @@ const AdminsDetail = ({ data }) => {
   const confirmCallback = () => {
     closeConfirm();
   };
+
+  const adminOMPASSToggle = () => {
+    const result = ompassStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'
+    CustomAxiosPut(adminAccessControlChangeByOMSApi, {
+      accessControl: result,
+      policyId
+    }, () => {
+      setOmpassStatus(result)
+    })
+  }
 
   return data ? (
     <> <div className="contents-container" style={{width:'80%'}}>
@@ -55,7 +70,11 @@ const AdminsDetail = ({ data }) => {
       </section>
 
       <section className="no-border">
-        <h2>Applications</h2>
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+          <h2>Applications</h2><CustomButton className={"button" + (ompassStatus === 'INACTIVE' ? ' red' : '')} onClick={adminOMPASSToggle}>
+            {ompassStatus === 'INACTIVE' ? 'OMPASS 인증 필수로 변경' : 'OMPASS 인증 패스로 변경'}
+          </CustomButton>
+        </div>
         <CustomTable
           columns={OMSApplicationsColumns}
           datas={applications}

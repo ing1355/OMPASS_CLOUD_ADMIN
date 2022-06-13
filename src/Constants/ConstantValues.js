@@ -13,3 +13,4 @@ export const getColorByUserNum = (num, maxNum) => {
 export const getRateByUserNum = (num, maxNum) => {
     return (num / maxNum) * 100;
 };
+export const codeBlockLanguage = 'jsx'
