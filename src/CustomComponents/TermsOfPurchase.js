@@ -580,7 +580,7 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
           </ul>
 
           <ul>
-            <li>➌</li>
+            <li>❸</li>
             <li>
               <FormattedMessage id="TermsOfPurchase_title_12_3" />
             </li>
