@@ -578,6 +578,13 @@ const TermsOfPurchase = ({ visible, setVisible, locale }) => {
               <FormattedMessage id="TermsOfPurchase_title_12_2" />
             </li>
           </ul>
+
+          <ul>
+            <li>❸</li>
+            <li>
+              <FormattedMessage id="TermsOfPurchase_title_12_3" />
+            </li>
+          </ul>
         </p>
 
         <p id="13th">

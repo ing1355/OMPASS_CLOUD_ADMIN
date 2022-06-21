@@ -478,6 +478,8 @@ const locales = {
       "All civil and criminal responsibilities arising from the Service are the primary responsibility of the Customer themselves.",
     TermsOfPurchase_title_12_2:
       "The Company does not compensate for damages received by Customers from the service due to force majeure, such as natural disasters, or intentional or negligence on the part of the Customer.",
+    TermsOfPurchase_title_12_3:
+      "Service credit of the Service follows 'Sales Level Agreement'.",
     TermsOfPurchase_title_13: "13. DISCLAIMER AND LIMITS",
     TermsOfPurchase_title_13_1:
       "The Company is not responsible for any damage caused by the Customer's failure to obtain the expected results from the provision of Service or the selection or use of service materials.",
@@ -549,6 +551,7 @@ const locales = {
     TermsOfPurchase_number_11_8: "11.8",
     TermsOfPurchase_number_12_1: "12.1",
     TermsOfPurchase_number_12_2: "12.2",
+    TermsOfPurchase_number_12_3: "12.3",
     TermsOfPurchase_number_13_1: "13.1",
     TermsOfPurchase_number_13_2: "13.2",
     TermsOfPurchase_number_13_3: "13.3",
@@ -837,7 +840,7 @@ const locales = {
     FOOTER_3: "TEL：+82 70 4298 3070 | E-Mail：service@omsecurity.kr",
     FOOTER_4: "세종특별자치시 한누리대로 2150, 605호 (보람동, 스마트허브 1동)",
     OMPASS_title: "원모어패스",
-    Privacy_Policy: "개인정보 처리 방침",
+    Privacy_Policy: "개인정보처리방침",
     Privacy_Policy_title_1: "개인정보의 수집 · 이용 목적",
     Privacy_Policy_title_2: "수집하는 개인정보의 항목",
     Privacy_Policy_title_3: "개인정보의 수집방법",
@@ -853,7 +856,7 @@ const locales = {
     // 개인정보처리방침
     Effective_date: "시행일 | 2022 / 03 / 01",
     Privacy_Policy_text:
-      "'원모어패스'(이하 “OMPASS”) 서비스를 제공하는 ‘원모어시큐리티’(이하 “회사”)는 이용자의 개인정보를 보호하기 위하여 노력하며, ‘정보통신망 이용촉진 및 정보보호’에 관한 법률 및 ‘개인정보보호법’ 등 관련 법률을 준수하고 있습니다. 회사는 회사가 이용자의 개인정보를 어떻게 처리하는지 쉽게 확인할 수 있도록 관련법에 따라 본 개인정보 처리방침을 공개합니다.",
+      "'원모어패스'(이하 “OMPASS”) 서비스를 제공하는 ‘원모어시큐리티’(이하 “회사”)는 이용자의 개인정보를 보호하기 위하여 노력하며, ‘정보통신망 이용촉진 및 정보보호’에 관한 법률 및 ‘개인정보보호법’ 등 관련 법률을 준수하고 있습니다. 회사는 회사가 이용자의 개인정보를 어떻게 처리하는지 쉽게 확인할 수 있도록 관련법에 따라 본 개인정보처리방침을 공개합니다.",
     Privacy_Policy_text2: "이 개인정보취급방침의 내용은 다음과 같습니다.",
     Privacy_Policy_title1: "1. 개인정보의 수집 · 이용 목적",
     Privacy_Policy_title1_1:
@@ -1066,6 +1069,8 @@ const locales = {
       "본 서비스 및 사이트의 발생한 모든 민, 형법상 책임은 회원 본인에게 1차적으로 있습니다.",
     TermsOfPurchase_title_12_2:
       "본 서비스 및 사이트로부터 회원이 받은 손해가 천재지변 등 불가항력적이거나 회원의 고의 또는 과실로 인하여 발생한 때에는 손해배상을 하지 않습니다.",
+    TermsOfPurchase_title_12_3:
+      "본 서비스 및 사이트의 서비스 크레딧은 '사이트의 서비스 수준 협약'을 따릅니다.",
     TermsOfPurchase_title_13: "제13조 면책",
     TermsOfPurchase_title_13_1:
       "회사는 회원이 사이트의 서비스 제공으로부터 기대되는 이익을 얻지 못하였거나 서비스 자료에 대한 취사선택 또는 이용으로 발생하는 손해 등에 대해서는 책임이 면제됩니다.",
@@ -1138,6 +1143,7 @@ const locales = {
     TermsOfPurchase_number_11_8: "❽",
     TermsOfPurchase_number_12_1: "❶",
     TermsOfPurchase_number_12_2: "❷",
+    TermsOfPurchase_number_12_3: "❸",
     TermsOfPurchase_number_13_1: "❶",
     TermsOfPurchase_number_13_2: "❷",
     TermsOfPurchase_number_13_3: "❸",
