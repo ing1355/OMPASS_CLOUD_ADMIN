@@ -113,15 +113,15 @@ const Login = ({
                     <FormattedMessage id="PasswordAssistance" />
                   </span>
                 </div>
-                {!standalone.standalone &&<div className="join">
+                <div className="join">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={locale === 'ko' ? homepageUrl('ko') : homepageUrl('en')}
+                    href={standalone.standalone ? '/docs' : (locale === 'ko' ? homepageUrl('ko') : homepageUrl('en'))}
                   >
-                    <FormattedMessage id="Registration" />
+                    <FormattedMessage id={standalone.standalone ? 'GODOCUMENT' : "Registration"} />
                   </a>
-                </div>}
+                </div>
               </ul>
               <ul>
                 <p className="login-welcome-text">
@@ -148,7 +148,7 @@ const Login = ({
                     className="forgetEmail"
                     placeholder={formatMessage({ id: "Email" })}
                     type="text"
-                  ></input>
+                  />
 
                   <button className="button" type="submit">
                     <FormattedMessage id="ResetPassword" />

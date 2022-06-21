@@ -50,7 +50,7 @@
     "testDeploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
     "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
     "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
-    "awsDeploy": "cross-env npm run build:aws&&aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
+    "awsDeploy": "aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +72,9 @@
   },
   "devDependencies": {
     "cra-bundle-analyzer": "^0.1.1",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.2.1",
+    "webpack-exclude-assets-plugin": "^0.1.1"
   }
 }

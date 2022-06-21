@@ -9,7 +9,6 @@ const locales = {
         "데모 보기": "See Demo",
         "안드로이드": "Android",
         "원모어패스 로그인이란?": "How does OMPASS work",
-        "최초 로그인": "First Login",
 
         "원모어패스 시작하기": "How to start OMPASS",
         "관리자 페이지": "Administrator page",
@@ -40,8 +39,8 @@ const locales = {
         "비밀번호 초기화 인증 메일": "If you click [Verification email to initialize OMPASS] from your mailbox",
 
         "대시보드": "Dashboard",
-        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "You can gain insight into the validity period of the service currently being used.",
-        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "You can gain insight into the number of days remaining against next payment.",
+        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "You can gain insight into the validity period of the service currently being used.(The validity period will not display in the on-premise)",
+        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "You can gain insight into the number of days remaining against next payment.(The number of days remaining will not display in the on-premise)",
         "OMPASS 서비스를 이용 중인 사용자 수, 관리자 수, 바이패스 수, 비활성화 수 관련 정보를 제공합니다.": "You can gain insight into the number of users.",
         "어플리케이션 단위로 사용자 인증 횟수를 보여주는 차트입니다.": "You can gain insight into the number of user authentications per each application.",
         "최근 ompass 인증을 이용한 사용자 로그입니다.": "You can gain insight into authentication log currently being used to access each application by each user.",
@@ -343,8 +342,8 @@ const locales = {
         "OMPASS API를 적용한 DEMO의 소스코드를 제공하고 있습니다.": "We are providing the source code of the DEMO to which the OMPASS API is applied.",
         "앱 다운을 받기를 원하시면": "If you would like to download the app, please click",
         "를 눌러주세요.": " ",
-        "최초 로그인 시 관리자 계정은 admin / 1234 로 로그인 가능합니다.": "최초 로그인 시 관리자 계정은 admin / 1234 로 로그인 가능합니다.",
-        "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다."
+        "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "The main ADMIN account cannot be deleted or withdrawn.",
+        "interfaceURL": "(Installed interface's web URL)"
     },
     KR: {
         "로그인": "로그인",
@@ -356,7 +355,6 @@ const locales = {
         "데모 보기": "데모 보기",
         "안드로이드": "안드로이드",
         "원모어패스 로그인이란?": "원모어패스 로그인이란?",
-        "최초 로그인": "최초 로그인",
 
         "원모어패스 시작하기": "원모어패스 시작하기",
         "관리자 페이지": "관리자 페이지",
@@ -385,8 +383,8 @@ const locales = {
         "8~16자리로 등록한 패스워드를 입력합니다.": "8~16자리로 등록한 패스워드를 입력합니다.",
 
         "대시보드": "대시보드",
-        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.(On-premise 환경에서는 기간 제한이 없습니다.)",
-        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "다음 결제 시 까지 남은 일 수가 표기됩니다.(On-premise 환경에서는 기간 제한이 없습니다.)",
+        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.(On-Premise 환경에서는 기간 제한이 없습니다.)",
+        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "다음 결제 시 까지 남은 일 수가 표기됩니다.(On-Premise 환경에서는 기간 제한이 없습니다.)",
         "OMPASS 서비스를 이용 중인 사용자 수, 관리자 수, 바이패스 수, 비활성화 수 관련 정보를 제공합니다.": "OMPASS 서비스를 이용 중인 전체 사용자 수, 등록된 사용자 수, 등록되지 않은 사용자 수, OMPASS 인증 바이패스 사용자 수 관련 정보를 제공합니다.",
         "어플리케이션 단위로 사용자 인증 횟수를 보여주는 차트입니다.": "어플리케이션 단위로 사용자 인증 횟수를 보여주는 차트입니다.",
         "최근 ompass 인증을 이용한 사용자 로그입니다.": "최근 ompass 인증을 이용한 사용자 로그입니다.",
@@ -695,8 +693,8 @@ const locales = {
         "OMPASS API를 적용한 DEMO의 소스코드를 제공하고 있습니다.": "OMPASS API를 적용한 DEMO의 소스코드를 제공하고 있습니다.",
         "앱 다운을 받기를 원하시면": "앱 다운을 받기를 원하시면",
         "를 눌러주세요.": "를 눌러주세요.",
-        "최초 로그인 시 관리자 계정은 admin / 1234 로 로그인 가능합니다.": "최초 로그인 시 관리자 계정은 admin / 1234 로 로그인 가능합니다.",
-        "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다."
+        "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.",
+        "interfaceURL": "(설치된 인터페이스 URL)"
     },
 };
 

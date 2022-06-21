@@ -14,10 +14,11 @@ import ActionCreators from "./redux/actions";
 import MessageController from "./MessageController";
 import Notice from "./Layout/Notice/Notice";
 import { CustomAxiosGet } from "./Functions/CustomAxios";
-import { checkIsStandaloneApi } from "./Constants/Api_Route";
+import { checkIsStandaloneApi, getNoticeApi } from "./Constants/Api_Route";
 import { useCookies } from 'react-cookie'
 import { standaloneChange } from "./redux/reducers/standaloneReducer";
-import Document from "./Layout/Sidebar/OnpremiseDocuments/Document";
+// import Document from "./Layout/Sidebar/OnpremiseDocuments/Document";
+import { isOMSRole } from "./Constants/GetRole";
 
 
 const SubAdminSignUp = lazy(() => import("./Layout/SignUp/SubAdminSignUp"));
@@ -29,6 +30,7 @@ const Header = lazy(() => import("./Layout/Header/Header"))
 const Sidebar = lazy(() => import("./Layout/Sidebar/Sidebar"))
 const Login = lazy(() => import("./Layout/Login/Login"))
 const Footer = lazy(() => import("./Layout/Footer/Footer"))
+const Document = lazy(() => import("./Layout/Sidebar/OnpremiseDocuments/Document"))
 
 const App = ({
   isLogin,
@@ -38,7 +40,11 @@ const App = ({
   userProfile
 }) => {
   const { country, role } = userProfile;
+  const [cookies, setCookie, removeCookie] = useCookies()
   const [noticeDisplay, setNoticeDisplay] = useState(null)
+  const {standalone} = useSelector(state => ({
+    standalone: state.standalone
+  }))
   const dispatch = useDispatch()
 
   useLayoutEffect(() => {
@@ -57,14 +63,14 @@ const App = ({
     })
   }, [])
 
-  // useLayoutEffect(() => {
-  //   if(standalone.loaded && !standalone.standalone && isLogin && !isOMSRole(role)) {
-  //     CustomAxiosGet(getNoticeApi(country), data => {
-  //       const { content, noticeId } = data
-  //       if (cookies.noticeId * 1 !== noticeId) setNoticeDisplay({content, noticeId})
-  //     })
-  //   }
-  // },[isLogin, standalone])
+  useLayoutEffect(() => {
+    if(standalone.loaded && !standalone.standalone && isLogin && !isOMSRole(role)) {
+      CustomAxiosGet(getNoticeApi(country), data => {
+        const { content, noticeId } = data
+        if (cookies.noticeId * 1 !== noticeId) setNoticeDisplay({content, noticeId})
+      })
+    }
+  },[isLogin, standalone])
 
   useLayoutEffect(() => {
     if (!isLogin) {
@@ -99,7 +105,7 @@ const App = ({
               path="/login"
               element={isLogin ? <Navigate to="/" /> : <Login />}
             />
-            <Route path="/docs/*" element={<Document/>}/>
+            {process.env.REACT_APP_SERVICE_TARGET !== 'aws' && <Route path="/docs/*" element={<Document/>}/>}
             <Route
               path="/*"
               element={!isLogin ? (

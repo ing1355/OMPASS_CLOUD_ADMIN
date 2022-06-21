@@ -1,6 +1,6 @@
 .docs-container {
     border: 0;
-    width: 85%;
+    width: 65%;
     margin: 0 auto;
     padding: 0;
     height: 100%;
@@ -136,7 +136,7 @@ ul > li.docs-sub-item, ul > li.docs-item.hasChild {
 }
 
 .docs-content-container.hasPopBox > div:first-child {
-    width: 85%;
+    width: calc(100% - 222px);
 }
 
 .docs-content-container > div::-webkit-scrollbar {

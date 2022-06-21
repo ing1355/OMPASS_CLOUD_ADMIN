@@ -50,28 +50,6 @@ const RestApiReset = () => {
 
       <UserResetOmpass/>
     </div>
-
-    {/* <div className="popbox">
-      <h3>
-        <FormattedMessage id="OMPASS 등록 초기화" />
-      </h3>
-      <p
-        onClick={() => {
-          var offset = $(".1st").offset();
-          $("#docs-scroll-container").animate({ scrollTop: offset.top + document.getElementById('docs-scroll-container').scrollTop }, "linear");
-        }}
-      >
-        <FormattedMessage id="OMPASS 등록 초기화란?" />
-      </p>
-      <p
-        onClick={() => {
-          var offset = $(".2st").offset();
-          $("#docs-scroll-container").animate({ scrollTop: offset.top + document.getElementById('docs-scroll-container').scrollTop }, "linear");
-        }}
-      >
-        <FormattedMessage id="OMPASS 등록 초기화 API" />
-      </p>
-    </div> */}
   </>
 }
 export default RestApiReset;

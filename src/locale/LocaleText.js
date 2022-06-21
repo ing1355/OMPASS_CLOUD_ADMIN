@@ -601,7 +601,7 @@ const locales = {
     MODIFIEDDATE: 'Last Modified Date',
     NoticesKR: 'KR',
     NoticesEN: 'EN',
-    "Notice-No-Reply": '다시 보지않겠습니다.'
+    "Notice-No-Reply": "Don't show me this again."
   },
   KR: {
     PERNUM: "명",
