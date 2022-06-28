@@ -2,12 +2,14 @@ import React, { useCallback, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect, useSelector } from "react-redux";
 import PrivacyPolicy from "../../CustomComponents/PrivacyPolicy";
+import SalesLevelAgreement from "../../CustomComponents/SalesLevelAgreement";
 import TermsOfPurchase from "../../CustomComponents/TermsOfPurchase";
 import ActionCreators from "../../redux/actions";
 import "./Footer.css";
 
 const Footer = ({ setVisible }) => {
   const [visiblePrivacy, setVisiblePrivacy] = useState(false);
+  const [visibleSales, setVisibleSales] = useState(false);
   const { standalone } = useSelector(state => ({
     standalone: state.standalone
   }))
@@ -17,6 +19,9 @@ const Footer = ({ setVisible }) => {
   }, []);
   const openPrivacyPolicy = useCallback(() => {
     setVisiblePrivacy(true);
+  }, []);
+  const openSalesLevelAgreement = useCallback(() => {
+    setVisibleSales(true);
   }, []);
   return (
     <>
@@ -60,7 +65,14 @@ const Footer = ({ setVisible }) => {
                 >
                   <FormattedMessage id="Privacy_Policy" />
                 </a>
-                <br /></>}
+                <br />
+                <a
+                 href="#"
+                 style={{ textDecoration: "underline" }}
+                 onClick={openSalesLevelAgreement}>
+                  <FormattedMessage id="Sales_Level_Agreement" />
+                 </a>
+                 <br /></>}
               <span className="copyRight">
                 © OneMoreSecurity Inc. All Rights Reserved.
               </span>
@@ -69,6 +81,7 @@ const Footer = ({ setVisible }) => {
         </div>
       </div>
       <PrivacyPolicy visible={visiblePrivacy} setVisible={setVisiblePrivacy} />
+      <SalesLevelAgreement visible={visibleSales} setVisible={setVisibleSales}/>
       <TermsOfPurchase />
     </>
   );
