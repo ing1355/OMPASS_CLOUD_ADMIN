@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://192.168.182.150:8800",
+  "proxy": "https://admin-api.ompasscloud.com",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ckeditor/ckeditor5-react": "^5.0.2",

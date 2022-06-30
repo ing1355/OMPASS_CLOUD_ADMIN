@@ -1,5 +1,4 @@
 import React from "react";
-import $ from "jquery";
 
 import { DownloadOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";

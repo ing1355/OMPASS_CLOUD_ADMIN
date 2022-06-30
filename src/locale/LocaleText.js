@@ -1196,7 +1196,7 @@ const locales = {
     MODIFIEDDATE: '마지막 수정일',
     NoticesKR: '한국어',
     NoticesEN: '영어',
-    "Notice-No-Reply": '다시 보지않겠습니다.'
+    "Notice-No-Reply": '다시 보지않음'
   },
 };
 

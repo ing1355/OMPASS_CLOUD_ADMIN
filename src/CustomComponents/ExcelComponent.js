@@ -17,7 +17,6 @@ import { updateExcelApi } from '../Constants/Api_Route'
 import { CustomAxiosPost } from '../Functions/CustomAxios';
 
 const ExcelComponent = ({ type, lang, applicationsData, tableData, showSuccessMessage, showErrorMessage, userProfile }) => {
-    console.log(applicationsData)
     const [excelData, setExcelData] = useState([])
     const [confirmVisible, setConfirmVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);

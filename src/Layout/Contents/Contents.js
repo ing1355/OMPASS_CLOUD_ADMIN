@@ -6,9 +6,10 @@ import { connect, useSelector } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
 import ActionCreators from "../../redux/actions";
 import route_info from "../../Constants/Route_items";
+import { isKorea } from "../../Functions/isKorea";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
-  const { role } = userProfile;
+  const { role, country } = userProfile;
   const navigate = useNavigate()
   const { standalone } = useSelector(state => ({
     standalone: state.standalone
@@ -37,15 +38,13 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
 
   useLayoutEffect(() => {
     if (standalone.loaded && !standalone.standalone) {
-      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
-      var script = document.createElement('script');
-      script.src = 'https://code.jquery.com/jquery-1.12.4.min.js'
-      document.head.appendChild(script)
+      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: isKorea(country) ? 'ko' : 'en' })
     }
   }, [standalone])
 
   useEffect(() => {
     return () => {
+      console.log('clean up')
       Chat.shutdown()
     }
   }, [])
