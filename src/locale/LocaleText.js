@@ -262,7 +262,7 @@ const locales = {
     Sales_Level_Agreement_title1_5_7: "＜ 95.0%",
     Sales_Level_Agreement_title1_5_8: "15",
     Sales_Level_Agreement_title2: "2. Customer Must Request Service Credit",
-    Sales_Level_Agreement_title1_2_1: "In order to receive any of the Service Credits described above, Customer must notify OneMoreSecurity Inc. by email at service@omsecurity.kr within 30 days from the time Customer becomes eligible to receive a Service Credit. Failure to comply with this requirement will forfeit Customer's right to receive a Service Credit.",
+    Sales_Level_Agreement_title2_1: "In order to receive any of the Service Credits described above, Customer must notify OneMoreSecurity Inc. by email at service@omsecurity.kr within 30 days from the time Customer becomes eligible to receive a Service Credit. Failure to comply with this requirement will forfeit Customer's right to receive a Service Credit.",
     Sales_Level_Agreement_title3: "3. Maximum Service Credit",
     Sales_Level_Agreement_title3_1: "The aggregate maximum number of Service Credits to be issued by OneMoreSecurity Inc. to Customer for all Downtime that occurs in thirty days contract shall not exceed fifteen days of Service. Service Credits may not be exchanged for, or converted to, monetary amounts.",
     Sales_Level_Agreement_title4: "4. OMPASS SLA Exclusions",

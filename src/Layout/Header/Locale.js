@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Locale.css";
 import localIcon from "../../assets/localeIcon.png";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actions";
-import { FormattedMessage } from "react-intl";
 
 const Locale = ({ locale, localeChange }) => {
-  const [langbox, setLangbox] = useState(false);
   const localeChangeEvent = () => {
     if (locale === "en") {
       localeChange("ko");

@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Navigate,
   Route,
-  Routes,
+  Routes
 } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -52,6 +52,7 @@ const App = ({
       if (countryCode === code) {
         localStorage.setItem("locale", code)
         localeChange(code);
+        window.location.href = window.location.href.slice(0,-3)
       }
     })
     CustomAxiosGet(checkIsStandaloneApi, ({standalone}) => {
