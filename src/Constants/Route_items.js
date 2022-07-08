@@ -45,7 +45,7 @@ const AdminRoutes = [
   {
     key: "Dashboard",
     name: "Dashboard",
-    route: "/Dashboard",
+    route: "/Dashboard/*",
     component: <Dashboard/>,
     icon: DashboardIcon,
   },

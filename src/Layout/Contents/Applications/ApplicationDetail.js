@@ -21,7 +21,7 @@ import { Button, Space, Row, Col } from "antd";
 import { UserSwitchOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import {
-  doaminTest,
+  domainTest,
   FailToTest,
   nameTest,
 } from "../../../Constants/InputRules";
@@ -44,7 +44,7 @@ const ApplicationDetail = ({
   const { appId } = useParams();
   const { adminId } = userProfile;
   const nameRef = useRef(null);
-  const doaminRef = useRef(null);
+  const domainRef = useRef(null);
   const redirectURIRef = useRef(null);
   // const statusRef = useRef(null);
   // const statusRef2 = useRef(null);
@@ -80,7 +80,7 @@ const ApplicationDetail = ({
           policyId,
         } = data;
         nameRef.current.value = name;
-        doaminRef.current.value = domain;
+        domainRef.current.value = domain;
         redirectURIRef.current.value = redirectUri.replace(domain, "");
         secretKeyRef.current.value = secretKey;
         policyRef.current.value = policyId;
@@ -149,7 +149,7 @@ const ApplicationDetail = ({
     if (!domain.value.length) {
       return FailToTest(domain, showErrorMessage("PLEASE_INPUT_DOMAIN"));
     }
-    if (!doaminTest(domain.value)) {
+    if (!domainTest(domain.value)) {
       return FailToTest(domain, showErrorMessage("DOMAIN_RULE_ERROR"));
     }
     if (!(domain.value + redirectUri.value).length) {
@@ -158,7 +158,7 @@ const ApplicationDetail = ({
         showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
       );
     }
-    if (!doaminTest(domain.value + redirectUri.value)) {
+    if (!domainTest(domain.value + redirectUri.value)) {
       return FailToTest(
         redirectUri,
         showErrorMessage("REDIRECT_URI_RULE_ERROR")
@@ -236,7 +236,7 @@ const ApplicationDetail = ({
             <label>
               <FormattedMessage id="DOMAIN" />
             </label>
-            <input name="domain" ref={doaminRef} readOnly maxLength={48} />
+            <input name="domain" ref={domainRef} readOnly maxLength={48} />
           </div>
           <div className="Application-label-input-box">
             <label>
@@ -250,9 +250,9 @@ const ApplicationDetail = ({
                 alignItems: "center",
               }}
             >
-              <Col>
+              <Col style={{paddingRight:'4px'}}>
                 <span>
-                  {doaminRef.current ? doaminRef.current.value : ""}
+                  {domainRef.current ? domainRef.current.value : ""}
                 </span>
               </Col>
               <Col flex="auto">
