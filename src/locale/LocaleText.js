@@ -229,7 +229,7 @@ const locales = {
     PRICE_CHANGE_DESCRIPTION:
       "※ Due to the change in the number of users, the expected amount to be paid on the next payment date is {param}.",
     TERMS_OF_SERVICE: "Terms of Service",
-    FOOTER_1: "OneMoreSecurity Inc. | CEO：Min-sik Kim",
+    FOOTER_1: "OneMoreSecurity Inc. | CEO：KIM, MIN SIK",
     FOOTER_2:
       "Business Number：735-88-01175 | E-Commerce Registration Number：2022-Sejong-0150",
     FOOTER_3: "TEL：+82 70 4298 3070 | Email：service@omsecurity.kr",
