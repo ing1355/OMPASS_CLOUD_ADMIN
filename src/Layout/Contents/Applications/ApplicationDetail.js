@@ -24,6 +24,7 @@ import {
   domainTest,
   FailToTest,
   nameTest,
+  reidrectUriTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -81,7 +82,7 @@ const ApplicationDetail = ({
         } = data;
         nameRef.current.value = name;
         domainRef.current.value = domain;
-        redirectURIRef.current.value = redirectUri.replace(domain, "");
+        redirectURIRef.current.value = redirectUri.replace(domain + '/', "");
         secretKeyRef.current.value = secretKey;
         policyRef.current.value = policyId;
         setUiUpdate(true);
@@ -152,13 +153,13 @@ const ApplicationDetail = ({
     if (!domainTest(domain.value)) {
       return FailToTest(domain, showErrorMessage("DOMAIN_RULE_ERROR"));
     }
-    if (!(domain.value + redirectUri.value).length) {
+    if (!(redirectUri.value).length) {
       return FailToTest(
         redirectUri,
         showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
       );
     }
-    if (!domainTest(domain.value + redirectUri.value)) {
+    if (!reidrectUriTest(redirectUri.value)) {
       return FailToTest(
         redirectUri,
         showErrorMessage("REDIRECT_URI_RULE_ERROR")
@@ -169,7 +170,7 @@ const ApplicationDetail = ({
       {
         name: name.value,
         domain: domain.value,
-        redirectUri: domain.value + redirectUri.value,
+        redirectUri: domain.value + '/' + redirectUri.value,
         // status: status.value.toUpperCase(),
         policyId: policy.value,
       },
@@ -252,7 +253,7 @@ const ApplicationDetail = ({
             >
               <Col style={{paddingRight:'4px'}}>
                 <span>
-                  {domainRef.current ? domainRef.current.value : ""}
+                  {domainRef.current ? (domainRef.current.value + '/' ): ""}
                 </span>
               </Col>
               <Col flex="auto">

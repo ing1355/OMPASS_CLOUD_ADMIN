@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://admin-api.ompasscloud.com",
+  "proxy": "https://ompass.kr:4002",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ckeditor/ckeditor5-react": "^5.0.2",
@@ -43,6 +43,7 @@
     "start": "cross-env HTTPS=true react-scripts start",
     "build:prod": "cross-env REACT_APP_SERVICE_TARGET=prod GENERATE_SOURCEMAP=false react-scripts build",
     "build:aws": "cross-env REACT_APP_SERVICE_TARGET=aws GENERATE_SOURCEMAP=false react-scripts build",
+    "build:awsTest": "cross-env REACT_APP_SERVICE_TARGET=awsTest GENERATE_SOURCEMAP=false react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js' --gzip",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -50,7 +51,9 @@
     "testDeploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
     "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
     "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
-    "awsDeploy": "aws s3 sync ./build s3://ompass-admin&&aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager"
+    "awsTestInvalidation": "aws cloudfront create-invalidation --distribution-id EZ1Y858BAFJCL --paths \"/*\" --no-cli-pager",
+    "awsDeploy": "aws s3 sync ./build s3://ompass-admin&&npm run awsInvalidation",
+    "awsTestDeploy": "aws s3 sync ./build s3://ompass-admin-test&&npm run awsTestInvalidation"
   },
   "eslintConfig": {
     "extends": [

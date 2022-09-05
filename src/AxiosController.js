@@ -6,7 +6,6 @@ import ActionCreators from './redux/actions';
 const AxiosController = ({ setIsLogin, showErrorMessage }) => {
     useLayoutEffect(() => {
         axios.interceptors.request.use(req => {
-            if (process.env.REACT_APP_SERVICE_TARGET === 'aws') req.url = 'https://admin-api.ompasscloud.com' + req.url;
             if (process.env.NODE_ENV === 'development') console.log(req);
             return req;
         }, err => {
@@ -21,6 +20,7 @@ const AxiosController = ({ setIsLogin, showErrorMessage }) => {
             if (err.response.data.code === 'ERR_001' && url[url.length - 1] !== 'signup-token') {
                 setIsLogin(false);
             }
+            if (err.response.data.code === 'ERR_005') setIsLogin(false);
             return Promise.reject(err);
         })
     }, [])

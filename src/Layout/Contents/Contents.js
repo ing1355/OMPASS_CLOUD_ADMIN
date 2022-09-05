@@ -44,7 +44,6 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
 
   useEffect(() => {
     return () => {
-      console.log('clean up')
       Chat.shutdown()
     }
   }, [])

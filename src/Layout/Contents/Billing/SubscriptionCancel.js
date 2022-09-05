@@ -52,11 +52,12 @@ const SubscriptionCancel = ({
       }
     );
   };
+  
   return (
     <>
       <button
         disabled={
-          (currentPlan && (currentPlan.status === "CANCEL" || currentPlan.status === 'EXPIRED' || currentPlan.status === 'FREE')) ||
+          (currentPlan && (currentPlan.status === "CANCEL" || currentPlan.status === 'EXPIRED' || currentPlan.status === 'FREE' || currentPlan.status === 'FAILED_REGULAR_PAYMENT')) ||
           !editions.find((e) => e.name === currentPlan.name)
         }
         onClick={openCancelConfirmModal}

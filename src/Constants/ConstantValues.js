@@ -14,3 +14,4 @@ export const getRateByUserNum = (num, maxNum) => {
     return (num / maxNum) * 100;
 };
 export const codeBlockLanguage = 'jsx'
+export const homepageUrl = (locale, uri) => (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (process.env.REACT_APP_SERVICE_TARGET === 'awsTest' ? 'https://d1t0x3qw1y6q7d.cloudfront.net' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003'))) + (uri ? ('/' + uri) : '')

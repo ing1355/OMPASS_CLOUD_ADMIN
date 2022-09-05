@@ -7,13 +7,12 @@ import ActionCreators from "../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
+import { homepageUrl } from "../../Constants/ConstantValues";
 
 const convertLanguageCode = {
   'ko': 'KR',
   'en': 'EN'
 }
-
-const homepageUrl = (locale) => (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? `https://www.ompasscloud.com/${locale}` : `https://ompass.kr:4003/${locale}`) + '/registration'
 
 const Login = ({
   setIsLogin,
@@ -117,7 +116,7 @@ const Login = ({
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={standalone.standalone ? '/docs' : (locale === 'ko' ? homepageUrl('ko') : homepageUrl('en'))}
+                    href={standalone.standalone ? '/docs' : homepageUrl(locale, 'registration')}
                   >
                     <FormattedMessage id={standalone.standalone ? 'GODOCUMENT' : "Registration"} />
                   </a>

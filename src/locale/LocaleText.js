@@ -639,7 +639,12 @@ const locales = {
     MODIFIEDDATE: 'Last Modified Date',
     NoticesKR: 'KR',
     NoticesEN: 'EN',
-    "Notice-No-Reply": "Don't show me this again."
+    "Notice-No-Reply": "Don't show me this again.",
+    TIMEZONE: 'Time zone',
+    REGISTRATION_LOCATION: 'Registered location',
+    CURRENT_LOCATION: 'Current location',
+    OTHER_CARD_PAYMENT: '다른 카드로 결제 시도',
+    EQUAL_CARD_PAYMENT: '기존 카드로 결제 시도'
   },
   KR: {
     PERNUM: "명",
@@ -1266,7 +1271,12 @@ const locales = {
     MODIFIEDDATE: '마지막 수정일',
     NoticesKR: '한국어',
     NoticesEN: '영어',
-    "Notice-No-Reply": '다시 보지않음'
+    "Notice-No-Reply": '다시 보지않음',
+    TIMEZONE: '시간대',
+    REGISTRATION_LOCATION: '회원가입 위치',
+    CURRENT_LOCATION: '현재 위치',
+    OTHER_CARD_PAYMENT: '다른 카드로 결제 시도',
+    EQUAL_CARD_PAYMENT: '기존 카드로 결제 시도'
   },
 };
 

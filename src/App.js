@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { lazy, useLayoutEffect, useState } from "react";
+import React, { lazy, useEffect, useLayoutEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -63,7 +63,7 @@ const App = ({
     })
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(standalone.loaded && !standalone.standalone && isLogin && !isOMSRole(role)) {
       CustomAxiosGet(getNoticeApi(country), data => {
         const { content, noticeId } = data

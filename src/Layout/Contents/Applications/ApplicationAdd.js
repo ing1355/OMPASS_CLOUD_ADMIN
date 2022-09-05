@@ -14,6 +14,7 @@ import {
   domainTest,
   FailToTest,
   ApplicationNameTest,
+  reidrectUriTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -57,7 +58,7 @@ const ApplicationAdd = ({
         showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
       );
     }
-    if (!domainTest(redirectUri.value)) {
+    if (!reidrectUriTest(redirectUri.value)) {
       return FailToTest(
         redirectUri,
         showErrorMessage("REDIRECT_URI_RULE_ERROR")
@@ -69,7 +70,7 @@ const ApplicationAdd = ({
         domain: domain.value,
         name: name.value,
         policyId: policy.value,
-        redirectUri: redirectUri.value,
+        redirectUri: domain.value + '/' + redirectUri.value,
         // status: status.value,
       },
       (data) => {
@@ -160,7 +161,7 @@ const ApplicationAdd = ({
               >
                 <Col style={{paddingRight: inputDomain ? '4px' : 0}}>
                   <span>
-                    {inputDomain || ""}
+                    {(inputDomain && (inputDomain + '/')) || ""}
                   </span>
                 </Col>
                 <Col flex="auto">

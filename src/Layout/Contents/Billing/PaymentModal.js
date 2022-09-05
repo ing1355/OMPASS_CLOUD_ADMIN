@@ -5,6 +5,8 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import {
   getBillingKeyApi,
+  repayIamportEqualCardApi,
+  repayIamportOtherCardApi,
   subscriptionIamportApi,
   updatePaypalApi,
   updateSubscriptionIamportApi,
@@ -16,6 +18,7 @@ import {
 } from "../../../Functions/CustomAxios";
 import { slicePrice } from "../../../Functions/SlicePrice";
 import ActionCreators from "../../../redux/actions";
+import { otherCardType, equalCardType } from "./Billing";
 
 const PaymentModal = ({
   showSuccessMessage,
@@ -32,7 +35,9 @@ const PaymentModal = ({
   setConfirmModal,
   currentPlan,
   editions,
-  statusIsRUN
+  statusIsRUN,
+  paymentType,
+  setPaymentType,
 }) => {
   const { adminId } = userProfile;
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -50,143 +55,183 @@ const PaymentModal = ({
     }
   }, [editions, currentPlan]);
 
+  const getBillingKeyFunction = (callback, repayment) => {
+    setConfirmLoading(true);
+    CustomAxiosPost(
+      getBillingKeyApi(adminId),
+      {
+        paymentInterval: inputTerm,
+        users: inputUserNum,
+      },
+      (data) => {
+        callback(data, repayment);
+      },
+      () => {
+        setConfirmLoading(false);
+      }
+    );
+  };
 
+  const subscriptionCallback = (data, repayment) => {
+    const {
+      merchant_uid,
+      name,
+      amount,
+      customer_uid,
+      buyer_email,
+      buyer_name,
+      buyer_tel,
+      iamportCode,
+      pg,
+    } = data;
+    setConfirmLoading(false);
+    setConfirmModal(false);
+    const callback = () => {
+      window.IMP.init(iamportCode);
+      window.IMP.request_pay(
+        {
+          merchant_uid,
+          name,
+          amount,
+          customer_uid,
+          buyer_email,
+          buyer_name,
+          buyer_tel,
+          pg,
+        },
+        (res) => {
+          const {
+            success,
+            apply_num,
+            bank_name,
+            buyer_addr,
+            buyer_email,
+            buyer_name,
+            buyer_postcode,
+            buyer_tel,
+            card_name,
+            card_number,
+            card_quota,
+            currency,
+            custom_data,
+            customer_uid,
+            imp_uid,
+            merchant_uid,
+            name,
+            paid_amount,
+            paid_at,
+            pay_method,
+            pg_provider,
+            pg_tid,
+            pg_type,
+            receipt_url,
+            status,
+            error_msg,
+          } = res;
+          console.log(res);
+          if (success) {
+            CustomAxiosPost(
+              repayment
+                ? repayIamportOtherCardApi(adminId)
+                : subscriptionIamportApi(adminId),
+              {
+                apply_num,
+                bank_name,
+                buyer_addr,
+                buyer_email,
+                buyer_name,
+                buyer_postcode,
+                buyer_tel,
+                card_name,
+                card_number,
+                card_quota,
+                currency,
+                custom_data,
+                customer_uid,
+                imp_uid,
+                merchant_uid,
+                name,
+                paid_amount,
+                paid_at,
+                pay_method,
+                pg_provider,
+                pg_tid,
+                pg_type,
+                receipt_url,
+                status,
+              },
+              (data) => {
+                const { paymentSuccess } = data;
+                if (paymentSuccess) {
+                  showSuccessMessage("PAYMENT_SUCCESS");
+                  window.location.reload();
+                } else showErrorMessage("PAYMENT_FAIL");
+              }
+            );
+          } else {
+            message.error(error_msg);
+          }
+        }
+      );
+    };
+    if (window.IMP) callback();
+    else {
+      let script2 = document.createElement("script");
+      script2.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+      script2.onload = () => {
+        let script = document.createElement("script");
+        script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+        script.onload = callback;
+        document.head.appendChild(script);
+      };
+      document.head.appendChild(script2);
+    }
+  };
 
   const requestIamPort = () => {
-    setConfirmLoading(true);
     if (statusIsRUN) {
       CustomAxiosPut(
-        isKorea() ? updateSubscriptionIamportApi(adminId) : updatePaypalApi(adminId),
+        isKorea()
+          ? updateSubscriptionIamportApi(adminId)
+          : updatePaypalApi(adminId),
         {
           userCount: inputUserNum,
         },
         (data) => {
           setConfirmLoading(false);
           window.location.reload();
-        }, err => {
+        },
+        (err) => {
           setConfirmLoading(false);
         }
       );
     } else {
-      CustomAxiosPost(
-        getBillingKeyApi(adminId),
-        {
-          paymentInterval: inputTerm,
-          users: inputUserNum,
-        },
-        (data) => {
-          const {
-            merchant_uid,
-            name,
-            amount,
-            customer_uid,
-            buyer_email,
-            buyer_name,
-            buyer_tel,
-            iamportCode,
-            pg
-          } = data;
-          setConfirmLoading(false);
-          setConfirmModal(false);
-          const callback = () => {
-            window.IMP.init(iamportCode);
-            window.IMP.request_pay(
-              {
-                merchant_uid,
-                name,
-                amount,
-                customer_uid,
-                buyer_email,
-                buyer_name,
-                buyer_tel,
-                pg
-              },
-              (res) => {
-                const {
-                  success,
-                  apply_num,
-                  bank_name,
-                  buyer_addr,
-                  buyer_email,
-                  buyer_name,
-                  buyer_postcode,
-                  buyer_tel,
-                  card_name,
-                  card_number,
-                  card_quota,
-                  currency,
-                  custom_data,
-                  customer_uid,
-                  imp_uid,
-                  merchant_uid,
-                  name,
-                  paid_amount,
-                  paid_at,
-                  pay_method,
-                  pg_provider,
-                  pg_tid,
-                  pg_type,
-                  receipt_url,
-                  status,
-                  error_msg
-                } = res;
-                console.log(res);
-                if (success) {
-                  CustomAxiosPost(
-                    subscriptionIamportApi(adminId),
-                    {
-                      apply_num,
-                      bank_name,
-                      buyer_addr,
-                      buyer_email,
-                      buyer_name,
-                      buyer_postcode,
-                      buyer_tel,
-                      card_name,
-                      card_number,
-                      card_quota,
-                      currency,
-                      custom_data,
-                      customer_uid,
-                      imp_uid,
-                      merchant_uid,
-                      name,
-                      paid_amount,
-                      paid_at,
-                      pay_method,
-                      pg_provider,
-                      pg_tid,
-                      pg_type,
-                      receipt_url,
-                      status,
-                    },
-                    (data) => {
-                      const { paymentSuccess } =
-                        data;
-                      if (paymentSuccess) {
-                        showSuccessMessage("PAYMENT_SUCCESS");
-                        window.location.reload();
-                      } else showErrorMessage("PAYMENT_FAIL");
-                    }
-                  );
+      if (!paymentType) {
+        getBillingKeyFunction(subscriptionCallback);
+      } else {
+        if (paymentType === otherCardType) {
+          getBillingKeyFunction(subscriptionCallback, true);
+        } else {
+          getBillingKeyFunction((data) => {
+            CustomAxiosPost(
+              repayIamportEqualCardApi(adminId),
+              null,
+              ({ paymentSuccess }) => {
+                if (paymentSuccess) {
+                  showSuccessMessage("PAYMENT_SUCCESS");
+                  window.location.reload();
                 } else {
-                  message.error(error_msg)
+                  setConfirmLoading(false);
+                  showErrorMessage("PAYMENT_FAIL");
                 }
+              },
+              (err) => {
+                setConfirmLoading(false);
               }
             );
-          };
-          if (window.IMP) callback();
-          else {
-            var script = document.createElement("script");
-            script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
-            script.onload = callback;
-            document.head.appendChild(script);
-          }
-        },
-        () => {
-          setConfirmLoading(false);
+          });
         }
-      );
+      }
     }
   };
 
