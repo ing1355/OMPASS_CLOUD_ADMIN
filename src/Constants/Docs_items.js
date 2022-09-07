@@ -2,7 +2,6 @@ import { LockOutlined, SendOutlined, SettingOutlined, FileTextOutlined, Appstore
 import { lazy } from 'react'
 import { FormattedMessage } from 'react-intl';
 
-const Join = lazy(() => import('../Layout/Sidebar/OnpremiseDocuments/Join'));
 const Login = lazy(() => import('../Layout/Sidebar/OnpremiseDocuments/Login'));
 const U2FUAF = lazy(() => import('../Layout/Sidebar/OnpremiseDocuments/U2FUAF'));
 const Dashboard = lazy(() => import('../Layout/Sidebar/OnpremiseDocuments/Dashboard'));
@@ -35,11 +34,6 @@ export const menuItems = [
         title: <FormattedMessage id='원모어패스 시작하기'/>,
         icon: <SendOutlined />,
         subMenuItems: [
-            {
-                title: <FormattedMessage id='최초 로그인'/>,
-                path: 'registration',
-                component: <Join/>
-            },
             {
                 title: <FormattedMessage id='로그인'/>,
                 path: 'login',

@@ -1,11 +1,12 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import copyBtnImg from '../../../assets/docs/CopyButton.png'
 import { Table } from 'react-bootstrap'
 import { dracula, CopyBlock, CodeBlock } from "react-code-blocks";
 import { codeBlockLanguage } from '../../../Constants/ConstantValues';
 
 const AuthNTokenSecond = () => {
+    const {formatMessage} = useIntl()
     return <div className="7st 8st 77st">
         <div className="guide restapi-div">
             <h5 style={{ margin: "0" }}><FormattedMessage id="인증 토큰 검증"/></h5>
@@ -33,7 +34,7 @@ const AuthNTokenSecond = () => {
                 text={`
           POST 
           URL /v1/ompass/token-verification
-          URL EXAMPLE – https://interface-api.ompasscloud.com/v1/ompass/token-verification
+          URL EXAMPLE https://(${formatMessage({id:'interfaceURL'})})/v1/ompass/token-verification
         `}
                 language={codeBlockLanguage}
                 theme={dracula}

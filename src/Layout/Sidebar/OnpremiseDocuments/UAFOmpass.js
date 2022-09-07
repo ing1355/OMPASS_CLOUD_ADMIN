@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap';
 import { dracula, CopyBlock, CodeBlock } from "react-code-blocks";
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector } from 'react-redux';
 import copyBtnImg from '../../../assets/docs/CopyButton.png'
 import { codeBlockLanguage } from '../../../Constants/ConstantValues';
@@ -11,6 +11,7 @@ const UAFOmpass = () => {
   const {locale} = useSelector(state => ({
     locale: state.locale
   }))
+  const {formatMessage} = useIntl()
   return <div className="5st">
     <div className="guide restapi-div">
       <h5 style={{ margin: "0" }}> OMPASS-UAF</h5>
@@ -36,7 +37,7 @@ const UAFOmpass = () => {
         text={`
           POST 
           URL /v1/ompass/uaf
-          URL EXAMPLE – https://interface-api.ompasscloud.com/v1/ompass/uaf
+          URL EXAMPLE https://${formatMessage({id:'interfaceURL'})}/v1/ompass/uaf
         `}
         language={codeBlockLanguage}
         theme={dracula}
@@ -192,7 +193,7 @@ const UAFOmpass = () => {
             "code":200,
             "message" : "ok",
             "data" : {            
-              "ompass_uri" : "https://interface-api.ompasscloud.com/register/did/14?do..."
+              "ompass_uri" : "https://${formatMessage({id:'interfaceURL'})}/register/did/14?do..."
              }
           }
         `}

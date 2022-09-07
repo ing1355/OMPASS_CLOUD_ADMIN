@@ -6,13 +6,15 @@ import { FormattedMessage } from "react-intl";
 const Notice = ({ content, noticeId, setDisplay }) => {
   const noticeRef = useRef(null);
   const [cookies, setCookie, removeCookie] = useCookies()
+  const expires = new Date()
 
   const closeNotice = useCallback(() => {
     setDisplay(null)
   }, []);
 
   const noReplyFunc = () => {
-    setCookie('noticeId', noticeId)
+    expires.setFullYear(expires.getFullYear() + 100)
+    setCookie('noticeId', noticeId, {path: '/', expires })
   }
 
   return <div className="notice-mask-container" ref={noticeRef}>

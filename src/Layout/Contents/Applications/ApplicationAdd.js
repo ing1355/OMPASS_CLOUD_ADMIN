@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import "./Applications.css";
 import {
   CustomAxiosGet,
@@ -11,12 +11,14 @@ import {
 } from "../../../Constants/Api_Route";
 import { useNavigate } from "react-router";
 import {
-  doaminTest,
+  domainTest,
   FailToTest,
   ApplicationNameTest,
+  reidrectUriTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
+import { Col, Row } from "antd";
 
 const ApplicationAdd = ({
   userProfile,
@@ -29,6 +31,7 @@ const ApplicationAdd = ({
   const [inputName, setInputName] = useState("");
   const [isExistCheck, setIsExistCheck] = useState(false);
   const inputNameRef = useRef(null);
+  const [inputDomain, setInputDomain] = useState('')
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
 
@@ -46,7 +49,7 @@ const ApplicationAdd = ({
     if (!domain.value.length) {
       return FailToTest(domain, showErrorMessage("PLEASE_INPUT_DOMAIN"));
     }
-    if (!doaminTest(domain.value)) {
+    if (!domainTest(domain.value)) {
       return FailToTest(domain, showErrorMessage("DOMAIN_RULE_ERROR"));
     }
     if (!redirectUri.value.length) {
@@ -55,7 +58,7 @@ const ApplicationAdd = ({
         showErrorMessage("PLEASE_INPUT_REDIRECT_URI")
       );
     }
-    if (!doaminTest(redirectUri.value)) {
+    if (!reidrectUriTest(redirectUri.value)) {
       return FailToTest(
         redirectUri,
         showErrorMessage("REDIRECT_URI_RULE_ERROR")
@@ -67,7 +70,7 @@ const ApplicationAdd = ({
         domain: domain.value,
         name: name.value,
         policyId: policy.value,
-        redirectUri: redirectUri.value,
+        redirectUri: domain.value + '/' + redirectUri.value,
         // status: status.value,
       },
       (data) => {
@@ -138,6 +141,9 @@ const ApplicationAdd = ({
               <input
                 name="domain"
                 maxLength={48}
+                onChange={e => {
+                  setInputDomain(e.target.value)
+                }}
                 placeholder={formatMessage({ id: "PLEASE_INPUT_DOMAIN" })}
               />
             </div>
@@ -145,11 +151,28 @@ const ApplicationAdd = ({
               <label>
                 <FormattedMessage id="REDIRECTURI" />
               </label>
-              <input
-                name="redirectUri"
-                maxLength={64}
-                placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
-              />
+              <Row
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "65%",
+                  alignItems: "center",
+                }}
+              >
+                <Col style={{paddingRight: inputDomain ? '4px' : 0}}>
+                  <span>
+                    {(inputDomain && (inputDomain + '/')) || ""}
+                  </span>
+                </Col>
+                <Col flex="auto">
+                  <input
+                    name="redirectUri"
+                    maxLength={64}
+                    placeholder={formatMessage({ id: "PLEASE_INPUT_REDIRECT_URI" })}
+                    style={{ width: "100%" }}
+                  />
+                </Col>
+              </Row>
             </div>
             {/* <div className="Application-label-input-box">
               <label>

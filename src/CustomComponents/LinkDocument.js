@@ -1,10 +1,11 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl';
 import { connect, useSelector } from "react-redux";
+import { homepageUrl } from '../Constants/ConstantValues';
 import './LinkDocument.css'
 
 const LinkDocument = ({ locale, link }) => {
-    const domain = process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003')
+    const domain = homepageUrl(locale)
     const {standalone} = useSelector(state => ({
         standalone: state.standalone
     }))

@@ -29,6 +29,9 @@ import PaymentModal from "./PaymentModal";
 import { Navigate } from "react-router-dom";
 import BillingEdtion from "./BillingEdition";
 
+export const otherCardType = 'otherCardPayment'
+export const equalCardType = 'equalCardPayment'
+
 const Billing = ({
   userProfile,
   locale,
@@ -51,6 +54,7 @@ const Billing = ({
   const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
+  const [paymentType, setPaymentType] = useState(null)
   const { status, numberUsers } = currentPlan
   const statusIsRUN = status === 'RUN' || status === 'REFUNDABLE_RUN'
   const userNumList = useMemo(() => new Array(990).fill(1), []);
@@ -59,15 +63,15 @@ const Billing = ({
   const inputTermRef = useRef(null);
   const inputUserNumRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (inputUserNum && editions && inputEdition) {
       setCost(
         inputUserNum *
-          editions.find((e) => e.name === inputEdition).priceForOneUser
+        editions.find((e) => e.name === inputEdition).priceForOneUser
       );
     }
   }, [inputUserNum, editions, inputEdition]);
-
+  
   useLayoutEffect(() => {
     if (adminId) {
       CustomAxiosGetAll(
@@ -79,8 +83,7 @@ const Billing = ({
             setCurrentPlan(plan);
             setEditions(pricing);
             setInputEdition(pricing[0].name);
-            setCost(pricing[0].priceForOneUser * inputUserNum);
-            console.log(data)
+            setCost(pricing[0].priceForOneUser * (plan.status === 'FAILED_REGULAR_PAYMENT' ? plan.numberUsers : inputUserNum));
           },
           (data) => {
             setTableData(data);
@@ -115,17 +118,16 @@ const Billing = ({
   const onFinish = (e) => {
     e.preventDefault();
     const { userNum, check } = e.target.elements;
-    console.log(check)
     if (status === "RUN") {
       if (numberUsers === userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_DIFFERNT");
       if (allUserNum >= userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
-    } else {
+    } else if(status !== 'FAILED_REGULAR_PAYMENT') {
       if (allUserNum > userNum.value * 1)
         return showErrorMessage("PLEASE_CHANGE_USER_NUM_MORE_THAN_BEFORE");
     }
-    if (!statusIsRUN && !check.checked)
+    if (status !== 'FAILED_REGULAR_PAYMENT' && !statusIsRUN && !check.checked)
       return showErrorMessage("PLEASE_AGREEMENT_CHECK");
     // if (status !== "RUN" && !checkAll.checked)
     //   return showErrorMessage("PLEASE_AGREEMENT_CHECK");
@@ -137,7 +139,7 @@ const Billing = ({
     //     inputTermRef.current = "MONTHLY";
     //   else inputTermRef.current = "ANNUALLY";
     // } else inputTermRef.current = term.value;
-    inputUserNumRef.current = userNum.value;
+    if(status !== 'FAILED_REGULAR_PAYMENT') inputUserNumRef.current = userNum.value;
     setConfirmModal(true);
     if (!isKorea()) {
       setPaypalLoading(true);
@@ -167,7 +169,7 @@ const Billing = ({
                 console.log(data);
                 setConfirmModal(false);
               },
-              onApprove: function ({subscriptionID}, actions) {
+              onApprove: function ({ subscriptionID }, actions) {
                 CustomAxiosPost(successPaypalApi(adminId), {
                   subscriptionID
                 }, () => {
@@ -184,7 +186,7 @@ const Billing = ({
         else {
           var script = document.createElement("script");
           script.src =
-            "https://www.paypal.com/sdk/js?client-id=" + (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? "AXI4UuS0o9whZmj9UDfzWLEhf3vl11W_j-kj_c5leAhsicOhZk-HEruD62M9Nq1SFJRVMJQ9qeme9Yyl" : "AWw5IOnvdd3vmni_i077RknEFRFAS2l443P72P0ZOjQqaAWUS4LU83mgHCQdRdcTe31feT0Sn7oTBluo") + "&vault=true&intent=subscription&locale=" + (isKorea() === 'ko' ? 'ko_KR' : 'en_US') ;
+            "https://www.paypal.com/sdk/js?client-id=" + (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? "AXI4UuS0o9whZmj9UDfzWLEhf3vl11W_j-kj_c5leAhsicOhZk-HEruD62M9Nq1SFJRVMJQ9qeme9Yyl" : "AWw5IOnvdd3vmni_i077RknEFRFAS2l443P72P0ZOjQqaAWUS4LU83mgHCQdRdcTe31feT0Sn7oTBluo") + "&vault=true&intent=subscription&locale=" + (isKorea() === 'ko' ? 'ko_KR' : 'en_US');
           script.onload = callback;
           document.head.appendChild(script);
         }
@@ -202,7 +204,7 @@ const Billing = ({
 
       <LinkDocument link="/document/billing" />
 
-      <BillingEdtion plan={currentPlan} allUserNum={allUserNum} setCurrentPlan={setCurrentPlan} editions={editions}/>
+      <BillingEdtion plan={currentPlan} allUserNum={allUserNum} setCurrentPlan={setCurrentPlan} editions={editions} />
 
       <section className="billing-info-container">
         {editions.length > 0 &&
@@ -255,11 +257,11 @@ const Billing = ({
                   values={{
                     param: isKorea()
                       ? slicePrice(
-                          editions[0].priceForOneUser * numberUsers
-                        ) + "원 "
+                        editions[0].priceForOneUser * numberUsers
+                      ) + "원 "
                       : slicePrice(
-                          editions[0].priceForOneUser * numberUsers
-                        ) + "$",
+                        editions[0].priceForOneUser * numberUsers
+                      ) + "$",
                   }}
                 />
               </span>
@@ -275,20 +277,23 @@ const Billing = ({
               )}
             </label>
             <div>
-              <select
-                className="billing-change-form-select"
-                name="userNum"
-                value={inputUserNum}
-                onChange={(e) => {
-                  setInputUserNum(e.target.value);
-                }}
-              >
-                {userNumList.map((item, ind) => (
-                  <option key={ind + 11} value={ind + 11}>
-                    {ind + 11}
-                  </option>
-                ))}
-              </select>
+              {
+                status === 'FAILED_REGULAR_PAYMENT' ? <span>{numberUsers}</span>
+                  : <select
+                    className="billing-change-form-select"
+                    name="userNum"
+                    value={inputUserNum}
+                    onChange={(e) => {
+                      setInputUserNum(e.target.value);
+                    }}
+                  >
+                    {userNumList.map((item, ind) => (
+                      <option key={ind + 11} value={ind + 11}>
+                        {ind + 11}
+                      </option>
+                    ))}
+                  </select>
+              }
             </div>
           </div>
           <div className="billing-change-item">
@@ -309,7 +314,7 @@ const Billing = ({
               &nbsp;/ <FormattedMessage id={inputTerm} />
             </span>
           </div>
-          {!statusIsRUN && (
+          {!statusIsRUN && status !== 'FAILED_REGULAR_PAYMENT' && (
             <div
               className="billing-change-item"
               style={{ alignItems: "baseline" }}
@@ -356,30 +361,54 @@ const Billing = ({
                   <label>
                     {inputTerm === "MONTHLY"
                       ? formatMessage(
-                          { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
-                          {
-                            param:
-                              slicePrice(
-                                inputTerm === "MONTHLY" ? cost : cost * 12
-                              ) + (isKorea() ? "원" : "$"),
-                          }
-                        )
+                        { id: "BILLINGPRICEDESCRIPTIONMONTHLY" },
+                        {
+                          param:
+                            slicePrice(
+                              inputTerm === "MONTHLY" ? cost : cost * 12
+                            ) + (isKorea() ? "원" : "$"),
+                        }
+                      )
                       : formatMessage(
-                          { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
-                          {
-                            param:
-                              slicePrice(
-                                inputTerm === "MONTHLY" ? cost : cost * 12
-                              ) + (isKorea() ? "원" : "$"),
-                          }
-                        )}
+                        { id: "BILLINGPRICEDESCRIPTIONANNUALLY" },
+                        {
+                          param:
+                            slicePrice(
+                              inputTerm === "MONTHLY" ? cost : cost * 12
+                            ) + (isKorea() ? "원" : "$"),
+                        }
+                      )}
                   </label>
                 </div>
               </div>
             </div>
           )}
           <div className="billing-change-item" style={{ paddingBottom: "0" }}>
-            <button
+            {status === 'FAILED_REGULAR_PAYMENT' ? <>
+              <button
+                name="payType"
+                className="button"
+                value="iamPort"
+                type="submit"
+                onClick={() => {
+                  setPaymentType(equalCardType)
+                }}
+                style={{marginRight: '8px'}}
+              >
+                <FormattedMessage id="EQUAL_CARD_PAYMENT" />
+              </button>
+              <button
+                name="payType"
+                className="button"
+                value="iamPort"
+                type="submit"
+                onClick={() => {
+                  setPaymentType(otherCardType)
+                }}
+              >
+                <FormattedMessage id="OTHER_CARD_PAYMENT" />
+              </button>
+            </> : <button
               name="payType"
               className="button"
               value="iamPort"
@@ -390,7 +419,7 @@ const Billing = ({
               ) : (
                 <FormattedMessage id="CHANGESUBSCRIPTION" />
               )}
-            </button>
+            </button>}
           </div>
         </form>
       </section>
@@ -411,13 +440,15 @@ const Billing = ({
         confirmModal={confirmModal}
         paypalLoading={paypalLoading}
         inputTerm={inputTerm}
-        inputUserNum={inputUserNum}
+        inputUserNum={status === 'FAILED_REGULAR_PAYMENT' ? numberUsers : inputUserNum}
         inputEdition={inputEdition}
         cost={cost}
         statusIsRUN={statusIsRUN}
         editions={editions}
         currentPlan={currentPlan}
         isKorea={isKorea}
+        paymentType={paymentType}
+        setPaymentType={setPaymentType}
         setConfirmModal={setConfirmModal}
         closeConfirmModal={closeConfirmModal}
       />

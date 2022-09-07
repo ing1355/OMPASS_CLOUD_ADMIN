@@ -6,9 +6,10 @@ import { connect, useSelector } from "react-redux";
 import Chat from "../../CustomComponents/Chat";
 import ActionCreators from "../../redux/actions";
 import route_info from "../../Constants/Route_items";
+import { isKorea } from "../../Functions/isKorea";
 
 const Contents = ({ userProfile, isLogin, menuChange }) => {
-  const { role } = userProfile;
+  const { role, country } = userProfile;
   const navigate = useNavigate()
   const { standalone } = useSelector(state => ({
     standalone: state.standalone
@@ -25,8 +26,8 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
           .map((item) => item.submenu)
           .flat(),
       ]
-      const target = route_list.find(({route}) => route.endsWith('*') ? (route.slice(0,-2) === window.location.pathname) : window.location.pathname.startsWith(route))
-      if(!target) {
+      const target = route_list.find(({ route }) => route.startsWith(window.location.pathname.split('/').slice(0,2).join('/')))
+      if (!target) {
         navigate('/Dashboard')
         menuChange('Dashboard')
       } else {
@@ -37,10 +38,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
 
   useLayoutEffect(() => {
     if (standalone.loaded && !standalone.standalone) {
-      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: 'ko' })
-      var script = document.createElement('script');
-      script.src = 'https://code.jquery.com/jquery-1.12.4.min.js'
-      document.head.appendChild(script)
+      Chat.boot({ pluginKey: 'f6914594-d0ae-40fe-bfc0-b915e0ce6036', language: isKorea(country) ? 'ko' : 'en' })
     }
   }, [standalone])
 
@@ -63,7 +61,7 @@ const Contents = ({ userProfile, isLogin, menuChange }) => {
                   element={item.component}
                 /> : <Route
                   key={item.key}
-                  path={item.route.split('/').slice(0,-1).join('/') + '/:country/*'}
+                  path={item.route.split('/').slice(0, -1).join('/') + '/:country/*'}
                   element={item.component}
                 />
               ))}

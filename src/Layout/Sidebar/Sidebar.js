@@ -4,9 +4,9 @@ import "./Sidebar.css";
 import { ImportOutlined } from "@ant-design/icons";
 import { FormattedMessage } from "react-intl";
 import { connect, useSelector } from "react-redux";
+import { homepageUrl } from "../../Constants/ConstantValues";
 
 const Sidebar = ({ locale }) => {
-  const domain = process.env.REACT_APP_SERVICE_TARGET === 'aws' ? 'https://ompasscloud.com' : (locale === 'ko' ? 'https://ompass.kr:4003/ko' : 'https://ompass.kr:4003')
   const {standalone} = useSelector(state => ({
     standalone: state.standalone
   }))
@@ -16,7 +16,7 @@ const Sidebar = ({ locale }) => {
       <a
         className="back-to-homepage"
         rel="noopener noreferrer"
-        href={standalone.standalone ? '/docs' : domain}
+        href={standalone.standalone ? '/docs' : homepageUrl(locale)}
         target="_blank"
       >
         <ImportOutlined style={{ marginRight: "6px" }} />

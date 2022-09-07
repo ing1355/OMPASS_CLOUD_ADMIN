@@ -41,9 +41,15 @@ export const passwordTest = (value) => {
     return _.test(value);
 }
 
-export const doaminTest = (value) => {
-    const _ = /(https:\/\/)([a-z0-9\w\-]+\.*)+[a-z0-9]{2,4}/
+export const domainTest = (value) => {
+    const _ = /(https:\/\/)([A-Za-z0-9\w\-]+\.*)+[A-Za-z0-9]{2,4}/
     return _.test(value);
+}
+
+export const reidrectUriTest = (value) => {
+    const _ = /[a-z0-9A-Z\w\-\/]/
+    const __ = /[\s]/
+    return _.test(value) && !__.test(value);
 }
 
 export const FailToTest = (element, callback) => {

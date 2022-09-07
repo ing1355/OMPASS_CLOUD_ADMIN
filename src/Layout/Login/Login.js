@@ -7,13 +7,12 @@ import ActionCreators from "../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
+import { homepageUrl } from "../../Constants/ConstantValues";
 
 const convertLanguageCode = {
   'ko': 'KR',
   'en': 'EN'
 }
-
-const homepageUrl = (locale) => (process.env.REACT_APP_SERVICE_TARGET === 'aws' ? `https://www.ompasscloud.com/${locale}` : `https://ompass.kr:4003/${locale}`) + '/registration'
 
 const Login = ({
   setIsLogin,
@@ -113,15 +112,15 @@ const Login = ({
                     <FormattedMessage id="PasswordAssistance" />
                   </span>
                 </div>
-                {!standalone.standalone &&<div className="join">
+                <div className="join">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={locale === 'ko' ? homepageUrl('ko') : homepageUrl('en')}
+                    href={standalone.standalone ? '/docs' : homepageUrl(locale, 'registration')}
                   >
-                    <FormattedMessage id="Registration" />
+                    <FormattedMessage id={standalone.standalone ? 'GODOCUMENT' : "Registration"} />
                   </a>
-                </div>}
+                </div>
               </ul>
               <ul>
                 <p className="login-welcome-text">
@@ -148,7 +147,7 @@ const Login = ({
                     className="forgetEmail"
                     placeholder={formatMessage({ id: "Email" })}
                     type="text"
-                  ></input>
+                  />
 
                   <button className="button" type="submit">
                     <FormattedMessage id="ResetPassword" />

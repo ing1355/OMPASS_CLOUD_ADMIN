@@ -28,6 +28,11 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { verifyPasswordApi } from "../../../Constants/VerifyPassword";
 
+const timeZoneStatus = {
+  local: 'LOCAL_TIME_ZONE',
+  registration: 'CONFIGURED_TIME_ZONE'
+}
+
 const AdminDetail = ({
   data,
   deleteEvent,
@@ -46,7 +51,8 @@ const AdminDetail = ({
     role,
     subAdminId,
     index,
-    planStatus
+    planStatus,
+    timeConverterType
   } = data || {};
   const { adminId } = userProfile;
   const navigate = useNavigate();
@@ -58,8 +64,8 @@ const AdminDetail = ({
   const [inputDialCode, setInputDialCode] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const {standalone} = useSelector(state => ({
-    standalone: state.standalone
+  const { standalone } = useSelector(state => ({
+    standalone: state.standalone.standalone
   }))
 
   useLayoutEffect(() => {
@@ -70,7 +76,7 @@ const AdminDetail = ({
   }, [phone]);
 
   const openConfirmModal = useCallback(() => {
-    if(planStatus === "FAILED_REGULAR_PAYMENT") return showErrorMessage('CANT_WITHDRAWAL_BECAUSE_PAYMENT')
+    if (planStatus === "FAILED_REGULAR_PAYMENT") return showErrorMessage('CANT_WITHDRAWAL_BECAUSE_PAYMENT')
     setConfirmModal(true);
   }, [data]);
   const closeConfirmModal = useCallback(() => {
@@ -80,7 +86,7 @@ const AdminDetail = ({
 
   const onFinish = (e) => {
     e.preventDefault();
-    const { firstName, lastName, password, passwordConfirm, mobile } =
+    const { firstName, lastName, password, passwordConfirm, mobile, timezone } =
       e.target.elements;
     if (isSelf && (password.value || passwordConfirm.value)) {
       if (!passwordTest(password.value))
@@ -89,15 +95,15 @@ const AdminDetail = ({
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
     }
-    if(!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
-    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
-    if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
-      if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
+    if (!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
+    if (mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    if (inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
+      if (mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
     }
 
     if (role === "ADMIN" && data.country !== inputCountryCode)
       return showErrorMessage("DIFFERENT_COUNTRY_CODE");
-
+    
     CustomAxiosPut(
       isADMINRole(role)
         ? updateAdminApi(adminId)
@@ -108,6 +114,7 @@ const AdminDetail = ({
         firstName: firstName.value,
         lastName: lastName.value,
         password: isSelf && password.value ? password.value : null,
+        timeConverterType: standalone ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
       },
       (updatedData) => {
         updateEvent({
@@ -116,6 +123,7 @@ const AdminDetail = ({
           phone: mobile.value,
           firstName: firstName.value,
           lastName: lastName.value,
+          timeConverterType: standalone ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
         });
         navigate("/Admins");
       },
@@ -126,10 +134,6 @@ const AdminDetail = ({
   };
 
   const onDelete = () => {
-    if (isSelf && !verifyPasswordRef.current.value.length) {
-      verifyPasswordRef.current.focus();
-      return showErrorMessage('PLEASE_INPUT_PASSWORD')
-    }
     setConfirmLoading(true);
     const callback = () => {
       setConfirmLoading(true);
@@ -153,7 +157,11 @@ const AdminDetail = ({
         }
       );
     }
-    if (isSelf) {
+    if (isSelf && role === 'ADMIN') {
+      if (!verifyPasswordRef.current.value.length) {
+        verifyPasswordRef.current.focus();
+        return showErrorMessage('PLEASE_INPUT_PASSWORD')
+      }
       CustomAxiosPost(verifyPasswordApi, {
         email,
         password: verifyPasswordRef.current.value
@@ -166,38 +174,36 @@ const AdminDetail = ({
       callback();
     }
   };
-  
+
   return (
     <>
       {data && Object.keys(data).length > 0 ? (
         <div className="AdminBox">
           <form className="updateForm" onSubmit={onFinish}>
-            <>
-              <div className="inputBox">
-                <span>
-                  <FormattedMessage id="FIRSTNAME" />
-                </span>
-                <input
-                  placeholder={formatMessage({
-                    id: "PLEASE_INPUT_FIRST_NAME",
-                  })}
-                  maxLength={16}
-                  name="firstName"
-                  defaultValue={firstName}
-                />
-              </div>
-              <div className="inputBox">
-                <span>
-                  <FormattedMessage id="LASTNAME" />
-                </span>
-                <input
-                  placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
-                  maxLength={16}
-                  name="lastName"
-                  defaultValue={lastName}
-                />
-              </div>
-            </>
+            <div className="inputBox">
+              <span>
+                <FormattedMessage id="FIRSTNAME" />
+              </span>
+              <input
+                placeholder={formatMessage({
+                  id: "PLEASE_INPUT_FIRST_NAME",
+                })}
+                maxLength={16}
+                name="firstName"
+                defaultValue={firstName}
+              />
+            </div>
+            <div className="inputBox">
+              <span>
+                <FormattedMessage id="LASTNAME" />
+              </span>
+              <input
+                placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                maxLength={16}
+                name="lastName"
+                defaultValue={lastName}
+              />
+            </div>
 
             <div className="inputBox">
               <span>
@@ -266,19 +272,44 @@ const AdminDetail = ({
                 />
               </div>
             </div>
+            {isSelf && <div className="inputBox">
+                  <span>
+                    <FormattedMessage id="TIMEZONE" />
+                  </span>
+                  <input
+                    type="radio"
+                    className="timezone-radio"
+                    defaultChecked={timeConverterType === timeZoneStatus.registration}
+                    id="timezone1"
+                    name="timezone"
+                  />
+                  <label htmlFor="timezone1" className="timezone-label">
+                    <FormattedMessage id="REGISTRATION_LOCATION"/>
+                  </label>
+                  <input
+                    type="radio"
+                    className="timezone-radio"
+                    defaultChecked={timeConverterType === timeZoneStatus.local}
+                    id="timezone2"
+                    name="timezone"
+                  />
+                  <label htmlFor="timezone2" className="timezone-label">
+                    <FormattedMessage id="CURRENT_LOCATION"/>
+                  </label>
+                </div>}
             {(userProfile.role === "ADMIN" || isSelf) && (
               <Button className="adminUpdateButton" htmlType="submit">
                 <UserSwitchOutlined /> <FormattedMessage id="SAVE" />
               </Button>
             )}
-            {userProfile.role === "ADMIN" && !standalone.standalone &&
+            {(standalone ? (isSelf ? userProfile.role !== 'ADMIN' : userProfile.role === 'ADMIN') : userProfile.role === 'ADMIN') &&
               <Button
                 className="adminUpdateButton"
                 htmlType="button"
                 onClick={openConfirmModal}
               >
-                {isSelf ? <><UserDeleteOutlined /> <FormattedMessage id="WITHDRAWAL" /></>
-                  : <><UserDeleteOutlined /> <FormattedMessage id="DELETE" /></>}
+                <UserDeleteOutlined /> {standalone ? <FormattedMessage id="DELETE" /> : (isSelf ? <FormattedMessage id="WITHDRAWAL" />
+                  : <FormattedMessage id="DELETE" />)}
               </Button>}
 
             <CustomConfirm
@@ -294,14 +325,14 @@ const AdminDetail = ({
                     <FontAwesomeIcon icon={faExclamationCircle} />{" "}
                     <FormattedMessage id="WARNING" />
                   </p>
-                  <p style={{marginBottom:'24px'}}>
+                  <p style={{ marginBottom: '24px' }}>
                     <FormattedMessage id="ADMINDELETEWARNING" />
                   </p>
                   <input style={{ marginBottom: '24px', textAlign: 'center' }} autoFocus placeholder={formatMessage({ id: 'PLEASE_INPUT_PASSWORD' })} onKeyPress={e => {
                     if (e.key === 'Enter' && !confirmLoading) {
                       onDelete();
                     }
-                  }} ref={verifyPasswordRef} type="password" maxLength={16}/>
+                  }} ref={verifyPasswordRef} type="password" maxLength={16} />
                 </div>
               ) : (
                 <FormattedMessage id="DELETECONFIRM" />

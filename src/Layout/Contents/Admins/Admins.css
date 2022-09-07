@@ -36,7 +36,7 @@
   align-items: center;
 }
 .AdminBox form .inputBox2 {
-  width: 100% !important;
+  width: 100%;
   font-size: 1rem;
   font-weight: 600;
   display: flex;
@@ -45,50 +45,49 @@
   align-items: center;
 }
 .AdminBox form .inputBox2 span {
-  width: 15rem !important;
+  width: 15rem;
 }
 .AdminBox form .inputBox2 .phoneBox {
   width: 100%;
-  margin-left: 2.5rem !important;
+  margin-left: 2.5rem;
 }
 .AdminBox .adminAdd p {
   margin-bottom: 0;
 }
 .AdminBox form .inputBox span {
-  width: 15rem !important;
+  width: 15rem;
   height: 3rem;
   display: flex;
   align-items: center;
 }
 .AdminBox form .inputBox input {
-  width: 30rem !important;
+  width: 30rem;
   height: 3rem;
   padding: 0 0 0 0.5rem;
   margin-left: 1rem;
 }
 .react-tel-input .country-list {
-  width: 31rem !important;
+  width: 31rem;
 }
-.react-tel-input {
-  width: 30.8rem !important;
-  margin-left: 1.5rem !important;
-  display: inline-block !important;
-  height: 3.2rem !important;
+div.react-tel-input {
+  width: 30.8rem;
+  margin-left: 1.5rem;
+  display: inline-block;
+  height: 3.2rem;
 }
-.form-control {
-  width: 100% !important;
-  height: 3.2rem !important;
+.react-tel-input > input.form-control {
+  width: 100%;
+  height: 3.2rem;
 }
 .AdminBox form .checkBox {
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* border-top: 1px solid rgb(180, 180, 180); */
-  padding-top: 2rem !important;
+  padding-top: 2rem;
 }
 .AdminBox form .checkBox span {
   width: 14rem;
-  height: 3rem !important;
+  height: 3rem;
   display: flex;
   align-items: center;
 }
@@ -97,7 +96,7 @@
   flex-direction: row;
   width: 100%;
   height: 50px;
-  align-items: center !important;
+  align-items: center;
 }
 .AdminBox form .checkBox div p {
   margin-left: 1rem;
@@ -115,13 +114,6 @@
 /* --------------------*/
 .updateInfo {
   margin-left: 1rem;
-}
-.nameUpdate a:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.nameUpdate a {
-  color: #000 !important;
 }
 .adminAddButton {
   text-align: center;
@@ -159,5 +151,15 @@
   text-align: center;
   margin: 0 auto;
   font-size: 1rem;
-  /* border-radius: 20px; */
+}
+
+.AdminBox form .inputBox input.timezone-radio {
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.AdminBox form .inputBox label.timezone-label {
+  cursor: pointer;
 }

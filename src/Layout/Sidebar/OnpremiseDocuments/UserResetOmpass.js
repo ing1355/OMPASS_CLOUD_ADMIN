@@ -1,11 +1,12 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { dracula, CopyBlock, CodeBlock } from "react-code-blocks";
 import { codeBlockLanguage } from '../../../Constants/ConstantValues';
 import { Table } from 'react-bootstrap';
 import copyBtnImg from '../../../assets/docs/CopyButton.png'
 
 const UserResetOmpass = () => {
+    const {formatMessage} = useIntl()
     return <div>
         <div className="guide restapi-div 2st">
             <h5 style={{ margin: "0" }}> <FormattedMessage id="OMPASS 등록 초기화 API"/></h5>
@@ -31,7 +32,7 @@ const UserResetOmpass = () => {
                 text={`
           DELETE 
           URL /v1/ompass/users/{userId}
-          URL EXAMPLE – https://interface-api.ompasscloud.com/v1/ompass/users/{userId}
+          URL EXAMPLE https://${formatMessage({id:'interfaceURL'})}/v1/ompass/users/{userId}
         `}
                 language={codeBlockLanguage}
                 theme={dracula}
@@ -49,10 +50,10 @@ const UserResetOmpass = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td style={{ paddingTop: "2rem" }} rowSpan="3">
+                            <td rowSpan="3">
                                 Authorization
                             </td>
-                            <td style={{ paddingTop: "2rem" }} rowSpan="3">
+                            <td rowSpan="3">
                                 Bearer
                             </td>
                             <td><FormattedMessage id="어플리케이션에 할당된 Secret Key"/></td>

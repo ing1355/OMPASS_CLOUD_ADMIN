@@ -43,6 +43,8 @@ export const getBillingInfoApi = (adminId) => `/v1/admins/${adminId}/billing`
 export const getPaymentHistoryApi = (adminId) => `/v1/admins/${adminId}/payment-histories`
 export const getBillingKeyApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/billing-key`
 export const subscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
+export const repayIamportOtherCardApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/repayment/new-card`
+export const repayIamportEqualCardApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/repayment/old-card`
 export const updateSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/subscription`
 export const cancelSubscriptionIamportApi = (adminId) => `/v1/admins/${adminId}/payment-iamport/cancel`
 export const startPaypalApi = (adminId) => `/v1/admins/${adminId}/paypal`

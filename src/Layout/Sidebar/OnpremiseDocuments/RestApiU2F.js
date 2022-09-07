@@ -23,7 +23,7 @@ const RestApiU2F = () => {
   }))
   
   return <>
-    <div id="docs-scroll-container" style={{width: isKorea(locale) ? '85%' : '80%'}}>
+    <div id="docs-scroll-container" style={{width: 'calc(100% - 302px)'}}>
       <h4>▶ U2F</h4>
       <div className="pdf-download">
         <a href={isKorea(locale) ? u2fPdfKr : u2fPdfEn} download>

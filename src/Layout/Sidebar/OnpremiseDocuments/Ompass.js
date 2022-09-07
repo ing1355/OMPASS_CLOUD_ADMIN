@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap';
 import { dracula, CopyBlock, CodeBlock } from "react-code-blocks";
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { codeBlockLanguage } from '../../../Constants/ConstantValues';
 import { isKorea } from '../../../Functions/isKorea';
@@ -11,6 +11,7 @@ const Ompass = () => {
     const {locale} = useSelector(state => ({
         locale: state.locale
     }))
+    const {formatMessage} = useIntl()
     return <div className="4st">
         <div className="guide restapi-div">
             <h5 style={{ margin: "0" }}> OMPASS-U2F</h5>
@@ -37,7 +38,7 @@ const Ompass = () => {
                 text={`
           POST 
           URL /v1/ompass/u2f
-          URL EXAMPLE – https://interface-api.ompasscloud.com/v1/ompass/u2f
+          URL EXAMPLE https://${formatMessage({id:'interfaceURL'})}/v1/ompass/u2f
         `}
                 language={codeBlockLanguage}
                 theme={dracula}
@@ -223,7 +224,7 @@ const Ompass = () => {
             "data" : {
               "user_id" : "omsecurity",
               "is_register" : false,
-              "ompass_uri" : "https://interface-api.ompasscloud.com/register/did/14?do..."
+              "ompass_uri" : "https://${formatMessage({id:'interfaceURL'})}/register/did/14?do..."
             }
           }
         `}
