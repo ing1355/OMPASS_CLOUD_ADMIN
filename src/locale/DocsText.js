@@ -319,6 +319,7 @@ const locales = {
         "사용자 디바이스 정보를 제공합니다.": "Provides user authentication device information.",
 
         "OMPASS 등록 초기화 성공 시": "In case of success for initializing OMPASS registration",
+        "HTTP STATUS CODE 204 반환": "Returns HTTP STATUS CODE 204",
         "OMPASS 등록 초기화 API": "API for Initializing OMPASS Registration",
         "OMPASS 등록 초기화란?": "What is Initializing OMPASS Registration?",
         "OMPASS 등록 초기화": "Initializing OMPASS Registration",
@@ -671,6 +672,7 @@ const locales = {
         "사용자 디바이스 정보를 제공합니다.": "사용자 인증 장치 정보를 제공합니다.",
 
         "OMPASS 등록 초기화 성공 시": "OMPASS 등록 초기화 성공 시",
+        "HTTP STATUS CODE 204 반환": "HTTP STATUS CODE 204 반환",
         "OMPASS 등록 초기화 API": "OMPASS 등록 초기화 API",
         "OMPASS 등록 초기화란?": "OMPASS 등록 초기화란?",
         "OMPASS 등록 초기화": "OMPASS 등록 초기화",
