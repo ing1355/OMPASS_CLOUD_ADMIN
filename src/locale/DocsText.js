@@ -18,7 +18,8 @@ const locales = {
         "본 이메일의 URL은 5분 후에 만료되므로 이메일 수신 후 바로 인증하시길 바랍니다.": "Please note that the email verification will be expired in 5 minutes so make sure to notice a sub administrator to verify it immediately.",
         "비밀번호는 문자, 숫자, 특수문자를 활용하여 최대 16자리 까지 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.": "Password is required to be 8 to 16 characters with 3 combinations of at least 8 characters or 2 combinations of at least 10 characters using letters, numbers, and special characters.",
 
-        "사용자 선택형 인증방식(지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인)을 제공합니다.": "OMPASS supports various user-selectable authentication methods such as fingerprint, face, pin code, pattern, and Windows Hello login in order to enhance security for login and user convenience.",
+        "U2F/UAF": "U2F/UAF",
+        "원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다.": "One MorePass provides both U2F, a secondary authentication method, and UAF, which allows login without a password, by utilizing user-selectable authentication devices (authentication methods: fingerprint recognition, face recognition, pin code, pattern, Windows Hello login, etc.).",
         "U2F(Universal 2nd Factor) 2차 인증": "Universal 2nd Factor (U2F): Two-Factor Authentication (2FA)",
         "UAF(Universal Authentication Framework) 패스워드 없이 로그인": "Universal Authentication Framework (UAF): Passwordless Login",
         "패스워드 방식의 불편함과 불안함을 해소하고 사용자의 편의성과 보안성을 동시에 보장합니다.": "It eliminates the inconvenience and anxiety of the password and guarantees user convenience and security at the same time.",
@@ -365,7 +366,8 @@ const locales = {
         "본 이메일의 URL은 5분 후에 만료되므로 이메일 수신 후 바로 인증하시길 바랍니다.": "본 이메일의 URL은 5분 후에 만료되므로 이메일 수신 후 바로 인증하시길 바랍니다.",
         "비밀번호는 문자, 숫자, 특수문자를 활용하여 최대 16자리 까지 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.": "비밀번호는 문자, 숫자, 특수문자를 활용하여 최대 16자리 까지 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.",
 
-        "사용자 선택형 인증방식(지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인)을 제공합니다.": "사용자 선택형 인증방식(지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인)을 제공합니다.",
+        "U2F/UAF": "U2F/UAF",
+        "원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다.": "원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다.",
         "원모어패스는 생체인증, 간편인증 기반의 차세대 통합 인증 솔루션입니다.": "원모어패스는 생체인증, 간편인증 기반의 차세대 통합 인증 솔루션입니다.",
         "사용자 선택형 인증 방식(지문인식, 얼굴인식, 핀코드, 패턴)을 제공합니다.": "사용자 선택형 인증 방식(지문인식, 얼굴인식, 핀코드, 패턴)을 제공합니다.",
         "U2F(Universal 2nd Factor) 2차 인증": "U2F(Universal 2nd Factor) 2차 인증",
