@@ -16,12 +16,12 @@ const U2FUAF = () => {
 
   return (
     <div>
-      <h4>▶ <FormattedMessage id="원모어패스 로그인이란?" /></h4>
+      <h4>▶ <FormattedMessage id="U2F/UAF" /></h4>
       <div className="document-text-box">
         <div className="document-label">
           <label>*&nbsp;</label>
           <p>
-            <FormattedMessage id="사용자 선택형 인증방식(지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인)을 제공합니다." />
+            <FormattedMessage id="원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다." />
           </p>
         </div>
 

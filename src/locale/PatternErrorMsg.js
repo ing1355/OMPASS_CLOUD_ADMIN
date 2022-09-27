@@ -10,7 +10,7 @@ const locales = {
     PLEASE_INPUT_FIRST_NAME: "Please enter your first name.",
     PLEASE_INPUT_NAME: "Please enter your last name.",
     PLEASE_CHECK_EXIST: 'Please click the "Check availability" button.',
-    PLEASE_INPUT_MOBILE: "Please enter your phone number and make sure select your country right.",
+    PLEASE_INPUT_MOBILE: "Please enter your phone number and make sure your country code is correct.",
     PLEASE_CHECK_CHECKBOX: "Please check the box if you want to proceed.",
     NOT_EQUAL_PASSWORD: "Passwords do not match.",
     PLEASE_INPUT_APPLICATION_NAME: "Please enter an application name.",
@@ -24,7 +24,7 @@ const locales = {
     NO_DIAL_CODE: 'Country code does not exist.',
     PLEASE_COMPLETE_ADMIN_MOBILE: 'Please complete your phone number.',
     INCORRECT_PASSWORD: "Password must be 3 combinations of 8 or more characters or 2 combinations of 10 or more characters using capital letters, lowercase letters, numbers and special characters.",
-    DIFFERENT_COUNTRY_CODE: 'A country of the admin user cannot be changed.',
+    DIFFERENT_COUNTRY_CODE: 'The country of the admin user cannot be changed.',
     EXCEL_DATA_INVALID_USERID: 'Invalid data for user id in line {param}.',
     EXCEL_DATA_INVALID_APPLICATION_NAME: 'Invalid data for application name in line {param}.',
     EXCEL_DATA_DUPLICATED: 'line {param} and {param2} are duplicate data.'

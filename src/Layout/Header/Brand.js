@@ -1,5 +1,6 @@
 import React from "react";
 import "./Brand.css";
+// import logo from "../../assets/logo2.png";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";

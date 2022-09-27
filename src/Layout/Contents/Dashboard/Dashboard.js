@@ -112,11 +112,13 @@ const Dashboard = ({ userProfile, locale }) => {
             <li>
               <div>
                 <h2>
-                  { standalone.standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
+                  OMPASS
+                  {/* HI-PASS */}
+                  {/* { standalone.standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
                     <FormattedMessage id="FREE_TRIAL" />
                   ) : (
                     name
-                  ))}
+                  ))} */}
                 </h2>
                 <h5 style={{ color: statusColor, fontWeight: "bold" }}>
                   <FontAwesomeIcon
