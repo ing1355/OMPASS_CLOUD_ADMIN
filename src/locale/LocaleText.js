@@ -66,7 +66,7 @@ const locales = {
     CHANGEUSERNUM: "Number of Users Change to",
     ALLUSERNUM: "Total Users",
     REGISTEREDUSERNUM: "Registered Users",
-    UNREGISTEREDUSERNUM: "	Unregistered Users",
+    UNREGISTEREDUSERNUM: "Unregistered Users",
     BYPASSUSERNUM: "Bypass Users",
     EXCELUPLOAD: "Upload User List",
     EXCELDOWNLOAD: "Download User List",
@@ -120,13 +120,11 @@ const locales = {
     daysLeft: "{day}",
     SUBSCRIPTION_CANCEL_TITLE: "Cancel Auto-Renewal",
     SUBSCRIPTION_CANCEL_DESCRIPTION:
-      "The expiration date of {email} is {date}.\nIf you wish to apply auto-renewal for OMPASS again later on, please pay again to restart your auto-renewal payment.",
+      "The expiration date of {email} is {date}.\nIf you wish to have OMPASS auto-renew again, please make a payment to restart your auto-renewal.",
     CANCELSUBSCRIPTION: "Are you sure you want to cancel automatic payments?",
     NORESTRICTION: "No restrictions",
-    GLOBALPOLICYDESCRIPTION:
-      "The default policy is basically provided to apply for all applications.",
-    CUSTOMPOLICYDESCRIPTION:
-      "You can make your own custom policy to apply applications differ from each others.",
+    GLOBALPOLICYDESCRIPTION: "The default policy is applied for all applications.",
+    CUSTOMPOLICYDESCRIPTION: "You can make your own custom policy to different applications.",
     ACCESSCONTROLTITLE: "OMPASS Authentication Control",
     ACCESSCONTROLACTIVE: "Enable OMPASS Authentication",
     ACCESSCONTROLACTIVEDESCRIPTION:
@@ -149,10 +147,8 @@ const locales = {
     BROWSERSPOLICYDESCRIPTION:
       "Only selected browsers are allowed access.\nSelected browsers: {param}",
     OMPASSMOBILEPOLICYTITLE: "OMPASS Mobile App Update Requirement",
-    OMPASSMOBILEPOLICYACTIVE:
-      "Yes, users must require the latest security patches to access OMPASS.",
-    OMPASSMOBILEPOLICYINACTIVE:
-      "No, users are free to access OMPASS without the latest security patches.",
+    OMPASSMOBILEPOLICYACTIVE: "Yes, users are required to have the latest security patches to access OMPASS.",
+    OMPASSMOBILEPOLICYINACTIVE: "No, users are free to access OMPASS even without the latest security patches.",
     Chrome: "Chrome",
     "Chrome Mobile": "Chrome Mobile",
     "Microsoft Edge": "Microsoft Edge",
@@ -213,10 +209,10 @@ const locales = {
       "payment of fees and indemnification from Terms of Service.",
     WARNING: "Warning",
     WARNINGDESCRIPTION:
-      "If the current secret key is reissued, the old key will be destroyed.\nDo you still want to proceed it anyway?",
+      "If the current secret key is reissued, the old key will be destroyed.\nDo you still want to proceed?",
     TERMSOFSERVICE: "Terms of Service",
     ADMINDELETEWARNING:
-      "If you cancel membership here, all data will be deleted\nsuch as users, admins, applications, and settings.\nAll users will not be able to use OMPASS service anymore.\n\nTo continue, please enter your password and click the OK button.",
+      "If you cancel membership here, all data will be deleted\nsuch as users, admins, applications, and settings.\nUsers will no longer be able to use OMPASS service.\n\nTo continue, please enter your password and click the OK button.",
     WITHDRAWAL: "Withdrawal",
     CHANGESUBSCRIPTION: "Change",
     CHANGEBILLINGDESCRIPTION1: "The number of users on last payment : {param}",
@@ -513,8 +509,6 @@ const locales = {
       "All civil and criminal responsibilities arising from the Service are the primary responsibility of the Customer themselves.",
     TermsOfPurchase_title_12_2:
       "The Company does not compensate for damages received by Customers from the service due to force majeure, such as natural disasters, or intentional or negligence on the part of the Customer.",
-    TermsOfPurchase_title_12_3:
-      "Service credit of the Service follows 'Sales Level Agreement'.",
     TermsOfPurchase_title_13: "13. DISCLAIMER AND LIMITS",
     TermsOfPurchase_title_13_1:
       "The Company is not responsible for any damage caused by the Customer's failure to obtain the expected results from the provision of Service or the selection or use of service materials.",
@@ -586,7 +580,6 @@ const locales = {
     TermsOfPurchase_number_11_8: "11.8",
     TermsOfPurchase_number_12_1: "12.1",
     TermsOfPurchase_number_12_2: "12.2",
-    TermsOfPurchase_number_12_3: "12.3",
     TermsOfPurchase_number_13_1: "13.1",
     TermsOfPurchase_number_13_2: "13.2",
     TermsOfPurchase_number_13_3: "13.3",
@@ -599,7 +592,7 @@ const locales = {
     USED_APPLICATION_DESCRIPITON_1:
       "This custom policy is currently being used by a specific application.",
     USED_APPLICATION_DESCRIPITON_2:
-      "If you delete it, its policy for the application that has been applied will be automatically changed to the default policy.",
+      "If you delete it, the policy will automatically be changed to the default policy.",
     PAYMENT_FAILED: "Payment Failed",
     PAYMENT_SUCCESSED: "Payment Succeeded",
     PAYMENTSTATUS: "Payment Status",
@@ -618,7 +611,7 @@ const locales = {
     SUBSCRIPTION_REFUND_TITLE: "OMPASS Refund",
     REFUNDSUBSCRIPTION_1:
       "You cannot use OMPASS when you refund.\n(Less than 10 people will be converted to a free account.)",
-    REFUNDSUBSCRIPTION_2: "Do you still want to proceed with refund?",
+    REFUNDSUBSCRIPTION_2: "Do you still want to proceed with the refund?",
     ANDROID: "Android",
     IOS: "iOS",
     NOTE: "Note",
@@ -643,8 +636,8 @@ const locales = {
     TIMEZONE: 'Time zone',
     REGISTRATION_LOCATION: 'Registered location',
     CURRENT_LOCATION: 'Current location',
-    OTHER_CARD_PAYMENT: '다른 카드로 결제 시도',
-    EQUAL_CARD_PAYMENT: '기존 카드로 결제 시도'
+    OTHER_CARD_PAYMENT: 'Try to pay with a different card',
+    EQUAL_CARD_PAYMENT: 'Try to pay with a used card'
   },
   KR: {
     PERNUM: "명",

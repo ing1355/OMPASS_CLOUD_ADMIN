@@ -83,6 +83,7 @@ const Login = ({
           {login === true ? (
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
+                {/* <h1>HI-PASS Login</h1> */}
                 <h1>OMPASS Login</h1>
                 <form onSubmit={loginRequest} className="form login-input">
                   <input

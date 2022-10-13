@@ -13,7 +13,7 @@ const locales = {
     ERR_103: 'Please check your ID or password.',
     ERR_104: 'This user does not exist.',
     ERR_105: 'This application does not exist.',
-    ERR_106: 'This application is already exists.',
+    ERR_106: 'This application already exists.',
     ERR_107: 'Import transaction information does not exist',
     ERR_108: 'There is no payment records.',
     ERR_109: 'Order information does not exist.',
