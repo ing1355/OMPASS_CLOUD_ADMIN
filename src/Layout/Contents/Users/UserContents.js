@@ -7,7 +7,6 @@ import { FormattedMessage } from "react-intl";
 import { useNavigate } from 'react-router';
 import { connect } from 'react-redux';
 import ExcelComponent from '../../../CustomComponents/ExcelComponent';
-import ActionCreators from '../../../redux/actions';
 
 const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, applicationsData }) => {    
     const navigate = useNavigate();

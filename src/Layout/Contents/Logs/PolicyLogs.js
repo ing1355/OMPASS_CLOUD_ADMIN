@@ -3,11 +3,11 @@ import "./Logs.css";
 import ContentsTitle from "../ContentsTitle";
 import {
   CustomAxiosGet,
-  CustomAxiosGetAll,
+  // CustomAxiosGetAll,
 } from "../../../Functions/CustomAxios";
 import {
-  getCustomPoliciesApi,
-  getGlobalPolicyApi,
+  // getCustomPoliciesApi,
+  // getGlobalPolicyApi,
   getPolicyLogsApi,
 } from "../../../Constants/Api_Route";
 import { connect } from "react-redux";
@@ -27,42 +27,43 @@ const PolicyLogs = ({ userProfile, locale }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [selectedData, setSelectedData] = useState(null);
-  const [defaultPolicyData, setDefaultPolicyData] = useState(null);
-  const [customPoliciesData, setCustomPoliciesData] = useState([]);
+  // const [defaultPolicyData, setDefaultPolicyData] = useState(null);
+  // const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [changeModalVisible, setChangeModalVisible] = useState(false);
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
     if (adminId) {
-      CustomAxiosGetAll(
-        [getGlobalPolicyApi(adminId), getCustomPoliciesApi(adminId)],
-        [
-          (defaultPolicy) => {
-            setDefaultPolicyData(defaultPolicy);
-          },
-          (customPolicies) => {
-            setCustomPoliciesData(customPolicies);
-            CustomAxiosGet(
-              getPolicyLogsApi(adminId),
-              (data) => {
-                setTableData(
-                  data.map((d) => ({
-                    ...d,
-                    policyName: d.type === "GLOBAL" ? <FormattedMessage id="DEFAULTPOLICY" /> : d.changes.afterPolicy.title,
-                    detail: () => {
-                      setChangeModalVisible(d.policyLogId);
-                    },
-                  }))
-                );
-                setTableLoading(false);
+      CustomAxiosGet(
+        getPolicyLogsApi(adminId),
+        (data) => {
+          setTableData(
+            data.map((d) => ({
+              ...d,
+              policyName: d.type === "GLOBAL" ? <FormattedMessage id="DEFAULTPOLICY" /> : d.changes.afterPolicy.title,
+              detail: () => {
+                setChangeModalVisible(d.policyLogId);
               },
-              () => {
-                setTableLoading(false);
-              }
-            );
-          },
-        ]
+            }))
+          );
+          setTableLoading(false);
+        },
+        () => {
+          setTableLoading(false);
+        }
       );
+      // CustomAxiosGetAll(
+      //   [getGlobalPolicyApi(adminId), getCustomPoliciesApi(adminId)],
+      //   [
+      //     (defaultPolicy) => {
+      //       setDefaultPolicyData(defaultPolicy);
+      //     },
+      //     (customPolicies) => {
+      //       setCustomPoliciesData(customPolicies);
+            
+      //     },
+      //   ]
+      // );
     }
   }, [adminId]);
 

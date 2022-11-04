@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import webAuthnIcon from "../../../../assets/webauthnIcon.png";
-import authenticatorIcon from "../../../../assets/authenticatorIcon.png";
 import chromeIcon from "../../../../assets/chromeIcon.png";
 import windowsIcon from '../../../../assets/windowsIcon.png'
 import iosIcon from "../../../../assets/iosIcon.png";
@@ -9,7 +8,7 @@ import unknownIcon from '../../../../assets/unknownIcon.png'
 import { FormattedMessage } from 'react-intl';
 
 const WebAuthnInfo = ({data}) => {
-    const { model, os, osVersion } = data || {};
+    const { os, osVersion } = data || {};
 
     const getIconByOS = useMemo(() => {
         if(os) {
@@ -33,7 +32,7 @@ const WebAuthnInfo = ({data}) => {
     return <>
         <li>
             <div className="img-div">
-                <img src={data ? webAuthnIcon : unknownIcon} />
+                <img src={data ? webAuthnIcon : unknownIcon} alt=""/>
             </div>
 
             <p>
@@ -45,7 +44,7 @@ const WebAuthnInfo = ({data}) => {
         </li>
         <li>
             <div className="img-div">
-                <img src={getIconByOS} />
+                <img src={getIconByOS} alt=""/>
             </div>
             <p>
                 <b>OS</b>

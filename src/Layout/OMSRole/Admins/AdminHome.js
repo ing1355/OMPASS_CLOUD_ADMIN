@@ -5,10 +5,6 @@ import { useNavigate } from 'react-router';
 import { CustomAxiosGet } from '../../../Functions/CustomAxios';
 import { getAdminDetailApi } from '../../../Constants/Api_Route';
 
-const testData = [
-    { name: 'test', email: 'test2', role: 'test3', phone: 'test4', country: 'test5' }
-]
-
 const AdminHome = ({ data, setDetailData }) => {
     const tableData = data.map(d => ({ ...d, name: d.firstName + d.lastName }))
     const navigate = useNavigate()

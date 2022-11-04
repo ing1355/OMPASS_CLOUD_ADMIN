@@ -15,6 +15,29 @@ import "./CustomTable.css";
 import searchIcon from "../assets/searchIcon.png";
 import { connect } from "react-redux";
 
+const sortFunctionByKey = (array, key, sortType) => {
+  const valueType = typeof array[0][key];
+  switch (valueType) {
+    case "number":
+      if (sortType === "ascend") return array.sort((a, b) => a[key] - b[key]);
+      else if (sortType === "descend")
+        return array.sort((a, b) => b[key] - a[key]);
+      else return array;
+    case "string":
+      if (sortType === "ascend")
+        return array.sort((a, b) =>
+          a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
+        );
+      else if (sortType === "descend")
+        return array.sort((a, b) =>
+          a[key] < b[key] ? 1 : a[key] > b[key] ? -1 : 0
+        );
+      else return array;
+    default:
+      return array;
+  }
+};
+
 const CustomTable = ({
   columns,
   datas,
@@ -35,6 +58,7 @@ const CustomTable = ({
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
+  const [sorted, setSorted] = useState({});
   const tableColumns = multipleSelectable
     ? [
         {
@@ -63,9 +87,9 @@ const CustomTable = ({
     () => (numPerPage ? numPerPage : 10),
     [numPerPage]
   );
-  const pageNum = datas
-    ? parseInt(datas.length / _numPerPage) +
-      (datas.length % _numPerPage === 0 ? 0 : 1)
+  const pageNum = tableData
+    ? parseInt(tableData.length / _numPerPage) +
+      (tableData.length % _numPerPage === 0 ? 0 : 1)
     : 0;
   const [searchColumn, setSearchColumn] = useState(null);
   const [searchTarget, setSearchTarget] = useState({});
@@ -146,14 +170,9 @@ const CustomTable = ({
   const dataList = useMemo(() => {
     try {
       if (Array.isArray(tableData)) {
-        return (
-          pagination
-            ? tableData.slice(
-                currentPage * _numPerPage,
-                currentPage * _numPerPage + _numPerPage
-              )
-            : tableData
-        ).map((d, ind) => (
+        const temp = pagination ? tableData.slice( currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage) : tableData
+        const sortedKey = Object.keys(sorted)
+        return (sortedKey.length > 0 ? sortFunctionByKey(temp, sortedKey[0], sorted[sortedKey[0]]) : temp).map((d, ind) => (
           <tr
             key={ind}
             className={rowClick || onChangeSelectedRows ? "pointer" : ""}
@@ -191,8 +210,9 @@ const CustomTable = ({
     rowSelectable,
     rowClick,
     selectedRows,
+    sorted
   ]);
-
+  
   return (
     <div>
       {searched && (
@@ -200,6 +220,7 @@ const CustomTable = ({
           className="table-search-form-container"
           onSubmit={(e) => {
             e.preventDefault();
+            setCurrentPage(0);
             const { column, content } = e.target.elements;
             const _data = getAllTableData();
             if (content.value === "true" || content.value === "false") {
@@ -209,18 +230,23 @@ const CustomTable = ({
             } else {
               if (!content.value) setTableData(_data);
               else {
-                if (
-                  columns.find((c) => c.key === column.value).searchFunction
-                ) {
+                const target = columns.find((c) => c.key === column.value);
+                if (target.searchFunction) {
                   setTableData(
                     _data.filter((tD) => searchFunction(tD, content.value))
                   );
                 } else {
-                  setTableData(
-                    _data.filter((tD) =>
-                      tD[column.value].includes(content.value)
-                    )
-                  );
+                  if (target.searchedOptions) {
+                    setTableData(
+                      _data.filter((tD) => tD[column.value] === content.value)
+                    );
+                  } else {
+                    setTableData(
+                      _data.filter((tD) =>
+                        tD[column.value].includes(content.value)
+                      )
+                    );
+                  }
                 }
               }
             }
@@ -313,8 +339,38 @@ const CustomTable = ({
                     />
                   </th>
                 ) : (
-                  <th key={ind}>
-                    {c.name && <FormattedMessage id={c.name} />}
+                  <th
+                    key={ind}
+                    className={
+                      "custom-table-th" + (c.sorted ? " has-sort" : "")
+                    }
+                    onClick={() => {
+                      let temp = {};
+                      if (c.sorted) {
+                        if (c.sortFunction) {
+                        } else {
+                          if (!sorted[c.key]) {
+                            temp[c.key] = "ascend";
+                          } else if (sorted[c.key] === "ascend") {
+                            temp[c.key] = "descend";
+                          }
+                          setSorted(temp);
+                          // setTableData
+                        }
+                      }
+                    }}
+                  >
+                    {c.name && (
+                      <div className="custom-table-th-title">
+                        <FormattedMessage id={c.name} />
+                      </div>
+                    )}
+                    {c.sorted && (
+                      <div className="custom-table-sort">
+                          <div className={"triangular-up" + (sorted[c.key] === 'ascend' ? ' active' : '')}></div>
+                          <div className={"triangular-down" + (sorted[c.key] === 'descend' ? ' active' : '')}></div>
+                      </div>
+                    )}
                   </th>
                 )
               )}
@@ -323,7 +379,7 @@ const CustomTable = ({
         </thead>
         <tbody className={loading ? "no-data-container" : ""}>
           {!loading && tableData && tableData.length > 0 ? (
-            dataList
+              dataList
           ) : (
             <tr className="no-data">
               {loading ? (

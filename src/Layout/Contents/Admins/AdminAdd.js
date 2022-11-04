@@ -87,7 +87,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     }
     if (!existCheck) return showErrorMessage('PLEASE_CHECK_EXIST');
     if(!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
-    if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
+    // if(mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
     if(inputDialCode && !mobile.value.startsWith('+' + inputDialCode)) {
       if(mobile.value.length < inputDialCode.length + 1) return showErrorMessage('NO_DIAL_CODE')
     }

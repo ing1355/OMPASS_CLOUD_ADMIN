@@ -1,9 +1,8 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { dracula, CopyBlock, CodeBlock } from "react-code-blocks";
+import { dracula, CodeBlock } from "react-code-blocks";
 import { codeBlockLanguage } from "../../../Constants/ConstantValues";
 import { Table } from "react-bootstrap";
-import copyBtnImg from "../../../assets/docs/CopyButton.png";
 
 const UserResetOmpass = () => {
   const { formatMessage } = useIntl();

@@ -20,7 +20,7 @@ const MobileInfo = ({ data }) => {
     return <>
         <li>
             <div className="img-div">
-                <img src={data ? ompassMobileIcon : unknownIcon} />
+                <img src={data ? ompassMobileIcon : unknownIcon} alt=""/>
             </div>
 
             <p>
@@ -32,7 +32,7 @@ const MobileInfo = ({ data }) => {
         </li>
         <li>
             <div className="img-div">
-                <img src={data ? ((os === 'ios') ? iosIcon : androidIcon) : unknownIcon} />
+                <img src={data ? ((os === 'ios') ? iosIcon : androidIcon) : unknownIcon} alt=""/>
             </div>
             <p>
                 <b>OS</b>
@@ -42,7 +42,7 @@ const MobileInfo = ({ data }) => {
         </li>
         <li>
             <div className="img-div">
-                <img src={data ? mobileIcon : unknownIcon} />
+                <img src={data ? mobileIcon : unknownIcon} alt=""/>
             </div>
             <p>
                 <b>Model</b>

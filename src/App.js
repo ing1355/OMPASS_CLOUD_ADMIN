@@ -29,7 +29,7 @@ const Header = lazy(() => import("./Layout/Header/Header"))
 const Sidebar = lazy(() => import("./Layout/Sidebar/Sidebar"))
 const Login = lazy(() => import("./Layout/Login/Login"))
 const Footer = lazy(() => import("./Layout/Footer/Footer"))
-const Document = lazy(() => import("./Layout/Sidebar/OnpremiseDocuments/Document"))
+// const Document = lazy(() => import("./Layout/Sidebar/OnpremiseDocuments/Document"))
 
 const App = ({
   isLogin,
@@ -39,7 +39,7 @@ const App = ({
   userProfile
 }) => {
   const { country, role } = userProfile;
-  const [cookies, setCookie, removeCookie] = useCookies()
+  const [cookies] = useCookies()
   const [noticeDisplay, setNoticeDisplay] = useState(null)
   const {standalone} = useSelector(state => ({
     standalone: state.standalone
@@ -105,7 +105,7 @@ const App = ({
               path="/login"
               element={isLogin ? <Navigate to="/" /> : <Login />}
             />
-            {process.env.REACT_APP_SERVICE_TARGET !== 'aws' && <Route path="/docs/*" element={<Document/>}/>}
+            {/* {process.env.REACT_APP_SERVICE_TARGET !== 'aws' && <Route path="/docs/*" element={<Document/>}/>} */}
             <Route
               path="/*"
               element={!isLogin ? (

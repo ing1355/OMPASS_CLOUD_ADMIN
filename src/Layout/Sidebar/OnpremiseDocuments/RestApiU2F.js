@@ -15,7 +15,7 @@ import OmpassPopUp from "./OmpassPopUp";
 import Ompass from "./Ompass";
 import Error from "./Error";
 import Start from "./Start";
-import Git_Demo from "./Git_Demo";
+import GitDemo from "./Git_Demo";
 
 const RestApiU2F = () => {
   const { locale } = useSelector(state => ({
@@ -35,7 +35,7 @@ const RestApiU2F = () => {
         <div className="restapi-div">
           {/* =================================================================== */}
           <div className="document-text-box">
-            <h5 style={{ margin: "0" }}><FormattedMessage id="U2F 란?" /><Git_Demo/></h5>
+            <h5 style={{ margin: "0" }}><FormattedMessage id="U2F 란?" /><GitDemo/></h5>
             <div className="documnet-box">
               <div className="document-label">
                 <label className="number">-&nbsp;</label>

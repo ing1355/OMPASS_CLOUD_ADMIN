@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 
 const Notice = ({ content, noticeId, setDisplay }) => {
   const noticeRef = useRef(null);
-  const [cookies, setCookie, removeCookie] = useCookies()
+  const [setCookie] = useCookies()
   const expires = new Date()
 
   const closeNotice = useCallback(() => {

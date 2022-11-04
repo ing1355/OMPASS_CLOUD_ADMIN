@@ -8,31 +8,33 @@ import CustomButton from "../CustomComponents/CustomButton";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 
-const paymentIsSuccessComponent = (status) => <div style={{ textAlign: "center" }}>
-  {status === true ? (
-    <FontAwesomeIcon
-      style={{
-        color: "rgb(0, 209, 52)",
-        width: "100%",
-        height: "20px",
-      }}
-      icon={faCheckSquare}
-    />
-  ) : (
-    <FontAwesomeIcon
-      style={{
-        color: "rgb(162 162 162)",
-        width: "100%",
-        height: "20px",
-      }}
-      icon={faTimes}
-    />
-  )}
-</div>
+const paymentIsSuccessComponent = (status) => (
+  <div style={{ textAlign: "center" }}>
+    {status === true ? (
+      <FontAwesomeIcon
+        style={{
+          color: "rgb(0, 209, 52)",
+          width: "100%",
+          height: "20px",
+        }}
+        icon={faCheckSquare}
+      />
+    ) : (
+      <FontAwesomeIcon
+        style={{
+          color: "rgb(162 162 162)",
+          width: "100%",
+          height: "20px",
+        }}
+        icon={faTimes}
+      />
+    )}
+  </div>
+);
 
 export const AdminsColumns = [
-  { name: "Name", key: "name", width: 220 },
-  { name: "Email", key: "email", width: 250 },
+  { name: "Name", key: "name", width: 220, sorted: true },
+  { name: "Email", key: "email", width: 250, sorted: true },
   { name: "Authority", key: "role" },
   { name: "phoneNumber", key: "phone", width: 250 },
   { name: "Country", key: "country" },
@@ -49,7 +51,7 @@ export const OMSNoticeColumns = [
   { name: "TITLE", key: "title" },
   { name: "CREATED_AT", key: "createdAt", width: 300 },
   { name: "MODIFIEDDATE", key: "modifiedDate", width: 300 },
-]
+];
 
 export const ApplicationsColumns = [
   {
@@ -58,6 +60,7 @@ export const ApplicationsColumns = [
     width: 250,
     searched: true,
     maxLength: 24,
+    sorted: true
   },
   {
     name: "Domain",
@@ -65,6 +68,7 @@ export const ApplicationsColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
   {
     name: "REDIRECTURI",
@@ -72,6 +76,7 @@ export const ApplicationsColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
   {
     name: "Policies",
@@ -111,28 +116,32 @@ export const OMSApplicationsColumns = [
 
 export const OMSPaymentEventsColumns = [
   {
-    name: 'EventName',
-    key: 'tx'
+    name: "EventName",
+    key: "tx",
   },
   {
-    name: 'METHOD',
-    key: 'method'
+    name: "METHOD",
+    key: "method",
   },
   {
-    name: 'DESCRIPTION',
-    key: 'description',
-    render: (data) => <Popover trigger="click" placement="bottom" content={data}><button className="button">상세보기</button></Popover>
+    name: "DESCRIPTION",
+    key: "description",
+    render: (data) => (
+      <Popover trigger="click" placement="bottom" content={data}>
+        <button className="button">상세보기</button>
+      </Popover>
+    ),
   },
   {
-    name: 'PAYMENTDATE',
-    key: 'createdDate'
+    name: "PAYMENTDATE",
+    key: "createdDate",
   },
   {
-    name: 'ISSUCCESS',
-    key: 'success',
-    render: (status) => paymentIsSuccessComponent(status)
+    name: "ISSUCCESS",
+    key: "success",
+    render: (status) => paymentIsSuccessComponent(status),
   },
-]
+];
 
 export const BillingColumns = [
   {
@@ -143,26 +152,27 @@ export const BillingColumns = [
     name: "BILLINGCYCLE",
     key: "paymentInterval",
     render: (data) => data && <FormattedMessage id={data} />,
-    width: 150
+    width: 150,
   },
   {
     name: "PRICECOLUMN",
     key: "amount",
     render: (amount) => amount && slicePrice(amount),
+    sorted: true
   },
-  { name: "USERNUM", key: "numberUsers", width: 200 },
-  { name: "PAYMENTDATE", key: "paymentDate", width: 200 },
+  { name: "USERNUM", key: "numberUsers", width: 200, sorted: true },
+  { name: "PAYMENTDATE", key: "paymentDate", width: 200, sorted: true },
   {
     name: "PAYMENTSTATUS",
-    key: 'paymentSuccess',
+    key: "paymentSuccess",
     width: 120,
-    render: (status) => paymentIsSuccessComponent(status)
+    render: (status) => paymentIsSuccessComponent(status),
   },
   {
-    name: 'NOTE',
-    key: 'paymentType',
-    render: (type) => type ? <FormattedMessage id={type}/> : ''
-  }
+    name: "NOTE",
+    key: "paymentType",
+    render: (type) => (type ? <FormattedMessage id={type} /> : ""),
+  },
 ];
 
 export const DashboardLogColumns = [
@@ -180,6 +190,7 @@ export const LogsColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true,
   },
   {
     name: "Action",
@@ -193,6 +204,7 @@ export const LogsColumns = [
     searched: true,
     maxLength: 24,
     width: 250,
+    sorted: true,
   },
   {
     name: "Status",
@@ -200,7 +212,7 @@ export const LogsColumns = [
     searched: true,
     searchedOptions: ["success", "fail"],
   },
-  { name: "Date", key: "createdDate", width: 250 },
+  { name: "Date", key: "createdDate", width: 250, sorted: true },
 ];
 
 export const PolicyLogsColumns = [
@@ -211,6 +223,7 @@ export const PolicyLogsColumns = [
     searchFunction: true,
     maxLength: 24,
     width: 250,
+    sorted: true
   },
   {
     name: "User",
@@ -218,6 +231,7 @@ export const PolicyLogsColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
   {
     name: "Action",
@@ -225,7 +239,7 @@ export const PolicyLogsColumns = [
     searched: true,
     searchedOptions: ["CREATE", "UPDATE", "DELETE"],
   },
-  { name: "Date", key: "createdDate", width: 250 },
+  { name: "Date", key: "createdDate", width: 250, sorted: true },
   {
     name: "detailColumn",
     key: "detail",
@@ -277,6 +291,7 @@ export const allUserColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
   {
     name: "APPLICATIONNAME",
@@ -284,6 +299,7 @@ export const allUserColumns = [
     width: 250,
     searched: true,
     maxLength: 24,
+    sorted: true
   },
   {
     name: "AUTHTYPE",
@@ -295,6 +311,7 @@ export const allUserColumns = [
     name: "LastLogin",
     key: "lastLoginDate",
     width: 250,
+    sorted: true
   },
   {
     name: "Bypass",
@@ -316,6 +333,7 @@ export const disabledUserColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
   {
     name: "APPLICATIONNAME",
@@ -323,6 +341,7 @@ export const disabledUserColumns = [
     width: 250,
     searched: true,
     maxLength: 24,
+    sorted: true
   },
   {
     name: "AUTHTYPE",
@@ -330,7 +349,7 @@ export const disabledUserColumns = [
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 250 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {
     name: "Bypass",
     key: "byPass",
@@ -352,15 +371,16 @@ export const byPassUserColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
-  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
+  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250, sorted: true },
   {
     name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 250 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {
     name: "Bypass",
     key: "byPass",
@@ -381,15 +401,16 @@ export const unRegisteredUserColumns = [
     width: 250,
     searched: true,
     maxLength: 48,
+    sorted: true
   },
-  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250 },
+  { name: "APPLICATIONNAME", key: "appName", searched: true, width: 250, sorted: true },
   {
     name: "AUTHTYPE",
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
   },
-  { name: "LastLogin", key: "lastLoginDate", width: 250 },
+  { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {
     name: "Bypass",
     key: "byPass",
@@ -404,12 +425,12 @@ export const unRegisteredUserColumns = [
 ];
 
 const getPolicyInActiveDescription = (key) =>
-({
-  accessControl: "NORESTRICTION",
-  userLocations: "NONEUSERLOCATIONS",
-  browsers: "NONEBROWSERS",
-  // mobilePatch: 'NOMOBILEPATCH'
-}[key]);
+  ({
+    accessControl: "NORESTRICTION",
+    userLocations: "NONEUSERLOCATIONS",
+    browsers: "NONEBROWSERS",
+    // mobilePatch: 'NOMOBILEPATCH'
+  }[key]);
 
 export const PolicyColumns = [
   {
@@ -472,11 +493,11 @@ export const AppManagementColumns = [
   {
     name: "UploadDate",
     key: "createdDate",
-    width: 150
+    width: 150,
   },
   {
     name: "NOTE",
     key: "description",
-    width: 300
-  }
+    width: 300,
+  },
 ];

@@ -47,7 +47,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const { expirationDate, startDate, remainingDate, name, status } = plan;
+  const { expirationDate, startDate, remainingDate, status } = plan;
   const {standalone} = useSelector(state => ({
     standalone: state.standalone
   }))

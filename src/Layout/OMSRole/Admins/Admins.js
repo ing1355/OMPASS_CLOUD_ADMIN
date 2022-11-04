@@ -8,7 +8,6 @@ import AdminsDetail from './AdminsDetail';
 const Admins = (props) => {
     const [usersData, setUsersData] = useState([]);
     const [detailData, setDetailData] = useState(null)
-    const [userData, setUserData] = useState(null);
 
     useLayoutEffect(() => {
         CustomAxiosGet(getAllAdminsApi, data => {

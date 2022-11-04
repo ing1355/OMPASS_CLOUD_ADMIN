@@ -346,7 +346,6 @@ const locales = {
         "를 눌러주세요.": " ",
         "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "The main ADMIN account cannot be deleted or withdrawn.",
         "interfaceURL": "(Installed interface's web URL)",
-        "HTTP STATUS CODE 204 반환": "Returns HTTP STATUS CODE 204"
     },
     KR: {
         "로그인": "로그인",
@@ -700,7 +699,6 @@ const locales = {
         "를 눌러주세요.": "를 눌러주세요.",
         "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.": "기본으로 제공되는 ADMIN 계정은 삭제 및 회원탈퇴가 불가능합니다.",
         "interfaceURL": "(설치된 인터페이스 URL)",
-        "HTTP STATUS CODE 204 반환": "HTTP STATUS CODE 204 반환"
     },
 };
 
