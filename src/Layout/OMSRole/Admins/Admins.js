@@ -17,7 +17,7 @@ const Admins = (props) => {
 
     return <Routes>
         <Route path="/*" element={<AdminHome data={usersData} setDetailData={setDetailData} />} />
-        <Route path="/Detail" element={<AdminsDetail data={detailData} setUserData={setUserData}/>} />
+        <Route path="/Detail" element={<AdminsDetail data={detailData}/>} />
     </Routes>
 }
 
