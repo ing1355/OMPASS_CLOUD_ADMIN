@@ -176,7 +176,7 @@ const Ompass = () => {
                         <td><FormattedMessage id="사용자 아이디"/></td>
                     </tr>
                     <tr>
-                        <td>is_register</td>
+                        <td>register</td>
                         <td>Boolean</td>
                         <td><FormattedMessage id="해당 사용자의 OMPASS 등록 여부"/></td>
                     </tr>
@@ -223,7 +223,7 @@ const Ompass = () => {
             "message" : "ok",
             "data" : {
               "user_id" : "omsecurity",
-              "is_register" : false,
+              "register" : false,
               "ompass_uri" : "https://${formatMessage({id:'interfaceURL'})}/register/did/14?do..."
             }
           }
