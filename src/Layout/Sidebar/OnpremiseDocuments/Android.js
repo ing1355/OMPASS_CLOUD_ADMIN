@@ -32,35 +32,13 @@ const Android = () => {
               paddingBottom: "1rem",
             }}
           >
-            <FormattedMessage id="안드로이드 전용 Play 스토어에서 원모어패스(OMPASS) v1.0을 다운로드하여 설치해야 합니다." />
+            <FormattedMessage id="안드로이드 전용 Play 스토어에서 원모어패스(OMPASS)를 다운로드하여 설치해야 합니다." />
             <br />
             <FormattedMessage id="QR 스캔을 위한 단말의 해당 권한 요청 사항을 반드시" />
             <b style={{ color: "red" }}> <FormattedMessage id="허용" /> </b>
             <FormattedMessage id="으로 합니다." />
           </h6>
           <br />
-        </div>
-        <div className="app-url">
-          <h6
-            style={{
-              borderBottom: "1px solid black",
-              marginTop: "1rem",
-              paddingBottom: "1rem",
-            }}
-          >
-            <FormattedMessage id="안드로이드 전용 Play 스토어에서 원모어패스(OMPASS) v1.0을 다운로드하여 설치해야 합니다." />
-            <FormattedMessage id="으로 합니다." />
-            <FormattedMessage id="앱 다운을 받기를 원하시면" />{" "}
-            <a
-              href={
-                "https://play.google.com/store/apps/details?id=kr.omsecurity.ompass"
-              }
-              style={{ color: "red" }}
-            >
-              <FormattedMessage id="여기" />
-            </a>
-            <FormattedMessage id="를 눌러주세요." />
-          </h6>
         </div>
         <div className="document-img">
           <img

@@ -7,7 +7,7 @@ import { Table } from "react-bootstrap";
 const UserResetOmpass = () => {
   const { formatMessage } = useIntl();
   return (
-    <div>
+    <div className="code">
       <div className="guide restapi-div 2st">
         <h5 style={{ margin: "0" }}>
           {" "}

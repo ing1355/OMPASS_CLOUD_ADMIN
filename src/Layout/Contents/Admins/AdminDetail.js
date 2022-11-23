@@ -114,7 +114,7 @@ const AdminDetail = ({
         firstName: firstName.value,
         lastName: lastName.value,
         password: isSelf && password.value ? password.value : null,
-        timeConverterType: standalone ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
+        timeConverterType: (standalone || role !== 'ADMIN') ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
       },
       (updatedData) => {
         updateEvent({
@@ -123,7 +123,7 @@ const AdminDetail = ({
           phone: mobile.value,
           firstName: firstName.value,
           lastName: lastName.value,
-          timeConverterType: standalone ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
+          timeConverterType: (standalone || role !== 'ADMIN') ? timeZoneStatus.registration : (timezone[0].checked ? timeZoneStatus.registration : timeZoneStatus.local)
         });
         navigate("/Admins");
       },
@@ -272,7 +272,7 @@ const AdminDetail = ({
                 />
               </div>
             </div>
-            {isSelf && <div className="inputBox">
+            {isSelf && !standalone && role === 'ADMIN' && <div className="inputBox">
                   <span>
                     <FormattedMessage id="TIMEZONE" />
                   </span>

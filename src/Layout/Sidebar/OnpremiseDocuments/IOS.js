@@ -31,35 +31,13 @@ const IOS = () => {
             paddingBottom: "1rem",
           }}
         >
-          <FormattedMessage id="iOS 전용 앱 스토어에서 원모어패스(OMPASS) v1.0을 다운로드하여 설치해야 합니다." />
+          <FormattedMessage id="iOS 전용 앱 스토어에서 원모어패스(OMPASS)를 다운로드하여 설치해야 합니다." />
           <br />
           <FormattedMessage id="QR 스캔을 위한 단말의 해당 권한 요청 사항을 반드시" />
           <b style={{ color: "red" }}> <FormattedMessage id="허용" /> </b>
           <FormattedMessage id="으로 합니다." />
         </h6>
         <br />
-      </div>
-      <div className="app-url">
-        <h6
-          style={{
-            borderBottom: "1px solid black",
-            marginTop: "1rem",
-            paddingBottom: "1rem",
-          }}
-        >
-          <FormattedMessage id="iOS 전용 앱 스토어에서 원모어패스(OMPASS) v1.0을 다운로드하여 설치해야 합니다." />
-          <FormattedMessage id="으로 합니다." />
-          <FormattedMessage id="앱 다운을 받기를 원하시면" />{" "}
-          <a
-            href={
-              "https://apps.apple.com/kr/app/%EC%9B%90%EB%AA%A8%EC%96%B4%ED%8C%A8%EC%8A%A4-ompass/id1547587526"
-            }
-            style={{ color: "red" }}
-          >
-            <FormattedMessage id="여기" />
-          </a>
-          <FormattedMessage id="를 눌러주세요." />
-        </h6>
       </div>
       <div className="document-text-box">
         <div className="document-img">

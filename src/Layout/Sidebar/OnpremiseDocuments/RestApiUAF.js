@@ -26,7 +26,7 @@ const RestApiUAF = () => {
     locale: state.locale
   }))
   return <>
-    <div id="docs-scroll-container">
+    <div id="docs-scroll-container" className="code">
       <h4>▶ UAF</h4>
       <div className="pdf-download">
         <a href={isKorea(locale) ? uafPdfKr : uafPdfEn} download>
@@ -142,7 +142,7 @@ const RestApiUAF = () => {
               </div>
               <div className="document-label">
                 <label className="number">❷&nbsp;</label>
-                <p> <FormattedMessage id="“2차 인증하기” 버튼을 클릭해주세요."/></p>
+                <p> <FormattedMessage id="“패스워드 없이 로그인” 버튼을 클릭해주세요."/></p>
               </div>
               <div className="document-label">
                 <label className="number">❸&nbsp;</label>

@@ -1,0 +1,57 @@
+.git-demo-container {
+    font-size: .9rem;
+    font-weight: 700;
+    margin-left: 1rem;
+    position: relative;
+}
+
+.git-demo-container:hover {
+    text-decoration: underline;
+}
+
+.git-demo-container[name]:hover::after {
+    content: attr(name);
+    color: #3b697a;
+    position: absolute;
+    top: 110%;
+    left: 12px;
+}
+
+.git-demo-container[name]:lang(en)::after {
+    width: 590px;
+}
+
+.git-demo-container[name]:lang(ko)::after {
+    width: 400px;
+}
+
+@media (max-width: 1024px) {
+    .git-demo-container {
+        font-size: .9rem;
+    }
+
+    .git-demo-container[name]:lang(en)::after {
+        font-size: 4pt;
+        width: 390px;
+    }
+    
+    .git-demo-container[name]:lang(ko)::after {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .git-demo-container {
+        font-size: .8rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .git-demo-container {
+        font-size: 6pt;
+    }
+
+    .git-demo-container[name]:hover::after {
+        display: none;
+    }
+}

@@ -16,6 +16,13 @@ code {
     word-wrap: break-word;
 }
 
+.code p {
+    font-size: 1rem;
+    line-height: 2.2rem;
+    padding-top: 1rem;
+    word-break: keep-all;
+}
+
 .docs-sidebar-container {
     height: 100%;
     width: 288px;
@@ -253,6 +260,10 @@ ul > li.docs-sub-item, ul > li.docs-item.hasChild {
     font-weight: 700;
 }
 
+.pdf-download > a:hover {
+    background: #3b697a;
+  }
+
 .restapi-div {
     margin: 3rem 0;
 }
@@ -273,12 +284,12 @@ ul > li.docs-sub-item, ul > li.docs-item.hasChild {
     padding: 1rem 0;
 }
 
-.docs-content-container > div:first-child p {
+/* .docs-content-container > div:first-child p {
     font-size: 1rem;
     line-height: 2.2rem;
     padding: 1rem 0 0;
     word-break: keep-all;
-}
+} */
 
 .git-demo-container {
     font-size: .9rem;
@@ -326,6 +337,12 @@ ul > li.docs-sub-item, ul > li.docs-item.hasChild {
 .token.regex,
 .token.variable {
   color: #e27b06 !important;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+    color: #f08d49;
 }
 
 .token.constant {

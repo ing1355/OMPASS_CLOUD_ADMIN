@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import restApiImgKr from '../../../assets/docs/rest_api_img_1.png'
-import restApiImgEn from '../../../assets/docs/rest_api_img_1.png'
+import restApiImgEn from '../../../assets/docs/rest_api_img_1_eng.png'
 import restApiImg2Kr from '../../../assets/docs/rest_api_img_2.png'
-import restApiImg2En from '../../../assets/docs/rest_api_img_2.png'
+import restApiImg2En from '../../../assets/docs/rest_api_img_2_eng.png'
 import restApiImg3Kr from '../../../assets/docs/rest_api_img_3.png'
-import restApiImg3En from '../../../assets/docs/rest_api_img_3.png'
+import restApiImg3En from '../../../assets/docs/rest_api_img_3_eng.png'
 import { isKorea } from '../../../Functions/isKorea'
 
 const OmpassPopUp = () => {
@@ -58,7 +58,7 @@ const OmpassPopUp = () => {
                 <div className="documnet-box">
                     <div className="document-label">
                         <label className="number">❶&nbsp;</label>
-                        <p><FormattedMessage id="“2차인증 등록하기” 버튼을 클릭해주세요."/></p>
+                        <p><FormattedMessage id="“OMPASS 앱” 버튼을 클릭해주세요."/></p>
                     </div>
                     <div className="document-label">
                         <label className="number">❷&nbsp;</label>
@@ -127,7 +127,7 @@ const OmpassPopUp = () => {
                 <div className="documnet-box">
                     <div className="document-label">
                         <label className="number">❶&nbsp;</label>
-                        <p><FormattedMessage id="“2차 인증하기” 버튼을 클릭해주세요."/></p>
+                        <p><FormattedMessage id="로그인 시 바로 알림이 전송됩니다."/></p>
                     </div>
                     <div className="document-label">
                         <label className="number">❷&nbsp;</label>

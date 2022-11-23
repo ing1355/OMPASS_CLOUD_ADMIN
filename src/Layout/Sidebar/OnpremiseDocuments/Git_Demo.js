@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import './Git_Demo.css'
 
 const Git_Demo = () => {
     const {formatMessage} = useIntl()

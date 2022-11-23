@@ -8,6 +8,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
 import { homepageUrl } from "../../Constants/ConstantValues";
+import { showErrorMessage } from "../../redux/reducers/messageReducer";
+import { emailTest, FailToTest } from "../../Constants/InputRules";
 
 const convertLanguageCode = {
   ko: "KR",
@@ -20,6 +22,7 @@ const Login = ({
   locale,
   localeChange,
   showSuccessMessage,
+  showErrorMessage
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
@@ -30,6 +33,12 @@ const Login = ({
   const resetPassword = (e) => {
     e.preventDefault();
     const { email } = e.target.elements;
+    if (!email.value.length) {
+      return FailToTest(email, showErrorMessage('PLEASE_INPUT_EMAIL'));
+    }
+    if (!emailTest(email.value)) {
+      return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
+    }
     CustomAxiosPost(
       resetPasswordApi,
       {
@@ -37,10 +46,10 @@ const Login = ({
       },
       (data) => {
         // console.log(data);
+        alert(formatMessage({ id: "RESET_PASSWORD_SEND_MAIL" }));
+        setLogin(true);
       }
     );
-    setLogin(true);
-    alert(formatMessage({ id: "RESET_PASSWORD_SEND_MAIL" }));
   };
 
   const loginRequest = (e) => {
@@ -158,7 +167,6 @@ const Login = ({
                     placeholder={formatMessage({ id: "Email" })}
                     type="text"
                   />
-
                   <button className="button" type="submit">
                     <FormattedMessage id="ResetPassword" />
                   </button>
