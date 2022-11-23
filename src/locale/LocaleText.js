@@ -21,8 +21,8 @@ const locales = {
     loginText2: "Only administrators can access this page.",
     id: "ID",
     password: "Password",
-    PasswordAssistance: "Password assistance",
-    Registration: "Registration",
+    PasswordAssistance: "Reset password",
+    Registration: "Register",
     PasswordAssistanceText:
       "Enter the email address associated with your OMPASS account.",
     ResetPassword: "Reset password",

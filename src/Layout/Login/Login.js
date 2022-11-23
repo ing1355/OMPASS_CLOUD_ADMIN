@@ -10,9 +10,9 @@ import OMPASS from "ompass";
 import { homepageUrl } from "../../Constants/ConstantValues";
 
 const convertLanguageCode = {
-  'ko': 'KR',
-  'en': 'EN'
-}
+  ko: "KR",
+  en: "EN",
+};
 
 const Login = ({
   setIsLogin,
@@ -23,10 +23,10 @@ const Login = ({
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
-  const { standalone } = useSelector(state => ({
-    standalone: state.standalone
-  }))
-  
+  const { standalone } = useSelector((state) => ({
+    standalone: state.standalone,
+  }));
+
   const resetPassword = (e) => {
     e.preventDefault();
     const { email } = e.target.elements;
@@ -54,8 +54,11 @@ const Login = ({
         lang: convertLanguageCode[locale],
       },
       (data, callback) => {
-        const { planStatus, role, ompassUrl } = data;
-        if (planStatus !== 'EXPIRED' && role !== 'OMS') {
+        const {
+          verify_ompass_token: { planStatus, role },
+          ompassUrl,
+        } = data;
+        if (planStatus !== "EXPIRED" && role !== "OMS") {
           OMPASS(ompassUrl);
         } else {
           if (callback) callback();
@@ -117,9 +120,15 @@ const Login = ({
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={standalone.standalone ? '/docs' : homepageUrl(locale, 'registration')}
+                    href={
+                      standalone.standalone
+                        ? "/docs"
+                        : homepageUrl(locale, "registration")
+                    }
                   >
-                    <FormattedMessage id={standalone.standalone ? 'GODOCUMENT' : "Registration"} />
+                    <FormattedMessage
+                      id={standalone.standalone ? "GODOCUMENT" : "Registration"}
+                    />
                   </a>
                 </div>
               </ul>
@@ -177,9 +186,9 @@ const Login = ({
         </div>
         <div className="span">
           <span>
-            <p onClick={localeChangeEventEn}>ENG</p>
-            <p>　|　</p>
-            <p onClick={localeChangeEventKo}>KOR</p>
+            <p className="lang-toggle en" onClick={localeChangeEventEn}>EN</p>
+            <p className="seperate">|</p>
+            <p className="lang-toggle kr" onClick={localeChangeEventKo}>KR</p>
           </span>
         </div>
         <p className="copy">© OneMoreSecurity Inc. All Rights Reserved.</p>

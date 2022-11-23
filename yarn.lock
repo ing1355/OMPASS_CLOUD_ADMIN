@@ -5698,6 +5698,11 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fsevents@^2.3.2", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
+
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -7457,11 +7462,6 @@
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
 
-"loglevelnext@^3.0.1":
-  "integrity" "sha512-JpjaJhIN1reaSb26SIxDGtE0uc67gPl19OMVHrr+Ggt6b/Vy60jmCtKgQBrygAH0bhRA2nkxgDvM+8QvR8r0YA=="
-  "resolved" "https://registry.npmjs.org/loglevelnext/-/loglevelnext-3.0.1.tgz"
-  "version" "3.0.1"
-
 "loose-envify@^1.0.0", "loose-envify@^1.1.0", "loose-envify@^1.4.0":
   "integrity" "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="
   "resolved" "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
@@ -7720,16 +7720,7 @@
     "dns-packet" "^5.2.2"
     "thunky" "^1.0.2"
 
-<<<<<<< HEAD
 "nanoid@^3.3.4":
-=======
-"nanoid@^2.0.3":
-  "integrity" "sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA=="
-  "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-2.1.11.tgz"
-  "version" "2.1.11"
-
-"nanoid@^3.1.30", "nanoid@^3.3.4":
->>>>>>> 336113faa7b60ae0570b323c1ec3562589523102
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
   "version" "3.3.4"
@@ -7893,10 +7884,10 @@
   "resolved" "https://registry.npmjs.org/obuf/-/obuf-1.1.2.tgz"
   "version" "1.1.2"
 
-"ompass@^0.2.6":
-  "integrity" "sha512-H68SDVZA90nPBXSouYQCXuzOg+FhKcuSF0+60K9E4UkxU/4BtXczn06Zssv9NZtaKuyENpTvdIN6HjzavjXyAw=="
-  "resolved" "https://registry.npmjs.org/ompass/-/ompass-0.2.6.tgz"
-  "version" "0.2.6"
+"ompass@^0.2.7":
+  "integrity" "sha512-aIvam0UQCKU3bFtcAFFoIRf/wQRBru4jEMoUdXy1KpbZjJypW9Z801HuX5e/XjuS1d5e+blHDfyfA6c/PBxyBQ=="
+  "resolved" "https://registry.npmjs.org/ompass/-/ompass-0.2.7.tgz"
+  "version" "0.2.7"
 
 "on-finished@2.4.1":
   "integrity" "sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg=="
@@ -9562,17 +9553,10 @@
   dependencies:
     "history" "^5.2.0"
 
-<<<<<<< HEAD
-"react-scripts@^5.0.0", "react-scripts@>=3":
+"react-scripts@^5.0.0", "react-scripts@>=2.1.3", "react-scripts@>=3":
   "integrity" "sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ=="
   "resolved" "https://registry.npmjs.org/react-scripts/-/react-scripts-5.0.1.tgz"
   "version" "5.0.1"
-=======
-"react-scripts@^5.0.0", "react-scripts@>=2.1.3", "react-scripts@>=3":
-  "integrity" "sha512-3i0L2CyIlROz7mxETEdfif6Sfhh9Lfpzi10CtcGs1emDQStmZfWjJbAIMtRD0opVUjQuFWqHZyRZ9PPzKCFxWg=="
-  "resolved" "https://registry.npmjs.org/react-scripts/-/react-scripts-5.0.0.tgz"
-  "version" "5.0.0"
->>>>>>> 336113faa7b60ae0570b323c1ec3562589523102
   dependencies:
     "@babel/core" "^7.16.0"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.3"
@@ -11311,15 +11295,6 @@
   "integrity" "sha512-nbhGFnW5p8UUQiYrQT7XkDE8ZdiSOTAPif8iiZlOi7QugUwwYzVRnEdDAcs7fcylAFx3nlQ+sRylrt8xVflDoA=="
   "resolved" "https://registry.npmjs.org/webpack-exclude-assets-plugin/-/webpack-exclude-assets-plugin-0.1.1.tgz"
   "version" "0.1.1"
-
-"webpack-log@^3.0.2":
-  "integrity" "sha512-ijm2zgqTY2omtlxRNrtDqxAQOrfAGMxWg9fQB/kuFSeZjx/OkYnfYLqsjf/JkrWOHINMzqxaJDXaog6Mx9KaHg=="
-  "resolved" "https://registry.npmjs.org/webpack-log/-/webpack-log-3.0.2.tgz"
-  "version" "3.0.2"
-  dependencies:
-    "chalk" "^2.4.2"
-    "loglevelnext" "^3.0.1"
-    "nanoid" "^2.0.3"
 
 "webpack-manifest-plugin@^4.0.2":
   "integrity" "sha512-YXUAwxtfKIJIKkhg03MKuiFAD72PlrqCiwdwO4VEXdRO5V0ORCNwaOwAZawPZalCbmH9kBDmXnNeQOw+BIEiow=="
