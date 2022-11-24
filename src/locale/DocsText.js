@@ -25,7 +25,7 @@ const locales = {
         "패스워드 방식의 불편함과 불안함을 해소하고 사용자의 편의성과 보안성을 동시에 보장합니다.": "It eliminates the inconvenience and anxiety of the password and guarantees user convenience and security at the same time.",
         "비밀번호는 문자, 숫자, 특수문자를 활용하여 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.": "Password is required to be 8 to 16 characters with 3 combinations of at least 8 characters or 2 combinations of at least 10 characters using letters, numbers, and special characters.",
 
-        "이메일 형식의 사용자 ID를 입력합니다.": "Enter the email address.",
+        "이메일 형식의 ID를 입력합니다.": "Enter the email address.",
         "8~16자리로 등록한 패스워드를 입력합니다.": "Enter the password which is registered in 8 to 16 characters.",
         "로그인 버튼을 누르면 대시보드로 이동합니다.": "Click for login to go to the dashboard.",
 
@@ -371,7 +371,7 @@ const locales = {
         "패스워드 방식의 불편함과 불안함을 해소하고 사용자의 편의성과 보안성을 동시에 보장합니다.": "패스워드 방식의 불편함과 불안함을 해소하고 사용자의 편의성과 보안성을 동시에 보장합니다.",
         "비밀번호는 문자, 숫자, 특수문자를 활용하여 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.": "비밀번호는 문자, 숫자, 특수문자를 활용하여 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.",
 
-        "이메일 형식의 사용자 ID를 입력합니다.": "이메일 형식의 사용자 ID를 입력합니다.",
+        "이메일 형식의 ID를 입력합니다.": "이메일 형식의 ID를 입력합니다.",
         "로그인 버튼을 누르면 대시보드로 이동합니다.": "로그인 버튼을 누르면 대시보드로 이동합니다.",
         "비밀번호를 잊어버렸을 시 사용가능 한 기능입니다.": "비밀번호를 잊어버렸을 시 사용 가능한 기능입니다.",
         "비밀번호 찾기 버튼 클릭 시": "비밀번호 초기화 버튼 클릭 시",

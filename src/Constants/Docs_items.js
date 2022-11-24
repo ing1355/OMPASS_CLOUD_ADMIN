@@ -31,20 +31,14 @@ export const menuItems = [
         ]
     },
     {
-        title: <FormattedMessage id='원모어패스 시작하기'/>,
-        icon: <SendOutlined />,
+        title: <FormattedMessage id='관리자 페이지'/>,
+        icon: <SettingOutlined />,
         subMenuItems: [
             {
                 title: <FormattedMessage id='로그인'/>,
                 path: 'login',
                 component: <Login/>
-            }
-        ]
-    },
-    {
-        title: <FormattedMessage id='관리자 페이지'/>,
-        icon: <SettingOutlined />,
-        subMenuItems: [
+            },
             {
                 title: <FormattedMessage id='대시보드'/>,
                 path: 'dashboard',

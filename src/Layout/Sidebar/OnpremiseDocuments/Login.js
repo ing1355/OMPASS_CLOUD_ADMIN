@@ -29,7 +29,7 @@ const Login = () => {
         <div className="documnet-box">
           <div className="document-label">
             <label className="number">❶&nbsp;</label>
-            <p><FormattedMessage id="이메일 형식의 사용자 ID를 입력합니다." /></p>
+            <p><FormattedMessage id="이메일 형식의 ID를 입력합니다." /></p>
           </div>
           <div className="document-label">
             <label className="number">❷&nbsp;</label>
