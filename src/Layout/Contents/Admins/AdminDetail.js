@@ -136,17 +136,16 @@ const AdminDetail = ({
   const onDelete = () => {
     setConfirmLoading(true);
     const callback = () => {
-      setConfirmLoading(true);
       CustomAxiosDelete(
         role === "ADMIN"
           ? deleteAdminApi(adminId)
           : deleteSubAdminApi(adminId, subAdminId),
         () => {
+          setConfirmLoading(false);
           if (isSelf) {
             setIsLogin(false);
             showSuccessMessage("ADMINDELETESUCCESS");
           } else {
-            setConfirmLoading(false);
             deleteEvent(index);
             navigate("/Admins");
           }
@@ -159,6 +158,7 @@ const AdminDetail = ({
     }
     if (isSelf && role === 'ADMIN') {
       if (!verifyPasswordRef.current.value.length) {
+        setConfirmLoading(false);
         verifyPasswordRef.current.focus();
         return showErrorMessage('PLEASE_INPUT_PASSWORD')
       }

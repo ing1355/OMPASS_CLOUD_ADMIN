@@ -72,7 +72,7 @@ const Ompass = () => {
                         <tr>
                             <td>
                                 Example : Bearer djfk39dkfdl39dldjmgjd4idls83jflghidhs83jfk
-                        </td>
+                            </td>
                         </tr>
                     </tbody>
                 </Table>
