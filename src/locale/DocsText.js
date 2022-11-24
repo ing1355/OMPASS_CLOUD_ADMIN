@@ -342,6 +342,7 @@ const locales = {
         "를 눌러주세요.": " ",
         "기본으로 제공되는 ADMIN 계정은 삭제가 불가능합니다.": "The main ADMIN account cannot be deleted.",
         "interfaceURL": "(Installed interface's web URL)",
+        "On-Premise 전용 문서로 이동하는 기능입니다.": "Ability to navigate to On-Premise-Only documents."
     },
     KR: {
         "로그인": "로그인",
@@ -689,6 +690,7 @@ const locales = {
         "를 눌러주세요.": "를 눌러주세요.",
         "기본으로 제공되는 ADMIN 계정은 삭제가 불가능합니다.": "기본으로 제공되는 ADMIN 계정은 삭제가 불가능합니다.",
         "interfaceURL": "(설치된 인터페이스 URL)",
+        "On-Premise 전용 문서로 이동하는 기능입니다.": "On-Premise 전용 문서로 이동하는 기능입니다."
     },
 };
 

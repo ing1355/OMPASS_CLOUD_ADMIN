@@ -49,6 +49,12 @@ const Login = () => {
               <FormattedMessage id="비밀번호를 잊어버렸을 시 사용가능 한 기능입니다." />
             </p>
           </div>
+          <div className="document-label">
+            <label className="number">❺&nbsp;</label>
+            <p>
+              <FormattedMessage id="On-Premise 전용 문서로 이동하는 기능입니다." />
+            </p>
+          </div>
         </div>
       </div>
       {/* =================================================================== */}
