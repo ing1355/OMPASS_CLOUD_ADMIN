@@ -112,7 +112,7 @@ const Dashboard = ({ userProfile, locale }) => {
             <li>
               <div>
                 <h2>
-                  OMPASS
+                  {process.env.REACT_APP_USE_TARGET === 'hipass' ? 'HI-PASS' : 'OMPASS'}
                   {/* HI-PASS */}
                   {/* { standalone.standalone ? <FormattedMessage id="STANDALONE" /> : (!plan || status === "FREE" ? (
                     <FormattedMessage id="FREE_TRIAL" />

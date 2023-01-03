@@ -25,7 +25,7 @@ const CustomPolicy = () => {
         <>
           <div className="document-label">
             <label>*&nbsp;</label>
-            <p>
+            <p className="space-pre">
               <FormattedMessage id="특정 어플리케이션에 적용할 수 있는 관리자 정의형 맞춤 정책입니다. 상세 항목에 대한 사항 "/>
               <Link to="/docs/defaultPolicy">
                 <FormattedMessage id="기본 정책 페이지"/>

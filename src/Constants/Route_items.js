@@ -51,12 +51,12 @@ const AdminRoutes = [
   },
   {
     key: "Applications",
-    name: "ApplicationsRoute",
+    name: "Applications",
     icon: ApplicationsIcon,
     submenu: [
       {
-        key: 'Applications',
-        name: 'Applications',
+        key: 'ApplicationsManagement',
+        name: 'ApplicationsManagement',
         route: "/Applications/*",
         component: <Applications/>,
       },

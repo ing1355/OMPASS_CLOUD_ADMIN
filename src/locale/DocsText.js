@@ -19,7 +19,7 @@ const locales = {
         "비밀번호는 문자, 숫자, 특수문자를 활용하여 최대 16자리 까지 8자 이상 3가지 조합 또는 10자 이상 2가지 조합으로 입력해야 합니다.": "Password is required to be 8 to 16 characters with 3 combinations of at least 8 characters or 2 combinations of at least 10 characters using letters, numbers, and special characters.",
 
         "U2F/UAF": "U2F/UAF",
-        "원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다.": "One MorePass provides both U2F, a secondary authentication method, and UAF, which allows login without a password, by utilizing user-selectable authentication devices (authentication methods: fingerprint recognition, face recognition, pin code, pattern, Windows Hello login, etc.).",
+        "원모어패스는 사용자 선택형 인증장치(인증방식: 지문인식, 얼굴인식, 핀코드, 패턴, Windows Hello 로그인 등)를 활용하여 2차 인증 방식인 U2F와 패스워드 없이 로그인이 가능한 UAF 방식을 모두 제공합니다.": "OMPASS provides both U2F, a secondary authentication method, and UAF, which allows login without a password, by utilizing user-selectable authentication devices (authentication methods: fingerprint recognition, face recognition, pin code, pattern, Windows Hello login, etc.).",
         "U2F(Universal 2nd Factor) 2차 인증": "Universal 2nd Factor (U2F): Two-Factor Authentication (2FA)",
         "UAF(Universal Authentication Framework) 패스워드 없이 로그인": "Universal Authentication Framework (UAF): Passwordless Login",
         "패스워드 방식의 불편함과 불안함을 해소하고 사용자의 편의성과 보안성을 동시에 보장합니다.": "It eliminates the inconvenience and anxiety of the password and guarantees user convenience and security at the same time.",
@@ -40,9 +40,9 @@ const locales = {
         "비밀번호 초기화 인증 메일": "If you click [Verification email to initialize OMPASS] from your mailbox",
 
         "대시보드": "Dashboard",
-        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "You can gain insight into the validity period of the service currently being used.(The validity period will not display in the on-premise)",
-        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "You can gain insight into the number of days remaining against next payment.(The number of days remaining will not display in the on-premise)",
-        "OMPASS 서비스를 이용 중인 사용자 수, 관리자 수, 바이패스 수, 비활성화 수 관련 정보를 제공합니다.": "You can gain insight into the number of users.",
+        "현재 사용하고 있는 서비스 유효기간 정보를 제공합니다.": "You can gain insight into the validity period of the service currently being used.\n(There is no validity limit in an on-premise environment)",
+        "다음 결제 시 까지 남은 일 수가 표기됩니다.": "You can gain insight into the number of days remaining against next payment.\n(There is no validity limit in an on-premise environment)",
+        "OMPASS 서비스를 이용 중인 사용자 수, 관리자 수, 바이패스 수, 비활성화 수 관련 정보를 제공합니다.": "You can gain insight into the number of users using the OMPASS service as total users, registered users, unregistered users, and bypass users.",
         "어플리케이션 단위로 사용자 인증 횟수를 보여주는 차트입니다.": "You can gain insight into the number of user authentications per each application.",
         "최근 ompass 인증을 이용한 사용자 로그입니다.": "You can gain insight into authentication log currently being used to access each application by each user.",
 
@@ -164,7 +164,7 @@ const locales = {
         "모두 거부：어플리케이션 로그인 시 모든 사용자의 OMPASS 인증을 거부합니다.": "Deny All：Deny OMPASS authentication for all users when logging into the application.",
         "(단, OMPASS 인증 바이패스가 ON으로 설정된 사용자는 이메일로 인증이 가능합니다.)": "(However, users who are activated the bypass from “Users Managerment” can authenticate by email when logging into the application.)",
         "“기본값으로 변경” 버튼 클릭 시 처음의 기본 정책 상태인 “OMPASS 인증 패스” 설정이 선택된 상태로 변경됩니다.": "If you click the [Make Default] button, all previous settings will be reset to “Disable OMPASS Authentication” and allow all access from any countries and browsers.",
-        "특정 어플리케이션에 적용할 수 있는 관리자 정의형 맞춤 정책입니다. 상세 항목에 대한 사항 ": "You can create your own policy that can be applied to a specific application. Please refer to the previous",
+        "특정 어플리케이션에 적용할 수 있는 관리자 정의형 맞춤 정책입니다. 상세 항목에 대한 사항 ": "You can create your own policy that can be applied to a specific application.\nPlease refer to the previous",
         "기본 정책 페이지": " “Default Policy”",
         "를 참고하세요.": " page for instruction.",
 

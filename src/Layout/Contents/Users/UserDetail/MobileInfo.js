@@ -27,7 +27,7 @@ const MobileInfo = ({ data }) => {
                 {/* <b><FormattedMessage id="TYPE" /></b> */}
                 <b>Type</b>
                 <br />
-                {data ? "OMPASS Moblie " + appVersion : <FormattedMessage id="Unknown" />}
+                {data ? ("OMPASS App v" + appVersion) : <FormattedMessage id="Unknown" />}
             </p>
         </li>
         <li>

@@ -242,7 +242,7 @@ const Global_Policy = ({
   );
 
   const checkExistTitle = useCallback(() => {
-    if (!inputTitle) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
+    if (!inputTitle.trim()) return showErrorMessage("PLEASE_INPUT_POLICY_NAME");
     if (!policyTitleTest(inputTitle)) return showErrorMessage('POLICY_NAME_RULE_ERROR')
     CustomAxiosGet(
       isExistencePolicyApi(adminId, inputTitle),

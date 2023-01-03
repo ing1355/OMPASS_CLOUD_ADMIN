@@ -1,11 +1,11 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./Admins.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import { Button } from "antd";
-import { UserSwitchOutlined, UserDeleteOutlined } from "@ant-design/icons";
+import { UserSwitchOutlined, UserDeleteOutlined, InteractionTwoTone } from "@ant-design/icons";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
   CustomAxiosDelete,
@@ -23,7 +23,7 @@ import { connect, useSelector } from "react-redux";
 import CustomConfirm from "../../../CustomComponents/CustomConfirm";
 import ActionCreators from "../../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
-import { FailToTest, passwordTest } from "../../../Constants/InputRules";
+import { FailToTest, nameTest, passwordTest } from "../../../Constants/InputRules";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { verifyPasswordApi } from "../../../Constants/VerifyPassword";
@@ -41,6 +41,7 @@ const AdminDetail = ({
   showSuccessMessage,
   showErrorMessage,
   setIsLogin,
+  locale
 }) => {
   const {
     country,
@@ -64,6 +65,7 @@ const AdminDetail = ({
   const [inputDialCode, setInputDialCode] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const formRef = useRef(null)
   const { standalone } = useSelector(state => ({
     standalone: state.standalone.standalone
   }))
@@ -94,6 +96,18 @@ const AdminDetail = ({
       if (password.value !== passwordConfirm.value) {
         return showErrorMessage("NOT_EQUAL_PASSWORD");
       }
+    }
+    if (!firstName.value.trim()) {
+      return FailToTest(firstName, showErrorMessage('PLEASE_INPUT_FIRST_NAME'));
+    }
+    if (!nameTest(firstName.value)) {
+      return FailToTest(firstName, showErrorMessage("NAME_RULE_ERROR"));
+    }
+    if (!lastName.value.trim()) {
+      return FailToTest(lastName, showErrorMessage('PLEASE_INPUT_NAME'));
+    }
+    if (!nameTest(lastName.value)) {
+      return FailToTest(lastName, showErrorMessage("NAME_RULE_ERROR"));
     }
     if (!inputFormat) return showErrorMessage('PLEASE_INPUT_MOBILE');
     if (mobile.value.length !== inputFormat.length) return showErrorMessage('PLEASE_COMPLETE_ADMIN_MOBILE')
@@ -175,33 +189,55 @@ const AdminDetail = ({
     }
   };
 
+  const nameChangeByLanguageInKorea = (type, param) => {
+    const isKo = locale === 'ko'
+    if(type === 1) {
+      return <FormattedMessage id={isKo ? "FIRSTNAME" : "LASTNAME"} />
+    } else if(type === 2) {
+      return isKo ? "PLEASE_INPUT_FIRST_NAME" : "PLEASE_INPUT_NAME"
+    } else if(type === 4) {
+      return isKo ? firstName : lastName
+    }
+  }
+
+  const nameChangeByLanguageInEtc = (type, param) => {
+    const isKo = locale === 'ko'
+    if(type === 1) {
+      return <FormattedMessage id={isKo ? "LASTNAME" : "FIRSTNAME"} />
+    } else if(type === 2) {
+      return isKo ? "PLEASE_INPUT_NAME" : "PLEASE_INPUT_FIRST_NAME"
+    } else if(type === 4) {
+      return isKo ? lastName : firstName
+    }
+  }
+
   return (
     <>
       {data && Object.keys(data).length > 0 ? (
         <div className="AdminBox">
-          <form className="updateForm" onSubmit={onFinish}>
+          <form className="updateForm" onSubmit={onFinish} ref={formRef}>
             <div className="inputBox">
               <span>
-                <FormattedMessage id="FIRSTNAME" />
+                {nameChangeByLanguageInKorea(1)}
               </span>
               <input
                 placeholder={formatMessage({
-                  id: "PLEASE_INPUT_FIRST_NAME",
+                  id: nameChangeByLanguageInKorea(2),
                 })}
                 maxLength={16}
                 name="firstName"
-                defaultValue={firstName}
+                defaultValue={nameChangeByLanguageInKorea(4)}
               />
             </div>
             <div className="inputBox">
               <span>
-                <FormattedMessage id="LASTNAME" />
+                {nameChangeByLanguageInEtc(1)}
               </span>
               <input
-                placeholder={formatMessage({ id: "PLEASE_INPUT_NAME" })}
+                placeholder={formatMessage({ id: nameChangeByLanguageInEtc(2) })}
                 maxLength={16}
                 name="lastName"
-                defaultValue={lastName}
+                defaultValue={nameChangeByLanguageInEtc(4)}
               />
             </div>
 
@@ -350,6 +386,7 @@ const AdminDetail = ({
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale
   };
 }
 

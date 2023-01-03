@@ -89,6 +89,12 @@ const App = ({
     if (lang) document.documentElement.lang = lang;
   }, [lang])
 
+  useEffect(() => {
+    window.addEventListener("message", evt => {
+      console.log(evt)
+    })
+  },[])
+
   return (
     <Router>
       <IntlProvider locale={lang} messages={locale[lang]}>

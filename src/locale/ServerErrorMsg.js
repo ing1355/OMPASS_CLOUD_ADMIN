@@ -25,7 +25,7 @@ const locales = {
     ERR_115: 'The recurring payment order does not exist.',
     ERR_116: 'Invalid API request.',
     ERR_117: 'The number of registered users has been exceeded.',
-    ERR_118: 'Your account has been locked. Please reset your password from [Password assistance].',
+    ERR_118: 'Your account has been locked. Please reset your password from [Reset authentication].',
     ERR_119: 'Password Verification Failed.'
   },
   KR: {

@@ -42,6 +42,7 @@ export function CustomAxiosPost(url, params, successCallback, errorCallback, con
     return axios.post(url, params, _config).then(res => {
         if (url.includes('login') || url.includes('verify-ompass')) {
             if (successCallback) successCallback({ ...res.data.data, ...jwt_decode(res.headers.authorization) }, () => {
+                console.log(res.headers.authorization)
                 localStorage.setItem('Authorization', res.headers.authorization);
             });
         } else {

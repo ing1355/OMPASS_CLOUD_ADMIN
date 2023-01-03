@@ -21,9 +21,9 @@ import { Button, Space, Row, Col } from "antd";
 import { UserSwitchOutlined } from "@ant-design/icons";
 import CustomButton from "../../../CustomComponents/CustomButton";
 import {
+  ApplicationNameTest,
   domainTest,
   FailToTest,
-  nameTest,
   reidrectUriTest,
 } from "../../../Constants/InputRules";
 import ActionCreators from "../../../redux/actions";
@@ -111,9 +111,10 @@ const ApplicationDetail = ({
   };
 
   const existCheck = () => {
-    if (!nameRef.current.value)
+    if (!nameRef.current.value.trim())
       return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME");
-    if (!nameTest(nameRef.current.value)) {
+    console.log(!ApplicationNameTest(nameRef.current.value), nameRef.current.value)
+    if (!ApplicationNameTest(nameRef.current.value)) {
       return FailToTest(
         nameRef.current,
         showErrorMessage("APPLICATION_NAME_RULE_ERROR")
@@ -137,13 +138,13 @@ const ApplicationDetail = ({
     e.preventDefault();
     // const { name, domain, redirectUri, status, policy } = e.target.elements;
     const { name, domain, redirectUri, policy } = e.target.elements;
-    if (!name.value.length) {
+    if (!name.value.trim()) {
       return FailToTest(
         name,
         showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
       );
     }
-    if (!nameTest(name.value)) {
+    if (!ApplicationNameTest(name.value)) {
       return FailToTest(name, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
     }
     if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
@@ -202,7 +203,7 @@ const ApplicationDetail = ({
               name="name"
               ref={nameRef}
               onChange={changeInputName}
-              maxLength={16}
+              maxLength={24}
             />
             <CustomButton
               className="selectButton button"

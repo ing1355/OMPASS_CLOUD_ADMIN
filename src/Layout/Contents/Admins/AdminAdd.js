@@ -21,7 +21,7 @@ import {
 import { FormattedMessage, useIntl } from "react-intl";
 import ActionCreators from "../../../redux/actions";
 
-const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
+const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage, locale }) => {
   const { adminId } = userProfile;
   const [existCheck, setExistCheck] = useState(false);
   const [inputCountry, setInputCountry] = useState(null);
@@ -67,13 +67,13 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     const { email, lastName, firstName, mobile } =
       e.target.elements;
     e.preventDefault();
-    if (!firstName.value.length) {
+    if (!firstName.value.trim()) {
       return FailToTest(firstName, showErrorMessage('PLEASE_INPUT_FIRST_NAME'));
     }
     if (!nameTest(firstName.value)) {
       return FailToTest(firstName, showErrorMessage("NAME_RULE_ERROR"));
     }
-    if (!lastName.value.length) {
+    if (!lastName.value.trim()) {
       return FailToTest(lastName, showErrorMessage('PLEASE_INPUT_NAME'));
     }
     if (!nameTest(lastName.value)) {
@@ -102,18 +102,36 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
     alert(formatMessage({id:'EMAIL_SEND_SUCCESS'}))
     navigate("/Admins");
   };
+
+  const nameChangeByLanguageInKorea = (type) => {
+    const isKo = locale === 'ko'
+    if(type === 1) {
+      return <FormattedMessage id={isKo ? "FIRSTNAME" : "LASTNAME"} />
+    } else if(type === 2) {
+      return isKo ? "PLEASE_INPUT_FIRST_NAME" : "PLEASE_INPUT_NAME"
+    }
+  }
+
+  const nameChangeByLanguageInEtc = (type) => {
+    const isKo = locale === 'ko'
+    if(type === 1) {
+      return <FormattedMessage id={isKo ? "LASTNAME" : "FIRSTNAME"} />
+    } else if(type === 2) {
+      return isKo ? "PLEASE_INPUT_NAME" : "PLEASE_INPUT_FIRST_NAME"
+    }
+  }
   
   return (
     <>
       <div className="AdminBox">
         <form onSubmit={onFinish}>
           <div className="inputBox">
-            <span><FormattedMessage id="FIRSTNAME"/></span>
-            <input name="firstName" maxLength={16} placeholder={formatMessage({ id: 'PLEASE_INPUT_FIRST_NAME' })} />
+            <span>{nameChangeByLanguageInKorea(1)}</span>
+            <input name="firstName" maxLength={16} placeholder={formatMessage({ id: nameChangeByLanguageInKorea(2) })} />
           </div>
           <div className="inputBox">
-            <span><FormattedMessage id="LASTNAME"/></span>
-            <input name="lastName" maxLength={16} placeholder={formatMessage({ id: 'PLEASE_INPUT_NAME' })} />
+            <span>{nameChangeByLanguageInEtc(1)}</span>
+            <input name="lastName" maxLength={16} placeholder={formatMessage({ id: nameChangeByLanguageInEtc(2) })} />
           </div>
           <div className="inputBox">
             <span><FormattedMessage id="EMAIL"/></span>
@@ -161,6 +179,7 @@ const AdminAdd = ({ userProfile, showErrorMessage, showSuccessMessage }) => {
 function mapStateToProps(state) {
   return {
     userProfile: state.userProfile,
+    locale: state.locale
   };
 }
 

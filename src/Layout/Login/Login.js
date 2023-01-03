@@ -8,7 +8,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
 import { homepageUrl } from "../../Constants/ConstantValues";
-import { showErrorMessage } from "../../redux/reducers/messageReducer";
 import { emailTest, FailToTest } from "../../Constants/InputRules";
 
 const convertLanguageCode = {
@@ -55,6 +54,7 @@ const Login = ({
   const loginRequest = (e) => {
     e.preventDefault();
     const { userId, password } = e.target.elements;
+    console.log('not here??')
     CustomAxiosPost(
       loginApi,
       {
@@ -64,12 +64,16 @@ const Login = ({
       },
       (data, callback) => {
         const {
-          verify_ompass_token: { planStatus, role },
           ompassUrl,
         } = data;
-        if (planStatus !== "EXPIRED" && role !== "OMS") {
-          OMPASS(ompassUrl);
+        const role = (data.access_token && data.access_token.role) || (data.verify_ompass_token && data.verify_ompass_token.role)
+        if (role !== "OMS") {
+          // OMPASS(ompassUrl);
+          const win = window.open(ompassUrl, '', "width=500;height=500;")
+          win.document.domain = window.location.hostname
+          console.log(document.domain)
         } else {
+          console.log(callback, data)
           if (callback) callback();
           setUserProfile(data);
           setIsLogin(true);
@@ -95,8 +99,7 @@ const Login = ({
           {login === true ? (
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
-                {/* <h1>HI-PASS Login</h1> */}
-                <h1>OMPASS Login</h1>
+                <h1>{process.env.REACT_APP_USE_TARGET === 'hipass' ? 'HI-PASS' : 'OMPASS'} Login</h1>
                 <form onSubmit={loginRequest} className="form login-input">
                   <input
                     className="email-input"

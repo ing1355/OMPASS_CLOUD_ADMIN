@@ -2,6 +2,7 @@ import React from "react";
 import "./Brand.css";
 // import logo from "../../assets/logo2.png";
 import logo from "../../assets/logo.png";
+import hipassLogo from "../../assets/hipass.png";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { menuStateChange } from "../../redux/reducers/menuStateReducer";
@@ -17,7 +18,7 @@ const Brand = () => {
         dispatch(menuStateChange("Dashboard"));
       }}
     >
-      <img src={logo} alt="" />
+      <img src={process.env.REACT_APP_USE_TARGET === 'hipass' ? hipassLogo : logo} alt="" />
     </div>
   );
 };

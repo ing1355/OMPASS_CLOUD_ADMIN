@@ -2,7 +2,7 @@
   "name": "ompass_cloud_admin",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://192.168.182.140:9004",
+  "proxy": "https://admin.ompasscloud.com",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ckeditor/ckeditor5-react": "^5.0.2",
@@ -42,6 +42,7 @@
   "scripts": {
     "start": "cross-env HTTPS=true react-scripts start",
     "build:prod": "cross-env REACT_APP_SERVICE_TARGET=prod GENERATE_SOURCEMAP=false react-scripts build",
+    "build:hipass": "cross-env REACT_APP_SERVICE_TARGET=prod REACT_APP_USE_TARGET=hipass GENERATE_SOURCEMAP=false react-scripts build",
     "build:aws": "cross-env REACT_APP_SERVICE_TARGET=aws GENERATE_SOURCEMAP=false react-scripts build",
     "build:awsTest": "cross-env REACT_APP_SERVICE_TARGET=awsTest GENERATE_SOURCEMAP=false react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js' --gzip",

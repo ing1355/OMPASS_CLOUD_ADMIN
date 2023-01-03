@@ -235,6 +235,10 @@ ul > li.docs-sub-item, ul > li.docs-item.hasChild {
     margin: 1rem 0;
 }
 
+.space-pre {
+    white-space: pre-wrap;
+}
+
 .document-text-box .document-label p {
     margin: 0;
     padding-top: 0;

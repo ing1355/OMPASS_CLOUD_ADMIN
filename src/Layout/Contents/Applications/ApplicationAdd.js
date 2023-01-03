@@ -40,7 +40,7 @@ const ApplicationAdd = ({
     // const { domain, redirectUri, name, policy, status } = e.target.elements;
     const { domain, redirectUri, name, policy } = e.target.elements;
     if (!isExistCheck) return showErrorMessage("PLEASE_CHECK_EXIST");
-    if (!name.value.length) {
+    if (!name.value.trim()) {
       return FailToTest(name, showErrorMessage("PLEASE_INPUT_APPLICATION_NAME"));
     }
     if (!ApplicationNameTest(name.value)) {
@@ -83,7 +83,7 @@ const ApplicationAdd = ({
   };
 
   const existCheck = () => {
-    if (!inputName) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
+    if (!inputName.trim()) return showErrorMessage("PLEASE_INPUT_APPLICATION_NAME")
     if (!ApplicationNameTest(inputName)) {
       return FailToTest(inputNameRef.current, showErrorMessage("APPLICATION_NAME_RULE_ERROR"));
     }
