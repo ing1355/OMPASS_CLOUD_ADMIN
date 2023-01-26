@@ -45,6 +45,8 @@ const Applications = ({
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [customPolicies, setCustomPolicies] = useState([]);
   const [globalPolicy, setGlobalPolicy] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [sorted, setSorted] = useState({});
   const { formatMessage } = useIntl();
 
   const tableDataAdd = useCallback(
@@ -186,12 +188,15 @@ const Applications = ({
             element={<div>
                 <CustomTable
                   loading={tableLoading}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                   columns={ApplicationsColumns}
+                  sorted={sorted}
+                  setSorted={setSorted}
                   datas={tableData}
                   multipleSelectable={true}
                   searched
                   pagination
-                  numPerPage={10}
                   selectedId={"appId"}
                   rowSelectable={true}
                   selectedRows={selectedRows}

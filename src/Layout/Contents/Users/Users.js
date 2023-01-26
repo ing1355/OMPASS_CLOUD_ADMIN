@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState, lazy } from "react";
+import React, { useCallback, useLayoutEffect, useState, lazy, useEffect } from "react";
 import "./Users.css";
 import ContentsTitle from "../ContentsTitle";
 import {
@@ -28,6 +28,8 @@ const Users = ({
   const [selectView, setSelectView] = useState(0);
   const [applicationsData, setApplicationsData] = useState([]);
   const [maxUserCount, setMaxUserCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [sorted, setSorted] = useState({});
 
   useLayoutEffect(() => {
     if(adminId) {
@@ -75,6 +77,11 @@ const Users = ({
     }
   }, [selectView, tableData]);
 
+  useEffect(() => {
+    setCurrentPage(0)
+    setSorted({})
+  },[selectView])
+
   const updateEvent = useCallback(
     (userId, byPass, email) => {
       setTableData(
@@ -99,6 +106,10 @@ const Users = ({
             path="/"
             element={<UserContents
               setDetailData={setDetailData}
+              sorted={sorted}
+              setSorted={setSorted}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
               tableData={tableData}
               _tableData={_tableData}
               tableLoading={tableLoading}

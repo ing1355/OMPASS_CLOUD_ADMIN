@@ -1,22 +1,30 @@
 import React from "react";
-import { connect } from "react-redux";
 import { disabledUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserDisabled = ({ tableData, setDetailData, tableLoading }) => {
+const UserDisabled = ({
+  tableData,
+  setDetailData,
+  tableLoading,
+  currentPage,
+  setCurrentPage,
+  sorted,
+  setSorted,
+}) => {
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={disabledUserColumns} tableLoading={tableLoading}/>
+      <UsersTable
+        tableData={tableData}
+        setDetailData={setDetailData}
+        columns={disabledUserColumns}
+        tableLoading={tableLoading}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        sorted={sorted}
+        setSorted={setSorted}
+      />
     </>
   );
 };
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserDisabled);
+export default UserDisabled;

@@ -12,6 +12,8 @@ const AuthLogs = ({ userProfile }) => {
   const {adminId} = userProfile
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [sorted, setSorted] = useState({});
 
   useEffect(() => {
     if(adminId) {
@@ -38,10 +40,13 @@ const AuthLogs = ({ userProfile }) => {
         <CustomTable
           columns={LogsColumns}
           loading={tableLoading}
+          sorted={sorted}
+          setSorted={setSorted}
           datas={tableData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           pagination
           searched
-          numPerPage={10}
         />
       </div>
     </div>

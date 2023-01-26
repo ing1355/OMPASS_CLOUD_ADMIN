@@ -1,22 +1,30 @@
 import React from "react";
-import { connect } from "react-redux";
 import { byPassUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserBypass = ({ tableData, setDetailData, tableLoading }) => {
+const UserBypass = ({
+  tableData,
+  setDetailData,
+  tableLoading,
+  currentPage,
+  setCurrentPage,
+  sorted,
+  setSorted,
+}) => {
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={byPassUserColumns} tableLoading={tableLoading}/>
+      <UsersTable
+        tableData={tableData}
+        setDetailData={setDetailData}
+        columns={byPassUserColumns}
+        tableLoading={tableLoading}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        sorted={sorted}
+        setSorted={setSorted}
+      />
     </>
   );
 };
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserBypass);
+export default UserBypass;

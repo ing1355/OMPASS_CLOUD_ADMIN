@@ -1,23 +1,30 @@
 import React from "react";
-import { connect } from "react-redux";
 import { unRegisteredUserColumns } from "../../../Constants/TableColumns";
 import UsersTable from "./UsersTable";
 
-const UserUnregistered = ({ tableData, setDetailData, tableLoading }) => {
-
+const UserUnregistered = ({
+  tableData,
+  setDetailData,
+  tableLoading,
+  currentPage,
+  setCurrentPage,
+  sorted,
+  setSorted,
+}) => {
   return (
     <>
-      <UsersTable tableData={tableData} setDetailData={setDetailData} columns={unRegisteredUserColumns} tableLoading={tableLoading}/>
+      <UsersTable
+        tableData={tableData}
+        setDetailData={setDetailData}
+        columns={unRegisteredUserColumns}
+        tableLoading={tableLoading}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        sorted={sorted}
+        setSorted={setSorted}
+      />
     </>
   );
 };
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserUnregistered);
+export default UserUnregistered;

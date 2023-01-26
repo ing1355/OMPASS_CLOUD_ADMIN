@@ -50,11 +50,13 @@ const Billing = ({
   const [inputEdition, setInputEdition] = useState(null);
   const [confirmModal, setConfirmModal] = useState(false);
   const [paypalLoading, setPaypalLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0)
   const [inputTerm, setInputTerm] = useState("MONTHLY");
   const [inputUserNum, setInputUserNum] = useState(11);
   const [tableData, setTableData] = useState([]);
   const [cost, setCost] = useState(0);
   const [paymentType, setPaymentType] = useState(null)
+  const [sorted, setSorted] = useState({});
   const { status, numberUsers } = currentPlan
   const statusIsRUN = status === 'RUN' || status === 'REFUNDABLE_RUN'
   const userNumList = useMemo(() => new Array(990).fill(1), []);
@@ -430,7 +432,11 @@ const Billing = ({
         </h2>
         <CustomTable
           columns={BillingColumns}
+          sorted={sorted}
+          setSorted={setSorted}
           datas={tableData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           pagination
           numPerPage={5}
         />

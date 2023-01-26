@@ -15,8 +15,9 @@ import "./CustomTable.css";
 import searchIcon from "../assets/searchIcon.png";
 import { connect } from "react-redux";
 
-const sortFunctionByKey = (array, key, sortType) => {
-  const valueType = typeof array[0][key];
+const sortFunctionByKey = (_array, key, sortType) => {
+  const valueType = typeof (_array[0] && _array[0][key]);
+  const array = [..._array]
   switch (valueType) {
     case "number":
       if (sortType === "ascend") return array.sort((a, b) => a[key] - b[key]);
@@ -43,7 +44,9 @@ const CustomTable = ({
   datas,
   rowClick,
   pagination,
-  numPerPage,
+  numPerPage=20,
+  currentPage,
+  setCurrentPage,
   loading,
   multipleSelectable,
   selectedId,
@@ -55,10 +58,11 @@ const CustomTable = ({
   selectedRows,
   locale,
   searchFunction,
+  sorted,
+  setSorted
 }) => {
   const { formatMessage } = useIntl();
   const [tableData, setTableData] = useState([]);
-  const [sorted, setSorted] = useState({});
   const tableColumns = multipleSelectable
     ? [
         {
@@ -93,7 +97,6 @@ const CustomTable = ({
     : 0;
   const [searchColumn, setSearchColumn] = useState(null);
   const [searchTarget, setSearchTarget] = useState({});
-  const [currentPage, setCurrentPage] = useState(0);
 
   const getAllTableData = useCallback(
     () =>
@@ -105,7 +108,7 @@ const CustomTable = ({
         : datas,
     [multipleSelectable, datas]
   );
-
+          
   useLayoutEffect(() => {
     if (datas) {
       setTableData(getAllTableData());
@@ -155,9 +158,9 @@ const CustomTable = ({
     setCurrentPage(0);
   }, []);
 
-  const goToLastPage = () => {
+  const goToLastPage = useCallback(() => {
     setCurrentPage(pageNum - 1);
-  };
+  },[pageNum]);
 
   const goToBeforePage = useCallback(() => {
     setCurrentPage(currentPage - 1);
@@ -170,9 +173,10 @@ const CustomTable = ({
   const dataList = useMemo(() => {
     try {
       if (Array.isArray(tableData)) {
-        const temp = pagination ? tableData.slice( currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage) : tableData
-        const sortedKey = Object.keys(sorted)
-        return (sortedKey.length > 0 ? sortFunctionByKey(temp, sortedKey[0], sorted[sortedKey[0]]) : temp).map((d, ind) => (
+        const sortedKey = sorted ? Object.keys(sorted) : []
+        const sortedItems = (sortedKey.length > 0 ? sortFunctionByKey(tableData, sortedKey[0], sorted[sortedKey[0]]) : tableData)
+        const temp = pagination ? sortedItems.slice( currentPage * _numPerPage, currentPage * _numPerPage + _numPerPage) : sortedItems
+        return temp.map((d, ind) => (
           <tr
             key={ind}
             className={rowClick || onChangeSelectedRows ? "pointer" : ""}

@@ -22,6 +22,8 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [detailData, setDetailData] = useState({});
+  const [currentPage, setCurrentPage] = useState(0)
+  const [sorted, setSorted] = useState({})
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -95,8 +97,11 @@ const Admins = ({ userProfile, showSuccessMessage }) => {
                 <CustomTable
                   columns={AdminsColumns}
                   datas={tableData}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                   pagination
-                  numPerPage={10}
+                  sorted={sorted}
+                  setSorted={setSorted}
                   loading={tableLoading}
                   rowClick={clickToDetail}
                 />

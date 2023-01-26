@@ -47,6 +47,7 @@ const Dashboard = ({ userProfile, locale }) => {
   const [plan, setPlan] = useState({});
   const [authLogs, setAuthLogs] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
   const { expirationDate, startDate, remainingDate, status } = plan;
   const {standalone} = useSelector(state => ({
     standalone: state.standalone
@@ -302,7 +303,7 @@ const Dashboard = ({ userProfile, locale }) => {
             &nbsp;
             <FormattedMessage id="AuthenticationLog" />
           </h4>
-          <CustomTable columns={DashboardLogColumns} datas={authLogs} />
+          <CustomTable columns={DashboardLogColumns} datas={authLogs} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
         </div>
       </div>
     </div>

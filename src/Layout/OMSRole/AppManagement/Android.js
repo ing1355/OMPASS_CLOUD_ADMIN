@@ -21,6 +21,7 @@ const Android = ({ showErrorMessage }) => {
   const [description, setDescription] = useState("");
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0)
 
   useLayoutEffect(() => {
     CustomAxiosGet(
@@ -109,11 +110,12 @@ const Android = ({ showErrorMessage }) => {
         columns={AppManagementColumns}
         datas={tableData}
         pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         rowClick={({ version, description }) => {
           setAppVersion(version);
           setDescription(description)
         }}
-        numPerPage={10}
         loading={tableLoading}
       />
     </div>

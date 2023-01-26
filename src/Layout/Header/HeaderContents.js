@@ -22,7 +22,7 @@ const HeaderContents = ({
   showSuccessMessage,
 }) => {
   const location = useLocation();
-  const { role, firstName, lastName } = userProfile;
+  const { role, firstName, lastName, email } = userProfile;
   const [profileOpen, setProfileOpen] = useState(false);
 
   useLayoutEffect(() => {
@@ -68,7 +68,7 @@ const HeaderContents = ({
             <AliwangwangOutlined
               style={{ fontSize: "1.1rem", marginRight: "4px" }}
             />
-            {firstName + " " + lastName}
+            {firstName + " " + lastName}({email})
           </b>
           <div
             className={

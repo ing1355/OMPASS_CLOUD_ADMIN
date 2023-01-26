@@ -306,6 +306,7 @@ export const allUserColumns = [
     key: "type",
     searched: true,
     searchedOptions: ["OMPASS", "WEBAUTHN"],
+    sorted: true
   },
   {
     name: "LastLogin",
@@ -348,6 +349,7 @@ export const disabledUserColumns = [
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
+    sorted: true
   },
   { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {
@@ -379,6 +381,7 @@ export const byPassUserColumns = [
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
+    sorted: true
   },
   { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {
@@ -409,6 +412,7 @@ export const unRegisteredUserColumns = [
     key: "type",
     searched: true,
     searchedOptions: ["ompass"],
+    sorted: true
   },
   { name: "LastLogin", key: "lastLoginDate", width: 250, sorted: true },
   {

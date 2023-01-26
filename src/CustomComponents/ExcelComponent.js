@@ -23,13 +23,16 @@ const ExcelComponent = ({ type, lang, applicationsData, tableData, showSuccessMe
     const [selectedApplication, setSelectedApplication] = useState(-1);
     const { formatMessage } = useIntl();
     const {adminId} = userProfile
-    const columns = useMemo(() => [['userId', formatMessage({ id: 'User' })], ['appName', formatMessage({ id: 'APPLICATIONNAME' })], ['byPass', formatMessage({ id: 'Bypass' })], ['email', formatMessage({ id: 'Email' })]], [lang]);
+    const columns = useMemo(() => [['userId', formatMessage({ id: 'User' })], ['appName', formatMessage({ id: 'APPLICATIONNAME' })], ['byPass', formatMessage({ id: 'Bypass' })], ['email', formatMessage({ id: 'Email' })], ['auth', 'AuthType']], [lang]);
     const _exporter = useRef(null);
-
+    
     useLayoutEffect(() => {
         if(type === 'download') {
             if (selectedApplication !== -1) {
-                setExcelData(tableData.filter(td => td.appId === selectedApplication))
+                setExcelData(tableData.filter(td => td.appId === selectedApplication).map(td => ({
+                    ...td,
+                    auth: td.type ? (td.type === 'OMPASS' ? ('OMPASS App v' + td.authDevice.appVersion) : 'WebAuthn') : null
+                })))
             } else {
                 setExcelData([])
             }
@@ -71,6 +74,7 @@ const ExcelComponent = ({ type, lang, applicationsData, tableData, showSuccessMe
             else if (ind === 1) col.width = 300;
             else if (ind === 2) col.width = 200;
             else if (ind === 3) col.width = 250;
+            else if (ind === 4) col.width = 300;
         });
         _exporter.current.save(workbook);
         closeConfirmModal();

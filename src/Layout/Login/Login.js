@@ -10,6 +10,27 @@ import OMPASS from "ompass";
 import { homepageUrl } from "../../Constants/ConstantValues";
 import { emailTest, FailToTest } from "../../Constants/InputRules";
 
+function closeEventFunc(newWindow) {
+  if (newWindow) newWindow.close();
+}
+
+function receiveMessageEvent({ data }) {
+  const { type, params } = data
+  if(type === 'ompassEvent') {
+      const newWindow = window.ompassPopUpOpened
+      switch (params) {
+          case 'load':
+              window.addEventListener('beforeunload', () => closeEventFunc(newWindow))
+              break;
+          case 'beforeunload':
+              window.removeEventListener('beforeunload', () => closeEventFunc(newWindow))
+              delete window.ompassPopUpOpened
+              window.removeEventListener("message", receiveMessageEvent, false);
+              break;
+          default: break;
+      }
+  }
+}
 const convertLanguageCode = {
   ko: "KR",
   en: "EN",
@@ -21,7 +42,7 @@ const Login = ({
   locale,
   localeChange,
   showSuccessMessage,
-  showErrorMessage
+  showErrorMessage,
 }) => {
   const [login, setLogin] = useState(true);
   const { formatMessage } = useIntl();
@@ -33,7 +54,7 @@ const Login = ({
     e.preventDefault();
     const { email } = e.target.elements;
     if (!email.value.length) {
-      return FailToTest(email, showErrorMessage('PLEASE_INPUT_EMAIL'));
+      return FailToTest(email, showErrorMessage("PLEASE_INPUT_EMAIL"));
     }
     if (!emailTest(email.value)) {
       return FailToTest(email, showErrorMessage("EMAIL_RULE_ERROR"));
@@ -54,7 +75,7 @@ const Login = ({
   const loginRequest = (e) => {
     e.preventDefault();
     const { userId, password } = e.target.elements;
-    console.log('not here??')
+    console.log("not here??");
     CustomAxiosPost(
       loginApi,
       {
@@ -63,17 +84,14 @@ const Login = ({
         lang: convertLanguageCode[locale],
       },
       (data, callback) => {
-        const {
-          ompassUrl,
-        } = data;
-        const role = (data.access_token && data.access_token.role) || (data.verify_ompass_token && data.verify_ompass_token.role)
+        const { ompassUrl } = data;
+        const role =
+          (data.access_token && data.access_token.role) ||
+          (data.verify_ompass_token && data.verify_ompass_token.role);
         if (role !== "OMS") {
-          // OMPASS(ompassUrl);
-          const win = window.open(ompassUrl, '', "width=500;height=500;")
-          win.document.domain = window.location.hostname
-          console.log(document.domain)
+          OMPASS(ompassUrl);
         } else {
-          console.log(callback, data)
+          console.log(callback, data);
           if (callback) callback();
           setUserProfile(data);
           setIsLogin(true);
@@ -99,7 +117,12 @@ const Login = ({
           {login === true ? (
             <div className="loginInputBox">
               <ul style={{ height: "400px" }}>
-                <h1>{process.env.REACT_APP_USE_TARGET === 'hipass' ? 'HI-PASS' : 'OMPASS'} Login</h1>
+                <h1>
+                  {process.env.REACT_APP_USE_TARGET === "hipass"
+                    ? "HI-PASS"
+                    : "OMPASS"}{" "}
+                  Login
+                </h1>
                 <form onSubmit={loginRequest} className="form login-input">
                   <input
                     className="email-input"
@@ -197,9 +220,13 @@ const Login = ({
         </div>
         <div className="span">
           <span>
-            <p className="lang-toggle en" onClick={localeChangeEventEn}>EN</p>
+            <p className="lang-toggle en" onClick={localeChangeEventEn}>
+              EN
+            </p>
             <p className="seperate">|</p>
-            <p className="lang-toggle kr" onClick={localeChangeEventKo}>KR</p>
+            <p className="lang-toggle kr" onClick={localeChangeEventKo}>
+              KR
+            </p>
           </span>
         </div>
         <p className="copy">© OneMoreSecurity Inc. All Rights Reserved.</p>

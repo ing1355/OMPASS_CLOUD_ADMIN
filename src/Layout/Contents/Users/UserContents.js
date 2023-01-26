@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import UserUnregistered from "./UserUnregistered";
 import UserDisabled from "./UserDisabled";
 import UserBypass from "./UserBypass";
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { connect } from 'react-redux';
 import ExcelComponent from '../../../CustomComponents/ExcelComponent';
 
-const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, applicationsData }) => {    
+const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, setSelectView, _tableData, applicationsData, currentPage, setCurrentPage, sorted, setSorted }) => {    
     const navigate = useNavigate();
 
     const selectedBorder = useMemo(
@@ -17,11 +17,11 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
         ),
         [selectView]
     );
-
+            
     const clickToDetail = useCallback((rowData) => {
         setDetailData(rowData);
         navigate("/Users/Detail/" + rowData.userId);
-    }, []);    
+    }, []);
 
     return <>
         <div className="UsersBox3">
@@ -90,6 +90,10 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         tableData={_tableData}
                         tableLoading={tableLoading}
                         setDetailData={clickToDetail}
+                        sorted={sorted}
+                        setSorted={setSorted}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 )}
                 {selectView === 1 && (
@@ -97,6 +101,10 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         tableData={_tableData}
                         tableLoading={tableLoading}
                         setDetailData={clickToDetail}
+                        sorted={sorted}
+                        setSorted={setSorted}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 )}
                 {selectView === 2 && (
@@ -104,6 +112,10 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         tableData={_tableData}
                         tableLoading={tableLoading}
                         setDetailData={clickToDetail}
+                        sorted={sorted}
+                        setSorted={setSorted}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 )}
                 {selectView === 3 && (
@@ -111,6 +123,10 @@ const UsersContents = ({ setDetailData, tableLoading, tableData, selectView, set
                         tableData={_tableData}
                         tableLoading={tableLoading}
                         setDetailData={clickToDetail}
+                        sorted={sorted}
+                        setSorted={setSorted}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 )}
             </ul>

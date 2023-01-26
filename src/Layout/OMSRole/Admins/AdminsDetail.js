@@ -24,7 +24,11 @@ const AdminsDetail = ({ data }) => {
   const subAdminTableData = subAdmins && subAdmins.map(d => ({...d, name: d.firstName + d.lastName}))
   const [ompassStatus, setOmpassStatus] = useState(accessControl)
   const [confirmVisible, setConfirmVisible] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage2, setCurrentPage2] = useState(0)
+  const [currentPage3, setCurrentPage3] = useState(0)
+  const [currentPage4, setCurrentPage4] = useState(0)
+  const [sorted, setSorted] = useState({});
   // const openConfirm = () => {
   //   setConfirmVisible(true);
   // };
@@ -60,13 +64,13 @@ const AdminsDetail = ({ data }) => {
 
       <section className="no-border">
         <h2>Payment History</h2>
-        <CustomTable columns={BillingColumns} datas={paymentHistories} numPerPage={5} pagination />
+        <CustomTable sorted={sorted} setSorted={setSorted} columns={BillingColumns} datas={paymentHistories} numPerPage={5} pagination currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       </section>
 
 
       <section className="no-border">
         <h2>Payment Events</h2>
-        <CustomTable columns={OMSPaymentEventsColumns} datas={eventLogs} numPerPage={5} pagination />
+        <CustomTable columns={OMSPaymentEventsColumns} datas={eventLogs} numPerPage={5} pagination currentPage={currentPage2} setCurrentPage={setCurrentPage2}/>
       </section>
 
       <section className="no-border">
@@ -79,6 +83,8 @@ const AdminsDetail = ({ data }) => {
           columns={OMSApplicationsColumns}
           datas={applications}
           pagination
+          currentPage={currentPage3}
+          setCurrentPage={setCurrentPage3}
           numPerPage={5}
         />
       </section>
@@ -90,6 +96,8 @@ const AdminsDetail = ({ data }) => {
           columns={AdminsColumns}
           datas={subAdminTableData}
           pagination
+          currentPage={currentPage4}
+          setCurrentPage={setCurrentPage4}
           numPerPage={5}
         />
       </section>

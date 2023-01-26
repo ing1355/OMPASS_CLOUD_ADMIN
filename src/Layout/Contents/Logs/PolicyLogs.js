@@ -27,9 +27,11 @@ const PolicyLogs = ({ userProfile, locale }) => {
   const [tableData, setTableData] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
   const [selectedData, setSelectedData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0)
   // const [defaultPolicyData, setDefaultPolicyData] = useState(null);
   // const [customPoliciesData, setCustomPoliciesData] = useState([]);
   const [changeModalVisible, setChangeModalVisible] = useState(false);
+  const [sorted, setSorted] = useState({});
   const { formatMessage } = useIntl();
 
   useLayoutEffect(() => {
@@ -106,12 +108,15 @@ const PolicyLogs = ({ userProfile, locale }) => {
       <div className="LogBox">
         <CustomTable
           columns={PolicyLogsColumns}
+          sorted={sorted}
+          setSorted={setSorted}
           loading={tableLoading}
           datas={tableData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           pagination
           searched
           searchFunction={searchTitleFunction}
-          numPerPage={10}
         />
       </div>
       <CustomConfirm
