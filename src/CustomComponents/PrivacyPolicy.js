@@ -209,11 +209,7 @@ const PrivacyPolicy = ({ visible, setVisible, locale }) => {
               </ul>
               <ul className="hyphen-div agree-text-ko">
                 <li>-</li>
-                <li>내용 : 서비스 처음 사용 시 휴대폰 본인 인증을 진행</li>
-              </ul>
-              <ul className="agree-text-ko hyphen-div">
-                <li>-</li>
-                <li>비고 : 진위 확인 후 고유식별정보 등은 저장되지 않음</li>
+                <li>서비스 처음 사용 시 이메일 본인 인증을 진행</li>
               </ul>
             </>
           )}
