@@ -1,6 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import restApiImgKr from '../../../assets/docs/rest_api_img_8.png'
+import restApiImgEn from '../../../assets/docs/rest_api_img_8_eng.png'
+
 const AuthNToken = () => {
     return <div className="6st 7st">
         <div className="guide restapi-div">
@@ -11,6 +14,12 @@ const AuthNToken = () => {
                 <br />
                 <FormattedMessage id="리다이렉트된 인증 토큰을 파싱(client-side)하여 server-side로 전달합니다." />
             </p>
+            <p style={{ fontWeight: "bold", marginBottom: "0" }}>■ <FormattedMessage id="예시"/></p>
+            <img
+            width="100%"
+            src={isKorea(locale) ? restApiImgKr : restApiImgEn}
+            alt="access token"
+            />
         </div>
     </div>
 }
