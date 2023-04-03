@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect, useSelector } from "react-redux";
+import { CopyRightText } from "../../Constants/ConstantValues";
 import PrivacyPolicy from "../../CustomComponents/PrivacyPolicy";
 import SalesLevelAgreement from "../../CustomComponents/SalesLevelAgreement";
 import TermsOfPurchase from "../../CustomComponents/TermsOfPurchase";
@@ -74,7 +75,7 @@ const Footer = ({ setVisible }) => {
                  </a>
                  <br /></>}
               <span className="copyRight">
-                © OneMoreSecurity Inc. All Rights Reserved.
+                {CopyRightText}
               </span>
             </p>
           </div>

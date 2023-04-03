@@ -1,10 +1,14 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-
+import { useSelector } from 'react-redux'
 import restApiImgKr from '../../../assets/docs/rest_api_img_8.png'
 import restApiImgEn from '../../../assets/docs/rest_api_img_8_eng.png'
+import { isKorea } from '../../../Functions/isKorea'
 
 const AuthNToken = () => {
+    const { locale } = useSelector(state => ({
+        locale: state.locale
+      }))
     return <div className="6st 7st">
         <div className="guide restapi-div">
             <h5 style={{ margin: "0" }}><FormattedMessage id="인증 토큰 받기" /></h5>

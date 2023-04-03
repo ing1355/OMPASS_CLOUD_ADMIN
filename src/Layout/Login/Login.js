@@ -7,7 +7,7 @@ import ActionCreators from "../../redux/actions";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./Login.css";
 import OMPASS from "ompass";
-import { homepageUrl } from "../../Constants/ConstantValues";
+import { CopyRightText, homepageUrl } from "../../Constants/ConstantValues";
 import { emailTest, FailToTest } from "../../Constants/InputRules";
 
 function closeEventFunc(newWindow) {
@@ -157,7 +157,7 @@ const Login = ({
                     rel="noopener noreferrer"
                     href={
                       standalone.standalone
-                        ? "/docs"
+                        ? "/docs/u2fuaf"
                         : homepageUrl(locale, "registration")
                     }
                   >
@@ -229,7 +229,7 @@ const Login = ({
             </p>
           </span>
         </div>
-        <p className="copy">© OneMoreSecurity Inc. All Rights Reserved.</p>
+        <p className="copy">{CopyRightText}</p>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 {
   "name": "ompass_cloud_admin",
-  "version": "0.1.0",
+  "version": "1.3",
   "private": true,
   "proxy": "https://ompass.kr:4002",
   "dependencies": {
@@ -50,7 +50,7 @@
     "eject": "react-scripts eject",
     "deployAll": "npm run testDeploy&&npm run deploy",
     "testDeploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/ompass_demo_front/",
-    "deploy": "scp -r ./build/* oms@192.168.182.140:/usr/local/cloud_front/",
+    "deploy": "cross-env scp -r ./build oms@192.168.182.140:/usr/local/tmp&&ssh -t oms@192.168.182.140 /usr/local/cloud_front/server_update.sh",
     "awsInvalidation": "aws cloudfront create-invalidation --distribution-id E2ALB03P1N7UVH --paths \"/*\" --no-cli-pager",
     "awsTestInvalidation": "aws cloudfront create-invalidation --distribution-id EZ1Y858BAFJCL --paths \"/*\" --no-cli-pager",
     "awsDeploy": "aws s3 sync ./build s3://ompass-admin&&npm run awsInvalidation",
